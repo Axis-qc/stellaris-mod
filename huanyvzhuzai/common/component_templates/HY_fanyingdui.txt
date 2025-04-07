@@ -1,0 +1,64 @@
+utility_component_template = {
+    #反应堆
+    key = "huanyv_ZERO_POINT_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = 20000
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 500
+        }
+        upkeep = {
+            energy = 15.99
+            alloys = 1.599
+        }
+    }
+
+    #prerequisites = { "tech_zero_point_power" }
+    component_set = "power_core"
+    size_restriction = { HY_huanyv_ship }
+    upgrades_to = "JUGGERNAUT_DARK_MATTER_REACTOR"
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "huanyv_DARK_MATTER_REACTOR"
+    size = small #槽位
+    icon = "GFX_ship_part_dark_matter_power_core"
+    icon_frame = 1
+    power = 50000
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 1000
+            sr_dark_matter = 32
+        }
+        upkeep = {
+            #维护费
+            energy = 20.79
+            alloys = 2.079
+        }
+    }
+
+    prerequisites = { "tech_dark_matter_power_core" } #前置科技
+    component_set = "power_core"
+    size_restriction = { HY_huanyv_ship } #类型
+
+    ai_weight = {
+        weight = 6
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = sr_dark_matter }
+        }
+        modifier = {
+            factor = 0.0
+            is_ai = yes
+        }
+    }
+}
+

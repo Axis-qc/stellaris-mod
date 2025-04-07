@@ -1,0 +1,52 @@
+weapon_component_template = {
+	key = "CS_L"
+	size = large
+	type = instant
+	prio_projectile = yes
+
+	entity = "G_entity"
+
+	icon = "GFX_ship_part_perdition_beam"
+	icon_frame = 1
+
+	firing_arc = 60.0
+	use_ship_kill_target = no
+
+	damage = { min = 6000 max = 15000 }
+	windup = { min = 1 max = 10 }
+	total_fire_time = 100
+	range = 280.0
+	accuracy = 0.9
+	shield_penetration = 1.0
+	armor_damage = 1.0
+	hull_damage = 1.0
+	tracking = 0.9
+	power = 1000
+
+	tags = { weapon_type_energy }
+
+	prerequisites = { "tech_titans" } #前置
+	component_set = "PERDITION_BEAM"
+	projectile_gfx = "infrared_laser_s"
+	size_restriction = { cs_ship }
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @titanic_t6_cost
+			rare_crystals = @titanic_t6_rare
+		}
+		upkeep = {
+			energy = @titanic_t6_upkeep_energy
+			alloys = @titanic_t6_upkeep_alloys
+		}
+	}
+
+	target_weights = {
+		titan = 3
+		battleship = 2
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}

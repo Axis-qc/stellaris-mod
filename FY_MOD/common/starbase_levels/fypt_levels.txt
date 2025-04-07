@@ -1,0 +1,113 @@
+#starbase_level_foo = {
+#	ship_size = starbase_foo 		# Required
+#	next_level = starbase_level_bar	# Optional
+#	show_in_outliner = yes			# Default yes, if yes starbase will be shown in outliner
+#	display_empire_shield = no		# Default no, if yes empire shield will be shown even if there's no colony
+#	display_map_icon = yes			# Default yes, if yes starbase map icon will be shown even if there's no colony
+#	level_weight = 1				# Default 0, used for claim cost and required module/building level
+#	ai_weight = { weight = 1.0 }	# Default 0, THIS = Starbase, FROM = Country - determines which levels are more important to upgrade from
+#	potential_home_base = yes/no		# Default no, if yes starbase may be used as homebase for fleets
+#	special_construction = yes 		# Default no, basically this tells the country that it is not an outpost despite being level 1 (having nothing to downgrade it to)
+#}
+fypt_level_1 = {
+    #本来是想做成和恒星基地一样可以升级的，结果恒星基地可以正常升级，星环基地如果改成可以自己设计就没办法正常升级了（因为这东西是套的星环基地
+    ship_size = fypt_ship_two  # 舰船尺寸
+    #next_level = fypt_level_3#能手动设计的升级不会变真离谱
+    show_in_outliner = no  # 是否在轮廓视图中显示：否
+    level_weight = 1  # 等级权重
+    ai_weight = { weight = 1 }  # AI权重
+    potential_home_base = no  # 潜在的母基地
+    #portrait = "GFX_orbital_ring_background"  # 图像
+    portrait = GFX_spaceport_background
+    special_construction = yes  # 特殊建造
+    downgrade_potential = {
+        always = yes  # 降级潜力
+    }
+}
+fypt_level_2 = {
+    ship_size = fypt_ship_three
+    show_in_outliner = no  # 是否在轮廓视图中显示：否
+    level_weight = 2  # 等级权重
+    ai_weight = { weight = 2 }  # AI权重
+    potential_home_base = yes  # 潜在的母基地
+    portrait = "GFX_starbase_background"  # 图像
+    special_construction = yes  # 特殊建造
+    downgrade_potential = {
+        always = yes  # 降级潜力
+    }
+    #next_level = fypt_level_3
+}
+
+#fypt_level_3 = {
+#    ship_size = juggernaut
+#    show_in_outliner = yes  # 是否在轮廓视图中显示：否
+#    level_weight = 2
+#    ai_weight = { weight = 5 }
+#    potential_home_base = yes
+#    upgrade_possible = {
+#        #planet = {
+#        #    OR = {
+#        #        has_planetary_ascension_tier >= 5
+#        #        has_fully_upgraded_capital = yes
+#        #    }
+#        #}
+#    }
+#    portrait = "GFX_starbase_background"
+#    downgrade_potential = {
+#        always = yes
+#    }
+#}
+
+##生产基地
+fypt_produce_ship_level_1 = {
+    ship_size = fypt_produce_ship_1
+    next_level = fypt_produce_ship_level_2
+    show_in_outliner = yes  # 是否在总览中显示
+    display_map_icon = no
+    collects_trade = yes#是否收集贸易
+    level_weight = 0
+    ai_weight = { weight = 1 }
+}
+
+fypt_produce_ship_level_2 = {
+    ship_size = fypt_produce_ship_2
+    next_level = fypt_produce_ship_level_3
+    level_weight = 1
+    ai_weight = { weight = 2 }
+    show_in_outliner = yes  # 是否在轮廓视图中显示
+    potential_home_base = yes
+    display_map_icon = no
+    collects_trade = yes#是否收集贸易
+}
+
+fypt_produce_ship_level_3 = {
+    ship_size = fypt_produce_ship_3
+    next_level = fypt_produce_ship_level_4
+    level_weight = 2
+    ai_weight = { weight = 3 }
+    potential_home_base = yes
+    show_in_outliner = yes  # 是否在轮廓视图中显示
+    display_map_icon = no
+    collects_trade = yes#是否收集贸易
+}
+
+fypt_produce_ship_level_4 = {
+    ship_size = fypt_produce_ship_4
+    next_level = fypt_produce_ship_level_5
+    level_weight = 3
+    ai_weight = { weight = 4 }
+    potential_home_base = yes
+    show_in_outliner = yes  # 是否在轮廓视图中显示
+    display_map_icon = no
+    collects_trade = yes#是否收集贸易
+}
+
+fypt_produce_ship_level_5 = {
+    ship_size = fypt_produce_ship_5
+    level_weight = 4
+    ai_weight = { weight = 5 }
+    potential_home_base = yes
+    show_in_outliner = yes  # 是否在轮廓视图中显示
+    display_map_icon = no
+    collects_trade = yes#收集贸易
+}

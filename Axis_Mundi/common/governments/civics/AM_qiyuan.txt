@@ -1,0 +1,28 @@
+Axis_Mundi = {
+	is_origin = yes #是起源
+	icon = "gfx/interface/icons/origins/AM_qy.dds" #图片
+	picture = GFX_AM_qy #图片
+
+	possible = {
+		authority = { NOT = { value = auth_machine_intelligence } } #不是格式塔
+		ethics = {
+			OR = {
+				value = ethic_xenophile
+			}
+			NOR = {
+				value = ethic_pacifist
+				value = ethic_fanatic_pacifist
+			}
+		}
+	}
+
+	description = "AM_effects" #效果描述
+	modifier = {
+	}
+
+	flags = { Axis_Mundi_flags }
+
+	random_weight = { #随机权重
+		base = 0
+	}
+}

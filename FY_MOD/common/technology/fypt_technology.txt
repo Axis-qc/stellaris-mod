@@ -1,0 +1,290 @@
+fypt_kj_0 = {
+    icon = fypt_kj_0_icon
+    is_rare = yes
+    is_reverse_engineerable = yes
+    area = engineering
+    tier = 3
+    cost = 14000
+    category = { materials }
+    #prerequisites = { "tech_ship_armor_5" }
+    weight = 100
+
+    modifier = {
+        starbase_fypt_modules_upkeep_mult = 0.2
+        starbase_fypt_modules_produces_mult = 0.2
+    }
+    weight_modifier = {
+        #modifier = {
+        #    factor = 1.5
+        #    is_specialist_subject_type = { TYPE = scholarium }
+        #}
+    }
+    ai_weight = {
+        factor = 0
+    }
+}
+fypt_kj_0_1 = {
+    icon = fypt_kj_0_icon
+    is_rare = yes
+    is_reverse_engineerable = yes
+    area = engineering
+    tier = 4
+    cost = 14000
+    category = { materials }
+    prerequisites = { "fypt_kj_0" }
+    weight = 100
+
+    modifier = {
+        starbase_fypt_modules_upkeep_mult = 0.2
+        starbase_fypt_modules_produces_mult = 0.2
+    }
+    weight_modifier = {
+        #modifier = {
+        #    factor = 1.5
+        #    is_specialist_subject_type = { TYPE = scholarium }
+        #}
+    }
+    ai_weight = {
+        factor = 0
+    }
+}
+fypt_kj_0_3 = {
+    icon = fypt_kj_0_icon
+    is_rare = yes
+    is_reverse_engineerable = yes
+    area = physics
+    cost = 90000
+    cost_per_level = 5000
+    tier = 5
+    category = { computing }
+    levels = -1
+    prerequisites = { "fypt_kj_0_1" }
+    weight = 50
+
+    weight_modifier = {
+        factor = 0.5
+    }
+
+    ai_weight = {
+        factor = 2
+    }
+
+    #weight_groups = {
+    #    repeatable
+    #}
+    #mod_weight_if_group_picked = {
+    #    repeatable = 0.01
+    #}
+
+    modifier = {
+        starbase_fypt_modules_produces_mult = 0.2
+    }
+}
+fypt_kj_1 = {
+    icon = tech_starbase_1
+    is_rare = yes
+    is_reverse_engineerable = yes
+    area = engineering
+    tier = 5
+    cost = 20000
+    category = { materials }
+    #prerequisites = { "tech_ship_armor_5" }
+    weight = 0
+
+    modifier = {
+        #starbase_constructions_time_produces_mult = 1 # 减少星基地建设的时间
+        #starbase_constructions_energy_produces_mult = 1 # 增加星基地的能量产出
+        #starbase_constructions_minerals_produces_mult = 1 # 增加星基地的矿物产出
+        #starbase_constructions_food_produces_mult = 1 # 增加星基地的食物产出
+        #starbase_constructions_physics_research_produces_mult = 1 # 增加星基地的物理学研究产出
+        #starbase_constructions_society_research_produces_mult = 1 # 增加星基地的社会学研究产出
+        #starbase_constructions_engineering_research_produces_mult = 1 # 增加星基地的工程学研究产出
+        #starbase_constructions_influence_produces_mult = 1 # 增加星基地的影响力产出
+        #starbase_constructions_unity_produces_mult = 1 # 增加星基地的凝聚力产出
+        #starbase_constructions_consumer_goods_produces_mult = 1 # 增加星基地的消费品产出
+        #starbase_constructions_alloys_produces_mult = 1 # 增加星基地的合金产出
+        #starbase_constructions_volatile_motes_produces_mult = 1 # 增加星基地的易爆微粒产出
+        #starbase_constructions_exotic_gases_produces_mult = 1 # 增加星基地的异星天然气产出
+        #starbase_constructions_rare_crystals_produces_mult = 1 # 增加星基地的稀有水晶产出
+        #starbase_constructions_sr_living_metal_produces_mult = 1 # 增加星基地的生物金属产出
+        #starbase_constructions_sr_zro_produces_mult = 1 # 增加星基地的泽洛产出
+        #starbase_constructions_sr_dark_matter_produces_mult = 1 # 增加星基地的暗物质产出
+        #starbase_constructions_nanites_produces_mult = 1 # 增加星基地的纳米机器人产出
+        #starbase_constructions_minor_artifacts_produces_mult = 1 # 增加星基地的遗物产出
+        #starbase_constructions_astral_threads_produces_mult = 1 # 增加星基地的星界线产出
+        ##starbase_constructions_menace_produces_mult = 1 # 增加星基地的威胁（Menace）产出
+        #starbase_constructions_advanced_logic_produces_mult = 1 # 增加星基地的高级逻辑产出
+        #starbase_constructions_produces_mult = 1 # 通用产出倍数修饰器
+        #starbase_constructions_produces_mult = 1 # 通用产出倍数修饰器
+        starbase_fypt_modules_energy_produces_mult = 1
+        #starbase_fypt_modules_energy_upkeep_mult = 1
+        starbase_fypt_modules_energy_produces_add = 1
+        #starbase_fypt_modules_energy_upkeep_add = 1
+        #矿
+        starbase_fypt_modules_minerals_produces_mult = 1
+        #starbase_fypt_modules_minerals_upkeep_mult = 1
+        starbase_fypt_modules_minerals_produces_add = 1
+        starbase_fypt_modules_minerals_upkeep_add = 1
+        #食物
+        starbase_fypt_modules_food_produces_mult = 1
+        #starbase_fypt_modules_food_upkeep_mult = 1
+        starbase_fypt_modules_food_produces_add = 1
+        #starbase_fypt_modules_food_upkeep_add = 1
+        #合金
+        starbase_fypt_modules_alloys_produces_mult = 1
+        #starbase_fypt_modules_alloys_upkeep_mult = 1
+        starbase_fypt_modules_alloys_produces_add = 1
+        #starbase_fypt_modules_alloys_upkeep_add = 1
+        #消费品
+        starbase_fypt_modules_consumer_goods_produces_mult = 1
+        #starbase_fypt_modules_consumer_goods_upkeep_mult = 1
+        starbase_fypt_modules_consumer_goods_produces_add = 1
+        #starbase_fypt_modules_consumer_goods_upkeep_add = 1
+        #易爆微粒
+        starbase_fypt_modules_volatile_motes_produces_mult = 1
+        #starbase_fypt_modules_volatile_motes_upkeep_mult = 1
+        starbase_fypt_modules_volatile_motes_produces_add = 1
+        #starbase_fypt_modules_volatile_motes_upkeep_add = 1
+        #天然气
+        starbase_fypt_modules_exotic_gases_produces_mult = 1
+        #starbase_fypt_modules_exotic_gases_upkeep_mult = 1
+        starbase_fypt_modules_exotic_gases_produces_add = 1
+        #starbase_fypt_modules_exotic_gases_upkeep_add = 1
+        #水晶
+        starbase_fypt_modules_rare_crystals_produces_mult = 1
+        #starbase_fypt_modules_rare_crystals_upkeep_mult = 1
+        starbase_fypt_modules_rare_crystals_produces_add = 1
+        #starbase_fypt_modules_rare_crystals_upkeep_add = 1
+        #纳米
+        starbase_fypt_modules_nanites_produces_mult = 1
+        #starbase_fypt_modules_nanites_upkeep_mult = 1
+        starbase_fypt_modules_nanites_produces_add = 1
+        #starbase_fypt_modules_nanites_upkeep_add = 1
+        #活体金属
+        starbase_fypt_modules_sr_living_metal_produces_mult = 1
+        #starbase_fypt_modules_sr_living_metal_upkeep_mult = 1
+        starbase_fypt_modules_sr_living_metal_produces_add = 1
+        #starbase_fypt_modules_sr_living_metal_upkeep_add = 1
+        #泽洛
+        starbase_fypt_modules_sr_zro_produces_mult = 1
+        #starbase_fypt_modules_sr_zro_upkeep_mult = 1
+        starbase_fypt_modules_sr_zro_produces_add = 1
+        #starbase_fypt_modules_sr_zro_upkeep_add = 1
+        #暗物质
+        starbase_fypt_modules_sr_dark_matter_produces_mult = 1
+        #starbase_fypt_modules_sr_dark_matter_upkeep_mult = 1
+        starbase_fypt_modules_sr_dark_matter_produces_add = 1
+        #starbase_fypt_modules_sr_dark_matter_upkeep_add = 1
+        #文物
+        starbase_fypt_modules_minor_artifacts_produces_mult = 1
+        #starbase_fypt_modules_minor_artifacts_upkeep_mult = 1
+        starbase_fypt_modules_minor_artifacts_produces_add = 1
+        #starbase_fypt_modules_minor_artifacts_upkeep_add = 1
+        #凝聚力
+        starbase_fypt_modules_unity_produces_mult = 1
+        #starbase_fypt_modules_unity_upkeep_mult = 1
+        starbase_fypt_modules_unity_produces_add = 1
+        #starbase_fypt_modules_unity_upkeep_add = 1
+        #影响力
+        starbase_fypt_modules_influence_produces_mult = 1
+        #starbase_fypt_modules_influence_upkeep_mult = 1
+        starbase_fypt_modules_influence_produces_add = 1
+        #starbase_fypt_modules_influence_upkeep_add = 1
+        #物理学
+        #starbase_fypt_modules_physics_research_produces_mult = 1
+        #starbase_fypt_modules_physics_research_upkeep_mult = 1
+        #starbase_fypt_modules_physics_research_produces_add = 1
+        #starbase_fypt_modules_physics_research_upkeep_add = 1
+        #社会学
+        #starbase_fypt_modules_society_research_produces_mult = 1
+        #starbase_fypt_modules_society_research_upkeep_mult = 1
+        #starbase_fypt_modules_society_research_produces_add = 1
+        #starbase_fypt_modules_society_research_upkeep_add = 1
+        #工程学
+        #starbase_fypt_modules_engineering_research_produces_mult = 1
+        #starbase_fypt_modules_engineering_research_upkeep_mult = 1
+        #starbase_fypt_modules_engineering_research_produces_add = 1
+        #starbase_fypt_modules_engineering_research_upkeep_add = 1
+        #星界丝缕
+        #starbase_fypt_modules_astral_threads_produces_mult = 1
+        #starbase_fypt_modules_astral_threads_upkeep_mult = 1
+        #starbase_fypt_modules_astral_threads_produces_add = 1
+        #starbase_fypt_modules_astral_threads_upkeep_add = 1
+        #超然逻辑
+        #starbase_fypt_modules_advanced_logic_produces_mult = 1
+        #starbase_fypt_modules_advanced_logic_upkeep_mult = 1
+        #starbase_fypt_modules_advanced_logic_produces_add = 1
+        #starbase_fypt_modules_advanced_logic_upkeep_add = 1
+        #威胁（星海天罚的
+        #starbase_fypt_modules_menace_produces_mult = 1
+        #starbase_fypt_modules_menace_upkeep_mult = 1
+        #starbase_fypt_modules_menace_produces_add = 1
+        #starbase_fypt_modules_menace_upkeep_add = 1
+    }
+    weight_modifier = {
+        #modifier = {
+        #    factor = 1.5
+        #    is_specialist_subject_type = { TYPE = scholarium }
+        #}
+    }
+    ai_weight = {
+        factor = 0
+    }
+}
+fypt_kj_2 = {
+    cost = 4000
+    area = engineering
+    tier = 2
+    category = { industry }
+    prerequisites = { }
+    weight = 85
+    icon = fypt_kj_2_icon
+    modifier = {
+        custom_tooltip = fypt_kj_2_1
+    }
+    #prereqfor_desc = {
+    #    hide_prereq_for_desc = component
+    #    ship = {
+    #        title = "TECH_UNLOCK_JUGGERNAUT_CONSTRUCTION_TITLE"
+    #        desc = "TECH_UNLOCK_JUGGERNAUT_CONSTRUCTION_DESC"
+    #    }
+    #}
+    weight_modifier = {
+    }
+    ai_weight = {
+    }
+}
+fypt_kj_3 = {
+    cost = 4000
+    area = engineering
+    tier = 2
+    category = { industry }
+    prerequisites = { }
+    weight = 85
+    icon = fypt_kj_3_icon
+    modifier = {
+        #station_gatherers_produces_mult = 0.10
+        custom_tooltip = fypt_kj_3_1
+    }
+    weight_modifier = {
+    }
+    ai_weight = {
+    }
+}
+fypt_kj_4 = {
+    cost = 4000
+    area = physics
+    tier = 1
+    category = { computing }
+    prerequisites = { }
+    weight = 85
+    icon = fypt_kj_4_icon
+    modifier = {
+        #station_gatherers_produces_mult = 0.10
+        custom_tooltip = fypt_kj_4_1
+    }
+    weight_modifier = {
+    }
+    ai_weight = {
+    }
+}

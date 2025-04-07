@@ -1,0 +1,305 @@
+@base_moon_distance = 10
+@caravaneerfleetlaunch1 = 9000 # 25 years
+@caravaneerfleetlaunch2 = 14400 # 40 years
+@homeworld_min_size = 18
+@homeworld_max_size = 21
+#猫猫
+clockcat_system_01 = {
+    class = "sc_black_hole"
+    usage = misc_system_init
+    name = "NAME_clockcat_system"
+    usage_odds = {
+        base = 100
+    }
+
+    max_instances = 1
+    spawn_chance = 100
+
+    flags = {
+        drifter_blockcat_system_enclave
+    }
+
+    asteroid_belt = {
+        type = icy_asteroid_belt
+        radius = 100
+    }
+
+    planet = {
+        class = star
+        orbit_distance = 0
+        flags = {
+            drifter_blockcat_system_enclave
+        }
+        init_effect = {
+            create_ambient_object = {
+                type = caravaneer_billboard_1
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 45
+                }
+            }
+            create_ambient_object = {
+                type = caravaneer_billboard_2
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 135
+                }
+            }
+            create_ambient_object = {
+                type = caravaneer_billboard_1
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 225
+                }
+            }
+            create_ambient_object = {
+                type = caravaneer_billboard_3
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 315
+                }
+            }
+
+            save_global_event_target_as = clockcat_axis_star
+            create_species = {
+                name = clockcat_people
+                class = HUM
+                portrait = cyb_machine
+                traits = random
+                effect = {
+                    modify_species = {
+                        ideal_planet_class = pc_gaia
+                    }
+                }
+            }
+
+            create_country = {
+                name = "NAME_clockcat_Home"
+                type = clockcat_country
+                authority = auth_corporate
+                civics = {
+                    civic = civic_imas
+                }
+                origin = "origin_default"
+                species = last_created_species
+                graphical_culture = "cybernetics_01"
+                room = paragon_skrand_room
+                flag = {
+                    icon = {
+                        category = "plantoid"
+                        file = "plantoid_04.dds"
+                    }
+                    background = {
+                        category = "backgrounds"
+                        file = "00_solid.dds"
+                    }
+                    colors = {
+                        "hsv_0-84-50"
+                        "hsv_40-20-80"
+                        "null"
+                        "null"
+                    }
+                }
+                ethos = {
+                    ethic = ethic_egalitarian
+                    ethic = ethic_pacifist
+                    ethic = ethic_xenophile
+                }
+                ignore_initial_colony_error = yes
+
+                effect = {
+                    set_country_flag = clockcat_home_country
+                    set_graphical_culture = caravaneer_01
+                    save_global_event_target_as = clockcat_home_country
+                    create_fleet = {
+                        name = "NAME_Clockcat_Base"
+                        settings = {
+                            spawn_debris = no
+                        }
+                        effect = {
+                            set_owner = prev
+                            create_ship = {
+                                name = "NAME_clockcat_station"
+                                design = "CLOCKCAT_Tradestation_Tungle"
+                                graphical_culture = prev
+                                effect = {
+                                    set_ship_flag = cara_home_tradestation
+                                }
+                            }
+                            set_location = {
+                                target = prevprev
+                                angle = random
+                                distance = 60
+                            }
+                            save_global_event_target_as = drifter_blockcat_system_enclave
+                            prev = {
+                                save_global_event_target_as = clockcat_home
+                            }
+                        }
+                    }
+                    create_leader = {
+                        class = governor
+                        species = human
+                        name = "NAME_283p_Leader"
+                        gender = female
+                        skill = 5
+                        traits = {
+                            trait = leader_trait_military_overseer
+                        }
+                        event_leader = yes
+                        immortal = yes
+                        set_age = 16
+                        effect = {
+                            change_leader_portrait = clockcat_chen01
+                        }
+                    }
+                    set_leader = last_created_leader
+                    create_ship_design = {
+                        design = "NAME_Caravaneer_Starbase"
+                    }
+                    add_ship_design = last_created_design
+                    create_fleet = {
+                        name = "NAME_imas_fleet"
+                        settings = {
+                            spawn_debris = no
+                        }
+                        effect = {
+                            set_fleet_stance = passive
+                            set_formation_scale = 2.5
+                            set_owner = prev
+                            create_ship = {
+                                name = "NAME_ima_ship1"
+                                design = NAME_FirstClaw
+                            }
+                            while = {
+                                count = 40
+                                create_ship = {
+                                    name = "NAME_ima_ship1_hu"
+                                    design = NAME_Yojimbo
+                                }
+                            }
+                            while = {
+                                count = 5
+                                create_ship = {
+                                    name = "NAME_ima_ship1_huo"
+                                    design = NAME_Schooner
+                                }
+                            }
+                            set_location = {
+                                target = event_target:clockcat_axis_star
+                                angle = 90
+                                distance = 40
+                            }
+                            set_fleet_flag = imas_fleet
+                            save_global_event_target_as = imas_contact_fleet
+                        }
+                    }
+                    create_fleet = {
+                        name = "NAME_imas_fleet_2"
+                        settings = {
+                            spawn_debris = no
+                        }
+                        effect = {
+                            set_fleet_stance = passive
+                            set_formation_scale = 2.5
+                            set_owner = prev
+                            create_ship = {
+                                name = "NAME_ima_ship2"
+                                design = NAME_mardak_vol_haters_corvette
+                            }
+                            while = {
+                                count = 3
+                                create_ship = {
+                                    name = "NAME_ima_ship2_dun"
+                                    design = NAME_Voidstalker
+                                }
+                            }
+                            while = {
+                                count = 5
+                                create_ship = {
+                                    name = "NAME_ima_ship2_jian"
+                                    design = NAME_Starfang
+                                }
+                            }
+                            while = {
+                                count = 8
+                                create_ship = {
+                                    name = "NAME_ima_ship2_ke"
+                                    design = NAME_Seeker
+                                }
+                            }
+                            set_location = {
+                                target = event_target:clockcat_axis_star
+                                angle = 90
+                                distance = 40
+                            }
+                            set_fleet_flag = imas_fleet
+                            save_global_event_target_as = imas_contact_fleet
+                        }
+                    }
+                    create_fleet = {
+                        name = "NAME_imas_fleet_3"
+                        settings = {
+                            spawn_debris = no
+                        }
+                        effect = {
+                            set_fleet_stance = passive
+                            set_formation_scale = 2.5
+                            set_owner = prev
+                            create_ship = {
+                                name = "NAME_ima_ship3"
+                                design = NAME_AH4B
+                            }
+                            while = {
+                                count = 30
+                                create_ship = {
+                                    name = "NAME_ima_ship3_hu"
+                                    design = NAME_Lessenger
+                                }
+                            }
+                            set_location = {
+                                target = event_target:clockcat_axis_star
+                                angle = 90
+                                distance = 40
+                            }
+                            set_fleet_flag = imas_fleet
+                            save_global_event_target_as = imas_contact_fleet
+                        }
+                    }
+                }
+            }
+        }
+    }
+    change_orbit = 30
+    init_effect = {
+        create_starbase = {
+            size = clockcat_station_02
+            owner = event_target:clockcat_home_country
+        }
+        save_global_event_target_as = clockcat_axis_starbase
+    }
+}

@@ -1,0 +1,100 @@
+# Gray Goo Mothership
+nami_mothership = {
+    graphical_culture = no
+    entity = "gatebuilder_01_mothership_entity"
+    max_speed = 120
+    acceleration = 0.2
+    rotation_speed = 0.15
+    collision_radius = 5
+    modifier = {
+        ship_evasion_add = 10
+        ships_upkeep_mult = -1
+        ship_piracy_suppression_add = 10
+        ship_hull_regen_add_static = 5
+        ship_armor_regen_add_static = 5
+    }
+    base_buildtime = 360
+    max_hitpoints = 30000
+    size_multiplier = 16
+    fleet_slot_size = 16
+    section_slots = { "mid" = { locator = "part1" } }
+    num_target_locators = 0
+    is_space_station = no
+    icon = ship_size_military_16
+    class = shipclass_military
+
+    potential_country = {
+        has_tradition = tr_nanotech_4
+        has_technology = tech_titans
+    }
+
+    is_designable = yes
+    construction_type = starbase_shipyard
+    enable_default_design = no  # 启用默认设计 = 是
+    use_shipnames_from = battleship  # 使用船名来自 = corvette
+
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "combat_computers"
+    required_component_set = "thruster_components"
+    required_component_set = "sensor_components"
+
+    components_add_to_cost = no
+    resources = {
+        category = ships
+        cost = {
+            nanites = 2000
+        }
+    }
+}
+
+# Gray Goo Interdictor
+nami_interdictor = {
+    graphical_culture = no
+    entity = gatebuilder_01_cruiser_entity
+    max_speed = 140
+    acceleration = 0.25
+    rotation_speed = 0.175
+    collision_radius = 4
+    modifier = {
+        ship_evasion_add = 20
+        ships_upkeep_mult = -1
+        ship_piracy_suppression_add = 4
+        ship_hull_regen_add_static = 5
+        ship_armor_regen_add_static = 5
+    }
+    base_buildtime = 120
+    max_hitpoints = 1800
+    size_multiplier = 4
+    fleet_slot_size = 4
+    section_slots = { "mid" = { locator = "part1" } }
+    num_target_locators = 0
+    is_space_station = no
+    icon = ship_size_military_4
+    class = shipclass_military
+
+    potential_country = {
+        has_tradition = tr_nanotech_4
+        has_technology = tech_titans
+    }
+
+    construction_type = starbase_shipyard
+    enable_default_design = no
+    use_shipnames_from = corvette
+
+    is_designable = yes
+
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "combat_computers"
+    required_component_set = "thruster_components"
+    required_component_set = "sensor_components"
+
+    components_add_to_cost = no
+    resources = {
+        category = ships
+        cost = {
+            nanites = 1000
+        }
+    }
+}

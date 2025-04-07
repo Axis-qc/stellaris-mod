@@ -1,0 +1,27 @@
+entity = {
+	name = "nemesis_01_juggernaut_ex_entity"
+	pdxmesh = "nemesis_01_juggernaut_frame_mesh"
+ 
+	default_state = "idle"
+	state = { name = "idle"	 animation = "idle" animation_blend_time = 0.25
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_corvette_hum" } }
+	}
+	state = { name = "moving" animation = "idle" animation_blend_time = 0.25
+	#	event = { trigger_once = yes sound = { soundeffect = moving_out_corvette } }
+	}
+	state = { name = "death" animation = "death" animation_blend_time = 0.0 looping = no
+
+		event = { time = 12.8 node = "part1" particle = "nemesis_01_ship_explosion_dreadnought" keep_particle = yes trigger_once = no sound = { soundeffect = ship_destroyed } }
+		event = { time = 12.7 node = "explosion_locator_01" particle = "nemesis_01_ship_explosion_15_dreadnought" keep_particle = yes trigger_once = no }
+		event = { time = 12.3 node = "explosion_locator_02" particle = "nemesis_01_ship_explosion_15_dreadnought" keep_particle = yes trigger_once = no }
+		event = { time = 12.8 node = "part1" entity = "nemesis_01_explosion_swipe_entity" erosion_in = 0.1 life = .2 erosion_out = 0.3 trigger_once = yes }
+		}
+ 
+    scale = 3.0
+	game_data = {
+		size = 35
+		emissive_recolor_crunch = 2.0
+	}
+
+	#attach = { part1 = "nemesis_01_juggernaut_core_section_entity" }
+}

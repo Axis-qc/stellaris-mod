@@ -1,0 +1,77 @@
+councilor_gestalt_growth = {
+    leader_class = { official }
+    possible = {
+        is_gestalt = yes
+    }
+    is_leader_possible = {
+        leader_class = official
+    }
+    modifier = {
+        planet_pop_assembly_organic_mult = 0.03
+        planet_pop_assembly_mult = 0.03
+        councilor_gestalt_growth_exp_gain = 0.01
+    }
+    icon = "GFX_icon_councilor_ruler"
+    optional = { always = no }
+    ai_hiring_weight = {
+        inline_script = councilor_leader_weights
+    }
+}
+
+councilor_gestalt_cognitive = {
+    leader_class = { scientist }
+    possible = {
+        is_gestalt = yes
+    }
+    is_leader_possible = {
+        leader_class = scientist
+    }
+    modifier = {
+        all_technology_research_speed = 0.02
+        councilor_gestalt_cognitive_exp_gain = 0.01
+    }
+    icon = "GFX_icon_councilor_research"
+    optional = { always = no }
+    ai_hiring_weight = {
+        inline_script = councilor_leader_weights
+    }
+}
+
+councilor_gestalt_legion = {
+    possible = {
+        is_gestalt = yes
+    }
+    leader_class = { commander }
+    is_leader_possible = {
+        leader_class = commander
+    }
+    modifier = {
+        country_base_influence_produces_add = 0.1
+        councilor_gestalt_legion_exp_gain = 0.01
+    }
+    icon = "GFX_icon_councilor_defense"
+    optional = { always = no }
+    ai_hiring_weight = {
+        inline_script = councilor_leader_weights
+    }
+}
+
+councilor_gestalt_regulatory = {
+    leader_class = { official }
+    possible = {
+        is_gestalt = yes
+    }
+    is_leader_possible = {
+        leader_class = official
+    }
+    modifier = {
+        planet_crime_no_happiness_add = -3
+        councilor_gestalt_regulatory_exp_gain = 0.01
+        country_edict_fund_add = 5
+    }
+    icon = "GFX_icon_councilor_ruler"
+    optional = { always = no }
+    ai_hiring_weight = {
+        inline_script = councilor_leader_weights
+    }
+}

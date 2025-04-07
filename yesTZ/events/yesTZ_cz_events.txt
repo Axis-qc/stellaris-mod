@@ -1,0 +1,396 @@
+namespace = yesTZcz
+country_event = {
+    id = yesTZcz.1000
+    hide_window = yes
+    is_triggered_only = yes
+    fire_only_once = yes
+    trigger = {
+        any_country = {
+            is_country_type = swarm
+        }
+    }
+
+    immediate = {
+        random_rim_system = {
+            limit = {
+                no_cz_flag = yes
+            }
+            set_star_flag = yesTZ_cz_1
+            save_event_target_as = pyesTZ_cz_1_system
+        }
+        random_rim_system = {
+            limit = {
+                no_cz_flag = yes
+            }
+            set_star_flag = yesTZ_cz_2
+            save_event_target_as = pyesTZ_cz_2_system
+        }
+        random_rim_system = {
+            limit = {
+                no_cz_flag = yes
+            }
+            set_star_flag = yesTZ_cz_3
+            save_event_target_as = pyesTZ_cz_3_system
+        }
+        random_rim_system = {
+            limit = {
+                no_cz_flag = yes
+            }
+            set_star_flag = yesTZ_cz_4
+            save_event_target_as = pyesTZ_cz_4_system
+        }
+        random_rim_system = {
+            limit = {
+                no_cz_flag = yes
+            }
+            set_star_flag = yesTZ_cz_5
+            save_event_target_as = pyesTZ_cz_5_system
+        }
+        country_event = { id = yesTZcz.1001 days = 10 }
+    }
+}
+
+country_event = {
+    id = yesTZcz.1001
+    title = "yesTZcz.1001.name"
+    desc = "yesTZcz.1001.desc"
+    picture = GFX_evt_physics_research
+    show_sound = event_alien_nature
+
+    is_triggered_only = yes
+
+    immediate = {
+        #第一个
+        random_rim_system = {
+            limit = { has_star_flag = yesTZ_cz_1 }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_1_1
+                save_event_target_as = yesTZ_cz_1_1
+            }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_1_2
+                save_event_target_as = yesTZ_cz_1_2
+            }
+        }
+        #第二个
+        random_rim_system = {
+            limit = { has_star_flag = yesTZ_cz_2 }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_2_1
+                save_event_target_as = yesTZ_cz_2_1
+            }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_2_2
+                save_event_target_as = yesTZ_cz_2_2
+            }
+        }
+        #第三个
+        random_rim_system = {
+            limit = { has_star_flag = yesTZ_cz_3 }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_3_1
+                save_event_target_as = yesTZ_cz_3_1
+            }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_3_2
+                save_event_target_as = yesTZ_cz_3_2
+            }
+        }
+        #第四个
+        random_rim_system = {
+            limit = { has_star_flag = yesTZ_cz_4 }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_4_1
+                save_event_target_as = yesTZ_cz_4_1
+            }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_4_2
+                save_event_target_as = yesTZ_cz_4_2
+            }
+        }
+        #第五个
+        random_rim_system = {
+            limit = { has_star_flag = yesTZ_cz_5 }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_5_1
+                save_event_target_as = yesTZ_cz_5_1
+            }
+            closest_system = {
+                limit = {
+                    no_cz_flag = yes
+                }
+                set_star_flag = yesTZ_cz_5_2
+                save_event_target_as = yesTZ_cz_5_2
+            }
+        }
+    }
+
+    option = {
+        name = crisis.13.a
+        hidden_effect = {
+        }
+    }
+}
+
+#抵达
+country_event = {
+    id = yesTZcz.1002
+    hide_window = yes      # 隐藏事件窗口（后台静默触发）
+    fire_only_once = yes   # 全局唯一触发机制
+    is_triggered_only = yes
+
+    # 平均触发时间配置（需满足触发条件后开始计时）
+    #mean_time_to_happen = {
+    #    months = 3
+    #}
+
+    # 触发条件检测
+    trigger = {
+        any_country = {
+            is_country_type = swarm#场上有虫子
+        }
+    }
+
+    immediate = {
+        # 危机环境配置
+        set_crisis_sound = swarm_crisis_ambient_stage_1  # 激活虫群危机第一阶段环境音效
+
+        observer_event = { id = observer.29 }            # 触发观察者特殊事件（宇宙事件链）
+
+        # 全星区广播警报
+        every_country = {
+            limit = { is_country_type = default }        # 筛选所有常规帝国
+            country_event = { id = crisis.18 }           # 触发警报事件（crisis.18显示通知）
+        }
+
+        # 虫群初始入侵点生成
+        random_rim_system = {
+            limit = { has_star_flag = swarm_invasion_target_1 }  # 选择预设的初始入侵目标星系
+            random_system_planet = {
+                # 星系改造逻辑
+                solar_system = {
+                    # 清理现有防御设施
+                    if = {
+                        limit = {
+                            any_fleet_in_system = {
+                                is_ship_class = shipclass_starbase  # 检测所有太空基地
+                            }
+                        }
+                        random_fleet_in_system = {
+                            limit = {
+                                any_controlled_ship = {
+                                    is_ship_class = shipclass_starbase  # 定位玩家/AI的星基
+                                }
+                            }
+                            destroy_fleet = this  # 立即摧毁目标星基（不留残骸）
+                        }
+                    }
+                    # 创建虫群星基
+                    create_starbase = {
+                        size = starbase_swarm             # 使用虫群专用星基模板（common/starbases）
+                        owner = event_target:prethoryn_vgrd  # 归属先锋国家
+                    }
+                    # 星系视觉效果
+                    star = {
+                        create_ambient_object = {
+                            type = "swarm_1"              # 虫群入侵特效（gfx/ambient_objects）
+                            location = this               # 绑定到恒星实体
+                        }
+                        last_created_ambient_object = {
+                            set_ambient_object_flag = swarm_system_effect  # 标记为虫群特效（用于事件链）
+                            set_location = {
+                                target = prev             # 上一步创建的恒星实体
+                                distance = 0              # 零距离（中心位置）
+                                angle = random            # 随机旋转角度
+                            }
+                        }
+                    }
+                }
+
+                # 初始星系舰队部署
+                event_target:prethoryn = {
+                    swarm_vanguard = yes  # 生成先锋舰队（每执行一次生成1支舰队）
+                    swarm_vanguard = yes  # 共生成3支先锋舰队（每支含10-15艘战舰）
+                    swarm_vanguard = yes
+                    # 工程舰队部署
+                    create_fleet = {
+                        name = "NAME_Prethoryn_Constructor"  # 本地化名称"普雷索林工程舰"
+                        effect = {
+                            set_owner = PREV  # 归属虫群国家
+                            # 舰船生成参数
+                            create_ship = {
+                                name = random                    # 随机名称（name_lists/Prethoryn）
+                                design = "NAME_Swarm_Constructor"# 使用预设工程舰设计
+                                graphical_culture = "swarm_01"   # 虫群视觉风格（gfx/ships）
+                            }
+                            # 舰队部署坐标
+                            set_location = {
+                                target = PREVPREV  # 上上层作用域（星系实体）
+                                distance = 10      # 距离星系中心10单位（游戏单位）
+                                angle = random     # 随机圆周角度（0-360度）
+                            }
+                        }
+                    }
+                }
+            }
+            
+
+            ### 第二入侵系统（完整注释）
+            random_system = {
+                limit = {
+                    distance = {
+                        source = PREV                 # 以第一个入侵系统为基准
+                        max_distance <= 60            # 最大60星系单位
+                        min_distance >= 5             # 最小5星系单位（避免重叠）
+                    }
+                }
+                set_star_flag = swarm_invasion_target_2  # 设置次级入侵标记
+                random_system_planet = {
+                    event_target:prethoryn = {
+                        # 生成3支先锋舰队
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        # 工程舰队部署（与初始系统相同配置）
+                        create_fleet = {
+                            name = "NAME_Prethoryn_Constructor"
+                            effect = {
+                                set_owner = PREV
+                                create_ship = {
+                                    name = random
+                                    design = "NAME_Swarm_Constructor"
+                                    graphical_culture = "swarm_01"
+                                }
+                                set_location = {
+                                    target = PREVPREV
+                                    distance = 10
+                                    angle = random
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ### 第三入侵系统（完整注释）
+            random_system = {
+                limit = {
+                    distance = {
+                        source = PREV                 # 以第二个入侵系统为基准
+                        max_distance <= 60
+                        min_distance >= 5
+                    }
+                    NOR = {
+                        has_star_flag = swarm_invasion_target_1  # 排除初始标记
+                        has_star_flag = swarm_invasion_target_2  # 排除次级标记
+                    }
+                }
+                set_star_flag = swarm_invasion_target_3  # 设置三级入侵标记
+                random_system_planet = {
+                    event_target:prethoryn = {
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        create_fleet = {
+                            # 完整保留工程舰配置
+                            name = "NAME_Prethoryn_Constructor"
+                            effect = {
+                                set_owner = PREV
+                                create_ship = {
+                                    name = random
+                                    design = "NAME_Swarm_Constructor"
+                                    graphical_culture = "swarm_01"
+                                }
+                                set_location = {
+                                    target = PREVPREV
+                                    distance = 10
+                                    angle = random
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ### 第四入侵系统（完整注释）
+            random_system = {
+                limit = {
+                    distance = {
+                        source = PREV                 # 以第三个入侵系统为基准
+                        max_distance <= 60
+                        min_distance >= 5
+                    }
+                    NOR = {
+                        has_star_flag = swarm_invasion_target_1  # 全排除列表
+                        has_star_flag = swarm_invasion_target_2
+                        has_star_flag = swarm_invasion_target_3
+                    }
+                }
+                set_star_flag = swarm_invasion_target_4  # 设置四级入侵标记
+                random_system_planet = {
+                    event_target:prethoryn = {
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        swarm_vanguard = yes
+                        create_fleet = {
+                            # 完整保留相同配置
+                            name = "NAME_Prethoryn_Constructor"
+                            effect = {
+                                set_owner = PREV
+                                create_ship = {
+                                    name = random
+                                    design = "NAME_Swarm_Constructor"
+                                    graphical_culture = "swarm_01"
+                                }
+                                set_location = {
+                                    target = PREVPREV
+                                    distance = 10
+                                    angle = random
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        # 后续危机阶段触发
+        random_country = {
+            limit = {
+                is_country_type = global_event  # 筛选全局事件国家（如危机管理者）
+            }
+            country_event = {
+                id = crisis.19          # 下一阶段事件ID（虫群主力抵达）
+                days = 400              # 基础400天
+                random = 200            # ±200天随机浮动
+            }
+        }
+    }
+}

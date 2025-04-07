@@ -1,0 +1,70 @@
+play_1_eaten_star = {
+    show_in_diplomacy = yes
+    show_notification = yes
+    potential = {
+        #from = { has_technology = "ftsb_ship" }
+        is_country_type = default
+        #has_total_war_cb = yes
+        NOT = { is_in_federation_with = from }  # 不能与目标国家处于同一联邦
+    }
+    is_valid = {
+        from = { is_country_type = default }  # 目标国家必须是默认类型的国家
+        #NOT = { is_overlord_to = FROM }  # 不能是目标国家的宗主国
+        OR = {
+            # 满足以下条件之一
+            is_subject = no  # 不是其他国家的附庸国
+            overlord = { NOT = { is_same_value = from } }  # 宗主国不是目标国家
+        }
+        from = {
+            # 目标国家必须拥有以下条件
+            any_controlled_fleet = {
+                # 控制的舰队中必须有
+                is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+                any_controlled_ship = {
+                    OR = {
+                        is_ship_size = star_eater
+                        is_ship_size = play_star_eater
+                    }
+                }
+            }
+        }
+        #NOT = {
+        #    # 发起战争的国家不能拥有
+        #    any_controlled_fleet = {
+        #        # 控制的舰队中不能有
+        #        is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+        #        any_controlled_ship = { is_ship_size = star_eater }  # 巨像级别的飞船
+        #    }
+        #}
+    }
+}
+
+play_eaten_star = {
+    show_in_diplomacy = yes
+    show_notification = yes
+    potential = {
+        is_country_type = default
+        NOT = { is_in_federation_with = from }  # 不能与目标国家处于同一联邦
+    }
+    is_valid = {
+        NOT = { is_overlord_to = FROM }  # 不能是目标国家的宗主国
+        #OR = {
+        #    # 满足以下条件之一
+        #    is_subject = no  # 不是其他国家的附庸国
+        #    overlord = {
+        #        NOT = { is_same_value = from }
+        #    }  # 宗主国不是目标国家
+        #}
+        any_controlled_fleet = {
+            # 控制的舰队中必须有
+            is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+            any_controlled_ship = {
+                OR = {
+                    is_ship_size = star_eater
+                    is_ship_size = play_star_eater
+                }
+
+            }
+        }
+    }
+}

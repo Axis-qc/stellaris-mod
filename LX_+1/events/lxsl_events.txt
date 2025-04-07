@@ -1,0 +1,17 @@
+namespace = lxsl
+country_event = {
+    id = lxsl.1
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        #fypt_starbase_tiggers = yes
+        is_country_type = default
+    }
+    immediate = {
+        add_modifier = {
+            modifier = lx_sl_modifier
+            mult = value:lxsl_values
+            days = -1
+        }
+    }
+}

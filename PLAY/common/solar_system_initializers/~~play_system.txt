@@ -1,0 +1,362 @@
+@base_moon_distance = 10
+@caravaneerfleetlaunch1 = 9000 # 25 years
+@caravaneerfleetlaunch2 = 14400 # 40 years
+@homeworld_min_size = 18
+@homeworld_max_size = 21
+#抄的原版行商联盟
+play_system_01 = {
+    class = "sc_b"
+    usage = misc_system_init
+    name = "PLAY_stystem"
+    usage_odds = {
+        # 定义系统使用的几率
+        base = 100  # 基础几率为0
+        #modifier = {
+        #    # 修改器用于改变基础几率
+        #    has_megacorp = yes  # 如果存在megacorp，那么...
+        #    caravaneers_enabled = yes  # 如果启用了caravaneers，那么...
+        #    add = 100  # 在基础几率上增加100
+        #}
+        #modifier = {
+        #    # 另一个修改器
+        #    factor = 0  # 这个修改器的因子为0
+        #    OR = {
+        #        # 如果满足以下任一条件...
+        #        is_fe_cluster = yes  # 如果是fe_cluster...
+        #        is_marauder_cluster = yes  # 或者是marauder_cluster...
+        #    }
+        #}
+        #modifier = {
+        #    # 第三个修改器
+        #    factor = 0  # 这个修改器的因子为0
+        #    has_star_flag = empire_cluster  # 如果有星标志为empire_cluster...
+        #}
+    }
+
+    max_instances = 1
+    spawn_chance = 9999
+
+    flags = { play_axis_system_home }
+
+    asteroid_belt = {
+        #小行星带1
+        type = rocky_asteroid_belt
+        radius = 40
+    }
+
+    asteroid_belt = {
+        #小行星带2
+        type = icy_asteroid_belt
+        radius = 110
+    }
+
+    asteroid_belt = {
+        #小行星带3
+        type = icy_asteroid_belt
+        radius = 520
+    }
+
+    asteroid_belt = {
+        #小行星带4
+        type = debris_asteroid_belt
+        radius = 550
+    }
+
+    planet = {
+        class = star
+        orbit_distance = 0
+        flags = { play_axis_system_home }
+        init_effect = {
+
+            create_ambient_object = {
+                type = caravaneer_billboard_1
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 45
+                }
+            }
+
+            create_ambient_object = {
+                type = caravaneer_billboard_2
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 135
+                }
+            }
+
+            create_ambient_object = {
+                type = caravaneer_billboard_1
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 225
+                }
+            }
+
+            create_ambient_object = {
+                type = caravaneer_billboard_3
+                scale = 4
+                location = this
+                entity_offset_height = { min = -9 max = -11 }
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 40
+                    angle = 315
+                }
+            }
+
+            save_global_event_target_as = play_axis_star
+            create_species = {
+                name = axisname
+                class = random_non_machine
+                portrait = cyb_machine
+                traits = random
+                effect = {
+                    modify_species = {
+                        ideal_planet_class = pc_gaia
+                    }
+                }
+            }
+
+            create_country = {
+                name = "PLAY_country_name"
+                type = play_axis
+                authority = auth_corporate
+                civics = {
+                    civic = civic_free_traders
+                }
+                origin = "origin_default"
+                species = last_created_species
+                flag = {
+                    icon = {
+                        category = "special"
+                        file = "gdf.dds"
+                    }
+                    background = {
+                        category = "backgrounds"
+                        file = "v.dds"
+                    }
+                    colors = {
+                        "purple"
+                        "light_indigo"
+                        "null"
+                        "null"
+                    }
+                }
+                ethos = {
+                    ethic = ethic_fanatic_spiritualist
+                }
+                ignore_initial_colony_error = yes
+
+                effect = {
+                    # 定义一系列的效果
+                    set_country_flag = play_axis_country  # 设置国家标志
+                    set_graphical_culture = caravaneer_01  # 设置图形文化
+                    save_global_event_target_as = play_axis_country  # 保存全局事件目标
+                    create_fleet = {
+                        # 创建一个新的舰队
+                        name = "NAME_Axis_Base"  # 舰队的名称
+                        settings = { spawn_debris = no }  # 舰队的设置
+                        effect = {
+                            # 舰队的效果
+                            set_owner = prev  # 设置舰队的所有者
+                            create_ship = {
+                                # 创建一个新的船只
+                                name = AXIS_NAME  # 船只的名称
+                                design = "PLAY_Tradestation_Tungle"  # 船只的设计
+                                graphical_culture = prev  # 船只的图形文化
+                                effect = {
+                                    set_ship_flag = play_axis_ship  # 设置船只标志
+                                }
+                            }
+                            set_location = {
+                                # 设置舰队的位置
+                                target = prevprev
+                                angle = random
+                                distance = 60
+                            }
+                            save_global_event_target_as = play_axis_system  # 保存全局事件目标
+                            prev = {
+                                set_custom_capital_location = event_target:play_axis_capital  # 设置自定义首都位置
+                            }
+                        }
+                    }
+                    create_leader = {
+                        # 创建一个新的领导者
+                        class = official  # 领导者的职业类别
+                        species = this  # 领导者的种族
+                        name = axisname  # 领导者的名称
+                        skill = 30  # 领导者的技能等级
+                        immortal = yes  # 领导者是不朽的
+                    }
+                    set_leader = last_created_leader  # 设置领导者
+                    create_ship_design = { design = "PLAY_Caravaneer_Starbase" }  # 创建一个新的船只设计
+                    add_ship_design = last_created_design  # 添加船只设计
+                }
+            }
+        }
+    }
+
+    change_orbit = 48
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 85 max = 100 }
+        size = { min = 10 max = 25 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 40
+    }
+    planet = {
+        count = 1
+        orbit_angle = { min = 160 max = 170 }
+        size = { min = 10 max = 25 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 40
+    }
+    planet = {
+        count = 1
+        orbit_angle = { min = 180 max = 190 }
+        size = { min = 10 max = 25 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 30
+    }
+
+    planet = {
+        count = 4
+        orbit_angle = { min = 230 max = 360 }
+        size = { min = 10 max = 25 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 30
+        moon = {
+            count = { min = 1 max = 3 }
+            size = { min = 10 max = 15 }
+            class = rl_unhabitable_planets
+            orbit_angle = { min = 10 max = 70 }
+            orbit_distance = 10
+        }
+    }
+
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 370 max = 400 }
+        size = { min = 10 max = 50 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 40
+    }
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 410 max = 450 }
+        size = { min = 20 max = 50 }
+        class = "rl_habitable_special"
+        orbit_distance = 40
+    }
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 460 max = 470 }
+        size = { min = 20 max = 50 }
+        class = "rl_unhabitable_planets"
+        orbit_distance = 30
+        init_effect = {
+            save_event_target_as = play_ft_system
+        }
+    }
+    planet = {
+        count = 1
+        orbit_angle = { min = 520 max = 550 }
+        size = { min = 30 max = 50 }
+        class = "pc_gaia"
+        orbit_distance = 40
+
+        moon = {
+            count = { min = 1 max = 2 }
+            size = { min = 10 max = 20 }
+            class = pc_gaia
+            orbit_angle = { min = 10 max = 70 }
+            orbit_distance = 17
+        }
+    }
+
+    init_effect = {
+        create_starbase = {
+            size = "play_axis_starbase"
+            owner = event_target:play_axis_country
+        }
+        save_global_event_target_as = play_axis_starbase
+    }
+    init_effect = {
+        generate_home_system_resources = yes
+        spawn_megastructure = {
+            type = "ft_star_eater_destroyed_01" #焚天神兵残骸
+            planet = event_target:play_ft_system
+
+            init_effect = {
+                create_ambient_object = {
+                    type = "large_debris_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 20
+                        angle = 20
+                    }
+                }
+                create_ambient_object = {
+                    type = "large_debris_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 20
+                        angle = 150
+                    }
+                }
+                create_ambient_object = {
+                    type = "medium_debris_01_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 35
+                        angle = 90
+                    }
+                }
+                create_ambient_object = {
+                    type = "medium_debris_02_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 3
+                        angle = 270
+                    }
+                }
+            }
+        }
+    }
+}

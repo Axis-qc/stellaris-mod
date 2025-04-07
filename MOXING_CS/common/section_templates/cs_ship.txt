@@ -1,0 +1,28 @@
+@section_cost = 30
+
+ship_section_template = {
+	key = "cs_ship" 
+	ship_size = corvette
+	fits_on_slot = mid
+	should_draw_components = yes
+	entity = "paotai_entity"
+	icon = "GFX_ship_part_core_mid"
+	ai_tags = { explosive explosive_stealth energy_torpedoes energy_torpedoes_stealth }
+
+	component_slot = {
+		name = "G_weapon_01Shape"
+		template = "invisible_large_turret"
+		locatorname = "cs_ship_01"
+		                                                                              
+	}
+
+	small_utility_slots = 6
+	aux_utility_slots = 6
+
+	resources = {
+		category = ship_sections
+		cost = {
+			alloys = @section_cost
+		}
+	}
+}

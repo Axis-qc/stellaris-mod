@@ -1,0 +1,132 @@
+# example_arc = { #坟的key，包括本地化key
+# 	desc = example_arc_desc #坟在情报日志中的描述
+# 	picture = GFX_xxx #坟在情报日志中显示的图片，需注册，大小为450*150，原版图片在gfx/event_pictures下
+# 	max_instances = 1 #最大生成数量
+
+# 	weight = 0 #随机生成权重
+
+# 	visible = { 
+# 		#定义该坟可见的条件
+# 		#this = country
+# 		#from = archaeological_site
+# 		default_site_visible_trigger = yes #一般情况下调用蠢驴的预设即可
+# 	}
+
+# 	allow = { 
+# 		#要满足什么条件可以挖坟（不写的话可以虚空挖），这是标准条件
+# 		#this = fleet
+# 		#from = archaeological_site
+# 		is_ship_class = shipclass_science_ship
+# 		exists = leader
+# 	}
+
+# 	on_create = { #在坟创建之后所可能需要执行的某些effect
+# 		#this = archaeological_site
+# 	}
+# 	on_visible = { #在坟可见之后（满足visible）所执行的操作
+# 		#this = country
+# 		#from = archaeological_site
+# 	}
+
+# 	stages = 5 #定义坟有几个阶段
+
+# 	stage = {
+# 		#定义坟的每个阶段，顺序依次向下
+# 		difficulty = 1 #定义难度，测试的话最好定为1来测试
+# 		# difficulty = { #随机难度定义
+# 		# 	min = 2 #最小难度
+# 		# 	max = 4 #最大难度
+# 		# }
+# 		icon = GFX_chi_serial_number_1 #定义坟的阶段图标，需要注册
+# 		event = example_events.0 #调用事件id（），详见events
+# 	}
+
+# 	stage = {
+# 		difficulty = 1
+# 		icon = GFX_chi_serial_number_2
+# 		event = example_events.1
+# 	}
+
+# 	stage = {
+# 		difficulty = 1 
+# 		icon = GFX_chi_serial_number_3
+# 		event = example_events.2
+# 	}
+
+# 	stage = {
+# 		difficulty = 1 
+# 		icon = GFX_chi_serial_number_4
+# 		event = example_events.3
+# 	}
+
+# 	stage = {
+# 		difficulty = 1 
+# 		icon = GFX_chi_serial_number_5
+# 		event = example_events.4
+# 	}
+
+# 	on_roll_failed = { #定义如果骰子随机到失败将会发生什么，一般为调用蠢驴预设的事件组
+# 		#this = fleet 
+# 		#from = archaeological_site
+# 		standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = all_random_events }
+# 	}
+# }
+
+FT_STAR = {
+	desc = FT_SHIP
+	picture = GFX_xxx
+	max_instances = 1
+
+	weight = 0 
+
+	visible = { 
+		#default_site_visible_trigger = yes 
+	}
+
+	allow = { 
+		is_ship_class = shipclass_science_ship
+		exists = leader
+	}
+
+	stages = 5
+
+	stage = {
+		difficulty = 1 
+		icon = GFX_chi_serial_number_1
+		event = example_events.0
+	}
+
+	stage = {
+		difficulty = 1
+		icon = GFX_chi_serial_number_2
+		event = example_events.1
+	}
+
+	stage = {
+		difficulty = 1 
+		icon = GFX_chi_serial_number_3
+		event = example_events.2
+	}
+
+	stage = {
+		difficulty = 1 
+		icon = GFX_chi_serial_number_4
+		event = example_events.3
+	}
+
+	stage = {
+		difficulty = 1 
+		icon = GFX_chi_serial_number_5
+		event = example_events.4
+	}
+
+	stage = {
+		difficulty = 1 
+		icon = GFX_chi_serial_number_6
+		event = example_events.5
+	}
+
+	on_roll_failed = { #定义如果骰子随机到失败将会发生什么，一般为调用蠢驴预设的事件组
+		standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = all_random_events }
+	}
+}

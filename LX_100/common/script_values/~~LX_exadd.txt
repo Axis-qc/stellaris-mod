@@ -1,0 +1,29 @@
+leader_expadd_values = {
+    base = 5000
+    divide = value:agenda_leadership_conditioning_num_leaders
+    floor = yes
+}
+leader_expadd_one_values = {
+    base = 10000
+    divide = value:leader_expadd_one_add
+    floor = yes
+}
+
+leader_dj_expadd = {
+    base = 1000
+    mult = trigger:has_skill
+}
+
+leader_expadd_one_add = {
+    base = 0
+    complex_trigger_modifier = {
+        trigger = count_owned_leader
+        parameters = {
+            limit = {
+                has_skill > 10
+                has_skill < 30
+            }
+        }
+        mode = add
+    }
+}

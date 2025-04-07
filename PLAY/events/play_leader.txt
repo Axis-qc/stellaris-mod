@@ -1,0 +1,216 @@
+namespace = playleader
+country_event = {
+    id = playleader.1
+    title = paragon.31.name
+    desc = paragon.31.desc
+    show_sound = par_event_beholder
+    location = event_target:beholder_planet
+    is_triggered_only = yes
+
+    event_window_type = leader_recruit
+    picture_event_data = {
+        portrait = event_target:beholder_leader
+    }
+    picture = GFX_leader_recruitment_bg_legendary_beholder
+
+    trigger = {
+        has_paragon_dlc = yes
+        has_country_flag = beholder_chain_owner
+        exists = event_target:beholder_planet
+    }
+
+    immediate = {
+        create_country = {
+            name = "NAME_beholder"
+            type = global_event
+            auto_delete = yes
+            flag = {
+                icon = {
+                    category = "special"
+                    file = "unknown.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "red"
+                    "red"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_event_target_as = beholder_country
+            }
+        }
+        event_target:beholder_country = {
+            create_species = {
+                name = "NAME_Unknown"
+                class = PARAGON
+                portrait = cyb_machine
+                namelist = "PRT1"
+                traits = random
+                effect = {
+                    save_event_target_as = beholder_species
+                }
+            }
+            create_leader = {
+                species = event_target:beholder_species
+                event_leader = yes
+                class = commander
+                name = "NAME_AXIS_LEADER"
+                skill = 10
+                immortal = yes
+                randomize_traits = no
+                can_manually_change_location = no
+                can_assign_to_council = no
+                skip_background_generation = yes
+                custom_catch_phrase = beholder_catch_phrase
+                custom_description = beholder_backstory
+                traits = {
+                    trait = leader_trait_scout
+                    trait = leader_trait_energy_weapon_specialist
+                    trait = leader_trait_cautious
+                    trait = leader_trait_psionic
+                    trait = subclass_commander_admiral
+                }
+                gender = indeterminable
+                set_age = 0
+                hide_age = yes
+                effect = {
+                    save_global_event_target_as = beholder_leader
+                    set_leader_flag = legendary_leader
+                    set_leader_flag = beholder
+                    set_leader_flag = immune_to_negative_traits
+                    set_leader_flag = leader_death_events_blocked
+                    set_owner = root
+                    exile_leader_as = beholder_leader
+                }
+            }
+        }
+    }
+
+    option = {
+        # HIRE
+        name = HIRE
+        tag = hire_leader
+        custom_tooltip = paragon_beholder_joins
+        sound = par_beholder_hire
+
+        hidden_effect = {
+            set_country_flag = zro_found
+
+            clone_leader = {
+                target = event_target:beholder_leader
+            }
+            last_created_leader = {
+                save_global_event_target_as = beholder_leader
+                set_leader_flag = legendary_leader
+                set_leader_flag = beholder
+                set_leader_flag = immune_to_negative_traits
+                set_leader_flag = leader_death_events_blocked
+            }
+            # Spawn ship
+            create_fleet = {
+                name = "NAME_Temple_of_Whispers"
+                settings = {
+                    can_upgrade = no
+                    can_change_composition = no
+                    can_change_leader = no
+                    can_disband = no
+                    spawn_debris = no
+                }
+                effect = {
+                    set_owner = root.owner
+                    create_ship_design = {
+                        design = NAME_Temple_of_Whispers
+                    }
+                    create_ship = {
+                        design = last_created_design
+                        name = "NAME_Temple_of_Whispers"
+                        prefix = no
+                        upgradable = no
+                        effect = {
+                            set_ship_flag = is_beholder_ship
+                            save_global_event_target_as = beholder_ship
+                        }
+                    }
+                    if = {
+                        limit = {
+                            exists = event_target:beholder_presapients
+                            exists = event_target:beholder_planet
+                        }
+                        set_location = {
+                            target = event_target:beholder_planet
+                            distance = 1
+                            angle = random
+                        }
+                    }
+                    else = {
+                        set_location = {
+                            target = root.capital_scope
+                            distance = 1
+                            angle = random
+                        }
+                    }
+
+                    assign_leader = event_target:beholder_leader
+                }
+            }
+            create_message = {
+                type = MESSAGE_RECRUITED_LEADER
+                localization = MESSAGE_RECRUITED_LEADER_DESC
+                days = @toast_message_days
+                target = event_target:beholder_leader
+                variable = {
+                    type = name
+                    localization = LEADER
+                    scope = event_target:beholder_leader
+                }
+                variable = {
+                    key = "border"
+                    value = "GFX_border_legendary"
+                }
+            }
+        }
+    }
+
+    option = {
+        # DISMISS
+        name = DISMISS
+        tag = dismiss_leader
+        sound = par_beholder_dismiss
+
+        hidden_effect = {
+            event_target:beholder_leader = {
+                kill_leader = { show_notification = no }
+            }
+        }
+    }
+
+    option = {
+        name = paragon.1.a # To what end to you seek energy?
+        response_text = paragon.1.a.response
+        is_dialog_only = yes
+    }
+    option = {
+        name = paragon.1.b # What can you do for our civilization?
+        response_text = paragon.1.b.response
+        is_dialog_only = yes
+    }
+    option = {
+        name = paragon.1.c # What are you?
+        response_text = paragon.1.c.response
+        is_dialog_only = yes
+    }
+
+    after = {
+        hidden_effect = {
+            clear_global_event_target = beholder_planet
+            clear_global_event_target = beholder_presapients
+            remove_country_flag = beholder_chain_owner
+            event_target:beholder_planet = { remove_modifier = the_beholder_presapients_protected }
+        }
+    }
+}

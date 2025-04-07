@@ -1,0 +1,151 @@
+namespace = ft_ship
+#检测科研船
+#由on_entering_system_fleet触发
+#玩家第一次进入黑洞系统时触发的几率 (抄的时之虫
+fleet_event = {
+	id = ft_ship.100
+	title = ft_ship.name
+	desc = fy_ship.desc
+	picture = GFX_evt_black_hole	#照片
+	show_sound = event_alien_signal	#声音
+	location = event_target:horizonsignal_black_hole
+	trackable = yes	#可追踪
+	is_triggered_only = yes	#仅触发
+	fire_only_once = yes	#只触发一次
+	trigger = {
+		#触发器
+		#NOT = { has_global_flag = akx.9000.fired } #没有flag
+		owner = {
+			#所有者
+			is_ai = no			#不是ai
+			#NOT = { has_ethic = ethic_gestalt_consciousness } #不是格式塔（让格式塔也能
+		}
+		from = {
+			# solar system scope
+			is_star_class = sc_black_hole
+			NOT = {
+				has_star_flag = guardian
+			}
+			has_star_flag = ft_hole_system_01
+		}
+		exists = leader		#存在 = 领导者
+		leader = {
+			leader_class = scientist			#科学家
+		}
+	}
+	immediate = {
+		set_global_flag = ft_event		#添加flag
+		solar_system = {
+			set_star_flag = ft_hole_system_01
+			random_system_planet = {
+				#随机系统行星?
+				limit = {
+					is_star = yes
+				}
+				save_global_event_target_as = horizonsignal_black_hole
+			}
+			save_global_event_target_as = horizonsignal_system
+		}
+		owner = {
+			observer_event = {
+				id = observer.70
+			}
+		}
+	}
+	option = {
+		#选项
+		name = yes
+		from = {
+			random_system_planet = {
+				limit = {
+					is_star = yes
+				}
+				enable_special_project = {
+					name = HORIZON_SIGNAL_PROJECT
+					location = this
+					owner = root.owner
+				}
+			}
+		}
+	}
+}
+
+fleet_event = {
+	id = akx.9000	# 事件的唯一标识符
+	title = akx.9000.name	# 事件的标题
+	desc = akx.9000.desc	# 事件的描述
+	picture = GFX_evt_black_hole	# 事件的图片
+	show_sound = event_alien_signal	# 事件的声音效果
+	location = event_target:horizonsignal_black_hole	# 事件发生的位置
+	trackable = yes	# 事件是否可以被追踪
+	is_triggered_only = yes	# 事件是否只能被触发，而不能自然发生
+	fire_only_once = yes	# 事件只能发生一次
+	trigger = {
+		# 触发事件的条件
+		NOT = {
+			has_global_flag = akx.9000.fired
+		}
+		# 全局标志akx.9000.fired不存在
+		owner = {
+			# 所有者
+			is_ai = no			# 所有者不是AI
+			NOT = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+			# 所有者的道德不是集群意识
+		}
+		from = {
+			# 星系范围
+			is_star_class = sc_black_hole			# 星系是黑洞
+			NOT = {
+				has_star_flag = guardian
+			}
+			# 星系没有守护者标志
+			has_star_flag = horizonsignal_spawn			# 星系有视界信号生成标志
+		}
+		exists = leader		# 存在领导者
+		leader = {
+			leader_class = scientist			# 领导者是科学家
+		}
+	}
+	immediate = {
+		# 事件立即发生的效果
+		set_global_flag = akx.9000.fired		# 设置全局标志akx.9000.fired
+		solar_system = {
+			# 太阳系
+			set_star_flag = horizonsignal_system			# 设置星系标志为视界信号系统
+			random_system_planet = {
+				# 随机系统行星
+				limit = {
+					is_star = yes					# 是星球
+				}
+				save_global_event_target_as = horizonsignal_black_hole				# 保存全局事件目标为视界信号黑洞
+			}
+			save_global_event_target_as = horizonsignal_system			# 保存全局事件目标为视界信号系统
+		}
+		owner = {
+			observer_event = {
+				id = observer.70
+			}
+		}
+		# 所有者观察事件，事件id为observer.70
+	}
+	option = {
+		# 玩家可以选择的选项
+		name = OK		# 选项名称为OK
+		from = {
+			random_system_planet = {
+				# 随机系统行星
+				limit = {
+					is_star = yes					# 是星球
+				}
+				enable_special_project = {
+					# 启动一个特殊项目
+					name = HORIZON_SIGNAL_PROJECT					# 项目名称为HORIZON_SIGNAL_PROJECT
+					location = this					# 项目位置为当前位置
+					owner = root.owner					# 项目所有者为根所有者
+				}
+			}
+		}
+	}
+}

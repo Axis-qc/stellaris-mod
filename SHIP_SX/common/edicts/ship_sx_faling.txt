@@ -1,0 +1,90 @@
+ship_sx_open = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    modifier = {
+
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+ship_sx_max = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    modifier = {
+        command_limit_add = 2000
+    }
+
+    potential = {
+        has_edict = ship_sx_open
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+ship_sx_max1 = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    allow = {
+        has_edict = ship_sx_open
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    modifier = {
+        country_naval_cap_add = 90000
+    }
+
+    potential = {
+        has_edict = ship_sx_open
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}

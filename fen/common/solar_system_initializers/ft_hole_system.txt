@@ -1,0 +1,34 @@
+ft_hole_system = { #黑洞
+		class = sc_black_hole #星系类型，指默认星系内中心体类型
+	
+		usage = misc_system_init #用法 杂项系统初始化
+		usage_odds = 2 #使用几率？ 不知道是个啥
+
+		flags = { ft_hole_system }
+		max_instances = 1 #最大数量一个
+
+		planet = {
+			class = star
+			orbit_distance = 0
+		}
+	
+		change_orbit = 60
+	
+		planet = {
+			count = { min = 0 max = 3 }
+			class = "pc_broken" #崩坏星球
+			size = { min = 10 max = 25 }
+	
+			init_effect = { prevent_anomaly = yes }
+		}
+	
+		change_orbit = 30
+	
+		planet = {
+			count = { min = 0 max = 6 }
+			class = "pc_broken"
+			size = { min = 15 max = 30 }
+	
+			init_effect = { prevent_anomaly = yes }
+		}
+}

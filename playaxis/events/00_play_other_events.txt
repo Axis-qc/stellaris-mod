@@ -1,0 +1,49 @@
+namespace = playother
+
+country_event = {
+    id = playother.100
+    title = playother.100.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "playother_100_1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+    desc = {
+        text = "play_home_2"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = playotheroption_100_1
+        custom_tooltip = playotheroption_100_1.1
+        hidden_effect = {
+            root = {
+                set_country_flag = yes_lxbh
+            }
+            country_event = { id = playother.100 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = { country_event = { id = play.101 } }
+    }
+}

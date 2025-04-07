@@ -1,0 +1,139 @@
+jz_home = {
+	base_buildtime = 10
+	capital = no		# 是否是首都建筑
+	can_build = yes      # 是否可修建
+    can_demolish = yes         # 是否可被拆除
+    can_be_ruined = no        # 能否被废弃
+    can_be_disabled = yes      # 能否被停止运作
+    icon = RX_KY                # 图标文件名称，默认情况下和ID一样。贴图目录在gfx\interface\icons\buildings
+
+	category = trade	#类别 贸易
+
+#	potential = { # 限制，没有满足这些条件则该建筑在可建造列表之中不可见，优先度高于allow语句
+#		exists = owner
+#		owner = { is_regular_empire = yes } #是普通帝国
+#		#NOT = { has_modifier = slave_colony } #没有奴隶殖民地
+#	}
+
+#	destroy_trigger = {
+#		exists = owner
+#		OR = {
+#			owner = { is_regular_empire = no }
+#			has_modifier = slave_colony
+#		}
+#	}
+
+	resources = { #资源
+		category = planet_buildings #行星建筑
+		cost = { #成本
+			minerals = 100 #矿
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	planet_modifier = { #岗位
+		job_clerk_add = 4
+		job_trader_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				has_active_tradition = tr_mercantile_commercial_enterprise #有商业传统
+			}
+		}
+		modifier = {
+			job_trader_add = 2
+		}
+	}
+
+#	prerequisites = { 	"tech_interplanetary_commerce"	}	#前置科技
+
+	show_tech_unlock_if = { #显示技术解锁，如果
+		is_regular_empire = yes
+	}
+
+	ai_resource_production = { #人工智能资源生产
+		energy = 6
+		trigger = {
+			OR = {
+				num_unemployed >= 10
+				num_assigned_jobs = {
+				job = servant
+					value >= 10
+				}
+			}
+		}
+	}
+}
+
+AXIS_MUNDI = {
+	base_buildtime = 60 
+	#capital = yes		#是否是首都建筑 很奇怪加了这个之后就不显示了
+	can_build = yes 	#是否可修建
+	can_demolish = yes	#是否可被拆除
+	can_be_ruined = yes #能否被废弃
+	can_be_disabled = yes #能否被停止运作
+
+	category = trade	#类别 贸易
+	
+	icon = RX_ZY #图片
+
+	potential = { # 限制，没有满足这些条件则该建筑在可建造列表之中不可见，优先度高于allow语句
+		#has_flags = { Axis_Mundi_flags }
+	}
+	allow = {
+		owner = {
+			is_ai = no
+		}
+	}
+	destroy_trigger = {
+		free_building_slots = 0
+		exists = owner
+		owner = {
+			is_ai = yes
+		}
+	}
+
+	planet_modifier = {
+		 country_resource_max_add = 5000
+	}
+
+	planet_modifier = { 
+		job_clerk_add = 4
+		job_trader_add = 2
+	}
+
+	country_modifier = {
+		country_leader_cap_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				has_active_tradition = tr_mercantile_commercial_enterprise #有商业传统
+			}
+		}
+		modifier = {
+			job_trader_add = 2
+		}
+	}
+
+	resources = { #资源
+		category = planet_buildings #行星建筑
+		cost = {
+			minerals = 100
+		}	
+		upkeep = {
+			energy = 2
+		}
+	}	
+	
+	ai_weight = {
+		weight = 0
+	}
+}

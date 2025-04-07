@@ -1,0 +1,246 @@
+#############
+#	POWER	#
+#############
+
+
+#@platform_power_1 = 400 #200
+#@platform_power_2 = 460 #260
+#@platform_power_3 = 540 #340
+#@platform_power_4 = 640 #440
+#@platform_power_5 = 775 #575
+#@platform_power_6 = 1050 #750
+
+
+utility_component_template = {
+    # 裂变反应堆
+    key = "ONE_FYD"  # 组件键
+    size = large  # 组件大小：大型
+    icon = "GFX_ship_part_reactor_1"  # 图标
+    icon_frame = 1  # 图标帧
+    power = 1000  # 功率
+    resources = {
+        category = ship_components  # 资源类别：船只组件
+        cost = {
+            alloys = 100  # 资源成本：合金
+        }
+        upkeep = {
+            energy = 0.20  # 维护成本：能量
+            alloys = 0.02  # 维护成本：合金
+        }
+    }
+    prerequisites = { "tech_fission_power" }  # 前置条件：裂变动力科技
+    class_restriction = { shipclass_military_station shipclass_starbase }  # 类别限制：军事站
+    size_restriction = {
+        fypt_ship  # 尺寸限制：自定义船只
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+    component_set = "power_core"  # 组件集：动力核心
+    upgrades_to = "PLATFORM_FUSION_REACTOR"  # 升级到：平台聚变反应堆
+    ai_weight = {
+        weight = 1  # AI权重
+    }
+}
+
+utility_component_template = {
+    #剧变反应堆
+    key = "TWO_FYD"
+    size = large
+    icon = "GFX_ship_part_reactor_2"
+    icon_frame = 1
+    power = 1200
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 150
+        }
+        upkeep = {
+            energy = 0.26
+            alloys = 0.026
+        }
+    }
+
+    prerequisites = { "tech_fusion_power" }
+    class_restriction = { shipclass_military_station shipclass_starbase }
+    size_restriction = {
+        fypt_ship
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+    component_set = "power_core"
+    upgrades_to = "PLATFORM_COLD_FUSION_REACTOR"
+
+    ai_weight = {
+        weight = 2
+    }
+}
+
+utility_component_template = {
+    #冷核聚变反应堆
+    key = "THREE_FYD"
+    size = large
+    icon = "GFX_ship_part_reactor_3"
+    icon_frame = 1
+    power = 1800
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 200
+        }
+        upkeep = {
+            energy = 0.26
+            alloys = 0.026
+        }
+    }
+
+    prerequisites = { "tech_cold_fusion_power" }
+    component_set = "power_core"
+    class_restriction = { shipclass_military_station shipclass_starbase }
+    size_restriction = {
+        fypt_ship
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+    upgrades_to = "PLATFORM_ANTIMATTER_REACTOR"
+
+    ai_weight = {
+        weight = 3
+    }
+}
+
+utility_component_template = {
+    #反物质反应堆
+    key = "FOUR_FYD"
+    size = large
+    icon = "GFX_ship_part_reactor_4"
+    icon_frame = 1
+    power = 2600
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 250
+        }
+        upkeep = {
+            energy = 0.44
+            alloys = 0.044
+        }
+    }
+
+    prerequisites = { "tech_antimatter_power" }
+    component_set = "power_core"
+    class_restriction = { shipclass_military_station shipclass_starbase }
+    size_restriction = {
+        fypt_ship
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+    upgrades_to = "PLATFORM_ZERO_POINT_REACTOR"
+
+    ai_weight = {
+        weight = 4
+    }
+}
+
+utility_component_template = {
+    #零点反应堆
+    key = "FIVE_FYD"
+    size = large
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = 3600
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 300
+        }
+        upkeep = {
+            energy = 0.57
+            alloys = 0.057
+        }
+    }
+
+    prerequisites = { "tech_zero_point_power" }
+    component_set = "power_core"
+    class_restriction = { shipclass_military_station shipclass_starbase }
+    size_restriction = {
+        fypt_ship
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+    upgrades_to = "PLATFORM_DARK_MATTER_REACTOR"
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    #暗物质反应堆
+    key = "SIX_FYD"
+    size = large
+    icon = "GFX_ship_part_dark_matter_power_core"
+    icon_frame = 1
+    power = 9150
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 350
+            sr_dark_matter = 2
+        }
+        upkeep = {
+            energy = 0.74
+            alloys = 0.074
+        }
+    }
+
+    prerequisites = { "tech_dark_matter_power_core" }
+    component_set = "power_core"
+    class_restriction = { shipclass_military_station shipclass_starbase }
+    size_restriction = {
+        fypt_ship
+        fypt_ship_two
+        fypt_ship_three
+        fypt_produce_ship_1
+        fypt_produce_ship_2
+        fypt_produce_ship_3
+        fypt_produce_ship_4
+        fypt_produce_ship_5
+    }
+
+    ai_weight = {
+        weight = 6
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = sr_dark_matter }
+        }
+        modifier = {
+            factor = 0.0
+            is_ai = yes
+        }
+    }
+}

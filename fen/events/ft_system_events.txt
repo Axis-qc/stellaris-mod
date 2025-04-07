@@ -1,0 +1,78 @@
+namespace = ft_system# 命名空间
+# 生成焚天神兵残骸星系
+country_event = {
+	id = ft_system.100	# 事件ID
+	title = loturanta_library.5.name	# 事件标题
+	desc = loturanta_library.5.desc	# 事件描述
+	picture = GFX_evt_wormhole	# 事件图片
+	location = ROOT	# 事件发生的位置
+	is_triggered_only = yes	# 事件是否仅通过触发器触发
+	trigger = {
+		# 触发器
+		any_owned_ship = {
+			# 任何拥有的飞船
+			is_science_ship = yes			# 是科学飞船
+			in_system = {
+				# 在系统中
+				has_star_flag = ft_hole_system				# 有ft_hole_system标志
+			}
+		}
+	}
+	immediate = {
+		# 立即执行的操作
+		set_country_flag = ft_hole_system		# 设置国家标志
+	}
+	option = {
+		# 选项1
+		name = ft_system.1		# 选项名称
+		custom_tooltip = ft_system.1_tooltip		# 自定义工具提示
+		hidden_effect = {
+			# 隐藏效果
+			capital_scope = {
+				# 首都范围
+				spawn_system = {
+					# 生成系统
+					min_distance = 10					# 最小距离
+					max_distance = 30					# 最大距离
+					max_jumps = 0					# 最大跳跃次数
+					hyperlane = yes					# 超光速通道
+					is_discovered = no					# 是否被发现
+					initializer = "ft_system"					# 初始化器
+				}
+			}
+		}
+	}
+	option = {
+		# 选项2
+		name = ft_system.2.b		# 选项名称
+		custom_tooltip = ft_system.2.b_tooltip		# 自定义工具提示
+		hidden_effect = {
+			# 隐藏效果
+			hidden_effect = {
+				# 隐藏效果
+				every_system = {
+					# 每个系统
+					limit = {
+						# 限制
+						has_star_flag = ft_hole_system						# 有ft_hole_system标志
+						any_owned_ship = {
+							# 任何拥有的飞船
+							is_science_ship = yes							# 是科学飞船
+						}
+					}
+					save_event_target_as = ft_hole_system					# 保存事件目标
+					spawn_system = {
+						# 生成系统
+						min_distance = 1						# 最小距离
+						max_distance = 2						# 最大距离
+						max_jumps = 0						# 最大跳跃次数
+						hyperlane = yes						# 超光速通道
+						is_discovered = no						# 是否被发现
+						initializer = "ft_system"						# 初始化器
+						save_event_target_as = new_ft_system						# 保存新的事件目标
+					}
+				}
+			}
+		}
+	}
+}

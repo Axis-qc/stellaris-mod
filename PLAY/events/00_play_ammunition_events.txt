@@ -1,0 +1,1275 @@
+namespace = ammunition
+#主界面
+country_event = {
+    id = ammunition.100
+    title = ammunition.100.title
+    custom_gui = "play_axis_window"
+
+    #desc = {
+    #    text = "play_111_1"
+    #    trigger = {
+    #        from = { is_country_type = play_axis }
+    #    }
+    #}
+    desc = {
+        text = "ammunition.100_desc"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = mercenary_enclave_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+        random_country = {
+            # 随机选择一个国家
+            #limit = { is_country_type = play_axis }  # 限制为 play_axis 类型的国家
+            #save_event_target_as = play_axis_country  # 保存事件目标
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = { country_event = { id = play.101 } }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_100_1
+        hidden_effect = { country_event = { id = ammunition.101 } }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_100_2
+        hidden_effect = {
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_100_3
+        hidden_effect = { country_event = { id = ammunition.103 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+        allow = {
+            this = {
+                is_scope_type = fleet
+            }
+        }
+        hidden_effect = {
+            this = {
+            }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+    }
+}
+#军火销售处
+country_event = {
+    id = ammunition.101
+    title = ammunition.101.title
+    custom_gui = "play_axis_window"
+
+    #desc = {
+    #    text = "play_111_1"
+    #    trigger = {
+    #        from = { is_country_type = play_axis }
+    #    }
+    #}
+    desc = {
+        text = "play_home_2"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = mercenary_enclave_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = { country_event = { id = ammunition.100 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_101_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = sr_dark_matter
+                value >= 10000
+            }
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = {
+            sr_dark_matter = -10000
+            energy = -10000
+        }
+        hidden_effect = {
+            this.solar_system = {
+                create_fleet = {
+                    # 创建一个新的舰队
+                    settings = {
+                        # 设置舰队的属性
+                        spawn_debris = no           #生成残骸（应该是可以研究那个
+                        can_change_composition = yes #修改舰队
+                        uses_naval_capacity = yes   #是否使用海军容量
+                    }
+                    effect = {
+                        # 创建舰队后的效果
+                        set_owner = root  # 设置舰队的所有者
+                        create_ship = {
+                            # 在舰队中创建一艘飞船
+                            name = NAME_Play_Star_Eater  # 飞船的名称
+                            design = "NAME_Play_Star_Eater"  # 飞船的设计
+                        }
+                        set_location = {
+                            # 设置飞船的位置
+                            target = event_target:play_axis_starbase  # 位置目标是前一个对象
+                            distance = 20  # 距离20格
+                            angle = 0  # 角度为0度
+                        }
+                        set_fleet_stance = passive  # 设置舰队姿态为被动
+                        set_aggro_range_measure_from = self  # 设置舰队的攻击范围测量起点为自身
+                        set_aggro_range = 350  # 设置舰队的攻击范围为350格
+                    }
+                }
+            }
+            country_event = { id = ammunition.101 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_101_2
+        is_dialog_only = yes
+        response_text = play_101_2_text
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                root = {
+                    not = {
+                        has_technology = axis_ship
+                    }
+                }
+                fail_text = play_101_2.1
+            }
+        }
+        add_resource = { energy = -10000 }
+        root = {
+            give_technology = {
+                tech = axis_ship
+                message = yes
+            }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_101_3
+        is_dialog_only = yes
+        response_text = play_101_3_text
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+            custom_tooltip = {
+                root = {
+                    not = {
+                        has_technology = ftsb_ship
+                    }
+                }
+                fail_text = play_101_2.1
+            }
+        }
+        add_resource = { energy = -1000 }
+        root = {
+            give_technology = {
+                tech = ftsb_ship
+                message = yes
+            }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+        hidden_effect = {
+            event_target:play_axis_starbase = {
+                starbase = {
+                    set_owner = root
+                }
+            }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_three
+        allow = {
+            custom_tooltip = {
+                root = {
+                    NOT = {
+                        any_owned_fleet = {
+                            is_ship_size = play_axis_world
+                        }
+                    }
+                }
+                fail_text = play_axis_world_yes
+            }
+        }
+        hidden_effect = {
+            this.solar_system = {
+                create_fleet = {
+                    # 创建一个新的舰队
+                    name = NAME_Play_axis_world
+                    settings = {
+                        # 设置舰队的属性
+                        can_change_leader = yes     #可以换领袖
+                        spawn_debris = no           #生成残骸（应该是可以研究那个
+                        can_change_composition = no #修改舰队
+                        can_upgrade = yes           #是否可以升级
+                        uses_naval_capacity = no    #是否使用海军容量
+                    }
+                    effect = {
+                        # 创建舰队后的效果
+                        set_owner = root  # 设置舰队的所有者
+                        create_ship = {
+                            # 在舰队中创建一艘飞船
+                            name = NAME_Play_axis_world  # 飞船的名称
+                            design = "NAME_Play_axis_world"  # 飞船的设计
+                        }
+                        set_location = {
+                            # 设置飞船的位置
+                            target = event_target:play_axis_starbase.starbase  # 位置目标是前一个对象
+                            distance = 20  # 距离20格
+                            angle = 0  # 角度为0度
+                        }
+                        set_fleet_stance = passive  # 设置舰队姿态为被动
+                        set_fleet_flag = play_axis_world
+                        set_aggro_range_measure_from = self  # 设置舰队的攻击范围测量起点为自身
+                        set_aggro_range = 350  # 设置舰队的攻击范围为350格
+                        save_global_event_target_as = PLAY_AXIS_WORLD
+                    }
+                }
+            }
+            country_event = { id = ammunition.101 }
+        }
+    }
+}
+#舰队回收部
+country_event = {
+    id = ammunition.102
+    title = ammunition.102.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "ammunition.102_desc"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = mercenary_enclave_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+        country_event = { id = axis.1 }
+        country_event = { id = axis.2 }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = ammunition.100 }
+            every_owned_fleet = {
+                remove_fleet_flag = go_ship_1@root
+                remove_fleet_flag = go_ship_2@root
+                remove_fleet_flag = go_ship_3@root
+                remove_fleet_flag = go_ship_4@root
+                remove_fleet_flag = go_ship_5@root
+                remove_fleet_flag = go_ship_6@root
+            }
+            #clear_global_event_target = go_ship_1
+            #clear_global_event_target = go_ship_2
+            #clear_global_event_target = go_ship_3
+            #clear_global_event_target = go_ship_4
+            #clear_global_event_target = go_ship_5
+            #clear_global_event_target = go_ship_6
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_1
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_1@root
+                }
+                event_target:go_ship_1@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_1  # 乘以战斗力
+            }
+            custom_tooltip = money_1
+            event_target:go_ship_1@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_1@root
+                }
+            }
+            set_country_flag = no_go_ship_1
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            event_target:go_ship_1@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        name = play_102_1_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_1
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_1_1
+            custom_tooltip = go_ship_country_1
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_1  # 乘以战斗力
+            }
+            event_target:go_ship_1@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_1
+            clear_global_event_target = money_ship_1@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_1@root
+            }
+        }
+        name = play_ship_die_1
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_1
+            remove_country_flag = no_go_ship_1
+            clear_global_event_target = money_ship_1@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_2
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_2@root
+                }
+                event_target:go_ship_2@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_2  # 乘以战斗力
+            }
+            custom_tooltip = money_2
+            event_target:go_ship_2@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_2@root
+                }
+            }
+            set_country_flag = no_go_ship_2
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_2_1
+        trigger = {
+            event_target:go_ship_2@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_2
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_2_1
+            custom_tooltip = go_ship_country_2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_2  # 乘以战斗力
+            }
+            event_target:go_ship_2@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_2
+            clear_global_event_target = money_ship_2@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_2@root
+            }
+        }
+        name = play_ship_die_2
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_2
+            remove_country_flag = no_go_ship_2
+            clear_global_event_target = money_ship_2@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_3
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_3@root
+                }
+                event_target:go_ship_3@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_3  # 乘以战斗力
+            }
+            custom_tooltip = money_3
+            event_target:go_ship_3@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_3@root
+                }
+            }
+            set_country_flag = no_go_ship_3
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_3_1
+        trigger = {
+            event_target:go_ship_3@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_3
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_3_1
+            custom_tooltip = go_ship_country_3
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_3  # 乘以战斗力
+            }
+            event_target:go_ship_3@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_3
+            clear_global_event_target = money_ship_3@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_3@root
+            }
+        }
+        name = play_ship_die_3
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_3
+            remove_country_flag = no_go_ship_3
+            clear_global_event_target = money_ship_3@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_4
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_4@root
+                }
+                event_target:go_ship_4@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_4  # 乘以战斗力
+            }
+            custom_tooltip = money_4
+            event_target:go_ship_4@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_4@root
+                }
+            }
+            set_country_flag = no_go_ship_4
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_4_1
+        trigger = {
+            event_target:go_ship_4@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_4
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_4_1
+            custom_tooltip = go_ship_country_4
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_4  # 乘以战斗力
+            }
+            event_target:go_ship_4@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_4
+            clear_global_event_target = money_ship_4@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_4@root
+            }
+        }
+        name = play_ship_die_4
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_4
+            remove_country_flag = no_go_ship_4
+            clear_global_event_target = money_ship_4@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_5
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_5@root
+                }
+                event_target:go_ship_5@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_5  # 乘以战斗力
+            }
+            custom_tooltip = money_5
+            event_target:go_ship_5@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_5@root
+                }
+            }
+            set_country_flag = no_go_ship_5
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_5_1
+        trigger = {
+            event_target:go_ship_5@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_5
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_5_1
+            custom_tooltip = go_ship_country_5
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_5  # 乘以战斗力
+            }
+            event_target:go_ship_5@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_5
+            clear_global_event_target = money_ship_5@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_5@root
+            }
+        }
+        name = play_ship_die_5
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_5
+            remove_country_flag = no_go_ship_5
+            clear_global_event_target = money_ship_5@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_6
+        trigger = {
+            AND = {
+                any_owned_fleet = {
+                    has_fleet_flag = go_ship_6@root
+                }
+                event_target:go_ship_6@root = {
+                    is_owned_by = root
+                }
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:go_ship_money_6  # 乘以战斗力
+            }
+            custom_tooltip = money_6
+            event_target:go_ship_6@root = {
+                fleet = {
+                    set_owner = event_target:play_axis_country
+                    save_global_event_target_as = money_ship_6@root
+                }
+            }
+            set_country_flag = no_go_ship_6
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_102_6_1
+        trigger = {
+            event_target:go_ship_6@root = {
+                is_owned_by = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:go_ship_money_6
+            }
+        }
+        hidden_effect = {
+            custom_tooltip = money_6_1
+            custom_tooltip = go_ship_country_6
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:go_ship_money_6  # 乘以战斗力
+            }
+            event_target:go_ship_6@root = {
+                fleet = {
+                    set_owner = root
+                }
+            }
+            remove_country_flag = no_go_ship_6
+            clear_global_event_target = money_ship_6@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        trigger = {
+            not = {
+                exists = event_target:go_ship_2@root
+            }
+        }
+        name = play_ship_die_6
+        allow = {
+        }
+        hidden_effect = {
+            custom_tooltip = go_ship_die_6
+            remove_country_flag = no_go_ship_6
+            clear_global_event_target = money_ship_6@root
+            country_event = { id = ammunition.102 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = shuaxin
+        trigger = {
+        }
+        hidden_effect = {
+            every_owned_fleet = {
+                remove_fleet_flag = go_ship_1@root
+                remove_fleet_flag = go_ship_2@root
+                remove_fleet_flag = go_ship_3@root
+                remove_fleet_flag = go_ship_4@root
+                remove_fleet_flag = go_ship_5@root
+                remove_fleet_flag = go_ship_6@root
+            }
+            country_event = { id = ammunition.102 }
+        }
+    }
+}
+#舰队租赁部
+country_event = {
+    id = ammunition.103
+    title = ammunition.103.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "ammunition.103_desc"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = mercenary_enclave_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+        event_target:play_axis_country = {
+            #1
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_1
+                save_event_target_as = come_ship_1
+            }
+            #2
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_2
+                save_event_target_as = come_ship_2
+            }
+            #3
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_3
+                save_event_target_as = come_ship_3
+            }
+            #4
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_4
+                save_event_target_as = come_ship_4
+            }
+            #5
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_5
+                save_event_target_as = come_ship_5
+            }
+            #6
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_come_ship = no
+                }
+                set_fleet_flag = come_ship_6
+                save_event_target_as = come_ship_6
+            }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = ammunition.100 }
+            event_target:play_axis_country = {
+                every_owned_fleet = {
+                    remove_fleet_flag = come_ship_1
+                    remove_fleet_flag = come_ship_2
+                    remove_fleet_flag = come_ship_3
+                    remove_fleet_flag = come_ship_4
+                    remove_fleet_flag = come_ship_5
+                    remove_fleet_flag = come_ship_6
+                }
+            }
+            #clear_global_event_target = come_ship_1
+            #clear_global_event_target = come_ship_2
+            #clear_global_event_target = come_ship_3
+            #clear_global_event_target = come_ship_4
+            #clear_global_event_target = come_ship_5
+            #clear_global_event_target = come_ship_6
+        }
+        ai_chance = {
+            base = 10
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_1
+        trigger = {
+            event_target:come_ship_1 = {
+                is_leased = no
+                #controller = {
+                #    is_same_value = root
+                #}
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_1
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_1  # 乘以战斗力
+            }
+            custom_tooltip = come_money_1
+            event_target:come_ship_1 = {
+                remove_fleet_flag = come_ship_1
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+        ai_chance = {
+            base = 999
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_2
+        trigger = {
+            event_target:come_ship_2 = {
+                is_leased = no
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_2
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_2  # 乘以战斗力
+            }
+            custom_tooltip = come_money_2
+            event_target:come_ship_2 = {
+                remove_fleet_flag = come_ship_2
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_3
+        trigger = {
+            event_target:come_ship_3 = {
+                is_leased = no
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_3
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_3  # 乘以战斗力
+            }
+            custom_tooltip = come_money_3
+            event_target:come_ship_3 = {
+                remove_fleet_flag = come_ship_1
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_4
+        trigger = {
+            event_target:come_ship_4 = {
+                is_leased = no
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_4
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_4  # 乘以战斗力
+            }
+            custom_tooltip = come_money_4
+            event_target:come_ship_4 = {
+                remove_fleet_flag = come_ship_1
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_5
+        trigger = {
+            event_target:come_ship_5 = {
+                is_leased = no
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_5
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_5  # 乘以战斗力
+            }
+            custom_tooltip = come_money_5
+            event_target:come_ship_5 = {
+                remove_fleet_flag = come_ship_1
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_103_6
+        trigger = {
+            event_target:come_ship_6 = {
+                is_leased = no
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= value:come_ship_money_6
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                add_trust = {
+                    who = root
+                    amount = 2
+                }
+            }
+            custom_tooltip = opinion2
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:come_ship_money_6  # 乘以战斗力
+            }
+            custom_tooltip = come_money_6
+            event_target:come_ship_6 = {
+                remove_fleet_flag = come_ship_1
+                give_fleet = {
+                    controller = root
+                    days = 3600
+                }
+                set_timed_fleet_flag = {
+                    flag = fleet_on_loan@root
+                    days = 3600
+                }
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+}

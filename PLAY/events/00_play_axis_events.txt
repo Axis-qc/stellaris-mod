@@ -1,0 +1,269 @@
+namespace = axis
+#出租舰队
+country_event = {
+    id = axis.1
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+    }
+    immediate = {
+        root = {
+            #1
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_1
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_1@root
+                save_global_event_target_as = go_ship_1@root
+            }
+            #2
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_2
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_2@root
+                save_global_event_target_as = go_ship_2@root
+            }
+            #3
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_3
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_3@root
+                save_global_event_target_as = go_ship_3@root
+            }
+            #4
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_4
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_4@root
+                save_global_event_target_as = go_ship_4@root
+            }
+            #5
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_5
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_5@root
+                save_global_event_target_as = go_ship_5@root
+            }
+            #6
+            random_owned_fleet = {
+                limit = {
+                    or = {
+                        is_ship_class = shipclass_military
+                        is_ship_class = shipclass_military_special
+                    }
+                    no_go_ship = no
+                    not = {
+                        root = {
+                            has_country_flag = no_go_ship_6
+                        }
+                    }
+                }
+                set_fleet_flag = go_ship_6@root
+                save_global_event_target_as = go_ship_6@root
+            }
+        }
+    }
+}
+#获取舰队目前持有者
+country_event = {
+    id = axis.2
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+    }
+    immediate = {
+        #@root之后拿不到名字
+        event_target:go_ship_1@root = {
+            save_global_event_target_as = go_ship_1
+            controller = {
+                #控制者
+                save_global_event_target_as = go_ship_country_1@root
+            }
+        }
+        event_target:go_ship_2@root = {
+            save_global_event_target_as = go_ship_2
+            controller = {
+                save_global_event_target_as = go_ship_country_2@root
+            }
+        }
+        event_target:go_ship_3@root = {
+            save_global_event_target_as = go_ship_3
+            controller = {
+                save_global_event_target_as = go_ship_country_3@root
+            }
+        }
+        event_target:go_ship_4@root = {
+            save_global_event_target_as = go_ship_4
+            controller = {
+                save_global_event_target_as = go_ship_country_4@root
+            }
+        }
+        event_target:go_ship_5@root = {
+            save_global_event_target_as = go_ship_5
+            controller = {
+                save_global_event_target_as = go_ship_country_5@root
+            }
+        }
+        event_target:go_ship_6@root = {
+            save_global_event_target_as = go_ship_6
+            controller = {
+                save_global_event_target_as = go_ship_country_6@root
+            }
+        }
+
+        #保存持有者国家
+        event_target:go_ship_country_1@root = { save_event_target_as = go_ship_country_1 }
+        event_target:go_ship_country_2@root = { save_event_target_as = go_ship_country_2 }
+        event_target:go_ship_country_3@root = { save_event_target_as = go_ship_country_3 }
+        event_target:go_ship_country_4@root = { save_event_target_as = go_ship_country_4 }
+        event_target:go_ship_country_5@root = { save_event_target_as = go_ship_country_5 }
+        event_target:go_ship_country_6@root = { save_event_target_as = go_ship_country_6 }
+    }
+}
+#舰队收益
+country_event = {
+    id = axis.100
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        root = {
+            or = {
+                has_country_flag = no_go_ship_1
+                has_country_flag = no_go_ship_2
+                has_country_flag = no_go_ship_3
+                has_country_flag = no_go_ship_4
+                has_country_flag = no_go_ship_5
+                has_country_flag = no_go_ship_6
+            }
+        }
+    }
+    immediate = {
+        #export_modifier_to_variable = {
+        #    modifier = country_base_energy_produces_add
+        #    variable = my_money_1
+        #}
+        add_modifier = {
+            modifier = play_ship_money
+            mult = value:my_money_1
+            days = -1
+        }
+    }
+}
+#租出去没办法获取原主，没办法触发
+country_event = {
+    id = axis.101  # 事件ID
+    title = axis.11.title  # 事件标题
+    desc = axis.11.desc  # 事件描述
+    picture = GFX_evt_small_space_battle  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        root = {
+
+        }
+        OR = {
+            has_country_flag = no_go_ship_1
+            has_country_flag = no_go_ship_2
+            has_country_flag = no_go_ship_3
+            has_country_flag = no_go_ship_4
+            has_country_flag = no_go_ship_5
+            has_country_flag = no_go_ship_6
+        }
+    }
+    immediate = {
+        event_target:money_ship_1@root = {
+            save_event_target_as = die_ship
+        }
+    }
+    option = {
+        name = axis.11.1  # 选项名称
+    }
+}
+#领袖回溯装置
+country_event = {
+    id = axis.102
+
+    title = leader_die.title
+
+    desc = {
+        text = leader_die.desc
+    }
+
+    picture = GFX_evt_throne_room
+
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = yes_lxbh
+    }
+
+    immediate = {
+        from = { save_event_target_as = leader_die }
+    }
+
+    option = {
+        name = leader_die_1
+
+        custom_tooltip = "leader_die_1.1"
+
+        clone_leader = {
+            target = event_target:leader_die
+        }
+    }
+
+    option = {
+        name = leader_die_2
+
+        custom_tooltip = "leader_die_2.1"
+    }
+}

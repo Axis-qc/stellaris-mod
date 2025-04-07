@@ -1,0 +1,57 @@
+lxsl_values = {
+    base = 0  # 基础值为0
+    complex_trigger_modifier = {
+        trigger = count_owned_planet
+        parameters = {
+            limit = {
+                or = {
+                    #+1容量
+                    has_building = building_major_capital
+                    has_building = building_machine_major_capital
+                    has_building = building_hive_major_capital
+                    has_building = building_hab_major_capital
+                    has_building = building_resort_major_capital
+                    has_building = building_slave_major_capital
+                    has_building = building_major_capital_nanotech
+                    has_building = building_machine_major_capital_nanotech
+                }
+            }
+        }
+        mode = add
+        mult = 1
+    }
+    complex_trigger_modifier = {
+        trigger = count_owned_planet
+        parameters = {
+            limit = {
+                or = {
+                    #+2容量
+                    has_building = building_system_capital
+                    has_building = building_machine_system_capital
+                    has_building = building_hab_system_capital
+                    has_building = building_system_capital_nanotech
+                    has_building = building_machine_system_capital_nanotech
+                }
+            }
+        }
+        potential = {
+        }
+        mode = add
+        mult = 2
+    }
+    complex_trigger_modifier = {
+        trigger = count_owned_planet
+        parameters = {
+            limit = {
+                or = {
+                    #+3容量
+                    has_building = building_imperial_capital
+                    has_building = building_imperial_machine_capital
+                    has_building = building_imperial_hive_capital
+                }
+            }
+        }
+        mode = add
+        mult = 3
+    }
+}

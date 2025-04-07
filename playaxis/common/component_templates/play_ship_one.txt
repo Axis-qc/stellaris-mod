@@ -1,0 +1,183 @@
+@ftsb_power_1 = 3850
+@ftsb_power_2 = 5000
+@ftsb_power_3 = 6500
+@ftsb_power_4 = 8460
+@ftsb_power_5 = 11000
+@ftsb_power_6 = 14300
+
+@ftsb_cost_1 = 560
+@ftsb_cost_2 = 730
+@ftsb_cost_3 = 950
+@ftsb_cost_4 = 1230
+@ftsb_cost_5 = 1600
+@ftsb_cost_6 = 2080
+
+utility_component_template = {
+    key = "AXIS_FISSION_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_1"
+    icon_frame = 1
+    power = @ftsb_power_1
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_1
+        }
+        upkeep = {
+            energy = 5.6
+            alloys = 0.56
+        }
+    }
+
+    prerequisites = { "tech_fission_power" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+    upgrades_to = "AXIS_FUSION_REACTOR"
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_FUSION_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_2"
+    icon_frame = 1
+    power = @ftsb_power_2
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_2
+        }
+        upkeep = {
+            energy = 7.28
+            alloys = 0.728
+        }
+    }
+
+    prerequisites = { "tech_fusion_power" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+    upgrades_to = "AXIS_COLD_FUSION_REACTOR"
+
+    ai_weight = {
+        weight = 2
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COLD_FUSION_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_3"
+    icon_frame = 1
+    power = @ftsb_power_3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_3
+        }
+        upkeep = {
+            energy = 9.46
+            alloys = 0.946
+        }
+    }
+
+    prerequisites = { "tech_antimatter_power" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+    upgrades_to = "AXIS_ANTIMATTER_REACTOR"
+
+    ai_weight = {
+        weight = 3
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_ANTIMATTER_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_4"
+    icon_frame = 1
+    power = @ftsb_power_4
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_4
+        }
+        upkeep = {
+            energy = 12.30
+            alloys = 1.230
+        }
+    }
+
+    prerequisites = { "tech_antimatter_power" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+    upgrades_to = "AXIS_ZERO_POINT_REACTOR"
+
+    ai_weight = {
+        weight = 4
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_ZERO_POINT_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = @ftsb_power_5
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_5
+        }
+        upkeep = {
+            energy = 15.99
+            alloys = 1.599
+        }
+    }
+
+    prerequisites = { "tech_zero_point_power" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+    upgrades_to = "AXIS_DARK_MATTER_REACTOR"
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_DARK_MATTER_REACTOR"
+    size = small
+    icon = "GFX_ship_part_dark_matter_power_core"
+    icon_frame = 1
+    power = @ftsb_power_6
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @ftsb_cost_6
+            sr_dark_matter = 32
+        }
+        upkeep = {
+            energy = 20.79
+            alloys = 2.079
+        }
+    }
+
+    prerequisites = { "tech_dark_matter_power_core" }
+    component_set = "power_core"
+    size_restriction = { play_star_eater play_axis_world }
+
+    ai_weight = {
+        weight = 6
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = sr_dark_matter }
+        }
+        modifier = {
+            factor = 0.0
+            is_ai = yes
+        }
+    }
+}

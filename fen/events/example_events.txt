@@ -1,0 +1,201 @@
+namespace = example_events
+# 如下事件皆为坟所驱动
+# fleet_event = { #例子
+# 	#from = archaeological_site
+# 	id = example_events.0
+# 	is_triggered_only = yes
+# 	archaeology = yes #声明为挖坟事件
+
+# 	title = example_events.0.name #标题
+# 	desc = example_events.0.desc #描述
+# 	picture = "" #图
+
+# 	immediate = {
+# 		from = {
+# 			#一般情况下，如果坟过了一个阶段，不会强制通知玩家，会继续挖坟，如果我们期望能够在得到玩家确认之后再继续挖坟（大多数坟都是如此），我们需要进行这一操作，将坟锁死
+# 			set_site_progress_locked = yes
+# 		}
+# 	}
+
+# 	option = { #选项，一般来说只有一个，但如果你期望能够有分支选项，那么这个可以写多个，不过太多可能会超出ui
+# 		name = example_events.0
+#		small_artifact_reward = yes #调用蠢驴的封装，送点文物
+# 	}
+
+# 	after = {
+# 		#配合上方immediate的内容，在选择选项之后解锁坟，使其能够继续进行挖坟
+# 		from = {
+# 			set_site_progress_locked = no
+# 		}
+# 	}
+# }
+#如何测试自己的坟：
+country_event = { #随便整个country_event，拿控制台启动
+	id = example_events.100
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		planet = { #scope转到planet
+			flags = { ft_system_fen }
+			create_archaeological_site = FT_STAR #创建考古遗址 
+		}
+	}
+}
+#如下为模板（五个阶段）
+fleet_event = {
+	id = example_events.0
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = first_title #标题
+	desc = first_desc 	#描述
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.0
+		small_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+fleet_event = {
+	id = example_events.1
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = second_title
+	desc = second_desc
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.1
+		small_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+fleet_event = {
+	id = example_events.2
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = third_title
+	desc = third_desc
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.2
+		small_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+fleet_event = {
+	id = example_events.3
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = fourth_title
+	desc = fourth_desc
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.3
+		small_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+fleet_event = {
+	id = example_events.4
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = fifth_title
+	desc = fifth_desc
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.4
+		large_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+fleet_event = {
+	id = example_events.5
+	is_triggered_only = yes
+	archaeology = yes 
+
+	title = sixth_title
+	desc = sixth_desc
+	picture = ""
+
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+
+	option = {
+		name = example_events.5
+		large_artifact_reward = yes
+	}
+
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}

@@ -1,0 +1,40 @@
+﻿l_english:
+
+ # AdminRebuildTips:0 "保持你的帝国规模处于行政能力之下，超出行政上限的规模将受到额外的惩罚。\n当前帝国规模：§R[event_target:Player_country.ShowSize]§!\n当前行政能力：§Y[event_target:Player_country.ShowAdmin]§!"
+ # EMPIRE_SIZE: "帝国规模"
+ #  EMPIRE_SIZE_VAL: "帝国规模：§Y$VALUE$§!"
+ #  EMPIRE_SIZE_DESC: "§E§H$EMPIRE_SIZE$§!是对帝国所控制的领土的量化衡量，其依据包括控制的§H恒星系§!、§H殖民地§!、§H区划§!及§H总人口§!的多少。§H$EMPIRE_SIZE$§!过大会对帝国的行政管理能力形成压力，提高§H科技§!、§H传统§!、§H法令§!以及§H运动§!的花费，并且更可能受到谍报活动渗透。§!"
+ #  EMPIRE_SIZE_TOTAL: "总$EMPIRE_SIZE$：$VALUE|0Y$"
+ #  EMPIRE_SIZE_FROM_DISTRICTS: "$NUM|Y$ $DISTRICT_DISTRICTS$产生：$VALUE$"
+ #  EMPIRE_SIZE_FROM_SYSTEMS: "$NUM|Y$ $SYSTEM_SYSTEMS$产生：$VALUE$"
+ #  EMPIRE_SIZE_FROM_PLANETS: "$NUM|Y$ $COLONY_COLONIES$产生：$VALUE$"
+ #  EMPIRE_SIZE_FROM_BRANCH_OFFICES: "$NUM|Y$ $OFFICE_OFFICES$产生：$VALUE$"
+ #  EMPIRE_SIZE_FROM_POPS: "$NUM|Y$ $POP_POPS$产生：$VALUE$"
+ #  EMPIRE_SIZE_FROM_FLOOR: "由低于最小值$VALUEFLOOR|0Y$产生：$VALUE$"
+ #  EMPIRE_SIZE_EFFECTS: "由于当前§Y$EMPIRE_SIZE$§!，我们具有下列修正："
+ #  EMPIRE_SIZE_NO_EFFECTS: "当§Y$EMPIRE_SIZE$§!小于等于$VALUEBASE|0Y$时，其他花费不会受到修正。§Y$EMPIRE_SIZE$§!的最小值为$VALUEFLOOR|0Y$。"
+ #  EMPIRE_SIZE_ADDITIONAL_EFFECTS: "§E额外效果：§!"
+ #  EMPIRE_SIZE_EFFECTS_TECH: "科技花费：§Y+$VALUE|%0$§!"
+ #  EMPIRE_SIZE_EFFECTS_TRADITIONS: "采纳传统花费：§Y+$VALUE|%0$§!"
+ #  EMPIRE_SIZE_PENALTY_MULT: "§Y$EMPIRE_SIZE$效果§!受以下修正影响："
+ #  EMPIRE_SIZE_ARMY_PENALTY: "$MODIFIER_DESC$：$VALUE|Y$"
+
+ #EMPIRE_SIZE: "帝国规模"
+ #EMPIRE_SIZE_VAL: "帝国规模：§Y$VALUE$§!"
+ ##  EMPIRE_SIZE_DESC: "§E§H$EMPIRE_SIZE$§!是量化衡量帝国所控制的领土，包括§H恒星系§!、§H殖民地§!、以及§H区划§!在内的总体指标。§H$EMPIRE_SIZE$§!过大会对帝国的行政效率产生负面影响，从而增加§H科技§!、§H传统§!、§H领袖§!、§H法令§!以及§H运动§!的花费。§!"
+ #EMPIRE_SIZE_TOTAL: "总$EMPIRE_SIZE$：$VALUE|2Y$"
+ #ADMIN_CAP_VALUE: "$MOD_COUNTRY_ADMIN_CAP_ADD$：$VALUE|Y$"
+ #EMPIRE_SIZE_EFFECTS: "由于我们的§Y$EMPIRE_SIZE$§!较§Y$MOD_COUNTRY_ADMIN_CAP_ADD$§!高出了$VALUE|1R$，我们受到了§Y$empire_size_over_cap$§!带来的惩罚："
+ #EMPIRE_SIZE_NO_EFFECTS: "当我们的§Y$EMPIRE_SIZE$§!不超出我们的§Y$MOD_COUNTRY_ADMIN_CAP_ADD$§!时，我们不会受到惩罚。"
+ #  EMPIRE_SIZE_EFFECTS_TECH: "科技花费：§Y+$VALUE|%0$§!"
+ #  EMPIRE_SIZE_EFFECTS_TRADITIONS: "采纳传统花费：§Y+$VALUE|%0$§!"
+ #  EMPIRE_SIZE_PENALTY_MULT: "§Y$EMPIRE_SIZE$惩罚§!受以下修正影响："
+ # $country_admin_cap_add$
+ #$COMPARE$$VAL|Y$
+ #/ $MOD_COUNTRY_ADMIN_CAP_ADD$：[from.admin_limit_text]1[from.AdminCapRebuild_limit]
+
+ ##行政管理能力
+ MOD_COUNTRY_ADMIN_CAP_ADD: "Administrative Capacity"
+ AdminCapRebuild:0 "/[from.AdminCapRebuild_limit]"
+ AdminCapRebuild_desc:0 "$MOD_COUNTRY_ADMIN_CAP_ADD$:§Y[from.AdminCapRebuild_limit]§!"
+

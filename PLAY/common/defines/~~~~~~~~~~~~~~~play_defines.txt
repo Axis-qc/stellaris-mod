@@ -1,0 +1,144 @@
+NCamera = {
+    #SYSTEM_MIN_PITCH = -80.0 # 系统最小俯仰角度
+    #SYSTEM_MAX_PITCH = 80.0 # 系统最大俯仰角度
+    #GALAXY_MIN_PITCH = 30.0 # 星系最小俯仰角度
+    #GALAXY_MAX_PITCH = 85.0 # 星系最大俯仰角度
+    #    SYSTEM_SPACE_SCALE_MULT = 40.0 #四倍缩放
+}
+
+NGraphics = {
+    MAX_GFX_PROJECTILES = 2000  # 最大图形投射物数量
+    MAX_GFX_PRIO_PROJECTILES = 2000  # 最大优先级图形投射物数量
+    MAX_GFX_MISSILES = 1000  # 最大导弹图形效果数量
+    MUZZLE_FLASH_LIMIT = 1000  # 最大枪口火焰效果数量
+    MUZZLE_FLASH_DURATION = 2.0  # 每次枪口火焰效果持续时间（秒）
+
+    TRAILS_ALPHA_FADE = 2 # 尾迹透明 0.5
+
+    #CELESTIAL_WARNING_COORDINATE_VALUE = 2000            # System size at which you get errors for the system being too big (500 is the normal values, as graphics can glitch with bigger values)
+    # Newer comment: upping limit because certain systems go higher and we haven't had issues reported...
+
+}
+
+NGraphics = {
+    SHIP_RANDOM_HEIGHT_OFFSET = 120    #船舶随机高度偏移
+    STRIKE_CRAFT_HEIGHT_OFFSET = 50    #舰载机高度偏移
+    STRIKE_CRAFT_HEIGHT_RANDOM = 50    #舰载机高度随机
+}
+
+NGameplay = {
+    LEADER_BASE_SKILL_CAP = 30    #领导基础等级
+    LEADER_MAX_SKILL_CAP = 100    #领导最大等级上限
+    #
+    LEADER_EXPERIENCE_REQUIREMENT_BASE_VALUE = 1000 # 计算下一个技能水平所需经验时的基本值 Base value when calculating required experience for next skill level
+    LEADER_EXPERIENCE_REQUIREMENT_SCALE_VALUE = 10 # 计算下一个技能水平所需经验时的比例因子 Scale factor when calculating required experience for next skill level
+    #
+    LEADER_SUBCLASS_CHOICE_LEVEL = 4    # 在什么级别你可以选择你的领导老练特质
+    LEADER_DESTINY_CHOICE_LEVEL = 10    # 在什么级别上你可以选择你的领导者命运特质
+    #
+    ##DEFAULT_TRAIT_OPTIONS_ON_LEVEL_UP = 2    # 默认情况下，升级时可选择的非升级特性选项数量
+    NUM_DESTINY_TRAIT_OPTIONS = 5    # 可选择的命运特性数量
+    ##NON_PARAGON_TRAIT_OPTIONS_ON_LEVEL_UP = 4    # 在没有Galactic Paragons的情况下，升级时可选择的非升级特性选项数量
+    #
+    #
+    MAX_BASIC_TRAITS = 4        #普通特质上限
+    MAX_VETERAN_TRAITS = 5        #老手特质上限
+    #
+    #
+    #LEADER_RULER_EXPERIENCE = 50.0  # 统治者的经验值
+    #LEADER_HEIR_EXPERIENCE = 10.0  # 继承人的经验值
+    #
+    ## 海军上将的经验获取方式
+    #LEADER_ADMIRAL_FLEET_COMBAT_BASE_EXPERIENCE = 5  # 海军上将从舰队战斗中获得的基础经验
+    #LEADER_ADMIRAL_FLEET_COMBAT_EXPERIENCE_SCALE = 5  # 计算海军上将经验增益的比例因子
+    #LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_KILLED_CONVERSION = 0.5  # 战斗后计算海军上将经验增益时，被击沉船只总数的比例因子
+    #LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_DISENGAGED_CONVERSION = 0.25  # 战斗后计算海军上将经验增益时，撤退船只总数的比例因子
+    #LEADER_ADMIRAL_FLEET_PIRACY_SUPPRESSION_DAILY = 0.5  # 海军上将每日从打击海盗活动中获得的基础经验
+    #
+    ## 将军的经验获取方式
+    #LEADER_GENERAL_GROUND_COMBAT_BASE_EXPERIENCE = 50  # 将军从地面战斗中获得的基础经验
+    #LEADER_GENERAL_GROUND_COMBAT_EXPERIENCE_SCALE = 5  # 计算将军经验增益的比例因子
+    #LEADER_GENERAL_GROUND_COMBAT_ARMIES_KILLED_CONVERSION = 2.5  # 战斗后计算将军经验增益时，被击败军队总数的比例因子
+    #
+    ## 科学家的经验获取方式
+    #LEADER_SCIENTIST_LEADING_RESEARCH_FIELD_EXPERIENCE = 10  # 科学家领导研究领域的经验值
+    #LEADER_SCIENTIST_SURVEY_EXPERIENCE = 10  # 科学家从调查星球中获得的经验
+    #LEADER_SCIENTIST_SUCCESSFUL_ANOMALY_RESEARCH_EXPERIENCE = 50  # 科学家从成功的异常研究中获得的经验
+    #LEADER_SCIENTIST_COMPLETED_SPECIAL_PROJECT_EXPERIENCE = 50  # 科学家从完成特殊项目中获得的经验
+    #LEADER_SCIENTIST_COMPLETED_ARCHAEOLOGICAL_SITE_STAGE_EXPERIENCE = 75  # 科学家从成功的考古遗址研究中获得的经验
+    #LEADER_SCIENTIST_ASSIST_RESEARCH = 1.00  # 科学家每天从协助研究中获得的经验
+    #LEADER_SCIENTIST_ASSIST_RESEARCH_MULT = 2.00  # 协助研究的修饰符-乘数每技能等级（这个值乘以技能等级等于修饰符）
+    #LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_EXPERIENCE = 10.00  # 科学家每天从协助隐形侦测中获得的经验
+    #LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_MULT = 50.00  # 协助隐形侦测的修饰符-乘数每技能等级（这个值乘以技能等级等于修饰符）
+    #LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_EXPERIENCE = 10.00  # 科学家每天从主动侦查中获得的经验
+    #LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_LEADER_LEVEL_MULT = 10.00  # 主动侦查的修饰符-乘数每技能等级（这个值乘以技能等级等于修饰符）
+    #LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_COLONY_LEVEL_MULT = 10.00  # 主动侦查的修饰符-乘数每首都建筑等级（这个值乘以首都建筑等级等于修饰符）
+    #
+    #LEADER_ASSIGNED_MONTHLY_EXPERIENCE = 50  # 领导者每月从非空闲状态（即，被分配到星球/部门/舰队/联邦/银河联盟）中获得的经验
+    #LEADER_COUNCILOR_MONTHLY_EXPERIENCE = 20  # 领导者每月从参加理事会中获得的经验 普政内阁
+
+    #NON_PARAGON_LEADER_TRAIT_SELECTION_LEVELS = { 1 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 }  # 非典范领袖特质选择级别
+
+    #TRUCE_YEARS = 10    # 休战10年
+
+    #CUSTOM_EMPIRE_SPAWN_CHANCE = 50    #一个帝国将从现有模板创建而不是随机生成的机会 (10 = 1% chance)
+    #FALLEN_CUSTOM_EMPIRE_SPAWN_CHANCE = 50    #一个堕落的帝国将从现有模板创建而不是随机生成的机会 (10 = 1% chance)
+
+    BASE_PLANET_BUILDING_SLOTS = 1 #最少
+    MAX_PLANET_BUILDING_SLOTS = 36 #星球建筑
+
+    #BASE_PLANET_BRANCH_OFFICE_BUILDING_SLOTS = 0 #最少
+    MAX_PLANET_BRANCH_OFFICE_BUILDING_SLOTS = 6 #巨企建筑
+
+    #BASE_PLANET_SUBJECT_HOLDING_BUILDING_SLOTS = 0 #最少
+    #MAX_PLANET_SUBJECT_HOLDING_BUILDING_SLOTS = 4 #宗主建筑
+
+    #EMPIRE_SIZE_BASE = 100    # No modifiers at this empire size or below
+    #EMPIRE_SIZE_FLOOR = 50    # Empire Size is never treated as under this
+    #EMPIRE_SIZE_FROM_DISTRICTS = 0.5    # Per district
+    #EMPIRE_SIZE_FROM_SYSTEMS = 1        # Per system
+    #EMPIRE_SIZE_FROM_COLONIES = 10    # Per planet
+    #EMPIRE_SIZE_FROM_BRANCH_OFFICES = 2        # Per branch office
+    #EMPIRE_SIZE_FROM_POPS = 1        # Per pop
+
+    DIPLOMACY_WEIGHT_BASE = 0.0        # 基础外交权重
+    DIPLOMACY_WEIGHT_STANCE_FACTOR = 1            # Factors weight from Diplo Stance before it is added to diplo weight
+    DIPLOMACY_WEIGHT_SPRAWL_FACTOR = 2           #帝国规模外交权重
+    DIPLOMACY_WEIGHT_NAVAL_FACTOR = 0.025        # 海军外交权重
+    DIPLOMACY_WEIGHT_GESTALT_WEIGHT = 1.0        # Gestalts gets a flat base value
+    DIPLOMACY_WEIGHT_POP_BASE = 1.0        # Base diplomacy weight for each pop
+    DIPLOMACY_WEIGHT_POP_HAPPINESS = 2.0        # as in formula: DIPLOMACY_WEIGHT_POP_BASE + (DIPLOMACY_WEIGHT_POP_HAPPINESS * Happiness)
+    DIPLOMACY_WEIGHT_ECONOMY_FACTOR = 0.15        # Factors Economic Power before it is added to diplo weight
+    DIPLOMACY_WEIGHT_TECHNOLOGY_FACTOR = 0.1        # Factors Technology Level before it is added to diplo weight
+    DIPLOMACY_WEIGHT_NO_LEADER_PENALTY = 0        #没国务卿的效果
+
+    MIN_TRADE_DEAL_LENGTH_YEARS = 10    # 贸易最小年限
+    MAX_TRADE_DEAL_LENGTH_YEARS = 50    # 贸易最大年限
+
+    #AGREEMENT_RESOURCE_SUBSIDIES_MIN = -0.75                #资源补贴最小和最大百分比
+    #AGREEMENT_RESOURCE_SUBSIDIES_MAX = -0.75               #
+    #AGREEMENT_RESOURCE_SUBSIDIES_INCREMENT = 0.05        # 每格增量
+
+    #MEGASTRUCTURE_BUILD_CAP_BASE = 2.0  #巨构基础上限
+    COMMAND_LIMIT_MAX = 2000   #舰队指挥上限
+    NAVAL_CAPACITY_MAX = 90000 #海军容量上限
+    NAVAL_CAPACITY_POP_MULT = 1        # 每个人口提供海军容量
+    NAVAL_CAPACITY_NO_LEADER_PENALTY = 0  # 如果没有领导者，海军容量的惩罚
+
+    ASCENSION_PERKS_SLOTS = 9 # 升华特权插槽的数量 8
+    TRADITION_CATEGORIES_MAX = 8    # 传统类别的最大数量 7
+
+    STARBASE_AUTO_CONTROL_DISTANCE = 20  # 舰队可以接管被禁用的星基的距离
+
+    MAX_VIVARIUM_CAPACITY = 1000 #宠物园上限
+}
+
+NShip = {
+    FLEET_BASE_FORMATION_SCALE = 6    #队形密度 （船之间的间隔，应该是） 6
+    FLEET_BASE_FORMATION_DIV = 10    #队形前后长 10
+    FLEET_FORMATION_CIRCLE_SHIPS_PER_LAYER_MULT = 10    #舰队编队 每层舰船 多 （防御平台最里圈的数量)
+    FLEET_FORMATION_CIRCLE_RADIUS_PER_LAYER_MULT = 1    #舰队编队 每层圆半径 多 (似乎是防御平台的距离）
+}
+NCombat = {
+    COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 10.0    # 舰队应在战斗中至少多少天才能紧急ftl
+}

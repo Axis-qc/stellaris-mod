@@ -1,0 +1,19 @@
+fypt_effect = {
+    #判断算力消耗
+    if = {
+        limit = { check_variable = { which = fypt_value_1 value < 100 } }
+        add_modifier = {
+            modifier = starbase_AI_1
+            mult = fypt_value_2
+            days = 35
+        }
+    }
+
+    if = {
+        limit = { check_variable = { which = fypt_value_1 value = 100 } }
+        remove_modifier = starbase_AI_1
+    }
+}
+fypt_effect_1 = {
+
+}

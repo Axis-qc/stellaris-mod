@@ -1,0 +1,36 @@
+namespace = fypt
+country_event = {
+    id = fypt.1
+    diplomatic = yes
+    is_triggered_only = yes
+    title = "fypt_ui_title"
+    desc = "fypt_ui_desc"
+    custom_gui = "fypt_view"
+    #custom_gui_option = "Generic_events_ui_1_option"
+    option = {
+        name = OK
+    }
+}
+#判断算力消耗
+country_event = {
+    id = fypt.2
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        #fypt_starbase_tiggers = yes
+        is_ai = no
+    }
+    immediate = {
+        set_variable = { which = fypt_value_1 value = value:fypt_starbase_sl_1 }
+        set_variable = { which = fypt_value_2 value = value:fypt_starbase_sl_2 }
+        fypt_effect = yes
+        export_modifier_to_variable = {
+            modifier = starbases_upkeep_mult
+            variable = starbase_end_1
+        }
+        export_modifier_to_variable = {
+            modifier = starbase_constructions_produces_mult
+            variable = starbase_end_2
+        }
+    }
+}

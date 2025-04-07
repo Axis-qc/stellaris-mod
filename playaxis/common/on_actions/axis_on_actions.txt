@@ -1,0 +1,64 @@
+#舰队被探测到时
+#用于飞地和国家建立联络
+# This = Country
+# From = Fleet
+on_fleet_detected = {
+    events = {
+        play.10
+    }
+}
+#每月
+on_monthly_pulse_country = {
+    events = {
+        play.00
+        axis.100
+    }
+}
+#用于在联络菜单中，点击country_type中 custom_diplomacy = yes 的国家图标后触发事件
+#用于打开飞地对应的菜单
+# This = target country (player)	#点击图标的国家（玩家国家）
+# From = source country				#图标对应的国家（飞地）
+on_custom_diplomacy = {
+    events = {
+        play.101
+    }
+}
+#在飞地被摧毁时触发事件
+# This = owner of fleet 1 (combatant)	#攻击舰队的所有者
+# From = owner of fleet 2 (destroyed)	#遇害舰队的所有者
+# FromFrom = fleet 1	#攻击舰队
+# FromFromFrom = fleet 2	#遇害舰队
+on_fleet_destroyed_perp = {
+    events = {
+
+    }
+}
+on_ship_destroyed_victim = {
+    #爆船事件
+    events = {
+        ftsb.1
+    }
+}
+
+
+#on_yearly_pulse_country = {
+#    random_events = {
+#        50 = 0
+#        50 = play.10
+#    }
+#}
+on_destroy_planet_with_PLAY_KILLER_STAR_CRACKER = {
+    #爆星事件
+    events = {
+        crisis.4550
+        awareness.150 # Planet cracker used OR planet terraformed, chance to gain 20 awareness.
+    }
+}
+on_destroy_planet_with_PLAY_KILLER_STAR_CRACKER_queued = {
+    events = {
+        fircon.5035 #Solarpunk Planet queued
+    }
+}
+on_leader_death = {
+    events = { axis.102 }
+}

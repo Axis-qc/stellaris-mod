@@ -1,0 +1,337 @@
+leader_leves = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+
+    modifier = {
+        leader_skill_levels = 100
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+jieshu_tingzhan = {
+    length = 30
+    icon = "GFX_diplomacy_status_truce"
+    allow = {
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        upkeep = {
+            energy = 10
+        }
+    }
+
+    effect = {
+        custom_tooltip = council_agenda_agenda_second_strike_effect
+        hidden_effect = {
+            every_rival_country = {
+                end_truce = root
+            }
+        }
+        hidden_effect = {
+            every_country = {
+                end_truce = root
+            }
+        }
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+jieshu_tingzhan_every = {
+    length = 30
+    icon = "GFX_diplomacy_status_war"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 500
+        }
+
+        upkeep = {
+            energy = 10
+        }
+    }
+
+    effect = {
+        custom_tooltip = tingzhan_quxiao_every
+        hidden_effect = {
+            every_country = {
+                end_truce = root
+            }
+        }
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+
+play_huifeng = {
+    length = -1
+    icon = "GFX_edict_type_time"
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 10
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    effect = { country_event = { id = graygoo.401 } }
+    modifier = {
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+win_yes = {
+    length = 10
+    icon = "GFX_edict_type_time"
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 10
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    effect = { win = yes }
+    modifier = {
+
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+wx_jvgou = {
+    length = 10
+    icon = "GFX_edict_type_time"
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 10
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    effect = {
+        remove_country_flag = built_dyson_sphere_swarm  #戴森球
+        remove_country_flag = built_spyorb              #哨兵阵列
+        remove_country_flag = built_think_tank          #科学枢纽
+        remove_country_flag = built_matter_decompressor_site    #物质解压器
+        remove_country_flag = built_strategic_coordination_center_site#战略指挥中心
+        remove_country_flag = built_mega_art_installation#巨型艺术设施
+        remove_country_flag = built_interstellar_assembly_site#星际集会
+        remove_country_flag = built_mega_shipyard_site#巨型船坞
+        remove_country_flag = cosmogenesis_world_built#突触机
+    }
+    modifier = {
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+play_cs = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 10
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    modifier = {
+        planet_max_branch_office_buildings_self_add = 1
+        planet_non_artificial_max_districts_add = 1
+        planet_max_districts_add = 10
+        planet_max_branch_office_buildings_add = 5
+        planet_max_overlord_holding_buildings_add = 5
+        country_government_civic_points_add = 1
+        diplo_action_acceptance_add = 1000
+        country_enclave_capacity_add = 5
+        country_naval_cap_add = 90000
+        command_limit_add = 2000
+        country_vivarium_max_capacity_add = 2000
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+play_cs1 = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    allow = {
+        always = yes
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 10
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+    modifier = {
+        fleet_mia_time_mult = -10
+        add_base_country_intel = 40
+        ship_ftl_jumpdrive_range_mult = 10
+        ship_jumpdrive_cooldown_mult = -10
+        starbase_building_build_speed_mult = 10
+        starbase_upgrade_speed_mult = 10
+        starbase_module_build_speed_mult = 10
+        starbase_shipyard_build_speed_mult = 10
+        megastructure_build_speed_add = 10
+    }
+    effect = {
+        every_owned_leader = {
+            if = {
+                # Remove Exp per Trait being removed.
+                limit = {
+                    #is_councilor = yes
+                    num_leader_traits = {
+                        value > 0
+                        negative = yes                        # Tiers don't matter in this check.
+                    }
+                }
+                #hidden_effect = {
+                #    add_experience = value:purge_traits_exp_change_total                    # -300 per trait, not counting tiers.
+                #    # Restore pending traits and tiers, so they'll come back eventually. But a 10% chance to reduce their numbers.
+                #    change_variable = {
+                #        which = leader_pending_negative_traits_unmodified
+                #        value = value:leader_num_negative_leader_trait_tiers
+                #    }
+                #    random = {
+                #        chance = 10
+                #        subtract_variable = {
+                #            which = leader_pending_negative_traits_unmodified
+                #            value = 1
+                #        }
+                #    }
+                #}
+                remove_trait = all_negative
+
+                add_trait = leader_trait_curator
+            }
+        }
+    }
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+play_cs2 = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+
+    modifier = {
+        country_naval_cap_mult = -0.9
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}

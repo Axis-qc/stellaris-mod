@@ -1,0 +1,46 @@
+tech_huanyv = {
+    #寰宇科技
+    cost = 48000
+    area = engineering
+    category = { voidcraft }
+    tier = 5
+    prerequisites = { "tech_juggernaut" }
+    weight = 100
+    is_rare = yes  # 是否是稀有技术
+    is_dangerous = yes  # 是否是危险技术
+    icon = huanyv_juggernaut
+
+    potential = {
+        host_has_dlc = "Federations"
+    }
+
+    weight_modifier = {
+        modifier = {
+            factor = 100
+            any_neighbor_country = {
+                has_technology = "tech_juggernaut"
+            }
+
+        }
+    }
+    #modifier = {
+    #    #shipsize_abandoned_ship_hull_add = 100
+    #    shipsize_HY_huanyv_ship_hull_mult = 0.1  #10%船体
+    #    shipsize_HY_huanyv_ship_armor_mult = 0.1
+    #    shipsize_HY_huanyv_ship_shield_mult = 0.1
+    #
+    #}
+
+    prereqfor_desc = {
+        #提示文本
+        hide_prereq_for_desc = component
+        ship = {
+            title = "huanyv_JUGGERNAUT_CONSTRUCTION_TITLE" #文本标题
+            desc = "huanyv_JUGGERNAUT_CONSTRUCTION_DESC" #内容
+        }
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}

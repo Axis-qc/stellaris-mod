@@ -1,0 +1,130 @@
+nami_ship_add = {
+    event_target:nanotech_country = {
+        random_owned_design = {
+            limit = { is_ship_size = nami_mothership }
+            save_event_target_as = nami_mothership_design
+        }
+        create_message = {
+            type = MESSAGE_NANOTECH_BOON
+            localization = MESSAGE_NANOTECH_BOON_DESC
+            days = 30
+            target = prev
+        }
+    }
+    random_list = {
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_4 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 2
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_5 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 4
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_6 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 8
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_7 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 16
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_8 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 32
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+        1 = {
+            modifier = {
+                factor = 0
+                NOT = { has_planet_flag = nanites_doubled_9 }
+            }
+            create_fleet = {
+                effect = {
+                    set_owner = event_target:nanotech_country
+                    while = {
+                        count = 64
+                        create_ship = {
+                            name = random
+                            design = event_target:nami_mothership_design
+                        }
+                    }
+                    set_location = owner.capital_scope
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,428 @@
+namespace = clockcat_events
+#时钟猫武装集团
+
+country_event = {
+    id = clockcat_events.1
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        random_controlled_ship = {
+            solar_system = { save_event_target_as = trader_system }
+        }
+        from = {
+            country_event = { id = clockcat_events.2 }
+        }
+    }
+}
+
+country_event = {
+    id = clockcat_events.11
+    title = clockcat_events.11.title
+    desc = clockcat_events.11.desc
+    picture = GFX_evt_space_station
+    show_sound = event_space_cloud
+    is_triggered_only = yes
+    fire_only_once = no
+    trigger = {
+        has_technology = tech_sensors_2
+        NOR = {
+            has_communications = event_target:clockcat_home_country
+            has_country_flag = clockcat_yes
+        }
+    }
+    option = {
+        name = clockcat_events.11.a
+        establish_communications_no_message = event_target:clockcat_home_country
+        set_country_flag = clockcat_yes
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.2
+            }
+        }
+    }
+}
+
+#建立联系
+country_event = {
+    id = clockcat_events.2
+    title = clockcat_events.2.title
+    desc = clockcat_events.2.desc
+    is_triggered_only = yes
+    diplomatic = yes
+    picture_event_data = {
+        portrait = "clockcat_chen01"
+        room = paragon_skrand_room
+    }
+    trigger = {
+        from = {
+            this.solar_system = {
+                has_star_flag = drifter_blockcat_system_enclave
+            }
+        }
+        NOT = {
+            has_communications = event_target:clockcat_home_country
+        }
+    }
+    immediate = {
+        establish_communications_no_message = from
+    }
+
+    option = {
+        name = clockcat_events.2.a
+        default_hide_option = yes
+
+    }
+    option = {
+        name = clockcat_events.2.b
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.3
+            }
+        }
+    }
+}
+
+#通讯菜单
+country_event = {
+    id = clockcat_events.3
+    title = clockcat_events.2.title
+    desc = clockcat_events.3.a.desc
+    desc = clockcat_events.3.b.desc
+    desc = clockcat_events.3.c.desc
+    desc = clockcat_events.3.d.desc
+    desc = clockcat_events.3.e.desc
+
+    is_triggered_only = yes
+    diplomatic = yes
+    picture_event_data = {
+        portrait = "clockcat_chen01"
+        room = paragon_skrand_room
+    }
+    location = event_target:drifter_blockcat_system_enclave
+
+    trigger = {
+        exists = event_target:clockcat_home_country  # 必须存在目标国家
+        event_target:clockcat_home_country = {
+            NOT = { is_hostile = root }  # 目标国家不能对根目标敌对
+        }
+        
+        #OR = {
+        #    # 满足以下任一条件
+        #    AND = {
+        #        # 满足以下所有条件
+        #        is_ai = no
+        #        OR = {
+        #            # 满足以下任一条件
+        #            # 防止外交重复
+        #            from = { is_same_value = root }
+        #        }
+        #        OR = {
+        #            # 满足以下任一条件
+        #            AND = {
+        #                # 满足以下所有条件
+        #                # 从基地或舰队打开新的外交
+        #                from = {
+        #                    OR = {
+        #                        is_country_type = clockcat_country
+        #                    }
+        #                }
+        #            }
+        #            AND = {
+        #                # 满足以下所有条件
+        #                # 从菜单返回
+        #                from = { is_same_value = root }
+        #            }
+        #        }
+        #    }
+        #    AND = {
+        #        # 满足以下所有条件
+        #        is_ai = yes
+        #        is_country_type = default
+        #        from = {
+        #            is_country_type = clockcat_country
+        #        }
+        #    }
+        #}
+    }
+
+    immediate = {
+        random_country = {
+            limit = { is_country_type = clockcat_country }
+            save_event_target_as = clockcat_home_country
+            save_global_event_target_as = clockcat_home_country
+        }
+    }
+
+    option = {
+        name = clockcat_events.3.a
+        custom_tooltip = clockcat_events.3.a.tooltip
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.4
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.3.b
+        custom_tooltip = clockcat_events.3.b.tooltip
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.5
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.3.c
+        custom_tooltip = clockcat_events.3.c.tooltip
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.6
+            }
+        }
+    }
+    option = {
+        name = play_home_exit
+        default_hide_option = yes
+    }
+}
+
+country_event = {
+    id = clockcat_events.4
+    title = clockcat_events.2.title
+    desc = clockcat_events.4.desc
+
+    is_triggered_only = yes
+    diplomatic = yes
+    picture_event_data = {
+        portrait = "clockcat_chen01"
+        room = paragon_skrand_room
+    }
+
+    option = {
+        name = clockcat_events.4.a
+        allow = {
+            resource_stockpile_compare = { resource = energy value >= 500 }
+            hidden_trigger = {
+                NOT = { has_country_flag = attacked_riggans }
+            }
+        }
+        add_resource = { energy = -500 }
+        custom_tooltip = clockcat_events.4.a.tooltip
+        add_modifier = {
+            modifier = enclave_trade_1_rig
+            days = @traderDealDuration
+        }
+        hidden_effect = {
+            event_target:clockcat_home_country = {
+                add_trust = {
+                    who = root
+                    amount = 10
+                }
+            }
+            set_timed_relation_flag = {
+                who = event_target:clockcat_home_country
+                flag = clockcat_trade
+                days = @traderDealDuration
+            }
+            country_event = {
+                id = clockcat_events.41
+            }
+            country_event = {
+                id = clockcat_events.42
+                days = @traderDealDuration
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.4.b
+        allow = {
+            resource_stockpile_compare = { resource = energy value >= 1000 }
+            hidden_trigger = {
+                NOT = { has_country_flag = attacked_riggans }
+            }
+        }
+        add_resource = { energy = -1000 }
+        custom_tooltip = clockcat_events.4.a.tooltip
+        add_modifier = {
+            modifier = enclave_trade_1_rig
+            days = @traderDealDuration
+        }
+        hidden_effect = {
+            event_target:clockcat_home_country = {
+                add_trust = {
+                    who = root
+                    amount = 10
+                }
+            }
+            set_timed_relation_flag = {
+                who = event_target:clockcat_home_country
+                flag = clockcat_trade
+                days = @traderDealDuration
+            }
+            country_event = {
+                id = clockcat_events.41
+            }
+            country_event = {
+                id = clockcat_events.42
+                days = @traderDealDuration
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.4.c
+        allow = {
+            resource_stockpile_compare = { resource = energy value >= 1500 }
+            hidden_trigger = {
+                NOT = { has_country_flag = attacked_riggans }
+            }
+        }
+        add_resource = { energy = -1500 }
+        custom_tooltip = clockcat_events.4.a.tooltip
+        add_modifier = {
+            modifier = enclave_trade_1_rig
+            days = @traderDealDuration
+        }
+        hidden_effect = {
+            event_target:clockcat_home_country = {
+                add_trust = {
+                    who = root
+                    amount = 15
+                }
+            }
+            set_timed_relation_flag = {
+                who = event_target:clockcat_home_country
+                flag = clockcat_trade
+                days = @traderDealDuration
+            }
+            country_event = {
+                id = clockcat_events.41
+            }
+            country_event = {
+                id = clockcat_events.42
+                days = @traderDealDuration
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.4.d
+        allow = {
+            resource_stockpile_compare = { resource = energy value >= 2000 }
+            hidden_trigger = {
+                NOT = { has_country_flag = attacked_riggans }
+            }
+        }
+        add_resource = { energy = -2000 }
+        custom_tooltip = clockcat_events.4.a.tooltip
+        add_modifier = {
+            modifier = enclave_trade_1_rig
+            days = @traderDealDuration
+        }
+        hidden_effect = {
+            event_target:clockcat_home_country = {
+                add_trust = {
+                    who = root
+                    amount = 20
+                }
+            }
+            set_timed_relation_flag = {
+                who = event_target:clockcat_home_country
+                flag = clockcat_trade
+                days = @traderDealDuration
+            }
+            country_event = {
+                id = clockcat_events.41
+            }
+            country_event = {
+                id = clockcat_events.42
+                days = @traderDealDuration
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.4.e
+        allow = {
+            resource_stockpile_compare = { resource = energy value >= 2500 }
+            hidden_trigger = {
+                NOT = { has_country_flag = attacked_riggans }
+            }
+        }
+        add_resource = { energy = -2500 }
+        custom_tooltip = clockcat_events.4.a.tooltip
+        add_modifier = {
+            modifier = enclave_trade_1_rig
+            days = @traderDealDuration
+        }
+        hidden_effect = {
+            event_target:clockcat_home_country = {
+                add_trust = {
+                    who = root
+                    amount = 25
+                }
+            }
+            set_timed_relation_flag = {
+                who = event_target:clockcat_home_country
+                flag = clockcat_trade
+                days = @traderDealDuration
+            }
+            country_event = {
+                id = clockcat_events.41
+            }
+            country_event = {
+                id = clockcat_events.42
+                days = @traderDealDuration
+            }
+        }
+    }
+    option = {
+        name = leviathans.110.d
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.3
+            }
+        }
+    }
+    option = {
+        name = clockcat_events.4.f
+        default_hide_option = yes
+    }
+}
+
+country_event = {
+    id = clockcat_events.41
+    base = clockcat_events.3
+    desc_clear = yes
+    desc = clockcat_events.41.desc
+}
+
+country_event = {
+    id = clockcat_events.42
+    base = clockcat_events.4
+    desc_clear = yes
+    option_clear = yes
+
+    title = clockcat_events.3.name
+    desc = clockcat_events.42.desc
+
+    option = {
+        name = clockcat_events.41.a
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.4
+            }
+        }
+    }
+
+    option = {
+        name = clockcat_events.42.b
+        hidden_effect = {
+            country_event = {
+                id = clockcat_events.3
+            }
+        }
+    }
+
+    option = {
+        name = clockcat_events.42.c
+        default_hide_option = yes
+    }
+}

@@ -1,0 +1,745 @@
+@cost0 = 0
+@cost1 = 5
+@cost2 = 10
+@cost3 = 20
+
+@power0 = -5
+@power1 = -10
+@power2 = -15
+@power3 = -25
+
+utility_component_template = {
+    key = "COMBAT_COMPUTER_star_COLOSSUS"
+    size = small
+    icon = "GFX_ship_part_computer_default"
+    icon_frame = 1
+    power = @power0
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost0
+        }
+    }
+    ship_behavior = "colossus"
+
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { star_eater play_star_eater play_axis_world }
+    component_set = "combat_computers"
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_DEFAULT"
+    size = small
+    icon = "GFX_ship_part_computer_default"
+    icon_frame = 1
+    power = @power0
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost0
+        }
+    }
+    ship_behavior = "swarm"
+    #is_default_component = yes#默认组件
+
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    upgrades_to = "AXIS_COMPUTER_ARTILLERY_BASIC"
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+#蜂拥
+utility_component_template = {
+    key = "AXIS_COMPUTER_SWARM_BASIC"
+    size = small
+    icon = "GFX_ship_part_computer_swarm_basic"
+    icon_frame = 1
+    power = @power1
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost1
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "swarm"
+    prerequisites = { "tech_combat_computers_1" }
+    upgrades_to = "AXIS_COMPUTER_SWARM_ADVANCED"
+    ai_tags = { gunship brawler brawler_stealth }
+    ai_tag_weight = 0
+
+    modifier = {
+        ship_evasion_mult = 0.05
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.05
+    }
+
+    ai_weight = {
+        weight = 2
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_SWARM_ADVANCED"
+    size = small
+    icon = "GFX_ship_part_computer_swarm_advanced"
+    icon_frame = 1
+    power = @power2
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost2
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "swarm"
+    prerequisites = { "tech_combat_computers_2" }
+    upgrades_to = "AXIS_COMPUTER_SWARM_SAPIENT"
+    ai_tags = { gunship brawler brawler_stealth }
+    ai_tag_weight = 0
+
+    modifier = {
+        ship_evasion_mult = 0.10
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.10
+    }
+
+    ai_weight = {
+        weight = 3
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_SWARM_SAPIENT"
+    size = small
+    icon = "GFX_ship_part_computer_swarm_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "swarm"
+    prerequisites = { "tech_combat_computers_3" }
+    ai_tags = { gunship brawler brawler_stealth }
+    ai_tag_weight = 0
+
+    modifier = {
+        ship_evasion_mult = 0.25
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.15
+    }
+
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 0
+            OR = {
+                has_global_flag = ghost_signal_5_flag
+                has_global_flag = ghost_signal_4_flag
+                has_global_flag = ghost_signal_3_flag
+                has_global_flag = ghost_signal_2_flag
+                has_global_flag = ghost_signal_1_flag
+                has_policy_flag = ai_outlawed
+            }
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_SWARM_AUTONOMOUS"
+    size = small
+    icon = "GFX_ship_part_computer_swarm_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "swarm"
+    prerequisites = { "tech_combat_computers_autonomous" }
+    ai_tags = { gunship brawler brawler_stealth }
+    ai_tag_weight = 0
+
+    modifier = {
+        ship_evasion_mult = 0.25
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.15
+    }
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_SWARM_PRECOG"
+    size = small
+    icon = "GFX_ship_part_computer_swarm_precog"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "swarm"
+    prerequisites = { "tech_precognition_interface" }
+    ai_tags = { gunship brawler brawler_stealth }
+    ai_tag_weight = 0
+
+    modifier = {
+        ship_evasion_mult = 0.15
+        ship_speed_mult = 0.20
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.15
+    }
+
+    ai_weight = {
+        weight = 4
+    }
+}
+
+#线列
+utility_component_template = {
+    key = "AXIS_COMPUTER_LINE_BASIC"
+    size = small
+    icon = "GFX_ship_part_computer_line_basic"
+    icon_frame = 1
+    power = @power1
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost1
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "line"
+    prerequisites = { "tech_combat_computers_1" }
+    upgrades_to = "AXIS_COMPUTER_LINE_ADVANCED"
+    ai_tags = { gunship }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.05
+        ship_accuracy_add = 5
+    }
+
+    ai_weight = {
+        weight = 2
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_LINE_ADVANCED"
+    size = small
+    icon = "GFX_ship_part_computer_line_advanced"
+    icon_frame = 1
+    power = @power2
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost2
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "line"
+    prerequisites = { "tech_combat_computers_2" }
+    upgrades_to = "AXIS_COMPUTER_LINE_SAPIENT"
+    ai_tags = { gunship }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.10
+        ship_accuracy_add = 10
+    }
+
+    ai_weight = {
+        weight = 3
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_LINE_SAPIENT"
+    size = small
+    icon = "GFX_ship_part_computer_line_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "line"
+    prerequisites = { "tech_combat_computers_3" }
+    ai_tags = { gunship }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.20
+        ship_accuracy_add = 20
+    }
+
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 0
+            OR = {
+                has_global_flag = ghost_signal_5_flag
+                has_global_flag = ghost_signal_4_flag
+                has_global_flag = ghost_signal_3_flag
+                has_global_flag = ghost_signal_2_flag
+                has_global_flag = ghost_signal_1_flag
+                has_policy_flag = ai_outlawed
+            }
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_LINE_AUTONOMOUS"
+    size = small
+    icon = "GFX_ship_part_computer_line_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "line"
+    prerequisites = { "tech_combat_computers_autonomous" }
+    ai_tags = { gunship }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.20
+        ship_accuracy_add = 20
+    }
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_LINE_PRECOG"
+    size = small
+    icon = "GFX_ship_part_computer_line_precog"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "line"
+    prerequisites = { "tech_precognition_interface" }
+    ai_tags = { gunship }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.15
+        ship_accuracy_add = 15
+        ship_tracking_add = 10
+    }
+
+    ai_weight = {
+        weight = 4
+    }
+}
+
+#炮击
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_BASIC"
+    size = small
+    icon = "GFX_ship_part_computer_artillery_basic"
+    icon_frame = 1
+    power = @power1
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost1
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "artillery"
+    prerequisites = { "tech_combat_computers_1" }
+    upgrades_to = "AXIS_COMPUTER_ARTILLERY_ADVANCED"
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.05
+        ship_weapon_range_mult = 0.05
+    }
+
+    ai_weight = {
+        weight = 2
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_ADVANCED"
+    size = small
+    icon = "GFX_ship_part_computer_artillery_advanced"
+    icon_frame = 1
+    power = @power2
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost2
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "artillery"
+    prerequisites = { "tech_combat_computers_2" }
+    upgrades_to = "AXIS_COMPUTER_ARTILLERY_SAPIENT"
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.10
+        ship_weapon_range_mult = 0.10
+    }
+
+    ai_weight = {
+        weight = 3
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_SAPIENT"
+    size = small
+    icon = "GFX_ship_part_computer_artillery_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "artillery"
+    prerequisites = { "tech_combat_computers_3" }
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.20
+        ship_weapon_range_mult = 0.20
+    }
+
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 0
+            OR = {
+                has_global_flag = ghost_signal_5_flag
+                has_global_flag = ghost_signal_4_flag
+                has_global_flag = ghost_signal_3_flag
+                has_global_flag = ghost_signal_2_flag
+                has_global_flag = ghost_signal_1_flag
+                has_policy_flag = ai_outlawed
+            }
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_AUTONOMOUS"
+    size = small
+    icon = "GFX_ship_part_computer_artillery_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "artillery"
+    prerequisites = { "tech_combat_computers_autonomous" }
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.20
+        ship_weapon_range_mult = 0.20
+    }
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_ARTILLERY_PRECOG"
+    size = small
+    icon = "GFX_ship_part_computer_artillery_precog"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "artillery"
+    prerequisites = { "tech_precognition_interface" }
+    ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_fire_rate_mult = 0.15
+        ship_weapon_range_mult = 0.15
+        ship_tracking_add = 10
+    }
+
+    ai_weight = {
+        weight = 4
+    }
+}
+
+#航母
+utility_component_template = {
+    key = "AXIS_COMPUTER_CARRIER_BASIC"
+    size = small
+    icon = "GFX_ship_part_computer_carrier_basic"
+    icon_frame = 1
+    power = @power1
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost1
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "carrier"
+    prerequisites = { "tech_combat_computers_1" }
+    upgrades_to = "AXIS_COMPUTER_CARRIER_ADVANCED"
+    ai_tags = { carrier }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_engagement_range_mult = 0.25
+    }
+
+    ai_weight = {
+        weight = 2
+        modifier = {
+            factor = 5
+            is_preferred_weapons = weapon_type_strike_craft
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_CARRIER_ADVANCED"
+    size = small
+    icon = "GFX_ship_part_computer_carrier_advanced"
+    icon_frame = 1
+    power = @power2
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost2
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "carrier"
+    prerequisites = { "tech_combat_computers_2" }
+    upgrades_to = "AXIS_COMPUTER_CARRIER_SAPIENT"
+    ai_tags = { carrier }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_engagement_range_mult = 0.50
+    }
+
+    ai_weight = {
+        weight = 3
+        modifier = {
+            factor = 5
+            is_preferred_weapons = weapon_type_strike_craft
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_CARRIER_SAPIENT"
+    size = small
+    icon = "GFX_ship_part_computer_carrier_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "carrier"
+    prerequisites = { "tech_combat_computers_3" }
+    ai_tags = { carrier }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_engagement_range_mult = 1.0
+    }
+
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 5
+            is_preferred_weapons = weapon_type_strike_craft
+        }
+        modifier = {
+            factor = 0
+            OR = {
+                has_global_flag = ghost_signal_5_flag
+                has_global_flag = ghost_signal_4_flag
+                has_global_flag = ghost_signal_3_flag
+                has_global_flag = ghost_signal_2_flag
+                has_global_flag = ghost_signal_1_flag
+                has_policy_flag = ai_outlawed
+            }
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_CARRIER_AUTONOMOUS"
+    size = small
+    icon = "GFX_ship_part_computer_carrier_sapient"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "carrier"
+    prerequisites = { "tech_combat_computers_autonomous" }
+    ai_tags = { carrier }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_engagement_range_mult = 1.0
+    }
+
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 5
+            is_preferred_weapons = weapon_type_strike_craft
+        }
+    }
+}
+
+utility_component_template = {
+    key = "AXIS_COMPUTER_CARRIER_PRECOG"
+    size = small
+    icon = "GFX_ship_part_computer_carrier_precog"
+    icon_frame = 1
+    power = @power3
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @cost3
+        }
+    }
+    class_restriction = { shipclass_military_special shipclass_military }
+    size_restriction = { play_star_eater play_axis_world }
+    component_set = "combat_computers"
+    ship_behavior = "carrier"
+    prerequisites = { "tech_precognition_interface" }
+    ai_tags = { carrier }
+    ai_tag_weight = 0
+
+    ship_modifier = {
+        ship_engagement_range_mult = 0.75
+        ship_tracking_add = 10
+    }
+
+    ai_weight = {
+        weight = 4
+        modifier = {
+            factor = 5
+            is_preferred_weapons = weapon_type_strike_craft
+        }
+    }
+}

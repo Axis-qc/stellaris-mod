@@ -1,0 +1,86 @@
+ft_star_eater_destroyed_01 = {
+    # 残骸
+    entity = "ft_star_eater_destroyed_01_entity"    #模型
+    construction_entity = "ft_star_eater_destroyed_01_entity"    #建设模型
+    portrait = "GFX_megastructure_construction_background"    #图像
+    place_entity_on_planet_plane = no    # 是否将实体放置在行星平面上
+    entity_offset = {
+        x = 0        # x轴偏移量
+        y = 0        # y轴偏移量
+    }
+    potential = {
+        always = no        #在工程船显示
+    }
+}
+# 修复
+ft_star_eater_destroyed_02 = {
+    entity = "star_eater_ship_entity"    # 巨构的实体
+    construction_entity = "star_eater_ship_entity"    # 巨构的建造实体
+    portrait = "GFX_megastructure_construction_background"    # 巨构的背景图像
+    build_time = 600    # 建造时间，单位是天
+    resources = {
+        # 建造所需的资源
+        category = megastructures
+        cost = {
+            sr_dark_matter = 2000            # 需要2000暗物质
+            alloys = 1000            # 需要1000合金
+        }
+    }
+    upgrade_from = {
+        # 可以从以下巨构升级
+        ft_star_eater_destroyed_01
+    }
+    prerequisites = {
+        #"ftsb_ship"
+    }
+    # 建造前的必要条件，例如需要先研究特定的科技
+    on_build_complete = {
+        # 在建造完成时的行为
+        # 在这里添加你希望在建造完成时发生的行为
+        hidden_effect = {
+            # 当玩家选择这个选项时会发生的隐藏效果
+            create_ship_design = { design = "NAME_Play_Star_Eater" }  # 创建一个新的飞船设计
+            from = {
+                add_ship_design = NAME_Play_Star_Eater  # 将新创建的飞船设计添加到游戏中
+            }
+            fromfrom = {
+                create_fleet = {
+                    # 创建一个新的舰队
+                    settings = {
+                        # 设置舰队的属性
+                        spawn_debris = no  # 不生成残骸
+                        can_change_composition = no  # 不允许改变组成
+                        uses_naval_capacity = yes  # 是否使用海军容量
+                    }
+                    effect = {
+                        # 创建舰队后的效果
+                        set_owner = root  # 设置舰队的所有者为星系的所有者
+                        create_ship = {
+                            # 在舰队中创建一艘飞船
+                            name = NAME_Play_Star_Eater  # 飞船的名称
+                            #design = "NAME_Crisis_Star_Eater"  # 飞船的设计（原版的
+                            design = "NAME_Play_Star_Eater"
+                        }
+                        set_location = {
+                            # 设置飞船的位置
+                            target = prev  # 位置目标是前一个对象
+                            distance = 20  # 距离20格
+                            angle = 0  # 角度为0度
+                        }
+                        set_fleet_stance = passive  # 设置舰队姿态为被动
+                        set_aggro_range_measure_from = self  # 设置舰队的攻击范围测量起点为自身
+                        set_aggro_range = 350  # 设置舰队的攻击范围为350格
+                    }
+                }
+            }
+            remove_megastructure = fromfrom # 移除巨构建筑
+        }
+    }
+    ai_weight = {
+        weight = 100
+        #modifier = {
+        #    factor = 2
+        #
+        #}
+    }
+}

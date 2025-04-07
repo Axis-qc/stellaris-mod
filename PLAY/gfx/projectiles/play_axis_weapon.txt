@@ -1,0 +1,47 @@
+projectile_gfx_beam = {
+    name = "play_star"
+    #color = { 0.0 1.0 0.9922 1.0 }  # 光束的颜色，RGBA值
+    color = { 0.71 0.55 1.0 1.0 }
+    hit_entity = "aquatic_01_perdition_beam_hit_entity"  # 击中目标时的实体效果
+    shield_hit_entity = "aquatic_01_perdition_beam_shield_hit_entity"  # 击中护盾时的实体效果
+    muzzle_flash_entity = "aquatic_01_perdition_beam_muzzle_entity"  # 枪口闪光实体效果
+    windup_entity = "aquatic_01_perdition_beam_windup_entity"  # 准备射击时的实体效果
+
+    # 光束特定的数据
+    width = 10.0  # 光束的宽度
+    texture_scroll_speed = 1.0  # 纹理滚动速度
+    texture_tiling = 5.5  # 纹理平铺
+
+    hit = {
+        # 击中效果
+        alpha_curve = {
+            # 透明度曲线
+            0.0 0.0
+            0.05 0.0
+            0.1 20.0
+            0.7 5.0
+            1.0 0.0
+        }
+        duration = 3.0  # 效果持续时间
+    }
+    miss = {
+        # 未击中效果
+        alpha_curve = {
+            # 透明度曲线
+            0.0 0.0
+            0.05 0.0
+            0.1 15.0
+            0.4 5.0
+            1.0 0.0
+        }
+        duration = 1.5  # 效果持续时间
+    }
+    texture = "gfx/models/combat_items/ion_cannon_diffuse.dds"  # 光束使用的纹理文件
+
+    shield_impact = {
+        # 护盾冲击效果
+        size = large  # 冲击大小
+        loop_duration = 0.5  # 循环持续时间
+        delay = 0.2  # 延迟时间
+    }
+}

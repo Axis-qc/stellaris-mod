@@ -1,0 +1,36 @@
+namespace = ft_hole_system
+#生成黑洞星系
+country_event = {
+	id = ft_hole_system.100
+	title = loturanta_library.5.name #标题
+	desc = loturanta_library.5.desc  #描述
+	picture = GFX_evt_wormhole 
+	location = ROOT
+
+	is_triggered_only = yes
+
+	trigger = {
+		#is_ai = no
+	}
+
+	immediate = {
+		set_country_flag = ft_system_event_triggered
+	}
+
+	option = {
+		name = ft_system.1.a
+		custom_tooltip = ft_system.1.a_tooltip	
+		hidden_effect = {
+			capital_scope = {
+				spawn_system = {
+					min_distance = 10
+					max_distance = 30
+					max_jumps = 0
+					hyperlane = yes
+					is_discovered = no
+					initializer = "ft_hole_system"
+				}
+			}
+		}
+	}	
+}

@@ -1,0 +1,641 @@
+#防御
+fypt_ship = {
+    entity = military_station_small_entity
+    max_speed = 6
+    rotation_speed = 10
+    acceleration = 10
+    max_hitpoints = 5000
+    modifier = {
+        ship_evasion_mult = -0.5
+        ships_upkeep_mult = -0.25
+        ship_piracy_suppression_add = 10
+    }
+    ship_modifier = {
+        ship_weapon_range_mult = 0.30
+        shipclass_starbase_armor_mult = 0.2
+        shipclass_starbase_hull_mult = 0.2
+    }
+    combat_size_multiplier = 2
+    size_multiplier = 1
+    fleet_slot_size = 2
+    section_slots = {
+        "west" = { locator = "part1" }
+        "east" = { locator = "part2" }
+    }
+    is_designable = yes
+    uses_name_prefix = no
+    takes_name_from_ship_design = yes
+    num_target_locators = 0
+    is_space_station = yes
+    base_buildtime = 120
+
+    ship_roles = { gunship screen artillery carrier energy_torpedoes }
+
+    enable_default_design = yes    #if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_space_defense_station_1" }
+    class = shipclass_military_station
+    construction_type = starbase_defenses
+
+    required_component_set = "power_core"
+    required_component_set = "sensor_components"
+    required_component_set = "combat_computers"
+
+    build_block_radius = 200
+
+    potential_construction = {
+        is_scope_type = starbase
+        OR = {
+            has_starbase_size >= starbase_outpost
+            has_starbase_size >= orbital_ring_tier_1
+            has_starbase_size >= fypt_ship_two
+            has_starbase_size >= fypt_ship_three
+            has_starbase_size >= fypt_produce_ship_1
+        }
+    }
+    use_shipnames_from = military_station_small
+    resources = {
+        category = ships
+    }
+}
+fypt_ship_two = {
+    entity = military_station_small_entity
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.3  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        #ship_armor_add = 1000  # 增加的装甲值
+        #starbase_defense_platform_capacity_add = 0  # 星际基地防御平台容量增加
+        #starbase_module_capacity_add = 0  # 星际基地模块容量增加
+        #starbase_building_capacity_add = 0  # 星际基地建筑容量增加
+        ship_piracy_suppression_add = 10
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.5  # 船只射速倍数
+        ship_weapon_range_mult = 1  # 船只武器射程倍数
+    }
+    max_hitpoints = 8000  # 最大生命值
+    base_buildtime = 90  # 基础建造时间
+    resources = {
+        category = starbase_stations  # 资源类别：星际基地
+        cost = {
+            alloys = 500  # 成本：合金
+            influence = 20  # 成本：影响力
+        }
+        upkeep = {
+            energy = 4  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 2  # 战斗规模倍数
+    size_multiplier = 2  # 大小倍数
+    fleet_slot_size = 1  # 舰队槽位大小
+    section_slots = {
+        "west" = { locator = "part1" }
+        "east" = { locator = "part2" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = yes  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本
+    can_disable = no  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    prerequisites = { "tech_space_defense_station_1" }  # 前提条件：轨道环一级科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能源核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    #icon_frame = 7  # 图标帧
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+    icon = ship_size_military_station
+}
+fypt_ship_three = {
+    entity = starbase_citadel_entity
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        ship_armor_add = 5000  # 增加的装甲值
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 0  # 星际基地模块容量增加
+        starbase_building_capacity_add = 2 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.5  # 船只射速倍数
+        ship_weapon_range_mult = 1.5 # 船只武器射程倍数
+    }
+    max_hitpoints = 20000  # 最大生命值
+    base_buildtime = 90  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 1500  # 成本：合金
+            influence = 20  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 1  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        #"1" = { locator = "part2" }
+        #"2" = { locator = "part3" }
+        #"3" = { locator = "part4" }
+        #"4" = { locator = "part5" }
+        #"5" = { locator = "part6" }
+        #"6" = { locator = "part7" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+        hidden_trigger = {
+            exists = starbase # 星基地存在
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_inside_border"
+            is_inside_border = from # 必须在国境内
+        }
+    }
+    possible_construction = {
+        #always = no  # 可建造条件：否
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "fypt_not_one"
+            planet = {
+                not = { exists = orbital_defence }
+            }
+            #NOT = {
+            #    has_planet_flag = fypt_ship
+            #    has_planet_flag = fypt_ship_three
+            #} #没有建造
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "fypt_not_two"
+            NOT = { is_star = yes } #不是恒星
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_surveyed_planet"
+            is_surveyed = {
+                # 星球必须已被勘探
+                who = prev.from
+                status = yes
+            }
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_no_anomaly"
+            NOT = { has_anomaly = yes } # 星球不能有异常现象
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_not_hostile_or_primitive"
+            NOR = {
+                # 星球不能是敌对的或原始的
+                planet_is_hostile_or_crisis = yes
+                AND = {
+                    exists = owner
+                    owner = {
+                        is_country_type = primitive
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_no_existing_megastructure"
+            NOR = {
+                # 星球上不能已有其他巨构建筑
+                #has_planet_flag = megastructure
+                has_planet_flag = has_megastructure
+                has_planet_flag = ruined_orbital_ring_planet
+                solar_system = {
+                    has_star_flag = ring_world_built
+                }
+                is_artificial = yes
+            }
+        }
+        custom_tooltip = {
+            # 自定义工具提示
+            fail_text = "requires_no_orbital_debris"
+            NOR = {
+                has_planet_flag = has_orbital_debris
+            }
+        }
+    }
+    is_designable = yes  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_5" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 7  # 图标帧
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}
+#生产
+fypt_produce_ship_1 = {
+    #entity = starbase_outpost_section_entity
+    entity = starbase_starport_entity
+    #entity = starbase_starfortress_entity
+    use_shipnames_from = fypt_produce_ship_1
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 2  # 星际基地模块容量增加
+        starbase_building_capacity_add = 1 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.2  # 船只射速倍数
+        ship_weapon_range_mult = 0.2  # 船只武器射程倍数
+    }
+    max_hitpoints = 8000  # 最大生命值
+    base_buildtime = 60  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 200  # 成本：合金
+            influence = 10  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 2  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        "1" = { locator = "part2" }
+        "2" = { locator = "part3" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = no  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_1" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 1  # 图标帧
+    icon = fypt_produce_ship
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}
+fypt_produce_ship_2 = {
+    #entity = starbase_starport_section_entity
+    entity = starbase_starhold_entity
+    #entity = starbase_citadel_entity
+    use_shipnames_from = fypt_produce_ship_2
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 4  # 星际基地模块容量增加
+        starbase_building_capacity_add = 2 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.4  # 船只射速倍数
+        ship_weapon_range_mult = 0.4  # 船只武器射程倍数
+    }
+    max_hitpoints = 10000  # 最大生命值
+    base_buildtime = 120  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 400  # 成本：合金
+            influence = 20  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 2  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        "1" = { locator = "part2" }
+        "2" = { locator = "part3" }
+        "3" = { locator = "part4" }
+        "4" = { locator = "part5" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = no  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_2" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 2  # 图标帧
+    icon = fypt_produce_ship
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}
+fypt_produce_ship_3 = {
+    #entity = starbase_starhold_entity
+    entity = "starbase_starfortress_entity"
+    use_shipnames_from = fypt_produce_ship_3
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 6  # 星际基地模块容量增加
+        starbase_building_capacity_add = 3 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.6  # 船只射速倍数
+        ship_weapon_range_mult = 0.6  # 船只武器射程倍数
+    }
+    max_hitpoints = 10000  # 最大生命值
+    base_buildtime = 180  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 800  # 成本：合金
+            influence = 10  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 2  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        "1" = { locator = "part2" }
+        "2" = { locator = "part3" }
+        "3" = { locator = "part4" }
+        "4" = { locator = "part5" }
+        "5" = { locator = "part6" }
+        "6" = { locator = "part7" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = no  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_3" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 3  # 图标帧
+    icon = fypt_produce_ship
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}
+fypt_produce_ship_4 = {
+    entity = "starbase_starfortress_entity"
+    use_shipnames_from = fypt_produce_ship_4
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 8  # 星际基地模块容量增加
+        starbase_building_capacity_add = 4 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.8  # 船只射速倍数
+        ship_weapon_range_mult = 0.8  # 船只武器射程倍数
+    }
+    max_hitpoints = 12000  # 最大生命值
+    base_buildtime = 240  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 1000  # 成本：合金
+            influence = 10  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 2  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        "1" = { locator = "part2" }
+        "2" = { locator = "part3" }
+        "3" = { locator = "part4" }
+        "4" = { locator = "part5" }
+        "5" = { locator = "part6" }
+        "6" = { locator = "part7" }
+        "7" = { locator = "part2" }
+        "8" = { locator = "part3" }
+        "9" = { locator = "part4" }
+        "10" = { locator = "part5" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = no  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_4" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 4  # 图标帧
+    icon = fypt_produce_ship
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}
+fypt_produce_ship_5 = {
+    entity = starbase_citadel_entity
+    use_shipnames_from = fypt_produce_ship_5
+    max_speed = 0.0  # 最大速度
+    acceleration = 0.0  # 加速度
+    rotation_speed = 0.1  # 旋转速度
+    modifier = {
+        #ship_evasion_mult = 0  # 船只回避率倍数
+        starbase_defense_platform_capacity_add = 10  # 星际基地防御平台容量增加
+        starbase_module_capacity_add = 10  # 星际基地模块容量增加
+        starbase_building_capacity_add = 5 # 星际基地建筑容量增加
+        #ship_piracy_suppression_add = 20
+        #shipsize_military_station_small_hull_mult = 0.5
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 1.0  # 船只射速倍数
+        ship_weapon_range_mult = 1.0  # 船只武器射程倍数
+    }
+    max_hitpoints = 20000  # 最大生命值
+    base_buildtime = 300  # 基础建造时间
+    resources = {
+        category = starbase_stations
+        # 资源类别：星际基地
+        cost = {
+            alloys = 1500  # 成本：合金
+            influence = 20  # 成本：影响力
+        }
+        upkeep = {
+            energy = 2  # 维护成本：能量
+        }
+    }
+    combat_size_multiplier = 5  # 战斗规模倍数
+    size_multiplier = 5  # 大小倍数
+    fleet_slot_size = 2  # 舰队槽位大小
+    section_slots = {
+        "core" = { locator = "part1" }
+        "1" = { locator = "part2" }
+        "2" = { locator = "part3" }
+        "3" = { locator = "part4" }
+        "4" = { locator = "part5" }
+        "5" = { locator = "part6" }
+        "6" = { locator = "part7" }
+        "7" = { locator = "part2" }
+        "8" = { locator = "part3" }
+        "9" = { locator = "part4" }
+        "10" = { locator = "part5" }
+    }
+    potential_construction = {
+        # This is build through a megastructure
+        always = no  # 潜在建造条件：否
+    }
+    possible_construction = {
+        always = no  # 可建造条件：否
+    }
+    is_designable = no  # 是否可设计
+    num_target_locators = 0  # 目标定位器数量
+    is_space_station = no  # 是否为太空站
+    can_have_federation_design = no  # 是否可以有联邦设计：否
+    is_civilian = no  # 是否为平民：否
+    components_add_to_cost = no  # 组件是否增加成本：否
+    can_disable = yes  # 是否可以禁用：是
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    enable_default_design = yes  # 启用默认设计：是
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_starbase_5" }  # 前提科技
+    class = shipclass_starbase  # 类别：星际基地
+    required_component_set = "power_core"  # 必须组件集：能量核心
+    required_component_set = "sensor_components"  # 必须组件集：传感器组件
+    required_component_set = "combat_computers"  # 必须组件集：战斗计算机
+    build_block_radius = 10  # 建造阻塞半径
+    formation_priority = 1  # 形成优先级
+    icon_frame = 5  # 图标帧
+    icon = fypt_produce_ship
+    scales_with_planet = no  # 随行星缩放
+    graphical_culture = yes  # 图形文化
+}

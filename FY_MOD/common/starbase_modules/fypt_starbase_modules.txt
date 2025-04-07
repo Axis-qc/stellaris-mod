@@ -1,0 +1,1608 @@
+@modules_time = 360
+@alloys_values = 300
+#模块和舰船区段绑定，装模块就不能设计。。。
+ftpt_starbase_habitation = {
+    icon = "GFX_orbitalring_module_habitation"
+    #section = "fypy_citadel_1"
+    construction_days = 360
+    starbase_type = orbital_ring
+
+    potential = {
+        #always = no
+        exists = owner
+        owner = { has_technology = tech_housing_2 }
+        #or = {
+        #    has_starbase_size = fypt_produce_ship_1
+        #    has_starbase_size = fypt_produce_ship_2
+        #    has_starbase_size = fypt_produce_ship_3
+        #    has_starbase_size = fypt_produce_ship_4
+        #    has_starbase_size = fypt_produce_ship_5
+        #}
+        planet = {
+            num_pops >= 10
+        }
+    }
+    #show_in_tech = "tech_housing_2"
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = 200
+            influence = 25
+        }
+
+        upkeep = {
+            energy = 2
+        }
+    }
+
+    planet_modifier = {
+        planet_max_districts_add = 1
+    }
+
+    triggered_planet_modifier = {
+        potential = {
+            exists = planet
+            planet = {
+                exists = owner.overlord
+                has_holding = {
+                    holding = holding_orbital_assembly_complex
+                    owner = owner.overlord
+                }
+            }
+        }
+        planet_max_buildings_add = 0.5
+    }
+
+    replaceable = {
+        custom_tooltip = {
+            fail_text = orbital_ring_habitation_districts_maxed_out
+            OR = {
+                # to keep tooltip from showing up when no module is built yet
+                NOT = { has_starbase_module = orbital_ring_habitation }
+                AND = {
+                    has_starbase_module = orbital_ring_habitation
+                    planet = {
+                        num_free_districts = { type = any value >= 1 }
+                    }
+                }
+            }
+        }
+    }
+
+    ai_weight = {
+        weight = 50
+    }
+}
+fypt_shipyard = {
+    icon = "GFX_starbase_shipyard"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+    #initial = yes
+    starbase_type = orbital_ring
+    potential = {
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = 200
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    station_modifier = {
+        starbase_shipyard_capacity_add = 2
+    }
+    triggered_station_modifier = {
+        potential = { has_starbase_building = irassian_naval_yards }
+        starbase_shipyard_capacity_add = 2
+    }
+
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+        modifier = {
+            factor = 100
+            owner = {
+                OR = {
+                    count_owned_starbase = {
+                        count = 0
+                        limit = { has_starbase_module = shipyard }
+                    }
+                    AND = {
+                        controlled_systems > 30
+                        count_owned_starbase = {
+                            count < 2
+                            limit = { has_starbase_module = shipyard }
+                        }
+                    }
+                    AND = {
+                        controlled_systems > 60
+                        count_owned_starbase = {
+                            count < 3
+                            limit = { has_starbase_module = shipyard }
+                        }
+                    }
+                }
+            }
+        }
+        modifier = {
+            factor = 3
+            has_starbase_module = shipyard
+            count_starbase_modules = {
+                count < 2
+                type = shipyard
+            }
+        }
+        modifier = {
+            factor = 3
+            has_starbase_module = shipyard
+            count_starbase_modules = {
+                count < 4
+                type = shipyard
+            }
+        }
+    }
+}
+fypt_anchorage = {
+    icon = "GFX_starbase_anchorage"
+    #section = "fypy_citadel_3"
+    construction_days = @modules_time
+    starbase_type = orbital_ring
+    potential = {
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = 50
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    country_modifier = {
+        country_naval_cap_add = 8
+    }
+    triggered_country_modifier = {
+        potential = {
+            is_scope_valid = yes
+            has_starbase_building = naval_logistics_office
+        }
+        country_naval_cap_add = 4
+    }
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+        modifier = {
+            factor = 2
+            count_starbase_modules = {
+                type = anchorage
+                count < 2
+            }
+        }
+    }
+}
+fypt_modules_0 = {
+    icon = "GFX_fypt_modules_0_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+    initial = yes
+    starbase_type = orbital_ring
+    potential = {
+        exists = owner
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+
+    }
+
+    #show_in_tech = "tech_solar_panel_network"
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = 500
+            #AI_core = 1
+        }
+
+        produces = {
+            #energy = 20
+        }
+
+        upkeep = { alloys = 1 }
+    }
+
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+#一产
+fypt_modules_1 = {
+    icon = "GFX_fypt_modules_1_icon"
+    section = "fypy_citadel_2"
+    construction_days = @modules_time
+    initial = yes
+    starbase_type = orbital_ring
+    potential = {
+        exists = owner
+        #is_normal_starbase = yes
+        owner = {
+            #is_gestalt = yes
+            #NOT = {
+            #    has_civic = civic_machine_astromining_drones
+            #}
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        this.solar_system = {
+            custom_tooltip = {
+                fail_text = "requires_no_black_hole_or_dyson_sphere"
+                NOR = {
+                    is_star_class = sc_black_hole
+                    has_megastructure = dyson_sphere_3
+                    has_megastructure = dyson_sphere_4
+                    has_megastructure = dyson_sphere_5
+                }
+            }
+        }
+    }
+
+    show_in_tech = "tech_solar_panel_network"
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            energy = 10
+            #mult = value:sc
+        }
+        produces = {
+            trigger = {
+                owner = {
+                    has_technology = "fypt_kj_2"
+                }
+            }
+            energy = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_4
+                }
+            }
+            energy = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_4_1
+                }
+            }
+            energy = 10
+        }
+        upkeep = {
+            alloys = 1
+            energy = 1
+        }
+        upkeep = {
+            trigger = {
+                owner = {
+                    has_technology = "fypt_kj_2"
+                }
+            }
+            alloys = 2
+        }
+    }
+    #triggered_station_modifier = {
+    #    potential = {
+    #        owner = {
+    #            has_technology = "fypt_kj_2"
+    #        }
+    #    }
+    #    starbase_fypt_modules_energy_produces_add = 10
+    #    starbase_fypt_modules_energy_upkeep_add = 1
+    #    starbase_fypt_modules_alloys_upkeep_add = 1
+    #}
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_2 = {
+    icon = "GFX_orbitalring_mineral_hub"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+    initial = yes
+    starbase_type = orbital_ring
+    potential = {
+        exists = owner
+        owner = {
+            exists = owner
+            owner = {
+                #has_technology = tech_space_mining_1
+            }
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        custom_tooltip = {
+            fail_text = "fypt_modules_2_1"
+            this.planet = {
+                OR = {
+                    is_planet_class = pc_molten
+                    is_planet_class = pc_asteroid
+                    is_planet_class = pc_ice_asteroid
+                }
+            }
+        }
+
+    }
+
+    show_in_tech = "tech_solar_panel_network"
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            minerals = 10
+        }
+        produces = {
+            trigger = {
+                owner = {
+                    has_technology = "fypt_kj_3"
+                }
+            }
+            minerals = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_3
+                }
+            }
+            minerals = 20
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_3_1
+                }
+            }
+            minerals = 20
+        }
+
+        upkeep = {
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                owner = {
+                    has_technology = "fypt_kj_3"
+                }
+            }
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_3
+                }
+            }
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_3_1
+                }
+            }
+            energy = 5
+        }
+    }
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_3 = {
+    icon = "GFX_spaceport_module_hydroponic_farms"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+    starbase_type = orbital_ring
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            food = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_6
+                }
+            }
+            food = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_6_1
+                }
+            }
+            food = 10
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            food = 10
+        }
+
+        upkeep = {
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_6
+                }
+            }
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_6_1
+                }
+            }
+            energy = 5
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+#二产
+fypt_modules_4 = {
+    icon = "GFX_fypt_modules_5_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+            or = {
+                has_valid_civic = civic_hive_catalytic_processing
+                has_valid_civic = civic_machine_catalytic_processing
+                has_valid_civic = civic_catalytic_processing
+            }
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_1
+                }
+            }
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_1_1
+                }
+            }
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            alloys = 10
+        }
+
+        upkeep = {
+            energy = 2
+            food = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_1
+                }
+            }
+            energy = 2
+            food = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_1_1
+                }
+            }
+            energy = 2
+            food = 20
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_5 = {
+    icon = "GFX_fypt_modules_5_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+            nor = {
+                has_valid_civic = civic_hive_catalytic_processing
+                has_valid_civic = civic_machine_catalytic_processing
+                has_valid_civic = civic_catalytic_processing
+            }
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_2
+                }
+            }
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_2_1
+                }
+            }
+            alloys = 10
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            alloys = 10
+        }
+
+        upkeep = {
+            energy = 2
+            minerals = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_2
+                }
+            }
+            energy = 2
+            minerals = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_2_1
+                }
+            }
+            energy = 2
+            minerals = 20
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_6 = {
+    icon = "GFX_fypt_modules_6_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            consumer_goods = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_5
+                }
+            }
+            consumer_goods = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_5_1
+                }
+            }
+            consumer_goods = 10
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            consumer_goods = 10
+        }
+        upkeep = {
+            energy = 2
+            minerals = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_5
+                }
+            }
+            energy = 2
+            minerals = 20
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_5_1
+                }
+            }
+            energy = 2
+            minerals = 20
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_7 = {
+    icon = "GFX_fypt_modules_7_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            has_technology = tech_space_science_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            physics_research = 6
+            society_research = 6
+            engineering_research = 6
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_7
+                }
+            }
+            physics_research = 6
+            society_research = 6
+            engineering_research = 6
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_7_1
+                }
+            }
+            physics_research = 6
+            society_research = 6
+            engineering_research = 6
+        }
+
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            physics_research = 6
+            society_research = 6
+            engineering_research = 6
+        }
+
+        upkeep = {
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_7
+                }
+            }
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_7_1
+                }
+            }
+            energy = 10
+        }
+    }
+
+    show_in_tech = "tech_space_science_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_8 = {
+    icon = "GFX_fypt_modules_8_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            unity = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_8
+                }
+            }
+            unity = 10
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_8_1
+                }
+            }
+            unity = 10
+        }
+
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            unity = 10
+        }
+
+        upkeep = {
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_8
+                }
+            }
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_8_1
+                }
+            }
+            energy = 10
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_9 = {
+    icon = "GFX_fypt_modules_9_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+    country_modifier = {
+        country_admin_cap_add = 15
+        country_edict_fund_add = 5
+    }
+    triggered_country_modifier = {
+        potential = {
+            exists = owner
+            owner = {
+                has_technology = fypt_kj_1
+            }
+        }
+        country_admin_cap_add = 15
+        country_edict_fund_add = 5
+    }
+    triggered_country_modifier = {
+        potential = {
+            starbase = {
+                has_starbase_building = fypt_buildings_9
+            }
+        }
+        country_admin_cap_add = 15
+        country_edict_fund_add = 5
+    }
+    triggered_country_modifier = {
+        potential = {
+            starbase = {
+                has_starbase_building = fypt_buildings_9_1
+            }
+        }
+        country_admin_cap_add = 15
+        country_edict_fund_add = 5
+    }
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+        upkeep = {
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_9
+                }
+            }
+            energy = 5
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_9_1
+                }
+            }
+            energy = 5
+        }
+
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+#稀有
+fypt_modules_10 = {
+    icon = "GFX_fypt_modules_10_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            has_technology = tech_volatile_motes
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            volatile_motes = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            volatile_motes = 3
+        }
+
+        upkeep = {
+            energy = 2
+            minerals = 12
+        }
+    }
+
+    show_in_tech = "tech_volatile_motes"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_11 = {
+    icon = "GFX_fypt_modules_11_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            has_technology = tech_exotic_gases
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            exotic_gases = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            exotic_gases = 3
+        }
+
+        upkeep = {
+            energy = 2
+            minerals = 12
+        }
+    }
+
+    show_in_tech = "tech_exotic_gases"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_12 = {
+    icon = "GFX_fypt_modules_12_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            has_technology = tech_rare_crystals
+
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "requires_starport_or_ring"
+        #OR = {
+        #has_starbase_size >= starbase_starport
+        #is_orbital_ring = yes
+        #}
+        #}
+        #custom_tooltip = {
+        #    fail_text = "requires_nebula"
+        #star = { is_inside_nebula = yes }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            rare_crystals = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            rare_crystals = 3
+        }
+
+        upkeep = {
+            energy = 2
+            minerals = 12
+        }
+    }
+
+    show_in_tech = "tech_rare_crystals"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_13 = {
+    icon = "GFX_fypt_modules_13_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+    }
+
+    possible = {
+        custom_tooltip = {
+            fail_text = "fypt_modulce_13_1"
+            this.solar_system = {
+                any_system_planet = {
+                    exists = archaeological_site
+                }
+            }
+        }
+    }
+    country_modifier = { country_resource_max_minor_artifacts_add = 1000 }
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            minor_artifacts = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_13
+                }
+            }
+            minor_artifacts = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_13_1
+                }
+            }
+            minor_artifacts = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            minor_artifacts = 3
+        }
+
+        upkeep = {
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_13
+                }
+            }
+            energy = 10
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_13_1
+                }
+            }
+            energy = 10
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_14 = {
+    icon = "GFX_fypt_modules_14_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+        not = {
+            star = {
+                is_star_class = sc_black_hole
+            }
+        }
+    }
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "fypt_modules_14"
+        #    not = {
+        #        star = {
+        #            is_star_class = sc_black_hole
+        #        }
+        #    }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14
+                }
+            }
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14_1
+                }
+            }
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            sr_dark_matter = 3
+        }
+
+        upkeep = {
+            energy = 30
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14
+                }
+            }
+            energy = 30
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14_1
+                }
+            }
+            energy = 30
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}
+fypt_modules_14_1 = {
+    icon = "GFX_fypt_modules_14_icon"
+    #section = "fypy_citadel_2"
+    construction_days = @modules_time
+
+    potential = {
+        exists = owner
+        owner = {
+            #has_technology = tech_space_mining_1
+        }
+        or = {
+            has_starbase_size = fypt_produce_ship_1
+            has_starbase_size = fypt_produce_ship_2
+            has_starbase_size = fypt_produce_ship_3
+            has_starbase_size = fypt_produce_ship_4
+            has_starbase_size = fypt_produce_ship_5
+        }
+        star = {
+            is_star_class = sc_black_hole
+        }
+    }
+    possible = {
+        #custom_tooltip = {
+        #    fail_text = "fypt_modules_14"
+        #    not = {
+        #        star = {
+        #            is_star_class = sc_black_hole
+        #        }
+        #    }
+        #}
+    }
+
+    resources = {
+        category = starbase_fypt_modules
+        cost = {
+            alloys = @alloys_values
+        }
+
+        produces = {
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14
+                }
+            }
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14_1
+                }
+            }
+            sr_dark_matter = 3
+        }
+        produces = {
+            trigger = {
+                exists = owner
+                owner = { has_technology = fypt_kj_1 }
+            }
+            sr_dark_matter = 3
+        }
+
+        upkeep = {
+            energy = 30
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14
+                }
+            }
+            energy = 30
+        }
+        upkeep = {
+            trigger = {
+                starbase = {
+                    has_starbase_building = fypt_buildings_14_1
+                }
+            }
+            energy = 30
+        }
+    }
+
+    #show_in_tech = "tech_space_mining_1"
+
+    ai_weight = {
+        weight = 50 #use same weight here - ai weighting is done in starbase_types.txt
+    }
+}

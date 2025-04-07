@@ -1,0 +1,119 @@
+##星际基地总配置
+#starbases = {
+#    # AI在预算计算时会考虑星际基地
+#    use_for_ai_budget = yes
+#
+#    # 维护成本的修改器
+#    generate_mult_modifiers = {
+#        upkeep
+#    }
+#    # AI在计算资源维护时，会使用国家的能源
+#    ai_use_parent_for_resources_upkeep = {
+#        energy
+#    }
+#
+#    # 继承自国家配置
+#    parent = country
+#    # 修改器类别为星际基地
+#    modifier_category = starbase
+#}
+#
+##星际基地站配置
+#starbase_stations = {
+#    # 继承自星际基地配置
+#    parent = starbases
+#    # 修改器类别为星际基地
+#    modifier_category = starbase
+#
+#    # 触发式成本修改器，当设计有效且是星际基地前哨站或轨道环等级1时
+#    triggered_cost_modifier = {
+#        key = starbase_outpost
+#        modifier_types = {
+#            mult
+#        }
+#
+#        trigger = {
+#            is_scope_valid = yes #在船只设计师中调用时，设计尚未有效。
+#            OR = {
+#                is_ship_size = starbase_outpost
+#                is_ship_size = orbital_ring_tier_1
+#            }
+#        }
+#    }
+#}
+#
+##星际基地建造配置
+#starbase_constructions = {
+#    # 继承自星际基地配置
+#    parent = starbases
+#
+#    # 产生资源的修改器
+#    generate_mult_modifiers = {
+#        produces
+#    }
+#    # 修改器类别为星际基地
+#    modifier_category = starbase
+#}
+#
+##星际基地建筑配置
+#starbase_buildings = {
+#    # 继承自星际基地建造配置
+#    parent = starbase_constructions
+#
+#    # 成本的修改器
+#    generate_mult_modifiers = {
+#        cost
+#    }
+#    # 修改器类别为星际基地
+#    modifier_category = starbase
+#}
+#模块经济
+starbase_fypt_modules = {
+    # 继承自星际基地
+    parent = starbases
+
+    generate_add_modifiers = {
+        #cost
+        upkeep
+        produces
+    }
+    # 成本的修改器
+    generate_mult_modifiers = {
+        #cost
+        upkeep
+        produces
+    }
+    triggered_produces_modifier = {
+        key = fypt_up_modifier
+        use_parent_icon = yes
+        trigger = {
+            or = {
+                #is_starbase_building_module = ftpt_starbase_habitation
+                #is_starbase_building_module = fypt_shipyard
+                #is_starbase_building_module = fypt_anchorage
+                #is_starbase_building_module = fypt_modules_0
+                is_starbase_building_module = fypt_modules_1
+                is_starbase_building_module = fypt_modules_2
+                is_starbase_building_module = fypt_modules_3
+                is_starbase_building_module = fypt_modules_4
+                is_starbase_building_module = fypt_modules_5
+                is_starbase_building_module = fypt_modules_6
+                is_starbase_building_module = fypt_modules_7
+                is_starbase_building_module = fypt_modules_8
+                is_starbase_building_module = fypt_modules_9
+                is_starbase_building_module = fypt_modules_10
+                is_starbase_building_module = fypt_modules_11
+                is_starbase_building_module = fypt_modules_12
+                is_starbase_building_module = fypt_modules_13
+                is_starbase_building_module = fypt_modules_14
+                is_starbase_building_module = fypt_modules_14_1
+            }
+        }
+        modifier_types = {
+            mult
+            add
+        }
+    }
+    # 修改器类别为星际基地
+    modifier_category = starbase
+}

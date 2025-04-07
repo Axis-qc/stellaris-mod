@@ -1,0 +1,83 @@
+#play_axis = {
+#    show_in_contacts_list = yes
+#    custom_diplomacy = yes
+#    custom_opinion = yes    #自定义好感，用于事件调整国家好感
+#    share_survey_data = no
+#    enforces_borders = no
+#    needs_survey = no  #需要调查
+#    government = yes    #是否有政府
+#    has_complete_sensor = yes
+#    can_have_their_comms_shared = yes
+#    custom_starbase = play_axis_starbase
+#    observable = no
+#    ai = {
+#        enabled = no
+#    }
+#    faction = {
+#        hostile = no
+#        pirate = no
+#        needs_border_access = no
+#        generate_borders = yes
+#        needs_colony = no
+#        auto_delete = no
+#    }
+#    modules = {
+#        exclusive_diplomacy_module = { } # Nothing is allowed, but we need this for relationships.
+#        tiered_technology_module = {
+#            tier = 3
+#            rare = no
+#        }
+#        standard_event_module = { }
+#    }
+#}
+play_axis = {
+    show_in_contacts_list = yes # 是否在联系人列表中显示
+    custom_diplomacy = yes  #自定义外交
+    custom_opinion = yes  #自定义好感，用于事件调整国家好感
+    share_survey_data = no  #是否共享调查数据
+    enforces_borders = no  #是否强制执行边界
+    needs_survey = no  #是否需要调查
+    government = yes  #是否有政府
+    has_complete_sensor = yes  #是否有完整的传感器
+    can_have_their_comms_shared = no  #是否可以共享通信
+    custom_starbase = play_axis_starbase  #自定义星基
+    observable = no  #是否可观察
+    ai = {
+        enabled = no  #是否启用AI
+    }
+
+    faction = {
+        hostile = no  #是否敌对
+        pirate = no  #是否是海盗
+        needs_border_access = no  #是否需要边界访问
+        generate_borders = yes #是否生成边界
+        needs_colony = no  #是否需要殖民地
+        auto_delete = no #是否自动删除
+    }
+    modules = {
+        exclusive_diplomacy_module = { }#独占外交模块（不允许任何东西，但我们需要这个用于关系）
+        tiered_technology_module = {
+            tier = 10  #技术等级
+            rare = yes # 是否稀有
+        }
+        standard_event_module = { }  #标准事件模块
+    }
+    resources = {
+        category = country_base
+        produces = {
+            energy = 1000
+            minerals = 1000
+            food = 1000
+            alloys = 1000
+            consumer_goods = 1000
+            rare_crystals = 100
+            exotic_gases = 100
+            volatile_motes = 100
+            sr_dark_matter = 20
+            sr_living_metal = 20
+            sr_zro = 20
+            influence = 10
+            unity = 1000
+        }
+    }
+}

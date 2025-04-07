@@ -1,0 +1,44 @@
+ft_star_eater_destroyed_01 = {
+	# 定义一个名为ft_star_eater_destroyed_01的对象
+	entity = "ft_star_eater_destroyed_01_entity"	# 对象的实体名称
+	construction_entity = "ft_star_eater_destroyed_01_entity"	# 对象的建设实体名称
+	portrait = "GFX_megastructure_construction_background"	# 对象的肖像或者图像
+	place_entity_on_planet_plane = no	# 是否将实体放置在行星平面上
+	entity_offset = {
+		# 实体的偏移量
+		x = -27		# x轴偏移量
+		y = -27		# y轴偏移量
+	}
+	potential = {
+		# 对象的潜力或者可能性
+		always = no		# 是否总是有潜力
+	}
+}
+
+# 定义一个新的巨构
+ft_star_eater_destroyed_01 = {
+	entity = "ft_star_eater_destroyed_01_entity"	# 巨构的实体
+	construction_entity = "ft_star_eater_destroyed_01_entity"	# 巨构的建造实体
+	portrait = "GFX_megastructure_construction_background"	# 巨构的背景图像
+	build_time = 3600	# 建造时间，单位是天
+	resources = {
+		# 建造所需的资源
+		category = megastructures
+		cost = {
+			dark_matter = 2000			# 需要2000暗物质
+			alloys = 1000			# 需要1000合金
+		}
+	}
+	upgrade_from = {
+		# 可以从以下巨构升级
+		megastructure_0
+	}
+	prerequisites = {
+		"tech_megastructure_1"
+	}
+	# 建造前的必要条件，例如需要先研究特定的科技
+	on_build_complete = {
+		# 在建造完成时的行为
+		# 在这里添加你希望在建造完成时发生的行为
+	}
+}

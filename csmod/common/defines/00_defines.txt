@@ -1,0 +1,2263 @@
+NCamera = {
+    FOV = 35  # 视场角度
+    SYSTEM_NEAR_PLANE_DISTANCE_BASE = 0.0  # 系统近平面距离基数
+    SYSTEM_FAR_PLANE_DISTANCE_BASE = 12000.0  # 系统远平面距离基数
+
+    # 用于所有船只
+    ENTITY_SPRITE_DESIGN_ENTRY_CAM_DIR = { -1.0 -0.6 0.3 }  # 相机方向
+    ENTITY_SPRITE_DESIGN_ENTRY_CAM_LOOK_AT = { -2 -1.5 -1.0 }  # 相机看向的位置，x=更近，-y=向上，+z=向左，-z=向右
+    ENTITY_SPRITE_DESIGN_ENTRY_ZOOM_SCALE = 1.7  # 缩放比例
+
+    # 用于船只设计师中的船只部分
+    ENTITY_SPRITE_SHIP_SECTION_CAM_DIR = { -1.0 -0.9 0.7 }  # 相机方向
+    ENTITY_SPRITE_SHIP_SECTION_CAM_LOOK_AT = { 0 0 0 }  # 相机看向的位置
+    ENTITY_SPRITE_SHIP_SECTION_ZOOM_SCALE = 2.3  # 缩放比例
+
+    # 用于行星
+    ENTITY_SPRITE_SYSTEM_VIEW_CAM_DIR = { -1.0 -0.5 0.3 }  # 相机方向
+    ENTITY_SPRITE_SYSTEM_VIEW_CAM_LOOK_AT = { 0 0 0 }  # 相机看向的位置
+    ENTITY_SPRITE_SYSTEM_VIEW_ZOOM_SCALE = 1.6  # 缩放比例
+
+    # 用于物种定制菜单中的行星
+    ENTITY_SPRITE_CUSTOMIZE_SPECIES_VIEW_CAM_DIR = { -1.0 -0.5 0.3 }  # 相机方向
+    ENTITY_SPRITE_CUSTOMIZE_SPECIES_VIEW_CAM_LOOK_AT = { 0 0 0 }  # 相机看向的位置
+    ENTITY_SPRITE_CUSTOMIZE_SPECIES_VIEW_ZOOM_SCALE = 1.7  # 缩放比例
+
+    # 同上，但特指环世界
+    ENTITY_SPRITE_CUSTOMIZE_RINGWORLD_CAM_DIR = { -1.0 -0.75 0.3 }  # 相机方向
+    ENTITY_SPRITE_CUSTOMIZE_RINGWORLD_CAM_LOOK_AT = { 0 0 0 }  # 相机看向的位置
+    ENTITY_SPRITE_CUSTOMIZE_RINGWORLD_ZOOM_SCALE = 1.9  # 缩放比例
+
+    # 用于动画前端背景
+    ENTITY_SPRITE_FRONTEND_BG_CAM_DIR = { 0.0 0.0 1.0 }  # 相机方向
+    ENTITY_SPRITE_FRONTEND_BG_CAM_LOOK_AT = { 0.0 0 0 }  # 相机看向的位置
+    ENTITY_SPRITE_FRONTEND_BG_ZOOM_SCALE = 10.0  # 缩放比例
+
+    GALAXY_SHOW_FLEETS_ZOOM = 2300  # 显示舰队图标的相机缩放间隔
+    GALAXY_SHOW_STARNAME_ZOOM = 800  # 显示星名的相机缩放间隔
+
+    SHOW_FLEETS_ZOOM = 300  # 在此高度以上显示舰队图标而不是船只图标
+    HIDE_ORBITS_ZOOM = 0  # 隐藏轨道的缩放
+
+    ZOOM_STEPS_GALAXY = { 100 200 400 600 900 1500 3000 }  # 银河缩放步骤
+    ZOOM_STEPS_SYSTEM_PERCENTAGES = { 0.025 0.1 0.25 0.5 1.0 1.5 3.0 }  # 系统缩放步骤，以系统大小的百分比表示
+    ZOOM_STEPS_SHOW_FLEET_HEALTH_BARS = { 3 4 5 6 }  # 在哪些缩放步骤上显示每个舰队的生命值条
+
+    LEAVE_SYSTEM_ZOOM_STEP = 1  # 离开系统后使用的缩放步骤
+    ENTER_SYSTEM_ZOOM_STEP = 6  # 进入系统后使用的缩放步骤
+
+    SYSTEM_SPACE_SCALE_MULT = 10.0  # 系统空间缩放乘数
+    GALAXY_SPACE_SCALE_MULT = 2.0  # 银河空间缩放乘数
+
+    SYSTEM_HOVER_RANGE = 0.005  # 系统悬停范围
+
+    BORDER_NAMES_FADEOUT_ZOOM = 600  # 边界名称在此缩放级别开始淡出
+    BORDER_NAMES_FADEOUT_SPEED = 4.0  # 边界名称淡出的速度
+    BORDER_FLAG_FADEOUT_ZOOM = 600  # 边界标志在此缩放级别开始淡出
+    BORDER_FLAG_FADEOUT_SPEED = 4.0  # 边界标志淡出的速度
+    NEBULA_NAMES_FADEOUT_ZOOM = 250  # 星云名称在此缩放级别开始淡出
+    NEBULA_NAMES_FADEOUT_SPEED = 1.5  # 星云名称淡出的速度
+
+    EDGE_SCROLLING_PIXELS = 3  # 距离窗口边缘多少像素会触发边缘滚动
+    SCROLL_SPEED = 0.035  # 更高的值意味着相机移动更快。注意，这也可以从设置中调整！
+    SYSTEM_CAMERA_RESTRICT_EXTRA_SPACE = 100.0  # 相机可以超出系统外半径的距离有多远
+
+    SYSTEM_MIN_PITCH = 20.0  # 系统视角的最小俯仰角，以度为单位
+    SYSTEM_MAX_PITCH = 80.0  # 系统视角的最大俯仰角，以度为单位
+    GALAXY_MIN_PITCH = 30.0  # 银河视角的最小俯仰角，以度为单位
+    GALAXY_MAX_PITCH = 85.0  # 银河视角的最大俯仰角，以度为单位
+    FOCUSED_MIN_PITCH = -80.0  # 当聚焦在行星/船只时使用的最小俯仰角，以度为单位
+    FOCUSED_MAX_PITCH = 80.0  # 当聚焦在行星/船只时使用的最大俯仰角，以度为单位
+    FOCUSED_MIN_ZOOM_BASE = 20.0  # 基础最小缩放
+    FOCUSED_MIN_ZOOM_MULT = 0.5  # 最小缩放是基础值加上实体半径乘以 FOCUSED_MIN_ZOOM_MULT
+    FOCUSED_PLANET_MIN_ZOOM_MULT = 1.6
+    FOCUSED_ZOOM_RATE = 0.2  # 更高的值意味着更快的缩放进出
+    KEYBOARD_ZOOM_RATE = 7.5  # 使用键盘输入缩放时，更高的值意味着更快的缩放进出
+    FOCUS_START_ZOOM_STEP = 4  # 当聚焦到一个新对象时，将使用哪个缩放步骤
+
+    ROTATION_RADIANS_PER_MOUSE_UNIT = 0.004  # 鼠标移动1像素会导致旋转X弧度 * 来自设置的灵敏度
+    MOUSE_MOVEMENT_TO_START_ROTATION_SQ = 16  # 你需要移动鼠标多远（平方）才能让游戏识别这是一个相机旋转操作
+
+    SYSTEM_SLIDE_RADIUS_FACTOR = 4.0  # 系统滑动半径的因子
+    SYSTEM_SLIDE_SPEED = 100.0  # 系统滑动的速度
+}
+
+NGraphics = {
+    CAMERA_DISTANCE_TO_ZOOM = 10.0  # 相机距离对缩放的影响
+
+    DEAD_SHIP_DRAG = 15.0  # 当船只死亡时，其速度每秒减少x
+
+    ORBIT_HSV = { 0.44 0.8 0.6 }  # 轨道的HSV颜色值
+    SYSTEM_INNER_BORDER_HSV = { 0.0 0.0 1.0 }  # 系统内边界的HSV颜色值
+    SYSTEM_OUTER_BORDER_HSV = { 0.1 0.8 0.9 }  # 系统外边界的HSV颜色值
+
+    SYSTEM_LINE_ALPHA_FADE_STEP = { 1 6 }  # 在缩放步骤X和Y之间淡出alpha
+    SYSTEM_LINE_ALPHA_FADE_VALUE = { 0.1 0.05 }  # 在X和Y之间淡出alpha值
+
+    DEFAULT_PLANET_PLANE = -150.0  # 默认行星平面的值
+    PLANET_TO_MEGASTRUCTURE_SCALE = 0.045  # 行星到超级结构的缩放比例
+    MOON_SCALE = 0.7  # 月亮的缩放比例
+    PLANET_SCALE_SYSTEM = { 0.425 0.325 0.35 0.5 0.5 0.5 0.75 }  # 每个系统缩放步骤的行星缩放比例
+
+    PLANET_DESTRUCTION_HIT_ENTITY_SCALE = 0.02  # 行星毁灭命中实体的缩放比例是<行星显示大小> * 这个值
+
+    RELATION_COLOR_PLAYER_HSV = { 0.67 0.8 0.35 }  # 玩家的关系颜色的HSV值
+    RELATION_COLOR_ALLIED_HSV = { 0.8 0.35 0.4 }  # 盟友的关系颜色的HSV值
+    RELATION_COLOR_NEUTRAL_HSV = { 0.0 0.0 0.22 }  # 中立的关系颜色的HSV值
+    RELATION_COLOR_HOSTILE_HSV = { 0.0 0.3 0.3 }  # 敌对的关系颜色的HSV值
+    RELATION_COLOR_SELECTED_RGB = { 1.5 1.1 0.0 }  # 选中的关系颜色的RGB值
+    MAP_ICON_COLOR_INACTIVE_HSV = { 0.0 0.0 0.22 }  # 不活动的地图图标的HSV颜色值
+    MAP_ICON_COLOR_INACCESSIBLE = { 0.7 0.1 0.1 }  # 不可访问的地图图标的颜色
+    MAP_ICON_COLOR_ACCESSIBLE = { 0.26 0.52 0.43 }  # 可访问的地图图标的颜色
+    MAP_ICON_COLOR_EXPLORING = { 0.26 0.52 0.43 }  # 探索中的地图图标的颜色
+    MAP_ICON_COLOR_PENDING_EVENT = { 0.76 0.64 0.15 }  # 待处理事件的地图图标的颜色
+
+    ASTEROID_PLANE = -100.0  # 小行星平面的值
+    ASTEROID_POSITION_OFFSET = 8.0  # 小行星位置的偏移量
+    ASTEROID_HEIGHT_OFFSET = 4.0  # 小行星高度的偏移量
+    ASTEROID_DIST_POW = 3  # 小行星距离的幂
+    ASTEROID_AMOUNT_RADIUS_SCALER = 0.1  # 小行星数量半径的缩放器
+    ASTEROID_MAX_SCALE = 4.0  # 小行星的最大缩放
+    ASTEROID_ROTATION_SPEED = 0.3035  # 小行星的旋转速度
+
+    GALAXY_STAR_ICON_SCALE = 1.5  # 星系星星图标的缩放
+    GALAXY_STAR_ICON_MAX_SCALE = 1.25  # 星系星星图标的最大缩放
+    GALAXY_DUST_SIZE = 25.0  # 星系尘埃的大小
+    GALAXY_DUST_SIZE_EXTRA = 35.0  # 星系尘埃的额外大小
+    GALAXY_DUST_ROTATION_SPEED = 0.005  # 星系尘埃的旋转速度
+    GALAXY_NEBULA_DUST_SIZE = 10.0  # 星系星云尘埃的大小
+    GALAXY_NEBULA_DUST_SIZE_EXTRA = 25.0  # 星系星云尘埃的额外大小
+    GALAXY_NEBULA_DUST_ROTATION_SPEED = 0.002  # 星系星云尘埃的旋转速度
+
+    ARCHAEOLOGICAL_SITE_MAP_ICON_OFFSET = -0.5  # 考古遗址地图图标的偏移量
+    ASTRAL_RIFTS_MAP_ICON_OFFSET = 0.06  # 星体裂缝地图图标的偏移量
+    ASTRAL_RIFTS_STATION_OFFSET_MULT = 0.5  # 星体裂缝站点的偏移乘数
+
+    PLANET_TILT_FROM_SUN = 0.52 # 行星离太阳的倾斜角度
+    PLANET_RING_TILT_FROM_SUN = -0.16  # 行星环离太阳的倾斜角度
+    PLANET_MAP_ICON_OFFSET = 0.6     # 基于行星大小的地图图标偏移量
+    PLANET_DISSOLVE_ANIMATION_TIME_SCALE = 7.4 # 更大的值意味着行星溶解动画持续的时间更长
+
+    MEGASTRUCTURE_MAP_ICON_OFFSET = 0.06    # 基于超级结构大小的地图图标偏移量
+
+    TRAILS_ALPHA_FADE = 0.5 # 控制我们多快进行alpha淡出
+    TRAILS_MISSILE_ALPHA_FADE = 6 # 控制我们多快进行导弹轨迹的alpha淡出
+    TRAILS_BASE_WIDTH = 1.0 # 轨迹的宽度
+    TRAILS_MISSILE_BASE_WIDTH = 3.0 # 导弹轨迹的宽度
+    TRAILS_LOCATOR_NAME = "exhaust"  # 轨迹定位器的名称
+    STRIKE_CRAFT_TRAIL_FADE_RATE = 1.0  # 打击飞艇轨迹的淡出速度
+    STRIKE_CRAFT_HEIGHT_OFFSET = 30.0  # 打击飞艇的高度偏移量
+    STRIKE_CRAFT_HEIGHT_RANDOM = 5.0  # 打击飞艇的随机高度
+
+    BORDER_TEXTURE_SIZE = 2048 # 边界数据纹理的大小。更大=更慢，有更多的采样点。太小会不准确，太大超采样效果不明显
+    BORDER_MIN_SIZE_FOR_SYMBOL = 16 # 要显示一个符号，边界斑点必须能够适应x像素的正方形
+
+    BORDER_SYSTEM_RADIUS = 35.0  # 边界系统的半径
+    BORDER_HYPERLANE_THICKNESS = 20.0  # 边界超光速航道的厚度
+    BORDER_INFLUENCE_MAX_DISTANCE_FACTOR = 1.88  # 边界影响的最大距离因子
+
+    BORDER_OWNERLESS_SYSTEM_RADIUS = 30.0  # 无主系统的边界半径
+    BORDER_OWNERLESS_HYPERLANE_THICKNESS = 20.0  # 无主超光速航道的边界厚度
+    BORDER_OWNERLESS_INFLUENCE_MAX_DISTANCE_FACTOR = 1.88  # 无主影响的最大距离因子
+
+    BORDER_VISIBILITY_THRESHOLD = 0.05  # 边界可见性阈值
+
+    STAR_PIN_CIRCLE_RADIUS = 2.0    # 从太阳系向下到0平面的线。这是那个圆的半径
+    STAR_PIN_CIRCLE_NUM_POINTS = 6    # 0平面上的圆中的点数
+    STAR_PIN_ENABLE_NEUTRAL = yes # 游戏是否应该为不在任何边界内的星星绘制图钉？
+    STAR_PIN_NEUTRAL_COLOR = { 0.5 0.5 0.5 0.5 }    # 不在任何边界内的图钉的颜色
+
+    BORDER_FLAG_SCALE = 0.6  # 边界标志的缩放
+    MAPNAME_BORDER_SCALE = 1.0  # 地图名称边界的缩放
+    MAPNAME_BORDER_MIN_SIZE = 100  # 地图名称边界的最小大小
+    MAPNAME_BORDER_OFFSET_MUL = 0.75  # 地图名称边界的偏移乘数
+    MAPNAME_BORDER_OFFSET_ADD = 4.0  # 地图名称边界的偏移加数
+    MAPNAME_NEBULA_SCALE = 0.8  # 地图名称星云的缩放
+    MAPNAME_SECTOR_SCALE = 3  # 地图名称区域的缩放
+
+    NULL_ENTITY = "test_object_entity"  # 空实体的名称
+    NULL_INSTANT_PROJECTILE = "default_instant_projectile"  # 空瞬间投射物的名称
+    NULL_MISSILE_PROJECTILE = "default_missile_projectile"  # 空导弹投射物的名称
+
+    SCIENCE_SHIP_SURVEY_ENTITY = "survey_base_effect_entity"  # 科学船调查实体的名称
+    SCIENCE_SHIP_SURVEY_ENTITY_LOCATOR = ""  # 科学船调查实体的定位器
+    SCIENCE_SHIP_SURVEY_ENTITY_MAX_SCALE_FACTOR = 1.0 # xy缩放最大可以是z缩放 * SCIENCE_SHIP_SURVEY_ENTITY_MAX_SCALE_FACTOR。z缩放将等于被调查对象和船只之间的距离
+    CONSTRUCTION_SHIP_TERRAFORMING_BEAM_ENTITY = "terraforming_effect_entity"  # 建筑船进行地形改造时的光束实体
+    CONSTRUCTION_SHIP_TERRAFORMING_PLANET_ENTITY = "terraforming_planet_effect_entity"  # 建筑船进行地形改造时的行星实体
+    CONSTRUCTION_SHIP_TERRAFORMING_BEAM_ENTITY_SCALE_XY = 1.0  # 在船和行星之间的本地坐标中，光束实体的xy缩放
+    CONSTRUCTION_SHIP_TERRAFORMING_BEAM_ENTITY_SCALE_Z = 0.62  # 在本地坐标中，光束尖端z的缩放，以便光束击中行星表面
+    CONSTRUCTION_SHIP_TERRAFORMING_PLANET_ENTITY_SCALE_R = 3.0  # 环绕行星的云的半径r的缩放
+
+    NAVIGATION_ARROW_ENTITY = "navigation_arrow_entity"  # 导航箭头的实体
+    NAVIGATION_ARROW_OFFSET = 150.0  # 箭头向边缘的偏移
+    NAVIGATION_ARROW_FONT = "Orbitron"  # 导航箭头的字体
+    NAVIGATION_ARROW_FONT_SPECIAL = { "l_russian" "arial" "l_polish" "arial" "l_chinese" "Chinese_normal" "l_japanese" "Chinese_normal" "l_korean" "Chinese_normal" }  # 特殊字体的导航箭头
+    NAVIGATION_ARROW_TEXT_OFFSET = -50.0  # 导航箭头文本的偏移
+    NAVIGATION_ARROW_TEXT_SCALE = 1.6  # 导航箭头文本的缩放
+    NAVIGATION_ARROW_FONT_SIZE = 32  # 导航箭头的字体大小
+    NAVIGATION_ARROW_TEXT_KERNING = 8  # 导航箭头文本的字距
+
+    SHIP_TURRET_PROJECTILE_SPAWN_LOCATOR = "turret_muzzle_01"  # 舰船炮塔投射物的生成定位器
+    STRIKE_CRAFT_PROJECTILE_SPAWN_LOCATOR = "projectile_spawn"  # 打击飞艇投射物的生成定位器
+    SHIP_TARGET_LOCATOR = "target_locator_"  # 舰船目标定位器
+
+    MISSILE_HEIGHT_OFFSET = 10.0  # 导弹将飞行多高
+    MISSILE_RANDOM_OFFSET_MIN_RADIUS = 5.0  # 导弹的随机散布最小半径
+    MISSILE_RANDOM_OFFSET_MAX_RADIUS = 10.0  # 导弹的随机散布最大半径
+
+    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 2.0  # 错过的弹道投射物将至少活这么久才被移除
+    PROJECTILE_ENTITY_STOP_STATE = "stop"  # 当需要停止时，导弹、投射物和命中实体播放的状态
+
+    SHIELD_EFFECT_TIME_SCALE = 1.5  # 护盾效果的动画速度
+    SHIELD_EFFECT_LOOP_INTERVAL = 0.5  # 循环动画的间隔，值为百分比
+    SHIELD_DISTANCE_FROM_SHIP = { 2.0 0.0 5.0 }  # 护盾离船有多远，左右上下前后
+    SHIELD_DISTANCE_FROM_SHIP_MULT = { 1.15 1.15 1.15 }  # 护盾离船有多远，基于船的大小，左右上下前后
+
+    SHIELD_EFFECT_ENTITIES = {
+        "small_shield_impact_entity"
+        "medium_shield_impact_entity"
+        "large_shield_impact_entity"
+    }  # 护盾效果实体
+    SHIELD_EFFECT_LOOPING_ENTITIES = {
+        "small_shield_impact_looping_entity"
+        "medium_shield_impact_looping_entity"
+        "large_shield_impact_looping_entity"
+    }  # 循环的护盾效果实体
+
+    MISSED_BEAM_LENGTH = 1500.0  # 错过的光束将有多长
+    SHIP_DAMAGE_TEXTURE = "gfx/models/ships/other/damaged_noise.dds"  # 船只损坏的纹理
+    SHIP_DISSOLVE_NOISE_TEXTURE = "gfx/models/ships/other/dissolve_noise.dds"  # 船只溶解的噪声纹理
+    SHIP_CLOAK_TEXTURE = "gfx/models/ships/other/cloaking.dds"  # 船只隐形的纹理
+    SHIP_RANDOM_HEIGHT_OFFSET = 15.0  # 船只的随机高度偏移
+    SHIP_MOVEMENT_LENGTH_CONSIDERED_ZERO = 0.002 # 在此值以下，船只的实际旋转将被使用，否则使用前向向量。
+
+    RANDOM_HEIGHT_MIN = -20.0  # 随机高度的最小值
+    RANDOM_HEIGHT_MAX = 20.0  # 随机高度的最大值
+
+    MOVE_ARROW_SYSTEM_CONTROL_POINT_SPACING = 100.0 # 绘制移动箭头时，控制点之间应相隔多远？
+    MOVE_ARROW_GALAXY_CONTROL_POINT_SPACING = 5.0 # 绘制移动箭头时，控制点之间应相隔多远？
+    MOVE_ARROW_SYSTEM_TARGET_ENTITY = "move_indicator_entity" # 用于箭头末端的实体
+    MOVE_ARROW_GALAXY_TARGET_ENTITY = "galaxy_move_indicator_entity" # 用于箭头末端的实体
+    ATTACK_ARROW_SYSTEM_TARGET_ENTITY = "attack_indicator_entity" # 用于箭头末端的实体
+    ATTACK_ARROW_GALAXY_TARGET_ENTITY = "galaxy_attack_indicator_entity" # 用于箭头末端的实体
+    TASK_ARROW_SYSTEM_TARGET_ENTITY = "task_indicator_entity" # 用于箭头末端的实体
+    TASK_ARROW_GALAXY_TARGET_ENTITY = "galaxy_task_indicator_entity" # 用于箭头末端的实体
+    BYPASS_ARROW_GALAXY_TARGET_ENTITY = "galaxy_move_indicator_entity" # 用于特殊FTL跳跃的实体 - 目前使用默认的移动目标
+    CATAPULT_TARGET_ENTITY = "catapult_indicator_entity" # 用于弹射瞄准器的实体 - 目前使用默认的移动目标
+    CATAPULT_DESTINATION_ENTITY = "catapult_indicator_entity" # 用于弹射目标的实体 - 目前使用默认的移动目标
+    CATAPULT_POTENTIAL_TARGET_INDICATOR_ENTITY = "catapult_potential_indicator_entity" # 用于弹射目标的实体 - 目前使用默认的移动目标
+
+    GUI_PLANET_RING_DIR = { 1.5 -0.25 1.5 }    # GUI图标中行星环的方向
+    TI_TEXTURE_GROW_AMOUNT = 1    # 用于图形的TI增长量
+
+    #REPAIR_FLEET_EFFECT_ENTITY = "ship_repair_entity"  # 维修舰队效果实体
+    #UPGRADE_FLEET_EFFECT_ENTITY = "ship_upgrade_entity"  # 升级舰队效果实体
+    #ORBIT_FLEET_EFFECT_ENTITY = "ship_orbit_entity"  # 轨道舰队效果实体
+    #IDLE_FLEET_EFFECT_ENTITY = ""  # 空闲舰队效果实体
+    FLEET_EFFECT_ENTITIES = {
+        "ship_repair_entity"        # 当修理时
+        "ship_upgrade_entity"        # 当升级时
+        "ship_orbit_entity"        # 当轨道时
+        ""                            # 当空闲时
+    }
+    FLEET_EFFECT_ENTITIES_BILLBOARD = {
+        1    # 当修理时
+        1    # 当升级时
+        0    # 当轨道时
+        1    # 当空闲时
+    }
+    FLEET_EFFECT_ENTITIES_SCALE = {
+        0    # 当修理时
+        0    # 当升级时
+        1    # 当轨道时
+        0    # 当空闲时
+    }
+
+    FTL_WINDUP_ENTITY_HYPERLANE = "hyperlane_ftl_ship_effect_entity"    # 用于超光速航道风格
+    FTL_WINDUP_ENTITY_JUMP = "warp_ftl_ship_effect_entity"                # 用于跳跃驱动风格
+    FTL_WINDUP_ENTITY_ASTRAL_JUMP = "astral_jump_ftl_ship_effect_entity"        # 用于星体跳跃风格
+
+    ALIENFX_DEFAULT_COLOR = { 0.43 0.8 0.61 }  # 外星人特效的默认颜色
+
+    MAX_GFX_PROJECTILES = 100  # 最大的图形投射物数量
+    MAX_GFX_PRIO_PROJECTILES = 100  # 最大的图形优先投射物数量
+    MAX_GFX_MISSILES = 50  # 最大的图形导弹数量
+    MUZZLE_FLASH_LIMIT = 50  # 枪口闪光限制
+    MUZZLE_FLASH_DURATION = 2.0  # 枪口闪光持续时间
+
+    MAP_MODE_NEUTRAL_COLOR = { 0.5 0.5 0.5 0.75 }  # 地图模式的中立颜色
+    COUNTRY_BORDER_COLOR_RANDOM_SATURATION_OFFSETS = { 0.0 -0.1 0.1 -0.2 0.2 -0.3 0.3 }  # 国家边界颜色的随机饱和度偏移
+    COUNTRY_BORDER_COLOR_RANDOM_VALUE_OFFSETS = { 0.0 -0.1 0.1 -0.2 0.2 -0.25 0.3 }  # 国家边界颜色的随机值偏移
+
+    CONSTRUCTION_COLOR_VALID = { 0.38 1.0 0.6 0.5 }  # 有效的建筑颜色
+    CONSTRUCTION_COLOR_INVALID = { 0.0 0.95 0.3 0.5 }  # 无效的建筑颜色
+    CONSTRUCTION_COLOR_IN_PROGRESS = { 0.41 1.0 0.6 0.10 }  # 进行中的建筑颜色
+
+    CONSTRUCTION_PROGRESS_BLEND_SPEED = 0.025  # 建筑进度混合速度
+    CONSTRUCTION_MEGASTRUCTURE_PROGRESS_BLEND_SPEED = 0.001  # 建筑超级结构进度混合速度
+
+    HIDE_HYPERLANES_OUTSIDE_TERRA_INCOGNITA = yes  # 隐藏未知领域外的超光速航道
+
+    SENSOR_RANGE_COLOR_MEDIUM = { 0.0 0.7 0.3 0.3 }  # 中等传感器范围颜色
+    SENSOR_RANGE_COLOR_LOW = { 1.0 0.5 0.0 0.2 }  # 低传感器范围颜色
+
+    HYPERLANE_DEFAULT_COLOR = { 0.0 1.0 1.0 0.2 }  # 超光速航道的默认颜色
+    HYPERLANE_NO_ACCESS_COLOR = { 0.9 0.15 0.0 0.4 }  # 无法访问的超光速航道的颜色
+    HYPERLANE_RELAY_COLOR = { 0.0 0.6 0.4 0.8 }  # 超光速航道中继的颜色
+    HYPERLANE_RELAY_NOT_CONNECTED_COLOR = { 0.9 0.9 0.0 0.8 }  # 未连接的超光速航道中继的颜色
+
+    HYPERLANE_SCREENSIZE_DEFAULT = 0.01  # 超光速航道的默认屏幕大小
+    HYPERLANE_SCREENSIZE_MIN = 0.01  # 超光速航道的最小屏幕大小
+    HYPERLANE_SCREENSIZE_MAX = 5.0  # 超光速航道的最大屏幕大小
+    HYPERLANE_THICKNESS_DEFAULT = 1.0  # 超光速航道的默认厚度
+    HYPERLANE_THICKNESS_RELAY = 2.0  # 超光速航道中继的厚度
+
+    CATAPULT_RANGE_COLOR = { 0.0 0.8 0.8 0.6 } # 弹射器范围指示器颜色
+    CATAPULT_INDICATOR_COLOR_DEFAULT = { 0.0 0.95 0.3 0.5 }        # HSVA
+    CATAPULT_INDICATOR_COLOR_NO_RANGE = { 1.0 1.0 1.0 0.5 }        # HSVA
+    CATAPULT_INDICATOR_COLOR_CLICKABLE = { 0.41 1.0 0.6 0.10 }    # HSVA
+    CATAPULT_POTENTIAL_TARGET_INDICATOR_COLOR = { 0.5 0.8 0.1 0.6 } # 弹射器潜在目标指示器颜色
+
+    MODIFIER_TEXT_ICON_SCALE = 0.70  # 修饰符文本图标的缩放
+
+    CELESTIAL_WARNING_COORDINATE_VALUE = 600  # 当系统过大时，你会得到错误的系统大小（500是正常值，因为图形可能会在更大的值上出现故障）
+    # 新的注释：提高限制，因为某些系统会更高，我们没有收到报告的问题...
+
+    GDF_SHIP_GRAPHICAL_CULTURE = "nemesis_01"  # GDF船只的图形文化
+
+    FEDERATION_UNKOWN_FEDERATION_ICON = "GFX_unknown_federation"  # 联邦未知联邦图标
+}
+
+NInterface = {
+    # Any interface defines in this file will affect the checksum. Put them in unchecked_defines/00_interface.txt if they shouldn't change the checksum.
+
+}
+
+NGameplay = {
+    NUM_COMMANDS_PER_TURN = 2  # 每回合发送的tick命令数量，对于全屏运行游戏的人来说非常有用，可以达到更快的模拟速度
+
+    GUARANTEED_COLONIES_DEFAULT = 2  # 默认保证的殖民地数量
+    GUARANTEED_COLONIES_MIN = 0  # 最小保证的殖民地数量
+    GUARANTEED_COLONIES_MAX = 2  # 最大保证的殖民地数量
+
+    MID_GAME_START_DEFAULT = 100  # 游戏中期开始的默认年份
+    MID_GAME_START_MAX = 400  # 游戏中期开始的最大年份
+    MID_GAME_START_MIN = 25  # 游戏中期开始的最小年份
+    END_GAME_START_DEFAULT = 200  # 游戏末期开始的默认年份
+    END_GAME_START_MAX = 800  # 游戏末期开始的最大年份
+    END_GAME_START_MIN = 50  # 游戏末期开始的最小年份
+    START_YEAR_SLIDER_INTERVAL = 25  # 开始年份滑块的间隔
+    VICTORY_YEAR_DEFAULT = 300  # 默认的胜利年份
+    VICTORY_YEAR_MAX = 1050  # 最大的胜利年份
+    VICTORY_YEAR_MIN = 100  # 最小的胜利年份
+    VICTORY_YEAR_SLIDER_INTERVAL = 50  # 胜利年份滑块的间隔
+
+    SCORE_NO_ECONOMY = 5000 # 对于没有经济但仍然计入胜利的国家的得分
+    SCORE_ECONOMIC_POWER = 1 # 每个经济力量的得分
+    SCORE_TECH_POWER = 0.25 # 每个技术力量的得分
+    SCORE_MILITARY_POWER = 0.00 # 每个舰队力量的得分
+    SCORE_POPS = 2 # 每个人口的得分
+    SCORE_PLANETS = 50 # 每个殖民地的得分
+    SCORE_SYSTEMS = 10 # 每个系统的得分
+    SCORE_SUBJECTS = 0.5 # 主体自身得分的一部分
+    SCORE_FEDERATION_MEMBERS = 0.1 # 联邦成员自身得分的一部分
+    SCORE_CRISIS_KILLS = 10 # 每杀死一个危机舰船的得分
+
+    TECH_COST_DEFAULT = 1.0  # 默认的科技成本
+    TECH_COST_MIN = 0.25  # 最小的科技成本
+    TECH_COST_MAX = 5.00  # 最大的科技成本
+    TECH_COST_SLIDER_INTERVAL = 0.25  # 科技成本滑块的间隔
+
+    TECH_COST_DIFFICULTY_SCALE_MULT = 0.025  # 科技成本难度规模乘数
+
+    TRADITION_COST_DEFAULT = 1.0  # 默认的传统成本
+    TRADITION_COST_MIN = 0.25  # 最小的传统成本
+    TRADITION_COST_MAX = 5.00  # 最大的传统成本
+    TRADITION_COST_SLIDER_INTERVAL = 0.25  # 传统成本滑块的间隔
+
+    LOGISTIC_CEILING_DEFAULT = 1.5  # 默认的物流上限
+    LOGISTIC_CEILING_MIN = 1.0  # 最小的物流上限
+    LOGISTIC_CEILING_MAX = 2.0  # 最大的物流上限
+    LOGISTIC_CEILING_SLIDER_INTERVAL = 0.05  # 物流上限滑块的间隔
+
+    CITIZENSHIP_TYPE_DEFAULT = "citizenship_full"  # 默认的公民权类型
+    SLAVERY_TYPE_DEFAULT = "slavery_normal"  # 默认的奴隶制类型
+    PURGE_TYPE_DEFAULT = "purge_normal"  # 默认的清洗类型
+
+    SPECIES_RIGHTS_INITIAL_CONFIG_PRIMARY = { citizenship_full colonization_control_no living_standard_normal migration_control_no military_service_full population_control_no purge_normal slavery_normal }    # 游戏为你的种族权利模块生成的初始配置。它应该在某个时候检查权重和潜力，所以这可能没什么用。除非留空，否则会破坏游戏。
+    SPECIES_RIGHTS_INITIAL_CONFIG_DEFAULT = { citizenship_limited colonization_control_no living_standard_stratified migration_control_no military_service_limited population_control_no purge_normal slavery_normal }    # 同上
+    SPECIES_RIGHTS_INITIAL_CONFIG_BUILT = { citizenship_robot_servitude colonization_control_yes living_standard_servitude migration_control_yes military_service_limited population_control_no purge_normal slavery_normal }    # 同上
+
+    GROWTH_SCALE_DEFAULT = 0.25  # 默认的增长规模
+    GROWTH_SCALE_MIN = 0.00  # 最小的增长规模
+    GROWTH_SCALE_MAX = 1.00  # 最大的增长规模
+    GROWTH_SCALE_SLIDER_INTERVAL = 0.05  # 增长规模滑块的间隔
+
+    LEADER_JOB_BACKGROUND_STRATA_WEIGHTS = { "1" "5" "10" }  # 领导者工作背景阶层的权重
+
+    COUNCIL_RESEARCH_POSITIONS = { "councilor_gestalt_cognitive" "councilor_research" }  # 理事会的研究职位
+    COUNCIL_NAVAL_POSITIONS = { "councilor_gestalt_legion" "councilor_defense" }  # 理事会的海军职位
+    COUNCIL_DIPLOMACY_POSITIONS = { "councilor_gestalt_regulatory" "councilor_state" }  # 理事会的外交职位
+
+    SHIPYARD_REINFORCE_DISTANCE_MULT = 500    # 这个值越高，距离在分配增援船只建造时的影响就越大。预期值应该大于等于1
+    SHIPYARD_REINFORCE_MAX_JUMPS = 100        # 如果最近的船坞理论上可以建造所有请求的船只；距离舰队比这个值（加上最近的船坞和舰队之间的跳跃次数）更远的船坞将不会被考虑用于增援建造任务。预期值应该大于等于1
+    REINFORCE_MIA_TIME_MULT = 1.0  # 用于自定义增援时间的持续时间。预期值应大于0
+    REINFORCE_ACCEPTABLE_EVASIVE_PATH_MULT = 2.0  # 允许的规避增援路径的最大距离乘数，如果规避路径比这个长，增援就会被中止。预期值应大于等于1
+    REINFORCE_ACCEPTABLE_EVASIVE_PATH_OVERRIDE_LOWER_THRESHOLD = 12  # 在此阈值以下（以入口+出口点计算）的规避路径将始终被使用，即使规避路径比最短路径乘以REINFORCE_ACCEPTABLE_EVASIVE_PATH_MULT的长度还要长。预期值应大于0。
+    MIA_UNKNOWN_PATH_TIME_COEFFICIENT = 10  # 在无法为MIA找到路径的情况下，沿着直接连接当前位置和目标位置的线的跳跃时间乘以此系数和曲率系数（下面）将被用于MIA ETA。
+    MIA_UNKNOWN_PATH_CURVATURE_COEFFICIENT = 2
+
+    TRIGGERED_MODIFIER_UPDATE_DELAY = 5  # 游戏只会在每X天更新每个游戏对象上的触发修饰符
+
+    LIMITED_EXPLORATION = 1  # 如果设置为1，只有科学船带着科学家或由指挥官领导的军事舰队才能进入未访问的系统
+
+    RANDOM_START_DISTANCE = 75  # 帝国在随机开始时彼此之间的最小距离
+
+    SHROUD_FLAG = "breached_shroud"  # 标志表示是否已突破帷幕
+    GUARDIANS_OF_THE_GALAXY_FLAG = "guardians_of_the_galaxy"  # 标志表示是否存在银河系的守护者
+    UNRESTRICTED_WARS_POLICY_FLAG = "unrestricted_wars"  # 标志表示是否允许无限制的战争
+    GALACTIC_MARKET_FOUNDED_FLAG = "galactic_market_founded"  # 标志表示是否已建立银河市场
+
+    DIMENSIONAL_LOCK_ASTRAL_ACTION = "action_dimensional_lock"  # 维度锁的行动
+    DIMENSIONAL_LOCK_AVAILABLE_FLAG = "dimensional_lock_available"  # 维度锁可用的标志
+    DIMENSIONAL_LOCK_BUILD_TIME = 180  # 建造一个维度锁需要的时间（以天为单位）
+    DIMENSIONAL_LOCK_EXPIRATION_TIME = 3600  # 维度锁过期前的时间（以天为单位）
+    DIMENSIONAL_LOCK_PRE_EXPIRATION_ALERT_DAYS = 30  # 维度锁过期前的警告天数
+    FORMLESS_REWARD_AVAILABLE = "formless_reward_available"  # 无形奖励可用的标志
+    FORMLESS_COUNTRY_TYPE = "formless"  # 无形国家类型
+
+    ASTRAL_ACTION_PREVENT_UNLOCK_NOTIFICATION_DELAY = 30  # 两个“星际行动解锁”通知之间的最小延迟
+    ASTRAL_ACTION_RECENT_UNLOCK_NOTIFICATION_FLAG = "unlocked_astral_action_recently"  # 用于防止多个“星际行动解锁”通知的标志
+
+    RESEARCH_DEBRIS_POLICY_FLAG = "research_debris"  # 标志表示是否研究碎片的政策
+    SCAVENGE_DEBRIS_POLICY_FLAG = "scavenge_debris"  # 标志表示是否清理碎片的政策
+    SCAVENGE_AND_RESEARCH_DEBRIS_POLICY_FLAG = "scavenge_and_research_debris"  # 标志表示是否清理和研究碎片的政策
+    SCAVENGE_DEBRIS_RESOURCE_MULT = 0.1  # 当清理碎片时，应给出碎片的船舰设计成本的资源量
+
+    DECADENCE_START = 20  # 在被唤醒后的这么多年后，一个觉醒的帝国将经历衰退
+    DECADENCE_CHANCE = 0.5  # 每个月衰退增加的机会（乘以帝国和主体的总大小）
+    DECADENCE_INCREASE = 2  # 每次衰退增加多少？
+    DECADENCE_MAX = 100  # 最大衰退
+
+    FTL_MAGNET_DISTANCE = 50  # 当被FTL磁铁捕获时，船只会在这个距离内跃迁
+
+    NUM_DISTRICTS_BASE = 0  # 基础区域数量
+    NUM_DISTRICTS_FROM_PLANET_SIZE = 1  # 每个星球大小增加这么多区域
+    BASE_AMENITIES_USAGE = 5  # 基础设施使用量？不知道是什么
+
+    MAX_PLANET_POPS = 1000  # 用于建筑计算的星球人口最大值
+
+    BASE_PLANET_BUILDING_SLOTS = 1  # 基础星球建筑槽位
+    MAX_PLANET_BUILDING_SLOTS = 12  # 最大星球建筑槽位
+
+    BASE_PLANET_BRANCH_OFFICE_BUILDING_SLOTS = 0  # 基础星球分公司建筑槽位
+    MAX_PLANET_BRANCH_OFFICE_BUILDING_SLOTS = 4  # 最大星球分公司建筑槽位
+
+    BASE_PLANET_SUBJECT_HOLDING_BUILDING_SLOTS = 0  # 基础宗主持有建筑槽位
+    MAX_PLANET_SUBJECT_HOLDING_BUILDING_SLOTS = 4  # 最大宗主持有建筑槽位
+
+    BRANCH_OFFICE_INCOME_SCALE = 0.5  # 每个星球贸易价值的分公司收入比例
+    BRANCH_OFFICE_COST_INCREASE_MIN_RANGE = 3  # 超过这个数目的超空间跳跃距离，增加分公司的成本
+    BRANCH_OFFICE_COST_INCREASE_SCALE = 0.1  # 每跳增加的额外成本
+    REPAIR_BUILDING_COST = 0.5  # 修理建筑的成本
+    REPAIR_BUILDING_TIME = 0.5  # 修理建筑的时间
+
+    MIN_PLANET_STABILITY = 0  # 星球稳定性的最小值
+    LOW_PLANET_STABILITY = 25  # 星球稳定性的低警告值
+    BASE_PLANET_STABILITY = 50  # 星球稳定性的基础值
+    MAX_PLANET_STABILITY = 100  # 星球稳定性的最大值
+    LOW_HAPPINESS_STABILITY_EFFECT = -50  # 如果所有人口的幸福度为0%，稳定性会受到这么大的影响
+    HIGH_HAPPINESS_STABILITY_EFFECT = 30  # 如果所有人口的幸福度为100%，稳定性会受到这么大的影响
+
+    POP_CRIME = 2  # 每个人口的犯罪率（与幸福度成反比）
+    MIN_PLANET_CRIME = 0  # 星球犯罪率的最小值
+    HIGH_PLANET_CRIME = 50  # 星球犯罪率的高值
+    MAX_PLANET_CRIME = 100  # 星球犯罪率的最大值
+    CRIMINAL_SYNDICATE_HIGH_CRIME_MULT = 0.5  # 在最高犯罪率时应用于分公司价值的倍数
+    CRIMINAL_SYNDICATE_LOW_CRIME_MULT = -0.5  # 在无犯罪时应用于分公司价值的倍数
+
+    MIN_PLANET_AMENITIES = 0.25  # 设施需求的最小倍数
+    MAX_PLANET_AMENITIES = 2.0  # 设施需求的最大倍数
+
+    MIN_PLANET_RELATIVE_HOUSING = 0.5  # 住房需求的最小倍数
+    MAX_PLANET_RELATIVE_HOUSING = 4.0  # 住房需求的最大倍数
+
+    DEFAULT_TRAIT_OPTIONS_ON_LEVEL_UP = 2  # 升级时默认可选择的非升级特性选项数量
+    NUM_DESTINY_TRAIT_OPTIONS = 3  # 默认可选择的命运特性数量
+    NON_PARAGON_TRAIT_OPTIONS_ON_LEVEL_UP = 4  # 在没有银河骄子的情况下，升级时可选择的非升级特性选项数量
+
+    MIN_BLOCKED_DEPOSITS = 1  # 在生成银河系时，总是尝试在行星上有这么多的阻塞存款
+    MIN_UNBLOCKED_DEPOSITS = 3  # 在生成银河系时，总是尝试在行星上有这么多的非阻塞存款
+    DEPOSIT_USED_CATEGORY_WEIGHT = 0.25  # 这个值越高，随机化越倾向于使行星存款类型多样化
+
+    COLONY_DEPOSITS_USE_NULL = no  # 随机化时，是否应该将空存款作为可能的结果？
+    COLONY_DEPOSITS_FIXED_BASE = 5  # 可殖民行星的最小存款数量
+    COLONY_DEPOSITS_RANDOM_BASE = 2  # 总是给可殖民行星这么多的随机存款机会
+    COLONY_DEPOSITS_FIXED_FROM_SIZE = 0.2  # （行星大小 * 这个值）被添加到可殖民行星的最小存款数量
+    COLONY_DEPOSITS_RANDOM_FROM_SIZE = 0.2  # （行星大小 * 这个值）被添加到可殖民行星的随机存款机会
+
+    NON_COLONY_DEPOSITS_USE_NULL = yes  # 随机化时，是否应该将空存款作为可能的结果？
+    NON_COLONY_DEPOSITS_FIXED_BASE = 1  # 不适宜居住的行星的最小存款数量
+    NON_COLONY_DEPOSITS_RANDOM_BASE = 0  # 总是给不适宜居住的行星这么多的随机存款机会
+    NON_COLONY_DEPOSITS_FIXED_FROM_SIZE = 0  # （行星大小 * 这个值）被添加到不适宜居住的行星的最小存款数量
+    NON_COLONY_DEPOSITS_RANDOM_FROM_SIZE = 0  # （行星大小 * 这个值）被添加到不适宜居住的行星的随机存款机会
+
+    QUICK_CLEAR_BLOCKER_GENERAL_MODIFIER_WEIGHT = 1  # 快速清除阻塞器时，应该如何考虑一般最大区域修饰符
+    QUICK_CLEAR_BLOCKER_SPECIFIC_MODIFIER_WEIGHT = 1  # 快速清除阻塞器时，应该如何考虑特定类型的最大区域修饰符
+
+    ALLOW_EMPIRE_DESIGN_CHEATS = no  # 是否允许帝国设计作弊
+
+    # 不用于危机派系，主要用于FEs/AEs
+    SCALED_DIFFICULTY_MAX_GALAXY_SIZE = 1000  # 在这个银河系大小，完全的难度调整修饰符被应用
+    SCALED_DIFFICULTY_GALAXY_SIZE_MULT = 0.75  # 银河系的大小对难度调整的影响有多大
+    SCALED_DIFFICULTY_HABITABLE_PLANETS_MULT = 0.5  # 可居住行星的数量对难度调整的影响有多大
+
+    FALLEN_EMPIRE_REPEATABLE_TECHS = 10  # 堕落帝国的可重复科技
+
+    RELATIVE_POWER_SUPERIOR = 1.5  # 相对力量的优越值
+    RELATIVE_POWER_OVERWHELMING = 2.5  # 相对力量的压倒性值
+
+    ECON_POWER_COST_DIV = 1  # 经济力量的成本除数
+    TECH_POWER_COST_DIV = 100  # 技术力量的成本除数
+    TECH_BASE_POWER = 200  # 技术的基础力量
+    TECH_REPEATABLE_POWER_MULT = 1.0  # 可重复技术的力量倍数
+    RELATIVE_POWER_FLEET_MULT = 2.0  # 确定相对力量时，舰队力量的因素有多大
+    RELATIVE_POWER_ECONOMY_MULT = 3.0  # 确定相对力量时，经济力量的因素有多大
+    RELATIVE_POWER_TECH_MULT = 1.0  # 确定相对力量时，技术力量的因素有多大
+
+    MIN_HABITABILITY = 0.0  # 行星的适居性必须至少达到这个值才能进行殖民
+
+    ABANDONED_EMPIRE_FLAG = "special/abandoned.dds"  # 废弃帝国的标志
+    PRE_COMMUNICATIONS_EMPIRE_FLAG = "special/unknown.dds"  # 预通信帝国的标志
+    FLEET_MIN_TI_CLEAR_RADIUS = 10  # 清除未知领土的最小半径，将使用这个和传感器范围中的最大值
+    TI_TEXTURE_SIZE = 256  # 内部未知领土纹理的大小，高分辨率可能会导致卡顿，并会增加内存需求和保存文件大小。
+    TI_CORE_SCALE = 0.9  # 未知领土核心的缩放比例
+    START_YEAR = 2200  # 游戏开始的年份
+    SYSTEM_INNER_RADIUS_OFFSET = 30  # 系统内半径的偏移量
+    SYSTEM_MIN_INNER_RADIUS = 150  # 系统最小内半径
+    SYSTEM_OUTER_RADIUS_OFFSET = 100  # 系统外半径的偏移量
+    SYSTEM_BOTTLENECK_RADIUS = 2  # 如果在N个系统内，所有的方向之间没有交叉，那么系统将被认为是瓶颈
+
+    SHIP_DESIGN_SAME_NAME_FACTOR = 10  # 这个值越高，当升级到最新设计时，选择同名设计的可能性就越大
+
+    GALACTIC_DEFENSE_FORCE_NAMELIST = "GDF"  # 银河防御力量的命名列表
+    IMPERIAL_ARMADA_NAMELIST = "IA"  # 帝国舰队的命名列表
+
+    JUMP_DRIVE_COOLDOWN = 200  # 使用跳跃驱动器之间的天数
+    ASTRAL_JUMP_COOLDOWN = 900  # 使用星体跳跃之间的天数
+    PHASE_FLEET_COOLDOWN = 360  # 使用相位舰队之间的天数
+    PHASE_FLEET_DURATION = 180  # 相位舰队的持续时间
+
+    RELEVANT_DISTANCE = 150  # 在这个距离内，我们被认为是外交相关的
+
+    CONSTRUCTION_SHIP_WORK_SPEED_MULT = 1  # 建筑船的建筑速度乘数
+    CONSTRUCTION_SHIP_STATION_OFFSET = 5  # 船只到正在建设的空间站的距离
+    SCIENCE_SHIP_SPECIAL_PROJECT_OFFSET = 20  # 科研船到特殊项目的距离
+    SCIENCE_SHIP_SURVEY_SPEED_MULT = 0.5  # 科研船的调查速度乘数
+    SCIENCE_SHIP_ANOMALY_RESEARCH_DAYS = {
+        # 科研船的异常研究天数
+        # 等级相等在中间（项目数量 / 2）
+        20  # 比异常高9级
+        24  # 比异常高8级
+        30  # 比异常高7级
+        35  # 比异常高6级
+        45  # 比异常高5级
+        55  # 比异常高4级
+        65  # 比异常高3级
+        80  # 比异常高2级
+        100  # 比异常高1级
+        120  # 0级等于异常
+        180  # 比异常低1级
+        300  # 比异常低2级
+        540  # 比异常低3级
+        720  # 比异常低4级
+        1080  # 比异常低5级
+        1440  # 比异常低6级
+        2160  # 比异常低7级
+        2880  # 比异常低8级
+        5760  # 比异常低9级
+    }
+
+    HYPERLANE_GEN_REMOVE_PERC = 0.15  # 尝试移除40%的最长边
+    HYPERLANE_GEN_REMOVED_MAX_DIST = 20  # 如果你必须跨越超过20颗星星才能到达同一位置，那么不要移除边
+    HYPERLANE_GEN_REMOVE_TOO_MANY_EDGES = 4  # 如果有4条或更多的边，那么移除边
+
+    GALAXY_GENERATION_DEFAULT_SHAPE = "spiral_2"  # 银河系生成的默认形状
+    GALAXY_GENERATION_RELAX_ITERATIONS = 1  # 更高的值意味着系统将更均匀地分布。过高的值会破坏螺旋星系
+    GALAXY_GENERATION_CENTER_DUMMY_POINTS = 256  # 在放松系统位置时，占据空白空间的虚拟点的数量
+
+    PLANET_ORBIT_DISTANCE_MIN_SIZE = 10  # 行星轨道距离的最小大小
+    PLANET_ORBIT_DISTANCE_SIZE_SCALE = 0.33  # 每个行星大小超过PLANET_ORBIT_DISTANCE_MIN_SIZE的额外轨道距离
+    PLANET_SHIP_ORBIT_DISTANCE = 10.0  # 船只离行星的轨道距离有多远
+    PLANET_STATION_ORBIT_DISTANCE = 6.0  # 轨道站离行星的轨道距离有多远
+    STARBASE_ORBIT_DISTANCE = 15.0  # 星基离星星的轨道距离有多远
+    PLANET_DESTROYER_OFFENSIVE_SHIP_OFFSET = { 0.0 0.0 10.0 }  # 行星驱逐舰进攻船只的偏移量
+    PLANET_ORBIT_STACK_SIZE = 4  # 行星轨道堆叠大小
+    PLANET_ORBIT_STACK_DISTANCE = 2.0  # 行星轨道堆叠距离
+
+    BASE_SURVEY_TIME = 30.0  # 测量一个行星的基础时间（以天为单位）
+
+    LEADER_POOL_SIZE = 3  # 每个领导者池将由这么多的领导者组成
+    EXTERNAL_LEADER_POOL_SIZE = 1  # 领导者池中外部领导者的基础数量
+    LEADER_POOL_REFRESH_TIME = 1800  # 领导者池刷新的天数
+    LEADER_BASE_SKILL_CAP = 10  # 领导者的基础技能上限
+    LEADER_MAX_SKILL_CAP = 10  # 领导者的最大技能上限
+    LEADER_SKILL_MIN = 1  # 领导者的最小技能
+    LEADER_AGE_HEIR_MIN = 18  # 生成的继承人的最小年龄（在王朝政府中）
+    LEADER_AGE_HEIR_MAX = 26  # 生成的继承人的最大年龄（在王朝政府中）
+    LEADER_AGE_MIN = 25  # 生成的领导者的最小年龄（使用钟形曲线）
+    LEADER_AGE_MAX = 45  # 生成的领导者的最大年龄（使用钟形曲线）
+    LEADER_SKILL_LEVEL_START = 1  # 领导者开始的技能等级。需要的经验 { 200 475 825 1250 }
+    LEADER_EXPERIENCE_REQUIREMENT_BASE_VALUE = 100  # 计算下一个技能等级所需经验的基础值
+    LEADER_EXPERIENCE_REQUIREMENT_SCALE_VALUE = 300  # 计算下一个技能等级所需经验的比例值
+
+    LEADER_SUBCLASS_CHOICE_LEVEL = 4  # 在什么等级你可以选择你的领导者子类
+    LEADER_DESTINY_CHOICE_LEVEL = 8  # 在什么等级你可以选择你的领导者命运特性
+
+    MAX_BASIC_TRAITS = 2  # 在你只有升级它们的选项之前，你可以有多少基础特性
+    MAX_VETERAN_TRAITS = 3  # 在你只有升级它们的选项之前，你可以有多少老兵特性
+
+    LEADER_RULER_EXPERIENCE = 12.0  # 领导者统治者的经验
+    LEADER_HEIR_EXPERIENCE = 1.0  # 领导者继承人的经验
+
+    LEADER_ADMIRAL_FLEET_COMBAT_BASE_EXPERIENCE = 5  # 领导者海军上将从舰队战斗中获得的基础经验
+    LEADER_ADMIRAL_FLEET_COMBAT_EXPERIENCE_SCALE = 0.5  # 计算海军上将的经验增长时使用的比例因子
+    LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_KILLED_CONVERSION = 0.05  # 在计算海军上将的经验增长时，被杀的船只总数的比例因子
+    LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_DISENGAGED_CONVERSION = 0.025  # 在计算海军上将的经验增长时，战斗后脱离战斗的船只总数的比例因子
+    LEADER_ADMIRAL_FLEET_PIRACY_SUPPRESSION_DAILY = 0.05  # 领导者海军上将从海盗压制中获得的基础经验
+
+    LEADER_GENERAL_GROUND_COMBAT_BASE_EXPERIENCE = 100 # 领导者将军从地面战斗中获得的基础经验
+    LEADER_GENERAL_GROUND_COMBAT_EXPERIENCE_SCALE = 2.5 # 计算将军的经验增长时使用的比例因子
+    LEADER_GENERAL_GROUND_COMBAT_ARMIES_KILLED_CONVERSION = 0.25 # 在计算将军的经验增长时，被杀的军队总数的比例因子
+
+    LEADER_SCIENTIST_LEADING_RESEARCH_FIELD_EXPERIENCE = 3.5 # 领导者科学家在领导研究领域的经验
+    LEADER_SCIENTIST_SURVEY_EXPERIENCE = 10  # 从调查行星中获得的经验
+    LEADER_SCIENTIST_SUCCESSFUL_ANOMALY_RESEARCH_EXPERIENCE = 50  # 从成功的发现研究中获得的经验
+    LEADER_SCIENTIST_COMPLETED_SPECIAL_PROJECT_EXPERIENCE = 100  # 从完成特殊项目中获得的经验
+    LEADER_SCIENTIST_COMPLETED_ARCHAEOLOGICAL_SITE_STAGE_EXPERIENCE = 75  # 从成功的考古遗址掷骰中获得的经验
+    LEADER_SCIENTIST_ASSIST_RESEARCH = 0.10  # 每天从协助研究中获得的经验
+    LEADER_SCIENTIST_ASSIST_RESEARCH_MULT = 0.20  # 协助研究修饰符-乘数每个技能等级（这个值乘以技能等级等于修饰符）
+    LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_EXPERIENCE = 0.10  # 每天从协助隐形侦测中获得的经验
+    LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_MULT = 0.50  # 协助隐形侦测修饰符-乘数每个技能等级（这个值乘以技能等级等于修饰符）
+    LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_EXPERIENCE = 0.10  # 每天从主动侦察中获得的经验
+    LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_LEADER_LEVEL_MULT = 0.00  # 主动侦察修饰符-乘数每个技能等级（这个值乘以技能等级等于修饰符）
+    LEADER_SCIENTIST_ACTIVE_RECONNAISSANCE_COLONY_LEVEL_MULT = 1.00  # 主动侦察修饰符-乘数每个首都建筑等级（这个值乘以首都建筑等级等于修饰符）
+
+    LEADER_ASSIGNED_MONTHLY_EXPERIENCE = 5  # 每月从不闲置（即分配给行星/部门/舰队/联邦/银河公社）获得的经验
+    LEADER_COUNCILOR_MONTHLY_EXPERIENCE = 5  # 每月从在议会上获得的经验
+
+    LEADER_LIFESPAN_DEATH_CHANCE_AGE = 80  # 在这个年龄之前，死亡的机会不会增加
+    LEADER_LIFESPAN_DEATH_CHANCE_INC = 0.002  # 每年超过CHANCE_AGE，增加这些%的机会
+    LEADER_LIFESPAN_HIGH_DEATH_CHANCE_AGE = 100  # 在这个年龄以上，死亡的机会大大增加
+    LEADER_LIFESPAN_HIGH_DEATH_CHANCE_INC = 0.02  # 每年超过HIGH_DEATH_CHANCE_AGE，增加这些%的机会
+
+    HABITABILITY_IDEAL_PLANET = 1.00  # 盖亚世界的适居性
+    HABITABILITY_WRONG_PLANET = 0.70  # 在这个点以下，我们将适居性图标和文本颜色为黄色
+    HABITABILITY_OPPOSITE_PLANET = 0.40  # 在这个点以下，我们将适居性图标和文本颜色为红色
+    HABITABILITY_AUTO_MIGRATION = 0.40  # 将被考虑用于自动迁移的最小适居性
+
+    WAR_EXHAUSTION_NAVAL_CAP_ADD = 100  # 海军容量增加的战争疲劳
+    WAR_EXHAUSTION_SHIP_KILLED_MULT = 2.00  # 从船只获得的战争疲劳的乘数
+    WAR_EXHAUSTION_ARMY_KILLED_MULT = 0.25  # 从陆地战斗（军队）获得的战争疲劳的乘数
+    WAR_EXHAUSTION_PLANET_DESTRUCTION_MULT = 5.0  # 从行星被摧毁获得的战争疲劳
+    WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY = 0.1  # 在战争期间，每年获得的被动战争疲劳量
+    WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV = 0.1  # 被动战争规模除数
+    WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF = 1.0  # 在这个战争疲劳量（不包括占领）下，你会停止随时间被动获得战争疲劳
+    WAR_EXHAUSTION_FROM_UNITS_CUTOFF = 1.0  # 在这个战争疲劳量（不包括占领）下，你会停止从失去单位获得战争疲劳
+    WAR_EXHAUSTION_HIGH_THRESHOLD = 1.0  # 如果战争疲劳>=这个值，应用负修饰符并显示警告
+
+    ENFORCE_STATUS_QUO_ENABLED = yes  # 在高战争疲劳时，可以执行维持现状吗？
+    ENFORCE_STATUS_QUO_MONTHS = 24  # 执行维持现状的月份
+
+    PLANET_HEALTH_MAX = 100  # 行星健康的最大值
+    PLANET_HEALTH_REGEN = 0.05  # 每天的行星健康恢复
+    PLANET_HEALTH_REGEN_DELAY = 60  # 被轰炸后，修复可以以全速进行的天数
+
+    PLANET_HEALTH_PROTECT_POPS = 0.75  # 在这个健康分数以上，人口不会死亡
+    PLANET_HEALTH_PROTECT_ARMIES = 0.75  # 在这个健康分数以上，防守军队从轰炸中受到的伤害减半
+    PLANET_HEALTH_INHIBIT_FTL = 0.5  # 在这个健康分数以上，行星FTL抑制器是功能性的
+    PLANET_HEALTH_INCREASE_ARMY_DAMAGE = 0.25  # 在这个健康分数以下，防守军队从轰炸中受到的伤害加倍
+    PLANET_HEALTH_ARMY_PROTECTED_DAMAGE_MULT = 0.5  # 防守军队受到保护的伤害乘数
+    PLANET_HEALTH_ARMY_INCREASED_DAMAGE_MULT = 2.0  # 防守军队增加的伤害乘数
+    PLANET_ARMIES_PROTECT_POPS = 2  # 行星上每个军队将保护这么多的人口免受袭击。
+
+    NEXT_ELECTION_MESSAGE_DAYS = 180  # 从新选举日期开始，玩家可以选择新的统治者的天数
+    NEW_RULER_MESSAGE_DAYS = 45  # 玩家可以看到新统治者消息的天数
+
+    ETHOS_MAX_POINTS = 3  # 你可以在道德上花费的点数。
+
+    GOVERNMENT_CIVIC_POINTS_BASE = 2  # 公民点的基础数量（用于“支付”政府公民成本）
+
+    POP_ETHOS_LOWER_ETHIC_THRESHOLD = 0.5  # 如果人口中遵循某种道德的比例<=其吸引力的这个值，则不会偏离它
+    POP_ETHOS_UPPER_ETHIC_THRESHOLD = 2.0  # 如果人口中遵循某种道德的比例>=其吸引力的这个值，则不会偏向它
+    POP_MIN_ETHIC_RELATIVE_ATTRACTION = 0.1  # 如果相对吸引力小于这个值，不会偏向这个道德
+    POP_ETHOS_DIVERGENCE_INTERVAL = 360  # 人口有机会从帝国道德偏离的天数
+    POP_ETHOS_DIVERGENCE_RATE_MULT = 0.05  # 人口每年评估其道德的机会
+    POP_CHANGE_FACTION_CHANCE = 0.05  # 每个月一次，人口有X的机会改变派系，但只有在人口愿意的情况下才会这样做
+    POP_CURRENT_FACTION_WEIGHT = 1.25  # 当前派系的权重对人口来说乘以这个值
+    POP_FACTION_APPROVAL_VERY_LOW = 0.20  # 在这个批准水平以下，一个派系将有严重的幸福度惩罚
+    POP_FACTION_APPROVAL_LOW = 0.40  # 在这个批准水平以下，一个派系将有严重的幸福度惩罚
+    POP_FACTION_APPROVAL_BASE = 0.50  # 派系批准的基础值
+    POP_FACTION_APPROVAL_HIGH = 0.60  # 在这个批准水平以上，一个派系将有一些额外的幸福度
+    POP_FACTION_APPROVAL_VERY_HIGH = 0.80  # 在这个批准水平以上，一个派系将有更多的额外幸福度
+    POP_FACTION_MIN_POTENTIAL_MEMBERS = 5  # 如果一个派系的潜在成员少于这个数，那么不要形成，并且如果形成了就删除
+    POP_FACTION_MIN_POTENTIAL_MEMBERS_FRACTION = 0.03  # 如果一个派系的潜在成员/派系中的总人口（如果不为0）少于这个数，那么不要形成，并且如果形成了就删除
+    POP_FACTION_CREATION_COOLDOWN = 180  # 在创建一个派系后，等待这么多天来创建另一个派系（不适用于隐藏的派系）
+    POP_FACTION_RESOURCE_TABLE_MULT = 0.5  # 由派系提供的资源乘以<支持者的力量> x <批准> x 这个值
+
+    POLICY_YEARS = 10  # 设定的政策不能改变的年数
+    SPECIES_POLICY_YEARS = 10  # 物种政策不能改变的年数
+
+    FEDERATION_LEADER_POWER_THRESHOLD = 1.25  # 必须比当前联邦领导者有更多的力量才能成为新的领导者
+    FEDERATION_MIN_MEMBERS_TO_KICK = 3  # 除非你至少有这么多的成员，否则不能踢出联盟成员
+    FEDERATION_EXPERIENCE_BUFFER = 2000  # 当联邦达到最大等级时，它将继续获得经验，直到达到这个等级
+
+    DEBRIS_BASE_COST = 0  # 分析碎片的特殊项目的基础成本
+    DEBRIS_ANALYZED_AREA_POINTS = 20  # 每个分析的组件给出的点数*等级
+    DEBRIS_ANALYZED_TECH_PROGRESS = 0.10  # 当分析需要你没有的技术的组件时，增加的技术进步
+    DEBRIS_DAYS = 1800  # 碎片可见的天数
+    DEBRIS_RESEARCH_TIME = 90  # 分析1个碎片需要的天数
+
+    SPECIAL_PROJECT_BASE_PROGRESS = 1  # 特殊项目时间的方程式中的i：x = (k * i) / (i + (y1 - z1) + (y2 - z2)... + (yn - zn))
+
+    SCIENCE_SHIP_SPECIAL_PROJECT_DIST = 25.0  # 能够进行特殊项目的距离
+    SCIENCE_SHIP_ASTRAL_RIFT_DIST = 5.0  # 能够进入星体裂缝的距离
+
+    PLANET_SENSOR_RANGE = 1  # 包含完全拥有的行星的系统的基础传感器范围
+    PLANET_HYPERLANE_RANGE = 2  # 包含完全拥有的行星的系统的基础超空间检测范围
+    EVENT_AUTOSELECT_MONTHS = 9  # 这些月份后，事件选项将被自动选择
+
+    TRUCE_YEARS = 10  # 停战持续X年
+
+    INSULT_COOLDOWN_DAYS = 30  # 你可以多久发送一次侮辱？
+    AUTO_DECLINE_DIPLOMACY_DAYS = 180  # 多少天后，外交行动将自动被拒绝
+
+    FEDERATION_PERK_EXPERATION_MONTHS = 3  # 选择的特权如果等级丧失，将在几个月后过期
+    FEDERATION_BASE_ETHICS = 3  # 不会对联邦凝聚力进行惩罚的独特道德的数量
+    FEDERATION_ENVOY_BASE_EFFECT = 1.0  # 特使对凝聚力的基础效果
+    FEDERATION_MEMBERS_PENALTY = -0.25  # 每个联邦成员的惩罚
+    FEDERATION_NO_MEMBERS_PENALTY = -100.0  # 如果联邦没有成员的惩罚
+    FEDERATION_ETHICS_PENALTY = -0.15  # 对额外独特道德的联邦凝聚力的惩罚
+    FEDERATION_OPPOSING_ETHICS_PENALTY = -0.5  # 对反对道德的联邦凝聚力的惩罚
+    FEDERATION_BASE_COHESION = 5.0  # 联邦凝聚力的基础值
+    FEDERATION_COHESION_RANGE = 100  # 最大凝聚力范围
+    FEDERATION_COHESION_TO_XP = 0.1  # 凝聚力到经验的转换
+    FEDERATION_MAX_FLEET_SIZE = 0
+    FEDERATION_JOIN_COHESION_PENALTY = -100  # 每次有新成员加入联邦（在前两个之后）时，凝聚力的损失
+    FEDERATION_LEAVE_COHESION_PENALTY = -100  # 每次有成员离开联邦时，凝聚力的损失
+    FEDERATION_SWITCH_COHESION_PENALTY = -50  # 当你切换联邦类型时，凝聚力的损失
+
+    ENVOY_IMPROVE_RELATION_BASE = 0.25  # 当特使正在改善关系时，对观点的每月影响
+    ENVOY_IMPROVE_RELATION_MAX = 150.0  # 使用特使改善关系的最大值
+    ENVOY_HARM_RELATION_BASE = -0.5  # 当特使正在损害关系时，对观点的每月影响
+    ENVOY_HARM_RELATION_MIN = -150.0  # 使用特使损害关系的最低可能值
+    ENVOY_RELATION_EFFECT_DECAY = 1.0  # 每个月没有特使影响观点，它会以这个/月的速度向0移动
+
+    EMBASSY_IMPROVE_RELATION_MULTIPLIER = 3  # 如果你已经建立了大使馆，那么乘以ENVOY_IMPROVE_RELATION_BASE
+
+    MIN_RIVAL_YEARS = 10  # 在你可以将一个帝国从竞争对手中移除之前的年数
+
+    MAX_FRICTION = 100  # 最大摩擦（总计）
+    FRICTION_FROM_BORDERING_SYSTEM = 5  # 每个边界系统的摩擦
+
+    CUSTOM_EMPIRE_SPAWN_CHANCE = 50  # 一个帝国将从现有的模板中创建，而不是随机生成的机会（10 = 1%的机会）
+    FALLEN_CUSTOM_EMPIRE_SPAWN_CHANCE = 50  # 一个堕落的帝国将从现有的模板中创建，而不是随机生成的机会（10 = 1%的机会）
+    FALLEN_EMPIRE_OUTER_BOUNDARY = 100  # 堕落帝国生成将试图避免的银河系的外部边界
+    FALLEN_EMPIRE_INNER_BOUNDARY = 0  # 堕落帝国生成将试图避免的银河系的内部边界
+
+    COUNCIL_AGENDA_BASE_COUNCILOR_MONTHLY_PROGRESS = 10.0  # 每个议员每月获得的推进议程的进度
+    COUNCIL_AGENDA_COUNCILOR_PROGRESS_PER_SKILL = 1.0  # 每个议员技能等级每月获得的推进议程的进度
+    COUNCIL_AGENDA_COOLDOWN = 10800  # 在你发起议程后，你可以选择同一个议程的天数
+    COUNCIL_AGENDA_FINISH_MODIFIER_DURATION = 3600  # 议程完成修饰符的持续时间。应该匹配@agenda_finish_modifier_duration
+    COUNCIL_AGENDA_HIGH_LEGITIMACY_MODIIFER = 0.25  # 来自高合法性的最大议程速度修饰符（即在100%的合法性下）
+    COUNCIL_AGENDA_LOW_LEGITIMACY_MODIIFER = -0.50  # 来自低合法性的最大议程速度修饰符（即在0%的合法性下）。
+
+    ADVANCED_EMPIRE_EXTRA_WARSHIPS_MIN = 3  # 高级帝国开始时的额外战舰的最小数量
+    ADVANCED_EMPIRE_EXTRA_WARSHIPS_MAX = 7  # 高级帝国开始时的额外战舰的最大数量
+    ADVANCED_EMPIRE_MIN_EXTRA_SYSTEMS = 2  # 高级帝国可以开始的额外系统的最小数量
+    ADVANCED_EMPIRE_MAX_EXTRA_SYSTEMS = 5  # 高级帝国可以开始的额外系统的最大数量
+    ADVANCED_EMPIRE_COLONY_CHANCE = 75  # 高级帝国的边界内的可殖民行星被殖民的机会
+    ADVANCED_EMPIRE_ALWAYS_COLONIZE_HABITABILITY = 0.70  # 如果适居性至少是这个，总是在高级帝国的边界内殖民行星
+
+    MATURE_GALAXY_YEARS = 100  # 成熟银河系的年份
+    MATURE_GALAXY_COLONY_DISTANCE_FIXED = 4  # 可以接受的行星的最大距离（固定）
+    MATURE_GALAXY_COLONY_DISTANCE_RANDOM = 2  # 可以接受的行星的最大距离（随机）
+    MATURE_GALAXY_COLONY_DISTANCE_SURVEYED = 6  # 在边界外已经被调查的额外距离
+    MATURE_GALAXY_TECH_TIER = 3  # 成熟银河系的技术等级
+    MATURE_GALAXY_NAVY_SIZE = 1.0  # 海军容量
+    MATURE_GALAXY_EXTRA_MINERALS = 10000  # 额外的矿物资源
+    MATURE_GALAXY_EXTRA_ENERGY = 5000  # 额外的能源
+    MATURE_GALAXY_EXTRA_INFLUENCE = 500  # 额外的影响力
+    MATURE_GALAXY_EXTRA_UNITY = 2500  # 每个行星的额外统一
+    MATURE_GALAXY_MAX_NUM_STARBASES = 4  # 最大的星基数量
+    MATURE_GALAXY_STARBASE_LEVEL = "starbase_level_starhold"  # 星基的等级
+    MATURE_GALAXY_NUM_ARMIES = 10  # 军队的数量
+    MATURE_GALAXY_CAPITAL = "building_capital_2"  # 首都的建筑等级
+    MATURE_GALAXY_COLONY_CAPITAL = "building_capital_2"  # 殖民地的首都建筑等级
+    MATURE_GALAXY_COLONY_POWER_PLANT = "building_power_plant_3"  # 殖民地的电厂建筑等级
+    MATURE_GALAXY_COLONY_FARM = "building_hydroponics_farm_3"  # 殖民地的农场建筑等级
+    MATURE_GALAXY_COLONY_MINE = "building_mining_network_3"  # 殖民地的矿山建筑等级
+    MATURE_GALAXY_COLONY_LAB = "building_basic_science_lab_1"  # 殖民地的实验室建筑等级
+    MATURE_GALAXY_ARMY = "assault_army"  # 军队的类型
+    MATURE_GALAXY_HOME_POPS = 50  # 家园的人口数量
+    MATURE_GALAXY_HOME_BUILDINGS = 10  # 家园的建筑数量
+
+    ADVANCED_GALAXY_YEARS = 200  # 高级银河系的年份
+    ADVANCED_GALAXY_COLONY_DISTANCE_FIXED = 5  # 可以接受的行星的最大距离（固定）
+    ADVANCED_GALAXY_COLONY_DISTANCE_RANDOM = 5  # 可以接受的行星的最大距离（随机）
+    ADVANCED_GALAXY_COLONY_DISTANCE_SURVEYED = 10  # 在边界外已经被调查的额外距离
+    ADVANCED_GALAXY_TECH_TIER = 4  # 高级银河系的技术等级
+    ADVANCED_GALAXY_NAVY_SIZE = 1.0  # 海军容量
+    ADVANCED_GALAXY_EXTRA_MINERALS = 20000  # 额外的矿物资源
+    ADVANCED_GALAXY_EXTRA_ENERGY = 10000  # 额外的能源
+    ADVANCED_GALAXY_EXTRA_INFLUENCE = 1000  # 额外的影响力
+    ADVANCED_GALAXY_EXTRA_UNITY = 5000  # 每个行星的额外统一
+    ADVANCED_GALAXY_MAX_NUM_STARBASES = 6  # 最大的星基数量
+    ADVANCED_GALAXY_STARBASE_LEVEL = "starbase_level_starfortress"  # 星基的等级
+    ADVANCED_GALAXY_NUM_ARMIES = 20  # 军队的数量
+    ADVANCED_GALAXY_CAPITAL = "building_capital_3"  # 首都的建筑等级
+    ADVANCED_GALAXY_COLONY_CAPITAL = "building_capital_2"  # 殖民地的首都建筑等级
+    ADVANCED_GALAXY_COLONY_POWER_PLANT = "building_power_plant_4"  # 殖民地的电厂建筑等级
+    ADVANCED_GALAXY_COLONY_FARM = "building_hydroponics_farm_4"  # 殖民地的农场建筑等级
+    ADVANCED_GALAXY_COLONY_MINE = "building_mining_network_4"  # 殖民地的矿山建筑等级
+    ADVANCED_GALAXY_COLONY_LAB = "building_basic_science_lab_1"  # 殖民地的实验室建筑等级
+    ADVANCED_GALAXY_ARMY = "assault_army"  # 军队的类型
+    ADVANCED_GALAXY_HOME_POPS = 150  # 家园的人口数量
+    ADVANCED_GALAXY_HOME_BUILDINGS = 25  # 家园的建筑数量
+
+    # 行星大小因素，适用于单位和建筑
+    ORBITAL_BOMBARDMENT_PLANET_SIZE_FACTOR = 0.1  # 行星受到的伤害 / ( 1 + 行星大小 * ORBITAL_BOMBARDMENT_PLANET_SIZE_FACTOR )，更大的行星受到的伤害更少
+
+    # 船只对行星的轰炸伤害
+
+    # 更高的数字意味着更多的总轰炸伤害
+    ORBITAL_BOMBARDMENT_FLEET_BASE_SIZE = 100  # 在这个舰队容量轰炸以上，我们将开始获得效率的惩罚
+    # 更小的数字意味着我们超过ORBITAL_BOMBARDMENT_FLEET_BASE_SIZE后，效率下降得更快
+    ORBITAL_BOMBARDMENT_OVER_FLEET_FACTOR = 0.9  # 每次我们超过ORBITAL_BOMBARDMENT_FLEET_BASE_SIZE，我们保留这个效率的因子
+
+    ORBITAL_BOMBARDMENT_COLONY_DMG_SCALE = 0.01  # 殖民地受到轰炸的伤害比例
+    ORBITAL_BOMBARDMENT_PLANET_DMG_SCALE = 0.002  # 行星受到轰炸的伤害比例
+    ORBITAL_BOMBARDMENT_ARMY_DMG_SCALE = 0.09  # 军队受到轰炸的伤害比例
+    ORBITAL_BOMBARDMENT_ASSAULT_ARMY_DAMAGE_MULT = 2.00  # 突击军队受到的轰炸伤害的倍数
+    ORBITAL_BOMBARDMENT_KILL_POP_CHANCE = 0.2  # 杀死人口的机会，乘以立场和造成的伤害
+    ORBITAL_BOMBARDMENT_KILL_POP_COOLDOWN = 10  # 杀死人口之间的最小天数
+
+    # 军队对行星的附带伤害
+    COLLATERAL_DAMAGE_CHANCE = 0.20  # 军队在对敌军造成伤害时造成附带伤害的机会
+    COLLATERAL_DAMAGE_BASE_SCALE = 0.02  # 附带伤害造成的行星伤害的基础量
+    COLLATERAL_DAMAGE_DEFENDER_MULT = 0.25  # 防守单位的附带伤害乘以这个数
+    COLLATERAL_DAMAGE_MAX_PER_DAY = 0.50  # 每个战斗方每天的最大附带伤害
+    COLLATERAL_DAMAGE_KILL_POP_CHANCE = 0.1  # 杀死人口的机会，乘以造成的伤害
+    EXTRA_POP_KILL_MULTIPLIER_CHANCE = 0.02  # 根据行星上的人口数量增加杀死人口的机会
+    COLLATERAL_DAMAGE_DESTROY_BUILDING_CHANCE = 0.002  # 从破坏中摧毁建筑的机会
+    COLLATERAL_DAMAGE_DESTROY_DISTRICT_CHANCE = 0.002  # 从破坏中摧毁区域的机会
+    COLLATERAL_DAMAGE_GROUND_COMBAT_SAFE_POPS = 3  # 地面战斗不能通过附带伤害杀死殖民地的最后几个人口
+
+    STATION_SELF_REPAIR_TIMER_DAYS = 10  # 受到伤害后，站点开始自我修复的天数
+
+    STARBASE_SELF_REPAIR_TIMER_DAYS = 30  # 受到伤害后，星基开始自我修复的天数
+    STARBASE_DISABLED_HEALTH_PERCENTAGE = 0  # 当星基的健康百分比达到这个值时，可以被禁用的星基将被禁用。
+    STARBASE_ENABLED_HEALTH_PERCENTAGE = 0.05  # 当星基的健康百分比达到这个值时，可以被禁用的星基将被启用。
+    STARBASE_AUTO_CONTROL_DISTANCE = 80  # 舰队可以接管被禁用的星基的距离
+
+    INFLUENCE_ADD_UPLIFTED_SPECIES = 50  # 提升物种时获得的影响力
+
+    PLANET_COMBAT_WIDTH_BASE = 5  # 可以同时战斗的军队的最大数量
+    PLANET_COMBAT_WIDTH_FROM_SIZE = 0.2  # 每个瓦片的额外战斗宽度
+    PLANET_COMBAT_WIDTH_MINIMUM = 2  # 最小的战斗宽度
+
+    GENERAL_DEATH_CHANCE = 0.02  # 当一个军队被摧毁时，将军死亡的机会（根据军队数量进行缩放）
+
+    ANOMALY_SPAWN_CHANCE = 0.050  # 当一个行星被调查时，发现一个异常的百分比机会
+    ANOMALY_SPAWN_CHANCE_INCREMENT = 0.005  # 当失败时，下一次机会的百分比增加
+
+    GOVERNMENT_COOLDOWN_YEARS = 20  # 改变政府后，你可以再次改变它之前的冷却年数
+    GOVERNMENT_CHANGE_EMPIRE_SIZE_MULT = 10.0  # 改变政府类型将花费 (帝国规模) * X 统一
+
+    EMPIRE_SIZE_BASE = 100  # 在这个或以下的帝国规模没有修饰符
+    EMPIRE_SIZE_FLOOR = 50  # 帝国规模永远不会被视为低于这个
+    EMPIRE_SIZE_FROM_DISTRICTS = 0.5  # 每个区域
+    EMPIRE_SIZE_FROM_SYSTEMS = 1  # 每个系统
+    EMPIRE_SIZE_FROM_COLONIES = 10  # 每个行星
+    EMPIRE_SIZE_FROM_BRANCH_OFFICES = 2  # 每个分支机构
+    EMPIRE_SIZE_FROM_POPS = 1  # 每个人口
+
+    DIPLOMACY_WEIGHT_BASE = 0.0  # 所有帝国的基础外交权重
+    DIPLOMACY_WEIGHT_STANCE_FACTOR = 0  # 在加入外交权重之前，从外交立场中获取的因素
+    DIPLOMACY_WEIGHT_SPRAWL_FACTOR = 0  # 在加入外交权重之前，从帝国蔓延中获取的因素
+    DIPLOMACY_WEIGHT_NAVAL_FACTOR = 0.025  # 在加入外交权重之前，从海军力量中获取的因素
+    DIPLOMACY_WEIGHT_GESTALT_WEIGHT = 1.0  # 格斯塔尔特获得一个固定的基础值
+    DIPLOMACY_WEIGHT_POP_BASE = 1.0  # 每个人口的基础外交权重
+    DIPLOMACY_WEIGHT_POP_HAPPINESS = 2.0  # 如公式：DIPLOMACY_WEIGHT_POP_BASE + (DIPLOMACY_WEIGHT_POP_HAPPINESS * Happiness)
+    DIPLOMACY_WEIGHT_ECONOMY_FACTOR = 0.15  # 在加入外交权重之前，从经济力量中获取的因素
+    DIPLOMACY_WEIGHT_TECHNOLOGY_FACTOR = 0.1  # 在加入外交权重之前，从技术等级中获取的因素
+    DIPLOMACY_WEIGHT_NO_LEADER_PENALTY = -0.25  # 对于没有相关理事会职位的外交权重的惩罚
+
+    EMPIRE_SIZE_TECH_COST_PENALTY = 0.002  # 每个超过基础的帝国规模的技术成本惩罚
+    EMPIRE_SIZE_TRADITION_COST_PENALTY = 0.002  # 每个超过基础的帝国规模的传统成本惩罚
+    EMPIRE_SIZE_COUNCIL_AGENDA_COST_PENALTY = 0.001  # 每个超过基础的帝国规模的议会议程成本惩罚
+    EMPIRE_SIZE_ARMIES_PENALTY = 0.001  # 每个超过基础的帝国规模的军队惩罚
+
+    NUM_TECH_ALTERNATIVES = 3  # 技术选择的数量
+    TECH_WEIGHT_BASE = 10  # 技术的基础权重
+    TECH_WEIGHT_POTENTIAL_ADD = 0  # 技术的潜在增加权重
+    TECH_RESEARCH_NO_LEADER_PENALTY = -0.25  # 没有领导者进行技术研究的惩罚
+    TECH_COST_MULT_FALLEN_EMPIRE = 2  # 觉醒帝国研究技术需要支付更多的费用
+    TECH_WEIGHT_PREVIOUS_OPTION = 0.5  # 如果一个技术是上次的选择之一，那么它的权重将乘以TECH_WEIGHT_PREVIOUS_OPTION
+
+    ## tradition cost = ( base_cost + ( cost_tradition * num_traditions )^traditions_exponential ) * ( 1 + cost_planet*num_planets + cost_system*num_systems )
+    TRADITION_COST_TRADITION = 8            # 如果你想增加所有的成本，改变这个值
+    TRADITION_COST_TRADITION_EXP = 1.800    # 如果你想在最后增加成本，改变这个值
+    TRADITION_COST_MULT_TRADITION_GROUP = 0.00        # 每个采用的组增加+X%的总成本
+
+    KEYBOARD_DOUBLE_CLICK_TIME = 0.5    # 监听控制组双击的秒数。
+
+    MIN_TRADE_DEAL_LENGTH_YEARS = 10    # 交易协议的最短年限。
+    MAX_TRADE_DEAL_LENGTH_YEARS = 30    # 交易协议的最长年限。
+
+    MISSION_PROGRESS_MAX = 1    # 任务何时完成？
+    NEW_HEIR_CHANCE = 0.05    # 每天获得新继承人的机会。范围是0到1
+    MIN_ELECTION_CANDIDATES = 4        # 如果我们的派系少于这个数，添加额外的独立候选人
+    ELECTION_BASE_SUPPORT = 0.05    # 选举候选人总是至少有这么多的支持
+    ELECTION_SUPPORT_LEADER_EFFECT = 5    # 当你在选举中支持一个候选人时，增加的分数
+    ELECTION_INDEPENDENT_SUPPORT = 0.20    # 独立候选人得到这么多额外的支持
+    ELECTION_SKILL_EFFECT = 0.10 # 候选人每提高一级技能，就会得到这么多的额外支持（乘法）
+
+    AI_FULL_RIGHTS_POLICY_FLAG = "ai_full_rights"
+    BORDERS_OPEN_POLICY_FLAG = "border_policy_open"
+
+    SET_DEFENDER_WAR_GOAL_TIME_LIMIT = 360    # 战争开始后，防御者设定战争目标的天数限制。
+
+    OCCUPATION_BASE_VALUE = 5        # 占领系统的基础价值，用于计算帝国的相对占领得分
+    OCCUPATION_PLANET_VALUE = 10    # 系统中每个行星
+    OCCUPATION_POP_VALUE = 0.1    # 系统中每个人口
+    OCCUPATION_STARBASE_VALUE = 10    # 如果星基升级了
+
+    SYSTEM_LOST_CLAIM_STRENGTH = 10        # 当他们的系统被吞并时，给予帝国的索赔的力量
+
+    RESOURCE_CLUSTER_COUNT = 6    # 包含特殊资源的资源集群的数量
+
+    RESEARCH_AGREEMENT_SPEED_MULT = 0.25    # 交易研究协议提高的研究速度
+
+    MOVE_CAPITAL_INFLUENCE_COST = 250    # 将帝国首都移动到另一个行星的影响力成本。
+    MOVE_CAPITAL_COOLDOWN_YEARS = 10    # 移动首都的冷却年限。
+
+    INTEGRATE_SUBJECT_MIN_DAYS = 3600 # 在我们可以整合它之前，主题已经是主题的天数
+    SUBJECTS_INTEGRATION_CAP = 1 # 你同时允许的整合数量
+    SUBJECT_INTEGRATION_BASE_PROGRESS = 5 # 主题整合的每月成本
+    SUBJECT_INTEGRATION_COST_BASE = 50 # 整合的基础成本
+    SUBJECT_INTEGRATION_COST_PER_POP = 1 # 每个人口的整合成本
+    SUBJECT_INTEGRATION_COST_PER_PLANET = 10 # 每个行星的整合成本
+
+    # 这些用于根据关系和相对军事力量确定初始主题忠诚度
+    SUBJECT_LOYALTY_RELATION_FACTOR = 50        # 与关系（0-4）相乘以得到初始忠诚度
+    SUBJECT_LOYALTY_RELATION_SUBTRACT = 150        # 减去以平衡关系忠诚度权重
+    SUBJECT_LOYALTY_RELATIVE_POWER_FACTOR = 25        # 与相对军事力量（0-4）相乘以得到初始忠诚度
+    SUBJECT_LOYALTY_RELATIVE_POWER_SUBTRACT = 100        # 减去以平衡相对军事力量忠诚度权重
+
+    SUBJECT_MONTHLY_LOYALTY_INTEGRATION = -5            # 每个月主题正在被整合，其忠诚度按此数量修改
+    SUBJECT_MONTHLY_LOYALTY_OPINION_MULTIPLIER = 0.01    # 每个月，主题对其领主的意见乘以此数量并加到其忠诚度上
+
+    SUBJECT_LOYALTY_MAX = 100                    # 忠诚度的最大值
+    SUBJECT_LOYALTY_MIN = -100                    # 忠诚度的最小值
+
+    SUBJECT_XP_LOYALTY_MULTIPLIER = 0.1            # 主题专家XP将每月增加这个乘以忠诚度
+
+    SUBJECT_TYPE_CONVERSION_MATCHES_PREFERRED_ETHIC_SPEED_FACTOR = 1.42                    # 如果主题具有类型的首选伦理，专业化转换将以多快/慢的速度进行
+    SUBJECT_TYPE_CONVERSION_MATCHES_FANATIC_PREFERRED_ETHIC_SPEED_FACTOR = 2            # 如果主题具有类型的狂热变体的首选伦理，转换将以多快/慢的速度进行
+    SUBJECT_TYPE_CONVERSION_NO_PREFERRED_ETHIC_SPEED_FACTOR = 1                            # 如果主题没有类型的首选伦理，转换将以多快/慢的速度进行
+    SUBJECT_TYPE_CONVERSION_OPPOSITE_ETHIC_SPEED_FACTOR = 0.67                            # 如果主题具有与类型的首选伦理相反的伦理，转换将以多快/慢的速度进行
+    SUBJECT_TYPE_CONVERSION_FANATIC_OPPOSITE_ETHIC_SPEED_FACTOR = 0.5                    # 如果主题具有与类型的首选伦理相反的伦理的狂热变体，转换将以多快/慢的速度进行
+    SUBJECT_TYPE_CONVERSION_SPRAWL_FACTOR = 5                    # 转换速度受到这个÷EmpireSprawl的影响
+
+    AGREEMENT_RESOURCE_SUBSIDIES_MIN = -0.75                # 资源补贴条款的最小百分比值
+    AGREEMENT_RESOURCE_SUBSIDIES_MAX = -0.75                # 资源补贴条款的最大百分比值
+    AGREEMENT_RESOURCE_SUBSIDIES_INCREMENT = 0.05        # 资源补贴条款的值之间的增量
+
+    AGREEMENT_INTANGIBLE_TITHE_LINEAR_FACTOR = 1.0                    # 对于小额的什一税，每一份无形的（例如，科学）什一税产生这么多的（负面）影响
+    AGREEMENT_INTANGIBLE_TITHE_LARGE = 0.5                            # 一个“大”什一税，对于影响达到以下值
+    AGREEMENT_INTANGIBLE_TITHE_LARGE_VALUE = 1.0                    # （负面）影响达到上述“大”什一税
+    AGREEMENT_INTANGIBLE_SUBSIDY_LINEAR_FACTOR = 0.5                # 对于小额的补贴，每一份无形的（例如，科学）补贴产生这么多的影响
+    AGREEMENT_INTANGIBLE_SUBSIDY_LARGE = 0.5                        # 一个“大”补贴，对于影响达到以下值
+    AGREEMENT_INTANGIBLE_SUBSIDY_LARGE_VALUE = 0.5                    # 对于上述“大”补贴达到的影响
+    AGREEMENT_INTANGIBLE_IMPACT_LOYALTY_WEIGHT = 100                # 将无形影响的变化转化为忠诚度变化
+    AGREEMENT_ECONOMIC_IMPACT_LOYALTY_WEIGHT = 100                    # 将经济影响的变化（大致-1 - +1）转化为忠诚度变化
+
+    COMMAND_LIMIT_MAX = 500    # 命令限制的最大值
+    COMMAND_LIMIT_BASE = 20    # 命令限制的基础值
+
+    NAVAL_CAPACITY_MAX = 9999    # 海军容量的最大值
+    NAVAL_CAPACITY_BASE = 20    # 海军容量的基础值
+    NAVAL_CAPACITY_POP_MULT = 0        # 每个人口的海军容量的乘数值
+    NAVAL_CAPACITY_NO_LEADER_PENALTY = -0.25 #没有海军司令的效果
+
+    LEADER_CAPACITY_XP_SCALE = 0.85    # 领导者XP被XP_Scale ^ 超过上限的领导者数量乘以。永远不会达到零。
+    NON_PARAGON_LEADER_TRAIT_SELECTION_LEVELS = { 1 3 5 7 9 }
+
+    NAVAL_CAPACITY_BASE_GALACTIC_COMMUNITY = 400    # 银河防卫力量/帝国舰队的海军容量的基础值
+
+    SHIP_SIZE_LIMITS_GALACTIC_COMMUNITY = "default"        # 在"00_ownership_limits.txt"中定义GalCom的最大船只数量的条目
+    STARBASE_CAPACITY_MAX = 999    # 星基容量的最大值
+    STARBASE_CAPACITY_BASE = 3        # 星基容量的基础值
+    STARBASE_CAPACITY_SYSTEM_MULT = 0.10    # 每个拥有的系统的星基容量的乘数值
+    STARBASE_CAPACITY_POP_MULT = 0.00    # 每个人口的星基容量的乘数值
+
+    COUNTRY_ENCLAVE_CAPACITY_BASE = 0        # 国家可以生成的飞地数量的基础值
+    COUNTRY_ENCLAVE_CAPACITY_MAX = 10    # 国家可以生成的飞地数量的最大值
+
+    STARBASE_BASE_LEVEL = "starbase_level_outpost"        # 基础星基等级
+    UPGRADED_STARBASE_BASE_LEVEL = "starbase_level_starport"        # 你升级到的第一个星基等级
+
+    # TECH_TO_SURVEY_OWNED = "tech_galactic_ambitions"
+    ASCENSION_PERKS_SLOTS = 8 # 升华特权插槽的数量
+
+    # 行星升华层级上限公式：
+    #     Max( ( 解锁的升华特权插槽 - 2 ), PLANET_ASCENSION_MIN ) +
+    #     ( ( 解锁的升华特权插槽 == ASCENSION_PERKS_SLOTS ? ) PLANET_ASCENSION_COMPLETION_BONUS : 0 )
+    PLANET_ASCENSION_STARTING_POINT = 3 # 需要解锁的升华特权插槽数量以进行行星升华
+    PLANET_ASCENSION_MIN = 0 # 行星升华的最小层级
+    PLANET_ASCENSION_COMPLETION_BONUS = 4 # 当所有插槽都解锁时，对行星升华层级上限的固定奖励
+
+    # 行星升华成本公式：( 帝国蔓延 * PLANET_ASCENSION_SPRAWL_SCALE) * ( 1 + ( 帝国范围内的升华层级总和 * PLANET_ASCENSION_SUM_SCALE )
+    PLANET_ASCENSION_SPRAWL_SCALE = 10.0 # 基于帝国蔓延的行星升华成本的缩放因子
+    PLANET_ASCENSION_SUM_SCALE = 0.6 # 基于帝国范围内的升华层级总和的行星升华成本的缩放因子
+    PLANET_ASCENSION_SPRAWL_MODIFIER = -0.05# 每升华一级，行星蔓延减少
+
+    # 指定修饰符公式：MOD * ( 1 + ( 升华层级 * PLANET_ASCENSION_MODIFIER_SCALE )
+    PLANET_ASCENSION_MODIFIER_SCALE = 0.25 # 指定利益的缩放因子，多个实例将求和（首先将是1.25，然后是1.50...）
+
+    EVADE_HOSTILE_CANCEL_ORDERS_THRESHOLD_DAYS = 180 # 当规避敌对舰队时，舰队将取消需要超过X天才能到达的命令。
+
+    EDICT_MAX_RESOURCE_COST = 1000000    # 法令最大资源成本
+    EXPERIMENTAL_SUBSPACE_NAVIGATION_TIME_MULT = 3.0        # 值 * 到系统的超空间距离定义了科学船MIA跳跃的MIA时间（以天为单位的旅行时间）
+    MIA_TIME_MULT = 1.0 # 用于自定义MIA时间的持续时间。预期大于0
+    MIA_FLEET_MODIFIER_MULT_LOWER_TRESHOLD = 0.5
+    SECTOR_RESOURCE_TRANSFER_AMOUNT_LARGE = 1000
+    SECTOR_RESOURCE_TRANSFER_AMOUNT = 100
+
+    HIGH_PIRACY_RISK = 0.8    # 危险的实际海盗行为与贸易保护的比率
+
+    MACHINE_EMPIRE_EXCLUSION_TRAIT = "trait_mechanical"            # 具有此特性的人口将不会被机器帝国建造
+    PSIONIC_TRAIT = "trait_psionic"                # 标识超能力者的特性
+    CHOSEN_ONE_LEADER_TRAIT = "leader_trait_chosen"    # 标识被选中者的特性
+
+    ARCHAEOLOGICAL_SITE_DICE_ROLL_MIN = 1
+    ARCHAEOLOGICAL_SITE_DICE_ROLL_MAX = 10
+    ARCHAEOLOGICAL_SITE_DISCOVERY_SCORE = 14
+    ARCHAEOLOGICAL_SITE_DISCOVERY_DAYS = 90
+
+    ESPIONAGE_OPERATION_BASE_ROLL_FREQUENCY = 30.0 # 掷骰频率（以天为单位）
+    ESPIONAGE_OPERATION_SUCCESS_SCORE = 14.0
+    ESPIONAGE_OPERATION_DICE_ROLL_MIN = 1
+    ESPIONAGE_OPERATION_DICE_ROLL_MAX = 10
+
+    RELIC_VIEW_SLOTS_PER_ROW = 3
+    RELIC_VIEW_SLOTS_PER_ROW_WIDE = 4
+    RELIC_VIEW_DEFAULT_ROW_COUNT = 2
+
+    MEGASTRUCTURE_BUILD_CAP_BASE = 1.0
+
+    BASE_ENVOYS_REGULAR_EMPIRE = 2            # 常规帝国的起始特使数量
+
+    RESOLUTION_VOTE_TIMER = 1440                    # 决议在参议院通过/失败之前的天数
+    RESOLUTION_VOTE_PREMATURE_TIMER = 720            # 直到监护人/皇帝可以提前结束参议院会议的天数
+    SENATE_RECESS_TIMER = 720                        # 在当前投票之后，下一个提议的决议将在多少天后被提上议程
+    COUNCIL_DIPLOMACY_WEIGHT_MODIFIER = 1.5            # 如果在理事会投票，一个国家的外交权重将增加多少
+    CHANGE_VOTE_COOLDOWN = 120                        # 在决议投票后，你可以在多少天后改变你的投票
+
+    DEFAULT_COUNCIL_SIZE = 0                        # 社区理事会成员的默认数量，将被修改
+    DEFAULT_COUNCIL_VETO = no                        # 理事会是否可以默认否决决议？
+    DEFAULT_COUNCIL_EMERGENCY_MEASURES = yes        # 理事会是否可以默认提出紧急措施？
+    CATEGORY_VOTE_COOLDOWN = 2520                    # 在给定类别的另一个决议可以再次提出之前的时间
+    TYPE_VOTE_COOLDOWN = 5040                        # 在可以再次提出给定类型的公投之前的时间
+    VETO_COOLDOWN = 1800                            # 一个国家在可以实施另一个否决之前的时间
+    EMERGENCY_MEASURES_COOLDOWN = 7200                # 一个国家在可以提出另一个紧急措施之前的时间
+    DEFAULT_VETO_COST_MULT = 3                        # 提议的决议成本乘以这个数来确定否决该决议的成本
+    JOIN_COMMUNITY_INFLUENCE_COST = 100                # 在其形成后手动加入社区的成本
+    LEAVE_COMMUNITY_MIN_INFLUENCE_COST = 100        # 离开银河社区的最小成本
+    LEAVE_COMMUNITY_MAX_INFLUENCE_COST = 500        # 离开银河社区的最大成本
+    LEAVE_COMMUNITY_INFLUENCE_COST_FACTOR = 0.5        # 决定离开社区的实际成本的因子，这个数乘以帝国蔓延
+    LEFT_COMMUNITY_MODIFIER_TIMER = 7200            # left_community_modifier将影响离开国家的天数
+    COUNCIL_ELECTION_TIMER = 7200                    # 银河理事会选举之间的时间
+    COUNCIL_ELECTION_SOON_CUTOFF = 180                # 当距离下一次理事会还有不到这么多天时，我们会显示一个警告
+    COMMUNITY_FREEZE_RESOLUTION_MONTHS = 48            # 由监护人/皇帝冻结决议的时间期限
+    CUSTODIAN_TERM_LIMIT_DAYS = 10800                # 监护人保持其职位的时间期限
+    CUSTODIAN_TERM_LIMIT_EXPIRATION_MESSAGE_DAYS = 1800 # 当任期限剩余的天数达到此数时，应向监护人发送关于其任期到期的通知
+
+    ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_GROWTH = 2    # 当派遣特使来加强皇权时，每月的观点增长
+    ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_DECAY = -1    # 当派遣特使来加强皇权时，每月的观点衰减
+    ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_MAX = 200        # 上述增长可以达到的最高值
+    ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_GROWTH = -2    # 当派遣特使来破坏皇权时，每月的观点“增长”
+    ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_DECAY = 1        # 当派遣特使来破坏皇权时，每月的观点“衰减”
+    ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_MIN = -200        # 上述“增长”可以达到的“最低”值
+
+    FEDERATION_LOW_COHESION_CUTOFF = 0.1            # 当联邦的凝聚力剩余比例小于此值且凝聚力增长为负时，我们会显示警告
+
+    OPINION_MAX = 1500        # 观点值的上限
+    OPINION_EXCELLENT = 750        # 被认为是优秀级别的最小值
+    OPINION_GOOD = 300        # 被认为是良好级别的最小值
+    OPINION_POOR = -300        # 被认为是差级别的最大值
+    OPINION_TERRIBLE = -750        # 被认为是糟糕级别的最大值
+    OPINION_MIN = -1500        # 观点值的下限
+
+    FAVOR_CAP = 10        # 同一帝国可以存储的最大人情数量
+    FAVORS_PER_RESOLUTION_CAP = 100        # 可以用于决议的最大人情数量
+    BORROWED_DIPLO_WEIGHT_FAVOR_MULT = 0.1        # 每个人情的外交权重乘数
+
+    DECLINED_TO_LEAVE_FEDERATION_CASUS_BELLI_TYPE = "cb_secession"    # 如果离开联邦的请求被拒绝，将在联邦领导者身上使用的理由
+
+    FEDERATION_VOTE_RESUBMIT_DELAY = 180            # 在你可以提议再次投票给定法律之前必须经过的天数
+    DEFAULT_ORIGIN = "origin_default"
+
+    SPAWN_SYSTEM_BUFFER_DISTANCE = 10.0        # 通过spawn_system创建的系统不会在距离另一个系统这个距离内生成，除非它们真的没有空间不这样做
+    SPAWN_SYSTEM_ATTEMPTS = 15        # 游戏会尝试多少次找到一个通过spawn_system创建的系统的位置，然后默认到银河的中心。注意：最后两次尝试忽略SPAWN_SYSTEM_BUFFER_DISTANCE
+
+    EDICT_CAPACITY_BASE = 1            # 在惩罚生效之前，最大的活动法令数量
+    EDICT_UNITY_AMBITION_COST_MULT = 0.001        # 活动的统一抱负成本（下一个传统 * 这个）每月的统一成本
+
+    INTEL_CAP = 100        # 国家的最大情报值
+    INTEL_YEARLY_DECREASE = 1.0        # 每年失去的情报量以达到目标情报
+    INTEL_YEARLY_INCREASE = 12.0        # 每年获得的情报量以达到目标情报
+    INTEL_FROM_TRUST_MULTIPLIER = 0.5        # 与信任相乘的值来计算由于信任而产生的最小情报
+    INTEL_FROM_COMMUNICATIONS = 10.0        # 建立通信后的最小情报
+    INTEL_FROM_NON_AGGRESSION_PACT = 20.0        # 如果有非侵略协定，最小情报
+    INTEL_FROM_GALACTIC_COMMUNITY = 30.0        # 如果两个帝国都是银河社区的一部分，最小情报
+    INTEL_FROM_GALACTIC_CUSTODIAN = 45.0        # 如果我们是银河监护人，他们是银河社区成员，最小情报
+    INTEL_FROM_GALACTIC_EMPEROR = 65.0        # 如果我们是银河皇帝，他们是帝国成员，最小情报
+    INTEL_FROM_GALACTIC_EMPEROR_HEIGHTENED_SECURITY = 80.0        # 如果我们是银河皇帝，他们是帝国成员，通过了imperial_security_directorate决议，最小情报
+    INTEL_FROM_COMMERCIAL_PACT = 20.0        # 如果有商业协定，最小情报
+    INTEL_FROM_MIGRATION_PACT = 30.0        # 如果有移民条约，最小情报
+    INTEL_FROM_GUARANTEE = 20.0        # 如果一个国家在保证另一个国家，最小情报
+    INTEL_FROM_DEFENSIVE_PACT = 40.0        # 如果有防御协定，最小情报
+    INTEL_FROM_FEDERATION_ASSOCIATION = 40.0        # 如果国家有联邦协会地位，最小情报
+    INTEL_FROM_RESEARCH_AGREEMENT = 30.0        # 如果有研究协议，最小情报
+    INTEL_FROM_FEDERATION_CENTRALIZATION = 10.0 # 基础联邦情报的加成修饰符。乘以中央集权等级
+    INTEL_FROM_EMBASSY = 20.0 # 最小情报的加成修饰符。
+    INTEL_FROM_BEING_SUBJECT = 30.0 # 如果你是他们的主题，最小情报
+    INTEL_FROM_BEING_OVERLORD = 40.0 # 如果你是他们的霸主，最小情报
+    INTEL_FROM_SECRET_FEALTY = 20.0 # 如果你已经宣誓秘密效忠，加成修饰符。
+
+    DETECTION_INTEL_DECAY_MONTHS = 120        # 保留在系统中被检测到的记忆的时间长度
+
+    FIRST_CONTACT_DICE_ROLL_MIN = 1
+    FIRST_CONTACT_DICE_ROLL_MAX = 10
+    FIRST_CONTACT_LOWER_INSIGHT_SCORE = 0            # 任何洞察力被授予的分数
+    FIRST_CONTACT_HIGHER_INSIGHT_SCORE = 5            # 更多洞察力被授予的分数
+    FIRST_CONTACT_LOWER_INSIGHT_REWARD = 1            # 为FIRST_CONTACT_LOWER_INSIGHT_SCORE授予的洞察力
+    FIRST_CONTACT_HIGHER_INSIGHT_REWARD = 2            # 为FIRST_CONTACT_HIGHER_INSIGHT_SCORE授予的洞察力
+    FIRST_CONTACT_DISCOVERY_SCORE = 10        # 完成阶段的分数
+    FIRST_CONTACT_DISCOVERY_DAYS = 80        # 1次掷骰子需要80天
+    FIRST_CONTACT_DISCOVERY_DAYS_AI = 110        # AI的速度较慢，以保证玩家有机会首先完成
+    FIRST_CONTACT_FIRST_STAGE = "base_contact_set" # 所有初次接触的起始阶段（参见game/common/first_contact）
+    FIRST_CONTACT_INTEL_TARGET = 10
+    FIRST_CONTACT_POLICY = "first_contact_protocol"
+    FIRST_CONTACT_POLICY_FLAG_CAUTIOUS = "first_contact_cautious"
+    FIRST_CONTACT_POLICY_FLAG_PROACTIVE = "first_contact_proactive"
+    FIRST_CONTACT_POLICY_FLAG_ATTACK_ALLOWED = "first_contact_attack_allowed"
+    FIRST_CONTACT_UNKNOWN_SPECIES_PORTRAITS_AMOUNT = 22    # 在gfx\interface\intel\firstcontact\unknown_species中的肖像数量；通过做（ "GFX_unknown_species_portrait_" + ( <First Contact ID> % <this define> )）来选择要使用的肖像
+
+    ORBITAL_SURRENDER_POLICY = "orbital_bombardment_accept_surrender"
+    ORBITAL_SURRENDER_POLICY_FLAG_ALLOWED = "orbital_bombardment_surrender_allowed"
+    ORBITAL_SURRENDER_POLICY_FORBIDDEN = "orbital_bombardment_surrender_forbidden"
+
+    SPY_NETWORK_LEVELS = 50        # 什么是基础最大间谍网络等级？（spy_network_levels_add和相对加密可以增加这个值）
+    SPY_NETWORK_MAX_LEVELS = 100        # 什么是绝对最大间谍网络等级？
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_LEVELS_EFFECT = -10    # 每一点相对加密差异如何修改最大网络等级？
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_LEVELS_MIN = -40        # 渗透等级修饰符值的下限
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_LEVELS_MAX = 40        # 渗透等级修饰符值的上限
+    SPY_NETWORK_MAX_POWER = 100        # 包括所有修饰符，间谍网络能有多强大？
+    SPY_NETWORK_MAX_ENVOYS_COUNT = 1            # 可以分配多少特使来建立单个间谍网络？
+    SPY_NETWORK_DAILY_ENVOY_SCORE = 1.0        # 每个特使你可以得到多少进展
+    SPY_NETWORK_SPRAWL_SCORE_SCALE = 400.0        # 在对方帝国中，这么多的帝国蔓延增加了每日间谍网络进展的1。
+    SPY_NETWORK_BASE_LEVEL_SCORE = 5.0        # 需要（SPY_NETWORK_BASE_LEVEL_SCORE）+（当前等级 * SPY_NETWORK_PER_LEVEL_SCORE）点数来提高间谍网络等级
+    SPY_NETWORK_PER_LEVEL_SCORE = 5.0        # 上述公式的每级部分
+    SPY_NETWORK_MONTHLY_DECAY = 1.0        # 如果我们没有为间谍网络分配特使或者它超过了最大值，它每月衰减这么多等级
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_BONUS_MULT = -0.10    # 加密与解密奖励比例，乘以这些值之间的差异。
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_BONUS_MIN = -0.4    # 加密与解密的下限（对攻击者不利）
+    SPY_NETWORK_ENCRYPTION_DECRYPTION_BONUS_MAX = 0.4    # 加密与解密的上限（对攻击者有利）
+    SPY_NETWORK_MAXIMUM_ASSIGNED_ASSETS = 1            # 可以分配给间谍网络的最大资产数量
+    SPY_NETWORK_RELATIVE_ENCRYPTION_DIFFICULTY_MULT = 1    # 难度修饰符要乘以相对加密
+    SPY_NETWORK_RELATIVE_ENCRYPTION_DIFFICULTY_MIN = -4        # 过量的密码破译可以降低操作的难度多少？负数对间谍有利。
+    SPY_NETWORK_RELATIVE_ENCRYPTION_DIFFICULTY_MAX = 4        # 过量的加密可以增加操作的难度多少？正数对防御者有利。
+    SPY_NETWORK_RELATIVE_ENCRYPTION_MIN = -4    # 相对加密的下限
+    SPY_NETWORK_RELATIVE_ENCRYPTION_MAX = 4    # 相对加密的上限
+
+    GALACTIC_EMPIRE_BASE_AUTHORITY = 100        # 建立银河帝国时的起始皇权
+    GALACTIC_EMPIRE_MAX_AUTHORITY = 200        # 皇权的最大值
+    GALACTIC_EMPIRE_ENVOY_AUTHORITY_CHANGE = 0.1    # 每个月每分配一个特使，皇权增加/减少多少
+    IMPERIAL_COUNCIL_CHANGE_MEMBER_INFLUENCE_COST = 100.0 # 添加/删除帝国理事会成员的影响力成本
+
+    MENACE_PERK_MINIMUM_ACTIVATION_TIME = 360        # 在特权可以被停用之前的天数
+    SEEN_ALIENS = "seen_aliens"
+
+    PLANET_COLONIZED_STRING = "colonized"    # 在遥测中标识一个新殖民的行星
+    PLANET_ACQUIRED_STRING = "acquired"    # 在遥测中标识以任何方式从另一个帝国获得的行星
+
+    TRADITION_CATEGORIES_MAX = 7    # 传统类别的最大数量
+
+    CATAPULT_MIN_REACH = 5            # 投石机应至少能够到达的距离
+    CATAPULT_MIN_RADIUS = 10            # 投石机圆的最小半径
+    CATAPULT_MAX_RADIUS = 100        # 投石机圆的最大半径
+
+    COUNCIL_COHESION_EDICT_FUND_MAX_MULT = 0.5 # 来自理事会凝聚力的法令基金最大乘数
+    COUNCIL_COHESION_TREND_FACTOR = 0.01 # 每月理事会凝聚力变化
+    COUNCIL_COHESION_SCORE_FANATIC_ETHIC = 1.5    # 来自匹配/不匹配的狂热伦理的凝聚力变化
+    COUNCIL_COHESION_SCORE_ETHIC = 1.0            # 来自正常伦理的凝聚力变化
+
+    FLEET_LEASE_DAYS_MAXIMUM = 36000    # 舰队可以租赁的最大天数
+    FLEET_LEASE_DAYS_DEFAULT = 3600        # 默认情况下，舰队可以租赁的天数
+
+    AGREEMENT_CHANGE_COOLDOWN_MONTHS = 60    # 协议可以更改的频率（以月为单位）
+    AGREEMENT_LOYALTY_DELTA_MULT = 5        # 用于影响力成本计算的忠诚度差异乘数
+    AGREEMENT_PROPOSE_INFLUENCE_COST = 50    # 协议提案的基本成本。+ |忠诚度差值| * AGREEMENT_LOYALTY_DELTA_MULT在旧的和新的协议之间
+    AGREEMENT_DENY_AS_SUBJECT_INFLUENCE_COST = 50    # + |忠诚度差值| * AGREEMENT_LOYALTY_DELTA_MULT在旧的和新的协议之间
+    AGREEMENT_DENY_AS_OVERLORD_INFLUENCE_COST = 25    # + |忠诚度差值| * AGREEMENT_LOYALTY_DELTA_MULT在旧的和新的协议之间
+    AGREEMENT_EXPANSION_TITHE_FACTOR = 0.5    # 在应用修饰符后，应用于总数的因子。1.5表示成本增加50%，这部分成本归霸主所有
+
+    AGREEMENT_PRESET_RELEASE_AS_SECTOR = "preset_release_sector"        # 释放一个部门作为附庸时将应用的预设
+    AGREEMENT_PRESET_VASSAL = "preset_vassal"                # 标准附庸预设
+    AGREEMENT_INTEGRATION_TERM = "subject_integration"            # 整合的协议条款
+    AGREEMENT_CAN_INTEGRATE_TERM_VALUE = "subject_can_be_integrated"    # 允许整合的协议条款值
+
+    CLOAKING_ACTIVATION_COOLDOWN = 120 #days    # 隐形激活冷却时间（天）
+    CLOAKING_LEVEL_MAX = 10 #days    # 隐形等级最大值（天）
+
+    MAX_COOP_PLAYERS = 5            # 允许在合作帝国中的最大玩家数量
+    MAX_ADDITIONAL_COOP_PLAYERS = 4 # 允许在合作帝国中的额外玩家数量
+
+    AWARENESS_MIN = 0    # 意识的最小值
+    AWARENESS_MAX = 100    # 意识的最大值
+    AWARENESS_UNAWARE_LIMIT = 1 # “未知”意识阶段的（独占）上限
+    AWARENESS_LOW_LIMIT = 30 # “低”意识阶段的（独占）上限
+    AWARENESS_PARTIAL_LIMIT = 60 # “部分”意识阶段的（独占）上限
+    AWARENESS_HIGH_LIMIT = 100 # “高”意识阶段的（独占）上限（任何大于等于这个的将是完全意识阶段）
+
+    FLEET_FLASH_FORGING_HYPER_RELAY_FLAG = "flash_forging_hyper_relay"    # 允许立即建造一个超级结构的标志，这种情况下是超空间中继站
+
+    ASTRAL_RIFT_DEFAULT_DISPLAY_SIZE = 100.0    # 星际裂隙的默认显示大小
+    ASTRAL_RIFT_DICE_ROLL_MIN = 1    # 星际裂隙的最小骰子滚动值
+    ASTRAL_RIFT_DICE_ROLL_MAX = 10    # 星际裂隙的最大骰子滚动值
+    ASTRAL_RIFT_DISCOVERY_DAYS = 90    # 发现星际裂隙所需的天数
+    ASTRAL_RIFT_DISCOVERY_SCORE = 14    # 发现星际裂隙的得分
+
+    ASTRAL_JUMP_THREADS_COST = 500 # 执行星际跳跃所需的星际线程成本
+    PHASE_FLEET_THREADS_COST = 250 # 执行相位舰队所需的星际线程成本
+
+    UNLOCK_ASTRAL_JUMP_FLAG = "unlock_astral_jump"    # 解锁星际跳跃的标志
+    UNLOCK_PHASE_FLEET_FLAG = "unlock_phase_fleet"    # 解锁相位舰队的标志
+
+    # 缓存的技术
+    COLONY_TECH = "tech_colonization_1"    # 殖民技术
+
+    RANDOMLY_SPAWNED_OBJECTS_ON_OUTER_BORDER_MINIMUM_DISTANCE = 100.0    # 在外边界随机生成的对象的最小距离
+    ASTRAL_RIFT_RELATIVE_SPAWN_MINIMAL_DISTANCE_FROM_PLANETS = 100.0    # 使用relative_to时，任何行星和生成裂隙之间所需的最小距离。如果值较小，则替换为轨道距离。
+
+    DIMENSIONAL_LOCK_ICON_FRAME = 52    # 维度锁图标框架
+    DIMENSIONAL_LOCK_OPEN_ICON_FRAME = 53    # 打开维度锁的图标框架
+}
+
+NSpecies = {
+    MIN_ETHIC_POINTS = 3    # 最小伦理点数
+
+    HALF_BREED_BASE_CHANCE = 0.1    # 半种族基础机会
+    HALF_BREED_SAME_CLASS_CHANCE_ADD = 0.3    # 同类半种族机会增加
+    HALF_BREED_SWAP_BASE_SPECIES_CHANCE = 0.33    # 半种族交换基础种族的机会
+    HALF_BREED_EXTRA_TRAIT_POINTS = 1    # 半种族额外特性点数
+    HALF_BREED_EXTRA_TRAIT_PICKS = 1    # 半种族额外特性选择
+
+    TRAIT_MODIFICATION_BASE_COST = 3000        # 这个成本总是添加到物种修改项目中，所以修改单个种群是不高效的
+    TRAIT_CLIMATE_MODIFICATION_COST = 3    # 特性气候修改成本
+    TRAIT_MODIFICATION_COST_MULT = 20        # 物种修改成本乘以所有应用的绝对特性成本，每个种群
+    MODIFICATION_COST_MULT = 5            # 添加到上述物种修改成本，每个种群
+    ROBO_TRAIT_MODIFICATION_BASE_COST = 1500        # 这个成本总是添加到物种修改项目中，所以修改单个种群是不高效的
+    ROBO_TRAIT_MODIFICATION_COST_MULT = 40        # 物种修改成本乘以所有应用的绝对特性成本，每个种群
+    ROBO_MODIFICATION_COST_MULT = 20        # 添加到上述物种修改成本，每个种群
+    UPLIFT_COST_BASE = 3000.0    # 提升的基础成本
+    TRAIT_MODIFICATION_TIME_LIMIT = 30        # 物种修改特殊项目的超时限制
+    HOMEWORLD_HABITABILITY = 0.3        # 在家园上增加的适居性
+    HABITABILITY_FLOOR = 0.0        # 物种可能的最低适居性
+    HABITABILITY_CEIL = 1.0        # 物种可能的最高适居性
+
+    MUTATION_REMOVE_CHANCE = 50    # 移除突变的机会
+    MUTATION_ADD_CHANCE = 50    # 添加突变的机会
+    MUTATION_MIN_TRAITS = 2    # 最小突变特性数
+    MUTATION_MAX_TRAITS = 5    # 最大突变特性数
+
+    # 以下四个定义用于决定随机生成的物种将为其领导者使用哪些性别。
+    # 默认意味着男性/女性划分。非性别也被称为在游戏文件中无法确定
+    # 它期望非负整数值。它们可以加起来任何东西，只要它大于0，并且小于int_max
+    DEFAULT_GENDER_CHANCE = 70    # 默认性别机会
+    MALE_GENDER_CHANCE = 10    # 男性性别机会
+    FEMALE_GENDER_CHANCE = 10    # 女性性别机会
+    NON_GENDERED_CHANCE = 10    # 非性别机会
+}
+
+NShip = {
+    AGGRESSIVE_STANCE_INVASION_ODDS_MULT = 1.5            # 采取侵略立场的运输舰队希望拥有敌方地面部队战斗力x这个数值来入侵一个世界
+    AGGRESSIVE_STANCE_MIN_POWER_MULT = 0.2            # 小于我们军事力量x这个数值的舰队将被正在轰炸的侵略舰队忽视
+
+    DESIGNER_WEAPON_PREF_MUL = 1.33            # 在舰船设计师中，武器偏好标签对其分配给武器的权重有多大影响？
+    DESIGNER_WEAPON_ROLE_MUL = 5.33            # 在舰船设计师中，武器角色标签对其分配给武器的权重有多大影响？
+    DESIGNER_UTILITY_ROLE_MUL = 5.33            # 在舰船设计师中，武器角色标签对其分配给效用组件的权重有多大影响？
+    DESIGNER_WEAPON_STACKING_DIV = 0.25            # 这个数值越高，舰船设计师在其部分上尝试变化使用的武器类型就越多
+
+    ABANDONED_STATION_DECAY_RATE = 0.003        # 废弃的空间站每天失去这个数值的健康值
+
+    STRIKE_CRAFT_COMBAT_REGEN = 0.2    # 攻击型飞船的战斗再生
+
+    MOVE_SHIP_TO_FLEET_MAX_DIST = 50.0    # 移动舰船到舰队的最大距离
+
+    OUT_OF_COMBAT_SHIELD_REGEN_MULT = 5.0        # 在战斗外，盾牌充能速度快这么多倍
+
+    OUT_OF_COMBAT_ARMOR_REGEN_MULT = 5.0        # 在战斗外，装甲充能速度快这么多倍
+
+    OUT_OF_COMBAT_HULL_REGEN_MULT = 5.0        # 在战斗外，船体充能速度快这么多倍
+
+    SHIP_SPEED_SCALE = 0.045        # 将此设置为1使脚本速度值对应于单位/天
+
+    SHIP_MAX_EVASION = 0.9        # 舰船允许拥有的最大闪避值（百分比）
+
+    MAX_DAMAGE_SCALING = 8            # 目标允许拥有的最大缩放值（舰船大小）
+
+    ASSIST_CLOAKING_DETECTION_ORBIT_DISTANCE = 10.0    # 在协助隐形检测过程中的舰船的轨道距离
+
+    FLEET_BASE_FORMATION_SCALE = 3.0    # 舰队基础阵型的缩放比例
+    FLEET_BASE_FORMATION_DIV = 10    # 舰队基础阵型的划分值
+
+    FLEET_FORMATION_CIRCLE_SHIPS_PER_LAYER_MULT = 4    # 圆形舰队阵型每层的舰船数量乘数
+    FLEET_FORMATION_CIRCLE_RADIUS_PER_LAYER_MULT = 2.0    # 圆形舰队阵型每层的半径乘数
+
+    FLEET_UPGRADE_QUEUE_FACTOR_MULT = 0.25    # 在计算升级最佳船坞时，建造队列中的项目数量的重要性的比例
+
+    LANDING_TIME_DAYS = 10    # 登陆一支军队需要的天数
+
+    MOVE_TO_ACTION_THRESHOLD = 5.0    # move_to舰队行动使用的距离阈值，以确定舰队何时到达
+
+    HYPERLANE_WINDUP = 150    # 微更新（每天10次）
+    HYPERLANE_WINDDOWN = 0    # 微更新
+    HYPERDRIVE_INTERSTELLAR_TRAVEL_SPEED = 1.0 # 微更新（每天10次）
+    RULER_SHIP_SCALE_MULT = 0.5    # 独特统治者舰船的放大比例。
+    JUMP_DRIVE_WINDUP = 14    # 跳跃驱动器预备时间（天）
+    JUMP_DRIVE_RANGE = 100
+    QC_WINDUP_SHIP_SIZE_DIV = 50    # 这个值越大，预备时间就越快。
+    QC_WINDUP_SHIP_SIZE = 150    # 舰船大小在此之后，预备时间乘数将被应用。
+
+    SHIELD_RECHARGE_TICKS = 20    # 在盾牌完全耗尽之前，战斗滴答之前开始充电
+
+    MILITARY_POWER_HEALTH_WEIGHT = 0.5    # 军事力量的健康权重
+    MILITARY_POWER_ARMOR_WEIGHT = 1.0    # 相对于健康的军事力量的装甲权重
+    MILITARY_POWER_SHIELD_WEIGHT = 1.0    # 相对于健康的军事力量的盾牌权重
+    MILITARY_POWER_DAMAGE_WEIGHT = 0.5    # 军事力量的伤害权重
+    MILITARY_POWER_SCALE = 0.25    # 军事力量的规模
+    MILITARY_POWER_EXPONENT = 0.65    # 军事力量的指数，公式：power = ( ( effective_health * damage_per_day ) ^ exponent ) * scale
+
+    # 下面的值决定了特殊值（如盾牌穿透）对武器军事力量的影响有多大
+    MILITARY_POWER_ARMOR_PENETRATION_WEIGHT = 0.5    # 较大的值 = 增加更多的军事力量
+    MILITARY_POWER_SHIELD_PENETRATION_WEIGHT = 0.5
+    MILITARY_POWER_HULL_DAMAGE_WEIGHT = 0.33
+    MILITARY_POWER_ARMOR_DAMAGE_WEIGHT = 0.33
+    MILITARY_POWER_SHIELD_DAMAGE_WEIGHT = 0.33
+    MILITARY_POWER_TRACKING_WEIGHT = -0.5    # 在0%追踪时
+    MILITARY_POWER_RANGE_DIV = 100    # 较小的值 = 增加更多的军事力量
+    MILITARY_POWER_MISSILE_MULT = 0.75        # 由于对PD（点防御）的脆弱，导弹的整体军事力量降低
+    MILITARY_POWER_PD_MULT = 1.15        # 为了补偿相对较差的DPS/范围，PD（点防御）的整体军事力量增加
+    MILITARY_POWER_SIZE_MULTIPLIER_WEIGHT = 4.0 # 增加预期的DPS和军事力量，对于有尺寸乘数的武器，就好像它们正在战斗
+
+    DEFAULT_ARMOR_RATIO = 0.4    # 默认装甲比例
+    DEFAULT_SHIELD_RATIO = 0.5    # 默认盾牌比例
+    MIN_SPEED_FOR_UTILITIES = 1.25 # 创建设计时，船舶实用程序的最小速度值才被认为是可行的
+
+    EXCESS_POWER_BONUS_THRESHOLD_MAX = 1.0    # 0.5表示0-50%的超额电力线性缩放ship_excess_power修饰符在0-1之间。
+    EXCESS_POWER_BONUS_THRESHOLD_MIN = 0.05 # 超额电力的最小值。
+
+    SHIP_EXP_GAIN_COMBAT = 5                    # 每天船只在战斗中获得的经验
+    SHIP_EXP_GAIN_PIRACY_SUP = 0.1                # 每天船只在压制海盗时获得的经验
+    SHIP_EXP_EXPERIENCED = 100                # 达到经验丰富等级所需的经验量
+    SHIP_EXP_VETERAN = 1000                # 达到老兵等级所需的经验量
+    SHIP_EXP_ELITE = 10000                # 达到精英等级所需的经验量
+
+    CAN_TRAVEL_BETWEEN_UNEXPLORED_SYSTEMS = no        # 可以在2个未探索的系统之间移动
+
+    CLOAKING_ANIMATION_SPEED = 0.02    # 隐形动画速度
+}
+
+NCombat = {
+    # 当舰船攻击时，它们会尝试保持在最大范围并绕着目标轨道。
+    # 如果舰船比最大范围更近，此值决定它将多快“后退”以达到最大范围。
+    # 0.0表示舰船不会后退，并且以其已经拥有的任何半径进行轨道。
+    # 1.0表示舰船将优先考虑与“后退”速度相同的轨道速度。即45度角
+    COMBAT_BACK_OFF_RATE = 0.50
+
+    SHIP_SMOOTH_ROTATION_THRESHOLD = 3.141 # 用于平滑舰船的旋转速率。方程式是 "y = x * ( min ( 1.0 x / SHIP_SMOOTH_ROTATION_THRESHOLD ) )"，其中x是这个tick想要的delta旋转，y是结果的delta旋转
+
+    FORCE_DISPARITY_BASE = 20    # 在计算力量差距时添加到舰队大小
+    FORCE_DISPARITY_MAX_EFFECT = 5.0    # 力量差距的最大乘数
+
+    COMBAT_DAYS_BEFORE_TARGET_STICKYNESS = 5        # 战斗必须进行至少这么多天，舰船才会“锁定”它们的目标
+    COMBAT_TARGET_STICKYNESS_FACTOR = 1.5    # 这个值越高，舰船越不可能切换目标
+    RANDOM_TARGETING_WEIGHT = 3.0    # 这个值越高，舰船的目标选择就越随机
+
+    ADMIRAL_DEATH_CHANCE = 0.1        # 当他们的舰船被炸掉时，海军上将死亡的机会
+
+    COMBAT_SHIP_TARGETING_SIZE_MULT = 0.03    # 这个权重越高，越可能优先瞄准较小、较脆弱的舰船
+    COMBAT_SHIP_TARGETING_SIZE_MAX = 10
+    COMBAT_SHIP_TARGETING_TRACKING_MULT = 2.0    # 这个权重是必要的，以确保高追踪的舰船瞄准高闪避的舰船
+    COMBAT_SHIP_EVASION_TARGETING_WEIGHT = 2.0    # 这个值越高，舰船越不可能瞄准有高闪避机会的敌舰
+    COMBAT_SHIP_LOW_HEALTH_THRESHOLD = 0.5            # 应用低健康目标权重的健康阈值
+    COMBAT_SHIP_LOW_HEALTH_TARGETING_WEIGHT = 1.5
+    COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT = 0.002        # 这个值越高，舰船越不可能对远距离的目标开火
+    COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT_MIN = 0.10    # 由于距离，目标权重不能少于这个值的乘法
+    COMBAT_SHIP_UNARMED_TARGETING_WEIGHT = 0.005        # 这个值越低，舰船越不可能瞄准无武装的敌人而不是有武装的敌人
+    COMBAT_SHIP_STARBASE_TARGETING_WEIGHT = 0.75    # 这个值越低，舰船越不可能瞄准星基而不是军舰和防御平台
+    COMBAT_SHIP_EVASION_AVOID_MIN_SHIP_SIZE = 8        # 应该尝试避免对高闪避目标开火的舰船的最小尺寸
+    COMBAT_SHIP_EVASION_AVOID_THRESHOLD = 0.7    # 在这个闪避等级以上，尝试找到一个闪避性较低的目标
+
+    COMBAT_DETECT_RANGE_MULT = 1.05    # 与其他舰船进行战斗的范围是<fleets max attack range> * COMBAT_DETECT_RANGE_MULT
+    COMBAT_DETECT_RANGE_MIN = 10    # 检测到战斗的最小范围
+    COMBAT_AREA_MIN_ATTACK_RADIUS = 0.2    # 战斗区域的最小攻击半径
+    COMBAT_EMERGENCY_FTL_LOST_RISK = 0.05 # 跳跃时舰船永久失落的风险x%
+    COMBAT_EMERGENCY_FTL_DAMAGE_RISK = 0.25 # 紧急ftl跳跃时舰船受损的机会x%
+    COMBAT_EMERGENCY_FTL_DAMAGE_AMOUNT = 0.75 # 紧急ftl可能造成的伤害的x%
+    COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 14.0    # 舰队应在战斗中至少多少天才能紧急ftl
+
+    MISSILE_HIGH_CONTROL_DISTANCE = 5.0 # 如果导弹离目标比MISSILE_HIGH_CONTROL_DISTANCE更近，它将会急转弯
+    MISSILE_HIGH_CONTROL_INTERPOLATION_RANGE = 5.0 # 导弹在"平滑控制"和"全控制"之间插值多长时间
+    MISSILE_BASE_ROTATION_SPEED = 0.001 # 导弹的基础旋转速度，以每tick的弧度为单位
+    MISSILE_RETARGET_CHANCE_START = 100 # 导弹第一次失去目标时，找到范围内新目标的可能性有多大
+    MISSILE_RETARGET_CHANCE_REDUCTION = 35 # 每次重新瞄准后，导弹找到新目标的机会减少多少
+
+    SHIP_DISENGAGE_BASE_CHANCE = 0.75 # 每次舰船受到伤害时，它脱离战斗的机会，与受到的伤害成比例（X = 在SHIP_DISENGAGE_HEALTH_THRESHOLD的健康伤害时的机会）
+    SHIP_DISENGAGE_MAX_CHANCE = 0.5
+    SHIP_DISENGAGE_HEALTH_THRESHOLD = 0.5 # 在舰船脱离战斗前，健康必须低于此值
+    SHIP_DISENGAGE_FRIENDLY_TERRITORY_MULT = 1.25    # 在友方领土中的舰船脱离战斗的乘数
+}
+
+NPop = {
+    FORCED_SPECIES_GROWTH_PENALTY = 0.5    # 设置强制种族增长时，会损失这么多的进度
+    FORCED_SPECIES_ASSEMBLY_PENALTY = 0.1    # 设置强制种族组装时，会损失这么多的进度
+
+    BASE_POLITICAL_POWER = 1        # 基础政治力量
+    MIN_POLITICAL_POWER_POSITIVE_STABILITY_IMPACT = 0.0    # 最小政治力量对稳定性的正面影响
+    MAX_POLITICAL_POWER_POSITIVE_STABILITY_IMPACT = 20    # 最大政治力量对稳定性的正面影响
+    MIN_POLITICAL_POWER_NEGATIVE_STABILITY_IMPACT = 0.05    # 最小政治力量对稳定性的负面影响
+    MAX_POLITICAL_POWER_NEGATIVE_STABILITY_IMPACT = 20    # 最大政治力量对稳定性的负面影响
+
+    BASE_POP_GROWTH = 3        # 种族的基础增长率
+    LOGISTIC_POP_GROWTH_R = 0.125    # Logistic种族增长常数r
+    LOGISTIC_POP_GROWTH_FLOOR = 0.1    # Logistic种族增长不会降低到这个百分比以下。
+    LOGISTIC_POP_GROWTH_MIN_POPS = 5        # 把小殖民地当作有这么多种族，以避免曲线的最底部
+    LOGISTIC_POP_GROWTH_LOWER_THRESHOLD = 0.5    # 如果当前种族数量低于这个百分比的承载能力，忽略对种族增长的惩罚
+    MAX_CARRYING_CAPACITY = 500    # Logistic承载能力上限（所以modders可以访问这个值，以防他们制作一个有无限区域或类似的星球）
+    MAX_NEW_COLONIES_SCALE = 2    # 在新旧殖民地的这个比例下，迁移不再进一步缩放
+    REQUIRED_POP_GROWTH = 100    # 制造新种族所需的增长
+
+    OVERCROWDING_NO_GROWTH_THRESHOLD = 1.15    # 在这个拥挤程度（所需住房 / 实际住房），增长完全停止
+    OVERCROWDING_DECLINE_THRESHOLD = 1.25    # 在这个拥挤程度（所需住房 / 实际住房），种族开始减少
+    OVERCROWDING_ABSOLUTE_THRESHOLD_FOR_NO_GROWTH = 5    # 星球需要这个拥挤程度（所需住房 - 实际住房）才能让OVERCROWDING_NO_GROWTH_THRESHOLD生效
+    MAX_NUM_GROWTH_OR_DECLINE_PER_MONTH = 10    # 在同一个月里，不超过这个数量的种族可以增长、组装或减少
+
+    RESETTLE_UNEMPLOYED_BASE_RATE = 0.05    # 一个失业种族自动迁移到找到的可接受位置的机会（范围是0到1）
+    RESETTLE_DESTROY_COLONY_COST = 200    # 人工重新安置最后一个种族从殖民地的影响费用
+
+    NEW_POP_SPECIES_RANDOMNESS = 0.5    # 这个值越高，新种族的选择就越随机。不适用于组装，因为这将意味着随机选择过时的种族
+    NEW_POP_SAME_SPECIES_WEIGHT = 1.0    # 这个值越高，新种族就越可能被同种或亚种种族的数量所影响（即它们被选择的可能性就越小）
+    NEW_POP_EXACT_SPECIES_WEIGHT = 0.5    # 这个值越高，新种族就越可能被完全相同的种族数量所影响（即它们被选择的可能性就越小）
+    NEW_POP_SLAVERY_WEIGHT = 0.25    # 这个值越高，新种族就越可能在奴隶和非奴隶种族之间保持平衡
+    NEW_POP_SPECIES_DIV = 0.05    # 这个值越高，星球就越可能增长在该星球上代表性不足的种族
+    NEW_POP_HABITABILITY_THRESHOLD = 0.75    # 如果适居性低于此值，对新种族权重应用指数增长的惩罚
+    NEW_POP_LOW_HABITABILITY_PENALTY = 2        # 如果适居性低于当前阈值，对新种族权重应用增加的惩罚
+    NEW_POP_HOMEWORLD_MULT = 2        # 种族在其家园上增长的权重增加
+    NEW_POP_ASSEMBLY_TRAIT_MULT = 2        # 组装种族每个特性点的额外权重
+    NEW_POP_ASSEMBLY_FOUNDER_SPECIES_MULT = 1.3 # 如果一个国家可以组装自己的种族，那么它的额外权重
+    NEW_POP_GROWTH_RATE_MULT = 0.5    # 种族的总预测增长对新种族权重的影响有多大
+    NEW_POP_IMMIGRATION_MOD_MULT = 1        # 种族移民增长调制特性对新种族权重的影响有多大（当有移民时）
+
+    POP_ENSLAVE_MAX_RANK = 1        # 高于此阶层等级的种族不会因公民权等被奴役
+
+    BASE_POP_DECLINE = 5        # 种族的基础衰退率
+    REQUIRED_POP_DECLINE = 100    # 移除一个种族所需的衰退
+    POP_DECLINE_THRESHOLD = 3.0    # 当另一个种族的增长优先级比这个值高出很多时，一个种族会衰退
+
+    BASE_POP_ASSEMBLY = 0        # 种族的基础组装率
+    REQUIRED_POP_ASSEMBLY = 100    # 添加一个种族所需的组装
+
+    MAX_EMIGRATION_PUSH = 100    # 最大的移民推动力
+    MAX_GROWTH_FROM_IMMIGRATION = 10    # 从移民中获得的最大增长
+    MAX_GROWTH_PENALTY_FROM_EMIGRATION = 0.95    # 基础月增长的一部分
+
+    DEFAULT_CHANGE_JOB_THRESHOLD = 1.1        # 一个工作必须有这么高的权重，才能让一个种族从他们当前的工作切换到它
+
+    LOW_HAPPINESS = 0.40        # 在这个幸福度以下，显示红色条
+    HIGH_HAPPINESS = 0.60        # 在这个幸福度以上，显示绿色条
+
+    BASE_PRODUCTION = 1.0 # 种族生产的基础值
+    BASE_HAPPINESS = 0.50 # 种族幸福的基础值
+
+    RECENTLY_CONQUERED_DAYS = 3600 # 最近被征服的修饰符在种族上停留多久。
+
+    SAME_STRATA_EMPLOYMENT_BONUS = 5.0 # 当考虑让一个失业的种族从事同一阶层的工作时，会添加多少分数
+    FAVORITE_JOB_EMPLOYMENT_BONUS = 1000.0 # 如果一个工作被标记为喜欢，那么它的权重会增加多少
+}
+
+NArmy = {
+    MONTHLY_REINFORCE = 0.2                # 军队每月的健康百分比补充
+
+    BASE_HEALTH = 200.0                # 基础健康值
+    BASE_DAMAGE_MIN = 1.5                # 基础最小伤害
+    BASE_DAMAGE_MAX = 3.0                # 基础最大伤害
+
+    BASE_MORALE = 200.0                # 基础士气
+    MORALE_DAMAGE_MULT = 1.0                # 士气伤害乘数，伤害也对士气造成多少影响。
+    MONTHLY_MORALE_REGENERATION = 1.0                # 这个单位每月恢复多少士气，百分比为最大值。
+    DISENGAGED_EFFECT = 0.15                # 当一个单位脱离战斗时，它造成的伤害会乘以这个值
+    BROKEN_MORALE_EFFECT = 0.25                # 当一个单位的士气为0时，它造成的伤害会乘以这个值
+    LOW_MORALE_THRESHOLD = 0.5
+    LOW_MORALE_EFFECT = 0.75                # 当一个单位的士气低于LOW_MORALE_THRESHOLD时，它造成的伤害会乘以这个值
+
+    ARMY_EXP_GAIN_DAMAGE_DEALT = 2.0                # 军队每次造成伤害时获得的经验
+    ARMY_EXP_GAIN_DAMAGE_TAKEN = 1.0                # 军队每次受到伤害时获得的经验
+    ARMY_EXP_EXPERIENCED = 100                # 达到经验丰富等级所需的经验量
+    ARMY_EXP_VETERAN = 1000                # 达到老兵等级所需的经验量
+    ARMY_EXP_ELITE = 10000                # 达到精英等级所需的经验量
+
+    NUM_DAYS_BEFORE_RETREAT = 30                # 我们可以撤退之前需要过去多少天。
+    RETREAT_UNIT_LOST_MIN_CHANCE = 0.10                # 撤退的单位丢失的机会（按健康状况计算）
+    RETREAT_UNIT_LOST_MAX_CHANCE = 0.75
+
+    GROUND_COMBAT_RANDOM_TARGETING_WEIGHT = 1.0        # 这个值越高，军队的目标选择就越随机
+    GROUND_COMBAT_LOW_HEALTH_THRESHOLD = 0.5        # 在这个军队健康阈值下，应用低健康目标权重
+    GROUND_COMBAT_LOW_HEALTH_TARGETING_WEIGHT = 2.0
+
+    ARMY_MILITARY_POWER_SCALE = 0.25
+    ARMY_MILITARY_POWER_EXPONENT = 0.65    # 数学公式：power = ( ( effective_health * damage_per_day ) ^ exponent ) * scale
+    ARMY_MILITARY_POWER_DAMAGE_MULT = 1
+    ARMY_MILITARY_POWER_MORALE_DAMAGE_MULT = 0.5
+    ARMY_MILITARY_POWER_HEALTH_MULT = 1
+    ARMY_MILITARY_POWER_MORALE_MULT = 0.5
+    ARMY_MILITARY_POWER_NO_MORALE_FACTOR = 3
+
+    ARMY_DISENGAGE_BASE_CHANCE = 0.75 # 每次舰船受到伤害时，它脱离战斗的机会，与受到的伤害成比例（X = 在SHIP_DISENGAGE_HEALTH_THRESHOLD的健康伤害时的机会）
+    ARMY_DISENGAGE_MAX_CHANCE = 0.5
+    ARMY_DISENGAGE_HEALTH_THRESHOLD = 0.5 # 在军队脱离战斗前，士气必须低于此值
+    ARMY_DISENGAGE_MORALE_DIV = 2.0 # 在最大士气时，军队脱离战斗的机会被这个值除
+    ARMY_DISENGAGE_MORALE_MIN_DIV = 1.0
+    ARMY_DISENGAGE_TARGET_PRIO = 0.5    # 脱离战斗的军队的目标优先级乘以这个值
+}
+
+NEconomy = {
+    MIN_ECONOMIC_MODIFIER_MULT = -0.9    # 通过经济系统（common/economic_categories）生成的成本、维护和生产修饰符不能超过这个点
+
+    COLONY_MONTHLY_GROWTH = 3        # 殖民地种族每月增长多少。
+    COLONY_MAINTENANCE_COST = 8        # 新殖民地每月的基础成本。
+
+    FLEET_UPGRADE_TIME_COST_MULT = 0.50        # 升级舰队的时间成本
+    FLEET_UPGRADE_SECTION_COST_REFUND_MULT = 0.75    # 升级时舰船部分的退款因子
+    FLEET_UPGRADE_COMPONENT_COST_REFUND_MULT = 0.90 # 升级时舰船组件的退款因子
+
+    EXPANSION_COST_MAX = 1000.0    # 单个前哨站的最大成本
+    EXPANSION_COST_BASE = 75.0        # 前哨站的影响力基础成本
+    EXPANSION_COST_DISTANCE = 75.0        # 每跳超空跃迁增加的成本
+
+    CLAIM_COST_MAX = 1000.0    # 单个索赔的最大成本
+    CLAIM_COST_BASE = 50.0        # 提出索赔的影响力基础成本
+    CLAIM_COST_STARBASE = 25.0        # 升级星基的增加成本
+    CLAIM_COST_COLONY = 25.0        # 殖民系统的增加成本
+    CLAIM_COST_DISTANCE = 25.0        # 每跳超空跃迁增加的成本
+    CLAIM_COST_MULT_OFFENSIVE_WAR = 1.0        # 在战争中，攻击者增加索赔的成本是（1 + 这个值）倍
+    CLAIM_COST_RIVAL_DISCOUNT = -0.20        # 对竞争对手的索赔成本是（1 + 这个值）倍的折扣
+
+    TRADITION_COST_RESOURCES = { "unity" } # 传统成本的资源
+    TRADITION_COST_AMOUNTS = { 300 }    # 传统的基础成本
+
+    COMMERCIAL_PACT_VALUE_MULT = 0.1
+
+    TRADE_AMOUNT_MULTIPLIER = { 1 5 10 50 100 } # 资源交易基础数量的乘数间隔
+    MARKET_TRADE_FEE_BASE = 0.3    # 市场交易费的基础百分比
+    MARKET_TRADE_FEE_MIN = 0.05    # 最小交易费百分比
+    MARKET_FLUCTUATION_ABOVE_BASE_PRICE = 1    # 如果价格 > 0，交易资源基础数量时的基础波动
+    MARKET_FLUCTUATION_BELOW_BASE_PRICE = 0.3    # 如果价格 <= 0，交易资源基础数量时的基础波动
+    MARKET_MIN_FLUCTUATION_FROM_BASE_PRICE = -80    # 从基础价格的最小波动
+    MARKET_MAX_FLUCTUATION_FROM_BASE_PRICE = 400    # 从基础价格的最大波动
+    MARKET_DAYS_TO_BASE_PRICE = 1800    # 从最大或最小价格到资源价格达到基础价格的天数
+    MARKET_FLUCTUATION_EPSILON = 0.3    # 如果 | 波动 | < epsilon，将波动重置为零
+    MARKET_MONTHLY_TRADE_FRACTION = 0.1    # 确定每月市场交易的起始数量时，市场基础数量将乘以这个值
+    MARKET_MAX_BASE_AMOUNTS = 200    # 玩家允许在单次交易中交易的最大资源基础数量
+
+    HIGH_WATER_MARK_MONTHS = 12    # 收入高水位标记在这段时间内进行统计
+    HIGH_WATER_MARK_HISTORY = 2        # 收入高水位标记包含这么多期（包括当前）
+
+    INTERNAL_MARKET_DAYS_TO_BASE_PRICE = 3    # 内部市场的MARKET_DAYS_TO_BASE_PRICE * VAL
+    INTERNAL_MARKET_FLUCTUATION_MULT = 2 # 内部市场的MARKET_FLUCTUATION_ABOVE_BASE_PRICE/MARKET_FLUCTUATION_BELOW_BASE_PRICE的乘数
+
+    MONTHLY_TRADES_ECONOMIC_CATEGORY = "monthly_trades"
+
+    PRICE_CHANGE_EQ_POS_C = 320000    # f(x) = ( c / ( x - xo ) ) + d 中的常数C，对于 f(x) > 0
+    PRICE_CHANGE_EQ_POS_D = -133.3    # f(x) = ( c / ( x - xo ) ) + d 中的常数D，对于 f(x) > 0
+    PRICE_CHANGE_EQ_POS_X0 = -600        # f(x) = ( c / ( x - xo ) ) + d 中的常数X0，对于 f(x) > 0
+
+    PRICE_CHANGE_EQ_NEG_C = -45000    # f(x) = ( c / ( x - xo ) ) + d 中的常数C，对于 f(x) < 0
+    PRICE_CHANGE_EQ_NEG_D = 20        # f(x) = ( c / ( x - xo ) ) + d 中的常数D，对于 f(x) < 0
+    PRICE_CHANGE_EQ_NEG_X0 = -450        # f(x) = ( c / ( x - xo ) ) + d 中的常数X0，对于 f(x) < 0
+
+    PIRACY_FULL_GROWTH_DAYS_COUNT = 3600        # 海盗增长到全值而不被压制所需的时间
+    PIRACY_SUPPRESSION_RATE = 10.0        # 压制乘数，使压制比增长更有效
+    PIRACY_MAX_PIRACY_MULT = 0.25        # 最大海盗的基础乘数
+
+    TRADE_DELIVERY_PERCENTAGE_HIGH = 80    # >= 80% 的贸易价值到达目的地
+    TRADE_DELIVERY_PERCENTAGE_LOW = 50    # <= 50 的贸易价值到达目的地
+
+    SLAVE_MARKET_SLAVE_BASE_COST_RESOURCES = { "energy" }
+    SLAVE_MARKET_SLAVE_BASE_COST_AMOUNT = { 1000 }
+    SLAVE_MARKET_SIZE_CAP = 100 #市场上允许的最大奴隶数量
+
+    SECTOR_AUTOMATION_CONTRUCTION_RAND_FACTOR = 0.1    # 随机因子应用于部门自动化中的建筑得分
+    SECTOR_AUTOMATION_FREE_JOBS_BUILD_CAP = 0        # 如果存在失业 OR 空闲工作 <= SECTOR_AUTOMATION_FREE_JOBS_BUILD_CAP OR 空闲住房 <= SECTOR_AUTOMATION_FREE_HOUSING_BUILD_CAP，部门自动化将建设
+    SECTOR_AUTOMATION_FREE_HOUSING_BUILD_CAP = 1
+    SECTOR_AUTOMATION_BASE_FOCUS = "basic"            # 这个部门关注列表中的项目会附加到所有其他项目中
+
+    MONTHLY_SUBJECT_TAX_ECONOMIC_CATEGORY = "subject_tax"
+    MONTHLY_OVERLORD_SUBSIDY_ECONOMIC_CATEGORY = "overlord_subsidy"
+    MONTHLY_SUBJECT_INTEGRATION_ECONOMIC_CATEGORY = "subject_integration"
+
+    BORROW_DIPLO_WEIGHT_FAVOR_RESOURCE = { "influence" }
+    BORROW_DIPLO_WEIGHT_FAVOR_COST = { 10 }
+
+    POP_UNEMPLOYED_JOB_WEIGHT_BONUS = 0.001
+
+}
+
+NAI = {
+    AI_FREE_JOBS_DISTRICT_BUILD_CAP = 1  # 如果一个星球上有超过1个空闲工作岗位，AI将不会在该星球上建造新的区域
+    AI_FREE_JOBS_BUILDING_BUILD_CAP = 2  # 如果一个星球上有超过2个空闲工作岗位，AI将不会在该星球上建造新的建筑
+    AI_DEFICIT_SCORE_MULT = 100  # AI将对产生赤字资源的建筑评分更高，评分倍数为100
+    AI_RARE_RESOURCE_SCORE_MULT = 10  # AI将对产生稀有资源的建筑评分更高，评分倍数为10
+    AI_FOCUS_SCORE_MULT = 2  # AI将对产生焦点资源的建筑评分更高，评分倍数为2
+    AI_RESOURCE_PRODUCTION_SCORE_MULT = 1  # AI将对产生资源的建筑评分更高，评分倍数为1
+    AI_AMENITIES_SCORE_MULT = 5  # AI将对提供便利设施的建筑评分更高，评分倍数为5
+    AI_HOUSING_SCORE_MULT = 4.5  # AI将对提供住房的建筑评分更高，评分倍数为4.5
+    AI_CRIME_REDUCTION_SCORE_MULT = 2  # AI将对减少犯罪的建筑评分更高，评分倍数为2
+    AI_CRIME_REDUCTION_THRESHOLD = 15  # 当犯罪率达到15后，AI将开始考虑减少犯罪
+    AI_ADMIN_CAP_SCORE_MULT = 2  # AI将对提高管理上限的建筑评分更高，评分倍数为2
+    AI_POPS_SCORE_MULT = 1  # AI将对增加种族成长和组装的建筑评分更高，评分倍数为1
+    AI_NAVAL_CAP_SCORE_MULT = 15  # AI将对提高海军上限的建筑评分更高，评分倍数为15
+    AI_POP_GROWTH_JOB_TRESHOLD = 0.05  # 如果一个工作岗位提供至少0.05的种族成长加成，AI将会考虑它为一个提供种族成长的工作岗位
+    AI_UPGRADE_SCORE_MULT = 1.5  # AI将对建筑升级评分更高，评分倍数为1.5
+    AI_MIN_CURRENCY_INCOME_TO_BUILD_STARBASE_MODULES = 50  # 如果能源收入低于50，AI将不会建造星基模块或防御平台
+    AI_MIN_NAVAL_CAP_USAGE_TO_BUILD_DEFENSE_PLATFORMS = 0.95  # 如果AI使用的海军上限低于0.95，AI将不会建造防御平台
+    AI_UPPER_AMENITIES_LIMIT = 5  # 如果一个星球上的便利设施数量超过5，AI将会通过降低便利设施工作岗位的优先级来减少便利设施的数量
+    AI_LOWER_AMENITIES_LIMIT = 2  # 如果一个星球上的便利设施数量低于2，AI将会通过提高便利设施工作岗位的优先级来增加便利设施的数量
+
+    # If AI is either below -10 amenities or if both stability and amenity target is met
+    AI_PLANET_LOWER_THRESHOLD_AMENITY_CONSTRUCTION = -10    # AI will try to build new amenity buildings if below this amenity target
+    # Both requirements need to be fulfilled
+    AI_PLANET_UPPER_THRESHOLD_AMENITY_CONSTRUCTION = 0    # AI will try to build new amenity buildings if below this amenity target
+    AI_PLANET_STABILITY_THRESHOLD_AMENITY_CONSTRUCTION = 50 # AI will try to build new amenity buildings if below this stability target
+
+    AI_IS_AMENITIES_JOB_FACTOR = 1.5                        # Factor of when a job is considered an amenities job, e.g. for 2 a job needs to produce twice as much amenities as resources
+    POP_RANK_LIMIT_FOR_AMENITIES_ADJUSTMENT = 2            # Pops above this rank will not be subject of automatic job reshuffling to balance amenities
+    AI_MINIMUM_AMENITY_PER_JOB_LIMIT = 3                    # Jobs need to produce at least this many amenities to be considered for the AI amenity shuffling
+
+    AI_TECHNOLOGY_RARE_WEIGHT_MULT = 1.5                    # AI will multiply AI weight of rare techs with this value
+    AI_TECHNOLOGY_INFINITELY_REPEATABLE_WEIGHT_MULT = 0.01    # AI will multiply AI weight of infinitely repeatable techs with this value
+
+    AI_IN_BREACH_THRESHOLD = 3                    # AI will consider leaving the community ( and wont try to join it either ) if theyre in breach of this many resolutions
+
+    AI_MAX_DISTANCE = 200                        # AI considers all systems more distant than this to initially be too far away, but this will be multiplied to increase search range when that happens
+
+    AI_POP_MODIFICATION_DISCOUNT = 0.25            # AI pays this much (of base) for gene/robomodding projects
+
+    MIN_DISTANCE_TO_JUMP = 3                    # Target must be at least this many systems away for AI to want to use jump drive
+    AI_JUMP_DRIVE_BRAVERY = 0.33                # AI will not want to jump into systems unless enemy is this much weaker than them, relatively
+
+    #AI will resettle pops with lower habitatbility than LOW threshold onto worlds where they will have HIGH threshold habitatbility or more
+    AI_RESETTLE_FROM_LOW_HABITABILITY_THRESHOLD = 0.55
+    AI_RESETTLE_TO_HIGH_HABITABILITY_THRESHOLD = 0.70
+
+    # 这些参数用于确定AI应该在哪里升级其星基
+    STARBASE_COLONY_SCORE = 5  # AI将给在殖民地上建立星基的行为评分为5
+    STARBASE_HABITABLE_PLANET_SCORE = 3  # AI将给在适居星球上建立星基的行为评分为3
+    STARBASE_MEGASTRUCTURE_SCORE = 5  # AI将给在超级结构上建立星基的行为评分为5
+    STARBASE_BYPASS_SCORE = 10  # AI将给在旁路上建立星基的行为评分为10
+    STARBASE_CHOKEPOINT_SCORE = 2  # AI将给在关键点上建立星基的行为评分为2
+    STARBASE_HAZARD_CHOKEPOINT_SCORE_MULT = 1.5  # AI将给在危险关键点上建立星基的行为评分乘以1.5
+    STARBASE_SECTOR_CAPITAL_SCORE = 5  # AI将给在部门首都系统上建立星基的行为额外评分为5
+    STARBASE_MAX_OVER_CAP_DURING_WAR = 6  # 除非AI的星基数量超过上限6个或更多，否则AI在战争期间不会降级星基
+
+    AI_WAR_PREPARATION_MIN_MONTHS = 12            # Minimum time AI will prepare for war
+    AI_WAR_PREPARATION_MAX_MONTHS = 30            # Maximum time AI will prepare for war
+
+    # Defines used to enable AI to destroy buildings/districts if they are producing too much of a resource
+    # current income needs to surpass both the addative and the multiplicative check in order to be destroyed
+    AI_ADDITIVE_SUPERFLUOUS_INCOME_THRESOLD = 50        # Addative threshold,
+    AI_MULTIPLICATIVE_SUPERFLUOUS_INCOME_THRESOLD = 1.3    # Multiplicative threshold
+
+    WAR_OCCUPIED_BORDER_PRIO = 20  # AI将优先攻击邻接我们占领空间的系统，优先级为20
+    WAR_OWN_BORDER_PRIO = 10  # AI将优先攻击邻接我们的系统，优先级为10
+    WAR_ALLY_BORDER_PRIO = 5  # AI将优先攻击邻接盟友的系统，优先级为5
+    WAR_NO_BORDER_PRIO = 0.01  # AI将优先攻击位于敌对空间中心的系统，优先级为0.01
+    WAR_DEFENSE_OWN_PRIO = 3  # AI将优先防御自己的边界，优先级为3
+    WAR_DEFENSE_CONTROLLED_PRIO = 5  # AI将优先防御已经征服的系统，优先级为5
+    WAR_DEFENSE_ALLY_PRIO = 3  # AI将优先防御盟友，优先级为3
+    WAR_NEUTRAL_SPACE_PRIO = 0.5  # AI将优先攻击在中立空间的敌人，优先级为0.5
+    WAR_ATTACK_CLAIM_PRIO = 1.5  # AI将优先攻击我们已经声称的敌人系统，优先级为1.5
+    WAR_DEFENSE_CLAIM_PRIO = 1.5  # AI将优先防御我们已经征服并声称的系统，优先级为1.5
+    WAR_DEFENSE_OWN_PLANET_PRIO = 1.5  # AI将优先防御在已控制的系统中的自己的星球，优先级为1.5
+    WAR_DEFENSE_OWN_PLANET_ENEMY_CONTROL_PRIO = 5  # AI将优先防御在敌人控制的系统中的自己的星球，优先级为5
+
+    WAR_ATTACK_PLANET_PRIO = 2.0                        # Priority on targeting enemy systems with planets
+    WAR_ATTACK_PLANET_CONTROLLED_SYSTEM_PRIO = 3.0        # Priority on targeting enemy planets in controlled systems
+    WAR_ATTACK_STARBASE_PRIO = 4                        # Priority on targeting enemy systems with upgraded starbases
+    WAR_DEFEND_STARBASE_PRIO = 2.5                        # Priority on defending systems with an upgraded starbase
+    WAR_ATTACK_MILITARY_FLEET_PRIO = 5.0                # Priority on targeting enemy military fleets
+    WAR_ATTACK_JUMP_DRIVE_FLEET_PRIO = 2.0                # Priority on targeting vulnerable jump-drive fleets that are in cooldown
+
+    SPACE_MONSTER_MOVE_CHANCE = 2                # % chance that space monsters pick a new wander target each week
+    SPACE_MONSTER_WANDER_FACTOR = 0.75            # The higher this is, the further space monsters will tend to wander from their spawn point (range: 0.0 - 1.0)
+
+    SEEDED_SPACE_MONSTER_MOVE_CHANCE = 80                # % chance that space monsters pick a new wander target each week
+    SEEDED_SPACE_MONSTER_WANDER_FACTOR = 1            # The higher this is, the further space monsters will tend to wander from their spawn point (range: 0.0 - 1.0)
+
+    TERRAFORMING_RESOURCE_THRESHOLD_FACTOR = 1.2    # AI wants to have this factor more resources than what is required for the terraforming
+
+    EXTRADIMENSIONAL_MIN_FLEETS = 3                # At less fleets than this, extradimensionals pull back to the portal
+
+    AI_NO_RETREAT_LIMIT = 3                        # At fewer owner/controlled planets than this, the AI will fight to the death in their home systems
+
+    CRISIS_THREAT_THRESHOLD_UPPER = 100            # At this crisis threat, AI drops other priorities and focuses on fighting the crisis
+    CRISIS_THREAT_THRESHOLD_LOWER = 10            # Below this threshold, AI stops focusing on crisis fighting
+
+    CRISIS_MILITARY_POWER_MULT_DEFAULT = 1.5        # AI willing to engage crisis factions at these odds normally
+    CRISIS_MILITARY_POWER_MULT_CRISIS_FIGHTER = 0.6        # AI willing to engage crisis factions at these odds if they prioritize crisis fighting
+    CRISIS_MILITARY_POWER_MULT_INHABITED_SYSTEM = 0.5        # AI willing to engage crisis factions at these odds in systems of others under attack by crisis
+    CRISIS_MILITARY_POWER_MULT_OWN_SYSTEM = 0.33        # AI willing to engage crisis factions at these odds in their own systems
+    CRISIS_MILITARY_POWER_MULT_DESPERATION = 0.10        # AI willing to engage crisis factions at these odds when down to their last few worlds
+    CRISIS_MILITARY_AGGRESSIVENESS = 2                    # aggressiveness of crisis empires. This works the saame as the value in personalities (but crisis don't have personalities, and were using the default "1"
+
+    BOSS_MILITARY_POWER = 40000            # The military power at which AI feels safe to engage a 'boss' creature
+
+    WAS_HUMAN_MONTHS = 180                            # Amount of months that the AI will refrain from making large changes to the empire if it's taking over from a player
+
+    MIN_FLEET_FOR_OPERATIONS = 500                # Minimum fleet power to get assigned to missions like attacking targets etc
+    MIN_FLEET_TO_RESTRICT_SYSTEM = 3000
+    MIN_FLEET_THREAT_TO_CRISIS = 8000
+
+    FLEET_GROUP_ABORT_MISSION_MULT = 1.2 # The wanted amount of fleet power needs to have increased by at least this much for the AI to reconsider a mission once commited
+
+    FLEET_COMBAT_INTERVENTION_MULT = 0.5 # The AI wont try to intervene in a fleet combat unless that intervention puts us at this percentage of the enemy fleet ( i.e. we wont intervene if the enemy outnumbers us by 2 or more )
+
+    OFFENSE_VS_DEFENSE_STRATEGY_ALLOTMENT = 1.0 # How much of its fleet power should a country with 1.0 aggressiveness should try to commit to offensive missions
+
+    FLEET_DAMAGED_THRESHOLD_WAR = 0.40            # threshold when a fleet will be considered damaged and should return for repairs and avoid certain actions
+    FLEET_DAMAGED_THRESHOLD_PEACE = 0.99        # same but for peace
+    FLEET_ARMOR_DAMAGED_THRESHOLD_WAR = 0.40    # same as above but for armor
+    FLEET_ARMOR_DAMAGED_THRESHOLD_PEACE = 0.99    # same but for armor in peace
+
+    TARGET_BASE_SCORE = 100.0                    # base score to use when scoring AI military targets
+    HOSTILE_FLEETS_TARGET_SCORE = 20            # extra score for engaging hostile fleets
+    CAPITAL_TARGET_SCORE = 5                    # extra score for defending/invading a capital
+    CRISIS_CONSTRUCTOR_TARGET_SCORE = 3            # extra score for crisis defending constructor ships
+    CHOKEPOINT_TARGET_MULT = 2                    # extra multiplier for defensive scoring of chokepoints
+
+    MIN_GIFT_SIZE = 25                                # in opinion impact
+    MAX_GIFT_SIZE = 50
+    AI_TRADE_INTERVAL = 5000                        # the higher this is the less often the AI will offer trades
+
+    MAX_TRUST = 100                                # trust can never be more than this
+    MAX_TRUST_DEFENSIVE_PACT = 100                    # trust can tick up to this if defensive pact
+    MAX_TRUST_ASSOCIATE = 100                        # trust can tick up to this if federation associate
+    MAX_TRUST_NAP = 75                                # trust can tick up to this if non-aggression pact
+    MAX_TRUST_MIN = 50                        # trust can always tick up to at least this
+    BASE_TRUST_CHANGE = -0.25                        # only applied if no other factor is changing trust
+    MONTHLY_TRUST_GUARANTEE = 0.25
+    MONTHLY_TRUST_RESEARCH_TREATY = 0.10
+    MONTHLY_TRUST_MIGRATION_TREATY = 0.25
+    MONTHLY_TRUST_NON_AGGRESSION_PACT = 0.50
+    MONTHLY_TRUST_COMMERCIAL_PACT = 0.25
+    MONTHLY_TRUST_ASSOCIATION_STATUS = 0.50
+    MONTHLY_TRUST_DEFENSIVE_PACT = 0.75
+    MONTHLY_TRUST_SUBJECT = 0.25
+    MONTHLY_TRUST_FEDERATION = 1.00
+    MONTHLY_TRUST_AT_WAR = -2.00
+    MONTHLY_TRUST_RIVAL = -2.00
+    MONTHLY_TRUST_EMBASSY = 0.10
+
+    TRAIT_AUTOPICK_WEIGHT_FACTOR_IS_COUNCILOR = 20            # If we are on the council increase chance to auto-pick councilor traits
+    TRAIT_AUTOPICK_WEIGHT_FACTOR_IS_NOT_COUNCILOR = 0.1    # If we are not on the council and we do not have a councilor subclass then multiply councilor-only traits' auto-pick weights by this factor
+    TRAIT_AUTOPICK_WEIGHT_FACTOR_FOR_UPGRADES = 2            # Trait upgrades are more likely to be auto-picked than new traits.
+
+    BROKEN_TRADE_DEAL_FACTOR = 0.5                # How much does broken trade deal affect opinion (based on value of deal)
+
+    THREAT_PLANET_MULT = 8.0                    # Base threat multiplier for planet
+    THREAT_STARBASE_MULT = 4.0                    # Base threat multiplier for system with upgraded starbase
+    THREAT_SYSTEM_MULT = 2.0                    # Base threat multiplier for system
+
+    HIGH_THREAT_THRESHOLD = 50                    # Must have at least this much threat to become fearful
+    SHARED_THREAT_MULT = 0.5                    # How much does having a shared threat boost opinion?
+    THREAT_SHARED_THREAT_REDUCTION = 4            # Each point of threat will also eliminate this much shared threat
+    SHARED_THREAT_MAX = 200
+    THREAT_DECAY = -0.25                            # Each month
+    THREAT_DISTANCE_FACTOR = 0.01                # The higher this is the larger the threat reduction from being far away
+    THREAT_SIZE_FACTOR = 1.0                    # How much does the relative power of the aggressive empire affect threat?
+    THREAT_SIZE_FACTOR_MAX = 2.0
+    THREAT_SIZE_FACTOR_MIN = 0.1
+    THREAT_NAP_FACTOR = 0.5                    # How much is threat lowered if we have a NAP or defensive pact?
+    THREAT_POSITIVE_OPINION_FACTOR = 0.002        # How much does opinion of the victim affect threat?
+    THREAT_NEGATIVE_OPINION_FACTOR = 0.002
+    THREAT_OPINION_MAX = 1.25
+    THREAT_OPINION_MIN = 0.75
+
+    AI_AGGRESSIVENESS_LOW_MULT = 0.5
+    AI_AGGRESSIVENESS_HIGH_MULT = 2.0
+    AI_AGGRESSIVENESS_BASE = 25            # Base chance AI will declare a war (multiplied by personality aggressiveness score)
+    AI_AGGRESSIVENESS_PROPAGATOR_BOXED_IN_MULT = 10    # When a warlike 'propagator' personality is boxed in aggression is multiplied by this value
+    AI_AGGRESSIVENESS_BOXED_IN_MULT = 4    # When an AI can no longer peacefully expand aggression is multiplied by this value
+    AI_AGGRESSIVENESS_NO_COLONY_TARGET_MULT = 2 # When an AI has no immediate colony targets and at least MAX_PLANETS_FOR_BUDGET_FACTOR planets (but is not boxed in) aggression is multiplied by this value
+
+    AI_VULNERABLE_PLANET_DISTANCE = 3        # Number of jumps from the border of a hostile empire, AI will build strongholds on these planets
+
+    ACTION_MIN_DAYS_REJECTED = 10000        # AI will remember a rejection at least this time
+    ACTION_DAYS_REJECTED_RANDOM = 5000        # Max random extra days AI will reject offer
+    ACTION_MIN_DAYS_TIMED_OUT = 3600        # AI cooldown for timed out proposals
+    ACTION_MIN_DAYS_REJECTED_PEACE = 360    # AI will remember a peace deal rejection at least this time
+    ACTION_DAYS_REJECTED_RANDOM_PEACE = 360 # Max random extra days AI will reject peace offer
+    INSTANT_AI_DIPLOMACY = 0                # AI answers diplomacy immediately. No proposals are sent off to AIs.
+    DIPLOMACY_RESPONSE_COOLDOWN_DAYS = 7 # Cooldown days before the AI will consider answer a proposed diplo action, after that on daily roll with increasing chance until proposal experation date
+    DIPLO_BREAK_THRESHOLD = -30        # If AI values an existing deal at less than this break it
+
+    ACCEPTANCE_DEAL_BREAKER = -1000    # This is used when something is a deal breaker in diplomacy
+    ACCEPTANCE_DEAL_ALWAYS = 1000            # This is used when the AI should always accept a deal
+    VASSALIZATION_ACCEPTANCE_OVERLORD = -800
+
+    MAX_GUARANTEES = 3
+
+    # Below are various acceptance factors for specific actions
+    FEDERATION_ACCEPTANCE_CRISIS_FACTOR = 30
+    FEDERATION_ACCEPTANCE_OPINION_FACTOR = 0.1
+    FEDERATION_ACCEPTANCE_VOTED_DOWN_PROPOSAL = -50
+    FEDERATION_ACCEPTANCE_ATTITUDE_ALLIANCE = 30
+    FEDERATION_ACCEPTANCE_ATTITUDE_COEXIST = 0
+    FEDERATION_ACCEPTANCE_OTHER_ATTITUDE = -50
+    FEDERATION_ACCEPTANCE_SHARED_RIVAL = 10 # per rival
+    FEDERATION_ACCEPTANCE_SHARED_RIVAL_IN_FEDERATION = 10 # extra per rival in alliance
+    FEDERATION_ACCEPTANCE_SHARED_THREAT = 0.25    # scales with actual threat
+    FEDERATION_CONQUEROR_DIFFERENCE = -30    # penalty if one side wants to wage wars of conquest and the other doesn't
+    FEDERATION_ACCEPTANCE_RELATIVE_STRENGTH_FACTOR = 5 # For each 1x we are stronger than them
+    FEDERATION_ACCEPTANCE_RELATIVE_STRENGTH_MAX = 20
+    FEDERATION_ACCEPTANCE_MEMBER_VOTE = 50    # added to acceptance when a member is voting whether to approve an alliance invite
+    FEDERATION_ACCEPTANCE_MEMBER_VOTE_SIZE_FACTOR = 0    # for each member above two
+    FEDERATION_ACCEPTANCE_MEMBER_VOTE_MIN = 50
+    FEDERATION_ACCEPTANCE_ASSOCIATION_VOTE = 100
+    FEDERATION_ACCEPTANCE_DISTANCE_MULT = -0.1 # per 1 border distance
+    FEDERATION_LAW_SUPPORT_THRESHOLD = 50 # How big ai weight should be for AI to support the vote
+    FEDERATION_ACCEPTANCE_SUPPORT = 100 # Support for ai law
+    FEDERATION_PROPOSE_THRESHOLD = 125 # How big ai weight should be for AI to propose the vote
+    FEDERATION_WEIGHT_COHESION_FACTOR = 0.25 # Cohesion added on the vote weight
+    FEDERATION_ALL_AI_LEADER_WEIGHT_FACTOR = 1.5 # Since the AI is set to generally not propose votes on laws in player federations, it needs this boost to care enough to reach FEDERATION_PROPOSE_THRESHOLD in AI-only federations.
+    FEDERATION_DISBAND_THRESHOLD = -45 # If leaving the federation would disband it, AI will use this threshold instead of DIPLO_BREAK_THRESHOLD.
+    FEDERATION_DISBAND_PLAYER_THRESHOLD = -60 # Used instead of FEDERATION_DISBAND_THRESHOLD if the federation has any players in it.
+
+    DEFENSIVE_PACT_ACCEPTANCE_OPINION_FACTOR = 0.2
+    DEFENSIVE_PACT_ACCEPTANCE_ATTITUDE_ALLIANCE = 50
+    DEFENSIVE_PACT_ACCEPTANCE_ATTITUDE_COEXIST = 20
+    DEFENSIVE_PACT_ACCEPTANCE_OTHER_ATTITUDE = -50
+    DEFENSIVE_PACT_ACCEPTANCE_NUM_PACTS = -50    # per existing defensive pact
+    DEFENSIVE_PACT_ACCEPTANCE_SHARED_RIVAL = 30 # per rival
+    DEFENSIVE_PACT_ACCEPTANCE_SHARED_ALLY = 30 # per shared ally
+    DEFENSIVE_PACT_ACCEPTANCE_SHARED_THREAT = 0.25    # scales with actual threat
+    DEFENSIVE_PACT_ACCEPTANCE_RELATIVE_STRENGTH_FACTOR = 5 # For each 1x we are stronger than them
+    DEFENSIVE_PACT_ACCEPTANCE_RELATIVE_STRENGTH_MAX = 20
+    DEFENSIVE_PACT_ACCEPTANCE_DISTANCE_MULT = -0.1 # per 1 border distance
+
+    EMBASSY_ACCEPTANCE_OPINION_FACTOR = 0.5
+    EMBASSY_ACCEPTANCE_ATTITUDE_ALLIANCE = 100
+    EMBASSY_ACCEPTANCE_ATTITUDE_COEXIST = 40
+    EMBASSY_ACCEPTANCE_OTHER_ATTITUDE = -25
+    EMBASSY_ACCEPTANCE_NUM_PACTS = 0    # per existing defensive pact
+    EMBASSY_ACCEPTANCE_SHARED_RIVAL = 40 # per rival
+    EMBASSY_ACCEPTANCE_SHARED_ALLY = 60 # per shared ally
+    EMBASSY_ACCEPTANCE_SHARED_THREAT = 0.25    # scales with actual threat
+    EMBASSY_ACCEPTANCE_RELATIVE_STRENGTH_FACTOR = 1 # For each 1x we are stronger than them
+    EMBASSY_ACCEPTANCE_RELATIVE_STRENGTH_MAX = 20
+    EMBASSY_ACCEPTANCE_DISTANCE_MULT = -0.05 # per 1 border distance
+
+    NON_AGGRESSION_PACT_ACCEPTANCE_OPINION_FACTOR = 0.2
+    NON_AGGRESSION_PACT_ACCEPTANCE_ATTITUDE_ALLIANCE = 100
+    NON_AGGRESSION_PACT_ACCEPTANCE_ATTITUDE_COEXIST = 50
+    NON_AGGRESSION_PACT_ACCEPTANCE_OTHER_ATTITUDE = 0
+    NON_AGGRESSION_PACT_ACCEPTANCE_NUM_PACTS = -30    # per existing non-aggression pact
+    NON_AGGRESSION_PACT_ACCEPTANCE_SHARED_RIVAL = 50 # per rival
+    NON_AGGRESSION_PACT_ACCEPTANCE_SHARED_THREAT = 0.25    # scales with actual threat
+    NON_AGGRESSION_PACT_ACCEPTANCE_RELATIVE_STRENGTH_FACTOR = 20 # For each 1x we are stronger than them
+    NON_AGGRESSION_PACT_ACCEPTANCE_RELATIVE_STRENGTH_MAX = 100
+    NON_AGGRESSION_PACT_ACCEPTANCE_DISTANCE_MULT = -0.1 # per 1 border distance
+
+    RESEARCH_AGREEMENT_ACCEPTANCE_OPINION_FACTOR = 0.4
+    RESEARCH_AGREEMENT_ACCEPTANCE_ATTITUDE_ALLIANCE = 100
+    RESEARCH_AGREEMENT_ACCEPTANCE_ATTITUDE_COEXIST = 50
+    RESEARCH_AGREEMENT_ACCEPTANCE_OTHER_ATTITUDE = 0
+    RESEARCH_AGREEMENT_ACCEPTANCE_NUM_PACTS = -30    # per existing research agreement
+    RESEARCH_AGREEMENT_ACCEPTANCE_DISTANCE_MULT = -0.1 # per 1 border distance
+    RESEARCH_AGREEMENT_ACCEPTANCE_GIVEN_TECHS = -0.5 # Per tech we have they don't
+    RESEARCH_AGREEMENT_ACCEPTANCE_TAKEN_TECHS = -0.5 # Per tech they have we don't
+    RESEARCH_AGREEMENT_ACCEPTANCE_TECHS_MIN = -100
+    RESEARCH_AGREEMENT_ACCEPTANCE_TECHS_MAX = 100
+
+    COMMERCIAL_PACT_ACCEPTANCE_OPINION_FACTOR = 0.4
+    COMMERCIAL_PACT_ACCEPTANCE_ATTITUDE_ALLIANCE = 100
+    COMMERCIAL_PACT_ACCEPTANCE_ATTITUDE_COEXIST = 50
+    COMMERCIAL_PACT_ACCEPTANCE_OTHER_ATTITUDE = 0
+    COMMERCIAL_PACT_ACCEPTANCE_NUM_PACTS = -30    # per existing commercial pact
+    COMMERCIAL_PACT_ACCEPTANCE_DISTANCE_MULT = -0.1 # per 1 border distance
+    COMMERCIAL_PACT_ACCEPTANCE_GIVEN_VALUE = -0.5 # Per collected trade value
+    COMMERCIAL_PACT_ACCEPTANCE_GIVEN_VALUE_MIN = -100
+    COMMERCIAL_PACT_ACCEPTANCE_GIVEN_VALUE_MAX = 0
+    COMMERCIAL_PACT_ACCEPTANCE_TAKEN_VALUE = 1 # Per collected trade value
+    COMMERCIAL_PACT_ACCEPTANCE_TAKEN_VALUE_MIN = 0
+    COMMERCIAL_PACT_ACCEPTANCE_TAKEN_VALUE_MAX = 100
+
+    MIGRATION_PACT_ACCEPTANCE_OPINION_FACTOR = 0.5
+    MIGRATION_PACT_ACCEPTANCE_ATTITUDE_ALLIANCE = 10
+    MIGRATION_PACT_ACCEPTANCE_ATTITUDE_COEXIST = 0
+    MIGRATION_PACT_ACCEPTANCE_THREAT_MULT = -0.5    # scales with actual threat
+    MIGRATION_PACT_ACCEPTANCE_OTHER_ATTITUDE = 0
+    MIGRATION_PACT_ACCEPTANCE_DISTANCE_MULT = -0.05 # per 1 border distance
+
+    PREFTL_PACT_ACCEPTANCE_OPINION_FACTOR = 1
+    PREFTL_PACT_ACCEPTANCE_ATTITUDE_ALLIANCE = 100
+    PREFTL_PACT_ACCEPTANCE_ATTITUDE_COEXIST = 50
+    PREFTL_PACT_ACCEPTANCE_OTHER_ATTITUDE = 0
+
+    VASSALIZATION_ACCEPTANCE_PROTECTORATE_MULT = 0.1        # multiplied by number of techs potential overlord is ahead in
+    VASSALIZATION_ACCEPTANCE_PROTECTORATE_MAX = 20
+    VASSALIZATION_ACCEPTANCE_NUM_POPS = -0.25            # per pop
+    VASSALIZATION_ACCEPTANCE_POWER_DIFFERENCE_MIN = 1.5
+    VASSALIZATION_ACCEPTANCE_POWER_DIFFERENCE_MULT = 15 # for each 1x over min
+    VASSALIZATION_ACCEPTANCE_POWER_DIFFERENCE_MAX = 100
+    VASSALIZATION_ACCEPTANCE_ATTITUDE_ALLIANCE = 20
+    VASSALIZATION_ACCEPTANCE_ATTITUDE_COEXIST = 0
+    VASSALIZATION_ACCEPTANCE_ATTITUDE_ATTACK = -1000
+    VASSALIZATION_ACCEPTANCE_OTHER_ATTITUDE = -20
+    VASSALIZATION_ACCEPTANCE_OTHER_THREAT_MULT = 0.2
+    VASSALIZATION_ACCEPTANCE_OTHER_THREAT_MAX = 20
+    VASSALIZATION_ACCEPTANCE_DISTANCE_MULT = -0.5 # per 1 border distance
+    VASSALIZATION_ACCEPTANCE_LOYALTY_MULT = 2.0
+
+
+    OFFER_VASSALIZATION_ACCEPTANCE_ATTITUDE_VASSALIZE = 100
+    OFFER_VASSALIZATION_ACCEPTANCE_OTHER_ATTITUDE = -1000
+
+    OFFER_TRADE_ACCEPTANCE_ATTITUDE = -1000    # if attitude is trade = no
+    OFFER_TRADE_MIN_RESOURCE_THRESHOLD = 0.8 # if ai want for an accumulative resource is at least max * this it won't trade away that resource
+
+    TRADE_MAX_RESOURCE_PERCENT = 0.3
+    TRADE_MIN_RESOURCE_DELTA = 10
+    TRADE_MIN_RESOURCE_STOCKPILE = 500
+
+    TRADE_RESOURCE_STOCKPILE_UNDER = 0.33    # AI will want to trade one resource for another if stockpile is this low (fraction of max storage)
+    TRADE_RESOURCE_STOCKPILE_OVER = 0.75    # AI will want to trade one resource for another if stockpile is over this (fraction of max storage)
+    TRADE_RESOURCE_FRACTION_MIN = 0.1            # How much of stockpile AI should offer to trade (min)
+    TRADE_RESOURCE_FRACTION_MAX = 0.2            # How much of stockpile AI should offer to trade (max)
+
+    MIN_WILLINGNESS_TO_OFFER_TRADE = 0.75 # AIs with a personality whose trade willingness is below this will not offer trades
+
+
+    TRADE_VALUE_RESOURCE_INCOME_BASE = 50    # used for calculating resource income effect (lower = more value reduction from higher income)
+    TRADE_VALUE_RESOURCE = 2    # for minerals and energy (scaled by income & need)
+    TRADE_VALUE_RESOURCE_MONTHLY_MULT = 0.5 # value of monthly resources is multiplied by this compared to lump-sum
+    TRADE_VALUE_SYSTEM = 5
+    TRADE_VALUE_COLONY = 0.2 # Per pop
+    TRADE_VALUE_SENSOR_CHARTS = 2 # Per new comms
+    TRADE_VALUE_SENSOR_CHARTS_MAX = 10
+    TRADE_VALUE_SENSOR_LINK = 0.05 # Per system within their borders
+    TRADE_VALUE_SENSOR_LINK_MAX = 1.0 # Multiplied by treaty years
+    TRADE_VALUE_LOYALTY = 1.0    # Multiplied by the Loyalty offered in the trade
+    TRADE_VALUE_LEADER_TRAIT_DEFAULT = 1
+    TRADE_VALUE_LEADER_TRAIT_WEIGHT_MULT = 10
+    TRADE_VALUE_LEADER_MAX_WEIGHT = 100
+    TRADE_VALUE_LEADER_LEVEL_WEIGHT_MAGIC_NUMBER = 0.2
+    TRADE_VALUE_FLEET_MILITARY_WEIGHT_MULT = 120
+
+    # Above are various acceptance factors for specific actions
+
+    AI_BUDGETING_START_YEARS = 15                    # These variables are used for some of the AI's budgeting to ensure it prioritizes the right things early on
+    AI_BUDGETING_MID_YEARS = 30
+    AI_BUDGETING_LATE_YEARS = 50
+
+    BUILDING_DEMOLISH_THRESHOLD = -1    # At AI weight less than or equal to this, demolish building or district
+    BUILDING_BUILD_THRESHOLD = 1        # Ait AI weight greater than or equal to this, the AI will consider building it.
+
+    MIN_ASSAULT_ARMIES = 20
+    MAX_ASSAULT_ARMIES = 60
+    ASSAULT_ARMIES_PER_POP = 0.1
+
+    BUILDING_EXISTS_DIV_SCORE = 1        # The higher this is, the more the AI will avoid building the same building on planets
+
+    NUM_TRADITIONS_FOR_EDICTS = 49            # How many traditions does the AI want before spending Unity on edicts (there are 49 in total in the base game counting adoption & completion effects)
+
+    MAX_PLANETS_FOR_BUDGET_FACTOR = 3        # At this amount of planets budget is normalized
+
+    MIN_NAVY_SIZE_FOR_ADMIRAL = 10        # AI wants a navy of at least this fleetsize before buying an admiral
+    FLEET_SPECIALIZATION_REFIT_TRESHOLD = 0.1 # AI will refit its fleet to fit into the admirals specialization if at least this ratio of ships will be upgraded
+
+    ABORT_MISSION_LIMIT = 0.50                # MilitaryPower fraction below this level will result in AI escaping battle
+
+    WAR_EXHAUSTION_TO_INTERVENE = 0.25        # AI may want to intervene to help empires with this war exhaustion or higher
+
+    PEACE_WAR_EXHAUSTION_FACTOR = 100
+    PEACE_OCCUPATION_FACTOR = 100
+    PEACE_STATUS_QUO_FACTOR = -75
+    PEACE_HIGH_WE_STATUS_QUO_FACTOR = 100
+    PEACE_STALE_WAR_STATUS_QUO_FACTOR = 75    # Extra AI acceptance for status quo when they are in a stale war where nothing can happen
+    STALE_WAR_TIMER = 10                    # Number of times the AI has to fail at finding any military objectives to trigger the stale war
+    PEACE_DEMAND_SURRENDER_FACTOR = -100
+    PEACE_DEFENDING_CLAIM_SYSTEM_FACTOR = -10    # For every system
+    PEACE_DEFENDING_CLAIM_STARBASE_FACTOR = -40    # For systems with upgraded starbases
+    PEACE_DEFENDING_CLAIM_PLANET_FACTOR = -100    # For systems with colonies
+    PEACE_RELATIVE_NAVY_STRENGTH_FACTOR = 50
+
+    MIN_WANTED_SCIENTISTS = 1                        # Below this AI prioritizes energy spending to get more scientists
+
+    ENEMY_FLEET_POWER_MULT = 1.2                    # AI will need the fleet power of the enemy multiplied by this value to become offensive in an offensive war
+    ENEMY_ARMY_POWER_MULT = 1.0                        # AI will need the military power of the enemy multiplied by this value to land armies on planet
+    ENEMY_FLEET_POWER_HOME_SYSTEM_MULT = 1.0        # AI will need the fleet power of the enemy multiplied by this value to attack hostiles in own systems
+
+    CRISIS_NAVY_SIZE_LIMIT = 100                    # Crisis fleets will aim for this size before attacking targets
+    HORDE_NAVY_SIZE_LIMIT = 50                        # Horde fleets will aim for this size before attacking targets
+    ANTI_CRISIS_NAVY_SIZE_LIMIT = 50                # Anti-Crisis fleets will aim for this size before attacking targets
+    CONTINGENCY_IGNORE_HUBS_THRESHOLD = 0.5
+
+    ATTITUDE_CHANGE_BUFFER = 0                    # Don't change attitude if weight diff is less than this
+
+    AI_COMMUNICATIONS_RANDOM_VALUE = 60        # AI communications days will vary with +- these many days
+
+    TRANSPORT_FLEET_SIZE = 20                    # AI will have transport fleets of this size
+    TRANSPORT_RETREAT_HEALTH_THRESHOLD = 0.75    # If a transport goes below this amount of HP it will try to emergency FTL
+
+    AUTO_EXPLORE_ATTRACTION_SCORE = 200        # Attraction score to auto explore a system will descrease by this much if system is owned by you or has a planet owned by you
+    AUTO_EXPLORE_COLLABORATION_PENALTY = 750    # Auto survey will be this much less willing to survey a system already assigned to another science ship
+    AUTO_EXPLORE_SYSTEM_OWNED = 1000        # Auto survey is this much less willing to enter into systems owned by other empires
+
+    MAX_EXPANSION_DISTANCE = 2                # Max number of jumps away AI will build starbases
+    MAX_EXPANSION_DISTANCE_SUBJECT = 2        # Max number of jumps away AI subjects will build starbases
+    EXPANSION_OWN_PRIORITY = 1000            # Priority on rebuilding destroyed starbases in colonized systems
+    EXPANSION_CUT_OFF_SYSTEM_PRIORITY = 10    # Priority on systems cut-off inside own territory
+    EXPANSION_BORDERING_PRIORITY = 500        # How much will AI prioritize bordering systems when building starbases
+    EXPANSION_RESOURCE_PRIORITY = 2            # How much will AI prioritize resource-rich systems when building starbases
+    EXPANSION_COLONY_PRIORITY = 400            # How much will AI prioritize systems with colonizable worlds when building starbases
+    EXPANSION_BYPASS_PRIORITY = 10            # How much will AI prioritize systems with bypasses when building starbases
+    EXPANSION_MIN_VALUE_FOR_HIGH_PRIO = 10    # How much value does a system need to be considered priority over building up existing systems in borders
+    EXPANSION_RANDOM_AMOUNT = 50            # A random roll of this amount is added to each system's score when deciding where to expand next
+    EXPANSION_RESOURCE_GAIN_UPKEEP = 0.5    # When checking candidate systems for outposts, the AI looks at the resources in the system and counts this fraction towards upkeep gain
+
+    MAX_CLAIM_DISTANCE = 4                    # Max number of jumps away AI will make claims on
+    MAX_CLAIM_DISTANCE_SUBJECT = 2            # Max number of jumps away AI subjects will make claims on
+    CLAIM_BASE_VALUE = 100
+    CLAIM_RESOURCE_FACTOR = 2                # How much will AI prioritize resource-rich systems when making claims
+    CLAIM_BYPASS_FACTOR = 10                # How much will AI prioritize systems with bypasses when making claims
+    CLAIM_RELATIONS_FACTOR = -0.1            # How much will AI factor in opinion when making claims
+    CLAIM_COST_FACTOR = -0.2                # How much will AI prioritize resource-rich systems when making claims
+    CLAIM_COLONY_FACTOR = 25                # How much will AI prioritize colonies when making claims
+    CLAIM_BORDERING_FACTOR = 100            # How much will AI prioritize bordering systems when making claims
+
+    NO_WARS_FLAG = "ai_no_wars"
+    NO_LEAVE_FED_FLAG = "ai_no_leave_fed"
+
+    SURRENDER_ACCEPTANCE_HIGHEST = 1        # Display "ready to surrender" in war summary badge
+    SURRENDER_ACCEPTANCE_HIGH = -20            # Display "approaching surrender" in war summary badge
+    SURRENDER_ACCEPTANCE_LOW = -60            # Display "unlikely to surrender" in war summary badge
+    SURRENDER_ACCEPTANCE_LOWEST = -100        # Display "for sure not surrender" in war summary badge
+
+    AI_ALLOWED_TO_BUY = { "minerals" "food" "alloys" "consumer_goods" "exotic_gases" "rare_crystals" "volatile_motes" "sr_living_metal" "sr_dark_matter" "sr_zro" }
+    AI_ALLOWED_TO_SELL = { "minerals" "food" "alloys" "consumer_goods" "exotic_gases" "rare_crystals" "volatile_motes" "sr_living_metal" "sr_dark_matter" "sr_zro" }
+    AI_MIN_CURRENCY_TO_SELL = 1000.0        # If the AI has less currency (energy) than this it will consider selling resources
+    AI_MIN_CURRENCY_INCOME_TO_SELL = 10.0    # If the AI has less currency (energy) gain last month than this it will consider selling resources
+    AI_MAIN_CONSTRUCTION_CURRENCY = "minerals"            # Tells the AI which is the most important construction resource
+    AI_RARE_RESOURCES = { "exotic_gases" "rare_crystals" "volatile_motes" } #Tells AI which the "strategic" resources are used for their economy planing
+    AI_MAIN_CONSTRUCTION_CURRENCY_MINIMUM_TARGET = 25    # AI will forbid jobs consuming the main construction currency to reach this level of monthly income to recover from death spiral
+    AI_MAIN_CONSTRUCTION_CURRENCY_EMPIRE_SIZE_MULT = 0.005 # Scaling for the minimum income target so larger empires can recover faster
+
+    AI_MIN_HABITABILITY_TO_COLONIZE = 0.35    # AI will avoid colonizing planets with habitability lower than this.
+    AI_MIN_BRANCH_OFFICE_WORTH_TO_ESTABLISH = 2.0    # AI megacorporations will not establish branch offices unless value is above this
+
+    AI_MIN_HOLDING_WORTH_TO_BUILD = 0.0        # AI overlords will not build holdings unless value is above this
+
+    AI_SLAVE_MARKET_BUY_INTERACTION_CHANCE = 0.05    # Chance that AI will try to buy pops on the slave market during the monthly AI update 1.0 = 100% chance
+    AI_SLAVE_MARKET_SELL_INTERACTION_CHANCE = 0.20    # Chance that AI will try to sell pops on the slave market during the monthly AI update 1.0 = 100% chance
+    AI_SLAVE_MARKET_SELL_LIMIT = 6                # Upper limit on how many pops AI will put on the market
+    SLAVE_BUY_EC_THRESHOLD = 1000 # if we have less ec than this, dont buy slaves
+    SLAVE_BUY_UNEMPLOYMENT_THRESHOLD = 2 # if any one planet has this many unemployed pops, don't consider buying slaves for it
+    SLAVE_BUY_HABITABILITY_THRESHOLD = 0.4 # if we cant find a planet with at least this much habitability for a prospective slave, dont buy it
+
+    SLAVE_SELL_EC_THRESHOLD = 3000 # if we have more ec than this and a positive net income, then don't sell any slaves
+    SLAVE_SELL_UNEMPLOYMENT_THRESHOLD = 1 # if any one planet has this many unemployed pops on it, consider selling one as a slave
+    SLAVE_SELL_MIN_POPS = 1            # do not sell slaves from this planet if it has this amount of pops, or less
+
+    SCIENTIST_HIRING_REPLACEMENT_THRESHOLD = 1.25    # When hiring for a job category, how much the score has to be higher than the previous tenants's score to replace him
+    SCIENTIST_HIRING_PREV_JOB_THRESHOLD = 1.1        # When hiring a scientist, how much the better score for the new category has to be compared to your current employment score
+    SCIENTIST_HIRING_UNEMPLOYMENT_MULT = 1.1        # how much of a bonus unemployed scientist get to their job score
+    SCIENTIST_HIRING_SURVEY_MULTIPLIER = 0.5        # when hiring for research, the multiplier applied to a scientist who's on a science ship, to ensure surveying has priority over research
+
+    SURVEY_COLONIZABLE_SYSTEM_MULTIPLIER = 2        # AI multiplier to incentivize surveying systems with known colonizeable planets
+
+    WAR_DECLARATION_MAX_DISTANCE = 50                # How far away (in jumps) another empire has to be before the empire will not consider them for declaration
+    WAR_DECLARATION_MALUS_DISTANCE = 25                # Distance between empires (in jumps) at which the AI will be less likely to declare war
+    WAR_DECLARATION_MALUS = 0.05                    # malus per jump above the malus distance (above) for each jump
+    WAR_DECLARATION_MINIMUM_SCORE = 0.5                # minimum score multiplier for war declaration after all distance have been applied
+
+    COLONY_AUTOMATION_COOLDOWN = 3                    # Number of days automation will not be done after a build queue item on a planet completes
+    COLONY_AUTOMATION_DISTRICT_PREFERENCE = 1.5        # Prefer to build districts over buildings unless there are multiple building slots open or this many times as many districts as buildings, minimum 1
+
+    DIPLO_ACTION_REPEAT_DELAY = 360                    # number of days before the ai will try to repeat a proposal
+    AI_FEDERATION_PROPOSE_LAW_CATEGORY_COOLDOWN = 3600 # number of days cooldown before an AI federation member will suggest changing a law of the same category
+
+    RESOLUTION_VOTE_PROPOSE_THRESHOLD = 8.0        # the AI weight required to propose a resolution
+    RESOLUTION_VOTE_ABSTAIN_THRESHOLD = 5.5            # the AI weight of a resolution need to be at least this much, else the AI will oppose it
+    RESOLUTION_VOTE_SUPPORT_THRESHOLD = 7.0            # if the AI weight of a resolution reaches this value the AI will vote for it
+    RESOLUTION_VOTE_VETO_THRESHOLD = 1.0            # if the AI hates something this much ( weight is lower ), they might veto it
+    RESOLUTION_VOTE_EMERGENCY_THRESHOLD = 10.0        # if it isnt their own resolution but the AI still loves something this much they might declare it an Emergency Measure
+    RESOLUTION_VOTE_FREEZE_THRESHOLD_DELTA = 3.0    # if the resolution next in line after the current resolution is this much better, the AI will freeze the current resolution
+    RESOLUTION_USE_FAVORS_THRESHOLD_DELTA = 2.0        # if weight reaches the threshold +/- DELTA (support/abstain) AI will use favors to boost their diplo weight
+
+    # Resolution AI weight is multiplied by values in these ranges based on opinion
+    RESOLUTION_TARGET_OPINION_MIN_FACTOR = 0.0        # Corresponds to Terrible opinion towards the resolution target if resolution is non-harmful, Excellent opinion if harmful
+    RESOLUTION_TARGET_OPINION_BASE_FACTOR = 0.5        # Will be used if opinion towards resolution target is neutral
+    RESOLUTION_TARGET_OPINION_MAX_FACTOR = 1.5        # Corresponds to Excellent opinion towards the resolution target if resolution is non-harmful, Terrible opinion if harmful
+    RESOLUTION_PROPOSER_OPINION_MIN_FACTOR = 0.5    # Corresponds to Terrible opinion towards the proposer
+    RESOLUTION_PROPOSER_OPINION_BASE_FACTOR = 1.0    # Will be used if opinion towards the proposer is neutral
+    RESOLUTION_PROPOSER_OPINION_MAX_FACTOR = 1.3    # Corresponds to Excellent opinion towards the proposer
+
+    MAX_SUPPORT_PERCENTAGE_FOR_FAVORS_SUPPORTING = 55    # if we are supporting the resolution, don't spend favors if support percentage is above this
+    MIN_SUPPORT_PERCENTAGE_FOR_FAVORS_OPPOSING = 45        # if we are opposing the resolution, don't spend favors if support percentage is below this
+
+    DIPLO_ACTION_FAVOR_AI_ACCEPTANCE_VALUE = 5        # AI acceptance boost per favor
+
+    AGREEMENT_INFLUENCED_BY_FAVORS_AI_BREAK_COOLDOWN = 1800
+
+    HORDE_INVASION_PLANNING_DEPTH = 5    # How far out does the Horde AI looks for invasion targets (in system hops)
+
+    PLANETARY_ASCENSION_ALLOWED_SPENDING = 0.1    # How much AI is willing to pay for planetary ascension in relation to the cost of a tradition
+
+    SWARM_INVASION_PLANNING_DEPTH = 5    # How far out does the Swarm AI looks for invasion targets (in system hops)
+    SWARM_POP_TARGET_MULT = 1.0            # Extra target scoring for swarm (multiplied by number of edible pop on the planet)
+    SWARM_UNEDIBLE_POP_TARGET_MULT = 0.10    # Extra target scoring for swarm (multiplied by number of non edible pop on the planet)
+    SWARM_NUM_DEFENSIVE_FLEETS = 3
+
+    CONTINGENCY_LINKUP_DESIRE = 10                # how much the contingency wants to link up its various hubs
+    CONTINGENCY_MEGASTRUCTURE_EXTRA_VALUE = 4    # How attractive are megastructures to the Contingency (added to the base value of 1)
+    CONTINGENCY_BASE_DEFENSIVE_FLEETS = 4        # Number of active hubs is added to this
+    CONTINGENCY_CONSTRUCTION_DEPTH = 3            # Number of systems not owned by the contingency construction fleet are willing to go through
+
+    UNBIDDEN_PORTAL_EXTRA_VALUE = 20            # How much does the Unbidden want to defend their portal (compared to base value of 1)
+    UNBIDDEN_BYPASSES_EXTRA_VALUE = 4            # How attractive are bypasses to the Unbidden (added to the base value of 1)
+    UNBIDDEN_ASTRAL_RIFTS_EXTRA_VALUE = 2        # How attractive are astral rifts to the Unbidden (added to the base value of 1)
+    UNBIDDEN_RIVALS_EXTRA_VALUE = 10            # Extra target scoring for rival invaders (Aberrant and Vehement)
+    UNBIDDEN_TARGET_EXTRA_VALUE = 10            # Extra target scoring for randomly chosen nemesis
+    UNBIDDEN_PSIONIC_CONQUER_DESIRE = 20        # Extra weight added to psionic empires when rolling a nemesis (base 1 + number of owned bypasses)
+    UNBIDDEN_CHOSEN_ONE_CONQUER_DESIRE = 50        # Extra weight added to empire lead by the chosen one when rolling a nemesis (base 1 + number of owned bypasses)
+
+    AVERAGE_FLEET_SIZE_FACTOR = 1                # Ballpark estimate of the minimum size a fleet should be in relation to total fleet power
+    FLEET_MAX_DISTANCE_LOOKUP = 20            # Maximum number of hops the fleet AI should consider when assigning mission.
+    # If no objective is found, the backup AI will send it to the closest objective available, or back to base.
+    FLEET_MAX_DISTANCE_LOOKUP_LARGE = 30            # Maximum number of hops the fleet AI should consider when assigning mission on a large map (800 systems or more).
+    FLEET_MAX_DISTANCE_LOOKUP_HUGE = 50            # Maximum number of hops the fleet AI should consider when assigning mission on a large map (1000 systems or more)
+
+    CONSTRUCTION_SHIP_DISTANCE_PENALTY = 20    # Score penalty for the distance (number of jumps) for AI construction of mining stations etc
+
+    OWN_FLEET_POWER_FACTOR = 1.0                # How much does AI count its own fleet power when evaluating forces
+    ALLY_FLEET_POWER_FACTOR = 0.5                # How much does AI count ally fleet power when evaluating forces
+    ENEMY_FLEET_POWER_FACTOR = 1.0                # How much does AI count enemy fleet power when evaluating forces
+    FLEET_SUPERIORITY_FACTOR = 1.5                # How stronger should the AI be before it starts considering splitting fleets (fleet count = relative strength / this factor)
+    CRISIS_FLEET_SUPERIORITY_FACTOR = 1.0        # Same as previous but will be compared to the strongest foe in the universe
+
+    CRISIS_INHIBITOR_EXTRA_VALUE = 10            # extra incentive for crisis to destroy inhibitors, currently only used by the extra dimensionals
+
+    AI_FOLLOW_FLEET_DESIRE = 5                # AI desire to follow "take point" fleets from random people
+    AI_FOLLOW_WAR_LEADER_DESIRE = 20        # AI desire to follow "take point" fleets from the war leader
+
+    CRISIS_EMPIRE_PROTECTIVE_MULT = 1.5            # Used when calculating atitude protective weigth
+    AI_GALCOM_PATROL_ORBIT_TIME_DAYS = 60        # The time that the Galactic Defense Force AI will stay in orbit around a capital before moving to the next one
+
+    CRISIS_EMPIRE_DESTROY_DESIRE = 1            # AI desire to destroy stars as a crisis empire
+
+    SHIP_DESIGN_STALE_MONTHS = 24                # AI will redesign its per-role custom designs this often (from scratch;
+    # new tech will upgrade individual components more often however)
+
+    PROPOSE_EMBASSY_THRESHOLD = 1            # AI scripted weight threshold to propose the embassy diplomatic action
+
+    SHIP_FLEET_POWER_UPGRADE_THRESHOLD = 1.3 # How much more a ship or defense platform need to increase their fleet power for AI to start upgrading it
+    AI_DESIGNATION_RESOURCES_IN_ECONOMIC_PLAN_BONUS = 2 # Bonus to resources gained from designations that align with economic plan, resources we have a surplus of gets divided by this factor
+    AI_DESIGNATION_COOLDOWN = 1000 # Number of days that AI has to wait before changing designation again
+
+    MERCENARY_ENCLAVE_OFFER_FLEET_RENT_DAYS = 3600                                                # Default amount of days a fleet can be rented for
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_DAYS = 3600                                # Default amount of days a fleet contract can be extended for
+    MERCENARY_ENCLAVE_OFFER_FLEET_CAN_AFFORD_FACTOR = 2.0                                        # A country should have on the deposit more than the price of fleet hiring multiplied by this value to be able to hire the fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_POWER_SCORE_FACTOR = 0.8                                        # The fleet power multiplied by this value defines one of the components of how appealing is the hiring of this fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_COST_SCORE_FACTOR = -0.2                                        # The fleet hiring cost multiplied by this value defines one of the components of how appealing is the hiring of this fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_REMOTENESS_SCORE_FACTOR = -5.0                                # The amount of FTL jumps the fleet needs to reach the capital star system of a country multiplied by this value defines one of the components of how appealing is the hiring of this fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_REMOTENESS_MAX = 1000000                                        # The fleet hiring cost multiplied by this value defines one of the components of how appealing is the hiring of this fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_AI_CHANCE_TRHESHOLD = 5                                        # If a random number is less than this value the most appealing fleet will be hired by a country in the normal state
+    MERCENARY_ENCLAVE_OFFER_FLEET_AI_CHANCE_INWAR_ADD = 80                                        # If a random number is less than this value the most appealing fleet will be hired by a country in the state of war
+    MERCENARY_ENCLAVE_OFFER_FLEET_AI_CHANCE_PREPARING_WAR_ADD = 20                                # If a random number is less than this value the most appealing fleet will be hired by a country in the state of preparing to war
+    MERCENARY_ENCLAVE_OFFER_FLEET_POWER_TO_PRICE_FACTOR = 0.5                                    # The fleet power multiplied by this value defines the price (in energy) for hiring the fleet
+    MERCENARY_ENCLAVE_OFFER_FLEET_TRUST_PRICE_FACTOR = 0.5                                        # Hiring a fleet: this value defines the maximal decrease of the price
+    MERCENARY_ENCLAVE_OFFER_FLEET_TRUST_THRESHOLD = 0                                            # Hiring a fleet: if the merc enclave has opinion of a country that is less than this value the offer is not given
+    MERCENARY_ENCLAVE_OFFER_FLEET_LANDLORD_OPINION_PRICE_FACTOR = 0.75                            # Hiring a fleet: this value defines the maximal decrease of the price (if the founder of the merc enclave has the most positive opinion of a country) or the maximal increase of the price (if the founder of the merc enclave has the most negative opinion of a country)
+    MERCENARY_ENCLAVE_OFFER_FLEET_LANDLORD_OPINION_THRESHOLD = -300                                # NGameplay::OPINION_POOR: if the opinion of the enclave landlord towards the potential buyer is less than this value the offer vill be not given
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_POWER_TO_PRICE_FACTOR = 0.25                # The fleet power multiplied by this value defines the price (in energy) for extension of the fleet contract
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_TRUST_PRICE_FACTOR = 0.5                # Extension of a fleet contract: this value defines the maximal decrease of the price (if the merc enclave has the most positive opinion of a country) or the maximal increase of the price (if the merc enclave has the most negative opinion of a country)
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_TRUST_THRESHOLD = 0                        # Extension of a fleet contract: if the merc enclave has opinion of a country that is less than this value the offer is not given
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_LANDLORD_OPINION_PRICE_FACTOR = 0.5        # Extension of a fleet contract: this value defines the maximal decrease of the price (if the founder of the merc enclave has the most positive opinion of a country) or the maximal increase of the price (if the founder of the merc enclave has the most negative opinion of a country)
+    MERCENARY_ENCLAVE_OFFER_FLEET_CONTRACT_PROLONGATION_LANDLORD_OPINION_THRESHOLD = -300        # NGameplay::OPINION_POOR # Extension of a fleet contract:if the opinion of the enclave landlord towards the potential buyer is less than this value the offer vill be not given
+    MERCENARY_ENCLAVE_ESTABLISHING_AI_CHANCE_THRESHOLD = 5                                        # If a random number is less than this value and there is an appropriate fleet in an appropriate star system then the merc enclave will be created
+
+    ASK_FOR_AGREEMENT_ACCEPTANCE_OVERLORD_LOYALTY_OFFSET = 100 # Acceptance from loyalty = OFFSET+FACTOR*e^(LOYALTY*EXP)
+    ASK_FOR_AGREEMENT_ACCEPTANCE_OVERLORD_LOYALTY_FACTOR = -122
+    ASK_FOR_AGREEMENT_ACCEPTANCE_OVERLORD_LOYALTY_EXP = 0.06
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_SUBJECT_POWER_STEP = 375
+    DEMAND_SUBJUGATION_ACCEPTANCE_SUBJECT_POWER_STEP = 375
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_OPINION_FACTOR = 0.333
+    NEGOTIATE_AGREEMENT_MIN_ECONOMY_WEIGHT = 100.0
+    NEGOTIATE_AGREEMENT_MIN_REFERENCE_RESOURCE = 100.0                                            # Pretty much only Energy. Tithes are assumed to be on at least this much income.
+    NEGOTIATE_AGREEMENT_MIN_REFERENCE_INTANGIBLE = 10.0                                            # E.g science. Tithes are assumed to be on at least this much income.
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_ECONOMIC_IMPACT_MULTIPLIER = 500.0                            # Very approximately, this corresponds to giving away the entire economy
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_INTANGIBLE_IMPACT_MULTIPLIER = 500.0
+    NEGOTIATE_AGREEMENT_MAX_ACCEPTANCE_FROM_TERMS = 1000
+    NEGOTIATE_AGREEMENT_MIN_ACCEPTANCE_FROM_TERMS = -10000
+
+    # Loyalty is multiplied by this and added to (overlord's) acceptance
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_RELATIVE_POWER_PATHETIC = 0.5
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_RELATIVE_POWER_INFERIOR = 1
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_RELATIVE_POWER_EQUIVALENT = 2
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_RELATIVE_POWER_SUPERIOR = 4
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_RELATIVE_POWER_OVERWHELMING = 8
+
+    # If subject is/will be a Specialist, Loyalty is multiplied by this and added to (overlord's) acceptance
+    NEGOTIATE_AGREEMENT_ACCEPTANCE_LOYALTY_SPECIALIST = 1
+
+    SECRET_FEALTY_PLEDGE_TERMS_MULTIPLIER = 14 # Multiplied with the disloyalty of a subject. If this is higher, the AI subject is more likely to pledge Secret Fealty
+    SECRET_FEALTY_PLEDGE_TERMS_BONUS = 100 # A higher value makes the AI subject more likely to pledge a Secret Fealty to another empire
+    SECRET_FEALTY_PROPOSE_TERMS_MULTIPLIER = 14 # # Multiplied with the disloyalty of a subject. If this is higher, the AI is more likely to propose a subject to pledge Secret Fealty
+    SECRET_FEALTY_PROPOSE_TERMS_BONUS = 100 # A higher value makes the AI subject more likely to propose for a subject empire to pledge a Secret Fealty to them
+
+    SECRET_FEALTY_BREAK_TERMS_MULTIPLIER = 14 # Multiplied with the loyalty of a subject. If this is higher, the AI subject is more likely to break Secret Fealty
+    SECRET_FEALTY_BREAK_TERMS_BONUS = 100 # A higher value makes the AI subject more likely to break a Secret Fealty to another empire
+    SECRET_FEALTY_BREAK_LOYALTY_THRESHOLD = 30 # Subject will break the pledge when loyalty reaches this value.
+    SECRET_FEALTY_BREAK_RELATIVE_POWER_THRESHOLD = 0.75 # Subject will break the pledge when potential overlords relative power to current overlord is lower than this value.
+
+    FORMLESS_ANCHOR_EXTRA_VALUE = 20            # How much does the Formless want to defend their anchor (compared to base value of 1)
+
+    DIMENSIONAL_LOCK_AI_WEIGHT_DISTANCE_TO_CAPITAL_MAX_WEIGHT = 100        # How important is the distance from a bypass to the capital
+    DIMENSIONAL_LOCK_AI_WEIGHT_RIVALRY = 100                            # How important is a bypass linking to a system which owner is a rival
+    DIMENSIONAL_LOCK_AI_WEIGHT_WAR = 1000                                # How important is a bypass linking to a system which owner is at war
+    DIMENSIONAL_LOCK_AI_WEIGHT_ALLIANCE = -50                            # How important is a bypass linking to a system which owner is an ally
+    DIMENSIONAL_LOCK_AI_WEIGHT_CLOSED_BORDERS = 30                        # How important is a bypass linking to a system with closed borders
+    DIMENSIONAL_LOCK_AI_WEIGHT_NO_OWNER = 50                            # How important is a bypass linking to a system with no owner
+
+    # location weights for the AI assigning leaders to location
+    # higher priority locations get leaders first
+    LOCATION_WEIGHT_PLANET_MULTIPLIER = 1.0                            # the multiplier is applied to number of pops
+    LOCATION_WEIGHT_FLEET_MULTIPLIER = 1.0                            # the multiplier is applied to number of ships in the fleet
+    LOCATION_WEIGHT_FEDERATION_MULTIPLIER = 1.0                        # the multiplier is applied to the number of members in the federation
+
+    LOCATION_WEIGHT_GALACTIC_COMMUNITY = 100.0                        # Weight for the galactic community when it is formed, this is not a multiplier but a flat value
+}

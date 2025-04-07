@@ -1,0 +1,3370 @@
+namespace = play
+#主要界面
+@ai_min_energy = 10000
+@ai_max_coinz = 50000
+
+country_event = {
+    id = play.00  # 事件ID
+    title = play.00.title  # 事件标题
+    desc = play.00.desc  # 事件描述
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        has_technology = tech_starbase_3  # 科技
+        NOR = {
+            has_communications = event_target:play_axis_country    #尚未和我方建立联系
+            has_country_flag = play_country_yes  # 没有该国家flag
+        }
+    }
+    option = {
+        name = play.00.1  # 选项名称
+        establish_communications_no_message = event_target:play_axis_country
+        root = {
+            set_country_flag = play_country_yes
+        }
+        #country_event = { id = play.10 }
+    }
+}
+
+#建立联系 play.10
+country_event = {
+    id = play.10
+    title = play.10.title    #事件标题
+    desc = play.10.desc        #事件文本
+    custom_gui = "play_axis_window"
+    diplomatic = yes
+    fire_only_once = no
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    is_triggered_only = yes    #在舰队被探测到的*触发器*触发
+    trigger = {
+        from = {
+            this.solar_system = {
+                has_star_flag = play_axis_system_home
+            }
+        }
+        NOT = {
+            has_communications = event_target:play_axis_country    #尚未和我方建立联系
+        }
+    }
+    immediate = {
+        establish_communications_no_message = from    #与探测到的舰队所有者建交
+    }
+
+    option = {
+        name = play.10.a
+        country_event = {
+            id = play.101
+        }
+    }
+}
+#主界面 play.101
+country_event = {
+    id = play.101
+    title = play_home_main.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_home_1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+    desc = {
+        text = "play_home_2"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+        #planet_background = pc_gaia
+    }
+    location = event_target:play_axis_system
+    trigger = {
+        # 定义触发条件
+        exists = event_target:play_axis_country  # 必须存在目标国家
+        event_target:play_axis_country = {
+            NOT = { is_hostile = root }  # 目标国家不能对根目标敌对
+        }
+        OR = {
+            # 满足以下任一条件
+            AND = {
+                # 满足以下所有条件
+                is_ai = no  # 不是AI
+                OR = {
+                    # 满足以下任一条件
+                    # 防止外交重复
+                    play_axis_ui = no  # 没有打开的窗口
+                    from = { is_same_value = root }  # 从打开的子菜单返回
+                }
+                OR = {
+                    # 满足以下任一条件
+                    AND = {
+                        # 满足以下所有条件
+                        # 从基地或舰队打开新的外交
+                        from = {
+                            OR = {
+                                # 来自以下任一类型的国家
+                                is_country_type = play_axis
+                            }
+                        }
+                    }
+                    AND = {
+                        # 满足以下所有条件
+                        # 从菜单返回
+                        from = { is_same_value = root }
+                    }
+                }
+            }
+            AND = {
+                # 满足以下所有条件
+                is_ai = yes  # 是AI
+                is_country_type = default  # 是默认类型的国家
+                from = {
+                    is_country_type = play_axis  # 来自 caravaneer_home 类型的国家
+                }
+            }
+        }
+    }
+
+    immediate = {
+        # 定义立即执行的效果
+        random_country = {
+            # 随机选择一个国家
+            limit = { is_country_type = play_axis }  # 限制为 caravaneer_home 类型的国家
+            save_event_target_as = play_axis_country  # 保存事件目标
+            save_global_event_target_as = play_axis_country
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_a
+        hidden_effect = { country_event = { id = play.111 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_b
+        #allow = {
+        #    custom_tooltip = {
+        #        fail_text = too_recently_lootboxed
+        #        NOT = { has_country_flag = lootboxed_recently }
+        #    }
+        #}
+        hidden_effect = {
+            country_event = { id = ammunition.100 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_c
+        hidden_effect = { country_event = { id = playC.100 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_other
+        hidden_effect = { country_event = { id = playother.100 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_home_exit
+        default_hide_option = yes
+    }
+}
+
+#领袖培训中心play.111
+country_event = {
+    id = play.111
+    title = play.111.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_111_1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+    desc = {
+        text = "play_home_2"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+    }
+    #科学家
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_leader_one
+        hidden_effect = { country_event = { id = play.112 } }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_leader_two
+        hidden_effect = {
+            country_event = { id = play.121 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_leader_three
+        hidden_effect = { country_event = { id = play.131 } }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = { country_event = { id = play.101 } }
+    }
+}
+
+#选择科学官play.112
+country_event = {
+    id = play.112
+    title = play.112.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_112"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_1
+            save_event_target_as = play_scientist_name_1
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_2
+            save_event_target_as = play_scientist_name_2
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_3
+            save_event_target_as = play_scientist_name_3
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_4
+            save_event_target_as = play_scientist_name_4
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_5
+            save_event_target_as = play_scientist_name_5
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_6
+            save_event_target_as = play_scientist_name_6
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                play_scientist_leader_flag = no
+            }
+            set_leader_flag = play_scientist_7
+            save_event_target_as = play_scientist_name_7
+        }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_1
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_1
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_1
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_1
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name#后面用
+                #remove_trait = all_negative
+                #add_trait = leader_trait_curator
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_2
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_2
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_2
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_2
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_3
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_3
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_3
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_3
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_4
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_4
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_4
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_4
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_5
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_5
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_5
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_5
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_6
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_6
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_6
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_6
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_scientist_7
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_scientist_7
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_scientist_7
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_7
+                }
+                set_leader_flag = play_scientist_operate
+                save_global_event_target_as = play_scientist_operate_name
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_scientist_1
+                remove_leader_flag = play_scientist_2
+                remove_leader_flag = play_scientist_3
+                remove_leader_flag = play_scientist_4
+                remove_leader_flag = play_scientist_5
+                remove_leader_flag = play_scientist_6
+                remove_leader_flag = play_scientist_7
+            }
+        }
+    }
+}
+#操作科学官play.113
+country_event = {
+    id = play.113
+    title = play.113.title
+    custom_gui = "play_axis_window"
+    desc = {
+        text = "play_113"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_1
+        custom_tooltip = play_113_1.1
+        allow = {
+            custom_tooltip = {
+                event_target:play_scientist_operate_name = {
+                    leader = {
+                        #is_ruler = no
+                        nor = {
+                            #is_councilor_type = councilor_ruler_democratic
+                            #is_councilor_type = councilor_ruler_oligarchic
+                            #is_councilor_type = councilor_ruler_dictatorial
+                            #is_councilor_type = councilor_ruler_imperial
+                            #is_councilor_type = councilor_ruler_hive_mind
+                            #is_councilor_type = councilor_ruler_machine_intelligence
+                            #is_councilor_type = councilor_ruler_corporate
+                        }
+                        #leader_councilor = yes
+                    }
+                }
+                fail_text = play_113.1.3
+            }
+            custom_tooltip = {
+                event_target:play_scientist_operate_name = {
+                    leader = {
+                        scientist_trait = yes
+                    }
+                }
+                fail_text = play_113.1.2
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+            }
+            country_event = { id = play.114 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_2
+        custom_tooltip = play_113_2.1
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+            }
+            country_event = { id = play.115 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_3
+        custom_tooltip = play_113_3.1
+        hidden_effect = {
+            #every_owned_leader = {
+            #    limit = {
+            #        has_leader_flag = play_scientist_operate
+            #    }
+            #    add_experience = 10000
+            #}
+            country_event = { id = play.116 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_4
+        custom_tooltip = play_113_4.1
+        hidden_effect = {
+            country_event = { id = play.117 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_6
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                #遍历拥有的领袖
+                limit = {
+                    has_leader_flag = play_scientist_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_negative_traits = yes
+            }
+            country_event = { id = play.113 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_5
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                #遍历拥有的领袖
+                limit = {
+                    has_leader_flag = play_scientist_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_traits = yes#删特质
+                set_skill = 1#等级设定一级
+            }
+            country_event = { id = play.113 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_scientist_1
+                remove_leader_flag = play_scientist_2
+                remove_leader_flag = play_scientist_3
+                remove_leader_flag = play_scientist_4
+                remove_leader_flag = play_scientist_5
+                remove_leader_flag = play_scientist_6
+                remove_leader_flag = play_scientist_7
+                remove_leader_flag = play_scientist_operate
+            }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_home_exit
+        default_hide_option = yes
+        hidden_effect = {
+            every_owned_leader = {
+                remove_leader_flag = play_scientist_1
+                remove_leader_flag = play_scientist_2
+                remove_leader_flag = play_scientist_3
+                remove_leader_flag = play_scientist_4
+                remove_leader_flag = play_scientist_5
+                remove_leader_flag = play_scientist_6
+                remove_leader_flag = play_scientist_7
+                remove_leader_flag = play_scientist_operate
+            }
+        }
+    }
+}
+#老练特质管理play.114
+country_event = {
+    id = play.114
+    title = play.114.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_113"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_114_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                remove_trait = subclass_scientist_explorer
+                remove_trait = subclass_scientist_scholar
+                remove_trait = subclass_scientist_governor
+                remove_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.114 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = subclass_scientist_explorer
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_114_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                remove_trait = subclass_scientist_explorer
+                remove_trait = subclass_scientist_scholar
+                remove_trait = subclass_scientist_governor
+                remove_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.114 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = subclass_scientist_scholar
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_114_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                remove_trait = subclass_scientist_explorer
+                remove_trait = subclass_scientist_scholar
+                remove_trait = subclass_scientist_governor
+                remove_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.114 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = subclass_scientist_governor
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_114_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        #trigger = {
+        #    NOT = {
+        #        is_gestalt = yes
+        #    }
+        #}
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                remove_trait = subclass_scientist_explorer
+                remove_trait = subclass_scientist_scholar
+                remove_trait = subclass_scientist_governor
+                remove_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.114 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = subclass_scientist_councilor
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.113 }
+        }
+    }
+}
+#增加特殊特质play.115
+country_event = {
+    id = play.115
+    title = play.115.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_115.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_scientist_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.115 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = leader_trait_lv
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_scientist_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.115 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = leader_trait_scientist_one
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_scientist_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.115 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_scientist_operate
+            }
+            add_trait = leader_trait_scientist_two
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_3
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                #add_trait = subclass_scientist_governor
+            }
+            country_event = { id = play.115 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_4
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                #add_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.115 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.113 }
+        }
+    }
+}
+#等级管理play.116
+country_event = {
+    id = play.116
+    title = play.116.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_116.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                #add_experience = 1000
+                add_skill_without_trait_selection = 1
+            }
+            country_event = { id = play.116 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 3000
+            }
+        }
+        add_resource = { energy = -3000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                add_skill_without_trait_selection = 3
+            }
+            country_event = { id = play.116 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                add_skill_without_trait_selection = 5
+            }
+            country_event = { id = play.116 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                add_skill_without_trait_selection = 10
+            }
+            country_event = { id = play.116 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.113 }
+        }
+    }
+}
+#转职play.117
+country_event = {
+    id = play.117
+    title = play.117.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_117.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                change_leader_class = scientist
+            }
+            country_event = { id = play.117 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        name = play_117_2
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                change_leader_class = official
+            }
+            country_event = { id = play.117 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_scientist_operate
+                }
+                change_leader_class = commander
+            }
+            country_event = { id = play.117 }
+        }
+    }
+    #option = {
+    #    custom_gui = "play_axis_option"
+    #    name = play_117_4
+    #    hidden_effect = {
+    #        every_owned_leader = {
+    #            limit = {
+    #                has_leader_flag = play_scientist_operate
+    #            }
+    #            add_experience = 40000
+    #        }
+    #        country_event = { id = play.116 }
+    #    }
+    #}
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.113 }
+        }
+    }
+}
+
+#选择行政官play.121
+country_event = {
+    id = play.121
+    title = play.121.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_121"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_1
+            save_event_target_as = play_official_name_1
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_2
+            save_event_target_as = play_official_name_2
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_3
+            save_event_target_as = play_official_name_3
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_4
+            save_event_target_as = play_official_name_4
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_5
+            save_event_target_as = play_official_name_5
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_6
+            save_event_target_as = play_official_name_6
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                play_official_leader_flag = no
+            }
+            set_leader_flag = play_official_7
+            save_event_target_as = play_official_name_7
+        }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_1
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_1
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_1
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_1
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name#后面用
+                #remove_trait = all_negative
+                #add_trait = leader_trait_curator
+            }
+            country_event = { id = play.122 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_2
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_2
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_2
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_2
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_3
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_3
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_3
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_3
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_4
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_4
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_4
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_4
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_5
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_5
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_5
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_5
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_6
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_6
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_6
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_6
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_official_7
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_official_7
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_official_7
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_7
+                }
+                set_leader_flag = play_official_operate
+                save_global_event_target_as = play_official_operate_name
+            }
+            country_event = { id = play.122 }
+        }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_official_1
+                remove_leader_flag = play_official_2
+                remove_leader_flag = play_official_3
+                remove_leader_flag = play_official_4
+                remove_leader_flag = play_official_5
+                remove_leader_flag = play_official_6
+                remove_leader_flag = play_official_7
+                #clear_global_event_target = play_official_operate_name
+            }
+        }
+    }
+}
+#操作行政官play.122
+country_event = {
+    id = play.122
+    title = play.113.title
+    custom_gui = "play_axis_window"
+    desc = {
+        text = "play_122"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_1
+        custom_tooltip = play_113_1.1
+        allow = {
+            #custom_tooltip = {
+            #    event_target:play_scientist_operate_name = {
+            #        leader = {
+            #            is_ruler = no
+            #            nor = {
+            #                is_councilor_type = councilor_ruler_democratic
+            #                is_councilor_type = councilor_ruler_oligarchic
+            #                is_councilor_type = councilor_ruler_dictatorial
+            #                is_councilor_type = councilor_ruler_imperial
+            #                is_councilor_type = councilor_ruler_hive_mind
+            #                is_councilor_type = councilor_ruler_machine_intelligence
+            #                is_councilor_type = councilor_ruler_corporate
+            #            }
+            #            leader_councilor = yes
+            #        }
+            #    }
+            #    fail_text = play_113.1.3
+            #}
+            custom_tooltip = {
+                event_target:play_official_operate_name = {
+                    leader = {
+                        scientist_trait = yes
+                    }
+                }
+                fail_text = play_122.1.2
+            }
+
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+            }
+            country_event = { id = play.123 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_2
+        custom_tooltip = play_113_2.1
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+            }
+            country_event = { id = play.124 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_3
+        custom_tooltip = play_113_3.1
+        hidden_effect = {
+            #every_owned_leader = {
+            #    limit = {
+            #        has_leader_flag = play_scientist_operate
+            #    }
+            #    add_experience = 10000
+            #}
+            country_event = { id = play.125 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_4
+        custom_tooltip = play_113_4.1
+        hidden_effect = {
+            country_event = { id = play.126 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_6
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                #遍历拥有的领袖
+                limit = {
+                    has_leader_flag = play_official_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_negative_traits = yes
+            }
+            country_event = { id = play.122 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_5
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_traits = yes
+                set_skill = 1
+            }
+            country_event = { id = play.122 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_official_1
+                remove_leader_flag = play_official_2
+                remove_leader_flag = play_official_3
+                remove_leader_flag = play_official_4
+                remove_leader_flag = play_official_5
+                remove_leader_flag = play_official_6
+                remove_leader_flag = play_official_7
+                remove_leader_flag = play_official_operate
+            }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_home_exit
+        default_hide_option = yes
+        hidden_effect = {
+            every_owned_leader = {
+                remove_leader_flag = play_official_1
+                remove_leader_flag = play_official_2
+                remove_leader_flag = play_official_3
+                remove_leader_flag = play_official_4
+                remove_leader_flag = play_official_5
+                remove_leader_flag = play_official_6
+                remove_leader_flag = play_official_7
+                remove_leader_flag = play_official_operate
+            }
+        }
+    }
+}
+#老练特质管理play.123
+country_event = {
+    id = play.123
+    title = play.114.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_122"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_123_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                remove_trait = subclass_official_delegate
+                remove_trait = subclass_official_governor
+                remove_trait = subclass_official_diplomacy_councilor
+                remove_trait = subclass_official_economy_councilor
+                remove_trait = subclass_official_dgds
+            }
+            country_event = { id = play.123 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = subclass_official_delegate
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_123_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                remove_trait = subclass_official_delegate
+                remove_trait = subclass_official_governor
+                remove_trait = subclass_official_diplomacy_councilor
+                remove_trait = subclass_official_economy_councilor
+                remove_trait = subclass_official_dgds
+            }
+            country_event = { id = play.123 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = subclass_official_governor
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_123_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                remove_trait = subclass_official_delegate
+                remove_trait = subclass_official_governor
+                remove_trait = subclass_official_diplomacy_councilor
+                remove_trait = subclass_official_economy_councilor
+                remove_trait = subclass_official_dgds
+            }
+            country_event = { id = play.123 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = subclass_official_diplomacy_councilor
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_123_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        #trigger = {
+        #    NOT = {
+        #        is_gestalt = yes
+        #    }
+        #}
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                remove_trait = subclass_official_delegate
+                remove_trait = subclass_official_governor
+                remove_trait = subclass_official_diplomacy_councilor
+                remove_trait = subclass_official_economy_councilor
+                remove_trait = subclass_official_dgds
+            }
+            country_event = { id = play.123 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = subclass_official_economy_councilor
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_123_5
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        #trigger = {
+        #    NOT = {
+        #        is_gestalt = yes
+        #    }
+        #}
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                remove_trait = subclass_official_delegate
+                remove_trait = subclass_official_governor
+                remove_trait = subclass_official_diplomacy_councilor
+                remove_trait = subclass_official_economy_councilor
+                remove_trait = subclass_official_dgds
+            }
+            country_event = { id = play.123 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = subclass_official_dgds
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.122 }
+        }
+    }
+}
+#增加特殊特质play.124
+country_event = {
+    id = play.124
+    title = play.115.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_124.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_official_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_trait = leader_trait_official_one
+            }
+            country_event = { id = play.124 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = leader_trait_lv
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_124_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_official_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_trait = leader_trait_official_one
+            }
+            country_event = { id = play.124 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate
+            }
+            add_trait = leader_trait_official_one
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_2
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_trait = subclass_scientist_scholar
+            }
+            country_event = { id = play.124 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_3
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_trait = subclass_scientist_governor
+            }
+            country_event = { id = play.124 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_4
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_trait = subclass_scientist_councilor
+            }
+            country_event = { id = play.124 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.122 }
+        }
+    }
+}
+#等级管理play.125
+country_event = {
+    id = play.125
+    title = play.116.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_124.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                #add_experience = 1000
+                add_skill_without_trait_selection = 1
+            }
+            country_event = { id = play.125 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 3000
+            }
+        }
+        add_resource = { energy = -3000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                add_skill_without_trait_selection = 3
+            }
+            country_event = { id = play.125 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                add_skill_without_trait_selection = 5
+            }
+            country_event = { id = play.125 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                add_skill_without_trait_selection = 10
+            }
+            country_event = { id = play.125 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.122 }
+        }
+    }
+}
+#转职play.126
+country_event = {
+    id = play.126
+    title = play.117.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_124.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                change_leader_class = scientist
+            }
+            country_event = { id = play.126 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                change_leader_class = official
+            }
+            country_event = { id = play.126 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_official_operate
+                }
+                change_leader_class = commander
+            }
+            country_event = { id = play.126 }
+        }
+    }
+    #option = {
+    #    custom_gui = "play_axis_option"
+    #    name = play_117_4
+    #    hidden_effect = {
+    #        every_owned_leader = {
+    #            limit = {
+    #                has_leader_flag = play_scientist_operate
+    #            }
+    #            add_experience = 40000
+    #        }
+    #        country_event = { id = play.116 }
+    #    }
+    #}
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.122 }
+        }
+    }
+}
+
+#选择指挥官play.131
+country_event = {
+    id = play.131
+    title = play.131.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_131"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_1
+            save_event_target_as = play_commander_name_1
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_2
+            save_event_target_as = play_commander_name_2
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_3
+            save_event_target_as = play_commander_name_3
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_4
+            save_event_target_as = play_commander_name_4
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_5
+            save_event_target_as = play_commander_name_5
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_6
+            save_event_target_as = play_commander_name_6
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_7
+            save_event_target_as = play_commander_name_7
+        }
+    }
+
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_1
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_1
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_1
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_1
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name#后面用
+                #remove_trait = all_negative
+                #add_trait = leader_trait_curator
+            }
+            country_event = { id = play.132 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_2
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_2
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_2
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_2
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_3
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_3
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_3
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_3
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_4
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_4
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_4
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_4
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_5
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_5
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_5
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_5
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_6
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_6
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_6
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_6
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_commander_7
+        trigger = {
+            any_owned_leader = {
+                has_leader_flag = play_commander_7
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_leader = {
+                    has_leader_flag = play_commander_7
+                }
+                fail_text = play_112.1
+            }
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_7
+                }
+                set_leader_flag = play_commander_operate
+                save_global_event_target_as = play_commander_operate_name
+            }
+            country_event = { id = play.132 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_commander_1
+                remove_leader_flag = play_commander_2
+                remove_leader_flag = play_commander_3
+                remove_leader_flag = play_commander_4
+                remove_leader_flag = play_commander_5
+                remove_leader_flag = play_commander_6
+                remove_leader_flag = play_commander_7
+                #clear_global_event_target = play_official_operate_name
+            }
+        }
+    }
+}
+#操作指挥官play.132
+country_event = {
+    id = play.132
+    title = play.113.title
+    custom_gui = "play_axis_window"
+    desc = {
+        text = "play_132"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_1
+        custom_tooltip = play_113_1.1
+        allow = {
+            #custom_tooltip = {
+            #    event_target:play_scientist_operate_name = {
+            #        leader = {
+            #            is_ruler = no
+            #            nor = {
+            #                is_councilor_type = councilor_ruler_democratic
+            #                is_councilor_type = councilor_ruler_oligarchic
+            #                is_councilor_type = councilor_ruler_dictatorial
+            #                is_councilor_type = councilor_ruler_imperial
+            #                is_councilor_type = councilor_ruler_hive_mind
+            #                is_councilor_type = councilor_ruler_machine_intelligence
+            #                is_councilor_type = councilor_ruler_corporate
+            #            }
+            #            leader_councilor = yes
+            #        }
+            #    }
+            #    fail_text = play_113.1.3
+            #}
+            custom_tooltip = {
+                event_target:play_commander_operate_name = {
+                    leader = {
+                        scientist_trait = yes
+                    }
+                }
+                fail_text = play_122.1.2
+            }
+
+        }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+            }
+            country_event = { id = play.133 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_2
+        custom_tooltip = play_113_2.1
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+            }
+            country_event = { id = play.134 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_3
+        custom_tooltip = play_113_3.1
+        hidden_effect = {
+            #every_owned_leader = {
+            #    limit = {
+            #        has_leader_flag = play_scientist_operate
+            #    }
+            #    add_experience = 10000
+            #}
+            country_event = { id = play.135 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_4
+        custom_tooltip = play_113_4.1
+        hidden_effect = {
+            country_event = { id = play.136 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_6
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                #遍历拥有的领袖
+                limit = {
+                    has_leader_flag = play_commander_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_negative_traits = yes
+            }
+            country_event = { id = play.132 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_113_5
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate#限定条件，有play_scientist_operate这个flag
+                }
+                remove_all_traits = yes
+                set_skill = 1
+            }
+            country_event = { id = play.132 }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+            every_owned_leader = {
+                remove_leader_flag = play_commander_1
+                remove_leader_flag = play_commander_2
+                remove_leader_flag = play_commander_3
+                remove_leader_flag = play_commander_4
+                remove_leader_flag = play_commander_5
+                remove_leader_flag = play_commander_6
+                remove_leader_flag = play_commander_7
+                remove_leader_flag = play_commander_operate
+            }
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_home_exit
+        default_hide_option = yes
+        hidden_effect = {
+            every_owned_leader = {
+                remove_leader_flag = play_commander_1
+                remove_leader_flag = play_commander_2
+                remove_leader_flag = play_commander_3
+                remove_leader_flag = play_commander_4
+                remove_leader_flag = play_commander_5
+                remove_leader_flag = play_commander_6
+                remove_leader_flag = play_commander_7
+                remove_leader_flag = play_commander_operate
+            }
+        }
+    }
+}
+#老练特质管理play.133
+country_event = {
+    id = play.133
+    title = play.114.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_132"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_133_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                remove_trait = subclass_commander_admiral
+                remove_trait = subclass_commander_general
+                remove_trait = subclass_commander_governor
+                remove_trait = subclass_commander_councilor
+                remove_trait = subclass_commander_fyds
+            }
+            country_event = { id = play.133 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = subclass_commander_admiral
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_133_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                remove_trait = subclass_commander_admiral
+                remove_trait = subclass_commander_general
+                remove_trait = subclass_commander_governor
+                remove_trait = subclass_commander_councilor
+                remove_trait = subclass_commander_fyds
+            }
+            country_event = { id = play.133 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = subclass_commander_general
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_133_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                remove_trait = subclass_commander_admiral
+                remove_trait = subclass_commander_general
+                remove_trait = subclass_commander_governor
+                remove_trait = subclass_commander_councilor
+                remove_trait = subclass_commander_fyds
+            }
+            country_event = { id = play.133 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = subclass_commander_governor
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_133_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        #trigger = {
+        #    NOT = {
+        #        is_gestalt = yes
+        #    }
+        #}
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                remove_trait = subclass_commander_admiral
+                remove_trait = subclass_commander_general
+                remove_trait = subclass_commander_governor
+                remove_trait = subclass_commander_councilor
+                remove_trait = subclass_commander_fyds
+            }
+            country_event = { id = play.133 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = subclass_commander_councilor
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_133_5
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1500
+            }
+        }
+        add_resource = { energy = -1500 }
+        #trigger = {
+        #    NOT = {
+        #        is_gestalt = yes
+        #    }
+        #}
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                remove_trait = subclass_commander_admiral
+                remove_trait = subclass_commander_general
+                remove_trait = subclass_commander_governor
+                remove_trait = subclass_commander_councilor
+                remove_trait = subclass_commander_fyds
+            }
+            country_event = { id = play.133 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = subclass_commander_fyds
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.132 }
+        }
+    }
+}
+#增加特殊特质play.134
+country_event = {
+    id = play.134
+    title = play.115.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_134.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_commander_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.134 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = leader_trait_lv
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_134_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_commander_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.134 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = leader_trait_commander_one
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_134_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_commander_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            country_event = { id = play.134 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = leader_trait_commander_two
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_134_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+            custom_tooltip = {
+                event_target:play_commander_operate_name = {
+                    leader = {
+                        has_skill >= 10
+                    }
+                }
+                fail_text = play_five
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+
+            country_event = { id = play.134 }
+        }
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate
+            }
+            add_trait = leader_trait_commander_three
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_115_4
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+
+            }
+            country_event = { id = play.134 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.132 }
+        }
+    }
+}
+#等级管理play.135
+country_event = {
+    id = play.135
+    title = play.116.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_134.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                #add_experience = 1000
+                add_skill_without_trait_selection = 1
+            }
+            country_event = { id = play.135 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 3000
+            }
+        }
+        add_resource = { energy = -3000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                add_skill_without_trait_selection = 3
+            }
+            country_event = { id = play.135 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 5000
+            }
+        }
+        add_resource = { energy = -5000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                add_skill_without_trait_selection = 5
+            }
+            country_event = { id = play.135 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_116_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = { energy = -10000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                add_skill_without_trait_selection = 10
+            }
+            country_event = { id = play.135 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.132 }
+        }
+    }
+}
+#转职play.136
+country_event = {
+    id = play.136
+    title = play.117.title
+    custom_gui = "play_axis_window"
+
+    desc = {
+        text = "play_134.1"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_1
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                change_leader_class = scientist
+            }
+            country_event = { id = play.136 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_2
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                change_leader_class = official
+            }
+            country_event = { id = play.136 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_117_3
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 1000
+            }
+        }
+        add_resource = { energy = -1000 }
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_leader_flag = play_commander_operate
+                }
+                change_leader_class = commander
+            }
+            country_event = { id = play.136 }
+        }
+    }
+    #option = {
+    #    custom_gui = "play_axis_option"
+    #    name = play_117_4
+    #    hidden_effect = {
+    #        every_owned_leader = {
+    #            limit = {
+    #                has_leader_flag = play_scientist_operate
+    #            }
+    #            add_experience = 40000
+    #        }
+    #        country_event = { id = play.116 }
+    #    }
+    #}
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.132 }
+        }
+    }
+}

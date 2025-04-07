@@ -1,0 +1,243 @@
+######################################
+#
+# Crisis Triggering Events
+#
+######################################
+
+namespace = crisis_trigger
+
+event = {
+    id = crisis_trigger.1
+    hide_window = yes
+
+    is_triggered_only = yes
+
+    trigger = {
+        # 定义触发条件
+        is_crises_allowed = yes  # 必须允许危机事件
+        end_game_years_passed >= 5  # 游戏是否已进入末期，即已过去至少25年
+        OR = {
+            NOT = { has_global_flag = galactic_crisis_happened }
+            AND = {
+                allowed_crisis_type = all
+                NOR = {
+                    has_global_flag = galactic_crisis_recently_fired  # 是否没有设置全局标志，表示银河危机最近已经触发过
+                    any_country = {
+                        is_crisis_faction = yes
+                    }
+                }
+            }
+        }
+        #OR = {
+        #    # 满足以下任一条件
+        #    has_global_flag = endgame_crisis_early_start  # 是否设置了全局标志，允许早期结束游戏危机开始
+        #    end_game_years_passed >= 0  # 游戏是否已进入末期，即已过去一定年数
+        #    AND = {
+        #        # 同时满足以下条件
+        #        is_active_resolution = resolution_galacticstudies_extradimensional_experimentation  # 是否激活了“额外维度实验”决议
+        #        is_active_resolution = resolution_galactic_threats_committee  # 是否激活了“银河威胁委员会”决议
+        #    }
+        #}
+
+        #OR = {
+        #    # 满足以下任一条件
+        #    has_global_flag = endgame_crisis_early_start  # 是否设置了全局标志，允许早期结束游戏危机开始
+        #    end_game_years_passed >= 5  # 游戏是否已进入末期，即已过去至少25年
+        #    #default_endgame_early_start_triggers = yes  # 是否满足默认的早期结束游戏危机触发条件
+        #    any_country = {
+        #        # 任何国家
+        #        is_country_type = default  # 默认类型的国家
+        #        OR = {
+        #            # 满足以下任一条件
+        #            has_technology = tech_jump_drive_1  # 拥有1级跳跃驱动技术
+        #            has_technology = tech_psi_jump_drive_1  # 拥有1级psi跳跃驱动技术
+        #        }
+        #    }
+        #    is_active_resolution = resolution_galacticstudies_extradimensional_experimentation  # 是否激活了“额外维度实验”决议
+        #    is_active_resolution = resolution_galactic_threats_committee  # 是否激活了“银河威胁委员会”决议
+        #}
+
+        #OR = {
+        #    # 满足以下任一条件
+        #    NOT = { has_global_flag = galactic_crisis_happened }  # 是否没有设置全局标志，表示银河危机尚未发生
+        #    AND = {
+        #        # 同时满足以下条件
+        #        allowed_crisis_type = all  # 允许所有类型的危机
+        #        NOR = {
+        #            # 满足以下任一条件
+        #            has_global_flag = galactic_crisis_recently_fired  # 是否没有设置全局标志，表示银河危机最近已经触发过
+        #            any_country = {
+        #                # 任何国家
+        #                is_crisis_faction = yes  # 是否是危机派系
+        #            }
+        #        }
+        #    }
+        #}
+    }
+
+    immediate = {
+        random_country = {
+            limit = { is_country_type = global_event } # global_event country is always around
+
+            #if = {
+            #    limit = {
+            #        #got to be someone doing jump drives in this case
+            #        end_game_years_passed < 10
+            #        #default_endgame_early_start_triggers = no
+            #    }
+            #    set_timed_country_flag = {
+            #        flag = only_unbidden_this_time
+            #        days = 5
+            #    }
+            #}
+            random_list = {
+                ### Prethoryn Scourge (Swarm)虫子
+                100 = {
+                    modifier = {
+                        factor = 3
+                        allowed_crisis_type = prethoryn
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = contingency
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed < 10
+                    }
+                    modifier = {
+                        factor = 10
+                        end_game_years_passed >= 11
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = prethoryn_invasion_happened
+                    }
+                    country_event = { id = crisis.10 days = 100 random = 100 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                }
+
+                ### Unbidden (Extradimensionals)恶魔
+                100 = {
+                    modifier = {
+                        factor = 3.75
+                        allowed_crisis_type = unbidden
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = contingency
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed < 10
+                    }
+                    modifier = {
+                        factor = 10
+                        end_game_years_passed >= 11
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = extradimensional_invasion_happened
+                    }
+                    country_event = { id = crisis.1000 days = 100 random = 100 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                }
+
+                ### Contingency (AI)肃正
+                100 = {
+                    modifier = {
+                        factor = 3
+                        allowed_crisis_type = contingency
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed < 10
+                    }
+                    modifier = {
+                        factor = 10
+                        end_game_years_passed >= 11
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = ai_invasion_happened
+                    }
+                    country_event = { id = crisis.2005 days = 100 random = 100 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                }
+
+                ### Synth Queen女王
+                0 = {
+                    modifier = {
+                        factor = 300
+                        allowed_crisis_type = synth_queen
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = contingency
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed < 10
+                    }
+                    modifier = {
+                        factor = 10
+                        end_game_years_passed >= 11
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            has_global_flag = synth_queen_happened
+                            has_machine_age_dlc = no
+                        }
+                    }
+                    country_event = { id = crisis.8005 days = 100 random = 100 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                }
+
+                ## Nothing
+                #20 = {
+                #    modifier = {
+                #        subtract = 19
+                #        has_global_flag = endgame_crisis_early_start
+                #    }
+                #}
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+@juggernaut_cost_1 = 560
+@juggernaut_cost_2 = 730
+@juggernaut_cost_3 = 950
+@juggernaut_cost_4 = 1230
+@juggernaut_cost_5 = 1600
+@juggernaut_cost_6 = 2080
+
+utility_component_template = {
+    #反应堆
+    key = "nami_ZERO_POINT"
+    size = small
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = 20000
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @juggernaut_cost_5
+        }
+        upkeep = {
+            energy = 15.99
+            alloys = 1.599
+        }
+    }
+
+    prerequisites = { "tech_zero_point_power" }
+    component_set = "power_core"
+    size_restriction = { nami_mothership nami_interdictor }
+    upgrades_to = "JUGGERNAUT_DARK_MATTER_REACTOR"
+
+    ai_weight = {
+        weight = 5
+    }
+}
+
+utility_component_template = {
+    key = "nami_DARK_MATTER"
+    size = small #槽位
+    icon = "GFX_ship_part_dark_matter_power_core"
+    icon_frame = 1
+    power = 50000
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @juggernaut_cost_6
+            sr_dark_matter = 32
+        }
+        upkeep = {
+            #维护费
+            energy = 20.79
+            alloys = 2.079
+        }
+    }
+
+    prerequisites = { "tech_dark_matter_power_core" } #前置科技
+    component_set = "power_core"
+    size_restriction = { nami_mothership nami_interdictor } #类型
+
+    ai_weight = {
+        weight = 6
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = sr_dark_matter }
+        }
+        modifier = {
+            factor = 0.0
+            is_ai = yes
+        }
+    }
+}
+

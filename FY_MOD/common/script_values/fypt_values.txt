@@ -1,0 +1,155 @@
+fypt_starbase_value = {
+    #计算模块数量
+    base = 0  # 基础值为0
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_1
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_2
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_3
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_4
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_5
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_6
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_7
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_8
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_9
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_10
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_11
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_12
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_13
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_14
+        }
+        mode = add
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_14_1
+        }
+        mode = add
+    }
+    mult = 5#一个占用5
+}
+fypt_starbase_sl = {
+    base = 10  # 基础值为0
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_0
+        }
+        mode = add
+        mult = 10
+    }
+    complex_trigger_modifier = {
+        trigger = count_starbase_modules
+        parameters = {
+            type = fypt_modules_0
+        }
+        potential = {
+            root = {
+                has_technology = fypt_kj_4
+            }
+        }
+        mode = add
+        mult = 10
+    }
+}
+
+fypt_starbase_sl_1 = {
+    #总算力÷消耗
+    base = 0
+    add = value:fypt_starbase_sl
+    #subtract = value:fypt_starbase_value
+    divide = value:fypt_starbase_value
+    multiply = 100
+    round = yes
+    #min = 0
+    max = 100
+}
+fypt_starbase_sl_2 = {
+    #计算buff
+    base = 100
+    subtract = value:fypt_starbase_sl_1
+    #divide = 5
+    #abs = yes
+    #min = 0
+    #max = 0
+}

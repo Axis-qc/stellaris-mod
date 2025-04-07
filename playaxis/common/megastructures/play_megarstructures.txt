@@ -1,0 +1,381 @@
+#增强原版的
+#6k戴森球
+dyson_sphere_6 = {
+    entity = "dyson_sphere_phase_05_entity"
+    construction_entity = "dyson_sphere_part_4_entity"
+    portrait = "GFX_megastructure_dyson_sphere_background"
+    build_time = 1800
+    use_planet_resource = yes
+    resources = {
+        category = megastructures
+        cost = {
+            alloys = 10000
+            unity = 5000
+        }
+
+        produces = {
+            energy = 6000
+        }
+    }
+
+    upgrade_from = {
+        dyson_sphere_5
+    }
+    prerequisites = { "tech_dyson_sphere" }
+    show_prereqs = yes
+
+    outliner_trigger = {
+        exists = owner
+        owner = {
+            has_country_flag = can_build_disco_sphere
+        }
+    }
+
+    possible = {
+        custom_tooltip = {
+            fail_text = "requires_no_arc_furnace"
+            system_has_arc_furnace = no
+        }
+        custom_tooltip = {
+            fail_text = "requires_no_arc_furnace_construction"
+            if = {
+                limit = {
+                    system_has_arc_furnace = no
+                }
+                NOT = {
+                    solar_system = {
+                        has_star_flag = arc_furnace_construction
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "requires_no_colonies"
+            NOT = {
+                any_system_planet = {
+                    is_colony = yes
+                    is_artificial = no
+                    exists = owner
+                    owner = {
+                        is_primitive = no
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "blocked_by_pre_ftl_policy"
+            if = {
+                limit = {
+                    any_system_planet = {
+                        exists = owner
+                        owner = {
+                            is_primitive = yes
+                        }
+                    }
+                }
+                from = {
+                    has_policy_flag = interference_aggressive
+                }
+            }
+        }
+    }
+
+    on_build_start = {
+        set_star_flag = dyson_sphere_construction
+    }
+
+    on_build_cancel = {
+        remove_star_flag = dyson_sphere_construction
+    }
+
+    on_build_complete = {
+        remove_star_flag = dyson_sphere_construction
+        from = {
+            set_country_flag = has_built_or_repaired_megastructure
+        }
+
+        every_system_planet = {
+            limit = {
+                OR = {
+                    is_planet_class = pc_molten
+                    is_planet_class = pc_toxic
+                    habitable_planet = yes
+                }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_colony_progress > 0
+                        is_colony = yes
+                    }
+                }
+                every_owned_pop = {
+                    kill_pop = yes
+                }
+                destroy_colony = yes
+            }
+            change_pc = pc_frozen
+        }
+        every_system_planet = {
+            limit = {
+                is_planet_class = pc_barren
+            }
+            change_pc = pc_barren_cold
+        }
+        remove_system_terraforming_candidates = yes
+    }
+}
+#10k戴森球
+dyson_sphere_7 = {
+    entity = "dyson_sphere_phase_05_entity"
+    construction_entity = "dyson_sphere_phase_05_entity"
+    portrait = "GFX_megastructure_dyson_sphere_background"
+    build_time = 1800
+    use_planet_resource = yes
+    resources = {
+        category = megastructures
+        cost = {
+            alloys = 10000
+            unity = 5000
+        }
+
+        produces = {
+            energy = 8000
+        }
+    }
+
+    upgrade_from = {
+        dyson_sphere_6
+    }
+
+    prerequisites = { "tech_dyson_sphere" }
+    show_prereqs = yes
+
+    outliner_trigger = {
+        exists = owner
+        owner = {
+            has_country_flag = can_build_disco_sphere
+        }
+    }
+
+    possible = {
+        custom_tooltip = {
+            fail_text = "requires_no_arc_furnace"
+            system_has_arc_furnace = no
+        }
+        custom_tooltip = {
+            fail_text = "requires_no_arc_furnace_construction"
+            if = {
+                limit = {
+                    system_has_arc_furnace = no
+                }
+                NOT = {
+                    solar_system = {
+                        has_star_flag = arc_furnace_construction
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "requires_no_colonies"
+            NOT = {
+                any_system_planet = {
+                    is_colony = yes
+                    is_artificial = no
+                    exists = owner
+                    owner = {
+                        is_primitive = no
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "blocked_by_pre_ftl_policy"
+            if = {
+                limit = {
+                    any_system_planet = {
+                        exists = owner
+                        owner = {
+                            is_primitive = yes
+                        }
+                    }
+                }
+                from = {
+                    has_policy_flag = interference_aggressive
+                }
+            }
+        }
+    }
+
+    on_build_start = {
+        set_star_flag = dyson_sphere_construction
+    }
+
+    on_build_cancel = {
+        remove_star_flag = dyson_sphere_construction
+    }
+
+    on_build_complete = {
+        remove_star_flag = dyson_sphere_construction
+        from = {
+            set_country_flag = has_built_or_repaired_megastructure
+        }
+
+        every_system_planet = {
+            limit = {
+                OR = {
+                    is_planet_class = pc_molten
+                    is_planet_class = pc_toxic
+                    habitable_planet = yes
+                }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_colony_progress > 0
+                        is_colony = yes
+                    }
+                }
+                every_owned_pop = {
+                    kill_pop = yes
+                }
+                destroy_colony = yes
+            }
+            change_pc = pc_frozen
+        }
+        every_system_planet = {
+            limit = {
+                is_planet_class = pc_barren
+            }
+            change_pc = pc_barren_cold
+        }
+        remove_system_terraforming_candidates = yes
+    }
+}
+#科学枢纽 600三科
+think_tank_5 = {
+    entity = "thinktank_phase_03_entity"
+    construction_entity = "thinktank_phase_03_entity"
+    portrait = "GFX_megastructure_think_tank_background"
+    place_entity_on_planet_plane = no
+    entity_offset = { x = 0 y = -20 }
+    build_time = 1800
+    resources = {
+        category = megastructures
+        cost = {
+            alloys = 15000
+            unity = 5000
+        }
+
+        upkeep = {
+            energy = 75
+        }
+
+        produces = {
+            society_research = 600
+            engineering_research = 600
+            physics_research = 600
+        }
+    }
+
+    upgrade_from = {
+        think_tank_3
+    }
+
+    on_build_complete = {
+        from = {
+            set_country_flag = has_built_or_repaired_megastructure
+        }
+    }
+
+    prerequisites = { "tech_science_nexus" }
+    show_prereqs = yes
+
+    country_modifier = {
+        all_technology_research_speed = 0.3
+    }
+}
+#科学枢纽 1200三科
+think_tank_6 = {
+    entity = "thinktank_phase_03_entity"
+    construction_entity = "thinktank_phase_03_entity"
+    portrait = "GFX_megastructure_think_tank_background"
+    place_entity_on_planet_plane = no
+    entity_offset = { x = 0 y = -20 }
+    build_time = 1800
+    resources = {
+        category = megastructures
+        cost = {
+            alloys = 15000
+            unity = 5000
+        }
+
+        upkeep = {
+            energy = 75
+        }
+
+        produces = {
+            society_research = 1200
+            engineering_research = 1200
+            physics_research = 1200
+        }
+    }
+
+    upgrade_from = {
+        think_tank_5
+    }
+
+    on_build_complete = {
+        from = {
+            set_country_flag = has_built_or_repaired_megastructure
+        }
+    }
+
+    prerequisites = { "tech_science_nexus" }
+    show_prereqs = yes
+
+    country_modifier = {
+        all_technology_research_speed = 0.6
+    }
+}
+#物质解压器 4k矿
+matter_decompressor_5 = {
+    entity = "matter_decompressor_stage_4_entity"
+    construction_entity = "matter_decompressor_stage_4_construction_entity"
+    portrait = "GFX_megastructure_matter_decompressor_background"
+    entity_offset = { x = -20 y = -20 }
+    rotate_to_center = yes
+    scale_offset = yes
+    place_entity_on_planet_plane = no
+    build_time = 1800
+    resources = {
+        category = megastructures
+        cost = {
+            alloys = 12500
+            unity = 5000
+        }
+
+        produces = {
+            minerals = 4000
+        }
+
+        upkeep = {
+            energy = 200
+        }
+    }
+
+    upgrade_from = {
+        matter_decompressor_4
+    }
+
+    prerequisites = { "tech_matter_decompressor" }
+    show_prereqs = yes
+
+    on_build_complete = {
+        set_star_flag = matter_decompressor_built
+        from = {
+            set_country_flag = has_built_or_repaired_megastructure
+            country_event = { id = mega.9013 }
+        }
+    }
+}

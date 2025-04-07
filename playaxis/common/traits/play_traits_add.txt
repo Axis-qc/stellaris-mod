@@ -1,0 +1,296 @@
+leader_trait_commander_one = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits#特质背景
+        CLASS = commander
+        ICON = GFX_leader_trait_commander_one
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+    federation_modifier = { }#联邦buff
+    galcom_modifier = { }#共同体buff
+    modifier = {
+        #会变成此舰队加成
+    }
+    councilor_modifier = {
+        #内阁加成
+        #country_power_projection_influence_produces_add = 20
+        #shipclass_military_build_speed_mult = 0.25
+        #ship_starting_experience_add = 500
+    }
+    triggered_councilor_modifier = {
+        potential = {
+            always = yes
+        }
+        mult = trigger:has_skill
+        country_power_projection_influence_produces_add = 0.5
+        #country_councilor_influence_produces_add = 1
+        #country_base_physics_research_produces_add = 1
+        #country_base_minor_artifacts_produces_add = 1#加资源，但是是算在帝国基础里面
+    }
+    leader_potential_add = {
+        #has_paragon_dlc = yes
+        #has_trait = subclass_commander_councilor
+    }
+    leader_class = { commander }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}
+leader_trait_commander_two = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits_one#特质背景
+        CLASS = commander
+        ICON = GFX_leader_trait_commander_b
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+
+    inline_script = {
+        script = paragon/leader_resource_produces
+        RESOURCE = minor_artifacts
+        AMOUNT = 0
+    }
+
+    federation_modifier = { }#联邦buff
+    galcom_modifier = { }#共同体buff
+    modifier = {
+        #会变成此舰队加成
+    }
+    #triggered_self_modifier = {
+    #    potential = { leader_class = commander }
+    #    planet_combat_width_add = 10
+    #}
+    fleet_modifier = {
+        #command_limit_add = 500
+    }
+    triggered_fleet_modifier = {
+        potential = {
+            always = yes
+        }
+        mult = trigger:has_skill
+        command_limit_add = 20
+    }
+    councilor_modifier = {
+        #内阁加成
+        #country_naval_cap_add = 500
+    }
+    triggered_councilor_modifier = {
+        potential = {
+            always = yes
+        }
+        mult = trigger:has_skill
+        country_naval_cap_add = 20
+    }
+    leader_potential_add = {
+        #has_paragon_dlc = yes
+        #has_trait = subclass_commander_councilor
+    }
+    leader_class = { commander }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}
+leader_trait_commander_three = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits_one#特质背景
+        CLASS = commander
+        ICON = GFX_leader_trait_commander_one
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+    species_potential_add = { }
+    federation_modifier = { }#联邦buff
+    galcom_modifier = { }#共同体buff
+    modifier = {
+        #会变成此舰队加成
+        fleet_mia_time_mult = -1
+        ship_cloaking_strength_add = 10
+        ship_cloaking_detection_add = 10
+        ship_shield_reduction = -0.5
+    }
+    councilor_modifier = {
+    }
+    fleet_modifier = {
+    }
+    triggered_fleet_modifier = {
+        #ship_cloaking_strength_add = 5
+        #ship_shield_reduction = -0.5
+    }
+    leader_potential_add = {
+        #has_paragon_dlc = yes
+        #has_trait = subclass_commander_councilor
+    }
+    leader_class = { commander }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}
+leader_trait_official_one = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits_one#特质背景
+        CLASS = official
+        ICON = GFX_leader_trait_commander_one
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+    federation_modifier = {
+        #federation_fleet_cap_add = 500
+        #federation_fleet_contribution_factor = 1
+        #federation_naval_cap_contribution_mult = 0.5
+        #federation_leader_diplo_weight_from_members_mult = 1
+        #federation_leader_diplo_weight_contribution_add = 1
+        #federation_alloys_produces_add = 1
+        #federation_research_sharing_mult = 1
+    }
+    triggered_federation_modifier = {
+        potential = {
+            always = yes
+        }
+        mult = trigger:has_skill
+        federation_fleet_cap_add = 20
+        #federation_fleet_contribution_factor = 1
+        federation_naval_cap_contribution_mult = 0.1
+    }
+    #联邦buff
+    galcom_modifier = {
+        #country_community_gdf_naval_capacity = 500
+        #gdf_naval_cap = 100
+        #gdf_naval_cap_2 = 100
+    }
+    triggered_galcom_modifier = {
+        potential = {
+            always = yes
+        }
+        mult = trigger:has_skill
+        country_community_gdf_naval_capacity = 20
+    }
+    #共同体buff
+    modifier = {
+        #会变成此舰队加成
+    }
+    councilor_modifier = {
+        #内阁加成
+    }
+    leader_potential_add = {
+        #has_paragon_dlc = yes
+        #has_trait = subclass_commander_councilor
+    }
+    leader_class = { official }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}
+leader_trait_scientist_one = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits_one#特质背景
+        CLASS = scientist
+        ICON = GFX_leader_trait_commander_one
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+    inline_script = {
+        script = paragon/play_leader_resource_add
+        RESOURCE = food
+        AMOUNT = 0
+    }
+    inline_script = {
+        script = paragon/play_leader_resource_add
+        RESOURCE = minor_artifacts
+        AMOUNT = 1
+    }
+    inline_script = {
+        script = paragon/leader_resource_produces
+        RESOURCE = physics_research#只会生效第一个
+        RESOURCE = society_research
+        RESOURCE = engineering_research
+        AMOUNT = 0
+    }
+    federation_modifier = { }#联邦buff
+    galcom_modifier = { }#共同体buff
+    triggered_modifier = {
+        potential = {
+            always = yes
+        }
+        ship_archaeological_site_excavation_speed_mult = 0.1
+        ship_archaeological_site_clues_add = 1
+        ship_cloaking_strength_add = 1
+        mult = trigger:has_skill
+    }
+    modifier = {
+        #会变成此舰队加成
+    }
+    #triggered_self_modifier = {
+    #    potential = { leader_class = commander }
+    #    planet_combat_width_add = 10
+    #}
+    fleet_modifier = {
+        #command_limit_add = 500
+    }
+    councilor_modifier = {
+        #内阁加成
+        #country_naval_cap_add = 500
+    }
+    leader_potential_add = {
+        #has_paragon_dlc = yes
+        #has_trait = subclass_commander_councilor
+    }
+    leader_class = { scientist }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}
+leader_trait_scientist_two = {
+    leader_trait_type = destiny
+    inline_script = {
+        script = trait/play_traits_one#特质背景
+        CLASS = scientist
+        ICON = GFX_leader_trait_commander_one
+        RARITY = paragon
+        COUNCIL = yes
+        TIER = none
+    }
+    inline_script = {
+        script = paragon/play_leader_resource_add
+        RESOURCE = physics_research
+        AMOUNT = 5
+    }
+    inline_script = {
+        script = paragon/play_leader_resource_add
+        RESOURCE = society_research
+        AMOUNT = 5
+    }
+    inline_script = {
+        script = paragon/play_leader_resource_add
+        RESOURCE = engineering_research
+        AMOUNT = 5
+    }
+    triggered_planet_modifier = {
+
+    }
+    leader_class = { scientist }
+    selectable_weight = {
+        weight = 0
+        #inline_script = paragon/council_weight_mult
+    }
+    background_icon = GFX_leader_background_destiny_1
+}

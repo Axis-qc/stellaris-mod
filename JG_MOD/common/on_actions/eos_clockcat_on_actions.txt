@@ -1,0 +1,24 @@
+#舰队被探测到时
+#用于飞地和国家建立联络
+# This = Country
+# From = Fleet
+on_fleet_detected = {
+	events = {
+		clockcat_events.2
+	}
+}
+#每月
+on_monthly_pulse_country = {
+	events = {
+		clockcat_events.11
+	}
+}
+#用于在联络菜单中，点击country_type中 custom_diplomacy = yes 的国家图标后触发事件
+#用于打开飞地对应的菜单
+# This = target country (player)	#点击图标的国家（玩家国家）
+# From = source country				#图标对应的国家（飞地）
+on_custom_diplomacy = {
+	events = {
+		clockcat_events.3
+	}
+}

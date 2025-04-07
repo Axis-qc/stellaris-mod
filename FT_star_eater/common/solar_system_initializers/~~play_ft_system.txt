@@ -1,0 +1,157 @@
+play_ft_system = {
+    class = "sc_black_hole"
+    usage = misc_system_init
+    #name = "sc_black_hole"
+    usage_odds = {
+        # 定义系统使用的几率
+        base = 10  # 基础几率
+    }
+
+    max_instances = 4
+    spawn_chance = 9999
+
+    flags = { play_ft_system }
+
+    asteroid_belt = {
+        #小行星带1
+        type = rocky_asteroid_belt
+        radius = 410
+    }
+
+    asteroid_belt = {
+        #小行星带4
+        type = debris_asteroid_belt
+        radius = 450
+    }
+
+    planet = {
+        class = star
+        orbit_distance = 0
+        flags = { play_star_eater_system }
+        init_effect = {
+            #save_global_event_target_as = play_star_eater_star
+            add_deposit = d_dark_matter_deposit_3
+        }
+    }
+    change_orbit = 48
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 130 max = 180 }
+        size = { min = 10 max = 25 }
+        class = "pc_shattered"
+        orbit_distance = 40
+        init_effect = {
+            add_deposit = d_minerals_2
+            save_event_target_as = play_star_eater
+        }
+    }
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 200 max = 240 }
+        size = { min = 10 max = 25 }
+        class = "pc_shattered"
+        orbit_distance = 30
+        init_effect = {
+            add_deposit = d_minerals_2
+        }
+    }
+
+    planet = {
+        count = 4
+        orbit_angle = { min = 330 max = 420 }
+        size = { min = 10 max = 25 }
+        class = "pc_shattered"
+        orbit_distance = 30
+        init_effect = {
+            add_deposit = d_minerals_2
+        }
+    }
+
+    planet = {
+        count = 1
+        orbit_angle = { min = 470 max = 500 }
+        size = { min = 20 max = 50 }
+        class = "pc_shattered"
+        orbit_distance = 30
+        init_effect = {
+            add_deposit = d_minerals_2
+        }
+    }
+    planet = {
+        count = 1
+        orbit_angle = { min = 530 max = 550 }
+        size = { min = 30 max = 50 }
+        class = "pc_shattered"
+        orbit_distance = 40
+        init_effect = {
+            add_deposit = d_minerals_2
+        }
+        moon = {
+            count = { min = 1 max = 3 }
+            size = { min = 10 max = 20 }
+            class = pc_shattered
+            orbit_angle = { min = 10 max = 100 }
+            orbit_distance = 17
+            init_effect = {
+                add_deposit = d_minerals_2
+            }
+        }
+    }
+
+    init_effect = {
+        #generate_home_system_resources = yes
+        spawn_megastructure = {
+            type = "ft_star_eater_destroyed_01" #焚天神兵残骸
+            planet = event_target:play_star_eater
+
+            init_effect = {
+                create_ambient_object = {
+                    type = "large_debris_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 20
+                        angle = 20
+                    }
+                }
+                create_ambient_object = {
+                    type = "large_debris_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 20
+                        angle = 150
+                    }
+                }
+                create_ambient_object = {
+                    type = "medium_debris_01_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 35
+                        angle = 90
+                    }
+                }
+                create_ambient_object = {
+                    type = "medium_debris_02_object"
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_location = {
+                        target = prev
+                        distance = 3
+                        angle = 270
+                    }
+                }
+            }
+        }
+    }
+}
