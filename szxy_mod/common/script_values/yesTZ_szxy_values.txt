@@ -1,11 +1,27 @@
-#yesTZszxy = {
-#    base = 0
-#}
-#yesTZszxy_1 = {
-#    base = 0
-#    #divide = 5
-#    #abs = yes
-#    add = value:yesTZszxy
-#    min = 4
-#    max = 50
-#}
+#读对面的加成（同步数值
+yesTZszxy = {
+    base = 0
+    add = event_target:szxy_power.modifier:ship_weapon_damage
+    add = event_target:szxy_power.modifier:ship_hull_mult
+    add = event_target:szxy_power.modifier:ship_armor_mult
+    add = event_target:szxy_power.modifier:ship_shield_mult
+    min = 1
+    max = 500000
+}
+#增加的加成
+open_two_power = {
+    base = 0
+    #divide = 5
+    #abs = yes
+    add = value:yesTZszxy
+    #add = modifier:ship_weapon_damage
+    add = 1
+    min = 1
+    max = 5000000
+}
+open_three_power={
+    base = 0
+    add = event_target:szxy_power.modifier:ship_weapon_range_mult
+    min = 1
+    max = 3
+}

@@ -10,6 +10,7 @@ country_event = {
     immediate = {
         set_variable = { which = yesTZszxy value = 10 }
         set_variable = { which = yesTZszxy_1 value = 0 }
+        set_variable = { which = yesTZszxy_2 value = 0 }
     }
 }
 country_event = {
@@ -49,28 +50,51 @@ country_event = {
     }
     option = {
         name = yesTZone.3  # 选项名称
+        custom_tooltip = yesTZone.3.1
+        trigger = {
+            has_global_flag = open_one_power
+        }
         hidden_effect = {
-            country_event = { id = yesTZ.104 }
+            remove_global_flag = open_one_power
+            country_event = { id = yesTZ.101 }
         }
     }
     option = {
         name = yesTZone.4  # 选项名称
+        custom_tooltip = yesTZone.4.1
         trigger = {
-
+            not = {
+                has_global_flag = open_one_power
+            }
+        }
+        hidden_effect = {
+            set_global_flag = open_one_power
+            country_event = { id = yesTZ.101 }
         }
     }
     option = {
         name = yesTZone.5  # 选项名称
+        custom_tooltip = yesTZone.5.1
         trigger = {
-
+            has_global_flag = open_two_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_two_power
+            country_event = { id = yesTZ.101 }
         }
     }
     option = {
         name = yesTZone.6  # 选项名称
+        custom_tooltip = yesTZone.6.1
         trigger = {
-
+            not = {
+                has_global_flag = open_two_power
+            }
         }
-
+        hidden_effect = {
+            set_global_flag = open_two_power
+            country_event = { id = yesTZ.101 }
+        }
     }
 
 }
@@ -1392,7 +1416,7 @@ planet_event = {
         set_owner = event_target:AI_crisis  # 设置行星的所有者为事件目标 "AI_crisis"
         set_controller = event_target:AI_crisis  # 设置行星的控制者为事件目标 "AI_crisis"
         create_ai_planet_defense = yes  # 创建 AI 行星防御
-        create_ai_fleet = yes  # 创建 AI 舰队（重复两次，可能为了增加舰队数量）
+        create_ai_fleet = yes  # 创建 AI 舰队
         every_country = {
             # 针对每个国家执行以下操作
             limit = { is_ai = no }  # 仅针对非 AI 国家
@@ -1666,7 +1690,7 @@ planet_event = {
     }
 }
 
-#破解 骇入
+#破解 骇入 动修
 country_event = {
     id = yesTZ.3000
     hide_window = yes  # 隐藏窗口
@@ -1675,40 +1699,60 @@ country_event = {
         this = {
             is_country_type = ai_empire
         }
-        #not = {
-        #    has_global_flag = 60daycd
-        #}
+        not = {
+            has_global_flag = 60daycd
+        }
     }
     immediate = {
-        random_list = {
-            25 = {
-                FromFromFrom.fleet = {
-                    random_controlled_ship = {
-                        #下版本混沌攻击
-                        create_fleet = {
-                            name = "szxy_ship"
-                            set_take_point = no
-                            settings = {
-
-                            }
-                            effect = {
-                                set_owner = event_target:AI_crisis
-                            }
+        if = {
+            limit = {
+                has_global_flag = open_one_power
+            }
+            random_list = {
+                25 = {
+                    FromFromFrom.fleet = {
+                        random_controlled_ship = {
+                            #下版本混沌攻击
+                            #set_owner = event_target:AI_crisis
+                        }
+                        set_owner = event_target:AI_crisis
+                    }
+                    this = {
+                        set_timed_global_flag = {
+                            flag = 60daycd
+                            days = 60
                         }
                     }
-                    #set_owner = event_target:AI_crisis
                 }
-                this = {
-                    set_timed_global_flag = {
-                        flag = 60daycd
-                        days = 60
-                    }
-                }
-            }
-            75 = {
+                75 = {
 
+                }
             }
         }
+        if = {
+            limit = {
+                has_global_flag =open_two_power
+            }
+            FromFromFrom={
+                save_global_event_target_as = szxy_power
+                #export_modifier_to_variable = {
+                #    modifier = ship_weapon_damage
+                #    variable = szxy_two_power
+                #}
+            }
 
+            this={
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_two
+                    mult = value:open_two_power
+                    days = -1
+                }
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_three
+                    mult = value:open_three_power
+                    days = -1
+                }
+            }
+        }
     }
 }
