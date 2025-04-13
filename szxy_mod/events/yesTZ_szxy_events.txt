@@ -11,6 +11,7 @@ country_event = {
         set_variable = { which = yesTZszxy value = 10 }
         set_variable = { which = yesTZszxy_1 value = 0 }
         set_variable = { which = yesTZszxy_2 value = 0 }
+        set_variable = { which = szxy_two_power_add_1 value = 0 }
     }
 }
 country_event = {
@@ -95,7 +96,30 @@ country_event = {
             country_event = { id = yesTZ.101 }
         }
     }
-
+    option = {
+        name = yesTZone.7  # 选项名称
+        custom_tooltip = yesTZone.7.1
+        trigger = {
+            has_global_flag = open_three_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_three_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.8  # 选项名称
+        custom_tooltip = yesTZone.8.1
+        trigger = {
+            not = {
+                has_global_flag = open_three_power
+            }
+        }
+        hidden_effect = {
+            set_global_flag = open_three_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
 }
 country_event = {
     id = yesTZ.102  # 事件ID
@@ -246,9 +270,6 @@ country_event = {
     }
     option = {
         name = yesTZ04.7  # 选项名称
-        trigger = { always = no }
-        change_variable = { which = yesTZszxy value = -10 }
-        yesTZ_szxy_effect = yes
         hidden_effect = {
             country_event = { id = yesTZ.104 }
         }
@@ -286,57 +307,64 @@ country_event = {
 
     option = {
         name = yesTZ05.1
-        hidden_effect = {
-            #set_variable = { which = yesTZszxy value = value:yesTZszxy }
-            country_event = { id = yesTZ.104 }
-        }
     }
 
     option = {
         name = yesTZ05.2
-        multiply_variable = { which = yesTZszxy_1 value = 2 }
+        multiply_variable = { which = cs_power value = 2 }
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.3  # 选项名称
-        change_variable = { which = yesTZszxy_1 value = 5 }
+        change_variable = {
+            which = cs_power
+            value = 5
+        }
+
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.4  # 选项名称
-        change_variable = { which = yesTZszxy_1 value = 1 }
+        change_variable = { which = cs_power value = 1 }
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.5  # 选项名称
-        change_variable = { which = yesTZszxy_1 value = -1 }
+        change_variable = { which = cs_power value = -1 }
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.6  # 选项名称
-        change_variable = { which = yesTZszxy_1 value = -5 }  # 将yesTZ变量减少5
+        change_variable = { which = cs_power value = -5 }  # 将yesTZ变量减少5
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.7  # 选项名称
-        divide_variable = { which = yesTZszxy_1 value = 2 }
+        divide_variable = { which = cs_power value = 2 }
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
     }
     option = {
         name = yesTZ05.8  # 选项名称
-        set_variable = { which = yesTZszxy_1 value = 0 }
+        set_variable = { which = cs_power value = 0 }
+        save_event_target_as = cs_power_event
         hidden_effect = {
             country_event = { id = yesTZ.105 }
         }
@@ -1689,7 +1717,7 @@ planet_event = {
     }
 }
 
-#破解 骇入 动修
+#动修
 country_event = {
     id = yesTZ.3000
     hide_window = yes  # 隐藏窗口
@@ -1728,22 +1756,47 @@ country_event = {
                 }
             }
         }
+        #数值同步
         if = {
             limit = {
-                has_global_flag =open_two_power
+                has_global_flag = open_two_power
             }
-            FromFromFrom={
-                save_global_event_target_as = szxy_power
-                #export_modifier_to_variable = {
-                #    modifier = ship_weapon_damage
-                #    variable = szxy_two_power
-                #}
+            FromFromFrom = {
+                save_global_event_target_as = szxy_two_power
+                export_modifier_to_variable = {
+                    modifier = ship_weapon_damage
+                    variable = szxy_two_power_add
+                }
             }
-
-            this={
+            this = {
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_one
+                    mult = value:yesTZszxy
+                    days = -1
+                }
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_three
+                    mult = value:open_three_power
+                    days = -1
+                }
+            }
+        }
+        #增长的数值
+        if = {
+            limit = {
+                has_global_flag = open_three_power
+            }
+            change_variable = {
+                which = szxy_three_power_add
+                value = 1
+            }
+            FromFromFrom = {
+                save_global_event_target_as = szxy_three_power
+            }
+            this = {
                 add_modifier = {
                     modifier = yesTZ_szxy_power_two
-                    mult = value:open_two_power
+                    mult = szxy_three_power_add
                     days = -1
                 }
                 add_modifier = {
