@@ -12,6 +12,10 @@ country_event = {
         set_variable = { which = yesTZszxy_1 value = 0 }
         set_variable = { which = yesTZszxy_2 value = 0 }
         set_variable = { which = szxy_two_power_add_1 value = 0 }
+        country_event = { id = yesTZ.101 days = 30 random = 10 }
+        set_global_flag = no_1_power
+        set_global_flag = no_2_power
+        set_global_flag = no_3_power
     }
 }
 country_event = {
@@ -31,6 +35,7 @@ country_event = {
     is_triggered_only = yes  # 仅在触发条件满足时触发
     fire_only_once = no
     trigger = {
+        is_ai = no
     }
     immediate = {
         # 可以在事件触发时初始化变量（可选）
@@ -56,6 +61,7 @@ country_event = {
         }
         hidden_effect = {
             remove_global_flag = open_one_power
+            set_global_flag = no_1_power
             country_event = { id = yesTZ.101 }
         }
     }
@@ -63,11 +69,10 @@ country_event = {
         name = yesTZone.4  # 选项名称
         custom_tooltip = yesTZone.4.1
         trigger = {
-            not = {
-                has_global_flag = open_one_power
-            }
+            has_global_flag = no_1_power
         }
         hidden_effect = {
+            remove_global_flag = no_1_power
             set_global_flag = open_one_power
             country_event = { id = yesTZ.101 }
         }
@@ -80,6 +85,7 @@ country_event = {
         }
         hidden_effect = {
             remove_global_flag = open_two_power
+            set_global_flag = no_2_power
             country_event = { id = yesTZ.101 }
         }
     }
@@ -87,11 +93,10 @@ country_event = {
         name = yesTZone.6  # 选项名称
         custom_tooltip = yesTZone.6.1
         trigger = {
-            not = {
-                has_global_flag = open_two_power
-            }
+            has_global_flag = no_2_power
         }
         hidden_effect = {
+            remove_global_flag = no_2_power
             set_global_flag = open_two_power
             country_event = { id = yesTZ.101 }
         }
@@ -104,6 +109,7 @@ country_event = {
         }
         hidden_effect = {
             remove_global_flag = open_three_power
+            set_global_flag = no_3_power
             country_event = { id = yesTZ.101 }
         }
     }
@@ -111,11 +117,10 @@ country_event = {
         name = yesTZone.8  # 选项名称
         custom_tooltip = yesTZone.8.1
         trigger = {
-            not = {
-                has_global_flag = open_three_power
-            }
+            has_global_flag = no_3_power
         }
         hidden_effect = {
+            remove_global_flag = no_3_power
             set_global_flag = open_three_power
             country_event = { id = yesTZ.101 }
         }
@@ -1796,7 +1801,7 @@ country_event = {
             this = {
                 add_modifier = {
                     modifier = yesTZ_szxy_power_two
-                    mult = szxy_three_power_add
+                    mult = value:open_two_power
                     days = -1
                 }
                 add_modifier = {
