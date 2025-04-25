@@ -21,6 +21,9 @@ country_event = {
     diplomatic = yes
     is_triggered_only = yes
 
+    trigger = {
+        is_ai = no
+    }
     picture_event_data = {
         portrait = event_target:play_axis_country
         room = play_galactic_custodian_room
@@ -28,6 +31,9 @@ country_event = {
     location = event_target:play_axis_system
 
     immediate = {
+        root = {
+            save_event_target_as = player_country
+        }
     }
     option = {
         custom_gui = "play_axis_option"
@@ -41,6 +47,22 @@ country_event = {
         }
     }
 
+    option = {
+        custom_gui = "play_axis_option"
+        name = playotheroption_100_2
+        custom_tooltip = playotheroption_100_2.1
+        hidden_effect = {
+            event_target:play_axis_country = {
+                set_faction_hostility = {
+                    target = event_target:player_country
+                    set_hostile = no
+                    set_neutral = no
+                    set_friendly = yes
+                }
+            }
+            country_event = { id = playother.100 }
+        }
+    }
     option = {
         custom_gui = "play_axis_option"
         name = back_home

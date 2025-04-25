@@ -81,3 +81,230 @@ play_axis = {
         }
     }
 }
+play_fy_country = {
+    blocks_piracy = yes            # 阻止海盗在该势力范围内生成
+    show_in_contacts_list = yes    # 显示在外交联系人列表中
+    can_have_their_comms_shared = yes # 允许其他势力共享其通讯
+    government = yes               # 作为正式政府实体存在
+    is_enclave = yes               # 标记为城邦类型（独立小势力）
+    is_mercenary = yes             # 定义为雇佣兵性质
+    observable = yes               # 可被其他势力观测
+    playable = no                  # 不可由玩家直接控制
+    needs_survey = no              # 无需星系探索即可显示
+    ship_disengagement = yes       # 允许舰船自动撤退机制
+    has_complete_sensor = no       # 没有全域传感器覆盖
+    orbital_bombardment = yes      # 允许执行轨道轰炸
+    attack_unarmed_orbital_stations = yes # 可攻击无武装的轨道站
+    destroys_starbases = yes       # 可摧毁星港基地
+
+    # ===== AI行为控制 =====
+    ai = {
+        enabled = yes              # 启用AI控制
+        modules = {
+            # AI功能模块
+            enclave_mercenary_military_minister_module  # 军事决策模块
+            interior_minister_module                    # 内政管理模块
+            standard_species_rights_module              # 标准物种权利处理
+            enclave_mercenary_seller_minister_module    # 雇佣兵交易模块
+        }
+        # 功能开关
+        declare_war = no           # 禁止主动宣战
+        colonizer = no             # 不进行殖民活动
+        internal_policies = no     # 不调整内部政策
+        modification = no          # 不进行物种改造
+        construction = no          # 不建设常规建筑
+        limited_military_construction = yes # 仅允许有限军事建造
+        limited_leaders = yes      # 限制领袖数量
+        tech = yes                 # 允许进行科技研究
+        espionage = no             # 不开展间谍活动
+    }
+
+    # ===== 舰队合同管理系统 =====
+    fleet_manager = {
+        on_contract_started = {
+            # 合同启动时触发（当前为空，可能需要后续填充）
+        }
+        on_contract_expired = {
+            # 合同到期时
+            remove_fleet_contract_modifiers = yes # 移除所有舰队合同修正
+        }
+        on_contract_cancelled = {
+            # 合同取消时
+            remove_fleet_contract_modifiers = yes
+        }
+        on_contract_broken = {
+            # 合同违约时
+            remove_fleet_contract_modifiers = yes
+        }
+    }
+
+    # ===== 派系关系设置 =====
+    faction = {
+        hostile = no               # 不主动敌对
+        needs_border_access = no  # 不需要边境通行权
+        generate_borders = no     # 不生成传统边界
+        needs_colony = no         # 不需要殖民地存在
+    }
+
+    # ===== 外交系统配置 =====
+    custom_diplomacy = yes         # 使用自定义外交系统
+    custom_opinion = yes           # 使用自定义外交评价机制
+    modules = {
+        # 功能模块组
+        standard_technology_module = { }   # 标准科技系统
+        standard_event_module = { }        # 事件处理系统
+        standard_leader_module = { }       # 领袖管理系统
+        standard_economy_module = { }      # 经济管理系统
+        exclusive_diplomacy_module = {
+            # 专属外交模块
+            contact_rule = on_action_only  # 仅通过特定行动建立联系
+        }
+    }
+
+    # ===== 动态资源生产系统 =====
+    resources = {
+        category = country_base    # 基础国家资源类别
+        # 初始资源产出
+        produces = {
+            energy = 500           # 能源
+            minerals = 250         # 矿物
+            food = 100             # 食物
+            alloys = 250           # 合金
+            consumer_goods = 100   # 消费品
+            rare_crystals = 1      # 稀有水晶
+            exotic_gases = 1      # 异星天然气
+            volatile_motes = 1     # 挥发微粒
+            sr_dark_matter = 1     # 暗物质
+            sr_living_metal = 1    # 活性金属
+            sr_zro = 1             # 泽珞
+            physics_research = 100 # 物理学研究
+            engineering_research = 100 # 工程学研究
+            society_research = 100 # 社会学研究
+            unity = 50             # 凝聚力
+        }
+
+        # 中期游戏增强（游戏中期触发）
+        produces = {
+            trigger = { mid_game_years_passed > 0 } # 中期条件
+            energy = 250          # 能源产量提升
+            alloys = 250          # 合金产量提升
+            rare_crystals = 10    # 战略资源大幅增加
+            exotic_gases = 10
+            volatile_motes = 10
+            physics_research = 250 # 科研能力提升
+            engineering_research = 250
+            society_research = 250
+        }
+
+        # 终局阶段增强（终局危机阶段）
+        produces = {
+            trigger = { end_game_years_passed > 0 } # 终局条件
+            energy = 250
+            alloys = 250
+            sr_dark_matter = 2    # 特殊资源翻倍
+            sr_living_metal = 2
+            sr_zro = 2
+            physics_research = 400 # 科研能力飞跃
+            engineering_research = 400
+            society_research = 400
+        }
+
+        # 科技关联资源增益
+        produces = {
+            # 稀有水晶科技解锁后
+            trigger = { has_technology = tech_rare_crystals }
+            rare_crystals = 2
+        }
+        produces = {
+            # 异星天然气科技
+            trigger = { has_technology = tech_exotic_gases }
+            exotic_gases = 2
+        }
+        produces = {
+            # 挥发微粒科技
+            trigger = { has_technology = tech_volatile_motes }
+            volatile_motes = 2
+        }
+        produces = {
+            # 暗物质采集科技
+            trigger = { has_technology = tech_mine_dark_matter }
+            sr_dark_matter = 1
+        }
+        produces = {
+            # 活性金属科技
+            trigger = { has_technology = tech_mine_living_metal }
+            sr_living_metal = 1
+        }
+        produces = {
+            # 泽珞科技
+            trigger = { has_technology = tech_mine_zro }
+            sr_zro = 1
+        }
+    }
+}
+
+primitive = {
+    # ===== 基础属性 =====
+    randomize_ethos = yes          # 随机生成伦理观（每次游戏不同）
+    shuffle_pop_ethos = yes        # 允许人口伦理观动态变化
+    observable = no                # 不可被常规观测（需要特殊项目）
+    relations = yes                # 允许建立特殊关系（如启蒙）
+
+    # ===== AI行为限制 =====
+    ai = {
+        enabled = yes              # 启用AI控制
+        declare_war = no           # 禁止宣战
+        colonizer = no             # 禁止殖民
+        internal_policies = no     # 禁止调整政策
+        modification = no          # 禁止基因改造/环境改造
+        construction = no          # 禁止建造太空设施
+        tech = no                  # 禁止自主科技发展
+        espionage = no             # 禁止间谍活动
+
+        modules = {
+            foreign_minister_module # 仅保留基础外交响应能力
+        }
+    }
+
+    # ===== 派系交互规则 =====
+    faction = {
+        hostile = no              # 不主动敌对
+        primitive = yes           # 标记为原始文明
+        needs_border_access = no  # 不需要边境通行权
+        generate_borders = no     # 不生成传统星域边界
+        needs_colony = yes        # 必须在其母星存在时才能交互
+        intel_effects_surveyed = no # 调查情报不影响关系
+    }
+
+    # ===== 可见性设置 =====
+    hide_names_if_no_communication = no  # 即使未建立通讯也显示名称
+    show_in_contacts_list = yes   # 显示在联系人列表
+
+    # ===== 功能模块 =====
+    modules = {
+        standard_event_module = { } # 基础事件处理能力
+        basic_technology_module = { } # 简易科技系统
+
+        # ===== 专属外交互动系统 =====
+        exclusive_diplomacy_module = {
+            contact_rule = on_action_only # 仅允许特定互动方式
+            can_receive = {
+                # 允许的高级文明操作列表：
+                action_improve_relation            # 改善关系
+                action_harm_relation               # 恶化关系
+                action_reveal_presence             # 暴露存在
+                action_build_spy_network           # 建立间谍网络
+                action_manage_spy_network          # 管理间谍网络
+                action_societal_enlightenment      # 社会启蒙
+                action_stop_societal_enlightenment # 停止社会启蒙
+                action_open_technological_enlightenment     # 开放科技启蒙
+                action_stop_open_technological_enlightenment# 停止开放启蒙
+                action_stratified_technological_enlightenment # 分层启蒙
+                action_stop_stratified_technological_enlightenment # 停止分层启蒙
+                action_pre_ftl_trade              # 前FTL贸易
+                action_stop_pre_ftl_trade          # 停止贸易
+                action_open_pre_ftl_homeworld      # 开放母星访问
+            }
+        }
+    }
+}
