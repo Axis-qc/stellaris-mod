@@ -4,6 +4,9 @@ fypt_big_one = {
     portrait = "GFX_megastructure_construction_background" # 用户界面中的巨构建筑背景图
     place_entity_on_planet_plane = no # 实体放置在星球平面上
     #build_outside_gravity_well = no#恒星重力井外放置
+    build_type = inside_gravity_well
+    use_planet_resource = no
+    must_select_ship_design = yes      # 需要选择设计图（类似舰船设计）
     entity_offset = { x = 0 y = 0 } # 实体偏移量
     scales_with_planet = no # 实体随着星球大小缩放
     show_galactic_map_icon = no # 在星系地图上不显示图标
@@ -21,15 +24,16 @@ fypt_big_one = {
         }
     }
     construction_blocks_and_blocked_by = none # 不阻挡其他建设，也不被其他建设阻挡
+    #construction_blocks_and_blocked_by = self_type
     #custom_tooltip_requirements = "MEGASTRUCTURE_TOOLTIP_REQUIREMENTS_ORBITAL_RING" # 自定义工具提示要求
 
     potential = { has_technology = tech_space_defense_station_1 } # 拥有特定科技才能建设
 
     possible = {
         # 建设条件
-        hidden_trigger = {
-            exists = starbase # 星基地存在
-        }
+        #hidden_trigger = {
+        #    exists = starbase # 星基地存在
+        #}
         custom_tooltip = {
             # 自定义工具提示
             fail_text = "requires_inside_border"
@@ -162,17 +166,17 @@ fypt_big_one = {
 
     on_build_complete = {
         # 建设完成事件
-        fromfrom.planet = {
-            # 所在星球
-            #set_planet_flag = fypt_ship # 设置星球标志
-            #save_event_target_as = fypt_ship_star # 保存事件目标
-            create_starbase = {
-                # 创建星基地
-                size = fypt_ship_two
-                owner = FROM
-                effect = { }
-            }
-        }
+        #fromfrom.planet = {
+        #    # 所在星球
+        #    #set_planet_flag = fypt_ship # 设置星球标志
+        #    #save_event_target_as = fypt_ship_star # 保存事件目标
+        #    create_starbase = {
+        #        # 创建星基地
+        #        size = fypt_ship_two
+        #        owner = FROM
+        #        effect = { }
+        #    }
+        #}
         remove_megastructure = fromfrom # 移除巨构建筑
         #from = {
         # 当前国家
@@ -197,6 +201,9 @@ fypt_big_three = {
     portrait = "GFX_megastructure_construction_background" # 用户界面中的巨构建筑背景图
     place_entity_on_planet_plane = no # 实体放置在星球平面上
     #build_outside_gravity_well = no#恒星重力井外放置
+    build_type = inside_gravity_well
+    use_planet_resource = no
+    must_select_ship_design = yes      # 需要选择设计图（类似舰船设计）
     entity_offset = { x = 0 y = 0 } # 实体偏移量
     scales_with_planet = no # 实体随着星球大小缩放
     show_galactic_map_icon = no # 在星系地图上不显示图标
@@ -220,9 +227,9 @@ fypt_big_three = {
 
     possible = {
         # 建设条件
-        hidden_trigger = {
-            exists = starbase # 星基地存在
-        }
+        #hidden_trigger = {
+        #    exists = starbase # 星基地存在
+        #}
         custom_tooltip = {
             # 自定义工具提示
             fail_text = "requires_inside_border"
@@ -363,20 +370,20 @@ fypt_big_three = {
     on_build_cancel = { } # 建设取消事件
     on_build_complete = {
         # 建设完成事件
-        fromfrom.planet = {
-            # 所在星球
-            #set_planet_flag = fypt_ship_three # 设置星球标志
-            if = {
-                limit = { exists = orbital_defence }
-                destroy_fleet = orbital_defence
-            }
-            create_starbase = {
-                # 创建星基地
-                size = fypt_ship_three
-                owner = FROM
-                effect = { }
-            }
-        }
+        #fromfrom.planet = {
+        #    # 所在星球
+        #    #set_planet_flag = fypt_ship_three # 设置星球标志
+        #    if = {
+        #        limit = { exists = orbital_defence }
+        #        destroy_fleet = orbital_defence
+        #    }
+        #    create_starbase = {
+        #        # 创建星基地
+        #        size = fypt_ship_three
+        #        owner = FROM
+        #        effect = { }
+        #    }
+        #}
         remove_megastructure = fromfrom # 移除巨构建筑
         #from = {
         # 当前国家

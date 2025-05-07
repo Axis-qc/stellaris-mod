@@ -56,8 +56,9 @@ fypt_ship = {
     resources = {
         category = ships
     }
+    available_to_everyone = yes    # 全势力可用
 }
-fypt_ship_two = {
+old_fypt_ship_two = {
     entity = military_station_small_entity
     max_speed = 0.0  # 最大速度
     acceleration = 0.0  # 加速度
@@ -122,7 +123,7 @@ fypt_ship_two = {
     graphical_culture = yes  # 图形文化
     icon = ship_size_military_station
 }
-fypt_ship_three = {
+old_fypt_ship_three = {
     entity = starbase_citadel_entity
     max_speed = 0.0  # 最大速度
     acceleration = 0.0  # 加速度
@@ -167,7 +168,7 @@ fypt_ship_three = {
     }
     potential_construction = {
         # This is build through a megastructure
-        always = no  # 潜在建造条件：否
+        #always = no  # 潜在建造条件：否
         hidden_trigger = {
             exists = starbase # 星基地存在
         }
@@ -245,6 +246,7 @@ fypt_ship_three = {
             }
         }
     }
+    ship_roles = { citadel }
     is_designable = yes  # 是否可设计
     num_target_locators = 0  # 目标定位器数量
     is_space_station = no  # 是否为太空站
@@ -266,6 +268,7 @@ fypt_ship_three = {
     icon_frame = 7  # 图标帧
     scales_with_planet = no  # 随行星缩放
     graphical_culture = yes  # 图形文化
+    available_to_everyone = yes    # 全势力可用
 }
 #生产
 fypt_produce_ship_1 = {
@@ -337,6 +340,8 @@ fypt_produce_ship_1 = {
     icon = fypt_produce_ship
     scales_with_planet = no  # 随行星缩放
     graphical_culture = yes  # 图形文化
+
+    available_to_everyone = yes    # 全势力可用
 }
 fypt_produce_ship_2 = {
     #entity = starbase_starport_section_entity
@@ -638,4 +643,244 @@ fypt_produce_ship_5 = {
     icon = fypt_produce_ship
     scales_with_planet = no  # 随行星缩放
     graphical_culture = yes  # 图形文化
+}
+#4.0新版防御
+fypt_ship_two = {
+    entity = military_station_small_entity
+    max_speed = 0.0
+    acceleration = 0.0
+    rotation_speed = 0.0
+    resources = {
+        category = starbases
+        # Refit cost is half of the intial cost
+        cost = {
+            unity = 1250
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = no
+                }
+            }
+            alloys = 500
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            alloys = 500
+            mult = 0.5
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            food = 500
+            mult = @halved_alloy_to_food_cost_ratio
+        }
+        upkeep = {
+            alloys = 5
+            energy = 10
+        }
+    }
+    modifier = {
+        # Starhold Modifiers + Innate Shields
+        ship_evasion_mult = -1
+        ship_armor_add = 20000
+        ship_shield_add = 20000
+        ship_shield_regen_add_static = 70        # Roughly the same shield regen as T3 Shields
+        starbase_building_capacity_add = 1 # 星际基地建筑容量增加
+        starbase_defense_platform_capacity_add = 9
+        ship_sensor_range_add = 1
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.25
+        ship_weapon_range_mult = 0.25
+        ship_weapon_damage = 0.25
+    }
+    max_hitpoints = 40000
+    base_buildtime = 720
+
+    potential_construction = {
+        # Uses a megastructure for construction
+        # but is upgradeable
+        AND = {
+            exists = this.starbase
+            is_ship_size = fypt_produce_ship_1
+        }
+    }
+
+    possible_construction = {
+        # Uses a megastructure for construction
+        # but is upgradeable
+        AND = {
+            exists = this.starbase
+            is_ship_size = fypt_produce_ship_1
+        }
+    }
+
+    role_background = "GFX_role_selection_background"
+    ship_roles = { citadel }
+
+    combat_size_multiplier = 30
+    size_multiplier = 8
+    fleet_slot_size = 2
+    section_slots = {
+        "west" = { locator = "part1" }
+        "east" = { locator = "part2" }
+    }
+    is_designable = yes
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    num_target_locators = 0
+    is_space_station = yes
+    can_have_federation_design = no
+    is_civilian = no
+    components_add_to_cost = no
+    is_listed = no
+    can_disable = yes
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+
+    enable_default_design = yes    #if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_space_defense_station_1" }
+    class = shipclass_starbase
+    use_shipnames_from = fypt_produce_ship_1
+
+    required_component_set = "power_core"
+    required_component_set = "sensor_components"
+    required_component_set = "combat_computers"
+    required_component_set = "ftl_inhibitor"
+    required_component_set = "dsc_aura_components"
+
+    auto_upgrade = no
+    available_to_everyone = yes
+
+    build_block_radius = 20
+    formation_priority = 1
+    icon_frame = 10
+    icon = ship_size_military_station
+    on_click_sound = "deep_space_citadel_select"
+}
+fypt_ship_three = {
+    entity = starbase_citadel_entity
+    max_speed = 0.0
+    acceleration = 0.0
+    rotation_speed = 0.0
+    resources = {
+        category = starbases
+        # Refit cost is half of the intial cost
+        cost = {
+            unity = 1250
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = no
+                }
+            }
+            alloys = 500
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            alloys = 500
+            mult = 0.5
+        }
+        cost = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            food = 500
+            mult = @halved_alloy_to_food_cost_ratio
+        }
+        upkeep = {
+            alloys = 5
+            energy = 10
+        }
+    }
+    modifier = {
+        # Starhold Modifiers + Innate Shields
+        ship_evasion_mult = -1
+        ship_armor_add = 20000
+        ship_shield_add = 20000
+        ship_shield_regen_add_static = 70        # Roughly the same shield regen as T3 Shields
+        starbase_building_capacity_add = 1 # 星际基地建筑容量增加
+        starbase_defense_platform_capacity_add = 9
+        ship_sensor_range_add = 1
+    }
+    ship_modifier = {
+        ship_fire_rate_mult = 0.25
+        ship_weapon_range_mult = 0.25
+        ship_weapon_damage = 0.25
+    }
+    max_hitpoints = 40000
+    base_buildtime = 720
+
+    potential_construction = {
+        # Uses a megastructure for construction
+        # but is upgradeable
+        AND = {
+            exists = this.starbase
+            is_ship_size = fypt_produce_ship_1
+        }
+    }
+
+    possible_construction = {
+        # Uses a megastructure for construction
+        # but is upgradeable
+        AND = {
+            exists = this.starbase
+            is_ship_size = fypt_produce_ship_1
+        }
+    }
+
+    role_background = "GFX_role_selection_background"
+    ship_roles = { citadel }
+
+    combat_size_multiplier = 30
+    size_multiplier = 8
+    fleet_slot_size = 2
+    section_slots = {
+        "core" = { locator = "part1" }
+    }
+    is_designable = yes
+    flip_control_on_disable = no  # 禁用时是否翻转控制：是
+    num_target_locators = 0
+    is_space_station = yes
+    can_have_federation_design = no
+    is_civilian = no
+    components_add_to_cost = no
+    is_listed = no
+    can_disable = yes
+    enable_3dview_in_ship_browser = yes #if yes, ship design will have a 3d view in the ship browser
+    # if yes, countries will have an auto-generated design at start
+
+    enable_default_design = yes    #if yes, countries will have an auto-generated design at start
+    prerequisites = { "tech_space_defense_station_1" }
+    class = shipclass_starbase
+    use_shipnames_from = fypt_produce_ship_1
+
+    required_component_set = "power_core"
+    required_component_set = "sensor_components"
+    required_component_set = "combat_computers"
+    required_component_set = "ftl_inhibitor"
+    required_component_set = "dsc_aura_components"
+
+    auto_upgrade = no
+    available_to_everyone = yes
+
+    build_block_radius = 20
+    formation_priority = 1
+    icon_frame = 10
+    icon = ship_size_military_station
+    on_click_sound = "deep_space_citadel_select"
 }
