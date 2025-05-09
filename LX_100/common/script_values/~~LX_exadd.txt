@@ -11,7 +11,7 @@ leader_expadd_one_values = {
 
 leader_dj_expadd = {
     base = 1000
-    mult = trigger:has_skill
+    mult = trigger:has_base_skill
 }
 
 leader_expadd_one_add = {
@@ -20,8 +20,8 @@ leader_expadd_one_add = {
         trigger = count_owned_leader
         parameters = {
             limit = {
-                has_skill > 10
-                has_skill < 30
+                has_base_skill > 10
+                has_base_skill < 30
             }
         }
         mode = add
