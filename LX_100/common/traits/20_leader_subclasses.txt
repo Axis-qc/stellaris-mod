@@ -44,7 +44,7 @@ subclass_commander_admiral = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -126,7 +126,7 @@ subclass_commander_general = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -211,7 +211,7 @@ subclass_commander_governor = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -274,7 +274,7 @@ subclass_commander_councilor = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -321,7 +321,8 @@ subclass_official_delegate = {
         potential = {
             always = yes
         }
-        cohesion_add = 0.5
+        cohesion_add = 0.4
+        federation_fleet_cap_add = 10
         mult = trigger:has_total_skill
     }
 
@@ -330,6 +331,7 @@ subclass_official_delegate = {
             always = yes
         }
         diplo_weight_mult = 0.05
+        country_community_gdf_naval_capacity = 10
         mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
@@ -338,7 +340,7 @@ subclass_official_delegate = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -405,7 +407,7 @@ subclass_official_governor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -452,7 +454,8 @@ subclass_official_diplomacy_councilor = {
             exists = owner
             owner = { is_gestalt = no }
         }
-        country_trust_growth = 0.05
+        country_trust_growth = 0.02
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -460,7 +463,7 @@ subclass_official_diplomacy_councilor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -503,8 +506,9 @@ subclass_official_economy_councilor = {
             exists = owner
             owner = { is_gestalt = no }
         }
-        planet_pops_upkeep_mult = -0.05
+        planet_pops_upkeep_mult = -0.01
         trade_value_mult = 0.05
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -512,7 +516,7 @@ subclass_official_economy_councilor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -558,7 +562,7 @@ subclass_scientist_explorer = {
             always = yes
         }
         mult = trigger:has_total_skill
-        ship_sensor_range_add = 0.2
+        ship_sensor_range_add = 0.5
         science_ship_survey_speed = 0.01
         ship_anomaly_generation_chance_mult = 0.01
     }
@@ -568,7 +572,7 @@ subclass_scientist_explorer = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -631,7 +635,7 @@ subclass_scientist_scholar = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -697,7 +701,7 @@ subclass_scientist_governor = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
@@ -741,7 +745,8 @@ subclass_scientist_councilor = {
             exists = owner
             owner = { is_gestalt = no }
         }
-        all_technology_research_speed = 0.05
+        all_technology_research_speed = 0.02
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -749,7 +754,7 @@ subclass_scientist_councilor = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
         mult = trigger:has_total_skill
     }
