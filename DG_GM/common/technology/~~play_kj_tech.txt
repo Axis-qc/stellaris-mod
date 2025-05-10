@@ -1,0 +1,30 @@
+#+1
+kj_whf_one = {
+    icon = tech_administrative_ai
+    area = physics
+    tier = 1
+    cost = 1000
+    start_tech = yes
+    category = { computing }
+    prerequisites = { "tech_basic_science_lab_1" }
+    #weight = 100
+
+    modifier = {
+        planet_physicists_physics_research_produces_add = 1
+        planet_biologists_society_research_produces_add = 1
+        planet_engineers_engineering_research_produces_add = 1
+        planet_researchers_upkeep_mult = -0.05   #维护费
+    }
+
+    weight_modifier = {
+
+        modifier = {
+            factor = 1.5
+            is_specialist_subject_type = { TYPE = scholarium }
+        }
+    }
+
+    ai_weight = {
+        factor = 2
+    }
+}
