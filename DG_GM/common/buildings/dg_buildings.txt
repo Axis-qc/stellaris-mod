@@ -8,13 +8,14 @@ admin_add_building = {
     building_sets = {
         admin
     }
-
+    #建造条件
     potential = {
         exists = owner
         owner = {
-            is_regular_empire = yes
-            is_spiritualist = no
-            has_make_spiritualist_perk = no
+            is_ai = no
+            #is_regular_empire = yes
+            #is_spiritualist = no
+            #has_make_spiritualist_perk = no
         }
         NOR = {
             has_modifier = penal_colony
@@ -22,14 +23,15 @@ admin_add_building = {
             has_modifier = resort_colony
         }
     }
-
+    #自动拆除
     destroy_trigger = {
         exists = owner
         owner = {
             OR = {
-                is_regular_empire = no
-                is_spiritualist = yes
-                has_make_spiritualist_perk = yes
+                #is_regular_empire = no
+                #is_spiritualist = yes
+                #has_make_spiritualist_perk = yes
+                is_ai = yes
             }
         }
     }
@@ -54,10 +56,12 @@ admin_add_building = {
             energy = @b1_upkeep
         }
     }
-
+    planet_modifier = {
+        #job_gm_admin_add = 200
+    }
     inline_script = {
-        script = jobs/unity_jobs_add
-        AMOUNT = @building_static_jobs
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
     }
 
     prerequisites = {

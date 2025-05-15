@@ -1,7 +1,5 @@
-gm_admin_add = {
+gm_admin = {
     category = specialist  # 归类为专家级岗位
-
-    # ===== 动态岗位变种系统 =====
     swappable_data = {
         default = {
             # 基础配置
@@ -9,53 +7,22 @@ gm_admin_add = {
             building_icon = building_bureaucratic_1    # 默认关联建筑图标
         }
 
-        # ---- 政体/事件/起源相关变种 ----
-        swap_type = {
-            # 管理者变种
-            trigger = { bureaucrat_is_manager = yes }  # 管理者条件
-            name = manager      # 显示名称
-            icon = manager      # 岗位图标
-            building_icon = building_bureaucratic_1  # 关联建筑
-            weight = 2          # AI选择权重
-        }
-
-        swap_type = {
-            # 祭司变种（唯心政体）
-            trigger = { bureaucrat_is_priest = yes }
-            building_icon = building_temple  # 关联神庙建筑
-            weight = 5
-        }
-
-        # ---- 特殊机制变种 ----
-        swap_type = {
-            # 死亡祭司（死亡崇拜民政）
-            trigger = { bureaucrat_is_death_priest = yes }
-            produces = { unity = -1 society_research = 1 }  # 牺牲凝聚力换科研
-            weight = 35
-        }
-
-        swap_type = {
-            # 预言家（增强圣所关联）
-            trigger = { bureaucrat_is_haruspex = yes }
-            building_icon = building_the_sanctum_of_augmentation
-            weight = 500  # 极高优先级
-        }
-
-        # ---- 低科技变种（破碎枷锁起源）----
-        swap_type = {
-            # 低科技祭司
-            trigger = { bureaucrat_is_low_tech_priest = yes }
-            upkeep = { consumer_goods = -1 }  # 减少消费品消耗
-            weight = 50
-        }
-
-        # ---- 特殊事件变种 ----
-        swap_type = {
-            # 统一者（事件触发）
-            trigger = { bureaucrat_is_unifier = yes }
-            planet_amenities_add = 300  # 高额舒适度加成
-            weight = 25
-        }
+        ## ---- 政体/事件/起源相关变种 ----
+        #swap_type = {
+        #    # 管理者变种
+        #    trigger = { bureaucrat_is_manager = yes }  # 管理者条件
+        #    name = manager      # 显示名称
+        #    icon = manager      # 岗位图标
+        #    building_icon = building_bureaucratic_1  # 关联建筑
+        #    weight = 2          # AI选择权重
+        #}
+        #
+        #swap_type = {
+        #    # 祭司变种（唯心政体）
+        #    trigger = { bureaucrat_is_priest = yes }
+        #    building_icon = building_temple  # 关联神庙建筑
+        #    weight = 5
+        #}
     }
 
     #基础岗位属性
@@ -70,30 +37,30 @@ gm_admin_add = {
     }
     country_modifier = {
         #15规模
-        country_admin_cap_add = 15
+        country_admin_cap_add = 10
         country_edict_fund_add = 5
     }
     #资源产出
     resources = {
         category = planet_bureaucrats  # 资源分类
-
-        # 基础产出
-        produces = { unity = 4 }       # 4凝聚力
-        upkeep = { consumer_goods = 2 }# 2消费品
-
-
-        # 变种特殊产出
-        produces = {
-            # 管理者变种
-            trigger = { bureaucrat_is_manager = yes }
-            trade = 2  # 额外2贸易值
-        }
-
-        produces = {
-            # 预言家变种
-            trigger = { bureaucrat_is_haruspex = yes }
-            engineering_research = 2  # 工程学研究+2
-        }
+        #
+        ## 基础产出
+        #produces = { unity = 4 }       # 4凝聚力
+        #upkeep = { consumer_goods = 2 }# 2消费品
+        #
+        #
+        ## 变种特殊产出
+        #produces = {
+        #    # 管理者变种
+        #    trigger = { bureaucrat_is_manager = yes }
+        #    trade = 2  # 额外2贸易值
+        #}
+        #
+        #produces = {
+        #    # 预言家变种
+        #    trigger = { bureaucrat_is_haruspex = yes }
+        #    engineering_research = 2  # 工程学研究+2
+        #}
     }
 
     # ===== 行星修正系统 =====
@@ -128,7 +95,7 @@ gm_admin_add = {
         }
     }
 
-    # ===== 自动化与晋升 =====
+    #晋升
     inline_script = "jobs/automodding_priority_unity"  # 自动化优先级调整脚本
 
     promotion = {

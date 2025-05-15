@@ -15,6 +15,8 @@ HY_huanyv_ship = {
         ship_armor_add = 500000 #"装甲值"
         ship_shield_add = 500000   # "护盾承受值"
         starbase_shipyard_build_speed_mult = 1
+        ship_damage_reduction_mult = 0.2
+        ship_damage_reduction_add = 50
     }
 
     base_buildtime = 2000 #基本构建时间
@@ -93,16 +95,17 @@ HY_huanyv_ship = {
     enable_default_design = yes    #if yes, countries will have an auto-generated design at start 是否是生成一个默认设计
     enable_3dview_in_ship_browser = yes #如果是，船舶设计将在船舶浏览器中具有 3D 视图
     can_disable = no #可以禁用（不知道什么）
-    icon_frame = 10 #probably unused, but mobile starbases are special 图标 可能未使用，但移动星际基地很特别
-    icon = GFX_hyzz_icon #图标
+    icon_frame = 7 #probably unused, but mobile starbases are special 图标 可能未使用，但移动星际基地很特别
+    #icon = GFX_hyzz_icon #图标
+    icon = ship_size_military_64
     ship_class_icon_frame = 35 #船级图标框架（不明白）
     selectable = { host_has_dlc = "Federations" } #需要的DLC
 
-    default_behavior = carrier #默认行为 载体
-    ship_roles = { carrier artillery } #船舶角色（不明白） 航母炮（可能是航母脑）
+    default_behavior = carrier #默认行为
+    ship_roles = { carrier artillery } #船舶角色（不明白） 航母（可能是航母脑）
 
     prerequisites = { "tech_huanyv" } #需要的前置科技
-    class = shipclass_starbase #属于哪个大类的船只 船级星际基地 shipclass_starbase
+    class = shipclass_starbase #属于哪个大类 船级星际基地 shipclass_starbase
     construction_type = starbase_shipyard #建筑类型（不明白） 星基造船厂 starbase_shipyard
 
     required_component_set = "power_core" #反应堆
