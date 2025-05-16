@@ -142,10 +142,11 @@ leader_mult_value = {
     complex_trigger_modifier = {
         trigger = count_owned_leader
         potential = {
-            not = {
-                has_trait = leader_trait_axis_clone
+            any_owned_leader = {
+                not = {
+                    has_trait = leader_trait_axis_clone
+                }
             }
-
         }
         parameters = {
 
