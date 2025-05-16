@@ -6,3 +6,86 @@ remove_play_country_found_flags = {
     remove_country_flag = found_ufs_target_country_4
     remove_country_flag = found_ufs_target_country_5
 }
+#复活领袖
+create_backup_clone = {
+    clone_leader = {
+        target = from
+        background_planet = event_target:clone_background_planet
+        skip_background_generation = yes
+        custom_description = backup_clone_background
+        leader_age_min = 2
+        leader_age_max = 5
+        effect = {
+            if = {
+                limit = {
+                    NAND = {
+                        root = {
+                            has_country_flag = yes_lxbh
+                        }
+                        from = {
+                            is_ruler = yes
+                        }
+                    }
+                }
+                remove_trait = leader_trait_has_backup_clone
+                switch = {
+                    trigger = has_trait
+                    leader_trait_backup_clone = {
+                        give_trait_no_notify_ignore_autocracy_restriction = {
+                            TRAIT = leader_trait_backup_clone_2
+                        }
+                    }
+                    leader_trait_backup_clone_2 = {
+                        give_trait_no_notify_ignore_autocracy_restriction = {
+                            TRAIT = leader_trait_backup_clone_3
+                        }
+                    }
+                    default = {
+                        give_trait_no_notify_ignore_autocracy_restriction = {
+                            TRAIT = leader_trait_backup_clone
+                        }
+                    }
+                }
+            }
+            else = {
+                give_trait_no_notify_ignore_autocracy_restriction = {
+                    TRAIT = leader_trait_backup_clone
+                }
+                root = {
+                    assign_leader = prev
+                }
+            }
+            set_years_served = from
+            restore_leader_location = yes
+            # Regulated Acadia prevents excessive cloning
+            if = {
+                limit = {
+                    root = {
+                        is_cloning_authority = yes
+                        is_democratic_authority = yes
+                    }
+                    has_trait_tier1or2or3 = { TRAIT = leader_trait_backup_clone }
+                }
+                set_leader_flag = ignore_country_clone_pulse
+            }
+            # If the Regenerative Cloning tradition is taken, clones can have clones
+            if = {
+                limit = {
+                    NOT = {
+                        has_leader_flag = ignore_country_clone_pulse
+                    }
+                    root = {
+                        has_country_flag = genetic_ascension_stage_3_cloning
+                        is_cloning_authority = yes
+                    }
+                }
+                set_leader_flag = ignore_country_clone_pulse
+                leader_event = {
+                    id = bio.5002
+                    days = 1080
+                    random = 720
+                }
+            }
+        }
+    }
+}

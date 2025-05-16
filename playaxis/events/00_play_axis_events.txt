@@ -229,7 +229,7 @@ country_event = {
         name = axis.11.1  # 选项名称
     }
 }
-#领袖回溯装置
+#领袖回溯装置，废弃
 country_event = {
     id = axis.102
 
@@ -258,10 +258,14 @@ country_event = {
         name = leader_die_1
 
         custom_tooltip = "leader_die_1.1"
-
-        clone_leader = {
-            target = event_target:leader_die
+        hidden_effect = {
+            country_event = {
+                id = axis.5000
+            }
         }
+        #clone_leader = {
+        #    target = event_target:leader_die
+        #}
         set_timed_country_flag = {
             flag = 30dayCD
             days = 30
@@ -272,5 +276,32 @@ country_event = {
         name = leader_die_2
 
         custom_tooltip = "leader_die_2.1"
+    }
+}
+
+#复活
+country_event = {
+    id = axis.5000
+    is_triggered_only = yes
+    hide_window = yes
+
+    trigger = {
+        from = {
+            is_pool_leader = no
+            has_trait = leader_trait_axis_clone
+        }
+    }
+
+    immediate = {
+        random_owned_planet = {
+            limit = {
+                #planet_has_cloning_facility = yes
+            }
+            #save_event_target_as = clone_axis_leader
+        }
+        create_backup_clone = yes
+        from = {
+            #set_leader_flag = leader_death_events_blocked
+        }
     }
 }

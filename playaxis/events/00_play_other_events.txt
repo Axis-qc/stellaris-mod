@@ -39,9 +39,22 @@ country_event = {
         custom_gui = "play_axis_option"
         name = playotheroption_100_1
         custom_tooltip = playotheroption_100_1.1
+        add_resource = {
+            # 添加资源
+            energy = -500
+            mult = value:leader_mult_value  # 乘领袖数量
+        }
         hidden_effect = {
             root = {
                 set_country_flag = yes_lxbh
+            }
+            every_owned_leader = {
+                limit = {
+                    not = {
+                        has_trait = leader_trait_axis_clone
+                    }
+                }
+                add_trait = leader_trait_axis_clone
             }
             country_event = { id = playother.100 }
         }

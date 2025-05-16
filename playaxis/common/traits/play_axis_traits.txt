@@ -30,3 +30,86 @@ leader_trait_lv = {
     }
     background_icon = GFX_leader_background_destiny_1
 }
+#时间回溯器
+leader_trait_axis_clone = {
+    force_councilor_trait = yes
+    inline_script = {
+        script = trait/icon
+        CLASS = leader
+        ICON = "GFX_leader_trait_backup_clone"
+        RARITY = common
+        COUNCIL = triggered
+        TIER = none
+    }
+    leader_potential_add = {
+        #leader_can_have_backup_clone = yes
+    }
+    triggered_self_modifier = {
+        potential = {
+            exists = owner
+            owner = {
+                #is_cloning_authority = yes
+                #has_cloning_biochemical_composure_tradition = yes
+            }
+        }
+        #leader_skill_add = 2
+    }
+    # Oligarchy - Commander
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = {
+                is_cloning_authority = yes
+                is_oligarchic_authority = yes
+            }
+            leader_class = commander
+            OR = {
+                is_ruler = yes
+                is_councilor = yes
+            }
+        }
+        country_naval_cap_mult = 0.05
+    }
+    # Oligarchy - Official
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = {
+                is_cloning_authority = yes
+                is_oligarchic_authority = yes
+            }
+            leader_class = official
+            OR = {
+                is_ruler = yes
+                is_councilor = yes
+            }
+        }
+        country_trade_produces_mult = 0.15
+    }
+    # Oligarchy - Scientist
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = {
+                is_cloning_authority = yes
+                is_oligarchic_authority = yes
+            }
+            leader_class = scientist
+            OR = {
+                is_ruler = yes
+                is_councilor = yes
+            }
+        }
+        country_physics_research_produces_mult = 0.05
+        country_society_research_produces_mult = 0.05
+        country_engineering_research_produces_mult = 0.05
+    }
+    initial = no
+    randomized = no
+    custom_tooltip_with_modifiers = leader_trait_axis_clone_tt
+    leader_class = { commander scientist official }
+    selectable_weight = {
+        weight = 25
+        inline_script = paragon/not_council_weight_mult
+    }
+}
