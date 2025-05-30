@@ -143,13 +143,17 @@ leader_mult_value = {
         trigger = count_owned_leader
         potential = {
             any_owned_leader = {
-                not = {
-                    has_trait = leader_trait_axis_clone
-                }
+
             }
         }
         parameters = {
-
+            limit = {
+                leader = {
+                    not = {
+                        has_trait = leader_trait_axis_clone
+                    }
+                }
+            }
         }
         mode = add
     }

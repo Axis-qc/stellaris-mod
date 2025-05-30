@@ -1,0 +1,40 @@
+#country_event = {
+#	id = guimo.0
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		is_ai = no
+#	}
+#	immediate = {
+#		event_target:Player_country = {
+#			set_variable = {
+#				which = base_guimo_cap
+#				value = 50				# 基础行政能力上限
+#			}
+#			set_variable = {
+#				which = total_guimo_cap
+#				value = base_guimo_cap				# 初始设置总的行政能力上限为基础值
+#			}
+#			every_owned_planet = {
+#				# 对于帝国中的每一个行星
+#				if = {
+#					limit = {
+#						has_planet_modifier = country_admin_cap_add
+#					}
+#					# 如果行星有行政能力上限增加的修正
+#					event_target:Player_country = {
+#						change_variable = {
+#							# 改变变量
+#							which = total_guimo_cap
+#							value = country_admin_cap_add							# 将修正值加到总的行政能力上限上
+#						}
+#					}
+#				}
+#			}
+#			set_variable = {
+#				which = country_admin_cap_add
+#				value = 100
+#			}
+#		}
+#	}
+#}
