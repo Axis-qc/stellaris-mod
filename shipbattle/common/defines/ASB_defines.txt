@@ -1,0 +1,71 @@
+NCamera = {
+    SYSTEM_MIN_PITCH = 10.0 # 系统最小俯仰角度
+    SYSTEM_MAX_PITCH = 80.0 # 系统最大俯仰角度
+    GALAXY_MIN_PITCH = 20.0 # 星系最小俯仰角度
+    GALAXY_MAX_PITCH = 85.0 # 星系最大俯仰角度
+    #    SYSTEM_SPACE_SCALE_MULT = 40.0 #四倍缩放
+}
+NGraphics = {
+    MAX_GFX_PROJECTILES = 3000  # 最大图形投射物数量
+    MAX_GFX_PRIO_PROJECTILES = 2000  # 最大优先级图形投射物数量
+    MAX_GFX_MISSILES = 1000  # 最大导弹图形效果数量
+    MUZZLE_FLASH_LIMIT = 2000  # 最大枪口火焰效果数量
+    MUZZLE_FLASH_DURATION = 2.0  # 每次枪口火焰效果持续时间（秒）
+
+    TRAILS_ALPHA_FADE = 2 # 尾迹透明 0.5
+
+    SHIP_RANDOM_HEIGHT_OFFSET = 150.0                        # 飞船在舰队排列中的高度随机偏移（默认100）
+
+    STRIKE_CRAFT_TRAIL_FADE_RATE = 3.5                    # 舰载机尾迹消散速度，值越高消失越快（默认1.0）
+    STRIKE_CRAFT_HEIGHT_OFFSET = 80.0                        # 舰载机飞行高度基础偏移（默认50）
+    STRIKE_CRAFT_HEIGHT_RANDOM = 80.0                    # 舰载机飞行高度随机波动（默认60）
+
+    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 10.0                # 未命中弹道武器存活时间（单位秒，默认15.0）
+
+    MISSILE_HEIGHT_OFFSET = 10.0                            # 导弹飞行高度偏移，控制导弹离舰表的高度
+
+    MISSILE_RANDOM_OFFSET_MIN_RADIUS = 5.0                # 导弹发射时的最小随机散布半径
+    MISSILE_RANDOM_OFFSET_MAX_RADIUS = 10.0                # 导弹发射时的最大随机散布半径
+
+    SHIELD_EFFECT_TIME_SCALE = 0.5                        # 护盾特效动画播放速度（默认0.5）
+    SHIELD_EFFECT_LOOP_INTERVAL = 1.5                        # 护盾特效循环间隔百分比（默认1.5）
+    SHIELD_DISTANCE_FROM_SHIP = { 2.0 1.0 5.0 }            # 护盾与舰船外形的距离：左右，上下，前后
+    SHIELD_DISTANCE_FROM_SHIP_MULT = { 1.15 1.15 1.15 }    # 护盾半径距离倍率
+}
+
+NShip = {
+    FLEET_FORMATION_CIRCLE_SHIPS_PER_LAYER_MULT = 10    #防御平台最里圈的数量
+    FLEET_FORMATION_CIRCLE_RADIUS_PER_LAYER_MULT = 1    #防御平台的距离
+
+    FLEET_MOVE_MAX_DIST_SHIPS = 30                        # 队形内最大舰船间距
+    FLEET_BASE_FORMATION_SCALE = 6                        # 队形缩放基础值
+    FLEET_BASE_FORMATION_DIV = 20                            # 队形缩放分母参数
+
+    MOVE_TO_ACTION_THRESHOLD = 5.0                        # 判定舰队到达目标的距离阈值
+    MOVE_SHIP_TO_FLEET_MAX_DIST = 50.0                    # 个别舰船自动归队最大距离（默认200）
+
+    MISSILE_HIGH_CONTROL_DISTANCE = 5.0                    # 导弹距离目标小于该值会急弯
+    MISSILE_HIGH_CONTROL_INTERPOLATION_RANGE = 5.0        # 导弹从平滑飞行过渡到完全控制的范围
+    MISSILE_BASE_ROTATION_SPEED = 0.001                    # 导弹基础旋转速度（每tick的弧度）
+    MISSILE_RETARGET_CHANCE_START = 100                    # 导弹首次丢失目标时重新锁定新目标的概率（百分比）
+    MISSILE_RETARGET_CHANCE_REDUCTION = 35                # 每次重新锁定目标后概率减少的数值
+}
+
+NCombat = {
+    COMBAT_BACK_OFF_RATE = 0.24                            # 撤退速率参数
+    SHIP_SMOOTH_ROTATION_THRESHOLD = 7.2                # 判定舰船平滑转向的角速度阈值
+    COMBAT_TARGET_STICKYNESS_FACTOR = 0.6                    # 攻击目标“粘性”系数
+
+    RANDOM_TARGETING_WEIGHT = 10.0                            # 随机选定目标权重
+
+    COMBAT_DETECT_RANGE_MULT = 1.05                        # 战斗中探测距离倍率（默认1.05）
+    COMBAT_DETECT_RANGE_MIN = 30                            # 战斗探测距离最小值
+
+    COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 100.0            # 紧急跃迁基础延迟天数
+}
+
+NGameplay = {
+    # WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY = 0.05  			# 被动战损年增长率
+    # STATION_SELF_REPAIR_TIMER_DAYS = 20  					# 恒星基地自我修复间隔天数
+    # STARBASE_SELF_REPAIR_TIMER_DAYS = 60  					# 星港自我修复间隔天数
+}

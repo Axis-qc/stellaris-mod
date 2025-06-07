@@ -1,0 +1,84 @@
+progenitor_ships_limit = {
+    ship_types = {
+        offspring_corvette
+        offspring_destroyer
+        offspring_cruiser
+        offspring_battleship
+        offspring_mauler_stage_1
+        offspring_mauler_stage_2
+        offspring_mauler_stage_3
+        offspring_weaver_stage_1
+        offspring_weaver_stage_2
+        offspring_weaver_stage_3
+        offspring_harbinger_stage_1
+        offspring_harbinger_stage_2
+        offspring_harbinger_stage_3
+        offspring_stinger_stage_1
+        offspring_stinger_stage_2
+        offspring_stinger_stage_3
+    }
+
+    base = 1
+    max = 200
+    naval_cap_fraction = 0.1
+
+    show = {
+        is_scope_valid = yes
+        has_origin = origin_progenitor_hive
+    }
+}
+
+titan_ships_limit = {
+    ship_types = {
+        titan
+        cosmo_crisis_titan
+        bio_titan
+    }
+
+    base = 16 #一个泰坦的舰容
+    max = 32000 #总舰容
+    naval_cap_fraction = 0.08  #每点海军提供的泰坦舰容
+
+    show = {
+        is_scope_valid = yes
+        has_technology = tech_titans
+    }
+}
+
+colossus_ships_limit = {
+    ship_types = {
+        colossus
+    }
+    base = 32    # 1 * colossus's size_multiplier
+    max = 320    # 10 * 32 10巨像
+    naval_cap_fraction = 0.04    #800舰队容量提供1艘
+    show = {
+        is_scope_valid = yes
+        has_technology = tech_colossus
+    }
+}
+
+juggernaut_ships_limit = {
+    ship_types = {
+        juggernaut
+    }
+    base = 32    # 1 * juggernaut's size_multiplier
+    max = 320    # 10 * 32 10主宰
+    naval_cap_fraction = 0.04
+    show = {
+        is_scope_valid = yes
+        has_technology = tech_juggernaut
+    }
+}
+
+space_dragon_origin_babies_limit = {
+    ship_types = {
+        space_dragon_origin_baby
+    }
+
+    base = 80 # 10 * dragon baby's size_multiplier
+    show = {
+        is_scope_valid = yes
+        is_dragon_breeder_country = yes
+    }
+}

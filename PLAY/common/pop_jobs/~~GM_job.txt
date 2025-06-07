@@ -1,0 +1,112 @@
+gm_admin = {
+    category = specialist  # 归类为专家级岗位
+    swappable_data = {
+        default = {
+            # 基础配置
+            condition_string = SPECIALIST_JOB_TRIGGER  # 本地化触发条件文本
+            building_icon = building_bureaucratic_1    # 默认关联建筑图标
+        }
+
+        ## ---- 政体/事件/起源相关变种 ----
+        #swap_type = {
+        #    # 管理者变种
+        #    trigger = { bureaucrat_is_manager = yes }  # 管理者条件
+        #    name = manager      # 显示名称
+        #    icon = manager      # 岗位图标
+        #    building_icon = building_bureaucratic_1  # 关联建筑
+        #    weight = 2          # AI选择权重
+        #}
+        #
+        #swap_type = {
+        #    # 祭司变种（唯心政体）
+        #    trigger = { bureaucrat_is_priest = yes }
+        #    building_icon = building_temple  # 关联神庙建筑
+        #    weight = 5
+        #}
+    }
+
+    #基础岗位属性
+    tags = { admin }  # 标记为凝聚力相关
+
+    possible_pre_triggers = {
+        # 通用存在条件
+        has_owner = yes
+        is_being_purged = no    # 不被净化
+        is_being_assimilated = no  # 不被同化
+        is_sapient = yes        # 具有智慧
+    }
+    country_modifier = {
+        #15规模
+        country_admin_cap_add = 10
+        country_edict_fund_add = 5
+    }
+    #资源产出
+    resources = {
+        category = planet_bureaucrats  # 资源分类
+        #
+        ## 基础产出
+        #produces = { unity = 4 }       # 4凝聚力
+        #upkeep = { consumer_goods = 2 }# 2消费品
+        #
+        #
+        ## 变种特殊产出
+        #produces = {
+        #    # 管理者变种
+        #    trigger = { bureaucrat_is_manager = yes }
+        #    trade = 2  # 额外2贸易值
+        #}
+        #
+        #produces = {
+        #    # 预言家变种
+        #    trigger = { bureaucrat_is_haruspex = yes }
+        #    engineering_research = 2  # 工程学研究+2
+        #}
+    }
+
+    # ===== 行星修正系统 =====
+    triggered_planet_modifier = {
+        # 舒适度修正组
+        # 祭司/死亡祭司/预言家等变种
+        potential = { bureaucrat_is_priest = yes }
+        planet_amenities_add = 200  # +200基础舒适度
+        mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|  # 脚本乘数
+    }
+
+    triggered_planet_modifier = {
+        # 稳定性修正
+        potential = { bureaucrat_is_memorialist = yes }
+        planet_stability_add = 0.5  # +0.5稳定性
+    }
+
+    #AI
+    weight = {
+        weight = @specialist_job_weight  # 基础专家岗位权重
+
+        # 权重修正因子
+        modifier = {
+            factor = 0.2  # 大幅降低权重
+            has_citizenship_rights = no  # 无公民权
+            NOT = { has_trait = trait_mechanical }  # 非机械人口
+        }
+
+        modifier = {
+            factor = 2  # 双倍权重
+            owner = { has_civic = civic_exalted_priesthood }  # 拥有尊崇祭司团民政
+        }
+    }
+
+    #晋升
+    inline_script = "jobs/automodding_priority_unity"  # 自动化优先级调整脚本
+
+    promotion = {
+        # 晋升机制
+        time = @standard_promotion_time  # 标准晋升时间
+        effect = {
+            # 晋升效果
+            pop_amount_change_category = {
+                CATEGORY = specialist  # 保持专家类别
+                AMOUNT = local_pop_amount  # 数量继承
+            }
+        }
+    }
+}

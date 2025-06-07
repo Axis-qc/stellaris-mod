@@ -1,0 +1,62 @@
+namespace = csevent
+
+country_event = {
+    id = csevent.00  # 事件ID
+    title = csevent.title  # 事件标题
+    desc = csevent.desc  # 事件描述
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+    }
+    option = {
+        name = csevent.1  # 选项名称
+        trigger = {
+            allowed_crisis_type = all  #天灾设置全部
+        }
+    }
+    option = {
+        name = csevent.2  # 选项名称
+        trigger = {
+            allowed_crisis_type = prethoryn
+        }
+    }
+    option = {
+        name = csevent.3  # 选项名称
+        trigger = {
+            allowed_crisis_type = unbidden
+        }
+    }
+    option = {
+        name = csevent.4  # 选项名称
+        trigger = {
+            allowed_crisis_type = contingency
+        }
+    }
+    option = {
+        name = csevent.5  # 选项名称
+        trigger = {
+            allowed_crisis_type = synth_queen
+        }
+    }
+    option = {
+        name = csevent.6  # 选项名称
+        trigger = {
+            not = {
+                is_crises_allowed = no
+                allowed_crisis_type = prethoryn
+                allowed_crisis_type = unbidden
+                allowed_crisis_type = contingency
+                allowed_crisis_type = synth_queen
+                allowed_crisis_type = all
+            }
+        }
+    }
+    option = {
+        name = csevent.7  # 选项名称
+        trigger = {
+            is_crises_allowed = no
+        }
+    }
+}

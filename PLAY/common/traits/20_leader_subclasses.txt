@@ -14,9 +14,13 @@ subclass_commander_admiral = {
         COUNCIL = no
     }
     custom_tooltip_with_modifiers = admiral_subclass_tt
-
-
-    triggered_fleet_modifier = {
+    leader_potential_add = {
+        NAND = {
+            owner = { has_civic = civic_distinguished_admiralty }
+            is_heir = yes
+        }
+    }
+    triggered_modifier = {
         potential = {
             always = yes
         }
@@ -26,7 +30,7 @@ subclass_commander_admiral = {
         #command_limit_mult = 0.05 百分比
         command_limit_add = 10
         #ship_accuracy_mult = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     #triggered_desc = {
     #    exclusive_trigger = {
@@ -40,9 +44,9 @@ subclass_commander_admiral = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
 
     self_modifier = {
@@ -92,6 +96,13 @@ subclass_commander_general = {
         COUNCIL = no
     }
     custom_tooltip_with_modifiers = general_subclass_tt
+    leader_potential_add = {
+        trait_is_crisis_faction_check = no
+        NAND = {
+            owner = { has_civic = civic_distinguished_admiralty }
+            is_heir = yes
+        }
+    }
 
     triggered_fleet_modifier = {
         potential = {
@@ -99,15 +110,15 @@ subclass_commander_general = {
         }
         ship_damage_against_starbases_mult = 0.02
         ship_orbital_bombardment_mult = 0.02
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
 
     triggered_army_modifier = {
         potential = {
             always = yes
         }
-        army_damage_mult = 0.02
-        mult = trigger:has_skill
+        army_damage_mult = 0.01
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -115,9 +126,9 @@ subclass_commander_general = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -185,19 +196,14 @@ subclass_commander_governor = {
         COUNCIL = no
     }
     custom_tooltip_with_modifiers = governor_subclass_tt
-    triggered_planet_modifier = {
-        potential = {
-            always = yes
-        }
-        job_soldier_stability_add = 1
-        mult = trigger:has_skill
+    leader_potential_add = {
+        trait_is_crisis_faction_check = no
     }
-    triggered_sector_modifier = {
-        potential = {
-            always = yes
-        }
+    planet_modifier = {
+        job_soldier_stability_add = 1
+    }
+    sector_modifier = {
         job_soldier_stability_add = 0.5
-        mult = trigger:has_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -205,9 +211,9 @@ subclass_commander_governor = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -246,14 +252,21 @@ subclass_commander_councilor = {
         COUNCIL = yes
     }
     custom_tooltip_with_modifiers = councilor_subclass_tt
+    leader_potential_add = {
+        trait_is_crisis_faction_check = no
+        NAND = {
+            exists = owner
+            owner = { is_gestalt = yes }
+        }
+    }
     triggered_councilor_modifier = {
         potential = {
             exists = owner
             owner = { is_gestalt = no }
             always = yes
         }
-        shipclass_military_build_speed_mult = 0.02
-        mult = trigger:has_skill
+        shipclass_military_build_speed_mult = 0.01
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -261,9 +274,9 @@ subclass_commander_councilor = {
         }
         leader_commanders_unity_upkeep_add = -1 #指挥官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -308,8 +321,9 @@ subclass_official_delegate = {
         potential = {
             always = yes
         }
-        cohesion_add = 0.5
-        mult = trigger:has_skill
+        cohesion_add = 0.4
+        federation_fleet_cap_add = 10
+        mult = trigger:has_total_skill
     }
 
     triggered_galcom_modifier = {
@@ -317,7 +331,8 @@ subclass_official_delegate = {
             always = yes
         }
         diplo_weight_mult = 0.05
-        mult = trigger:has_skill
+        country_community_gdf_naval_capacity = 10
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -325,9 +340,9 @@ subclass_official_delegate = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -374,17 +389,17 @@ subclass_official_governor = {
         potential = {
             always = yes
         }
-        planet_jobs_specialist_produces_mult = 0.05
-        pop_amenities_usage_mult = -0.02
-        mult = trigger:has_skill
+        planet_jobs_specialist_produces_mult = 0.01
+        pop_amenities_usage_mult = -0.005
+        mult = trigger:has_total_skill
     }
     triggered_sector_modifier = {
         potential = {
             always = yes
         }
-        planet_jobs_specialist_produces_mult = 0.01
-        pop_amenities_usage_mult = -0.01
-        mult = trigger:has_skill
+        planet_jobs_specialist_produces_mult = 0.002
+        pop_amenities_usage_mult = -0.002
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -392,9 +407,9 @@ subclass_official_governor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -439,8 +454,8 @@ subclass_official_diplomacy_councilor = {
             exists = owner
             owner = { is_gestalt = no }
         }
-        country_trust_growth = 0.05
-        mult = trigger:has_skill
+        country_trust_growth = 0.02
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -448,9 +463,9 @@ subclass_official_diplomacy_councilor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -492,8 +507,8 @@ subclass_official_economy_councilor = {
             owner = { is_gestalt = no }
         }
         planet_pops_upkeep_mult = -0.01
-        trade_value_mult = 0.02
-        mult = trigger:has_skill
+        trade_value_mult = 0.05
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -501,9 +516,9 @@ subclass_official_economy_councilor = {
         }
         leader_officials_unity_upkeep_add = -1 #行政官
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -546,10 +561,10 @@ subclass_scientist_explorer = {
         potential = {
             always = yes
         }
+        mult = trigger:has_total_skill
         ship_sensor_range_add = 0.5
-        science_ship_survey_speed = 0.02
-        ship_anomaly_generation_chance_mult = 0.02
-        mult = trigger:has_skill
+        science_ship_survey_speed = 0.01
+        ship_anomaly_generation_chance_mult = 0.01
     }
     triggered_self_modifier = {
         potential = {
@@ -557,9 +572,9 @@ subclass_scientist_explorer = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -609,10 +624,10 @@ subclass_scientist_scholar = {
         potential = {
             always = yes
         }
-        ship_anomaly_research_speed_mult = 0.02
-        ship_archaeological_site_excavation_speed_mult = 0.02
-        country_astral_rift_speed_mult = 0.02
-        mult = trigger:has_skill
+        ship_anomaly_research_speed_mult = 0.01
+        ship_archaeological_site_excavation_speed_mult = 0.01
+        country_astral_rift_speed_mult = 0.01
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -620,9 +635,9 @@ subclass_scientist_scholar = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -670,16 +685,15 @@ subclass_scientist_governor = {
         potential = {
             always = yes
         }
-        planet_jobs_physics_research_produces_mult = 0.05
-        planet_jobs_society_research_produces_mult = 0.05
-        planet_jobs_engineering_research_produces_mult = 0.05
-        mult = trigger:has_skill
-    }
-    triggered_sector_modifier = {
         planet_jobs_physics_research_produces_mult = 0.01
         planet_jobs_society_research_produces_mult = 0.01
         planet_jobs_engineering_research_produces_mult = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
+    }
+    sector_modifier = {
+        planet_jobs_physics_research_produces_mult = 0.05
+        planet_jobs_society_research_produces_mult = 0.05
+        planet_jobs_engineering_research_produces_mult = 0.05
     }
     triggered_self_modifier = {
         potential = {
@@ -687,9 +701,9 @@ subclass_scientist_governor = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
@@ -732,7 +746,7 @@ subclass_scientist_councilor = {
             owner = { is_gestalt = no }
         }
         all_technology_research_speed = 0.02
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     triggered_self_modifier = {
         potential = {
@@ -740,9 +754,9 @@ subclass_scientist_councilor = {
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
-        negative_traits_leader = -0.1
+        negative_traits_leader = -0.2
         species_leader_exp_gain = 0.01
-        mult = trigger:has_skill
+        mult = trigger:has_total_skill
     }
     self_modifier = {
         leader_trait_selection_options_add = 2

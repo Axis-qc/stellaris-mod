@@ -1,0 +1,130 @@
+#岗位
+love_organic_battery = {
+    category = worker                # 岗位类别
+
+    is_capped_by_modifier = no       # 岗位数量不受修正限制（如建筑/区划/成就修正）
+
+    tags = { energy }                # 岗位标记为"energy"
+
+    # 先决条件（这些是“预先”判定的可能条件，决定哪些POP可以考虑被分配到这个岗位）
+    possible_pre_triggers = {
+        is_enslaved = yes            # 必须是奴隶身份
+        is_sapient = yes             # 必须是有智慧的（有思维的人/外星人，而不是动物）
+        # is_robotic = no              # 不能是机械种族
+    }
+
+    # 实际岗位分配时的具体条件
+    possible = {
+        has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
+        has_slavery_type = { type = love_slavery_matrix }                      # 必须为“love_slavery_matrix”类型的奴役（自定义或特殊奴役类型）
+    }
+
+    # 岗位产生的资源定义
+    resources = {
+        category = planet_organic_batteries   # 资源类别（归类到某个项目用，仅影响UI或脚本调用）
+        produces = {
+            energy = 4                        # 每分配一个此岗位，每月产能+4
+        }
+        upkeep = {
+            trigger = {
+                not = {
+                    
+                }
+            }
+        }
+    }
+
+    # 岗位优先级/权重（AI分配此岗位的权重很低）
+    weight = {
+        weight = 0.01
+    }
+}
+love_livestock = {
+    category = worker                        # 岗位类别
+
+    is_capped_by_modifier = no               # 岗位数目不受建筑、区划等修正项限制
+
+    tags = { food }                         # 岗位带有“food”标签
+
+    # 分配到该岗位的pop需要符合的基础条件（预筛选）
+    possible_pre_triggers = {
+        is_enslaved = yes                   # 必须是奴隶pop
+        is_sapient = yes                    # 必须是有智慧（不是低等动物）的pop
+        is_robotic = no                     # 不能是机器人
+    }
+
+    # 实际可否分配到该岗位的严格判定
+    possible = {
+        OR = {
+            # 满足如下任一条件即可
+            has_citizenship_type = {
+                type = love_citizenship_slavery          # 拥有奴隶公民权
+                country = owner                     # 拥有者为本帝国
+            }
+            has_citizenship_type = {
+                type = citizenship_exploited_drone  # 拥有“受剥削子个体”公民权（格式塔等可用）
+                country = owner                     # 拥有者为本帝国
+            }
+        }
+        has_slavery_type = { type = love_slavery_livestock }  # 必须是love_slavery_livestock这种奴役类型
+        is_lithoid = no                                      # 不能是硅基生物
+    }
+
+    # 每分配一名pop到该岗位，产出的资源定义
+    resources = {
+        category = planet_livestock_farmers    # 归类用；比如“牲口农场岗位”
+        produces = {
+            food = 4                           # 每月产出4点食物
+        }
+    }
+
+
+    # 触发型星球修正：如该星球拥有某些特殊起源，会有额外显示或修正
+    triggered_planet_modifier = {
+        potential = {
+            exists = owner                              # 拥有者必须存在
+            owner = { has_origin = origin_evolutionary_predators }    # 拥有者拥有“进化掠食者”起源
+        }
+        custom_tooltip = evolutionary_predators_pops_tt      # 显示“evolutionary_predators_pops_tt”这个自定义提示（这通常会显示特殊加成说明）
+    }
+
+    # AI分配此岗位的倾向极低
+    weight = {
+        weight = 0.01
+    }
+}
+
+love_trait_mechanical_xp = {
+    category = worker                # 岗位类别
+
+    is_capped_by_modifier = no       # 岗位数量不受修正限制（如建筑/区划/成就修正）
+
+    tags = { research }                # 岗位标记
+
+    # 先决条件（这些是“预先”判定的可能条件，决定哪些POP可以考虑被分配到这个岗位）
+    possible_pre_triggers = {
+        is_enslaved = yes            # 必须是奴隶身份
+        is_sapient = yes             # 必须是有智慧的（有思维的人/外星人，而不是动物）
+    }
+
+    # 实际岗位分配时的具体条件
+    possible = {
+        has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
+        has_slavery_type = { type = love_trait_mechanical }                      # 必须为类型的奴役
+    }
+
+    # 岗位产生的资源定义
+    resources = {
+        category = planet_organic_batteries   # 资源类别（归类到某个项目用，仅影响UI或脚本调用）
+        produces = {
+            physics_research = 2
+            society_research = 2
+            engineering_research = 2
+        }
+    }
+
+    # 岗位优先级/权重（AI分配此岗位的权重很低）
+    weight = {
+        weight = 0.01
+    }
+}

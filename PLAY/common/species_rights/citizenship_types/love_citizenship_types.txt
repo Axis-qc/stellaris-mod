@@ -1,0 +1,123 @@
+#奴隶
+love_citizenship_slavery = {
+    is_slavery = yes              # 标记此类型为奴隶制公民权
+
+    # 如果激活了下列银河法令则视为违反法规
+    in_breach_of = {
+        {
+            key = resolution_greatergood_balance_in_the_middle
+        }
+        {
+            key = resolution_greatergood_universal_prosperity_mandate
+        }
+    }
+
+    # 判定此奴役公民权是否对某个pop“候选可用”
+    potential = {
+        exists = from
+        NAND = {
+            # 非下列情况才能使用
+            exists = this
+            OR = {
+                from = {
+                    is_wilderness_empire = yes         # 来源国家是荒野帝国
+                }
+                # AND = {
+                #     from = { is_individual_machine = yes }
+                #     OR = {
+                #         has_trait = trait_machine_unit    # 来源是独立机械帝国（交互式独立个体）而且pop为机械
+                #         has_trait = trait_mechanical
+                #     }
+                # }
+                # has_trait = trait_machine_unit            # pop本身为机器人单元
+                # has_trait = trait_mechanical              # pop本身为机械体
+            }
+        }
+        is_disconnected_drone_pop = no    # 不允许脱离蜂巢状态的子个体
+    }
+
+    # 进一步判定pop是否可以分配该奴役权，包括各类禁止条件和出错提示
+    allow = {
+        hidden_trigger = { exists = from }    # 确认“来源国家”存在
+        custom_tooltip = {
+            fail_text = "presapients_allowed_citizenship"
+            OR = {
+                is_sapient = yes           # pop必须是有智慧的
+                from = {
+                    NOT = {
+                        has_policy_flag = pre_sapients_protect  # 来源*未*启用保护/允许前智慧政策
+                        has_policy_flag = pre_sapients_allow
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "presapients_purged_citizenship"
+            OR = {
+                is_sapient = yes
+                from = {
+                    NOT = {
+                        has_policy_flag = pre_sapients_purge   # 来源*未*启用"净化前智慧"政策
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "HIVE_MIND_MAIN_SPECIES_ALWAYS_CITIZEN"
+            NAND = {
+                from = { is_hive_empire = yes }          # 来源为蜂巢帝国
+                has_trait = trait_hive_mind              # pop为蜂巢型
+            }
+            # （蜂巢主物种无法成为奴隶，只能做“蜂巢子个体”）
+        }
+        custom_tooltip = {
+            fail_text = "WILDERNESS_DEAD_WORLD"
+            if = {
+                limit = { from = { is_wilderness_empire = no } }
+                NOT = { has_trait = trait_wilderness }   # 不是荒野帝国时，pop不能带荒野特性
+            }
+        }
+        custom_tooltip = {
+            fail_text = same_species_disallowed
+            NOT = { is_same_species = from }         # 不能对自己帝国的主物种用
+        }
+        custom_tooltip = {
+            fail_text = "lonely_hive_mind_pops_kill_themselves_citizenship"
+            is_lonely_hive_mind_pop = no             # 孤独蜂巢pop不能被奴役（否则会自杀）
+        }
+
+        custom_tooltip = {
+            fail_text = TERMINATORS_CANNOT_ENSLAVE
+            from = {
+                NOT = { has_valid_civic = civic_machine_terminator }  # 终结者帝国不能奴役pop
+            }
+        }
+        custom_tooltip = {
+            fail_text = DEVOURERS_CANNOT_ENSLAVE
+            from = {
+                NOT = { has_valid_civic = civic_hive_devouring_swarm }  # 吞噬蜂群不能奴役pop
+            }
+        }
+        custom_tooltip = {
+            fail_text = "FANATIC_PURIFIERS_MUST_PURIFY"
+            OR = {
+                NOT = { from = { has_valid_civic = civic_fanatic_purifiers } }
+                is_same_species = from     # 狂热净化者只能对自己种族用奴役
+            }
+        }
+        custom_tooltip = {
+            fail_text = selective_kinship_must_citizen
+            if = {
+                limit = {
+                    from = { has_valid_civic = civic_selective_kinship }
+                }
+                NOT = { is_same_species_class = from }  # 优选同类不能对不同亚种用奴役
+            }
+        }
+    }
+
+    # AI使用此奴役权倾向
+    ai_will_do = {
+        factor = 0         # 基础倾向，代表AI有较大概率采用（除非遇到以下修正）
+    }
+}

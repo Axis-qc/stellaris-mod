@@ -4,9 +4,10 @@ kj_whf_one = {
     area = physics
     tier = 1
     cost = 1000
+    start_tech = yes
     category = { computing }
     prerequisites = { "tech_basic_science_lab_1" }
-    weight = 100
+    #weight = 100
 
     modifier = {
         planet_physicists_physics_research_produces_add = 1
@@ -25,132 +26,5 @@ kj_whf_one = {
 
     ai_weight = {
         factor = 2
-    }
-}
-
-kj_whf_two = {
-    icon = tech_sapient_ai
-    area = physics
-    tier = 4
-    cost = 16000
-    category = { computing }
-    prerequisites = { "tech_self_aware_logic" }
-    weight = 45
-
-    modifier = {
-        planet_physicists_physics_research_produces_add = 1
-        planet_biologists_society_research_produces_add = 1
-        planet_engineers_engineering_research_produces_add = 1
-        planet_researchers_upkeep_mult = -0.05 #维护费
-    }
-
-    potential = {
-        NOT = { has_ethic = ethic_gestalt_consciousness }
-    }
-
-    weight_modifier = {
-
-        modifier = {
-            factor = 1.5
-            is_specialist_subject_type = { TYPE = scholarium }
-        }
-    }
-
-    ai_weight = {
-        factor = 2
-    }
-}
-
-kj_whf_three = {
-    icon = tech_sapient_ai
-    area = physics
-    tier = 4
-    cost = 16000
-    category = { computing }
-    prerequisites = { "tech_self_aware_logic" }
-    weight = 45
-
-    modifier = {
-        planet_physicists_physics_research_produces_add = 1
-        planet_biologists_society_research_produces_add = 1
-        planet_engineers_engineering_research_produces_add = 1
-        planet_researchers_upkeep_mult = -0.05 #维护费
-    }
-
-    potential = {
-        has_ethic = ethic_gestalt_consciousness
-    }
-
-    weight_modifier = {
-        modifier = {
-            factor = 1.5
-            is_specialist_subject_type = { TYPE = scholarium }
-        }
-    }
-
-    ai_weight = {
-        factor = 2
-    }
-}
-kj_whf_four = {
-    icon = tech_administrative_ai
-    is_rare = yes
-    is_reverse_engineerable = yes
-    area = physics
-    cost = 50000
-    cost_per_level = 5000
-    tier = 5
-    category = { computing }
-    levels = 10
-    prerequisites = { "kj_whf_one" }
-    weight = 50
-
-    weight_modifier = {
-        factor = 0.5
-    }
-
-    ai_weight = {
-        factor = 2
-    }
-
-    #weight_groups = {
-    #    repeatable
-    #}
-    #mod_weight_if_group_picked = {
-    #    repeatable = 0.01
-    #}
-
-    modifier = {
-        planet_physicists_physics_research_produces_add = 1
-        planet_biologists_society_research_produces_add = 1
-        planet_engineers_engineering_research_produces_add = 1
-    }
-}
-#焚天神兵
-ftsb_ship = {
-    icon = ftsb
-    is_rare = yes
-    is_reverse_engineerable = yes
-    area = physics
-    tier = 1
-    cost = 2000
-    category = { computing }
-    prerequisites = { "tech_basic_science_lab_1" }
-    weight = 0
-
-    modifier = {
-
-    }
-
-    weight_modifier = {
-
-        modifier = {
-            factor = 1.5
-            is_specialist_subject_type = { TYPE = scholarium }
-        }
-    }
-
-    ai_weight = {
-
     }
 }

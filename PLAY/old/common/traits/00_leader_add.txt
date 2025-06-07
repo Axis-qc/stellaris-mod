@@ -1,0 +1,56 @@
+subclass_official_dgds = {
+    custom_subtitle = governor_subclass
+    leader_trait_type = subclass
+    inline_script = {
+        script = trait/icon_subclass
+        SUBCLASS = official_delegate
+        COUNCIL = no
+    }
+    custom_tooltip_with_modifiers = delegate_subclass_tt
+
+    federation_modifier = {
+
+    }
+    triggered_federation_modifier = {
+        potential = {
+            always = yes
+        }
+        cohesion_add = 0.5
+        federation_naval_cap_contribution_mult = 0.05
+        federation_fleet_cap_add = 10
+
+        mult = trigger:has_skill
+    }
+
+    galcom_modifier = {
+    }
+    triggered_galcom_modifier = {
+        potential = {
+            always = yes
+        }
+        diplo_weight_mult = 0.01
+        country_community_gdf_naval_capacity = 10
+        mult = trigger:has_skill
+    }
+
+    triggered_self_modifier = {
+        potential = {
+            always = yes
+        }
+        leader_officials_unity_upkeep_add = -1 #行政官
+        leader_lifespan_add = 5
+        negative_traits_leader = -0.1
+        species_leader_exp_gain = 0.01
+        mult = trigger:has_skill
+    }
+    self_modifier = {
+        leader_trait_selection_options_add = 2
+    }
+
+    ai_weight = {
+
+    }
+    leader_class = { official }
+    background_icon = "GFX_leader_subclass_official_economy_councilor_background"
+}
+

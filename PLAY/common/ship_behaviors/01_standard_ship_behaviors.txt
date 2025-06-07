@@ -1,0 +1,148 @@
+# #这个文件（以及此文件夹下的所有文件）都可以通过控制台指令 "reload behavior" 实时重载
+# #此文件夹下所有文件都已启用文件监视器
+# # 要调试战斗中的船只行为，可以用控制台命令 'debuglines' 可视化大部分内容
+# #ship_behavior = {
+# #	name = "example"						# 名称
+# #	range_components = strike_craft			# 用于计算下方最大/最小/中位距离的部件类型。
+# # 合法值有：'weapon'（除舰载机外的所有武器）、'strike_craft'（如果没有舰载机武器，则用weapon，默认weapon）
+# #	preferred_attack_range = 10				# 此船在“攻击移动模式”下希望与战斗位置保持的距离。
+# # 有效值：<数字>、'max'、'min'、'median'（后三者将读取舰船设计中的武器部件）
+# #	formation_distance = 10					# 此船在“被动移动模式”下希望与战斗位置保持的距离。要切换到“攻击移动模式”，此值需小于到战斗位的距离。
+# # 有效值：<数字>、'max'、'min'、'median'（后三者读取舰船设计中的武器部件，舰载机只能用数字）
+# #	return_to_formation_distance = 60		# 当距离战斗位置超过此值时，强制切换回“被动移动模式”
+# # 有效值：<数字>、'max'、'min'、'median'（后三者读取舰船设计中的武器部件，舰载机只能用数字）
+# #	source_target_anchor_factor = 1.0		# 船只在“战斗起始锚点”和“战斗目标锚点”之间的位置权重因子，这决定了实际的战斗位。
+# #	combat_source_anchor = parent			# 计算该船战斗位时使用的起始锚点，这代表锚点船的实际位置。
+# # 合法值：'parent'（上级船只），'root'（舰队指挥舰）
+# #	combat_target_anchor = parent			# 计算该船战斗位时使用的目标锚点，这代表锚点船的战斗位。若为 `root`，则为实际目标。
+# # 合法值：'parent'（上级船只），'root'（舰队指挥舰）
+# #
+# #	collision_awareness = 0.5				# 本船躲避其他船的程度
+# #	collision_strafe = 1.0					# 与其它船只碰撞时允许向任意方向移动
+# #	collision_radius = 2.0					# 乘以舰船自身尺寸后得到实际碰撞半径
+# #	attack_move_pattern = orbit				# 攻击时的机动模式（可用值见主文件）
+# #	passive_move_pattern = charge			# 非战时的机动模式（可用值见主文件）
+# #
+# #	desc = "EXAMPLE_DESC"					# 简介/描述文本
+# #}
+ship_behavior = {
+    name = "swarm"
+    preferred_attack_range = min
+    formation_distance = 10
+    return_to_formation_distance = 60
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.5
+    collision_strafe = 1.0                            #collision_strafe allows the ship to move in any direction while colliding with another
+    collision_radius = 2.0
+    attack_move_pattern = orbit
+    passive_move_pattern = charge
+
+    desc = "SWARM_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "picket"
+
+    preferred_attack_range = median
+    formation_distance = median                #when orbing/following ship will try to keep this distance to assigned position
+    return_to_formation_distance = max    #when attacking the ship will switch to passive mode if distance to assigned position is greater that this
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.75            #how much we try to avoid other ships
+    collision_strafe = 0.75                #collision_strafe allows the ship to move in any direction while colliding with another
+    collision_radius = 2.0
+
+    attack_move_pattern = stay_at_range            #stationary/charge/follow/stationary/none
+    passive_move_pattern = orbit
+
+    desc = "PICKET_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "line"
+    preferred_attack_range = median        #max/min/median/12/412..	#this is the distance to target the ship wants to keep when attacking
+
+    formation_distance = median                #when orbing/following ship will try to keep this distance to assigned position
+    return_to_formation_distance = max    #when attacking the ship will switch to passive mode if distance to assigned position is greater that this
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5                #collision_strafe allows the ship to move in any direction while colliding with another
+
+    attack_move_pattern = stay_at_range            #stationary/charge/follow/stationary/none
+    passive_move_pattern = charge
+
+    desc = "LINE_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "artillery"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = max
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.2
+    collision_radius = 2.0                            #collision_radius is a multiplier on the radius specified in the ship size
+    collision_strafe = 2.5                            #collision_strafe allows the ship to move in any direction while colliding with another
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+
+    desc = "ARTILLERY_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "carrier"
+    range_components = strike_craft
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = max
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.75
+    collision_radius = 2.0                            #collision_radius is a multiplier on the radius specified in the ship size
+    collision_strafe = 2.5                            #collision_strafe allows the ship to move in any direction while colliding with another
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+
+    desc = "CARRIER_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "platform"
+    preferred_attack_range = max
+    formation_distance = 40
+    return_to_formation_distance = 20
+    collision_awareness = 0.2
+    collision_radius = 2.0                            #collision_radius is a multiplier on the radius specified in the ship size
+    collision_strafe = 2.5                            #collision_strafe allows the ship to move in any direction while colliding with another
+
+    attack_move_pattern = stationary
+    passive_move_pattern = none
+
+    desc = "PLATFORM_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "torpedo"
+    preferred_attack_range = 10
+    formation_distance = 10
+    return_to_formation_distance = max
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+
+    collision_awareness = 0.25
+    collision_strafe = 0.5                            #collision_strafe allows the ship to move in any direction while colliding with another
+    collision_radius = 2.0
+    attack_move_pattern = charge
+    passive_move_pattern = charge
+
+    desc = "TORPEDO_BEHAVIOR_DESC"
+}

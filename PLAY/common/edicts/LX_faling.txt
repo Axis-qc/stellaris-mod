@@ -1,0 +1,311 @@
+play_kjyj = {
+    length = -1
+    icon = "GFX_research_icon"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+            #multiplier = value:edict_size_effect_fl
+        }
+
+        upkeep = {
+            influence = 1
+        }
+    }
+
+    modifier = {
+        all_technology_research_speed = 0.20
+        #planet_researchers_upkeep_mult = 0.20 维护费
+        #num_tech_alternatives_add = 1
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+play_kjyj_1 = {
+    length = -1
+    icon = "GFX_research_icon"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 200
+        }
+
+        upkeep = {
+            influence = 2
+        }
+    }
+
+    modifier = {
+        all_technology_research_speed = 0.40
+        #planet_researchers_upkeep_mult = 0.20 维护费
+        #num_tech_alternatives_add = 1
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+play_kjyj_2 = {
+    length = -1
+    icon = "GFX_research_icon"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 300
+        }
+
+        upkeep = {
+            influence = 3
+        }
+    }
+
+    modifier = {
+        all_technology_research_speed = 0.60
+        #planet_researchers_upkeep_mult = 0.20 维护费
+        num_tech_alternatives_add = 1
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+play_leader_tz = {
+    length = -1
+    icon = "GFX_icon_leader"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 30
+        }
+
+        upkeep = {
+            influence = 0.5
+        }
+    }
+
+    modifier = {
+        leader_trait_selection_options_add = 2
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+leader_exp_add = {
+    length = 360
+    icon = "GFX_icon_leader"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        upkeep = {
+            influence = 1
+        }
+    }
+
+    modifier = {
+        species_leader_exp_gain = 0.5
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+    effect = {
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_base_skill < 11
+                }
+                add_experience = owner.value:leader_expadd_values
+            }
+        }
+        custom_tooltip = council_agenda_agenda_leadership_conditioning_effect_expadd
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+leader_exp_add_one = {
+    length = 360
+    icon = "GFX_icon_leader"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 200
+        }
+
+        upkeep = {
+            influence = 2
+        }
+    }
+
+    modifier = {
+        species_leader_exp_gain = 0.5
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+    effect = {
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    has_base_skill < 11
+                }
+                add_experience = owner.value:leader_expadd_one_values
+            }
+        }
+        custom_tooltip = leader_expadd_one
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+leader_exp_add_two = {
+    length = 360
+    icon = "GFX_icon_leader"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 300
+        }
+
+        upkeep = {
+            influence = 3
+        }
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+    effect = {
+        hidden_effect = {
+            every_owned_leader = {
+                limit = {
+                    #has_base_skill < 31
+                    has_base_skill > 10
+                }
+                add_experience = value:leader_dj_expadd
+            }
+        }
+        custom_tooltip = leader_expadd_djexp_add
+    }
+
+    modifier = {
+        species_leader_exp_gain = 0.5
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+jieshu_tingzhan = {
+    length = 30
+    icon = "GFX_diplomacy_status_truce"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        upkeep = {
+            energy = 10
+        }
+    }
+
+    effect = {
+        custom_tooltip = council_agenda_agenda_second_strike_effect
+        hidden_effect = {
+            every_rival_country = {
+                end_truce = root
+            }
+        }
+        hidden_effect = {
+            every_country = {
+                end_truce = root
+            }
+        }
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+jieshu_tingzhan_every = {
+    length = 30
+    icon = "GFX_diplomacy_status_war"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 500
+        }
+
+        upkeep = {
+            energy = 10
+        }
+    }
+
+    effect = {
+        custom_tooltip = tingzhan_quxiao_every
+        hidden_effect = {
+            every_country = {
+                end_truce = root
+            }
+        }
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
