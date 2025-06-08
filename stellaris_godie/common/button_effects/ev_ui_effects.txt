@@ -1,0 +1,91 @@
+#建造
+ev_investment_button_effect = {
+	potential = {
+		always = yes
+	}
+	#from = { country_event = { id = ev_resource.2150 }}
+	allow = {
+		#custom_tooltip = {
+		#    text = ruler_hobby_button_random_effect_desc_2
+		#    always = yes
+		#}
+		#owner = {
+		#	is_country_type = default 
+		#	is_hive_empire = no
+		#	is_machine_empire = no
+		#	num_owned_planets > 0
+		#	opinion = { who = root value > -99 } 
+		#	NOR = {
+		#		has_ethic = ethic_fanatic_xenophobe
+		#		has_civic = civic_fanatic_purifiers
+		#		has_civic = civic_hive_devouring_swarm
+		#		has_civic = civic_machine_terminator
+		#	}
+		#	has_communications = ROOT
+		#	NOT  = { has_country_flag = ev_received_an_investment }
+		#	is_ai = yes
+		#}
+	}
+	effect = {
+		save_global_event_target_as = ev_real_planet_option
+		# country_event = {
+		# 	id = ev_investment.20
+		# }
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+					OR = {
+						free_building_slots > 0
+						free_district_slots > 0
+					}
+				}
+				add_building = building_research_lab_2
+				#else = { add_building = building_research_lab_1 }
+			}
+		}
+		#from = { country_event = { id = ev_resource.2150 }}
+		#root = { country_event = { id = ev_resource.2150 }}
+		#country_event = { id = ev_resource.2150 }
+		#add_modifier = { modifier = frozen_in_time days = -1 }
+		#this = { add_modifier = { modifier = frozen_in_time days = -1 } }
+	}
+}
+
+
+
+##########################
+ev_hard_core_mod = {
+	potential = {
+		is_any_type_homeless_ship = yes
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	allow = {
+		is_any_type_homeless_ship = yes
+		#owner = {
+		#	has_country_flag = enable_ev_hard_core
+		#}
+	}
+	effect = {
+		custom_tooltip = ev_hard_core_mod.tooltip
+		#owner = {
+		#	add_resource = {
+		#		influence = 10
+		#	}
+		#}
+		#ship_event = {
+		#	id = ev_hard_core.1000
+		#}
+		hidden_effect = {
+			every_owned_ship = {
+				export_modifier_to_variable = { 
+					modifier = ev_statistics_minerals_produces_add variable = ev_statistics_minerals_produces_add
+				}
+			}
+			
+			
+		}
+	}
+}

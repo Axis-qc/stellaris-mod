@@ -1,0 +1,2067 @@
+namespace = ev_crisis
+
+# 设定外部星系-目标 (HIDDEN)
+country_event = {
+	id = ev_crisis.1
+	hide_window = yes
+	fire_only_once = yes
+	
+	mean_time_to_happen = {
+		months = 200
+		modifier = {
+			factor = 1000
+			end_game_years_passed < 0
+		}
+		modifier = {
+			factor = 0.9
+			end_game_years_passed > 30
+		}
+		modifier = {
+			factor = 0.9
+			end_game_years_passed > 50
+		}
+		modifier = {
+			factor = 0.8
+			end_game_years_passed > 70
+		}
+	}
+	
+	trigger = {
+		is_ai = no
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = default
+		}
+		has_global_flag = ev_crisis_will_come
+		NOT = { has_country_flag = ban_rebel_event }
+		NOT = { has_global_flag = ev_leviathans_subspace_echoes }
+	}
+	
+	immediate = {
+		#保存难度
+		save_global_event_target_as = ev_leviathans_crisis_tigger_country
+		
+		set_global_flag = ev_leviathans_subspace_echoes
+		random_rim_system = {
+			set_star_flag = ev_leviathans_crisis_invasion_target_1
+			save_global_event_target_as = ev_leviathans_crisis_invasion_system
+			closest_system = {
+				limit = {
+					NOR = { 
+						has_star_flag = ev_leviathans_crisis_invasion_target_1
+					}
+				}
+				set_star_flag = ev_leviathans_crisis_invasion_target_2
+				save_global_event_target_as = ev_leviathans_crisis_invasion_system_2
+			}
+			closest_system = {
+				limit = {
+					NOR = { 
+						has_star_flag = ev_leviathans_crisis_invasion_target_1
+						has_star_flag = ev_leviathans_crisis_invasion_target_2
+					}
+				}
+				set_star_flag = ev_leviathans_crisis_invasion_target_3
+				save_global_event_target_as = ev_leviathans_crisis_invasion_system_3
+			}
+		}
+		begin_event_chain = {
+			event_chain = "ev_coming_leviathans_crisis_chain"
+			target = ROOT
+		}
+		create_point_of_interest = {
+			id = ev_coming_leviathans_crisis_chain.1
+			name = "ev_coming_leviathans_crisis_poi_1_poi"
+			desc = "ev_coming_leviathans_crisis_poi_1_poi_desc"
+			event_chain = "ev_coming_leviathans_crisis_chain"
+			location = event_target:ev_leviathans_crisis_invasion_system
+		}
+		create_point_of_interest = {
+			id = ev_coming_leviathans_crisis_chain.2
+			name = "ev_coming_leviathans_crisis_poi_2_poi"
+			desc = "ev_coming_leviathans_crisis_poi_2_poi_desc"
+			event_chain = "ev_coming_leviathans_crisis_chain"
+			location = event_target:ev_leviathans_crisis_invasion_system_2
+		}
+		create_point_of_interest = {
+			id = ev_coming_leviathans_crisis_chain.3
+			name = "ev_coming_leviathans_crisis_poi_3_poi"
+			desc = "ev_coming_leviathans_crisis_poi_3_poi_desc"
+			event_chain = "ev_coming_leviathans_crisis_chain"
+			location = event_target:ev_leviathans_crisis_invasion_system_3
+		}
+		
+		country_event = { id = ev_crisis.100 days = 100 random = 100 }
+	}
+}
+
+# 利维坦达到 (HIDDEN)
+# Vanguard Arrives (HIDDEN)
+country_event = {
+	id = ev_crisis.100
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		#has_global_flag = ev_leviathans_subspace_echoes
+	}
+	
+	immediate = {
+		#set_crisis_sound = swarm_crisis_ambient_stage_1
+		#set_crisis_stage_1 = yes	#设置到达目标
+		awaken_guardians_of_the_galaxy = yes		#游牧堕落对应觉醒
+		
+		stop_crisis_sound = yes
+		#remove_global_flag = prethoryn_approaching_rim
+		
+		set_global_flag = ev_leviathans_arrives
+		
+		#observer_event = { id = observer.29 }
+		
+		
+		end_event_chain = "ev_coming_leviathans_crisis_chain"
+		
+		
+		random_rim_system = {
+			limit = { has_star_flag = ev_leviathans_crisis_invasion_target_1 }
+			
+			random_system_planet = {
+				create_species = {
+					name = "NAME_leviathans_union_species"
+					class = LEVIATHANS_CRISIS
+					portrait = random
+					traits = {
+						trait = "trait_ev_leviathans"
+					}
+					immortal = yes
+
+					effect = { save_global_event_target_as = ev_leviathans_crisis_species }
+				}
+				
+				create_country = {
+					name = "NAME_leviathans_union"
+					type = "ev_leviathans_crisis"
+					species = event_target:ev_leviathans_crisis_species
+					#name_list = "Prethoryn"
+					flag = {
+						icon= {
+							category = "empty_vagrant"
+							file = "ev_logo_2.dds"
+						}
+						background= {
+							category = "backgrounds"
+							file = "diagonal.dds"
+						}
+						colors={
+							"yellow"
+							"grey"
+							"null"
+							"null"
+						}
+					}
+					#获得设计
+					effect = {
+						add_modifier = {
+							modifier = leviathans_crisis_add days = -1
+						}
+						save_global_event_target_as = ev_leviathans_crisis
+						
+						#save_event_target_as = prethoryn_vgrd
+						
+						create_ship_design = { design = "NAME_EV_Leviathans_Transport" }
+						add_ship_design = last_created_design
+						create_ship_design = { design = "NAME_EV_Leviathans_Colony" }
+						add_ship_design = last_created_design
+						create_ship_design = { design = "NAME_EV_Leviathans_Construction" }
+						add_ship_design = last_created_design
+						
+						create_ship_design = { design = "NAME_Swarm_Colonizer" }
+						add_ship_design = last_created_design
+						
+						create_ship_design = { design = "Name_EV_Leviathans_Starbase" }
+						add_ship_design = last_created_design
+						
+					}
+				}
+				
+				#获取通讯
+				every_country = {
+					limit = { 
+						OR = {
+							is_country_type = default
+							is_default_ev_country_type = yes
+							is_country_type = fallen_empire
+							is_country_type = awakened_fallen_empire
+							is_country_type = fallen_empire_ev
+							is_country_type = awakened_fallen_empire_ev
+						}
+					}
+					add_opinion_modifier = {
+						who = event_target:ev_leviathans_crisis
+						modifier = opinion_swarm
+					}
+					event_target:ev_leviathans_crisis = {
+						add_opinion_modifier = {
+							who = PREV
+							modifier = opinion_prey
+						}
+					}
+					establish_communications_no_message = event_target:ev_leviathans_crisis
+					country_event = { id = ev_crisis.500 days = 1 random = 0 }
+					
+					hidden_effect = {
+						#random_list = {
+						#	1 = {
+						#		set_variable = {
+						#			which = leviathans_crisis_called
+						#			value = 1
+						#		}
+						#	}
+						#	1 = {
+						#		set_variable = {
+						#			which = leviathans_crisis_called
+						#			value = 2
+						#		}
+						#	}
+						#	1 = {
+						#		set_variable = {
+						#			which = leviathans_crisis_called
+						#			value = 3
+						#		}
+						#	}
+						#	1 = {
+						#		set_variable = {
+						#			which = leviathans_crisis_called
+						#			value = 4
+						#		}
+						#	}
+						#	1 = {
+						#		set_variable = {
+						#			which = leviathans_crisis_called
+						#			value = 5
+						#		}
+						#	}
+						#}
+					}
+				}
+				
+				#摧毁目标的恒星基地
+				solar_system = {
+					if = {
+						limit = {
+							any_ship_in_system = {
+								is_ship_class = shipclass_starbase
+							}
+						}
+						random_fleet_in_system = {
+							limit = {
+								any_controlled_ship = {
+									is_ship_class = shipclass_starbase
+								}
+							}
+							destroy_fleet = this
+						}
+					}
+					create_starbase = {
+						size = starbase_ev_leviathans
+						
+					}
+				}
+				
+				event_target:ev_leviathans_crisis = {
+					if = {
+						limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_1X } }
+						create_ev_leviathans_crisis_crystal_fleet = yes
+						create_ev_leviathans_crisis_move_fleet = yes
+					}
+					else_if = {
+						limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_2X } }
+						while = {
+							count = 2
+							create_ev_leviathans_crisis_crystal_fleet = yes
+							create_ev_leviathans_crisis_move_fleet = yes
+						}
+					}
+					else_if = {
+						limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_5X } }
+						while = {
+							count = 5
+							create_ev_leviathans_crisis_crystal_fleet = yes
+							create_ev_leviathans_crisis_move_fleet = yes
+						}
+					}
+					else_if = {
+						limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_10X } }
+						while = {
+							count = 10
+							create_ev_leviathans_crisis_crystal_fleet = yes
+							create_ev_leviathans_crisis_move_fleet = yes
+						}
+					}
+					else_if = {
+						limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X } }
+						while = {
+							count = 25
+							create_ev_leviathans_crisis_crystal_fleet = yes
+							create_ev_leviathans_crisis_move_fleet = yes
+						}
+					}
+					else = {
+						create_ev_leviathans_crisis_crystal_fleet = yes
+						create_ev_leviathans_crisis_move_fleet = yes
+					}
+					
+				
+				}
+			}
+			
+			### SECOND SYSTEM
+			random_system = {
+				limit = {
+					has_star_flag = ev_leviathans_crisis_invasion_target_2
+				}
+				random_system_planet = {
+					event_target:ev_leviathans_crisis = { }
+				}
+			}
+			
+			### THIRD SYSTEM
+			random_system = {
+				limit = {
+					has_star_flag = ev_leviathans_crisis_invasion_target_3
+				}
+				random_system_planet = {
+					event_target:ev_leviathans_crisis = { }
+				}
+			}
+		}
+		random_country = {
+			limit = { 
+				OR = {
+					is_country_type = default 
+					is_default_ev_country_type = yes
+				}
+			}
+			#country_event = { id = crisis.19 days = 400 random = 200 }
+		}
+	}
+}
+
+
+
+# Infested to Barren after Orbital Bombardment
+#炸了生产舰队
+planet_event = {
+	id = ev_crisis.200
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			OR = {
+				is_country_type = ev_leviathans_crisis
+			}
+		}
+		NOT = { has_modifier = planet_stop_leviathans_crisis_weapon_use }
+		planet_devastation >= 20
+		NOT = { has_planet_flag = ev_leviathans_crisis_harvest }
+		#is_planet_class = pc_infested
+	}
+	
+	immediate = {
+		random_list = {
+			1 = { set_timed_planet_flag = { flag = ev_leviathans_crisis_harvest days = 250 } }
+			1 = { set_timed_planet_flag = { flag = ev_leviathans_crisis_harvest days = 150 } }
+			1 = { set_timed_planet_flag = { flag = ev_leviathans_crisis_harvest days = 200 } }
+		}
+		
+		save_event_target_as = ev_leviathans_crisis_harvest_planet
+		
+		#solar_system = { 
+		#	create_ev_leviathans_crisis_planet_fleet = yes
+		#}
+		
+		#1X一次，2X两次，同理
+		if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_1X} } 
+			solar_system = { 
+				create_ev_leviathans_crisis_planet_fleet = yes
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 2 Organism_VAR = 3 Dragon_VAR = 0
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_2X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 3 Organism_VAR = 4 Dragon_VAR = 0
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_5X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 6 Organism_VAR = 10 Dragon_VAR = 1
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_10X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 15 Organism_VAR = 15 Dragon_VAR = 2
+				}
+			}
+		}
+		else_if = {
+			limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X } }
+			while = {
+				count = 1
+				create_ev_leviathans_crisis_crystal_fleet = yes
+				create_ev_leviathans_crisis_move_fleet = yes
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 25 Organism_VAR = 30 Dragon_VAR = 3
+				}
+			}
+		}
+		else = { create_ev_leviathans_crisis_planet_fleet = yes }
+		
+		save_global_event_target_as = ev_leviathans_crisis_know_bomb
+		every_country = {
+			limit = { 
+				OR = {
+					is_country_type = default
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			country_event = { id = ev_crisis.400 }
+		}
+	}
+}
+#被炸没
+planet_event = {
+	id = ev_crisis.201
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			OR = {
+				is_country_type = ev_leviathans_crisis
+			}
+		}
+		planet_devastation >= 100
+	}
+	
+	immediate = {
+		solar_system = {
+			
+			create_starbase = {
+				size = starbase_ev_leviathans
+			}
+		}
+		destroy_colony = yes
+		every_owned_pop_group = { kill_all_pop = yes }
+		add_modifier = { modifier = "ev_leviathans_nibble_2" days = -1 }
+		if = {
+			limit = {
+				NOR = {
+					is_planet_class = pc_ringworld_habitable
+					is_planet_class = pc_habitat # habitats are currently uninfestable
+				}
+			}
+			random_list = {
+				50 = { change_pc = pc_barren }
+				50 = { change_pc = pc_barren_cold }
+			}
+			reset_planet = yes
+			#planet_event = { id = crisis.215 }
+		}
+		else_if = {
+			# Habitable Ring Worlds can't be infested...
+			# they are destroyed instead
+			limit = { is_planet_class = pc_ringworld_habitable }
+			change_pc = pc_ringworld_habitable_damaged
+			reset_planet = yes
+		}
+		else_if = {
+			limit = { is_planet_class = pc_habitat }
+			remove_planet = yes
+		}
+		#add_modifier = { modifier = "terraforming_candidate" days = -1 }
+		
+		
+		save_global_event_target_as = ev_leviathans_crisis_know_bomb_finish
+		planet_event = { id = ev_crisis.300 }
+		every_country = {
+			limit = { 
+				OR = {
+					is_country_type = default
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			country_event = { id = ev_crisis.401 }
+		}
+	}
+}
+
+# Planet Colonized
+planet_event = {
+	id = ev_crisis.203
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = { is_country_type = "ev_leviathans_crisis" }
+		NOT = { has_modifier = planet_stop_leviathans_crisis_weapon_use }
+	}
+	
+	immediate = {
+		set_update_modifiers_batch = begin
+		#1X两次，2X四次，同理
+		#if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_1X} } 
+		#	while = {
+		#		count = 2
+		#		create_ev_leviathans_crisis_planet_fleet = yes
+		#	}
+		#}
+		#else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_2X} } 
+		#	while = {
+		#		count = 4
+		#		create_ev_leviathans_crisis_planet_fleet = yes
+		#	}
+		#	
+		#}
+		#else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_5X} } 
+		#	while = {
+		#		count = 10
+		#		create_ev_leviathans_crisis_planet_fleet = yes
+		#	}
+		#}
+		#else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_10X} } 
+		#	while = {
+		#		count = 20
+		#		create_ev_leviathans_crisis_planet_fleet = yes
+		#	}
+		#}
+		#else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_25X} } 
+		#	while = {
+		#		count = 35
+		#		create_ev_leviathans_crisis_planet_fleet = yes
+		#	}
+		#}
+		#else = { create_ev_leviathans_crisis_planet_fleet = yes }
+		if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_1X} } 
+			solar_system = { 
+				create_ev_leviathans_crisis_planet_fleet = yes
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 2 Organism_VAR = 3 Dragon_VAR = 0
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_2X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 3 Organism_VAR = 4 Dragon_VAR = 0
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_5X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 6 Organism_VAR = 10 Dragon_VAR = 1
+				}
+			}
+		}
+		else_if = { limit = { event_target:ev_leviathans_crisis_tigger_country = {has_country_flag = ev_ship_rebel_difficult_10X} } 
+			solar_system = { 
+				while = {
+					count = 1
+					create_ev_leviathans_crisis_planet_fleet = yes
+				}
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 15 Organism_VAR = 15 Dragon_VAR = 2
+				}
+			}
+		}
+		else_if = {
+			limit = { event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X } }
+			while = {
+				count = 1
+				create_ev_leviathans_crisis_crystal_fleet = yes
+				create_ev_leviathans_crisis_move_fleet = yes
+			}
+			last_created_fleet = {
+				create_ev_leviathans_crisis_bio_ships = {
+					Tiyanki_VAR = 25 Organism_VAR = 30 Dragon_VAR = 3
+				}
+			}
+		}
+
+		#create_ev_leviathans_crisis_planet_fleet = yes
+		#create_ev_leviathans_crisis_planet_fleet = yes
+		#create_ev_leviathans_crisis_planet_fleet = yes
+		
+		planet_event = { id = ev_crisis.300 }
+		destroy_colony = yes
+		add_deposit = d_energy_6
+		if = {
+			limit = {
+				NOR = {
+					is_planet_class = pc_ringworld_habitable
+					is_planet_class = pc_habitat # habitats are currently uninfestable
+				}
+			}
+			random_list = {
+				50 = { change_pc = pc_barren }
+				50 = { change_pc = pc_barren_cold }
+			}
+			every_owned_pop_group = {
+				kill_all_pop = yes
+			}
+
+			#reset_planet = yes
+			#planet_event = { id = crisis.215 }
+		}
+		else_if = {
+			every_owned_pop_group = {
+				kill_all_pop = yes
+			}
+			# Habitable Ring Worlds can't be infested...
+			# they are destroyed instead
+			limit = { is_planet_class = pc_ringworld_habitable }
+			change_pc = pc_ringworld_habitable_damaged
+			#reset_planet = yes
+		}
+		else_if = {
+			limit = { is_planet_class = pc_habitat }
+			remove_planet = yes
+		}
+		
+		remove_all_buildings = yes
+		remove_all_districts = yes 
+
+		add_modifier = { modifier = "ev_leviathans_nibble_2" days = -1 }
+		#every_owned_pop_group = { kill_all_pop = yes }
+		
+		save_global_event_target_as = ev_leviathans_crisis_know_colonization
+		every_country = {
+			limit = { 
+				OR = {
+					is_country_type = default
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			country_event = { id = ev_crisis.402 }
+		}
+		set_update_modifiers_batch = end
+	}
+}
+
+
+# Planet Colonized
+#planet_event = {
+#	id = ev_crisis.204
+#	hide_window = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		owner = { is_country_type = "ev_leviathans_crisis" }
+#	}
+#	
+#	immediate = {
+#		
+#		
+#		remove_modifier = ev_leviathans_nibble_1
+#		add_modifier = { modifier = "ev_leviathans_nibble_2" days = -1 }
+#		
+#		every_owned_pop_group = { kill_all_pop = yes }
+#		
+#	}
+#}
+
+# World Infested (HIDDEN)
+planet_event = {
+	id = ev_crisis.300
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		every_country = {
+			limit = { has_event_chain = "ev_leviathans_crisis_chain" }
+			add_event_chain_counter = {
+				event_chain = "ev_leviathans_crisis_chain"
+				counter = "ev_infested_worlds"
+				amount = 1 
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+# Prethoryn Kill Count (HIDDEN)
+country_event = {
+	id = ev_crisis.310
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_country_type = ev_leviathans_crisis
+		exists = from
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				FROM = { has_event_chain = "ev_leviathans_crisis_chain" }
+			}
+			FROM = {
+				add_event_chain_counter = { 
+					event_chain = "ev_leviathans_crisis_chain" 
+					counter = "ev_leviathans_kills_us" 
+					amount = 1 
+				}
+			}
+		}
+		every_country = {
+			limit = { 
+				has_event_chain = "ev_leviathans_crisis_chain" 
+				NOT = { is_same_value = FROM }
+			}
+			add_event_chain_counter = { 
+				event_chain = "ev_leviathans_crisis_chain" 
+				counter = "ev_leviathans_kills_others" 
+				amount = 1 
+			}
+		}
+	}
+}
+
+# Prethoryn Victims (HIDDEN)
+country_event = {
+	id = ev_crisis.320
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_country_type = ev_leviathans_crisis
+	}
+	
+	immediate = {
+		every_country = {
+			limit = { has_event_chain = "ev_leviathans_crisis_chain" }
+			add_event_chain_counter = { 
+				event_chain = "ev_leviathans_crisis_chain" 
+				counter = "ev_leviathans_victims" 
+				amount = 1 
+			}
+		}
+	}
+}
+
+
+#提示信息
+#炸出舰队
+country_event = {
+	id = ev_crisis.400
+	title = ev_crisis.400.name
+	desc = ev_crisis.400.desc
+	picture = GFX_evt_space_dragon
+	location = event_target:ev_leviathans_crisis_know_bomb
+	is_triggered_only = yes
+	
+	trigger = {	
+		NOT = { has_country_flag = ev_leviathans_crisis_know_bomb }
+	}
+	
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.400.a
+		set_country_flag = ev_leviathans_crisis_know_bomb
+		clear_global_event_target = ev_leviathans_crisis_know_bomb
+	}
+}
+
+#提示炸没星球
+country_event = {
+	id = ev_crisis.401
+	title = ev_crisis.401.name
+	desc = ev_crisis.401.desc
+	picture = GFX_evt_cold_barren
+	location = event_target:ev_leviathans_crisis_know_bomb_finish
+	is_triggered_only = yes
+	
+	trigger = {	
+		is_ai = no 
+		NOT = { has_country_flag = ev_leviathans_crisis_know_bomb_finish }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = ev_leviathans_crisis_find_weaken }
+			}
+			set_country_flag = ev_leviathans_crisis_find_weaken
+			#触发削弱利维坦的特殊工程
+			country_event = { id = ev_crisis.410 days = 30 random = 200 }
+		}
+	}
+	option = {
+		name = ev_crisis.400.a
+		
+		clear_global_event_target = ev_leviathans_crisis_know_bomb_finish
+	}
+	option = {
+		name = ev_leader.3001.b
+		set_country_flag = ev_leviathans_crisis_know_bomb_finish
+	}
+}
+
+#提示殖民完成
+country_event = {
+	id = ev_crisis.402
+	title = ev_crisis.402.name
+	desc = ev_crisis.402.desc
+	picture = GFX_evt_cold_barren
+	location = event_target:ev_leviathans_crisis_know_colonization
+	is_triggered_only = yes
+	
+	trigger = {	
+		is_ai = no
+		NOT = { has_country_flag = ev_leviathans_crisis_know_colonization }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = ev_leviathans_crisis_find_weaken }
+			}
+			set_country_flag = ev_leviathans_crisis_find_weaken
+			#触发削弱利维坦的特殊工程
+			country_event = { id = ev_crisis.410 days = 30 random = 200 }
+		}
+	}
+	option = {
+		name = ev_crisis.400.a
+		
+		clear_global_event_target = ev_leviathans_crisis_know_colonization
+	}
+	option = {
+		name = ev_leader.3001.b
+		set_country_flag = ev_leviathans_crisis_know_colonization
+	}
+}
+
+#开始特殊项目-削弱舰队
+country_event = {
+	id = ev_crisis.410
+	title = ev_crisis.410.name
+	desc = ev_crisis.410.desc
+	picture = GFX_evt_friendly_amoeba
+	
+	is_triggered_only = yes
+	
+	trigger = {	
+		#NOT = { has_country_flag = ev_leviathans_crisis_find_weaken }
+	}
+	
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.410.a
+		capital_scope = {
+			enable_special_project = {
+				name = "EV_LEVIATHANS_CRISIS_FIND_WEAKEN"
+				location = this
+				owner = root
+			}
+		}	
+	}
+}
+
+country_event = {
+	id = ev_crisis.411
+	title = ev_crisis.411.name
+	desc = ev_crisis.411.desc
+	picture = GFX_evt_microscopic_life
+	
+	is_triggered_only = yes
+	
+	trigger = {	
+		
+	}
+	
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.411.a
+		custom_tooltip = ev_crisis.411.a.tooltip
+		set_country_flag = ev_leviathans_crisis_find_weaken_way
+		ai_chance = {
+			factor = 5	
+		}	
+	}
+	option = {
+		name = ev_crisis.411.b
+		#custom_tooltip = ev_crisis.411.b.tooltip
+		add_modifier = { modifier = penetrability_leviathans_crisis_weapon_use days = -1 }
+		ai_chance = {
+			factor = 10		
+		}		
+	}
+}
+#投放事件
+# Prethoryn Victims (HIDDEN)
+country_event = {
+	id = ev_crisis.419
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		
+	}
+	
+	immediate = {
+		#save_event_target_as = ev_stop_leviathans_crisis_weapon_use_country
+		ev_stop_leviathans_crisis_weapon = yes
+	}
+}
+
+#投放许可
+country_event = {
+	id = ev_crisis.420
+	title = ev_crisis.420.name
+	desc = ev_crisis.420.desc
+	#picture = GFX_evt_microscopic_life
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = from #立绘
+		planet_background = from #星球
+		graphical_culture = from #文化图像（比如是什么样的城市
+		city_level = from #城市等级，不同的等级显示出来的城市也不同样密集
+		room = from.ruler #房间
+	}
+	
+	trigger = {	
+		
+	}
+	
+	immediate = {
+		
+	}
+	
+	after = { clear_global_event_target = ev_leviathans_crisis_weapon_use_choosen }
+	option = {
+		name = ev_crisis.420.a
+		ai_chance = {
+			factor = 10		
+		}		
+		
+		event_target:ev_leviathans_crisis_weapon_use_choosen = { add_modifier = { modifier = planet_stop_leviathans_crisis_weapon_use days = -1 } }
+		
+	}
+	option = {
+		name = ev_crisis.420.b
+		from = { country_event = { id = ev_crisis.421 } }
+		ai_chance = {
+			factor = 10		
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = ethic_fanatic_spiritualist
+					has_ethic = ethic_spiritualist
+					has_ethic = ethic_fanatic_militarist
+					has_ethic = ethic_militarist
+					has_ethic = ethic_fanatic_xenophobe	
+					has_ethic = ethic_xenophobe	
+				}
+			}
+		}		
+		
+	}
+}
+
+country_event = {
+	id = ev_crisis.421
+	title = ev_crisis.421.name
+	desc = ev_crisis.421.desc
+	picture = GFX_evt_alien_propaganda
+	
+	is_triggered_only = yes
+	
+	trigger = {	
+		
+	}
+	
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.421.a
+	}
+}
+
+#投放提示
+country_event = {
+	id = ev_crisis.422
+	title = ev_crisis.422.name
+	desc = ev_crisis.422.desc
+	picture = GFX_evt_microscopic_life
+	
+	is_triggered_only = yes
+	
+	trigger = {	
+		
+	}
+	
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.422.a
+	}
+}
+
+#交流
+#第一次
+country_event = {
+	id = ev_crisis.500
+	title = ev_crisis.500.name
+	desc = ev_crisis.500.desc
+	custom_gui = "enclave_caravaneer_window"
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	trigger = {	
+		#from = { 
+		#	is_country_type = ev_leviathans_crisis
+		#	#is_same_value = event_target:wandering_earth_talk_country
+		#}
+		#NOT = { has_country_flag = ev_leviathans_crisis_no_first_talk }
+	}
+	immediate = {
+		#set_country_flag = ev_leviathans_crisis_no_first_talk
+		begin_event_chain = {
+			event_chain = "ev_leviathans_crisis_chain"
+			target = THIS
+		}
+
+		
+	}
+	picture_event_data = {
+		portrait = ev_leviathans_03 #立绘
+		room = leviathans01_room
+		#room = no_video_feed_room
+	}
+	#picture_event_data = {
+	#	portrait = from #立绘
+	#	planet_background = from #星球
+	#	graphical_culture = from #文化图像（比如是什么样的城市
+	#	city_level = from #城市等级，不同的等级显示出来的城市也不同样密集
+	#	room = from.ruler #房间
+	#}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.a
+		response_text = ev_crisis.500.a.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.b
+		response_text = ev_crisis.500.b.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.c
+		response_text = ev_crisis.500.c.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.d
+		response_text = ev_crisis.500.d.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.e
+		response_text = ev_crisis.500.e.response
+		default_hide_option = yes
+	}
+}
+
+
+#交流
+#第二次
+country_event = {
+	id = ev_crisis.501
+	title = ev_crisis.500.name
+	
+	desc = { text = ev_crisis.501.desc.1 }
+	desc = { text = ev_crisis.501.desc.2 }
+	desc = { text = ev_crisis.501.desc.3 }
+	desc = { text = ev_crisis.501.desc.4 }
+	desc = { text = ev_crisis.501.desc.5 }
+	custom_gui = "enclave_caravaneer_window"
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	trigger = {	
+		from = { 
+			is_country_type = ev_leviathans_crisis
+			#is_same_value = event_target:wandering_earth_talk_country
+		}
+		#has_country_flag = ev_leviathans_crisis_no_first_talk
+	}
+	immediate = {
+		#set_country_flag = ev_leviathans_crisis_no_first_talk
+	}
+	picture_event_data = {
+		portrait = ev_leviathans_03 #立绘
+		room = leviathans01_room
+		#room = no_video_feed_room
+	}
+	#picture_event_data = {
+	#	portrait = from #立绘
+	#	planet_background = from #星球
+	#	graphical_culture = from #文化图像（比如是什么样的城市
+	#	city_level = from #城市等级，不同的等级显示出来的城市也不同样密集
+	#	room = from.ruler #房间
+	#}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.a
+		response_text = ev_crisis.500.a.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.b
+		response_text = ev_crisis.500.b.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.c
+		response_text = ev_crisis.500.c.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.500.d
+		response_text = ev_crisis.500.d.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		custom_gui = "enclave_caravaneer_option"
+		name = ev_crisis.501.e
+		default_hide_option = yes
+	}
+}
+
+
+
+#利维坦被击败 (HIDDEN)
+country_event = {
+	id = ev_crisis.600
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_country_type = ev_leviathans_crisis
+	}
+	
+	immediate = {
+		stop_crisis_sound = yes
+		end_crisis = yes
+		remove_global_flag = ev_leviathans_arrives
+		#observer_event = { id = observer.33 }
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					
+				}
+			}
+			country_event = { id = ev_crisis.601 }
+			country_event = { id = ev_crisis.602 days = 120 }
+		}
+		#random_country = {
+		#	limit = { is_country_type = global_event }
+		#	country_event = { id = crisis.119 days = 360 }
+		#}
+		
+		
+	}
+}
+
+# 
+country_event = {
+	id = ev_crisis.601
+	title = "ev_crisis.601.name"
+	desc = "ev_crisis.601.desc"
+	picture = GFX_evt_metropolis
+	show_sound = event_celebration
+	
+	is_triggered_only = yes
+	after = {
+		add_modifier = {
+			modifier = "leviathans_crisis_defeated"
+			days = 3600
+		}
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 72
+		}
+		add_monthly_resource_mult = {
+			resource = influence
+			value = 72
+		}
+		end_event_chain = "ev_leviathans_crisis_chain"
+	}
+	option = { # Spiritualist Response
+		name = crisis.211.a
+		trigger = {
+			has_spiritualist_government = yes
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Militarist Response
+		name = crisis.211.b
+		trigger = {
+			has_militarist_government = yes
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Materialist Response
+		name = crisis.211.c
+		trigger = {
+			has_materialist_government = yes
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Pacifist Response
+		name = crisis.211.d
+		trigger = {
+			has_pacifist_government = yes
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Corporate Response
+		name = crisis.211.e
+		trigger = {
+			has_government = gov_megacorporation
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Default Response
+		name = crisis.211.f
+		trigger = {
+			OR = {
+				has_generic_government = yes
+				has_government = gov_enlightened_monarchy
+				has_government = gov_elective_monarchy
+				has_government = gov_hive_mind
+				has_ethic = ethic_gestalt_consciousness
+			}
+			NOR = {
+				has_ethic = "ethic_fanatic_xenophile"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+		
+	}
+	option = { # Xenophobe Response
+		name = crisis.211.g
+		trigger = {
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
+		
+	}
+	option = { # Xenophile Response
+		name = crisis.211.h
+		trigger = {
+			has_ethic = "ethic_fanatic_xenophile"
+		}
+		
+	}
+	option = {
+		name = ev_crisis.601.a
+		
+	}
+}
+
+#给玩家的遗物
+country_event = {
+	id = ev_crisis.602
+	title = "ev_crisis.602.name"
+	desc = "ev_crisis.602.desc"
+	picture = GFX_evt_metropolis
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+	}
+	
+	immediate = {
+		
+		
+	}
+	
+	option = { 
+		name = ev_crisis.602.a
+		add_relic = r_ev_dragon_trophy
+	}
+}
+
+
+##########战斗机制相关
+#每当利维坦天灾一个船被击毁，3%概率对方舰队控制权
+country_event = {
+	id = ev_crisis.1000
+	hide_window = yes
+	picture = GFX_evt_metropolis
+	is_triggered_only = yes
+	
+	trigger = {
+		is_country_type = ev_leviathans_crisis
+		exists = from
+	}
+	
+	immediate = {
+		
+		if = {
+			limit = {
+				from = {
+					OR = { 
+						is_country_type = default
+						is_default_ev_country_type = yes 
+						is_ai = no
+					}
+				}
+			}
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 1.5
+						ROOT = {
+							count_owned_ship = {
+								count < 8
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						FromFromFrom = {
+							OR = {
+								
+								has_component = EV_ANTI_CRISIS_1
+								is_ship_class = shipclass_starbase
+								is_ship_class = shipclass_military_station
+								is_ship_class = shipclass_observation_station
+								is_ship_class = shipclass_mining_station
+								is_ship_class = shipclass_research_station
+							}
+							
+						}
+					}
+					modifier = {
+						factor = 0
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_1X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_2X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_5X }
+						}
+						
+					}
+					
+					modifier = {
+						factor = 1.2
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_10X }
+						}
+					}
+					modifier = {
+						factor = 1.8
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+						}
+						
+					}
+					FromFromFrom = {
+						
+						fleet = {
+							#every_owned_ship = {
+							#	repair_ship = yes
+							#}
+							
+							save_event_target_as = ev_leviathans_crisis_give_fleet
+							fleet.owner = {
+								country_event = {
+									id = ev_crisis.1011
+								}
+								
+							}
+							random_galaxy_planet = {
+								save_event_target_as = fleet_mia
+							}
+							
+							#set_owner = prevprev
+							set_location = fleet.owner.capital_scope
+							#event_target:fleet_mia #
+							#set_mia = yes
+							
+							owner = {
+								random_list = {
+									1 = {
+										set_country_flag = ev_find_anti_crisis_way
+									}
+									16 = {
+										modifier = {
+											factor = 1.25
+											OR = {
+												event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				32 = {}
+			}
+		}
+		else_if = {
+			limit = {
+				from = {
+					NOR = { 
+						is_country_type = default
+						is_default_ev_country_type = yes 
+						is_ai = no
+					}
+				}
+			}
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 2
+						ROOT = {
+							count_owned_ship = {
+								count < 8
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						FromFromFrom = {
+							OR = {
+								has_component = EV_ANTI_CRISIS_1
+								is_ship_class = shipclass_starbase
+								is_ship_class = shipclass_military_station
+								is_ship_class = shipclass_observation_station
+								is_ship_class = shipclass_mining_station
+								is_ship_class = shipclass_research_station
+							}
+							
+						}
+					}
+					modifier = {
+						factor = 0
+						FromFromFrom.owner = {
+							is_country_type = awakened_fallen_empire_ev
+						}
+					}
+					modifier = {
+						factor = 0
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_1X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_2X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_5X }
+						}
+						
+					}
+					
+					modifier = {
+						factor = 1
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_10X }
+						}
+					}
+					modifier = {
+						factor = 1.7
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+						}
+						
+					}
+					FromFromFrom = {
+						
+						fleet = {
+							every_owned_ship = {
+								repair_ship = yes
+							}
+							
+							save_event_target_as = ev_leviathans_crisis_give_fleet
+							#fleet.owner = {
+							#	country_event = {
+							#		id = ev_crisis.1011
+							#	}
+							#	
+							#}
+							set_owner = prevprev
+							#set_location = fleet.owner.capital_scope
+							owner = {
+								random_list = {
+									1 = {
+										set_country_flag = ev_find_anti_crisis_way
+									}
+									9 = {
+										modifier = {
+											factor = 1.25
+											OR = {
+												event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				25 = {}
+			}
+		}
+
+		else = {
+
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 1.5
+						ROOT = {
+							count_owned_ship = {
+								count < 8
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						FromFromFrom = {
+							OR = {
+								
+								has_component = EV_ANTI_CRISIS_1
+								is_ship_class = shipclass_starbase
+								is_ship_class = shipclass_military_station
+								is_ship_class = shipclass_observation_station
+								is_ship_class = shipclass_mining_station
+								is_ship_class = shipclass_research_station
+							}
+							
+						}
+					}
+					modifier = {
+						factor = 0
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_1X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_2X }
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_5X }
+						}
+						
+					}
+					
+					modifier = {
+						factor = 1.2
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_10X }
+						}
+					}
+					modifier = {
+						factor = 1.8
+						OR = {
+							event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+						}
+						
+					}
+					FromFromFrom = {
+						
+						fleet = {
+							#every_owned_ship = {
+							#	repair_ship = yes
+							#}
+							
+							save_event_target_as = ev_leviathans_crisis_give_fleet
+							fleet.owner = {
+								country_event = {
+									id = ev_crisis.1011
+								}
+								
+							}
+							random_galaxy_planet = {
+								save_event_target_as = fleet_mia
+							}
+							
+							#set_owner = prevprev
+							set_location = fleet.owner.capital_scope
+							#event_target:fleet_mia #
+							#set_mia = yes
+							
+							owner = {
+								random_list = {
+									1 = {
+										set_country_flag = ev_find_anti_crisis_way
+									}
+									10 = {
+										modifier = {
+											factor = 1.25
+											OR = {
+												event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				25 = {}
+			}
+		}
+		
+	}
+}
+
+#每当非利维坦天灾一个船被击毁，
+#生成2只利维坦，+10%生命值
+country_event = {
+	id = ev_crisis.1010
+	hide_window = yes
+	picture = GFX_evt_metropolis
+	is_triggered_only = yes
+	
+	trigger = {
+		from = { is_country_type = ev_leviathans_crisis }
+		NOR = { 
+			is_country_type = ev_leviathans_crisis 
+			is_country_type = awakened_fallen_empire_ev
+		}
+		FromFromFrom = {
+			fleet = {
+				count_owned_ship = {
+					count < 50
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		FromFromFrom = {
+			fleet = {
+				repair_percentage = 0.1
+			}
+		}
+		
+		
+		FromFromFrom = {
+			fleet = {
+				random_list = {
+					3 = {
+						create_ship = {
+							name = random			
+							design = "NAME_Tiyanki_Calf_EV"					
+						}
+					}
+					3 = {
+						create_ship = {
+							name = random					
+							design = "NAME_Great_Space_Organism_EV"
+						}
+					}
+					1 = {
+						create_ship = {
+							name = random					
+							design = "NAME_Grand_Dragon_EV"
+						}
+					}
+					1 = {
+						create_ship = {
+							name = random
+							design = "NAME_Small_Crystal_Entity_Green_EV"
+						}
+						create_ship = {
+							name = random
+							design = "NAME_Small_Crystal_Entity_Yellow_EV"
+						}
+						create_ship = {
+							name = random
+							design = "NAME_Small_Crystal_Entity_Red_EV"
+						}
+						create_ship = {
+							name = random
+							design = "NAME_Small_Crystal_Entity_Blue_EV"
+						}
+					}
+					1 = {
+						modifier = {
+							factor = 0
+							owner = {
+								count_owned_ship = {
+									count > 10
+									limit = {
+										is_ship_size = construction_ship_ev_leviathans
+									}
+									
+								}
+							}
+						}
+						owner = {
+							random_controlled_fleet = {
+								save_event_target_as = ev_leviathans_crisis_random_controlled_fleet
+							}
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 1
+										create_ship = {
+											name = random
+											design = "NAME_EV_Leviathans_Construction"
+										}
+									}
+									set_location = {
+										target = event_target:ev_leviathans_crisis_random_controlled_fleet
+										distance = 10
+										angle = random
+									}
+								}
+							}
+						}
+						
+						
+					}
+					1 = {
+						modifier = {
+							factor = 0
+							owner = {
+								count_owned_ship = {
+									count > 5
+									limit = {
+										is_ship_size = colony_ship_ev_leviathans 
+									}
+									
+								}
+							}
+						}
+						owner = {
+							random_controlled_fleet = {
+								save_event_target_as = ev_leviathans_crisis_random_controlled_fleet
+							}
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 1
+										create_ship = {
+											name = random
+											design = "NAME_EV_Leviathans_Colony"
+										}
+									}
+									set_location = {
+										target = event_target:ev_leviathans_crisis_random_controlled_fleet
+										distance = 10
+										angle = random
+									}
+								}
+							}
+						}
+						
+						
+					}
+					
+				}
+			}
+			
+		}
+	}
+}
+
+#提示事件
+country_event = {
+	id = ev_crisis.1011
+	title = "ev_crisis.1011.name"
+	desc = {
+		trigger = {
+			NOR = {
+				has_country_flag = triggered_ev_crisis_1011
+			}
+		}
+		text = ev_crisis.1011.desc
+	}
+	desc = {
+		trigger = {
+			OR = {
+				has_country_flag = triggered_ev_crisis_1011
+			}
+		}
+		text = ev_crisis.1011.desc.2
+	}
+	location = event_target:ev_leviathans_crisis_give_fleet
+	picture = GFX_evt_small_space_battle
+	#hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		
+	}
+	after = {
+		hidden_effect = {
+			change_variable = {
+				which = triggered_ev_crisis_1011
+				value = 1
+			}
+			#event_target:ev_leviathans_crisis_give_fleet = { set_name = "Infected [THIS.GetName]" }
+		}
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.1011.a
+		set_country_flag = triggered_ev_crisis_1011
+	}
+}
+
+
+#反制方法
+country_event = {
+	id = ev_crisis.1015
+	title = "ev_crisis.1015.name"
+	desc = "ev_crisis.1015.desc"
+	
+	picture = GFX_evt_genetic_modification
+	#hide_window = yes
+	#is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		months = 15
+		modifier = {
+			factor = 1.5
+			event_target:ev_leviathans_crisis_tigger_country = { has_country_flag = ev_ship_rebel_difficult_25X }
+		}
+		modifier = {
+			factor = 30
+			NOT = {
+				has_country_flag = ev_find_anti_crisis_way
+			}
+		}
+		modifier = {
+			factor = 0.75
+			any_owned_leader = {
+				has_total_skill > 8
+				
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			check_variable = {
+				which = triggered_ev_crisis_1011
+				value < 3
+			}
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = {
+				which = triggered_ev_crisis_1011
+				value > 20
+			}
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = {
+				which = triggered_ev_crisis_1011
+				value > 50
+			}
+		}
+		modifier = {
+			factor = 0.75
+			any_owned_leader = {
+				has_trait = leader_trait_expertise_biology
+			}
+		}
+	}
+
+	trigger = {
+		NOT = {
+			has_country_flag = triggered_ev_crisis_1015
+		}
+		has_country_flag = triggered_ev_crisis_1011
+	}
+	after = {
+		
+	}
+	immediate = {
+		set_country_flag = triggered_ev_crisis_1015
+	}
+	option = {
+		name = ev_crisis.1015.a
+		add_resource = {
+			energy = -20000
+		}
+		
+		country_event = {
+			id = ev_crisis.1016 days = 300 random = 120
+		}
+	}
+	option = {
+		name = ev_crisis.1015.b
+		
+	}
+}
+
+
+country_event = {
+	id = ev_crisis.1016
+	title = "ev_crisis.1016.name"
+	desc = "ev_crisis.1016.desc"
+	
+	picture = GFX_evt_genetic_modification
+	#hide_window = yes
+	is_triggered_only = yes
+	
+	
+	trigger = {
+		
+	}
+	after = {
+		
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = ev_crisis.1016.a
+		add_research_option = tech_anti_crisis_1
+		random_owned_leader = {
+			limit = {
+				leader_class = scientist
+			}
+			add_skill = 1
+		}
+		every_owned_leader = {
+			limit = {
+				leader_class = scientist
+				has_trait = leader_trait_expertise_biology
+			}
+			add_experience = 100
+		}
+	}
+}

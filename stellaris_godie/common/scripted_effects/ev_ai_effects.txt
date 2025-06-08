@@ -1,0 +1,2398 @@
+#新版本给AI的家园舰 -2024-6-24
+give_ev_ai_homeless_fleet_new = {
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			while = {
+				count = $VAR$
+				create_ship = {
+					name = random
+					design = "NAME_start_homeless_ship_course_starbase"
+				}
+				#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+			}
+			set_fleet_flag = homeless_ship_ai_class_1
+			starbase = {
+				set_ship_construction_type = starbase_shipyard
+			}
+			owner = {
+				random_owned_ship = {
+					limit = {
+						is_any_type_homeless_ship = yes
+					}
+					save_event_target_as = ev_ai_onwer_amry_ship_location
+				}
+				add_monthly_resource_mult = {
+					resource = $RESOURCE|alloys$  
+					value = @\[( -36 * $VAR$ )]
+					max = -1000
+					min = -5000
+				}
+			}
+
+			set_fleet_stance = evasive
+			set_location = event_target:ev_ai_onwer_amry_ship_location
+		}
+		settings = {
+			can_upgrade = no
+			#can_disband = no
+			can_change_composition = no
+			uses_naval_capacity = no
+		}
+	}
+	
+}
+
+#新版本给AI补给船
+give_ev_ai_fleet_size_fleet_new = {
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			while = {
+				count = $VAR$
+				create_ship = {
+					name = random
+					random_existing_design = ev_fleet_size_ship
+					#design = "NAME_start_fleet_size_ai"
+				}
+				#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+			}
+			owner = {
+				random_owned_ship = {
+					limit = {
+						is_any_type_homeless_ship = yes
+					}
+					save_event_target_as = ev_ai_onwer_amry_ship_location
+				}
+				add_monthly_resource_mult = {
+					resource = $RESOURCE|alloys$  
+					value = @\[( -5 * $VAR$ )]
+					max = -300
+					min = -1000
+				}
+			}
+			set_fleet_stance = evasive
+			set_location = event_target:ev_ai_onwer_amry_ship_location
+		}
+		settings = {
+			#can_upgrade = no
+			#can_disband = no
+			#can_change_composition = no
+			uses_naval_capacity = no
+		}
+	}
+	
+}
+
+#升级AI原有家园舰 -2024-6-24
+update_ev_ai_homeless_fleet_new_1 = {
+	random_owned_fleet = {
+		limit = {
+			has_fleet_flag = homeless_ship_ai_class_1
+		}
+		delete_fleet = this
+	}
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			while = {
+				count = $VAR$
+				create_ship = {
+					name = random
+					design = "NAME_start_homeless_ship_course_starbase_3"
+				}
+				#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+			}
+			set_fleet_flag = homeless_ship_ai_class_3
+			
+			owner = {
+				random_owned_ship = {
+					limit = {
+						is_any_type_homeless_ship = yes
+					}
+					save_event_target_as = ev_ai_onwer_amry_ship_location
+				}
+				
+				add_monthly_resource_mult = {
+					resource = $RESOURCE|alloys$  
+					value = @\[( -36 * $VAR$ )]
+					max = -2500
+					min = -10000
+				}
+			}
+
+			set_fleet_stance = evasive
+			set_location = event_target:ev_ai_onwer_amry_ship_location
+		}
+		settings = {
+			can_upgrade = no
+			#can_disband = no
+			can_change_composition = no
+			uses_naval_capacity = no
+		}
+	}
+	
+}
+
+
+
+#给有机的船
+give_ev_ai_bio_homeless_fleet = {
+	if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_4
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	###
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1
+			has_resource = {
+				type = alloys
+				amount > 800
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -600
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 400
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -400
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1500
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 3
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 2000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			NOR = {
+				has_authority = auth_machine_intelligence
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 100
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -100
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+}
+
+#给不需要食物和消费品的船
+give_ev_ai_machine_homeless_fleet = {
+	if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2_machine
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2_machine
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_4
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	###
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 800
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -600
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 400
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -400
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1500
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 3
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 2000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_machine_intelligence
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 100
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -100
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_machine"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+}
+
+#给不需要消费品的船
+give_ev_ai_hive_homeless_fleet = {
+	if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2_machine
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_2_machine
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_4
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	###
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 1300
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -1200
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_4_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_3
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_3
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -3000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_technology = tech_homeless_production_resources_1_machine
+			has_resource = {
+				type = alloys
+				amount > 800
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 10
+			}
+		}
+		add_resource = {
+			alloys = -600
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_3_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_2
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 4000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -2000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_2
+			has_resource = {
+				type = alloys
+				amount > 400
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 8
+			}
+		}
+		add_resource = {
+			alloys = -400
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_2_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 5000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1500
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 3
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 2000
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -1000
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 2
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+	#
+	else_if = {
+		limit = {
+			OR = {
+				has_authority = auth_hive_mind
+			}
+			has_technology = tech_homeless_section_templates_1
+			has_resource = {
+				type = alloys
+				amount > 100
+			}
+			count_owned_ship = {
+				limit = {
+					is_ship_size = homeless_ship
+				}
+				count < 5
+			}
+		}
+		add_resource = {
+			alloys = -100
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_1_hive_mind"
+					}
+					add_modifier = {
+						modifier = empty_vagrant_homeless_ship_ai_1
+						days = -1
+					}
+					#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+				}
+				set_fleet_stance = evasive
+				set_location = event_target:ev_ai_onwer_amry_ship_location
+			}
+			settings = {
+				can_upgrade = no
+				#can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+	}
+}
+
+#根据武器buff计算修正--生产量/维护费
+cal_homeless_ship_resource = {
+	cal_repeatable_ev_resource = { RES = energy TYPE = produces }
+	cal_repeatable_ev_resource = { RES = minerals TYPE = produces }
+	cal_repeatable_ev_resource = { RES = food TYPE = produces }
+	cal_repeatable_ev_resource = { RES = manpower TYPE = produces }
+	cal_repeatable_ev_resource = { RES = alloys TYPE = produces }
+	cal_repeatable_ev_resource = { RES = society_research TYPE = produces }
+	cal_repeatable_ev_resource = { RES = engineering_research TYPE = produces }
+	cal_repeatable_ev_resource = { RES = physics_research TYPE = produces }
+	cal_repeatable_ev_resource = { RES = influence TYPE = produces }
+	cal_repeatable_ev_resource = { RES = unity TYPE = produces }
+	cal_repeatable_ev_resource = { RES = consumer_goods TYPE = produces }
+	cal_repeatable_ev_resource = { RES = volatile_motes TYPE = produces }
+	cal_repeatable_ev_resource = { RES = exotic_gases TYPE = produces }
+	cal_repeatable_ev_resource = { RES = rare_crystals TYPE = produces }
+	cal_repeatable_ev_resource = { RES = sr_living_metal TYPE = produces }
+	cal_repeatable_ev_resource = { RES = sr_zro TYPE = produces }
+	cal_repeatable_ev_resource = { RES = sr_dark_matter TYPE = produces }
+	cal_repeatable_ev_resource = { RES = nanites TYPE = produces }
+	cal_repeatable_ev_resource = { RES = minor_artifacts TYPE = produces }
+	cal_repeatable_ev_resource = { RES = menace TYPE = produces }
+
+	cal_repeatable_ev_resource = { RES = energy TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = minerals TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = food TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = manpower TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = alloys TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = society_research TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = engineering_research TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = physics_research TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = influence TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = unity TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = consumer_goods TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = volatile_motes TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = exotic_gases TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = rare_crystals TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = sr_living_metal TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = sr_zro TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = sr_dark_matter TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = nanites TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = minor_artifacts TYPE = upkeep }
+	cal_repeatable_ev_resource = { RES = menace TYPE = upkeep }
+}
+#清除
+clear_calculation_variable_total = {
+	clear_calculation_variable = { RES = energy TYPE = produces }
+	clear_calculation_variable = { RES = minerals TYPE = produces }
+	clear_calculation_variable = { RES = food TYPE = produces }
+	clear_calculation_variable = { RES = manpower TYPE = produces }
+	clear_calculation_variable = { RES = alloys TYPE = produces }
+	clear_calculation_variable = { RES = society_research TYPE = produces }
+	clear_calculation_variable = { RES = engineering_research TYPE = produces }
+	clear_calculation_variable = { RES = physics_research TYPE = produces }
+	clear_calculation_variable = { RES = influence TYPE = produces }
+	clear_calculation_variable = { RES = unity TYPE = produces }
+	clear_calculation_variable = { RES = consumer_goods TYPE = produces }
+	clear_calculation_variable = { RES = volatile_motes TYPE = produces }
+	clear_calculation_variable = { RES = exotic_gases TYPE = produces }
+	clear_calculation_variable = { RES = rare_crystals TYPE = produces }
+	clear_calculation_variable = { RES = sr_living_metal TYPE = produces }
+	clear_calculation_variable = { RES = sr_zro TYPE = produces }
+	clear_calculation_variable = { RES = sr_dark_matter TYPE = produces }
+	clear_calculation_variable = { RES = nanites TYPE = produces }
+	clear_calculation_variable = { RES = minor_artifacts TYPE = produces }
+	clear_calculation_variable = { RES = menace TYPE = produces }
+
+	clear_calculation_variable = { RES = energy TYPE = upkeep }
+	clear_calculation_variable = { RES = minerals TYPE = upkeep }
+	clear_calculation_variable = { RES = food TYPE = upkeep }
+	clear_calculation_variable = { RES = manpower TYPE = upkeep }
+	clear_calculation_variable = { RES = alloys TYPE = upkeep }
+	clear_calculation_variable = { RES = society_research TYPE = upkeep }
+	clear_calculation_variable = { RES = engineering_research TYPE = upkeep }
+	clear_calculation_variable = { RES = physics_research TYPE = upkeep }
+	clear_calculation_variable = { RES = influence TYPE = upkeep }
+	clear_calculation_variable = { RES = unity TYPE = upkeep }
+	clear_calculation_variable = { RES = consumer_goods TYPE = upkeep }
+	clear_calculation_variable = { RES = volatile_motes TYPE = upkeep }
+	clear_calculation_variable = { RES = exotic_gases TYPE = upkeep }
+	clear_calculation_variable = { RES = rare_crystals TYPE = upkeep }
+	clear_calculation_variable = { RES = sr_living_metal TYPE = upkeep }
+	clear_calculation_variable = { RES = sr_zro TYPE = upkeep }
+	clear_calculation_variable = { RES = sr_dark_matter TYPE = upkeep }
+	clear_calculation_variable = { RES = nanites TYPE = upkeep }
+	clear_calculation_variable = { RES = minor_artifacts TYPE = upkeep }
+	clear_calculation_variable = { RES = menace TYPE = upkeep }
+}
+#计算国家buff
+cal_homeless_ship_resource_country = {
+	count_ev_resource_proudce_buff_country = { RES = energy TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = minerals TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = food TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = manpower TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = alloys TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = society_research TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = engineering_research TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = physics_research TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = influence TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = unity TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = consumer_goods TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = volatile_motes TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = exotic_gases TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = rare_crystals TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = sr_living_metal TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = sr_zro TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = sr_dark_matter TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = nanites TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = minor_artifacts TYPE = produces }
+	count_ev_resource_proudce_buff_country = { RES = menace TYPE = produces }
+
+	count_ev_resource_proudce_buff_country = { RES = energy TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = minerals TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = food TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = manpower TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = alloys TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = society_research TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = engineering_research TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = physics_research TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = influence TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = unity TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = consumer_goods TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = volatile_motes TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = exotic_gases TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = rare_crystals TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = sr_living_metal TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = sr_zro TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = sr_dark_matter TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = nanites TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = minor_artifacts TYPE = upkeep }
+	count_ev_resource_proudce_buff_country = { RES = menace TYPE = upkeep }
+}
+cal_repeatable_ev_resource = {
+	set_variable = { 
+		which = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult 
+		value = modifier:weapon_type_ev_produce_$RES$_$TYPE$_speed_mult 
+	}
+	#复制一个基础值
+	set_variable = { 
+		which = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult_base
+		value = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult 
+	}
+	#计算buff-舰船
+	count_ev_resource_proudce_buff = { RES = $RES$ TYPE = $TYPE$ }
+	multiply_variable = {
+		which = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult 
+		value = ev_buff_$TYPE$_count
+	}
+	#赋值到舰队
+	prev = { change_variable = {
+		which = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult
+		value = prev.weapon_type_ev_produce_$RES$_$TYPE$_speed_mult
+	} }
+	prev = { change_variable = {
+		which = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult_base
+		value = prev.weapon_type_ev_produce_$RES$_$TYPE$_speed_mult_base
+	} }
+}
+
+clear_calculation_variable = {
+	clear_variable = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult
+	prev = { clear_variable = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult }
+
+	clear_variable = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult_base
+	prev = { clear_variable = weapon_type_ev_produce_$RES$_$TYPE$_speed_mult_base }
+}
+
+#计算buff-舰船
+count_ev_resource_proudce_buff = {
+	#country
+	#owner = { #owner作用域，国家
+	#	export_modifier_to_variable = {
+	#		modifier = country_$TYPE$_mult
+	#		variable = buff_country_$TYPE$_mult
+	#	}
+	#	
+	#	export_modifier_to_variable = {
+	#		modifier = country_$RES$_$TYPE$_mult
+	#		variable = buff_country_$RES$_$TYPE$_mult
+	#	}
+	#	
+	#
+	#	#ship
+	#	export_modifier_to_variable = {
+	#		modifier = ship_$TYPE$_mult
+	#		variable = buff_ship_$TYPE$_mult
+	#	}
+	#	
+	#	export_modifier_to_variable = {
+	#		modifier = ship_$RES$_$TYPE$_mult
+	#		variable = buff_ship_$RES$_$TYPE$_mult
+	#	}
+	#	
+	#
+	#	#ship_homeless_ev
+	#	export_modifier_to_variable = {
+	#		modifier = ship_homeless_ev_$TYPE$_mult
+	#		variable = buff_ship_homeless_ev_$TYPE$_mult
+	#	}
+	#	
+	#	export_modifier_to_variable = {
+	#		modifier = ship_homeless_ev_$RES$_$TYPE$_mult
+	#		variable = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	#	}
+	#	
+	#
+	#	#合计
+	#	set_variable = { which = ev_buff_$TYPE$_count value = 0 }
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_country_$TYPE$_mult
+	#	}
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_country_$RES$_$TYPE$_mult
+	#	}
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_ship_$TYPE$_mult
+	#	}
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_ship_$RES$_$TYPE$_mult
+	#	}
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_ship_homeless_ev_$TYPE$_mult
+	#	}
+	#	change_variable = {
+	#		which = ev_buff_$TYPE$_count
+	#		value = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	#	}
+	#
+	#}
+
+	#当前作用域-舰船
+	#ship
+	export_modifier_to_variable = {
+		modifier = ship_$TYPE$_mult
+		variable = buff_ship_$TYPE$_mult
+	}
+	
+	export_modifier_to_variable = {
+		modifier = ship_$RES$_$TYPE$_mult
+		variable = buff_ship_$RES$_$TYPE$_mult
+	}
+	
+
+	#ship_homeless_ev
+	export_modifier_to_variable = {
+		modifier = ship_homeless_ev_$TYPE$_mult
+		variable = buff_ship_homeless_ev_$TYPE$_mult
+	}
+	
+	export_modifier_to_variable = {
+		modifier = ship_homeless_ev_$RES$_$TYPE$_mult
+		variable = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	}
+	
+
+	#合计
+	set_variable = { which = ev_buff_$TYPE$_count value = 0 }
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_country_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_country_$RES$_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_$RES$_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_homeless_ev_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	}
+
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = 1
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = owner.ev_buff_$TYPE$_count
+	}
+}
+
+
+#计算buff-国家
+count_ev_resource_proudce_buff_country = {
+	#country
+	export_modifier_to_variable = {
+		modifier = country_$TYPE$_mult
+		variable = buff_country_$TYPE$_mult
+	}
+	
+	export_modifier_to_variable = {
+		modifier = country_$RES$_$TYPE$_mult
+		variable = buff_country_$RES$_$TYPE$_mult
+	}
+	
+
+	#ship
+	export_modifier_to_variable = {
+		modifier = ship_$TYPE$_mult
+		variable = buff_ship_$TYPE$_mult
+	}
+	
+	export_modifier_to_variable = {
+		modifier = ship_$RES$_$TYPE$_mult
+		variable = buff_ship_$RES$_$TYPE$_mult
+	}
+	
+
+	#ship_homeless_ev
+	export_modifier_to_variable = {
+		modifier = ship_homeless_ev_$TYPE$_mult
+		variable = buff_ship_homeless_ev_$TYPE$_mult
+	}
+	
+	export_modifier_to_variable = {
+		modifier = ship_homeless_ev_$RES$_$TYPE$_mult
+		variable = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	}
+	
+
+	#合计
+	set_variable = { which = ev_buff_$TYPE$_count value = 0 }
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_country_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_country_$RES$_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_$RES$_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_homeless_ev_$TYPE$_mult
+	}
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = buff_ship_homeless_ev_$RES$_$TYPE$_mult
+	}
+
+
+	change_variable = {
+		which = ev_buff_$TYPE$_count
+		value = 1
+	}
+}

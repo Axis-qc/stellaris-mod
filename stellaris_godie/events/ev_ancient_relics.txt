@@ -1,0 +1,1398 @@
+############################
+#
+# Spread of communications
+#
+# Written by Martin Anward
+#
+############################
+namespace = ev_ancient_relics
+# Stage 1 - 
+fleet_event = {
+	id = ev_ancient_relics.1
+	title = "ev_ancient_relics.1.name"
+	desc = "ev_ancient_relics.1.desc"
+	picture = GFX_evt_ev_load_13_small
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+	}
+	option = {
+		name = ev_ancient_relics.1.a
+		medium_artifact_reward = yes
+		custom_tooltip = ev_ancient_relics.1.a.tooltip
+		owner = {
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = 30
+				min = 500
+				max = 5000
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.1.b
+		small_artifact_reward = yes
+		#hidden_effect = {
+		from = {
+			set_site_progress_locked = no
+		}
+		#}
+	}
+}
+
+# Stage 2 - 
+fleet_event = {
+	id = ev_ancient_relics.2
+	title = "ev_ancient_relics.2.name"
+	desc = "ev_ancient_relics.2.desc"
+	picture = GFX_evt_ev_load_13_small
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+		owner = {
+			set_country_flag = earth_laboratory_finding
+		}
+	}
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+	option = {
+		name = ev_ancient_relics.2.a
+		small_artifact_reward = yes
+		owner = {
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = 25
+				min = 500
+				max = 5000
+			}
+		}
+	}
+}
+
+# Stage 3 -
+fleet_event = {
+	id = ev_ancient_relics.3
+	title = "ev_ancient_relics.3.name"
+	desc = "ev_ancient_relics.3.desc"
+	picture = GFX_evt_ev_load_13_small
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+	}
+	option = {
+		name = ev_ancient_relics.3.a
+		medium_artifact_reward = yes
+		leader = {
+			add_experience = 200
+		}
+		custom_tooltip = ev_ancient_relics.1.a.tooltip
+	}
+	option = {
+		name = ev_ancient_relics.3.b
+		medium_artifact_reward = yes
+		leader = {
+			add_experience = 200
+		}
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+}
+
+# Stage 4 - 
+fleet_event = {
+	id = ev_ancient_relics.4
+	title = "ev_ancient_relics.4.name"
+	desc = "ev_ancient_relics.4.desc"
+	picture = GFX_evt_ev_load_13_small
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_ancient_relics.100
+				}
+			}
+		}
+	}
+	after = {
+		#from = { set_site_progress_locked = no } 
+	}
+	option = {
+		name = ev_ancient_relics.4.a
+		medium_artifact_reward = yes
+		owner = {
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = 25
+				min = 500
+				max = 10000
+			}
+		}
+		leader = {
+			add_experience = 300
+		}
+	}
+}
+
+# Stage 5 - 
+#leet_event = {
+#	id = ev_ancient_relics.5
+#	title = "ev_ancient_relics.5.name"
+#	desc = "ev_ancient_relics.5.desc"
+#	picture = GFX_evt_ev_load_13_small
+#	show_sound = event_drilling
+#	
+#	archaeology = yes
+#
+#	is_triggered_only = yes
+#	
+#	immediate = {
+#		from = { set_site_progress_locked = yes }
+#	}
+#
+#	after = { 
+#		from = { set_site_progress_locked = no } 
+#	}
+#	
+#	option = {
+#		name = ev_ancient_relics.5.a
+#		medium_artifact_reward = yes
+#		owner = {
+#			add_monthly_resource_mult = {
+#				resource = society_research
+#				value = 15
+#				min = 500
+#				max = 2000
+#			}
+#			add_monthly_resource_mult = {
+#				resource = engineering_research
+#				value = 15
+#				min = 500
+#				max = 2000
+#			}
+#		}
+#		leader = { add_experience = 200 }
+#	}
+#
+#
+# Stage 6 - 
+#
+#leet_event = {
+#	id = ev_ancient_relics.6
+#	title = "ev_ancient_relics.6.name"
+#	desc = "ev_ancient_relics.6.desc"
+#	picture = GFX_evt_ev_load_13_small
+#	show_sound = event_drilling
+#	
+#	archaeology = yes
+#
+#	is_triggered_only = yes
+#	
+#	immediate = {
+#		from = { set_site_progress_locked = yes }
+#		hidden_effect = {
+#			owner = { country_event = { id = ev_ancient_relics.100 } }
+#		}
+#	}
+#
+#	after = { 
+#		from = { set_site_progress_locked = no } 
+#	}
+#	
+#	option = {
+#		name = ev_ancient_relics.6.a
+#		medium_artifact_reward = yes
+#		
+#		leader = { add_experience = 400 }
+#	}
+#
+#
+#
+## Archaeology: big homeless ship
+#Spawning Event (HIDDEN)
+event = {
+	id = ev_ancient_relics.10
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		mid_game_years_passed >= 30
+		NOT = {
+			has_global_flag = big_homeless_spawned
+		}
+		any_controlled_ship = {
+			OR = {
+				is_ship_size = homeless_ship
+				is_ship_size = homeless_ship_starbase
+				is_ship_size = private_homeless_ship
+				is_ship_size = private_homeless_ship_starbase
+				is_ship_size = megastructures_homeless_ship
+			}
+		}
+	}
+	immediate = {
+		random_list = {
+			25 = {
+			}
+			5 = {
+				set_global_flag = big_homeless_spawned
+				random_playable_country = {
+					limit = {
+						is_ai = no
+						#is_default_ev_country_type = yes
+					}
+					country_event = {
+						id = ev_ancient_relics.11
+						days = 1
+						random = 350
+					}
+				}
+			}
+		}
+	}
+}
+
+# Spawning Event
+country_event = {
+	id = ev_ancient_relics.11
+	title = "ev_ancient_relics.11.name"
+	desc = "ev_ancient_relics.11.desc"
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.11.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = analyzing_artifacts_room } #图片只能用room
+	show_sound = event_power_down
+	location = event_target:ev_tomb_planet
+	is_triggered_only = yes
+	immediate = {
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_ship_size = homeless_ship
+						is_ship_size = homeless_ship_starbase
+						is_ship_size = private_homeless_ship
+						is_ship_size = private_homeless_ship_starbase
+						is_ship_size = megastructures_homeless_ship
+					}
+				}
+			}
+			solar_system = {
+				random_system_planet = {
+					limit = {
+						OR = {
+							is_planet_class = pc_molten
+							is_planet_class = pc_barren
+							is_planet_class = pc_barren_cold
+							is_planet_class = pc_frozen
+						}
+						NOT = {
+							exists = archaeological_site
+						}
+					}
+					save_global_event_target_as = ev_tomb_planet
+				}
+			}
+		}
+		#random_planet_within_border = {
+		#	limit = {
+		#		OR = {
+		#			is_planet_class = pc_molten
+		#			is_planet_class = pc_barren
+		#			is_planet_class = pc_barren_cold
+		#			is_planet_class = pc_frozen
+		#		}
+		#		NOT = { exists = archaeological_site }
+		#	}
+		#	save_global_event_target_as = ev_tomb_planet
+		#}
+	}
+	option = {
+		name = ev_ancient_relics.11.a
+		event_target:ev_tomb_planet = {
+			create_archaeological_site = site_ruins_of_big_homeless_ship
+		}
+	}
+	option = {
+		name = ev_ancient_relics.11.b
+		add_resource = {
+			influence = 40
+		}
+	}
+}
+
+#test for spwan
+country_event = {
+	id = ev_ancient_relics.100
+	title = "ev_ancient_relics.100.name"
+	desc = "ev_ancient_relics.100.desc"
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.100.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = metropolis_room } #图片只能用room
+	show_sound = event_alien_signal
+	is_triggered_only = yes
+	immediate = {
+		create_fleet = {
+			name = "NAME_ev_xing_cha"
+			effect = {
+				set_owner = root
+				while = {
+					count = 1					#is best
+					create_ship = {
+						name = "NAME_ev_xing_cha"
+						design = "NAME_event_homeless_ship"
+						effect = {
+							set_ship_flag = this_ev_xing_cha
+						}
+					}
+					#while = {
+					#	count = 2
+					#	add_modifier = { modifier = empty_vagrant_homeless_ship_ai_3 days = -1	}
+					#}
+					#add_modifier = { modifier = ev_xing_cha_power days = -1	}
+				}
+				set_location = event_target:ev_tomb_planet
+			}
+		}
+		create_species = {
+			class = "HUM"
+			traits = {
+				trait = "trait_agrarian"
+				trait = "trait_adaptive"
+				trait = "trait_wasteful"
+			}
+		}
+		create_country = {
+			authority = random
+			day_zero_contact = no
+			civics = random
+			species = last_created_species
+			ethos = random
+			flag = random
+			type = faction
+		}
+		last_created_country = {
+			save_event_target_as = hate_homeless_ship
+			set_country_type = faction
+			set_country_flag = is_ev_ship_ancient_country
+		}
+		event_target:hate_homeless_ship = {
+			set_faction_hostility = {
+				set_hostile = yes
+			}
+		}
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = last_created_country
+		#			while = {
+		#				count = 12 #is best
+		#				create_ship = {
+		#					name = "Ground_Doctrine"
+		#					design = "NAME_hate_homeless_ship_1"
+		#				}	
+		#				create_ship = {
+		#					name = "Ground_Doctrine"
+		#					design = "NAME_hate_homeless_ship_2"
+		#				}
+		#			}	
+		#		#set_location = event_target:sol_planet_jupiter
+		#		set_location = {
+		#			target = event_target:ev_tomb_planet
+		#			distance = 260
+		#			angle = random
+		#		}
+		#		set_fleet_stance = aggressive
+		#		set_aggro_range = 450	
+		#	}		
+		#}
+		while = {
+			count = 2
+			create_fleet = {
+				effect = {
+					set_owner = last_created_country
+					while = {
+						count = 26						#is best
+						create_ship = {
+							name = "Ground Doctrine"
+							design = "NAME_hate_homeless_ship_1"
+						}
+						create_ship = {
+							name = "Ground Doctrine"
+							design = "NAME_hate_homeless_ship_2"
+						}
+					}
+					set_fleet_flag = ev_ancient_relics_fleet
+					#set_location = event_target:sol_planet_jupiter
+					set_location = {
+						target = event_target:ev_tomb_planet
+						distance = 250
+						angle = random
+					}
+					set_fleet_stance = aggressive
+					set_aggro_range = 500
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.100.a
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.105
+	title = ev_ancient_relics.105.name
+	desc = ev_ancient_relics.105.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.105.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	is_triggered_only = yes
+	trigger = {
+		FromFromFrom = {
+			has_fleet_flag = ev_ancient_relics_fleet
+		}
+	}
+	option = {
+		name = ev_ancient_relics.105.a
+		add_monthly_resource_mult = {
+			resource = influence
+			value = 10
+		}
+	}
+}
+
+# Pirate station spawns on disabled starbase (HIDDEN)
+ship_event = {
+	id = ev_ancient_relics.110
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ship_class = shipclass_starbase
+		from = {
+			owner = {
+				is_country_type = pirate
+				has_country_flag = is_ev_ship_ancient_country
+			}
+		}
+		solar_system = {
+			NOT = {
+				any_ship_in_system = {
+					is_ship_size = pirate_station
+				}
+			}
+		}
+	}
+	immediate = {
+		solar_system = {
+			random_system_planet = {
+				save_event_target_as = pirate_base_location
+			}
+		}
+		while = {
+			count = 2
+			create_fleet = {
+				name = "NAME_Pirate_Station"
+				effect = {
+					set_owner = from.owner
+					create_ship = {
+						name = random
+						design = "NAME_Pirate_Nest_2"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = event_target:pirate_base_location
+						distance = 50
+						angle = random
+					}
+				}
+			}
+		}
+		while = {
+			count = 4
+			create_fleet = {
+				name = "NAME_Pirate_Station"
+				effect = {
+					set_owner = from.owner
+					create_ship = {
+						name = random
+						design = "NAME_Pirate_Nest"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = event_target:pirate_base_location
+						distance = 80
+						angle = random
+					}
+				}
+			}
+		}
+	}
+}
+
+##########土著########
+#当进入星系
+ship_event = {
+	id = ev_ancient_relics.200
+	title = ev_ancient_relics.200.name
+	desc = ev_ancient_relics.200.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.200.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	##picture_event_data = { room = ev_void_room } #图片只能用room
+	picture = GFX_evt_early_space_age
+	location = root
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			has_star_flag = ev_nuked_age_primitive
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				owner = {
+					is_default_ev_country_type = yes
+				}
+			}
+		}
+		name = ev_ancient_relics.200.a
+	}
+	option = {
+		trigger = {
+			owner = {
+				is_default_ev_country_type = yes
+			}
+		}
+		name = ev_ancient_relics.200.b
+	}
+}
+
+#当扫描星球完成
+ship_event = {
+	id = ev_ancient_relics.210
+	title = ev_ancient_relics.210.name
+	desc = ev_ancient_relics.210.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.210.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = in_the_dark_room } #图片只能用room
+	picture = GFX_evt_early_space_age
+	location = root
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			has_planet_flag = ev_nuked_age_planet
+		}
+	}
+	option = {
+		name = ev_ancient_relics.210.a
+	}
+	option = {
+		name = ev_ancient_relics.210.b
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				has_country_flag = ev_nuked_age
+			}
+			establish_communications = root.owner
+		}
+	}
+}
+
+#攻占胜利
+country_event = {
+	id = ev_ancient_relics.220
+	title = ev_ancient_relics.220.name
+	desc = ev_ancient_relics.220.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.220.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	##picture_event_data = { room = ev_homeless_in_room } #图片只能用room
+	picture = GFX_evt_ground_combat
+	location = FromFrom
+	is_triggered_only = yes
+	trigger = {
+		FromFrom = {
+			has_planet_flag = ev_nuked_age_planet
+		}
+		from = {
+			has_country_flag = ev_nuked_age
+		}
+	}
+	immediate = {
+		#set_country_type = default
+		#random_planet_within_border = {
+		#	spawn_system = {
+		#		initializer = ev_nuked_age_primitive_init_01
+		#		max_distance = 30
+		#		min_distance = 20
+		#		
+		#	}
+		#}
+		FromFrom = {
+			add_deposit = d_ev_abndoned_homeless
+		}
+	}
+	option = {
+		name = ev_ancient_relics.220.a
+	}
+}
+
+#清理地块后获得特殊项目
+planet_event = {
+	id = ev_ancient_relics.230
+	title = ev_ancient_relics.230.name
+	desc = ev_ancient_relics.230.desc
+	diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.230.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = ancient_databank_room } #图片只能用room
+	picture = GFX_evt_physics_research
+	location = root
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.230.a
+		trigger = {
+			NOT = {
+				owner = {
+					is_default_ev_country_type = yes
+				}
+			}
+		}
+		enable_special_project = {
+			name = EV_NEAR_HOMELESS_PROJECT
+			location = THIS
+		}
+	}
+	option = {
+		name = ev_ancient_relics.230.b
+		trigger = {
+			NOT = {
+				owner = {
+					is_default_ev_country_type = yes
+				}
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = influence
+				value = 12
+				max = 100
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.230.c
+		trigger = {
+			owner = {
+				is_default_ev_country_type = yes
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = 12
+				max = 10000
+			}
+		}
+	}
+}
+
+#特殊项目完成
+country_event = {
+	id = ev_ancient_relics.231
+	title = ev_ancient_relics.231.name
+	desc = ev_ancient_relics.231.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.231.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = habitable_dig_site_room } #图片只能用room
+	picture = GFX_evt_ship_in_orbit_2
+	is_triggered_only = yes
+	option = {
+		trigger = {
+			is_default_ev_country_type = no
+		}
+		name = ev_ancient_relics.231.a
+		custom_tooltip = ev_ancient_relics.231.tooltip
+		set_country_flag = can_build_homeless_in_default
+		give_technology = {
+			tech = tech_homeless_ship
+		}
+		give_technology = {
+			tech = tech_homeless_section_templates_1
+		}
+		hidden_effect = {
+			ev_gamestart_effect = yes
+		}
+	}
+	option = {
+		trigger = {
+			is_default_ev_country_type = no
+		}
+		name = ev_ancient_relics.231.b
+		add_monthly_resource_mult = {
+			resource = influence
+			value = 24
+			#max = 200
+		}
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 60
+			#max = 200
+		}
+	}
+	option = {
+		trigger = {
+			is_default_ev_country_type = yes
+		}
+		name = ev_ancient_relics.231.c
+		add_monthly_resource_mult = {
+			resource = influence
+			value = 24
+			#max = 200
+		}
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 60
+			#max = 200
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.299
+	title = ev_ancient_relics.299.name
+	desc = ev_ancient_relics.299.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.299.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.299.a
+		add_monthly_resource_mult = {
+			resource = physics_research
+			value = 6
+		}
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = 6
+		}
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 6
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.300
+	title = ev_ancient_relics.300.name
+	desc = ev_ancient_relics.300.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.300.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.300.a
+		random_list = {
+			3 = {
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = physics_research } 
+			}
+			3 = {
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = society_research } 
+			}
+			3 = {
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = engineering_research } 
+			}
+			1 = {
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = physics_research } 
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = society_research } 
+				ev_land_planet_give_resouce = { VAR = 1  RESOURCE = engineering_research } 
+			}
+		}
+		#add_monthly_resource_mult = {
+		#	resource = physics_research
+		#	value = 6
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = society_research
+		#	value = 6
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = engineering_research
+		#	value = 6
+		#}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.301
+	title = ev_ancient_relics.301.name
+	desc = ev_ancient_relics.301.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.301.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.300.a
+	}
+}
+
+##############################################
+country_event = {
+	id = ev_ancient_relics.8001
+	title = ev_ancient_relics.8001.name
+	desc = ev_ancient_relics.8001.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8001.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	#is_triggered_only = yes
+	picture = GFX_evt_unknown_ships
+	mean_time_to_happen = {
+		months = 60
+	}
+	trigger = {
+		is_ai = no
+		OR = {
+			is_default_ev_country_type = yes
+			any_country = {
+				is_default_ev_country_type = yes
+			}
+		}
+		end_game_years_passed > 5
+		NOT = {
+			has_global_flag = triggered_ev_ancient_relics.8001
+		}
+	}
+	immediate = {
+		set_global_flag = triggered_ev_ancient_relics.8001
+		#save_global_event_target_as = origin_country
+		set_country_flag = ev_fleet_creating_avoid
+		
+		country_event = {
+			id = ev_ancient_relics.8002
+			days = 100 random = 200
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8001.a
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8002
+	title = ev_ancient_relics.8002.name
+	desc = ev_ancient_relics.8002.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8002.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	##picture_event_data = { room = ev_void_room } #图片只能用room
+	location = event_target:ev_sky_walker_fleet
+	picture = GFX_evt_ship_in_orbit_2
+	is_triggered_only = yes
+	immediate = {
+		random_planet_within_border = {
+			save_global_event_target_as = ship_create_location
+		}
+		create_species = {
+			name = "NAME_avoidnome"
+			class = random
+			portrait = random
+			traits = random
+			immortal = yes
+			effect = {
+				save_event_target_as = avoid_speciseler
+			}
+		}
+		create_country = {
+			name = "NAME_avoid_country_walker"
+			type = "ev_exiles_fleet"
+			species = event_target:avoid_speciseler
+			name_list = "MAM3"
+			flag = {
+				icon = {
+					category = "empty_vagrant"
+					file = "ev_logo_1.dds"
+				}
+				background = {
+					category = "backgrounds"
+					file = "horizontal.dds"
+				}
+				colors = {
+					"blue"
+					"black"
+					"null"
+					"null"
+				}
+			}
+		}
+		last_created_country = {
+			save_global_event_target_as = nome_country
+		}
+		create_fleet = {
+			name = "Name_sky_walker"
+			effect = {
+				set_owner = event_target:nome_country
+				while = {
+					count = 45
+					create_ship = {
+						name = random
+						random_existing_design = corvette
+						prefix = no
+					}
+				}
+				while = {
+					count = 30
+					create_ship = {
+						name = random
+						random_existing_design = destroyer
+						prefix = no
+					}
+				}
+				while = {
+					count = 30
+					create_ship = {
+						name = random
+						random_existing_design = cruiser
+						prefix = no
+					}
+				}
+				while = {
+					count = 20
+					create_ship = {
+						name = random
+						random_existing_design = battleship
+						prefix = no
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						random_existing_design = titan
+						prefix = no
+					}
+				}
+				while = {
+					count = 5
+					create_ship = {
+						name = random
+						design = "NAME_start_homeless_ship_ai_5"
+						prefix = no
+					}
+				}
+				
+				save_global_event_target_as = ev_sky_walker_fleet
+				set_fleet_stance = passive
+				set_location = event_target:ship_create_location
+				set_event_locked = yes
+				assign_leader = last_created_leader
+
+				
+			}
+			settings = {
+				can_upgrade = no
+				can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+		while = {
+			count = 3
+			
+			create_fleet = {
+				name = "Name_sky_walker"
+				effect = {
+					set_owner = event_target:nome_country
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_meg_homeless_ship_1"
+						}
+					}
+					add_modifier = {
+						modifier = ev_meg_ship_strat_upkeep_buff days = -1
+					}
+					
+					set_event_locked = yes
+					assign_leader = last_created_leader
+					set_location = event_target:ship_create_location
+				}
+				settings = {
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+				}
+			}
+			
+		}
+		event_target:nome_country = {
+			every_owned_ship = {
+				reduce_hp_percent = 88
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8002.c
+		trigger = {
+			has_country_flag = mitteren_6th
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8003
+				days = 12
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8002.a
+		
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8003
+				days = 12
+			}
+		}
+	}
+	
+	option = {
+		name = ev_ancient_relics.8002.b
+		add_resource = {
+			influence = 25
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8010
+				days = 100
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8003
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		country_event = {
+			id = ev_ancient_relics.8004
+			days = 30
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8004
+	title = ev_ancient_relics.8004.name
+	desc = ev_ancient_relics.8004.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8004.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_ship_in_orbit_3
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.8004.c
+		trigger = {
+			has_country_flag = mitteren_6th
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8004.a
+		
+	}
+	option = {
+		name = ev_ancient_relics.8004.b
+		add_resource = {
+			influence = 25
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8010
+				days = 100
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8005
+				days = 120
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8005
+	title = ev_ancient_relics.8005.name
+	desc = ev_ancient_relics.8005.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8005.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_physics_research
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.8005.a
+		add_resource = {
+			influence = 25
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8006
+				days = 3600
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8006
+	title = ev_ancient_relics.8006.name
+	desc = ev_ancient_relics.8006.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8006.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_ship_travel
+	is_triggered_only = yes
+	option = {
+		name = ev_ancient_relics.8006.a
+		
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.80071
+				days = 1200
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.80071
+	title = ev_ancient_relics.80071.name
+	desc = ev_ancient_relics.80071.desc
+	diplomatic = yes
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	is_triggered_only = yes
+	immediate = {
+		establish_communications = event_target:nome_country 
+		establish_communications_no_message = event_target:nome_country
+	}
+	option = {
+		name = ev_ancient_relics.80071.a
+		
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8007
+				days = 10
+			}
+		}
+		
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8007
+	title = ev_ancient_relics.8007.name
+	desc = ev_ancient_relics.8007.desc
+	diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8007.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_ship_in_orbit
+	is_triggered_only = yes
+	immediate = {
+		remove_country_flag = ev_fleet_creating_avoid
+		create_fleet = {
+			name = "Name_sky_ten_fleet"
+			effect = {
+				set_owner = root #event_target:origin_country
+				while = {
+					count = 1
+					create_ship = {
+						name = "Name_sky_ten_ship"
+						design = "NAME_meg_homeless_ship_1"
+					}
+				}
+				add_modifier = {
+					modifier = ev_meg_ship_strat_upkeep_buff days = -1
+				}
+				set_location = root.capital_star
+			}
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8007.a
+		hidden_effect = {
+			country_event = {
+				id = ev_ancient_relics.8008
+			}
+		}
+		
+		
+	}
+}
+
+country_event = {
+	id = ev_ancient_relics.8008
+	title = ev_ancient_relics.8008.name
+	desc = ev_ancient_relics.8008.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8008.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	is_triggered_only = yes
+	picture = GFX_evt_ev_load_5_small
+	immediate = {
+		set_global_flag = ev_crisis_will_come
+		every_country = {
+			limit = {
+				is_country_type = ev_exiles_fleet
+			}
+			every_owned_ship = {
+				delete_ship = this
+			}
+			destroy_country = yes
+		}
+	}
+	after = {
+		add_monthly_resource_mult = {
+			resource = physics_research
+			value = 60
+		}
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = 60
+		}
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 60
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8008.a
+	}
+	option = {
+		name = ev_ancient_relics.8008.b
+	}
+	option = {
+		name = ev_ancient_relics.8008.c
+	}
+	option = {
+		name = ev_ancient_relics.8008.e
+	}
+	option = {
+		name = ev_ancient_relics.8008.f
+	}
+	option = {
+		name = ev_ancient_relics.8008.d
+	}
+	option = {
+		name = ev_ancient_relics.8008.g
+	}
+	option = {
+		name = ev_ancient_relics.8008.h
+	}
+	option = {
+		name = ev_ancient_relics.8008.5th
+		add_resource = {
+			influence = 100
+		}
+	}
+}
+
+
+country_event = {
+	id = ev_ancient_relics.8010
+	title = ev_ancient_relics.8010.name
+	desc = ev_ancient_relics.8010.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_ancient_relics.8010.name"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = exploding_ship_room } #图片只能用room
+	picture = GFX_evt_fleet_good
+	is_triggered_only = yes
+	immediate = {
+		set_global_flag = ev_crisis_will_come
+		every_country = {
+			limit = {
+				is_country_type = ev_exiles_fleet
+			}
+			every_owned_ship = {
+				delete_ship = this
+			}
+			destroy_country = yes
+		}
+	}
+	option = {
+		name = ev_ancient_relics.8010.a
+		
+	}
+}
+

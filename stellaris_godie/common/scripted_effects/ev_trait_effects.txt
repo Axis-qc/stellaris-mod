@@ -1,0 +1,489 @@
+#重置buff
+remove_ev_traits_buff = {
+	remove_modifier = trait_ev_food_add_1_modifier
+	remove_modifier = trait_ev_food_add_2_modifier
+	remove_modifier = trait_ev_food_reduce_modifier
+	remove_modifier = trait_ev_energy_add_1_modifier
+	remove_modifier = trait_ev_energy_add_2_modifier
+	remove_modifier = trait_ev_energy_reduce_modifier
+	remove_modifier = trait_ev_minerals_add_1_modifier
+	remove_modifier = trait_ev_minerals_add_2_modifier
+	remove_modifier = trait_ev_minerals_reduce_modifier
+	remove_modifier = trait_ev_research_add_modifier
+	remove_modifier = trait_ev_research_reduce_modifier
+	remove_modifier = trait_ev_physics_research_modifier
+	remove_modifier = trait_ev_society_research_modifier
+	remove_modifier = trait_ev_engineering_research_modifier
+	remove_modifier = trait_ev_manpower_add_modifier
+	remove_modifier = trait_ev_manpower_reduce_modifier
+	remove_modifier = trait_ev_investigation_add_modifier
+	remove_modifier = trait_ev_advanced_research_modifier
+	remove_modifier = trait_ev_advanced_manpower_modifier
+	remove_modifier = trait_ev_advanced_war_modifier
+	remove_modifier = trait_ev_homeless_build_modifier
+	remove_modifier = trait_ev_homeless_build_2_modifier
+	remove_modifier = trait_ev_homeless_produces_modifier
+	remove_modifier = trait_ev_logic_research_modifier
+	remove_modifier = trait_ev_survey_add_modifier
+	remove_modifier = trait_ev_energy_add_machine_modifier
+	remove_modifier = trait_ev_energy_reduce_machine_modifier
+	remove_modifier = trait_ev_minerals_add_machine_modifier
+	remove_modifier = trait_ev_minerals_reduce_machine_modifier
+	remove_modifier = trait_ev_upkeep_add_modifier
+	remove_modifier = trait_ev_upkeep_reduce_modifier
+	remove_country_flag = flag_trait_ev_food_add_1
+	remove_country_flag = flag_trait_ev_food_add_2
+	remove_country_flag = flag_trait_ev_food_reduce
+	remove_country_flag = flag_trait_ev_energy_add_1
+	remove_country_flag = flag_trait_ev_energy_add_2
+	remove_country_flag = flag_trait_ev_energy_reduce
+	remove_country_flag = flag_trait_ev_minerals_add_1
+	remove_country_flag = flag_trait_ev_minerals_add_2
+	remove_country_flag = flag_trait_ev_minerals_reduce
+	remove_country_flag = flag_trait_ev_research_add
+	remove_country_flag = flag_trait_ev_research_reduce
+	remove_country_flag = flag_trait_ev_physics_research
+	remove_country_flag = flag_trait_ev_society_research
+	remove_country_flag = flag_trait_ev_engineering_research
+	remove_country_flag = flag_trait_ev_manpower_add
+	remove_country_flag = flag_trait_ev_manpower_reduce
+	remove_country_flag = flag_trait_ev_investigation_add
+	remove_country_flag = flag_trait_ev_advanced_research
+	remove_country_flag = flag_trait_ev_advanced_manpower
+	remove_country_flag = flag_trait_ev_advanced_war
+	remove_country_flag = flag_trait_ev_homeless_build
+	remove_country_flag = flag_trait_ev_homeless_build_2
+	remove_country_flag = flag_trait_ev_homeless_produces
+	remove_country_flag = flag_trait_ev_logic_research
+	remove_country_flag = flag_trait_ev_survey_add
+	remove_country_flag = flag_trait_ev_energy_add_machine
+	remove_country_flag = flag_trait_ev_energy_reduce_machine
+	remove_country_flag = flag_trait_ev_minerals_add_machine
+	remove_country_flag = flag_trait_ev_minerals_reduce_machine
+	remove_country_flag = flag_trait_ev_upkeep_add
+	remove_country_flag = flag_trait_ev_upkeep_reduce
+}
+
+#根据特质获得修正
+give_ev_traits_buff = {
+	#农业
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_food_add_1
+			}
+			has_trait = trait_ev_food_add_1
+		}
+		add_modifier = {
+			modifier = trait_ev_food_add_1_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_food_add_1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_food_add_2
+			}
+			has_trait = trait_ev_food_add_2
+		}
+		add_modifier = {
+			modifier = trait_ev_food_add_2_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_food_add_2
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_food_reduce
+			}
+			has_trait = trait_ev_food_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_food_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_food_reduce
+	}
+	#能源
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_energy_add_1
+			}
+			has_trait = trait_ev_energy_add_1
+		}
+		add_modifier = {
+			modifier = trait_ev_energy_add_1_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_energy_add_1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_energy_add_2
+			}
+			has_trait = trait_ev_energy_add_2
+		}
+		add_modifier = {
+			modifier = trait_ev_energy_add_2_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_energy_add_2
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_energy_reduce
+			}
+			has_trait = trait_ev_energy_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_energy_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_energy_reduce
+	}
+	#矿务
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_minerals_add_1
+			}
+			has_trait = trait_ev_minerals_add_1
+		}
+		add_modifier = {
+			modifier = trait_ev_minerals_add_1_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_minerals_add_1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_minerals_add_2
+			}
+			has_trait = trait_ev_minerals_add_2
+		}
+		add_modifier = {
+			modifier = trait_ev_minerals_add_2_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_minerals_add_2
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_minerals_reduce
+			}
+			has_trait = trait_ev_minerals_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_minerals_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_minerals_reduce
+	}
+	#全面科研
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_research_add
+			}
+			has_trait = trait_ev_research_add
+		}
+		add_modifier = {
+			modifier = trait_ev_research_add_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_research_add
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_research_reduce
+			}
+			has_trait = trait_ev_research_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_research_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_research_reduce
+	}
+	#单项科研
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_physics_research
+			}
+			has_trait = trait_ev_physics_research
+		}
+		add_modifier = {
+			modifier = trait_ev_physics_research_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_physics_research
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_society_research
+			}
+			has_trait = trait_ev_society_research
+		}
+		add_modifier = {
+			modifier = trait_ev_society_research_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_society_research
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_engineering_research
+			}
+			has_trait = trait_ev_engineering_research
+		}
+		add_modifier = {
+			modifier = trait_ev_engineering_research_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_engineering_research
+	}
+	#人力
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_manpower_add
+			}
+			has_trait = trait_ev_manpower_add
+		}
+		add_modifier = {
+			modifier = trait_ev_manpower_add_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_manpower_add
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_manpower_reduce
+			}
+			has_trait = trait_ev_manpower_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_manpower_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_manpower_reduce
+	}
+	#调查速度
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_investigation_add
+			}
+			has_trait = trait_ev_investigation_add
+		}
+		add_modifier = {
+			modifier = trait_ev_investigation_add_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_investigation_add
+	}
+	#维护费
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_upkeep_add
+			}
+			has_trait = trait_ev_upkeep_add
+		}
+		add_modifier = {
+			modifier = trait_ev_upkeep_add_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_upkeep_add
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_upkeep_reduce
+			}
+			has_trait = trait_ev_upkeep_reduce
+		}
+		add_modifier = {
+			modifier = trait_ev_upkeep_reduce_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_upkeep_reduce
+	}
+	#高级研究
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_advanced_research
+			}
+			has_trait = trait_ev_advanced_research
+		}
+		add_modifier = {
+			modifier = trait_ev_advanced_research_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_advanced_research
+	}
+	#高级繁殖
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_advanced_manpower
+			}
+			has_trait = trait_ev_advanced_manpower
+		}
+		add_modifier = {
+			modifier = trait_ev_advanced_manpower_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_advanced_manpower
+	}
+	#高级战斗
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_advanced_war
+			}
+			has_trait = trait_ev_advanced_war
+		}
+		add_modifier = {
+			modifier = trait_ev_advanced_war_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_advanced_war
+	}
+	#家园舰建造
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_homeless_build
+			}
+			has_trait = trait_ev_homeless_build
+		}
+		add_modifier = {
+			modifier = trait_ev_homeless_build_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_homeless_build
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_homeless_build_2
+			}
+			has_trait = trait_ev_homeless_build_2
+		}
+		add_modifier = {
+			modifier = trait_ev_homeless_build_2_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_homeless_build_2
+	}
+	#家园舰全产降低
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_homeless_produces
+			}
+			has_trait = trait_ev_homeless_produces
+		}
+		add_modifier = {
+			modifier = trait_ev_homeless_produces_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_homeless_produces
+	}
+	#家园舰科研降低
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_logic_research
+			}
+			has_trait = trait_ev_logic_research
+		}
+		add_modifier = {
+			modifier = trait_ev_logic_research_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_logic_research
+	}
+	#探测
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_survey_add
+			}
+			has_trait = trait_ev_survey_add
+		}
+		add_modifier = {
+			modifier = trait_ev_survey_add_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_survey_add
+	}
+	#机械能源
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_energy_add_machine
+			}
+			has_trait = trait_ev_energy_add_machine
+		}
+		add_modifier = {
+			modifier = trait_ev_energy_add_machine_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_energy_add_machine
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_energy_reduce_machine
+			}
+			has_trait = trait_ev_energy_reduce_machine
+		}
+		add_modifier = {
+			modifier = trait_ev_energy_reduce_machine_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_energy_reduce_machine
+	}
+	#机械矿物
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_minerals_add_machine
+			}
+			has_trait = trait_ev_minerals_add_machine
+		}
+		add_modifier = {
+			modifier = trait_ev_minerals_add_machine_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_minerals_add_machine
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = flag_trait_ev_minerals_reduce_machine
+			}
+			has_trait = trait_ev_minerals_reduce_machine
+		}
+		add_modifier = {
+			modifier = trait_ev_minerals_reduce_machine_modifier
+			days = -1
+		}
+		set_country_flag = flag_trait_ev_minerals_reduce_machine
+	}
+}

@@ -1,0 +1,113 @@
+# Asteroid Command Center
+site_ruins_of_big_homeless_ship = {
+	desc = "site_ruins_of_big_homeless_ship_desc"
+	picture = GFX_evt_ev_load_13_small
+	stages = 6
+	#	weight = {
+	#		base = 0
+	#		modifier = {
+	#			add = 100
+	#			is_planet_class = pc_asteroid
+	#			has_ancrel = yes
+	#		}
+	#	}
+	allow = {
+		exists = leader
+		leader = {
+			leader_class = scientist
+		}
+	}
+	visible = {
+		default_site_visible_trigger = yes
+	}
+	#	on_visible = {
+	#		country_event = { id = story.5 days = 30 }
+	#	}
+	stage = {
+		difficulty = 8
+		icon = GFX_archaeology_runes_A1
+		event = ev_ancient_relics.1
+	}
+	stage = {
+		difficulty = 9
+		icon = GFX_archaeology_runes_A2
+		event = ev_ancient_relics.2
+	}
+	stage = {
+		difficulty = 10
+		icon = GFX_archaeology_runes_A3
+		event = ev_ancient_relics.3
+	}
+	stage = {
+		difficulty = 11
+		icon = GFX_archaeology_runes_A4
+		event = ev_ancient_relics.4
+	}
+	#stage = {
+	#	difficulty = 12
+	#	icon = GFX_archaeology_runes_A5
+	#	event = ev_ancient_relics.5
+	#}
+	#
+	#stage = {
+	#	difficulty = 13
+	#	icon = GFX_archaeology_runes_A6
+	#	event = ev_ancient_relics.6
+	#}
+	on_roll_failed = {
+		from = {
+			from = {
+				standard_archaeological_site_on_roll_failed = {
+					RANDOM_EVENTS = all_random_events
+				}
+			}
+		}
+	}
+}
+
+
+#整活
+site_ruins_of_ev_planet_engine = {
+	desc = "site_ruins_of_ev_planet_engine_desc"
+	picture = GFX_evt_frozen
+	stages = 4
+	
+	allow = {
+		exists = leader
+		leader = {
+			leader_class = scientist
+		}
+	}
+	visible = {
+		default_site_visible_trigger = yes
+	}
+	
+	stage = {
+		difficulty = 3
+		icon = GFX_archaeology_runes_A1
+		event = ev_planet_engine.1
+	}
+	stage = {
+		difficulty = 4
+		icon = GFX_archaeology_runes_A2
+		event = ev_planet_engine.2
+	}
+	stage = {
+		difficulty = 5
+		icon = GFX_archaeology_runes_A3
+		event = ev_planet_engine.3
+	}
+	stage = {
+		difficulty = 6
+		icon = GFX_archaeology_runes_A4
+		event = ev_planet_engine.4
+	}
+	
+	on_roll_failed = {
+		from = {
+			standard_archaeological_site_on_roll_failed = {
+				RANDOM_EVENTS = all_random_events
+			}
+		}
+	}
+}

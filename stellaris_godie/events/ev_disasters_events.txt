@@ -1,0 +1,566 @@
+namespace = ev_disasters
+#群星间的低语
+# event = {
+# 	id = ev_disasters.1
+# 	title = disasters.1.name
+# 	desc = disasters.1.desc
+# 	picture = GFX_evt_archaeological_dig
+# 	show_sound = event_mystic_reveal_light
+# 	location = root
+# 	is_triggered_only = yes
+# 	option = {
+# 		name = disasters.1.a
+		
+# 		begin_event_chain = {
+# 			event_chain = ev_catastrophic_cycle_chain
+# 			target = ROOT
+# 		}
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_disasters.2
+# 				days = 30
+# 			}
+# 		}
+# 	}
+# }
+
+# #先知
+# event = {
+# 	id = ev_disasters.2
+# 	title = disasters.2.name
+# 	desc = disasters.2.desc
+# 	picture = GFX_evt_archaeological_dig
+# 	show_sound = event_mystic_reveal_light
+# 	location = root
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		create_country = {
+# 			name = "NAME_Reth_Unddol"
+# 			type = faction
+# 			auto_delete = yes
+# 			flag = {
+# 				icon = {
+# 					category = "special"
+# 					file = "unknown.dds"
+# 				}
+# 				background = {
+# 					category = "backgrounds"
+# 					file = "00_solid.dds"
+# 				}
+# 				colors = {
+# 					"red"
+# 					"red"
+# 					"null"
+# 					"null"
+# 				}
+# 			}
+# 			effect = {
+# 				save_event_target_as = reth_country
+# 			}
+# 		}
+# 		event_target:reth_country = {
+# 			set_faction_hostility = {
+# 				target = root.owner
+# 				set_hostile = no
+# 				set_neutral = no
+# 				set_friendly = yes
+# 			}
+# 			create_species = {
+# 				name = "NAME_Unknown"
+# 				class = HUM
+# 				portrait = humanoid_hp_12
+# 				namelist = "PRT1"
+# 				traits = random
+# 				effect = {
+# 					save_event_target_as = captain_species
+# 				}
+# 			}
+# 			create_leader = {
+# 				class = admiral
+# 				species = event_target:captain_species
+# 				name = "NAME_Reth_Unddol"
+# 				skill = 5
+# 				gender = male
+# 				event_leader = no
+# 			}
+# 			last_created_leader = {
+# 				add_trait = leader_trait_admiral_hells_heart
+# 				save_event_target_as = captain_reth
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.2.a
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_disasters.3
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.2.b
+# 		hidden_effect = {
+# 		}
+# 	}
+# }
+
+# #与先知的对话
+# event = {
+# 	id = ev_disasters.3
+# 	title = disasters.3.name
+# 	desc = disasters.3.desc
+# 	diplomatic = yes	#外交界面
+# 	is_triggered_only = yes
+# 	picture_event_data = {
+# 		portrait = event_target:captain_reth
+# 		room = ethic_spaceship_room
+# 	}
+# 	option = {
+# 		name = disasters.3.a
+# 		response_text = disasters.3.a.response
+# 		is_dialog_only = yes
+# 	}
+# 	option = {
+# 		name = disasters.3.b
+# 		response_text = disasters.3.b.response
+# 		is_dialog_only = yes
+# 	}
+# 	option = {
+# 		name = disasters.3.c
+# 		response_text = disasters.3.c.response
+# 		is_dialog_only = yes
+# 	}
+# 	option = {
+# 		name = disasters.3.d
+# 		response_text = disasters.3.d.response
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_disasters.4
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.3.e
+# 		response_text = disasters.3.e.response
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_disasters.5
+# 				days = 10
+# 			}
+# 		}
+# 	}
+# }
+
+# #与先知的对话2
+# event = {
+# 	id = ev_disasters.4
+# 	title = disasters.4.name
+# 	desc = disasters.4.desc
+# 	diplomatic = yes
+# 	is_triggered_only = yes
+# 	picture_event_data = {
+# 		portrait = event_target:captain_reth
+# 		room = ethic_spaceship_room
+# 	}
+# 	option = {
+# 		name = disasters.4.a
+# 		response_text = disasters.4.d.response
+# 		hidden_effect = {
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.4.b
+# 		response_text = disasters.4.e.response
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_disasters.5
+# 				days = 10
+# 			}
+# 		}
+# 	}
+# }
+
+# #寻找神器
+# event = {
+# 	id = ev_disasters.5
+# 	title = disasters.5.name
+# 	desc = disasters.5.desc
+# 	picture = GFX_evt_archaeological_dig
+# 	show_sound = event_mystic_reveal_light
+# 	location = root
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		set_country_flag = hyacinth_started
+# 		capital_scope = {
+# 			save_event_target_as = capital
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.5.a
+# 		hidden_effect = {
+# 			random_system = {
+# 				limit = {
+# 					is_surveyed = {
+# 						who = from
+# 						status = no
+# 					}
+# 					distance = {
+# 						source = event_target:capital
+# 						use_bypasses = no
+# 						min_jumps = 10
+# 						max_jumps = 15
+# 					}
+# 					NOT = {
+# 						has_star_flag = hostile_system
+# 					}
+# 					has_owner = no
+# 				}
+# 				save_event_target_as = temple_system_1
+# 				set_star_flag = temple_system_1
+# 			}
+# 			random_system = {
+# 				limit = {
+# 					is_surveyed = {
+# 						who = from
+# 						status = no
+# 					}
+# 					distance = {
+# 						source = event_target:capital
+# 						use_bypasses = no
+# 						min_jumps = 10
+# 						max_jumps = 15
+# 					}
+# 					NOR = {
+# 						has_star_flag = temple_system_1
+# 						has_star_flag = hostile_system
+# 					}
+# 					has_owner = no
+# 				}
+# 				save_event_target_as = temple_system_2
+# 				set_star_flag = temple_system_2
+# 			}
+# 			random_system = {
+# 				limit = {
+# 					is_surveyed = {
+# 						who = from
+# 						status = no
+# 					}
+# 					distance = {
+# 						source = event_target:capital
+# 						use_bypasses = no
+# 						min_jumps = 10
+# 						max_jumps = 15
+# 					}
+# 					NOR = {
+# 						has_star_flag = temple_system_1
+# 						has_star_flag = temple_system_2
+# 						has_star_flag = hostile_system
+# 					}
+# 					has_owner = no
+# 				}
+# 				save_event_target_as = temple_system_3
+# 				set_star_flag = temple_system_3
+# 			}
+# 		}
+# 		create_point_of_interest = {
+# 			id = ev_temple_poi.1
+# 			name = "ev_temple_poi"
+# 			desc = "ev_temple_poi_desc"
+# 			event_chain = "ev_catastrophic_cycle_chain"
+# 			category = ev_temple
+# 			location = event_target:ev_temple_1
+# 		}
+# 		hidden_effect = {
+# 			create_point_of_interest = {
+# 				id = ev_temple_poi.2
+# 				name = "search prophecy"
+# 				event_chain = "ev_catastrophic_cycle_chain"
+# 				category = ev_temple
+# 				location = event_target:ev_temple_2
+# 			}
+# 			create_point_of_interest = {
+# 				id = ev_temple_poi.3
+# 				name = "search prophecy"
+# 				event_chain = "ev_catastrophic_cycle_chain"
+# 				category = ev_temple
+# 				location = event_target:ev_temple_3
+# 			}
+# 		}
+# 	}
+# }
+
+# #神庙搜索
+# # Star chart trade check
+# planet_event = {
+# 	id = ev_disasters.6
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		NOT = {
+# 			exists = fromfrom
+# 		}
+# 	}
+# 	immediate = {
+# 		from = {
+# 			country_event = {
+# 				id = ev_disasters.7
+# 			}
+# 		}
+# 	}
+# }
+
+# country_event = {
+# 	id = ev_disasters.7
+# 	title = ev_disasters.7.name
+# 	desc = {
+# 		trigger = {
+# 			hidden:event_target:surveyed_planets_system = {
+# 				switch = {
+# 					trigger = has_star_flag
+# 					default = {
+# 						text = ev_disasters.7.desc
+# 					}
+# 					ev_temple_3 = {
+# 						text = ev_disasters.8.desc
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	picture = GFX_evt_star_chart
+# 	show_sound = event_scanner
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		is_ai = no
+# 		has_event_chain = "ev_catastrophic_cycle_chain"
+# 		from = {
+# 			solar_system = {
+# 				OR = {
+# 					has_star_flag = temple_system_1
+# 					has_star_flag = temple_system_2
+# 					has_star_flag = temple_system_3
+# 				}
+# 				NOT = {
+# 					any_galaxy_planet = {
+# 						is_surveyed = {
+# 							who = from
+# 							status = no
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		save_event_target_as = star_chart_owner
+# 		from = {
+# 			solar_system = {
+# 				save_event_target_as = surveyed_planets_system
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = disasters.6.a
+# 		trigger = {
+# 			event_target:surveyed_planets_system = {
+# 				NOT = {
+# 					has_star_flag = temple_system_3
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			from = {
+# 				solar_system = {
+# 					if = {
+# 						limit = {
+# 							has_star_flag = temple_system_1
+# 						}
+# 						remove_star_flag = temple_system_1
+# 						event_target:star_chart_owner = {
+# 							remove_point_of_interest = ev_temple_poi.1
+# 						}
+# 					}
+# 					else = {
+# 						remove_star_flag = temple_system_2
+# 						event_target:star_chart_owner = {
+# 							remove_point_of_interest = ev_temple_poi.2
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = "disasters.8.a"
+# 		trigger = {
+# 			event_target:surveyed_planets_system = {
+# 				has_star_flag = temple_system_3
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			from = {
+# 				solar_system = {
+# 					remove_star_flag = temple_system_3
+# 					spawn_system = {
+# 						min_distance >= 20
+# 						max_distance <= 50
+# 						initializer = "temple_system"
+# 					}
+# 				}
+# 				random_system = {
+# 					limit = {
+# 						has_star_flag = temple_system
+# 					}
+# 					save_event_target_as = temple_system
+# 				}
+# 			}
+# 			remove_point_of_interest = ev_temple_poi.1
+# 			remove_point_of_interest = ev_temple_poi.2
+# 			remove_point_of_interest = ev_temple_poi.3
+# 			create_point_of_interest = {
+# 				id = ev_temple_poi.4
+# 				name = "ev_temple_2_poi"
+# 				desc = "ev_temple_2_poi_desc"
+# 				event_chain = "ev_catastrophic_cycle_chain"
+# 				location = event_target:temple_system
+# 			}
+# 		}
+# 	}
+# }
+
+# #不在
+# # Survey 1 Complete
+# ship_event = {
+# 	id = disasters.8
+# 	title = "disasters.8.name"
+# 	desc = "disasters.8.desc"
+# 	picture = GFX_evt_star_chart
+# 	show_sound = event_scanner
+# 	location = root
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		owner = {
+# 			is_ai = no
+# 			has_event_chain = "ev_catastrophic_cycle_chain"
+# 		}
+# 		solar_system = {
+# 			has_star_flag = temple_system_1
+# 		}
+# 	}
+# 	option = {
+# 		name = "country.251.a"
+# 		hidden_effect = {
+# 			owner = {
+# 				remove_point_of_interest = ev_temple_poi.1
+# 			}
+# 			solar_system = {
+# 				remove_star_flag = temple_system_1
+# 			}
+# 		}
+# 	}
+# }
+
+# # Survey 2 Complete
+# ship_event = {
+# 	id = disasters.9
+# 	title = "disasters.8.name"
+# 	desc = "disasters.9.desc"
+# 	picture = GFX_evt_star_chart
+# 	show_sound = event_scanner
+# 	location = root
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		owner = {
+# 			is_ai = no
+# 			has_event_chain = "ev_catastrophic_cycle_chain"
+# 		}
+# 		solar_system = {
+# 			has_star_flag = temple_system_2
+# 		}
+# 	}
+# 	option = {
+# 		name = "country.251.a"
+# 		hidden_effect = {
+# 			owner = {
+# 				remove_point_of_interest = ev_temple_poi.2
+# 			}
+# 			solar_system = {
+# 				remove_star_flag = temple_system_2
+# 			}
+# 		}
+# 	}
+# }
+
+# # Survey 3 Complete
+# ship_event = {
+# 	id = disasters.10
+# 	title = "disasters.10.name"
+# 	desc = "disasters.10.desc"
+# 	picture = GFX_evt_star_chart
+# 	show_sound = event_ship_bridge
+# 	location = root
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		owner = {
+# 			is_ai = no
+# 			has_event_chain = "ev_catastrophic_cycle_chain"
+# 		}
+# 		solar_system = {
+# 			has_star_flag = temple_system_3
+# 		}
+# 	}
+# 	option = {
+# 		name = "disasters.10.a"
+# 		hidden_effect = {
+# 			owner = {
+# 				remove_point_of_interest = ev_temple_poi.1
+# 				remove_point_of_interest = ev_temple_poi.2
+# 				remove_point_of_interest = ev_temple_poi.3
+# 			}
+# 			solar_system = {
+# 				remove_star_flag = temple_system_3
+# 				spawn_system = {
+# 					min_distance >= 20
+# 					max_distance <= 50
+# 					initializer = "temple_system"
+# 				}
+# 			}
+# 			random_system = {
+# 				limit = {
+# 					has_star_flag = temple_system
+# 				}
+# 				save_event_target_as = temple_system
+# 			}
+# 		}
+# 		create_point_of_interest = {
+# 			id = ev_temple_poi.4
+# 			name = "ev_temple_2_poi"
+# 			desc = "ev_temple_2_poi_desc"
+# 			event_chain = "ev_catastrophic_cycle_chain"
+# 			location = event_target:temple_system
+# 		}
+# 	}
+# }
+
+# #找到星系
+# # end_event_chain = "hunting_hyacinth" 结束事件链
+# #灾变回环事件链
+# event = {
+# 	id = ev_disasters.1000
+# 	title = disasters.1000.name
+# 	desc = disasters.1000.desc
+# 	picture = GFX_evt_archaeological_dig
+# 	show_sound = event_mystic_reveal_light
+# 	location = root
+# 	is_triggered_only = yes
+# 	option = {
+# 		name = disasters.1000.a
+# 		begin_event_chain = {
+# 			event_chain = "ev_catastrophic_cycle_chain"
+# 			target = ROOT
+# 		}
+# 		hidden_effect = {
+# 			#	country_event = { id = ev_disasters.2 days = 30 }	
+# 		}
+# 	}
+# }

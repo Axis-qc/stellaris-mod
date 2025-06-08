@@ -1,0 +1,236 @@
+namespace = ev_course
+#教程事件-开场介绍
+country_event = {
+	id = ev_course.1
+	title = "ev_course.1.name"
+	desc = "ev_course.1.desc"
+	picture = GFX_evt_cargoship_caravan
+	show_sound = event_power_down
+	location = event_target:ev_course_event_ship
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = triggered_ev_game_start_2200
+		}
+	}
+	immediate = {
+		set_country_flag = triggered_ev_game_start_2200
+		
+		random_controlled_fleet = {
+			save_event_target_as = ev_course_event_ship_location
+		}
+		#random_owned_planet = {
+		#	destroy_colony = yes
+		#}
+		#和平送船
+		if = {
+			limit = { has_modifier = ev_government_modifers_4 }
+			while = {
+				count = 2
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+							
+							#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+						}
+						starbase = {
+							set_ship_construction_type = starbase_shipyard
+						}
+						set_fleet_flag = homeless_ship_ai_class_1
+						save_global_event_target_as = ev_course_event_ship
+						set_fleet_stance = evasive
+						set_location = event_target:ev_course_event_ship_location
+						add_modifier = { modifier = ev_course_event_ship_modifier days = -1 }
+					}
+					settings = {
+						#can_upgrade = no
+						#can_change_composition = no
+						#can_change_leader = no
+						uses_naval_capacity = no
+					}
+					
+				}
+				#last_created_fleet = {
+				#	if = {
+				#		limit = { 
+				#			owner = {
+				#				country_uses_consumer_goods = no
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_course_event_ship_uses_consumer_goods_no
+				#		}
+				#	}
+				#	if = {
+				#		limit = { 
+				#			owner = {
+				#				country_uses_food = no
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_course_event_ship_uses_food_no
+				#		}
+				#	}
+				#}
+			}
+		}
+		
+		else = {
+			while = {
+				count = 1
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+							#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+						}
+						starbase = {
+							set_ship_construction_type = starbase_shipyard
+						}
+						set_fleet_flag = homeless_ship_ai_class_1
+						save_global_event_target_as = ev_course_event_ship
+						set_fleet_stance = evasive
+						set_location = event_target:ev_course_event_ship_location
+						add_modifier = { modifier = ev_course_event_ship_modifier days = -1 }
+					}
+					settings = {
+						#can_upgrade = no
+						#can_change_composition = no
+						#can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+				#last_created_fleet = {
+				#	if = {
+				#		limit = { 
+				#			owner = {
+				#				country_uses_consumer_goods = no
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_course_event_ship_uses_consumer_goods_no
+				#		}
+				#	}
+				#	if = {
+				#		limit = { 
+				#			owner = {
+				#				country_uses_food = no
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_course_event_ship_uses_food_no
+				#		}
+				#	}
+				#}
+			}
+			
+		}
+		
+	}
+	option = {
+		name = ev_course.1.a
+		country_event = {
+			id = ev_course.2
+		}
+	}
+	option = {
+		name = ev_course.1.d
+	}
+}
+
+country_event = {
+	id = ev_course.2
+	title = "ev_course.2.name"
+	desc = "ev_course.2.desc"
+	picture = GFX_evt_cargoship_caravan
+	show_sound = event_power_down
+	location = event_target:ev_course_event_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_course.2.a
+		country_event = {
+			id = ev_course.3
+		}
+	}
+	option = {
+		name = ev_course.2.b
+		country_event = {
+			id = ev_course.1
+		}
+	}
+	option = {
+		name = ev_course.1.d
+	}
+}
+
+country_event = {
+	id = ev_course.3
+	title = "ev_course.3.name"
+	desc = "ev_course.3.desc"
+	picture = GFX_evt_cargoship_caravan
+	show_sound = event_power_down
+	#location = event_target:ev_course_event_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_course.3.a
+	}
+	option = {
+		name = ev_course.3.b
+		country_event = {
+			id = ev_course.2
+		}
+	}
+	option = {
+		name = ev_course.1.d
+	}
+}
+
+
+country_event = {
+	id = ev_course.999
+	title = "ev_course.3.name"
+	desc = "ev_course.3.desc"
+	picture = GFX_evt_cargoship_caravan
+	show_sound = event_power_down
+	#location = event_target:ev_course_event_ship
+	is_triggered_only = yes
+
+	trigger = {
+		is_federation_leader = yes
+		
+	}
+	
+	option = {
+		name = WIN
+		every_country = {
+			limit = {
+				has_federation = yes
+				is_in_federation_with = root
+			}
+			add_resource = {
+				energy = 11111111111
+				influence = 11111111111
+			}
+		}
+		random_country = {
+			limit = {
+				is_in_federation_with = root
+				has_federation = no
+			}
+			leave_alliance = {
+				override_requirements = yes
+			}
+		}
+	}
+}

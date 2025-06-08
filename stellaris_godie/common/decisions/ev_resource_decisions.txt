@@ -1,0 +1,1043 @@
+ev_planet_edict_hbitat_destroy = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	resources = {
+		category = decisions
+		cost = {
+			influence = 50
+		}
+	}
+	potential = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	allow = {
+		#has_modifier = modifier_temporary_residence
+		is_planet_class = pc_habitat
+	}
+	effect = {
+		planet_event = {
+			id = ev_planet_correct.2
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+ev_planet_edict_expanding_space = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	#icon = decision_resources
+	enactment_time = 720
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1000
+			alloys = 1000
+			influence = 50
+		}
+		cost = {
+			energy = 500
+			alloys = 500
+			influence = 25
+			mult = ev_has_been_expanding_space_time
+		}
+	}
+	potential = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+		is_planet_class = pc_habitat
+	}
+	allow = {
+		#	 	has_modifier = modifier_temporary_residence
+		#NOT = {
+		#	has_modifier = ev_has_been_expanding_space
+		#}
+
+		custom_tooltip = ev_planet_edict_expanding_space.tooltip
+		hidden_trigger = {
+			check_variable = {
+				which = ev_has_been_expanding_space_time
+				value < 3
+			}
+		}
+	}
+	effect = {
+		
+
+		if = {
+			limit = { 
+				check_variable = {
+					which = ev_has_been_expanding_space_time
+					value = 0
+				}
+			}
+			add_modifier = { modifier = ev_has_been_expanding_space days = -1 }
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = ev_has_been_expanding_space_time
+					value = 1
+				}
+			}
+			add_modifier = { modifier = ev_has_been_expanding_space days = -1 mult = 2 }
+		}
+		else = {
+			add_modifier = { modifier = ev_has_been_expanding_space days = -1 mult = 3 }
+		}
+
+		hidden_effect = {
+			change_variable = {
+				which = ev_has_been_expanding_space_time
+				value = 1
+			}
+		}
+		
+	}
+	ai_weight = {
+		weight = 1
+	}
+}
+
+ev_planet_edict_grow_pop = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	enactment_time = 90
+	resources = {
+		category = decisions
+		cost = {
+			influence = 25
+		}
+		cost = {
+			trigger = {
+				num_pops > 20
+			}
+			influence = 15
+		}
+		cost = {
+			trigger = {
+				num_pops > 40
+			}
+			influence = 10
+		}
+		cost = {
+			trigger = {
+				num_pops > 60
+			}
+			influence = 10
+		}
+	}
+	potential = {
+		always = no
+		#owner = {
+		#	is_default_ev_country_type = yes
+		#	NOT = {
+		#		has_ascension_perk = ev_land_planets
+		#	}
+		#	NOR = {
+		#		has_origin = origin_ev_both_choosen
+		#		has_civic = civic_ev_planet_and_fleet
+		#		has_modifier = empty_vagrant_landed_planet
+		#	}
+		#	
+		#}
+	}
+	allow = {
+		NOT = {
+			has_modifier = ev_grow_pop
+		}
+	}
+	effect = {
+		add_modifier = {
+			modifier = ev_grow_pop
+			days = 7200
+		}
+	}
+	ai_weight = {
+		weight = 0
+		
+	}
+}
+
+ev_planet_edict_grow_pop_end = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	#	enactment_time = 90
+	resources = {
+		category = decisions
+		cost = {
+			influence = 10
+		}
+	}
+	potential = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+		has_modifier = ev_grow_pop
+	}
+	allow = {
+		has_modifier = ev_grow_pop
+	}
+	effect = {
+		remove_modifier = "ev_grow_pop"
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ev_planet_edict_deep_excavation = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	enactment_time = 180
+	resources = {
+		category = decisions
+		cost = {
+			influence = 20
+		}
+	}
+	potential = {
+		has_planet_flag = flag_ev_capital_scope_habitat
+		is_planet_class = pc_habitat
+	}
+	allow = {
+	}
+	effect = {
+		planet_event = {
+			id = ev_planet_correct.4000
+		}
+		hidden_effect = {
+			change_variable = {
+				which = deep_excavation
+				value = 1
+			}
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 0
+						check_variable = {
+							which = deep_excavation
+							value < 15
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = deep_excavation
+							value > 25
+						}
+					}
+					every_owned_pop_group = {
+						limit = {
+							always = yes
+						}
+						owner = {
+							add_resource = {
+								manpower = 100
+							}
+						}
+					}
+					planet_event = {
+						id = ev_planet_correct.4001
+					}
+					remove_modifier = modifier_temporary_residence
+					this = {
+						#change_pc = pc_molten
+						destroy_colony = yes
+						remove_planet = yes
+					}
+				}
+				#20 = {}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 2
+	}
+}
+
+##修复巨型家园舰
+ev_fix_megastructures_homeless_ship = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	enactment_time = 3600
+	resources = {
+		category = decisions
+		cost = {
+			alloys = 5000
+			energy = 5000
+		}
+	}
+	potential = {
+		owner = {
+			has_technology = tech_megastructures_homeless_ship
+		}
+		has_planet_flag = flag_ev_capital_scope_habitat
+		is_planet_class = pc_habitat
+	}
+	allow = {
+	}
+	effect = {
+		custom_tooltip = custom_tooltip_decision_ev_fix_megastructures_homeless_ship
+		
+		planet_event = {
+			id = ev_planet_correct.10
+		}
+	}
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 50
+			owner = {
+				has_resource = {
+					type = alloys
+					amount > 10000
+				}
+				has_resource = {
+					type = energy
+					amount > 10000
+				}
+			}
+		}
+	}
+}
+
+#人口转化人力
+#ev_planet_edict_manpower_pop_1 = {
+#	owned_planets_only = yes
+#	#sound = event_administrative_work
+#	icon = decision_resources
+#	enactment_time = 12
+#	resources = {
+#		category = decisions
+#		cost = {
+#			energy = 10
+#		}
+#	}
+#	potential = {
+#		owner = {
+#			is_default_ev_country_type = yes
+#			NOR = {
+#				has_authority = auth_hive_mind
+#				has_authority = auth_machine_intelligence
+#			}
+#		}
+#	}
+#	allow = {
+#	}
+#	effect = {
+#		custom_tooltip = custom_tooltip_decision_ev_planet_edict_manpower_pop_1
+#		hidden_effect = {
+#			while = {
+#				count = 1
+#				random_owned_pop_group = {
+#					kill_all_pop = yes
+#				}
+#			}
+#			owner = {
+#				add_resource = {
+#					manpower = 100
+#				}
+#			}
+#			if = {
+#				limit = {
+#					owner = {
+#						has_ascension_perk = ev_starbase_manpower
+#					}
+#				}
+#				owner = {
+#					add_resource = {
+#						manpower = 20
+#					}
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 1000
+#		modifier = {
+#			factor = 0
+#			OR = {
+#				this = {
+#					num_pops < 10
+#				}
+#				owner = {
+#					has_origin = origin_ev_both_choosen
+#				}
+#			}
+#		}
+#	}
+#}
+#
+#ev_planet_edict_manpower_pop_2 = {
+#	owned_planets_only = yes
+#	#sound = event_administrative_work
+#	icon = decision_resources
+#	enactment_time = 50
+#	resources = {
+#		category = decisions
+#		cost = {
+#			energy = 40
+#		}
+#	}
+#	potential = {
+#		num_pops > 5
+#		owner = {
+#			is_default_ev_country_type = yes
+#			NOR = {
+#				has_authority = auth_hive_mind
+#				has_authority = auth_machine_intelligence
+#			}
+#		}
+#	}
+#	allow = {
+#	}
+#	effect = {
+#		custom_tooltip = custom_tooltip_decision_ev_planet_edict_manpower_pop_2
+#		hidden_effect = {
+#			while = {
+#				count = 5
+#				random_owned_pop_group = {
+#					kill_all_pop = yes
+#				}
+#			}
+#			owner = {
+#				add_resource = {
+#					manpower = 500
+#				}
+#			}
+#			if = {
+#				limit = {
+#					owner = {
+#						has_ascension_perk = ev_starbase_manpower
+#					}
+#				}
+#				owner = {
+#					add_resource = {
+#						manpower = 100
+#					}
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 1000
+#		modifier = {
+#			factor = 0
+#			OR = {
+#				this = {
+#					num_pops < 30
+#				}
+#				owner = {
+#					has_origin = origin_ev_both_choosen
+#				}
+#			}
+#		}
+#	}
+#}
+#
+#ev_planet_edict_manpower_pop_3 = {
+#	owned_planets_only = yes
+#	#sound = event_administrative_work
+#	icon = decision_resources
+#	enactment_time = 100
+#	resources = {
+#		category = decisions
+#		cost = {
+#			energy = 80
+#		}
+#	}
+#	potential = {
+#		num_pops > 10
+#		owner = {
+#			is_default_ev_country_type = yes
+#			NOR = {
+#				has_authority = auth_hive_mind
+#				has_authority = auth_machine_intelligence
+#			}
+#		}
+#	}
+#	allow = {
+#	}
+#	effect = {
+#		custom_tooltip = custom_tooltip_decision_ev_planet_edict_manpower_pop_3
+#		hidden_effect = {
+#			while = {
+#				count = 10
+#				random_owned_pop_group = {
+#					kill_all_pop = yes
+#				}
+#			}
+#			owner = {
+#				add_resource = {
+#					manpower = 1000
+#				}
+#			}
+#			if = {
+#				limit = {
+#					owner = {
+#						has_ascension_perk = ev_starbase_manpower
+#					}
+#				}
+#				owner = {
+#					add_resource = {
+#						manpower = 200
+#					}
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 1000
+#		modifier = {
+#			factor = 0
+#			OR = {
+#				this = {
+#					num_pops < 50
+#				}
+#				owner = {
+#					has_origin = origin_ev_both_choosen
+#				}
+#			}
+#		}
+#	}
+#}
+#
+#ev_planet_edict_manpower_pop_4 = {
+#	owned_planets_only = yes
+#	#sound = event_administrative_work
+#	icon = decision_resources
+#	enactment_time = 420
+#	resources = {
+#		category = decisions
+#		cost = {
+#			energy = 360
+#		}
+#	}
+#	potential = {
+#		num_pops > 50
+#		owner = {
+#			is_default_ev_country_type = yes
+#			NOR = {
+#				has_authority = auth_hive_mind
+#				has_authority = auth_machine_intelligence
+#			}
+#		}
+#	}
+#	allow = {
+#	}
+#	effect = {
+#		custom_tooltip = custom_tooltip_decision_ev_planet_edict_manpower_pop_4
+#		hidden_effect = {
+#			while = {
+#				count = 50
+#				random_owned_pop_group = {
+#					kill_all_pop = yes
+#				}
+#			}
+#			owner = {
+#				add_resource = {
+#					manpower = 5000
+#				}
+#			}
+#			if = {
+#				limit = {
+#					owner = {
+#						has_ascension_perk = ev_starbase_manpower
+#					}
+#				}
+#				owner = {
+#					add_resource = {
+#						manpower = 1000
+#					}
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+
+#掠夺二段
+ev_predatory_planet = {
+	resources = {
+		category = decisions
+		cost = {
+			energy = 400
+		}
+	}
+	potential = {
+		exists = space_owner
+		OR = {
+			space_owner = {
+				is_same_value = from
+			}
+		}
+		from = {
+			#is_default_ev_country_type = yes
+			has_ascension_perk = ap_orbital_predatory_planet
+		}
+		is_star = no
+		habitable_structure = no
+		#is_ringworld = no
+		OR = {
+			AND = {
+				is_planet_class = pc_gaia
+				planet_size > 4
+			}
+			AND = {
+				habitable_planet = yes
+				planet_size > 4
+			}
+			AND = {
+				OR = {
+					is_planet_class = pc_asteroid
+					is_planet_class = pc_ice_asteroid
+				}
+				planet_size > 1
+			}
+			AND = {
+				is_planet_class = pc_gas_giant
+				planet_size > 8
+			}
+			planet_size > 2
+		}
+	}
+	allow = {
+		NOT = {
+			has_planet_flag = excavate_@from
+		}
+	}
+	effect = {
+		change_planet_size = -1
+		set_timed_planet_flag = {
+			flag = excavate_@from
+			days = 1800
+		}
+		#hidden_effect = { add_modifier = { modifier = ev_has_been_excavated days = 1800 } }
+		if = {
+			limit = {
+				habitable_planet = yes
+				NOT = {
+					is_planet_class = pc_gaia
+				}
+			}
+			from = {
+				#add_resource = { food = 1000 }
+				add_monthly_resource_mult = {
+					resource = food
+					value = 4
+					min = 1000
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_gaia
+			}
+			from = {
+				add_monthly_resource_mult = {
+					resource = food
+					value = 8
+					min = 2000
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_planet_class = pc_molten
+				}
+			}
+			from = {
+				add_monthly_resource_mult = {
+					resource = energy
+					value = 6
+					min = 1000
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_planet_class = pc_gas_giant
+				}
+			}
+			from = {
+				add_monthly_resource_mult = {
+					resource = energy
+					value = 8
+					min = 1000
+				}
+				add_monthly_resource_mult = {
+					resource = exotic_gases
+					value = 4
+					min = 20
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_ringworld = yes
+				}
+			}
+			from = {
+				add_monthly_resource_mult = {
+					resource = alloys
+					value = 8
+					min = 2000
+				}
+			}
+		}
+		else = {
+			from = {
+				add_monthly_resource_mult = {
+					resource = minerals
+					value = 8
+					min = 1000
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_planet_class = pc_gas_giant
+				planet_size < 11
+			}
+			random_list = {
+				1 = {
+					change_pc = pc_barren_cold
+				}
+				1 = {
+					change_pc = pc_barren
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 2
+	}
+}
+
+ev_planet_permanent_settlement = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	#icon = decision_resources
+	enactment_time = 720
+	resources = {
+		category = decisions
+		cost = {
+			alloys = 1000
+			influence = 30
+		}
+	}
+	potential = {
+		OR = {
+			has_modifier = modifier_temporary_residence
+			has_modifier = modifier_temporary_residence_2
+		}
+	}
+	allow = {
+		OR = {
+			has_modifier = modifier_temporary_residence
+			has_modifier = modifier_temporary_residence_2
+		}
+	}
+	effect = {
+		remove_modifier = modifier_temporary_residence
+		remove_modifier = modifier_temporary_residence_2
+		set_planet_flag = temporary_residence_to_permanently
+		set_planet_entity = {
+			entity = "habitat_phase_02_entity"
+			graphical_culture = owner
+		}
+		change_planet_size = 2
+		hidden_effect = {
+			if = {
+				limit = { has_modifier = ev_pc_district_hab_mining_add }
+				remove_modifier = ev_pc_district_hab_mining_add
+				add_modifier = {
+					modifier = ev_pc_district_hab_mining_add days = -1 mult = 6
+				}
+			}
+			if = {
+				limit = { has_modifier = ev_pc_district_hab_science_add }
+				remove_modifier = ev_pc_district_hab_science_add
+				add_modifier = {
+					modifier = ev_pc_district_hab_science_add days = -1 mult = 6
+				}
+			}
+			if = {
+				limit = { has_modifier = ev_pc_district_hab_energy_add }
+				remove_modifier = ev_pc_district_hab_energy_add
+				add_modifier = {
+					modifier = ev_pc_district_hab_energy_add days = -1 mult = 6
+				}
+			}
+			
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+}
+
+#ev_planet_arcology_habitat = {
+#	owned_planets_only = yes
+#	sound = event_administrative_work
+#	icon = decision_arcology_project
+#	enactment_time = 1200
+#	resources = {
+#		category = decisions
+#		cost = {
+#			minerals = 4000
+#			influence = 40
+#		}
+#		cost = {
+#			trigger = {
+#				NOT = {
+#					owner = {
+#						has_civic = civic_ev_temporary_habitat
+#					}
+#				}
+#			}
+#			minerals = 1000
+#			influence = 10
+#		}
+#	}
+#	potential = {
+#		NOR = {
+#			has_planet_flag = is_ev_arcology_habitat
+#		}
+#		is_planet_class = pc_habitat
+#		owner = {
+#			exists = owner
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	allow = {
+#		owner = {
+#			NOT = {
+#				has_modifier = modifier_temporary_residence
+#			}
+#			OR = {
+#				has_ascension_perk = ap_arcology_project
+#				has_civic = civic_ev_temporary_habitat
+#			}
+#		}
+#		AND = {
+#			free_district_slots < 1
+#			num_districts = {
+#				type = district_hab_energy
+#				value < 1
+#			}
+#			num_districts = {
+#				type = district_hab_science
+#				value < 1
+#			}
+#			num_districts = {
+#				type = district_hab_mining
+#				value < 1
+#			}
+#		}
+#		#custom_tooltip = {
+#		#	fail_text = decision_arcology_project_requirements
+#		#	
+#		#	#num_districts = {
+#		#	#	type = district_hab_cultural
+#		#	#	value < 1
+#		#	#}
+#		#	#num_districts = {
+#		#	#	type = district_ev_hab_industrial_area
+#		#	#	value < 1
+#		#	#}
+#		#}
+#		num_uncleared_blockers < 1
+#	}
+#	effect = {
+#		set_update_modifiers_batch = begin
+#		set_planet_flag = is_ev_arcology_habitat
+#		set_planet_entity = {
+#			entity = "habitat_phase_03_entity"
+#			graphical_culture = owner
+#		}
+#		hidden_effect = {
+#			remove_all_districts = yes
+#			while = {
+#				count = 4
+#				add_district = ev_district_arcology_civilian_industry
+#				add_district = ev_district_arcology_arms_industry
+#			}
+#			#add_modifier = {
+#			#	modifier = ev_exhange_planet_arcology_habitat days = -1
+#			#}
+#		}
+#		set_update_modifiers_batch = end
+#	}
+#	ai_weight = {
+#		weight = 1
+#	}
+#}
+#给ai用的，加人力
+
+#ev_ai_ues_manpower = {
+#	owned_planets_only = yes
+#	sound = event_administrative_work
+#	icon = decision_arcology_project
+#	enactment_time = 1
+#	resources = {
+#		category = decisions
+#		cost = {
+#			minerals = -100
+#		}
+#	}
+#	potential = {
+#		
+#		owner = {
+#			exists = owner
+#			is_ai = yes
+#			is_country_type = default
+#			has_resource = {
+#				type = manpower
+#				amount > 100
+#			}
+#		}
+#	}
+#	allow = {
+#		
+#	}
+#	effect = {
+#		owner = {
+#			add_resource = { manpower = -100 }
+#		}
+#		create_pop_group = {
+#			species = this.owner_main_species
+#		}
+#	}
+#	ai_weight = {
+#		weight = 10
+#	}
+#}
+
+
+
+#测试合并人口
+#ev_test_unit = {
+#	owned_planets_only = yes
+#	sound = event_administrative_work
+#	icon = decision_arcology_project
+#	resources = {
+#		category = decisions
+#		cost = {
+#			minerals = 0
+#		}
+#	}
+#	potential = {
+#		#owner = {
+#		#	exists = owner
+#		#}
+#		always = no
+#	}
+#	allow = {
+#		
+#	}
+#	effect = {
+#		
+#		set_variable = {
+#			which = SME_pop_num_unit
+#			value = 0
+#		}
+#		
+#		set_planet_flag = ev_test_pop
+#		add_modifier = {
+#			modifier = ev_test_pop
+#		}
+#		every_owned_pop_group = {
+#			set_variable = {
+#				which = SME_pop_num
+#				value = 1
+#			}
+#			planet = {
+#				change_variable = {
+#					which = SME_pop_num_unit
+#					value = 1
+#				}
+#				change_variable = {
+#					which = SME_pop_num
+#					value = prev.SME_pop_num
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+
+
+
+##########
+#投资
+#无效
+#ev_investment_planet = {
+#	
+#	resources = {
+#		category = decisions
+#		#cost = { energy = 100 }
+#	}
+#	
+#	potential = {
+#		always = no
+#		#from = {
+#		#	#is_default_ev_country_type = yes
+#		#	#has_ascension_perk = ap_orbital_predatory_planet
+#		#}
+#		#is_star = no
+#		##habitable_structure = no
+#		##is_ringworld = no
+#		##OR = {
+#		##	free_building_slots > 0
+#		##	free_district_slots > 0
+#		##}
+#		
+#	}
+#	
+#	allow = {
+#		#NOT = { has_planet_flag = ev_investment_@from }
+#		exists = space_owner
+#		AND = {
+#			NOT = { space_owner = { is_same_value = from } }
+#			#is_colony = yes
+#		}
+#	}	
+#	
+#	effect = {
+#		solar_system = {
+#			every_system_planet = {
+#				limit = {
+#					is_colony = yes
+#					OR = {
+#						free_building_slots > 0
+#						free_district_slots > 0
+#					}
+#				}
+#			}
+#			save_global_event_target_as = ev_investment_planet_option_1
+#			add_building = building_factory_1
+#		}
+#		#from = { country_event = { id = ev_resource.2150 }}
+#	}
+#	
+#	ai_weight = {
+#		weight = 0
+#	}
+#}

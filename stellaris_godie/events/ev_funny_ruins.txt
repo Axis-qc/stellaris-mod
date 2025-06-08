@@ -1,0 +1,155 @@
+
+namespace = ev_planet_engine
+
+#country_event = {
+#	id = ev_planet_engine.0
+#	
+#	picture = GFX_evt_frozen
+#	show_sound = event_drilling
+#	hide_window = yes
+#	fire_only_once = yes
+#	mean_time_to_happen = {
+#		months = 10
+#	}
+#	immediate = {
+#		random_galaxy_planet = {
+#			limit = {
+#				is_planet_class = pc_frozen
+#			}
+#			create_archaeological_site = site_ruins_of_ev_planet_engine
+#		}
+#	}
+#	after = {
+#	}
+#	
+#}
+
+# Stage 1 - 
+fleet_event = {
+	id = ev_planet_engine.1
+	title = "ev_planet_engine.1.name"
+	desc = "ev_planet_engine.1.desc"
+	picture = GFX_evt_frozen
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+	option = {
+		name = ev_planet_engine.1.a
+		medium_artifact_reward = yes
+		#custom_tooltip = ev_planet_engine.1.a.tooltip
+		
+	}
+	option = {
+		name = ev_planet_engine.1.b
+		small_artifact_reward = yes
+		root.leader = {
+			add_experience = 200
+		}
+	}
+}
+
+# Stage 2 - 
+fleet_event = {
+	id = ev_planet_engine.2
+	title = "ev_planet_engine.2.name"
+	desc = "ev_planet_engine.2.desc"
+	picture = GFX_evt_frozen
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+	option = {
+		name = ev_planet_engine.2.a
+		medium_artifact_reward = yes
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = 3
+			}
+		}	
+	}
+}
+
+# Stage 3 -
+fleet_event = {
+	id = ev_planet_engine.3
+	title = "ev_planet_engine.3.name"
+	desc = "ev_planet_engine.3.desc"
+	picture = GFX_evt_frozen
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+	option = {
+		name = ev_planet_engine.1.a
+		medium_artifact_reward = yes
+		root.leader = {
+			add_experience = 300
+		}
+	}
+}
+
+
+
+# Stage 3 -
+fleet_event = {
+	id = ev_planet_engine.4
+	title = "ev_planet_engine.4.name"
+	desc = "ev_planet_engine.4.desc"
+	picture = GFX_evt_frozen
+	show_sound = event_drilling
+	archaeology = yes
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			set_site_progress_locked = yes
+		}
+	}
+	after = {
+		from = {
+			set_site_progress_locked = no
+		}
+	}
+	option = {
+		name = ev_planet_engine.1.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = 12
+			}
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = 12
+			}
+		}
+		
+	}
+}

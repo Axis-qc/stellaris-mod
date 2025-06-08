@@ -1,0 +1,332 @@
+#模块科技
+# custom_tooltip = "allow_build_megastructures_temporary_habitat"
+#————————————————家园舰——————————————
+tech_homeless_section_templates_1 = {
+	#icon = "tech_ev_armor_level_1"    
+	area = engineering
+	tier = 0
+	start_tech = yes
+	starting_potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+		
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_1"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	
+	weight_modifier = {
+		factor = 0
+	}
+}
+
+tech_homeless_section_templates_2 = {
+	#icon = "tech_ev_armor_level_2"    
+	area = engineering
+	cost = 4000
+	tier = 1
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_1"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 70
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_2"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 10
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_2
+			}
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 40
+		}
+	}
+}
+
+tech_homeless_section_templates_3 = {
+	#icon = "tech_ev_armor_level_3"    
+	area = engineering
+	cost = 10000
+	tier = 2
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_2"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 50
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_3"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 10
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_2
+			}
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 50
+		}
+	}
+}
+
+tech_homeless_section_templates_4 = {
+	#icon = "tech_ev_armor_level_4"    
+	area = engineering
+	cost = 23000
+	tier = 3
+	potential = {
+		is_default_ev_country_type = yes
+		has_ascension_perk = ev_advanced_homeless
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_3"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 30
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_4"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 20
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 70
+		}
+	}
+}
+
+tech_homeless_section_templates_5 = {
+	#icon = "tech_ev_armor_level_5"    
+	area = engineering
+	cost = 35000
+	tier = 4
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_4"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 20
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_5"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 30
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 70
+		}
+	}
+}
+
+tech_homeless_section_templates_6 = {
+	#icon = "tech_ev_armor_level_6"    
+	area = engineering
+	cost = 60000
+	tier = 4
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_5"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 20
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_6"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 40
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 100
+		}
+	}
+}
+
+tech_homeless_section_templates_7 = {
+	#icon = "tech_ev_armor_level_6"    
+	area = engineering
+	cost = 90000
+	tier = 5
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_homeless_section_templates_6"
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 10
+	prereqfor_desc = {
+		ship = {
+			title = "unblock_homeless_section_templates_7"
+			desc = "unblock_homeless_section_templates_desc"
+		}
+	}
+	modifier = {
+		ship_homeless_ev_upkeep_mult = 0.05
+		ship_homeless_ev_produces_mult = 0.05
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 0.2
+			NOT = {
+				years_passed > 65
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_technology = tech_homeless_production_resources_3
+			}
+		}
+		modifier = {
+			factor = 1.5
+			years_passed > 100
+		}
+	}
+}

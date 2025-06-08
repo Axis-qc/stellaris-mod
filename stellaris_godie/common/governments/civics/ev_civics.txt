@@ -1,0 +1,1973 @@
+@ev_civic_base_weight = 15
+
+civic_empty_vagrant = {
+	modification = no
+	description = "civic_empty_vagrant_effects_good"
+	negative_description = "civic_empty_vagrant_effects_negative"
+	#homeworld = "pc_habitat"
+	potential = {
+	}
+	possible = {
+		#  authority = { value = auth_oligarchic }
+		ethics = {
+			OR = {
+				#太虚教团 唯心
+				text = civic_tooltip_ev
+				value = ethic_fanatic_spiritualist
+				#太虚学府 唯物
+				#	text = civic_tooltip_materialist
+				value = ethic_fanatic_materialist
+				#太虚猎手 军国
+				#	text = civic_tooltip_militarist
+				value = ethic_fanatic_militarist
+				#太虚行者 和平
+				#	text = civic_tooltip_pacifist
+				value = ethic_fanatic_pacifist
+				#太虚王庭 权威
+				#	text = civic_tooltip_authoritarian
+				value = ethic_fanatic_authoritarian
+				#太虚议会 平等
+				#	text = civic_tooltip_egalitarian
+				value = ethic_fanatic_egalitarian
+				#太虚商贾 亲外
+				#	text = civic_tooltip_xenophile
+				value = ethic_fanatic_xenophile
+				#太虚舰国 排外
+				#	text = civic_tooltip_xenophobe
+				value = ethic_fanatic_xenophobe
+				#太虚死灵 格式塔
+				#	text = civic_tooltip_gestalt_consciousness
+				value = ethic_gestalt_consciousness
+			}
+		}
+	}
+	random_weight = {
+		base = 0.1
+		#modifier = {
+		#	factor = 0.15
+		#	always = yes
+		#}
+	}
+	ai_weight = {
+		base = 0.1
+	}
+	modifier = {
+		
+		#leader_skill_levels = 1
+		#planet_colony_development_speed_mult = 60
+		##country_command_limit_add = 20
+		##pop_resettlement_cost_mult = -1
+		pc_habitat_habitability = 1
+		##country_ship_upgrade_cost_mult = -0.1
+		#pop_environment_tolerance = -2
+		#ship_colonizer_cost_mult = 20
+		#country_admin_cap_add = -15
+
+		#tech_cost_empire_size_mult = 10
+		#tradition_cost_empire_size_mult = 10
+
+		##empire_size_penalty_mult = 10
+		##country_election_influence_cost_mult = 1
+		empire_size_pops_mult = 1
+		country_claim_influence_cost_mult = 2
+		#	ships_upkeep_mult = 0.15
+		#	ship_colonizer_upkeep_mult = 0.25
+		#pop_growth_speed_reduction = 10
+
+		ev_base_pop_growth_buff = 1
+		#planet_pop_assembly_mult = -100
+		#bonus_pop_growth_mult = -100
+		#planet_pop_assembly_reduction = 10
+		#planet_pop_assembly_organic_reduction = 10
+
+		#planet_pop_assembly_mult = -0.9
+		#planet_pop_assembly_add = -6
+		#	planet_pop_assembly_add = -1
+		#subject_integration_influence_cost_mult = 5
+		#needs_colony = no
+		country_enclave_capacity_add = 1
+		#pop_category_purge_manpower_produces_add = 1
+		country_official_cap_add = -1
+		country_commander_cap_add = 1
+		
+		scavenge_debris_mult = 0.33
+		
+	}
+}
+
+civic_ev_great_ship = {
+	#pickable_at_start = no	
+	description = "civic_ev_great_ship_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_pacifist
+				value = ethic_pacifist
+			}
+			OR = {
+				value = ethic_militarist
+				value = ethic_fanatic_militarist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_weapon_damage = 0.05
+		#胜利一次战斗+6个月凝聚力，失败-12月
+	}
+}
+
+civic_ev_all_friendship = {
+	#pickable_at_start = no	
+	description = "civic_ev_all_friendship_effects"
+	potential = {
+		authority = {
+			value = auth_corporate
+		}
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+				value = ethic_fanatic_militarist
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#外交关系+40
+		country_trade_attractiveness = 0.1
+		#country_homeless_trade_produces_mult = 0.25
+		#commercial_pacts_influence_produces_add = 0.5
+		commercial_pact_mult = 0.25
+		#trade_routes_produces_mult = 0.05
+	}
+}
+
+civic_ev_industrial_production = {
+	#pickable_at_start = no	
+	description = "civic_ev_industrial_production_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOT = {
+				value = ethic_fanatic_militarist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_weapon_damage = -0.05
+		#ship_homeless_ev_alloys_produces_mult = 0.15
+		#ship_homeless_ev_consumer_goods_produces_mult = 0.15
+
+		#基础合金/消费品产能 + 20%
+		
+		#civic_ev_industrial_production_modifier = 1
+	}
+}
+
+civic_ev_ideal_ship = {
+	#pickable_at_start = no	
+	#description = "civic_ev_ideal_ship_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+			}
+			NOT = {
+				value = ethic_fanatic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_beacon_of_liberty
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_influence_produces_add = 0.01
+		ship_homeless_ev_unity_produces_mult = 0.25
+	}
+}
+
+civic_ev_homeless_ship = {
+	#pickable_at_start = no	
+	description = "civic_ev_homeless_ship_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+				value = ethic_pacifist
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_homeless_ev_cost_mult = -1
+		#starbase_building_build_speed_mult = 0.2
+		ev_ships_cost_mult = -0.2
+		#ship_components_alloys_ev_cost_mult = -0.15
+		#ship_components_consumer_goods_ev_cost_mult = -0.15
+		#ship_components_research_ev_ev_cost_mult = -0.15
+
+		#造船后5%随机赠送一个随机设计的家园舰
+	}
+}
+
+civic_ev_ship_research = {
+	#pickable_at_start = no	
+	description = "civic_ev_ship_research_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			OR = {
+				value = auth_oligarchic
+				value = auth_dictatorial
+				value = auth_machine_intelligence
+				value = auth_hive_mind
+			}
+		}
+		ethics = {
+			OR = {
+				value = ethic_fanatic_materialist
+				value = ethic_materialist
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_homeless_ev_physics_research_produces_mult = 0.25
+		#ship_homeless_ev_society_research_produces_mult = 0.25
+		#ship_homeless_ev_engineering_research_produces_mult = 0.25
+		#ship_homeless_ev_unity_produces_mult = -0.05
+	}
+}
+
+civic_ev_exploration_of_space = {
+	#pickable_at_start = no	
+	description = "civic_ev_exploration_of_space_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_materialist
+				value = ethic_materialist
+			}
+			OR = {
+				value = ethic_fanatic_xenophile
+				value = ethic_xenophile
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#科学家领袖招募时等级+3
+		ship_archaeological_site_clues_add = 2
+		ship_archaeological_site_excavation_speed_mult = 1
+		ship_homeless_ev_minor_artifacts_produces_add = 0.5
+		weapon_archaeotech_weapon_damage_mult = 0.1
+	}
+}
+
+civic_ev_missionary = {
+	#pickable_at_start = no	
+	description = "civic_ev_missionary_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_spiritualist
+				value = ethic_fanatic_spiritualist
+			}
+			value = ethic_fanatic_militarist
+			#OR = {
+				#value = ethic_fanatic_xenophile
+				#value = ethic_xenophile
+				#value = ethic_fanatic_militarist
+			#}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+
+		civic_ev_missionary_extra_effect = 1
+	}
+}
+
+civic_ev_powerful_ship = {
+	#pickable_at_start = no	
+	description = civic_ev_powerful_ship_effects
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			#OR = { 
+			#	value = auth_machine_intelligence
+			#} 
+		}
+		ethics = {
+			OR = {
+				value = ethic_fanatic_authoritarian
+				value = ethic_authoritarian
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_upkeep_mult = -0.15
+	}
+	#swap_type = {
+	#	name = civic_hive_devouring_swarm_lithoid
+	#	description = "civic_ev_powerful_ship_mechanics_effects"
+	#
+	#	trigger = {
+	#		local_human_species_class = MACHINE
+	#	}
+	#}
+}
+
+civic_ev_influence_give = {
+	description = "civic_ev_influence_give_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_authoritarian
+				value = ethic_authoritarian
+				value = ethic_fanatic_militarist
+				value = ethic_militarist
+			}
+			OR = {
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_nationalistic_zeal
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_influence_upkeep_mult = -0.2
+		country_war_exhaustion_mult = -0.25
+		rivalries_influence_produces_mult = 0.25
+		#外交关系-60，亲外-100，极端亲外-150
+	}
+}
+
+civic_ev_spiritual_rich = {
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_cutthroat_politics
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_homeless_ev_society_research_produces_add = 1
+		edicts_upkeep_mult = -0.2
+		country_society_tech_research_speed = 0.25
+		species_leader_exp_gain = 0.25
+	}
+}
+
+civic_ev_police_ship = {
+	description = "civic_ev_police_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_police_state
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		country_counter_espionage_add = 10
+		spy_network_value_add = 5
+		#叛乱-50%
+		#维持度事件低消耗
+	}
+}
+
+civic_ev_slave_ship = {
+	description = "civic_ev_slave_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+				value = ethic_fanatic_authoritarian
+				value = ethic_authoritarian
+			}
+			NOR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_homeless_ev_manpower_produces_mult = 0.15
+		#一个奴隶+0.5%家园舰一产
+	}
+}
+
+civic_ev_defense_ship = {
+	#pickable_at_start = no	
+	description = "civic_ev_defense_ship_effects"
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_militarist
+				value = ethic_militarist
+			}
+			#NOT = {
+			#	value = ethic_gestalt_consciousness
+			#}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		starbase_defensive_war_ship_build_speed_mult = 1
+		shipclass_military_station_damage_mult = 0.25
+		ship_home_territory_fire_rate_mult = 0.33
+		ship_weapon_range_mult = 0.15
+		force_disparity_fire_rate_mult = 0.33
+	}
+}
+
+civic_ev_criminal_ship = {
+	description = "civic_ev_criminal_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		authority = {
+			value = auth_corporate
+		}
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			#NOR = {
+				#value = ethic_fanatic_egalitarian
+				#value = ethic_egalitarian
+			#}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOR = {
+				value = civic_police_state
+				value = civic_ev_police_ship
+				value = civic_criminal_heritage
+			}
+		}
+	}
+	random_weight = {
+		base = 5
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+	}
+}
+
+civic_ev_trading_posts = {
+	#pickable_at_start = no	
+	potential = {
+		authority = {
+			value = auth_corporate
+		}
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			#NOR = {
+				#value = ethic_fanatic_egalitarian
+				#value = ethic_egalitarian
+			#}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOR = {
+				value = civic_trading_posts
+				value = civic_free_traders
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		branch_office_value_mult = 0.33
+		country_starbase_capacity_add = 4
+		empire_size_branch_office_mult = -1
+		#ship_homeless_ev_energy_produces_add = 1
+	}
+}
+
+civic_ev_indentured_assets_ship = {
+	#description = "civic_ev_indentured_assets_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		authority = {
+			value = auth_corporate
+		}
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+			}
+			OR = {
+				value = ethic_authoritarian
+				value = ethic_fanatic_authoritarian
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_indentured_assets
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		species_leader_exp_gain = 0.33
+		leader_starting_age_add = -5
+		#ship_homeless_ev_energy_produces_add = 1
+		ship_homeless_ev_trade_produces_add = 1
+	}
+}
+
+civic_ev_free_trade = {
+	description = "civic_ev_free_trade_effects"
+	#pickable_at_start = no	
+	potential = {
+		authority = {
+			value = auth_corporate
+		}
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOT = {
+				value = ethic_fanatic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_components_energy_ev_produces_mult = 0.15
+		planet_branch_offices_cost_mult = -0.75
+		country_organic_trust_cap_add = 50
+		
+	}
+}
+
+#civic_ev_holotemple = {
+#	description = "civic_ev_holotemple_effects"
+#	#pickable_at_start = no	
+#	potential = {
+#		authority = {
+#			value = auth_corporate
+#		}
+#		country_type = {
+#		}
+#	}
+#	possible = {
+#		ethics = {
+#			OR = {
+#				value = ethic_fanatic_spiritualist
+#				value = ethic_spiritualist
+#			}
+#			NOT = {
+#				value = ethic_fanatic_militarist
+#			}
+#		}
+#		civics = {
+#			NOT = {
+#				value = civic_gospel_of_the_masses
+#			}
+#			value = civic_empty_vagrant
+#		}
+#	}
+#	random_weight = {
+#		base = 10
+#	}
+#	ai_weight = { base = @ev_civic_base_weight }
+#	modifier = {
+#		
+#		#分部
+#		#种植员+2凝聚
+#	}
+#}
+
+civic_ev_private_homeless = {
+	description = "civic_ev_private_homeless_effects"
+	#pickable_at_start = no	
+	potential = {
+		#authority = { value = auth_corporate }
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			#OR = {
+				#value = ethic_fanatic_pacifist
+				#value = ethic_pacifist
+			#}
+			value = ethic_fanatic_pacifist
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 0
+	}
+	ai_weight = { base = 0 }
+	modifier = {
+		ship_private_homeless_ev_produces_mult = 0.25
+		ship_private_homeless_ev_alloys_cost_mult = -1
+		#ship_private_homeless_ev_manpower_cost_mult = -0.5
+		#ship_private_homeless_ev_manpower_upkeep_mult = -0.5
+		#ship_private_homeless_ev_energy_cost_mult = 0.20
+	}
+}
+
+civic_ev_maintenance_add = {
+	description = "civic_ev_maintenance_add_effects"
+	#pickable_at_start = no	
+	potential = {
+		#authority = { value = auth_corporate }
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		command_limit_mult = 0.25
+		ev_maintenance_value_balance_add = 25
+	}
+}
+
+civic_ev_food_to_energy = {
+	description = "civic_ev_food_to_energy_effects"
+	#pickable_at_start = no	
+	potential = {
+		#authority = { value = auth_corporate }
+		country_type = {
+		}
+	}
+	possible = {
+		#authority = {
+		#	value = auth_machine_intelligence
+		#}
+		ethics = {
+			value = ethic_gestalt_consciousness
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 1
+	}
+	ai_weight = { base = 1 }
+	modifier = {
+		country_resource_max_energy_add = 10000
+		#country_resource_max_food_add = 10000
+		ship_components_energy_ev_energy_produces_add = 4
+		ship_components_food_ev_food_produces_add = -2
+	}
+}
+
+civic_ev_fanatic_purifiers = {
+	description = "civic_ev_fanatic_purifiers_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			NOT = {
+				value = auth_corporate
+			}
+		}
+		ethics = {
+			NOT = {
+				value = ethic_gestalt_consciousness
+			}
+			OR = {
+				value = ethic_fanatic_militarist
+				value = ethic_militarist
+			}
+			OR = {
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#全部关系 -100
+		ship_hull_mult = 0.15
+		#shipsize_ev_army_ship_build_speed_mult = 1
+		starbase_shipyard_build_alloys_cost_mult = -0.1
+		#ship_components_pop_kill_produces_mult = 1
+		#ship_components_pop_kill_manpower_upkeep_mult = -0.5
+		#ship_components_pop_kill_manpower_upkeep_add = -1
+		#pop_category_purge_manpower_produces_add = 1
+	}
+}
+
+civic_ev_space_miners = {
+	description = "civic_ev_space_miners_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 8 }
+	modifier = {
+		ship_components_minerals_ev_minerals_produces_add = 1
+		#ship_homeless_ev_minerals_produces_add = 1 #0.5
+		station_gatherers_produces_mult = 1
+		#解锁法令探测轨道资源产出
+	}
+}
+
+civic_ev_space_survey = {
+	description = "civic_ev_space_survey_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 8 }
+	modifier = {
+		#ship_homeless_ev_physics_research_produces_add = 1
+		ship_base_speed_mult = 0.2
+		ship_sensor_range_add = 1
+		ship_anomaly_generation_chance_mult = 0.33
+		ship_anomaly_research_speed_mult = 0.33
+		#country_starbase_influence_cost_mult = -0.15
+		#解锁法令探索新的星系
+	}
+}
+
+#产气
+civic_ev_exotic_gases_lithoid = {
+	description = "civic_ev_exotic_gases_lithoid_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+			#NOR = {
+				#value = default_ev
+			#}
+		}
+	}
+	possible = {
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	#traits = { trait = trait_lithoid }
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_exotic_gases_produces_add = 0.25
+		#armies_exotic_gases_produces_add = 0.05
+		
+	}
+	#swap_type = {
+	#	name = civic_ev_exotic_gases_lithoid
+	#	description = "civic_ev_exotic_gases_lithoid_effects"
+	#
+	#	trigger = {
+	#		local_human_species_class = LITHOID
+	#	}
+	#}
+}
+
+#产微粒
+civic_ev_volatile_motes_lithoid = {
+	description = civic_ev_volatile_motes_lithoid_effects
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+			#NOR = {
+				#value = default_ev
+			#}
+		}
+	}
+	possible = {
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	#traits = { trait = trait_lithoid }
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_volatile_motes_produces_add = 0.25
+		#armies_volatile_motes_produces_add = 0.05
+		
+		#ship_homeless_ev_volatile_motes_produces_add = 0.5
+	}
+	#swap_type = {
+	#	name = civic_ev_exotic_gases_lithoid
+	#	description = "civic_ev_exotic_gases_lithoid_effects"
+	#
+	#	trigger = {
+	#		local_human_species_class = LITHOID
+	#	}
+	#}
+}
+
+#产水晶
+civic_ev_rare_crystals_lithoid = {
+	description = civic_ev_rare_crystals_lithoid_effects
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+			#NOR = {
+				#value = default_ev
+			#}
+		}
+	}
+	possible = {
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	#traits = { trait = trait_lithoid }
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		ship_homeless_ev_rare_crystals_produces_add = 0.25
+		#armies_rare_crystals_produces_add = 0.05
+		
+		#ship_homeless_ev_rare_crystals_produces_add = 0.5
+	}
+}
+
+civic_ev_civilization_test = {
+	description = "civic_ev_civilization_test_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			value = ethic_fanatic_materialist
+			NOR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+				value = ethic_fanatic_pacifist
+				value = ethic_pacifist
+				value = ethic_fanatic_xenophile
+				value = ethic_xenophile
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+		#ship_homeless_ev_society_research_produces_add = 1
+		all_technology_research_speed = 0.05
+		#ship_components_research_ev_upkeep_mult = -0.1
+		#一个奴隶+0.25%家园舰科研产出
+		#社会学轰炸
+		#战斗后获得工程学点
+	}
+}
+
+civic_ev_binary_fleet = {
+	description = "civic_ev_binary_fleet_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_egalitarian
+			}
+			#NOR = {
+			#}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+		ship_homeless_ev_alloys_cost_mult = 0.25
+		country_naval_cap_mult = -0.25
+		ev_homeless_ship_cap_cost_mult = -0.1
+		#解锁法令，能获得一支100%无维护，不占舰队容量的舰队
+	}
+}
+
+civic_ev_fanatic_martyr = {
+	description = "civic_ev_fanatic_martyr_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			value = ethic_fanatic_spiritualist
+			OR = {
+				value = ethic_fanatic_militarist
+				value = ethic_militarist
+				value = ethic_fanatic_xenophobe
+				value = ethic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 8 }
+	modifier = {
+		#ship_homeless_ev_alloys_cost_mult = -0.15
+		ship_fire_rate_mult = 0.1
+		country_naval_cap_mult = 0.1
+		#获得战争借口：圣战
+	}
+}
+
+civic_ev_pop_over_sovereignty = {
+	description = "civic_ev_pop_over_sovereignty_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			value = ethic_fanatic_egalitarian
+			NOR = {
+				value = ethic_fanatic_pacifist
+				value = ethic_pacifist
+				value = ethic_fanatic_xenophile
+				value = ethic_xenophile
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 8 }
+	modifier = {
+		#ship_homeless_ev_food_upkeep_mult = -0.15
+		ship_homeless_ev_consumer_goods_upkeep_mult = -0.15
+		#获得战争借口：解放
+	}
+}
+
+civic_ev_bureaucracy = {
+	#description = "civic_ev_pop_over_sovereignty_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_egalitarian
+				value = ethic_gestalt_consciousness
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		empire_size_add = -40
+		empire_size_mult = -0.15
+		ship_homeless_ev_upkeep_mult = 0.1
+	}
+}
+
+civic_ev_corvette_ship = {
+	description = "civic_ev_corvette_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOT = {
+				value = ethic_fanatic_pacifist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_ev_titan_ship
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#ship_components_ev_alloys_produces_mult = 0.1
+		ship_corvette_cost_mult = -0.25
+		ship_destroyer_cost_mult = -0.25
+		shipsize_corvette_build_speed_mult = 0.33
+		shipsize_destroyer_build_speed_mult = 0.33
+		#small_weapon_damage_mult = 1000
+		#point_defence_weapon_damage_mult = 0.25
+	}
+}
+
+civic_ev_titan_ship = {
+	description = "civic_ev_titan_ship_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOT = {
+				value = ethic_fanatic_pacifist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_ev_corvette_ship
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		
+		ship_cruiser_cost_mult = -0.25
+		ship_battleship_cost_mult = -0.25
+		ship_titan_cost_mult = -0.25
+
+		shipsize_cruiser_build_speed_mult = 0.33
+		shipsize_battleship_build_speed_mult = 0.33
+		shipsize_titan_build_speed_mult = 0.33
+	}
+}
+
+#两开花
+#civic_ev_both_choosen = {
+#	modification = no	
+#	#description = "civic_ev_pop_over_sovereignty_effects"
+#	#pickable_at_start = no	
+#	  
+#	potential = {
+#		country_type = {
+#			 
+#		}
+#	}
+#
+#	possible = {
+#		ethics = {
+#			
+#		}
+#		civics = {
+#			OR = {
+#				value = civic_empty_vagrant			
+#			}	
+#			NOR = {
+#				value = civic_ev_meg_homeless_ship_strat
+#				value = civic_ev_temporary_habitat
+#				value = civic_ev_planet_and_big_fleet
+#			}
+#		}
+#	}
+#	random_weight = { base = 5 }
+#	modifier = {
+#		tech_cost_empire_size_mult = -10
+#		tradition_cost_empire_size_mult = -10
+#		pop_growth_speed_reduction = -10
+#		planet_pop_assembly_reduction = -10
+#		country_claim_influence_cost_mult = -0.5
+#	}
+#}
+#轨道站专精
+civic_ev_temporary_habitat = {
+	modification = yes
+	description = "civic_ev_temporary_habitat_effects"
+	pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+			NOT = {
+				value = civic_ev_planet_and_fleet
+			}
+		}
+	}
+	random_weight = {
+		base = 5
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+	}
+}
+
+#船厂
+#civic_ev_ship_build_ship = {
+#	modification = yes
+#	#description = "civic_ev_ship_build_ship_effects"
+#	#pickable_at_start = no	
+#	  
+#	potential = {
+#		country_type = {
+#			 
+#		}
+#	}
+#
+#	possible = {
+#		ethics = {
+#			
+#		}
+#		civics = {
+#			OR = {
+#				value = civic_empty_vagrant			
+#			}	
+#		}
+#	}
+#	random_weight = { base = 5 }
+#	modifier = {
+#		#veto_cost_mult = 1
+#		#empire_size_colonies_mult = 10
+#		#federation_fleet_contribution_factor = 0.66
+#		federation_naval_cap_contribution_mult = 0.45
+#		#federation_fleet_cap_add = 10000
+#		country_federation_fleet_contribution_discount = -0.5
+#		#country_federation_fleet_contribution_naval_cap_reduction_discount = -1
+#		#starbase_shipyard_build_time_mult = -0.33
+#		#shipsize_homeless_ship_build_time_mult = -0.4
+#		#shipsize_homeless_ship_build_speed_mult = 0.4
+#		#shipsize_homeless_ship_starbase_build_speed_mult = 0.4
+#		#shipsize_megastructures_homeless_ship_build_speed_mult = 0.4
+#	}
+#}
+######被召选
+civic_ev_god_elect = {
+	#pickable_at_start = no	
+	description = "civic_ev_god_elect_effects"
+	modification = no
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	modifier = {
+		ev_civic_ev_god_elect_modifier = 1
+	}
+}
+
+#巨型家园舰开局
+#civic_ev_meg_homeless_ship_strat = {
+#	modification = no	
+#	description = "civic_ev_meg_homeless_ship_strat_effects"
+#	#pickable_at_start = no	
+#	  
+#	potential = {
+#		country_type = {
+#			 
+#		}
+#	}
+#
+#	possible = {
+#		ethics = {
+#			
+#		}
+#		civics = {
+#			OR = {
+#				value = civic_empty_vagrant			
+#			}	
+#			NOR = {
+#				value = civic_ev_both_choosen
+#				value = civic_ev_planet_and_big_fleet
+#			}
+#		}
+#	}
+#	random_weight = { base = 0 }
+#	modifier = {
+#		country_naval_cap_add = 20
+#		country_claim_influence_cost_mult = 1
+#	}
+#}
+#共产星际
+civic_ev_communist = {
+	#modification = no	
+	description = "civic_ev_communist_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			value = ethic_fanatic_egalitarian
+			NOR = {
+				value = ethic_xenophobe
+				value = ethic_fanatic_xenophobe
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 6 }
+	modifier = {
+		country_war_exhaustion_mult = -0.15
+		ship_components_unity_ev_unity_produces_add = 2
+		#country_admin_cap_add = 1
+		#ship_homeless_ev_unity_produces_add = 1
+		#ships_influence_produces_add = 0.01
+		#ship_homeless_ev_manpower_upkeep_mult = -0.2
+		#宣战借口：解放
+	}
+}
+
+#civic_ev_late_start = {
+#	description = "civic_ev_late_start_effects"
+#	modification = no	
+#	#pickable_at_start = no	
+#	cost = 0
+#	potential = {
+#		country_type = {
+#			 
+#		}
+#	}
+#
+#	possible = {
+#		civics = {
+#			OR = {
+#				value = civic_empty_vagrant			
+#			}	
+#		}
+#	}
+#	random_weight = { base = 0 }
+#	modifier = {
+#		country_government_civic_points_add = 2
+#	}
+#}
+#civic_ev_subjects_owner = {
+#	description = "civic_ev_subjects_owner_effects"
+#	modification = yes
+#	#pickable_at_start = no	
+#	cost = 0
+#	potential = {
+#		country_type = {
+#			 
+#		}
+#	}
+#
+#	possible = {
+#		authority = {
+#			NOT = { value = auth_corporate }
+#		}
+#		civics = {
+#			OR = {
+#				value = civic_empty_vagrant			
+#			}	
+#		}
+#		ethics = {
+#			OR = {
+#				value = ethic_authoritarian
+#				value = ethic_fanatic_authoritarian
+#			}
+#			
+#		}
+#	}
+#	random_weight = { base = 10 }
+#	modifier = {
+#		subjects_influence_produces_mult = 0.25
+#		country_subject_trust_cap_add = 100
+#		country_subject_power_penalty_mult = -1
+#	}
+#}
+#多样选择
+#球文明和舰队文明联盟,舰队为主要
+civic_ev_planet_and_fleet = {
+	description = "civic_ev_planet_and_fleet_effects"
+	modification = yes
+	#pickable_at_start = no	
+	
+	potential = {
+		
+	}
+
+	possible = {
+		
+		civics = {
+			OR = {
+				value = civic_empty_vagrant	
+			}	
+		}
+		origin = {
+			NOT = {
+				value = origin_ev_both_choosen
+			}
+		}
+	}
+	random_weight = { base = 0 }
+	ai_weight = {
+		base = 1
+	}
+	modifier = {
+		#tech_cost_empire_size_mult = -10
+		#tradition_cost_empire_size_mult = -10
+		#pop_growth_speed_reduction = -10
+		#planet_pop_assembly_reduction = -10
+		#planet_pop_assembly_organic_reduction = -10
+
+		ev_base_pop_growth_buff = -1
+		
+		planet_jobs_produces_mult = 0.05
+		empire_size_pops_mult = -0.5
+	}
+}
+#外交舰队
+civic_ambassador_ship = {
+	description = "civic_ambassador_ship_effects"
+	#modification = no
+	#pickable_at_start = no	
+	potential = {
+		country_type = { }
+	}
+	possible = {
+		authority = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+		ethics = {
+			OR = {
+				value = ethic_xenophile
+				value = ethic_fanatic_xenophile
+			}
+			NOT = {
+				value = ethic_gestalt_consciousness
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+		diplo_weight_naval_mult = 0.25
+		envoy_improve_relations_mult = 0.5
+		country_border_friction_mult = -0.25
+	}
+}
+
+#离岸平衡
+civic_ev_division_others = {
+	description = "civic_ev_division_others_effects"
+	#modification = no
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+		ethics = {
+			NOR = {
+				value = ethic_pacifist
+				value = ethic_fanatic_pacifist
+				value = ethic_xenophile
+				value = ethic_fanatic_xenophile
+				value = ethic_gestalt_consciousness
+			}
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = 5 }
+	modifier = {
+		#ship_components_research_ev_unity_produces_add = 1
+		country_base_influence_produces_mult = 0.1
+		pop_government_ethic_attraction = 0.5
+		pop_ethics_shift_speed_mult = 1
+		country_federation_fleet_contribution_discount = 1
+	}
+}
+
+#精密联结
+civic_ev_mechanics_unity = {
+	description = "civic_ev_mechanics_unity_effects"
+	#modification = no
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			#value = auth_machine_intelligence
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+		ethics = {
+			value = ethic_gestalt_consciousness
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		#country_naval_cap_add = 50
+		
+		ship_components_unity_ev_unity_produces_add = 2		
+		#ship_components_research_ev_influence_produces_add = 0.025
+	}
+}
+
+#行若鬼魅
+civic_ev_acting_like_ghost = {
+	description = "civic_ev_acting_like_ghost_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_xenophile
+				value = ethic_xenophile
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 10
+	}
+	ai_weight = { base = @ev_civic_base_weight }
+	modifier = {
+		counter_intel_gain_speed = -0.25
+		first_contact_defense_add = 5
+		intel_encryption_add = 5
+		ship_base_speed_mult = 0.2
+	}
+}
+
+
+#自爆家园舰
+civic_ev_boom_homeless = {
+	description = "civic_ev_boom_homeless_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		#ethics = {
+		#	NOR = {
+		#		value = ethic_fanatic_xenophile
+		#		value = ethic_xenophile
+		#	}
+		#}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	modifier = {
+		shipsize_homeless_ship_build_speed_mult = 1
+		shipsize_homeless_ship_starbase_build_speed_mult = 1
+		#ship_homeless_ev_cost_mult = -0.5
+		ev_ships_cost_mult = -0.5
+		#建造出来的家园舰 25-35年自爆
+	}
+}
+
+
+#佣兵舰队
+civic_ev_merc_enclave_fleet = {
+	description = "civic_ev_merc_enclave_fleet_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			value = auth_corporate
+		}
+		ethics = {
+			NOR = { 
+				value = ethic_fanatic_militarist 
+				value = ethic_militarist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 1
+	}
+	ai_weight = {
+		base = 5
+	}
+	modifier = {
+		country_enclave_capacity_add = 3
+		command_limit_add = 40
+		ship_weapon_damage = -0.33
+		army_damage_mult = -0.33
+		#
+		#佣兵舰队可以自行拓展
+		#佣兵国家国家产出加成
+	}
+}
+
+
+#非攻仁爱派
+civic_ev_no_war = {
+	description = "civic_ev_no_war_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		ethics = {
+			OR = {
+				value = ethic_fanatic_pacifist
+				value = ethic_pacifist
+				value = ethic_gestalt_consciousness
+			}
+			
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 1
+	}
+	ai_weight = {
+		base = 2
+	}
+	
+	modifier = {
+		country_war_exhaustion_mult = 0.1
+	}
+}
+
+
+#互联共享
+civic_ev_web_economy = {
+	description = "civic_ev_web_economy_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			NOR = {
+				value = auth_corporate
+			}
+		}
+		ethics = {
+			NOR = {
+				value = ethic_fanatic_authoritarian
+				value = ethic_authoritarian
+				value = ethic_fanatic_materialist
+				value = ethic_materialist
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 1
+	}
+	ai_weight = {
+		base = 5
+	}
+	modifier = {
+		all_technology_research_speed = -0.05
+		country_leader_cap_add = 1
+		councilor_exp_gain = 0.2
+	}
+}
+
+
+#暗影舰队
+civic_ev_shadow_fleet = {
+	description = "civic_ev_shadow_fleet_effects"
+	#pickable_at_start = no	
+	potential = {
+		country_type = {
+		}
+	}
+	possible = {
+		authority = {
+			NOR = {
+				value = auth_corporate
+			}
+		}
+		ethics = {
+			
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 1
+	}
+	ai_weight = {
+		base = 5
+	}
+	modifier = {
+		ship_cloaking_detection_add = 3
+		ship_cloaking_strength_add = 3
+		ship_disengage_chance_mult = 0.25
+		diplo_weight_naval_mult = -0.25
+		#all_technology_research_speed = 0.05
+		#ship_homeless_ev_unity_produces_mult = 0.2
+		#ship_homeless_ev_physics_research_produces_mult = -0.05
+		#ship_homeless_ev_society_research_produces_mult = -0.05
+		#ship_homeless_ev_engineering_research_produces_mult = -0.05
+	}
+}
+
+#精密联结
+#civic_ev_pirate_republic = {
+#	#description = "civic_ev_division_others_effects"
+#	#modification = no
+#	#pickable_at_start = no	
+#	potential = {
+#		country_type = {
+#		}
+#	}
+#	possible = {
+#		authority = {
+#			value = auth_democratic
+#		}
+#		civics = {
+#			value = civic_empty_vagrant
+#		}
+#		ethics = {
+#		}
+#	}
+#	random_weight = {
+#		base = 5
+#	}
+#	modifier = {
+#		country_election_influence_cost_mult = -0.75
+#		
+#	}
+#}
+
+civic_ev_catalytic_processing = {
+	description = "civic_ev_catalytic_processing_effects"
+	#pickable_at_start = no	
+	potential = {
+		#authority = { value = auth_corporate }
+		country_type = {
+
+		}
+	}
+	possible = {
+		origin = {
+			NOT = {
+				value = origin_lithoid
+			}
+		}
+		civics = {
+			value = civic_empty_vagrant
+		}
+	}
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	modifier = {
+		
+	}
+}

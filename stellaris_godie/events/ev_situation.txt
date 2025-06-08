@@ -1,0 +1,870 @@
+namespace = ev_situation
+#局势事件组
+
+#计算数据-叛军
+
+situation_event = {
+	id = ev_situation.10
+	title = "ev_fleet_and_war.1.title"
+	desc = ev_fleet_and_war.1.desc
+	hide_window = yes
+	#picture = GFX_evt_derelict_interior
+	is_triggered_only = yes
+	
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		#owner = {
+		#	num_owned_leaders > 4
+		#}
+		always = yes
+	}
+	
+	immediate = {
+		
+		#计算维持度影响的进度
+		set_variable = {
+			which = ev_maintenance_value_situations
+			value = owner.ev_maintenance_value
+		}
+		multiply_variable  = {
+			which = ev_maintenance_value_situations
+			value = -0.1
+		}
+
+		switch = {
+			trigger = has_situation_flag
+			select_approach_ev_leader_rebal_1 = {
+				change_variable = {
+					which = ev_leader_rebal_strong
+					value = 1
+				}
+				change_variable = {
+					which = ev_leader_rebal_opinion
+					value = 1
+				}
+			}
+			select_approach_ev_leader_rebal_2 = {
+				change_variable = {
+					which = ev_leader_rebal_strong
+					value = 0.5
+				}
+				change_variable = {
+					which = ev_leader_rebal_opinion
+					value = -1
+				}
+			}
+			select_approach_ev_leader_rebal_3 = {
+				change_variable = {
+					which = ev_leader_rebal_strong
+					value = -1
+				}
+				change_variable = {
+					which = ev_leader_rebal_opinion
+					value = 0.5
+				}
+			}
+			select_approach_ev_leader_rebal_4 = {
+				change_variable = {
+					which = ev_leader_rebal_strong
+					value = -2
+				}
+				change_variable = {
+					which = ev_leader_rebal_opinion
+					value = 2
+				}
+			}
+		}
+
+		
+		#强度不能小于0
+		if = {
+			limit = { 
+				check_variable = {
+					which = ev_leader_rebal_strong
+					value <= 0
+				}
+			}
+			set_variable = {
+				which = ev_leader_rebal_strong
+				value = 0
+			}
+		}
+
+		#不满影响进度值不能小于0
+		if = {
+			limit = { 
+				check_variable = {
+					which = ev_leader_rebal_opinion
+					value <= 0
+				}
+			}
+			set_variable = {
+				which = ev_leader_rebal_opinion
+				value = 0
+			}
+		}
+		set_variable = {
+			which = ev_leader_rebal_opinion_situations
+			value = ev_leader_rebal_opinion
+		}
+		#计算不满影响的进度
+		multiply_variable = {
+			which = ev_leader_rebal_opinion_situations
+			value = 0.1
+		}
+	}
+	after = {
+
+	}
+}
+
+
+
+#叛乱随机事件链
+situation_event = {
+	id = ev_situation.100
+	title = "ev_situation.100.title"
+	desc = ev_situation.100.desc
+	hide_window = no
+	#picture = GFX_evt_derelict_interior
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		
+	}
+	
+	immediate = {
+		
+	}
+	after = {
+	}
+	option = {
+		name = ev_situation.100.a
+	}
+
+	option = {
+		name = ev_situation.100.a
+		
+	}
+}
+
+
+#叛乱随机事件链
+#领袖被指控参与叛乱
+situation_event = {
+	id = ev_situation.101
+	title = "ev_situation.101.title"
+	desc = {
+		trigger = {
+			NOT = { exists = event_target:ev_rebel_country_ledaer_choosen_2 }
+		}
+		text = ev_situation.101.desc.1
+	}
+	desc = {
+		trigger = {
+			NOT = { exists = event_target:ev_rebel_country_ledaer_choosen_2 }
+		}
+		text = ev_situation.101.desc.2
+	}
+	desc = {
+		trigger = {
+			exists = event_target:ev_rebel_country_ledaer_choosen_2
+		}
+		text = ev_situation.101.desc.3
+	}
+	
+	hide_window = no
+	picture = GFX_evt_black_market
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		
+	}
+	
+	immediate = {
+		owner = {
+			#判断是否存在第二个领袖
+			random_list = {
+				1 = {
+					random_owned_leader = {
+						limit = {
+							NOT = { has_leader_flag = ev_rebel_country_ledaer }
+							NOT = { is_same_value = ev_rebel_country_ledaer_choosen }
+						}
+						save_event_target_as = ev_rebel_country_ledaer_choosen_2
+						random_list = {
+							1 = { 
+								set_timed_leader_flag = {
+									flag = ev_rebel_country_ledaer days = 2300
+								}
+							}
+							3 = {  }
+						}
+					}
+				}  
+				2 = {
+
+				}
+			}
+
+
+
+
+			random_owned_leader = {
+				limit = {
+					NOT = { has_leader_flag = ev_rebel_country_ledaer }
+					NOT = { leader_class = ruler }
+				}
+				save_event_target_as = ev_rebel_country_ledaer_choosen
+				random_list = {
+					1 = {
+						set_timed_leader_flag = {
+							flag = ev_rebel_country_ledaer days = 1000
+						}
+					}
+					1 = { }
+				}
+			}
+
+			
+			
+		}
+	}
+	after = {
+
+	}
+	option = {
+		name = ev_situation.101.a
+		event_target:ev_rebel_country_ledaer_choosen = {
+			hidden_effect = {
+				remove_leader_flag = ev_rebel_country_ledaer
+				random_list = {
+					2 = { 
+						set_timed_leader_flag = {
+							flag = ev_rebel_country_ledaer days = 2300
+						}
+					}
+					1 = { 
+						
+					}
+				}
+				
+			}
+			
+			add_trait = trait_leader_ev_rebal_1
+		}
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -2
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 0.5
+			}
+		}
+	}
+
+	option = {
+		name = ev_situation.101.b
+		event_target:ev_rebel_country_ledaer_choosen = {
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -4
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 3
+			}
+		}
+	}
+	option = {
+		name = ev_situation.101.d
+		trigger = {
+			exists = event_target:ev_rebel_country_ledaer_choosen_2
+		}
+		event_target:ev_rebel_country_ledaer_choosen_2 = {
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -2
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 2
+			}
+		}
+	}
+	option = {
+		name = ev_situation.101.c
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 2
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 2
+			}
+		}
+	}
+	
+}
+
+
+
+
+#叛乱随机事件链
+#袭击舰队事件
+situation_event = {
+	id = ev_situation.102
+	title = "ev_situation.102.title"
+	desc = {
+		text = ev_situation.102.desc.1
+	}
+	desc = {
+		text = ev_situation.102.desc.2
+	}
+	
+	hide_window = no
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		owner = {
+			any_owned_ship = {
+				is_any_type_homeless_ship = yes
+				NOT = { has_ship_flag = ev_rebel_country_ship }
+			}
+		}
+		
+	}
+	
+	immediate = {
+		owner = {
+			random_owned_ship = {
+				limit = {
+					is_any_type_homeless_ship = yes
+					NOT = { has_ship_flag = ev_rebel_country_ship }
+				}
+				save_event_target_as = ev_rebel_country_ship_choosen
+				random_list = {
+					6 = {  }
+					1 = { set_timed_ship_flag = { flag = ev_rebel_country_ship days = 900 } }
+					1 = { set_timed_ship_flag = { flag = ev_rebel_country_ship days = 300 } }
+				}
+				
+			}
+		}
+		
+	}
+	after = {
+		owner = {
+			locked_random_list = {
+				1 = {
+					add_monthly_resource_mult = {
+						resource = food
+						value = -5
+					}
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = alloys
+						value = -5
+					}
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = consumer_goods
+						value = -5
+					}
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = minerals
+						value = -5
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						has_monthly_income = {
+							resource = rare_crystals
+							value < 1
+						}
+					}
+					add_monthly_resource_mult = {
+						resource = rare_crystals
+						value = -5
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						has_monthly_income = {
+							resource = exotic_gases
+							value < 1
+						}
+					}
+					add_monthly_resource_mult = {
+						resource = exotic_gases
+						value = -5
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						has_monthly_income = {
+							resource = volatile_motes
+							value < 1
+						}
+					}
+					add_monthly_resource_mult = {
+						resource = volatile_motes
+						value = -5
+					}
+				}
+			}
+			
+		}
+		
+	}
+	option = {
+		name = ev_situation.102.a
+		custom_tooltip = ev_situation.102.a.tooltip
+		owner = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = -7
+			}
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -2
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = -2.5
+			}
+			hidden_effect = {
+				if = {
+					limit = { 
+						event_target:ev_rebel_country_ship_choosen = {
+							has_ship_flag = ev_rebel_country_ship
+						}
+					}
+					owner = {
+						change_variable = {
+							which = ev_leader_rebal_strong
+							value = 3
+						}
+					}
+				}
+				
+			}
+		}
+	}
+
+	option = {
+		name = ev_situation.102.b
+		custom_tooltip = ev_situation.102.b.tooltip
+		event_target:ev_rebel_country_ship_choosen = {
+			destroy_ship = this
+		}
+		owner = {
+			add_resource = {
+				alloys = 500
+				minerals = 1000
+				mult = ev_leader_rebal_strong
+			}
+			
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -5
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 3
+			}
+			hidden_effect = {
+				if = {
+					limit = { 
+						event_target:ev_rebel_country_ship_choosen = {
+							NOT = { has_ship_flag = ev_rebel_country_ship }
+						}
+					}
+					owner = {
+						change_variable = {
+							which = ev_leader_rebal_strong
+							value = 2
+						}
+					}
+				}
+				if = {
+					limit = { 
+						event_target:ev_rebel_country_ship_choosen = {
+							has_ship_flag = ev_rebel_country_ship
+						}
+					}
+					owner = {
+						change_variable = {
+							which = ev_leader_rebal_strong
+							value = -2
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_situation.102.c
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 2
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 2
+			}
+		}
+	}
+	
+}
+
+#叛乱随机事件链
+#呼吁民众
+situation_event = {
+	id = ev_situation.103
+	title = "ev_situation.103.title"
+	desc = {
+		text = ev_situation.103.desc.1
+	}
+	desc = {
+		text = ev_situation.103.desc.2
+	}
+	
+	hide_window = no
+	picture = GFX_evt_crisis_declared
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		owner = {
+			has_country_flag = select_approach_ev_leader_rebal_2
+		}
+	}
+	
+	immediate = {
+		
+	}
+	after = {
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -5
+			}
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = -4
+			}
+		}
+	}
+	option = {
+		name = ev_situation.103.a
+		
+	}
+
+	option = {
+		name = ev_situation.103.b
+	}
+	
+}
+#叛乱事件
+#呼吁民众-失败
+situation_event = {
+	id = ev_situation.104
+	title = "ev_situation.104.title"
+	desc = {
+		text = ev_situation.104.desc.1
+	}
+	hide_window = no
+	picture = GFX_evt_crisis_declared
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		owner = {
+			has_country_flag = select_approach_ev_leader_rebal_2
+		}
+	}
+	
+	immediate = {
+		
+	}
+	after = {
+		
+	}
+	option = {
+		name = ev_situation.104.a
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 5
+			}
+			
+		}
+	}
+
+	option = {
+		name = ev_situation.104.b
+		owner = {
+			random_owned_leader = {
+				add_trait = trait_leader_ev_rebal_1
+			}
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 2
+			}
+			
+		}
+		
+	}
+	
+}
+
+
+#叛乱事件
+#强硬手段-被利用
+situation_event = {
+	id = ev_situation.105
+	title = "ev_situation.105.title"
+	desc = {
+		text = ev_situation.105.desc.1
+	}
+	desc = {
+		text = ev_situation.105.desc.2
+	}
+	desc = {
+		text = ev_situation.105.desc.3
+	}
+	hide_window = no
+	picture = GFX_evt_cover_blown
+	is_triggered_only = yes
+	diplomatic = no
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		owner = {
+			OR = {
+				has_country_flag = select_approach_ev_leader_rebal_3
+				has_country_flag = select_approach_ev_leader_rebal_4
+			}
+			
+		}
+	}
+	
+	immediate = {
+		owner = {
+			random_owned_ship = {
+				limit = {
+					is_any_type_homeless_ship = yes
+					NOT = { has_ship_flag = ev_rebel_country_ship }
+				}
+				save_event_target_as = ev_rebel_country_ship_choosen
+			}
+			random_owned_leader = {
+				save_event_target_as = ev_rebel_country_ledaer_choosen
+			}
+		}
+		
+	}
+	after = {
+		
+	}
+	option = {
+		name = ev_situation.105.a
+		owner = {
+			random_list = {
+				1 = {
+					change_variable = {
+						which = ev_leader_rebal_strong
+						value = 5
+					}
+				}
+				1 = { }
+			}
+			
+			
+		}
+	}
+
+	option = {
+		name = ev_situation.105.b
+		owner = {
+			owner = {
+				random_list = {
+					1 = {
+						change_variable = {
+							which = ev_leader_rebal_strong
+							value = 7.5
+						}
+						change_variable = {
+							which = ev_leader_rebal_opinion
+							value = 5
+						}
+					}
+					2 = { }
+				}
+				
+			}
+		}
+		
+	}
+
+	option = {
+		name = ev_situation.105.c
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 4
+			}
+		}
+		
+	}
+	option = {
+		name = ev_situation.105.d
+		owner = {
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = -2
+			}
+
+		}
+		event_target:ev_rebel_country_ledaer_choosen = {
+			add_trait = trait_leader_ev_rebal_1
+		}
+	}
+}
+
+#人力短缺
+situation_event = {
+	id = ev_situation.200
+	title = ev_situation.200.name
+	desc = ev_situation.200.desc
+	
+	picture = GFX_evt_decryption
+	show_sound = event_bad_omen
+	is_triggered_only = yes
+	situation = this
+
+	abort_trigger = {
+		#situation_progress >= 100
+	}
+
+	immediate = {
+		owner = {
+			start_situation = {
+				type = ev_leader_rebal
+				target = THIS
+			}
+			every_controlled_ship = {
+				limit = {
+					is_any_type_homeless_ship = yes
+				}
+				random_list = {
+					1 = {
+						delete_ship = this
+					}
+					2 = { }
+				}
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = -30
+			}
+		}
+		
+
+	}
+
+	option = {
+		name = deficit.100.A
+		trigger = {
+			always = yes
+		}
+		owner = {
+			add_resource = {
+				manpower = 150
+				mult = value:ev_cap_cost
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = -10
+			}
+		}
+	}
+	option = {
+		name = ev_situation.200.B
+		trigger = {
+			always = yes
+		}
+		owner = {
+			every_owned_pop_group = {
+				kill_all_pop = yes
+				owner = {
+					add_resource = {
+						manpower = 100
+					}
+				}
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = -10
+			}
+		}
+	}
+	
+	option = {
+		name = ev_situation.200.D
+		trigger = {
+			owner = { is_authoritarian = yes }
+		}
+		owner = {
+			add_modifier = {
+				modifier = ev_must_manpower_produces_modifier days = 720
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = -10
+			}
+		}
+	}
+	option = {
+		name = deficit.100.C
+	}
+}

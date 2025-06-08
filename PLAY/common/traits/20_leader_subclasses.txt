@@ -52,12 +52,6 @@ subclass_commander_admiral = {
     self_modifier = {
         leader_trait_selection_options_add = 2
     }
-    leader_potential_add = {
-        NAND = {
-            owner = { has_civic = civic_distinguished_admiralty }
-            is_heir = yes
-        }
-    }
     ai_weight = {
         modifier = {
             is_councilor = yes
@@ -132,14 +126,6 @@ subclass_commander_general = {
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
-    }
-
-    leader_potential_add = {
-        trait_is_crisis_faction_check = no
-        NAND = {
-            owner = { has_civic = civic_distinguished_admiralty }
-            is_heir = yes
-        }
     }
     ai_weight = {
         modifier = {
@@ -236,9 +222,6 @@ subclass_commander_governor = {
             factor = @ai_selection_low
         }
     }
-    leader_potential_add = {
-        trait_is_crisis_faction_check = no
-    }
     leader_class = { commander }
     background_icon = "GFX_leader_subclass_commander_governor_background"
 }
@@ -280,13 +263,6 @@ subclass_commander_councilor = {
     }
     self_modifier = {
         leader_trait_selection_options_add = 2
-    }
-    leader_potential_add = {
-        trait_is_crisis_faction_check = no
-        NAND = {
-            exists = owner
-            owner = { is_gestalt = yes }
-        }
     }
     ai_weight = {
         modifier = {

@@ -1,0 +1,148 @@
+@minor_artifact_decision_cost = 2
+@minor_artifact_decision_duration = 3600
+
+artifact_ev_arcane_deciphering = {
+	resources = {
+		category = artifact_actions
+		cost = {
+			minor_artifacts = 500
+		}
+	}
+	
+	potential = {
+		#has_technology = tech_arcane_deciphering
+		is_default_ev_country_type = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "requires_arcane_deciphering_no_cooldown"
+			NOT = {
+				has_modifier = arcane_deciphering_cooldown
+			}
+		}
+	}
+	effect = {
+		
+		custom_tooltip = artifact_arcane_deciphering_effect
+		hidden_effect = {
+			if = {
+				limit = {
+					is_ai = no
+					NOT = {
+						has_country_flag = arcana_achievement
+					}
+				}
+				set_country_flag = arcana_achievement
+			}
+			add_modifier = {
+				modifier = "arcane_deciphering_cooldown"
+				days = 720
+			}
+			owner = {
+				random_list = {
+					7 = {
+						country_event = {
+							id = ev_ancient_relics.299
+						}
+					}
+					4 = {
+						add_modifier = { modifier = artifact_ev_arcane_deciphering_01 days = 3600 }
+						country_event = {
+							id = ev_ancient_relics.300
+						}
+					}
+					4 = {
+						add_modifier = {
+							modifier = artifact_ev_arcane_deciphering_02
+							days = 3600
+						}
+						country_event = {
+							id = ev_ancient_relics.300
+						}
+					}
+					4 = {
+						add_modifier = {
+							modifier = artifact_ev_arcane_deciphering_03
+							days = 3600
+						}
+						country_event = {
+							id = ev_ancient_relics.300
+						}
+					}
+					3 = {
+						add_modifier = {
+							modifier = artifact_ev_arcane_deciphering_04
+							days = 3600
+						}
+						country_event = {
+							id = ev_ancient_relics.300
+						}
+					}
+					3 = {
+						modifier = {
+							factor = 0
+							check_variable = {
+								which = tigger_ev_ancient_relics_301
+								value > 5
+							}
+						}
+						modifier = {
+							factor = 0.5
+							
+							count_owned_ship = {
+								limit = {
+									is_ship_size = homeless_ship
+								}
+								count > 10
+							}
+						}
+						modifier = {
+							factor = 0.5
+							count_owned_ship = {
+								limit = {
+									is_ship_size = homeless_ship
+								}
+								count > 30
+							}
+						}
+						change_variable = {
+							which = tigger_ev_ancient_relics_301
+							value = 1
+						}
+						country_event = {
+							id = ev_ancient_relics.301
+						}
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								while = {
+									count = 1
+									create_ship = {
+										name = random
+										design = "NAME_start_homeless_ship_ai_3"
+									}
+									add_modifier = {
+										modifier = empty_vagrant_homeless_ship_ai_3
+										days = -1
+									}
+								}
+								set_fleet_stance = evasive
+								set_location = prev.capital_scope
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#ai_weight = {
+	#	weight = 100
+	#	modifier = {
+	#		factor = 0
+	#		has_resource = {
+	#			type = minor_artifacts
+	#			amount < 105
+	#		}
+	#	}
+	#}
+}

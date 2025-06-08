@@ -1,0 +1,1461 @@
+namespace = ev_trade_event
+#测试贸易修正
+event = {
+	id = ev_trade_event.1
+	hide_window = yes
+	is_triggered_only = yes
+	#mean_time_to_happen = { months = 3 }
+	trigger = {
+		always = yes
+		#every_country = {
+		#	is_country_type = default
+		#	any_owned_planet = {
+		#		is_colony = yes
+		#		solar_system = { 
+		#			any_ship_in_system = {
+		#				is_ship_size = homeless_ship
+		#				exists = owner
+		#				owner = { is_default_ev_country_type = yes }
+		#			}
+		#		}
+		#	}
+		#}
+		#has_global_flag = open_ev_trade_event
+	}
+	immediate = {
+		#random_country = {
+		#	limit = {
+		#		is_country_type = global_event
+		#	}
+		#	country_event = {
+		#		id = ev_trade_event.2 days = 8
+		#	}
+		#	#country_event = {
+		#	#	id = ev_maintenance.1 days = 9
+		#	#}
+		#	#country_event = {
+		#	#	id = ev_maintenance.10 days = 10
+		#	#}
+		#}
+		
+	}
+}
+
+
+event = {
+	id = ev_trade_event.2
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		every_country = {
+			limit = {
+				is_default_ev_country_type = no
+				is_gestalt = no
+			}
+			#降低
+			#every_owned_planet = {
+			#	limit = {
+			#		num_pops >= 1
+			#		NOR = {
+			#			has_modifier = planet_in_other_homeless_ship_var
+			#			has_modifier = planet_in_other_homeless_ship_criminal_var
+			#		}
+			#	}
+			#	if = {
+			#		limit = {
+			#			check_variable = {
+			#				which = ev_criminal_ship_trade
+			#				value >= 0.1
+			#			}
+			#		}
+			#		change_variable = {
+			#			which = ev_criminal_ship_trade
+			#			value = -0.1
+			#		}
+			#		multiply_variable = {
+			#			which = ev_criminal_ship_trade
+			#			value = 0.8
+			#		}
+			#	}
+			#	if = {
+			#		limit = {
+			#			check_variable = {
+			#				which = ev_ship_trade
+			#				value >= 0.1
+			#			}
+			#		}
+			#		change_variable = {
+			#			which = ev_ship_trade
+			#			value = -0.1
+			#		}
+			#		multiply_variable = {
+			#			which = ev_ship_trade
+			#			value = 0.8
+			#		}
+			#	}
+			#}
+			#真正的贸易
+			random_owned_planet = {
+				limit = {
+					is_colony = yes
+					solar_system = {
+						any_ship_in_system = {
+							is_any_type_homeless_ship = yes
+							exists = owner
+							owner = {
+								is_default_ev_country_type = yes
+							}
+						}
+					}
+				}
+				save_event_target_as = pleased_planet
+				solar_system = {
+					every_fleet_in_system = {
+						limit = {
+							OR = {
+								is_ship_size = homeless_ship
+								is_ship_size = homeless_ship_starbase
+								is_ship_size = megastructures_homeless_ship
+							}
+							exists = owner
+							owner = {
+								is_default_ev_country_type = yes
+								OR = {
+									AND = {
+										is_gestalt = no
+									}
+									
+								}
+							}
+						}
+						save_event_target_as = ev_welcome_fleet
+						owner = {
+							save_event_target_as = tev_welcome_fleet_country
+						}
+					}
+				}
+				#无飞升的默认
+				#为犯罪企业
+				if = {
+					limit = {
+						event_target:tev_welcome_fleet_country = {
+							has_civic = civic_ev_criminal_ship
+						}
+					}
+					if = {
+						limit = { always = yes }
+						#if = {
+						#	limit = { 
+						#		NOT = { is_variable_set = ev_criminal_ship_trade }
+						#	}
+						#	set_variable = {
+						#		which = ev_criminal_ship_trade
+						#		value = 0
+						#	}
+						#}
+						#change_variable = {
+						#	which = ev_criminal_ship_trade
+						#	value = 0.2
+						#}
+						#if = {
+						#	limit = { 
+						#		check_variable = {
+						#			which = ev_criminal_ship_trade
+						#			value >= 5
+						#		}
+						#	}
+						#	set_variable = {
+						#		which = ev_criminal_ship_trade
+						#		value = 5
+						#	}
+						#}
+						#remove_modifier = planet_in_other_homeless_ship_criminal_var
+						#add_modifier = {
+						#	modifier = planet_in_other_homeless_ship_criminal_var
+						#	multiplier = value:ev_count_planet_trade_value
+						#	days = 180
+						#}
+						ev_trade_fleet_give_resources_all_var = yes
+						#ev_trade_fleet_give_resources_all_var = yes
+					}
+					
+					#if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_criminal_4
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_criminal_4
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_criminal_4
+					#		days = 240
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_criminal_3
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_criminal_3
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_criminal_4
+					#		days = 180
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_criminal_2
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_criminal_2
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_criminal_3
+					#		days = 180
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_criminal_1
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_criminal_1
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_criminal_2
+					#		days = 180
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else = {
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_criminal_1
+					#		days = 180
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+				}
+				else_if = {
+					#不为犯罪企业
+					limit = {
+						NOT = {
+							event_target:tev_welcome_fleet_country = {
+								has_civic = civic_ev_criminal_ship
+							}
+						}
+					}
+					if = {
+						limit = { always = yes }
+						
+						#if = {
+						#	limit = { 
+						#		NOT = { is_variable_set = ev_ship_trade }
+						#	}
+						#	set_variable = {
+						#		which = ev_ship_trade
+						#		value = 0
+						#	}
+						#}
+						#change_variable = {
+						#	which = ev_ship_trade
+						#	value = 0.15
+						#}
+						#if = {
+						#	limit = { 
+						#		check_variable = {
+						#			which = ev_ship_trade
+						#			value >= 5
+						#		}
+						#	}
+						#	set_variable = {
+						#		which = ev_ship_trade
+						#		value = 5
+						#	}
+						#}
+						#remove_modifier = planet_in_other_homeless_ship_var
+						#add_modifier = {
+						#	modifier = planet_in_other_homeless_ship_var
+						#	multiplier = value:ev_count_planet_trade_value
+						#	days = 180
+						#}
+						
+						ev_trade_fleet_give_resources_all_var = yes
+
+
+					}
+					
+					#if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_4
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_4
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_4
+					#		days = 180
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_3
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_3
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_4
+					#		days = 100
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_2
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_2
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_3
+					#		days = 100
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else_if = {
+					#	limit = {
+					#		has_modifier = planet_in_other_homeless_ship_1
+					#	}
+					#	remove_modifier = planet_in_other_homeless_ship_1
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_2
+					#		days = 100
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+					#else = {
+					#	add_modifier = {
+					#		modifier = planet_in_other_homeless_ship_1
+					#		days = 100
+					#	}
+					#	ev_trade_fleet_give_resources_all_var = yes
+					#}
+				}
+				#根据飞升，根据人口
+				#if = {
+				#	limit = {
+				#		event_target:tev_welcome_fleet_country = {
+				#			has_ascension_perk = ev_more_trade_fleet
+				#		}
+				#	}
+				#	ev_trade_fleet_give_resources_pop_sum_2 = yes
+				#}
+				#if = {
+				#	limit = {
+				#		event_target:tev_welcome_fleet_country = {
+				#			has_ascension_perk = ev_galaxy_free_trader
+				#			has_civic = civic_ev_criminal_ship
+				#		}
+				#	}
+				#	ev_trade_fleet_give_resources_a_energy = yes
+				#	ev_trade_fleet_give_resources_a_food = yes
+				#	ev_trade_fleet_give_resources_a_minerals = yes
+				#	ev_trade_fleet_give_resources_a_research = yes
+				#	ev_trade_fleet_give_resources_a_consumer_goods = yes
+				#	ev_trade_fleet_give_resources_a_unity = yes
+				#}
+				#else_if = {
+				#	limit = {
+				#		event_target:tev_welcome_fleet_country = {
+				#			has_ascension_perk = ev_galaxy_free_trader
+				#			NOT = {
+				#				has_civic = civic_ev_criminal_ship
+				#			}
+				#		}
+				#	}
+				#	ev_trade_fleet_give_resources_a_energy = yes
+				#	ev_trade_fleet_give_resources_a_food = yes
+				#	ev_trade_fleet_give_resources_a_minerals = yes
+				#	ev_trade_fleet_give_resources_a_research = yes
+				#	ev_trade_fleet_give_resources_a_consumer_goods = yes
+				#	ev_trade_fleet_give_resources_a_unity = yes
+				#}
+				#if = {
+				#	limit = {
+				#		NOT = {
+				#			event_target:tev_welcome_fleet_country = {
+				#				has_civic = civic_ev_criminal_ship
+				#			}
+				#		}
+				#	}
+				#	PREV.owner = {
+				#		add_opinion_modifier = {
+				#			modifier = opinion_ev_trade_default
+				#			who = event_target:tev_welcome_fleet_country
+				#		}
+				#	}
+				#	event_target:tev_welcome_fleet_country = {
+				#		add_opinion_modifier = {
+				#			modifier = opinion_ev_trade_default
+				#			who = PREV.owner
+				#		}
+				#	}
+				#}
+				#else_if = {
+				#	limit = {
+				#		event_target:tev_welcome_fleet_country = {
+				#			has_civic = civic_ev_criminal_ship
+				#		}
+				#	}
+				#	PREV.owner = {
+				#		add_opinion_modifier = {
+				#			modifier = opinion_ev_trade_criminal
+				#			who = event_target:tev_welcome_fleet_country
+				#		}
+				#	}
+				#}
+			}
+		}
+	}
+}
+
+
+#贸易的提示
+country_event = {
+	id = ev_trade_event.1000
+	title = ev_trade_event.1000.name
+	desc = ev_trade_event.1000.desc
+	hide_window = no
+	location = root
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:DE_influence_country
+		planet_background = event_target:DE_influence_country
+		graphical_culture = event_target:DE_influence_country
+		room = event_target:DE_influence_country.ruler
+	}
+	custom_gui = TEV_event_show_window_test
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = OK
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_energy
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				VAR = 3
+			}
+		}
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_food
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				RESOURCES1 = food  VAR = 1.5 VAR1 = 1.5
+			}
+		}
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_minerals
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				RESOURCES1 = minerals VAR = 1.5 VAR1 = 1.5
+			}
+		}
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_research
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				RESOURCES1 = physics_research RESOURCES2 = society_research RESOURCES3 = engineering_research VAR = 1.5 VAR1 = 0.3 VAR2 = 0.3 VAR3 = 0.3
+			}
+		}
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_consumer_goods
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				RESOURCES1 = consumer_goods VAR = 1.5 VAR1 = 0.75
+			}
+		}
+		if = {
+			limit = {
+				event_target:tev_welcome_fleet_country = {
+					has_policy_flag = trade_fleet_for_unity
+				}
+			}
+			ev_trade_fleet_give_any_resources_var_show = {
+				RESOURCES1 = unity VAR = 1.5 VAR1 = 0.45
+			}
+		}
+	}
+}
+
+
+
+#掠夺轰炸的提示-一产
+country_event = {
+	id = ev_trade_event.1010
+	title = ev_trade_event.1010.name
+	desc = ev_trade_event.1010.desc
+	hide_window = no
+	location = root
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:DE_influence_country
+		planet_background = event_target:DE_influence_country
+		graphical_culture = event_target:DE_influence_country
+		room = event_target:DE_influence_country.ruler
+	}
+	custom_gui = TEV_event_show_window_test
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		create_message = {
+			type = MESSAGE_TOXIC_TERRAFORM_FOUND
+			localization = x
+			days = x
+		}
+	}
+	option = {
+		name = OK
+		tooltip = {
+			add_resource = {
+				energy = 6
+				minerals = 6
+				food = 6
+				mult = target_base_steal_ev
+			}
+		}
+	}
+}
+#掠夺轰炸的提示-二产
+country_event = {
+	id = ev_trade_event.1020
+	title = ev_trade_event.1010.name
+	desc = ev_trade_event.1010.desc
+	hide_window = no
+	location = root
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:DE_influence_country
+		planet_background = event_target:DE_influence_country
+		graphical_culture = event_target:DE_influence_country
+		room = event_target:DE_influence_country.ruler
+	}
+	custom_gui = TEV_event_show_window_test
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = OK
+		tooltip = {
+			add_resource = {
+				alloys = 5
+				consumer_goods = 5
+				mult = target_base_steal_ev
+			}
+		}
+	}
+}
+#掠夺轰炸的提示-社会学研究
+country_event = {
+	id = ev_trade_event.1030
+	title = ev_trade_event.1010.name
+	desc = ev_trade_event.1010.desc
+	hide_window = no
+	location = root
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:DE_influence_country
+		planet_background = event_target:DE_influence_country
+		graphical_culture = event_target:DE_influence_country
+		room = event_target:DE_influence_country.ruler
+	}
+	custom_gui = TEV_event_show_window_test
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = OK
+		tooltip = {
+			add_resource = {
+				society_research = 8
+				mult = target_base_steal_ev
+			}
+		}
+	}
+}
+
+
+#随机贸易事件
+country_event = {
+	id = ev_trade_event.1200
+	title = ev_trade_event.1200.name
+	desc = ev_trade_event.1200.desc
+	picture = GFX_evt_financial_instruments
+	hide_window = no
+	is_triggered_only = yes
+	location = event_target:pleased_planet
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		hidden_effect = {
+			export_resource_income_to_variable = {
+				resource = energy
+				variable = ev_energy_income
+			}
+			multiply_variable = {
+				which = ev_energy_income
+				value = 0.2
+			}
+			random_owned_fleet = {
+				limit = {
+					any_controlled_ship = {
+						is_any_type_homeless_ship = yes
+					}
+					orbit = {
+						is_colony = yes
+						exists = owner
+						owner = {
+							is_gestalt = no
+							is_country_type = default
+							NOT = { is_same_empire = root }
+						}
+					}
+				}
+				orbit = {
+					if = {
+						limit = { 
+							is_colony = yes
+							exists = owner
+							owner = {
+								is_gestalt = no
+								is_country_type = default
+								NOT = { is_same_empire = root }
+							}
+						}
+					}
+					save_event_target_as = pleased_planet
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+			}
+		}
+		name = ev_trade_event.1200.a
+		add_resource = {
+			energy = 10
+			mult = ev_energy_income
+		}
+		event_target:pleased_planet.owner = {
+			add_resource = {
+				energy = 10
+				mult = prev.ev_energy_income
+			}
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_ev_trade_random_event
+			}
+		}
+	}
+
+	option = {
+		name = ev_trade_event.1200.b
+		add_resource = {
+			energy = 15
+			mult = ev_energy_income
+		}
+	}
+
+	option = {
+		trigger = {
+			NOR = {
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_xenophile
+			}
+		}
+		name = ev_trade_event.1200.c
+		add_resource = {
+			energy = 20
+			mult = ev_energy_income
+		}
+		add_resource = {
+			influence = -15
+		}
+	}
+
+	option = {
+		name = ev_trade_event.1200.d
+		trigger = {
+			NOR = {
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_xenophile
+			}
+		}
+		add_resource = {
+			influence = -25
+		}
+		add_resource = {
+			energy = 5
+			unity = 2.5
+			
+			mult = ev_energy_income
+		}
+		event_target:pleased_planet = {
+			add_modifier = {
+				modifier = civic_ev_trade_ethic_change days = 1800
+			}
+
+			owner = {
+				add_opinion_modifier = {
+					who = root
+					modifier = opinion_ev_trade_random_event_n
+				}
+			}
+			
+		}
+	}
+}
+
+
+country_event = {
+	id = ev_trade_event.1201
+	title = ev_trade_event.1201.name
+	desc = ev_trade_event.1201.desc
+	picture = GFX_evt_financial_instruments
+	hide_window = no
+	is_triggered_only = yes
+	location = event_target:pleased_planet
+
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		hidden_effect = {
+			export_resource_income_to_variable = {
+				resource = energy
+				variable = ev_energy_income
+			}
+			multiply_variable = {
+				which = ev_energy_income
+				value = 0.2
+			}
+			random_owned_fleet = {
+				limit = {
+					any_controlled_ship = {
+						is_any_type_homeless_ship = yes
+					}
+					orbit = {
+						is_colony = yes
+						exists = owner
+						owner = {
+							is_gestalt = no
+							is_country_type = default
+							NOT = { is_same_empire = root }
+						}
+					}
+				}
+				orbit = {
+					if = {
+						limit = { 
+							is_colony = yes
+							exists = owner
+							owner = {
+								is_gestalt = no
+								is_country_type = default
+								NOT = { is_same_empire = root }
+							}
+						}
+					}
+					save_event_target_as = pleased_planet
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_trade_event.1201.a
+		add_resource = {
+			energy = 5
+			mult = ev_energy_income
+		}
+		event_target:pleased_planet.owner = {
+			add_resource = {
+				energy = -10
+				mult = prev.ev_energy_income
+			}
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_ev_trade_random_event_n
+			}
+		}
+		
+	}
+
+	option = {
+		name = ev_trade_event.1201.b
+		trigger = {
+			NOR = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+			}
+		}
+		add_resource = {
+			energy = -5
+			mult = ev_energy_income
+		}
+	}
+}
+
+
+
+#犯罪企业
+#country_event = {
+#	id = ev_trade_event.1210
+#	title = ev_trade_event.1210.name
+#	desc = ev_trade_event.1210.desc
+#	picture = GFX_evt_engineering_bay
+#	hide_window = no
+#	is_triggered_only = yes
+#	location = event_target:pleased_planet
+#
+#	trigger = {
+#		always = yes
+#	}
+#	immediate = {
+#		hidden_effect = {
+#			export_resource_income_to_variable = {
+#				resource = energy
+#				variable = ev_energy_income
+#			}
+#			multiply_variable = {
+#				which = ev_energy_income
+#				value = 0.2
+#			}
+#			random_owned_fleet = {
+#				limit = {
+#					any_controlled_ship = {
+#						is_any_type_homeless_ship = yes
+#					}
+#					orbit = {
+#						is_colony = yes
+#						exists = owner
+#						owner = {
+#							is_gestalt = no
+#							is_country_type = default
+#							NOT = { is_same_empire = root }
+#						}
+#					}
+#				}
+#				orbit = {
+#					if = {
+#						limit = { 
+#							is_colony = yes
+#							exists = owner
+#							owner = {
+#								is_gestalt = no
+#								is_country_type = default
+#								NOT = { is_same_empire = root }
+#							}
+#						}
+#					}
+#					save_event_target_as = pleased_planet
+#				}
+#			}
+#		}
+#	}
+#	after = {
+#		event_target:pleased_planet.owner = { country_event = { id = ev_trade_event.1220 } }
+#	}
+#	option = {
+#		name = ev_trade_event.1210.a
+#		add_resource = {
+#			consumer_goods = 10
+#			food = 10
+#			mult = ev_energy_income
+#		}
+#		event_target:pleased_planet = {
+#			random_owned_pop_group = {
+#				kill_all_pop = yes
+#			}
+#			owner = {
+#				while = {
+#					count = 2
+#					add_opinion_modifier = {
+#						who = root
+#						modifier = opinion_ev_trade_random_event_n
+#					}
+#				}
+#			}
+#		}
+#		
+#	}
+#
+#	option = {
+#		name = ev_trade_event.1210.b
+#		add_resource = {
+#			energy = 20
+#			mult = ev_energy_income
+#		}
+#		event_target:pleased_planet = {
+#			random_owned_pop_group = {
+#				kill_all_pop = yes
+#			}
+#			owner = {
+#				while = {
+#					count = 2
+#					add_opinion_modifier = {
+#						who = root
+#						modifier = opinion_ev_trade_random_event_n
+#					}
+#				}
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = ev_trade_event.1210.c
+#		
+#		event_target:pleased_planet = {
+#			add_modifier = {
+#				modifier = civic_ev_trade_planet_crime days = 1800
+#			}
+#			
+#			owner = {
+#				while = {
+#					count = 2
+#					add_opinion_modifier = {
+#						who = root
+#						modifier = opinion_ev_trade_random_event_n
+#					}
+#				}
+#			}
+#			
+#		}
+#	}
+#}
+
+
+country_event = {
+	id = ev_trade_event.1211
+	title = ev_trade_event.1211.name
+	desc = ev_trade_event.1211.desc
+	picture = GFX_evt_engineering_bay
+	hide_window = no
+	is_triggered_only = yes
+	location = event_target:pleased_planet
+
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		hidden_effect = {
+			export_resource_income_to_variable = {
+				resource = energy
+				variable = ev_energy_income
+			}
+			multiply_variable = {
+				which = ev_energy_income
+				value = 0.2
+			}
+			random_owned_fleet = {
+				limit = {
+					any_controlled_ship = {
+						is_any_type_homeless_ship = yes
+					}
+					orbit = {
+						is_colony = yes
+						exists = owner
+						owner = {
+							is_gestalt = no
+							is_country_type = default
+							NOT = { is_same_empire = root }
+						}
+					}
+				}
+				orbit = {
+					if = {
+						limit = { 
+							is_colony = yes
+							exists = owner
+							owner = {
+								is_gestalt = no
+								is_country_type = default
+								NOT = { is_same_empire = root }
+							}
+						}
+					}
+					save_event_target_as = pleased_planet
+				}
+			}
+		}
+	}
+	after = {
+		event_target:pleased_planet.owner = { country_event = { id = ev_trade_event.1220 } }
+	}
+	option = {
+		name = ev_trade_event.1211.a
+		add_resource = {
+			minerals = 10
+			alloys = 5
+			consumer_goods = 10
+			food = 10
+			mult = ev_energy_income
+		}
+		event_target:pleased_planet = {
+			add_planet_devastation = 10
+			random_owned_pop_group = {
+				kill_all_pop = yes
+			}
+			random_owned_pop_group = {
+				kill_all_pop = yes
+			}
+			owner = {
+				while = {
+					count = 4
+					add_opinion_modifier = {
+						who = root
+						modifier = opinion_ev_trade_random_event_n
+					}
+				}
+			}
+		}
+		
+	}
+
+	option = {
+		name = ev_trade_event.1211.b
+		event_target:pleased_planet = {
+			add_planet_devastation = 50
+			random_owned_pop_group = {
+				kill_all_pop = yes
+			}
+			owner = {
+				add_resource = {
+					minerals = -10
+					alloys = -5
+					consumer_goods = -10
+					food = -10
+					mult = ev_energy_income
+				}
+				while = {
+					count = 4
+					add_opinion_modifier = {
+						who = root
+						modifier = opinion_ev_trade_random_event_n
+					}
+				}
+			}
+		}
+	}
+
+	
+}
+
+#被犯罪舰队破坏-提示
+#country_event = {
+#	id = ev_trade_event.1220
+#	title = ev_trade_event.1220.name
+#	desc = ev_trade_event.1220.desc
+#	picture = GFX_evt_emergency_workers
+#	hide_window = no
+#	is_triggered_only = yes
+#	location = event_target:pleased_planet
+#
+#
+#	trigger = {
+#		always = yes
+#	}
+#	immediate = {
+#		
+#	}
+#	after = {
+#		
+#	}
+#	option = {
+#		name = ev_trade_event.1220.a
+#		add_opinion_modifier = {
+#			who = from
+#			modifier = opinion_ev_trade_random_event_n
+#		}
+#		
+#	}
+#
+#	option = {
+#		name = ev_trade_event.1220.b
+#		add_opinion_modifier = {
+#			who = from
+#			modifier = opinion_ev_trade_random_event_n
+#		}
+#		
+#	}
+#}
+
+
+#佣兵找地方
+country_event = {
+	id = ev_trade_event.2000
+	title = ev_trade_event.2000.name
+	desc = ev_trade_event.2000.desc
+	location = event_target:ev_enclave_mercenary_can_expend_system
+	#hide_window = yes
+	#is_triggered_only = yes
+	picture = GFX_evt_mercenary_enclave
+	mean_time_to_happen = {
+		months = 30
+	}
+	
+	trigger = {
+		is_default_ev_country_type = yes
+		has_civic = civic_ev_merc_enclave_fleet
+		any_country = {
+			AND = {
+				is_country_type = enclave_mercenary
+				count_owned_ship = {
+					limit = {
+						is_ship_size = enclave_mercenary_station
+					}
+					count < 5
+				}
+				has_country_flag = created_by@root
+
+				any_owned_ship = {
+					is_ship_size = enclave_mercenary_station  
+					NOT = { 
+						has_ship_flag = enclave_mercenary_station_expend
+					}
+				}
+			}
+			
+		}
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = enclave_mercenary
+				count_owned_ship = {
+					limit = {
+						is_ship_size = enclave_mercenary_station
+					}
+					count < 5
+				}
+				has_country_flag = created_by@root
+
+				any_owned_ship = {
+					is_ship_size = enclave_mercenary_station  
+					NOT = { 
+						has_ship_flag = enclave_mercenary_station_expend
+					}
+					
+				}
+			}
+			
+			save_event_target_as = ev_enclave_mercenary_can_expend
+		}
+		event_target:ev_enclave_mercenary_can_expend = {
+			random_owned_fleet = {
+				limit = {
+					any_owned_ship = {
+						is_ship_size = enclave_mercenary_station
+					}
+				}
+				solar_system = {
+					save_event_target_as = ev_enclave_mercenary_can_expend_system
+				}
+			}
+		}
+	}
+	#允许-扩张
+	option = {
+		name = ev_trade_event.2000.a
+		event_target:ev_enclave_mercenary_can_expend = {
+			add_trust = {
+				who = root
+				amount = 10
+			}
+		}
+		hidden_effect = {
+			event_target:ev_enclave_mercenary_can_expend = {
+				country_event = {
+					id = ev_trade_event.2001 days = 120 random = 100
+				}
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+	
+	#允许扩张-收钱
+	option = {
+		name = ev_trade_event.2000.b
+		add_resource = {
+			energy = 5000
+		}
+		add_resource = {
+			energy = 5000
+			mult = event_target:ev_enclave_mercenary_can_expend.value:ev_enclave_cap_var
+		}
+		event_target:ev_enclave_mercenary_can_expend = {
+			add_trust = {
+				who = root
+				amount = -5
+			}
+		}
+		hidden_effect = {
+			event_target:ev_enclave_mercenary_can_expend = {
+				country_event = {
+					id = ev_trade_event.2001 days = 120 random = 100
+				}
+			}
+		}
+	}
+	#允许扩张-收外交
+	option = {
+		name = ev_trade_event.2000.d
+		allow = {
+			NOT = {
+				has_modifier = ev_enclave_fleet_cap_change_diplo_weight
+			}
+		}
+		add_modifier = {
+			modifier = ev_enclave_fleet_cap_change_diplo_weight days = 3600
+			mult = event_target:ev_enclave_mercenary_can_expend.value:ev_enclave_cap_var
+		}
+		add_resource = {
+			influence = 50
+			mult = event_target:ev_enclave_mercenary_can_expend.value:ev_enclave_cap_var
+		}
+		event_target:ev_enclave_mercenary_can_expend = {
+			add_trust = {
+				who = root
+				amount = -5
+			}
+		}
+		hidden_effect = {
+			event_target:ev_enclave_mercenary_can_expend = {
+				country_event = {
+					id = ev_trade_event.2001 days = 120 random = 100
+				}
+			}
+		}
+	}
+	#允许扩张-收雇员
+	option = {
+		name = ev_trade_event.2000.e
+		allow = {
+			NOT = {
+				has_modifier = ev_enclave_fleet_cap_change_produces
+			}
+		}
+		add_modifier = {
+			modifier = ev_enclave_fleet_cap_change_produces days = 3600
+			mult = event_target:ev_enclave_mercenary_can_expend.value:ev_enclave_cap_var
+		}
+		add_resource = {
+			manpower = 300
+			mult = event_target:ev_enclave_mercenary_can_expend.value:ev_enclave_cap_var
+		}
+		event_target:ev_enclave_mercenary_can_expend = {
+			add_trust = {
+				who = root
+				amount = -5
+			}
+		}
+		hidden_effect = {
+			event_target:ev_enclave_mercenary_can_expend = {
+				country_event = {
+					id = ev_trade_event.2001 days = 120 random = 100
+				}
+			}
+		}
+	}
+
+	#禁止扩张
+	option = {
+		name = ev_trade_event.2000.c
+		event_target:ev_enclave_mercenary_can_expend = {
+			add_trust = {
+				who = root
+				amount = -10
+			}
+		}
+		hidden_effect = {
+			event_target:ev_enclave_mercenary_can_expend = {
+				random_owned_ship = {
+					limit = {
+						is_ship_size = enclave_mercenary_station #constructor 
+						NOT = { 
+							has_ship_flag = enclave_mercenary_station_expend
+						}
+					}
+					set_timed_ship_flag = {
+						flag = enclave_mercenary_station_expend days = 7200
+					}
+				}
+			}
+		}
+	}
+}
+#佣兵找地方
+country_event = {
+	id = ev_trade_event.2001
+	title = OK
+	desc = OK
+	hide_window = yes
+	is_triggered_only = yes
+	
+	
+	trigger = {
+		always = yes
+		#is_country_type = enclave_mercenary
+		#count_owned_ship = {
+		#	limit = {
+		#		is_ship_size = enclave_mercenary_station
+		#	}
+		#	count < 5
+		#}
+		#has_country_flag = created_by@from
+	}
+	
+	immediate = {
+		
+		random_owned_ship = {
+			limit = {
+				is_ship_size = enclave_mercenary_station #constructor 
+				NOT = { has_ship_flag = enclave_mercenary_station_expend }
+			}
+			set_timed_ship_flag = {
+				flag = enclave_mercenary_station_expend days = 7200
+			}
+			fleet = {
+				solar_system = {
+					if = {
+						limit = {
+							any_ship_in_system = {
+								NOT = { owner = { is_hostile = root } }
+							}
+						}
+						random_system_planet = {
+							limit = { NOT = { has_planet_flag = enclave_mercenary_station_expend_planet } }
+							create_fleet = {
+								settings = { spawn_debris = no }
+								effect = {
+									set_owner = root
+									create_ship = {
+										name = random
+										design = "NAME_Mercenary_Enclave_Station"
+										graphical_culture = root
+									}
+									last_created_ship = {
+										set_timed_ship_flag = {
+											flag = enclave_mercenary_station_expend days = 7200
+										}
+									}
+									set_location = {
+										target = prev
+										distance = 35
+										angle = random
+									}
+									#save_event_target_as = mercenary_enclave_station
+								}
+							}
+							set_timed_planet_flag = {
+								flag = enclave_mercenary_station_expend_planet days = 24400
+							}
+						}
+					}
+				}
+				#save_global_event_target_as = constructor_fleet
+				##save_event_target_as = constructor_fleet
+				#if = {
+				#	limit = { NOT = { has_fleet_flag = flag_fleet_ev_leviathans_crisis_will_be_assaulted } }
+				#	set_timed_fleet_flag = { flag = flag_fleet_ev_leviathans_crisis_will_be_assaulted days = 600 }
+				#	auto_move_to_planet = {
+				#		target = event_target:fleet_ev_leviathans_crisis_will_be_assault
+				#		arrival_effect = ev_create_enclave_starbase
+				#		clear_auto_move_on_arrival = yes
+				#		
+				#	}
+				#}
+			}
+		}
+
+		remove_modifier = ev_enclave_fleet_cap_var
+		add_modifier = {
+			modifier = ev_enclave_fleet_cap_var multiplier = value:ev_enclave_cap_var
+		}
+		
+		#random_system = {
+		#	random_system_planet = {
+		#		save_event_target_as = fleet_ev_leviathans_crisis_will_be_assault
+		#	}
+		#}
+		
+		#random_owned_ship = {
+		#	limit = {
+		#		is_ship_size = constructor 
+		#	}
+		#	fleet = {
+		#		if = {
+		#			limit = { NOT = { has_fleet_flag = flag_fleet_ev_leviathans_crisis_will_be_assaulted } }
+		#			set_timed_fleet_flag = { flag = flag_fleet_ev_leviathans_crisis_will_be_assaulted days = 400 }
+		#			auto_move_to_planet = {
+		#				target = event_target:fleet_ev_leviathans_crisis_will_be_assault
+		#				clear_auto_move_on_arrival = yes
+		#				arrival_effect = ev_create_enclave_starbase
+		#			}
+		#		}
+		#		
+		#		
+		#	}
+		#			
+		#}
+		
+	}
+}

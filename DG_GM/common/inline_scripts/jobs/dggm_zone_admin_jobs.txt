@@ -1,9 +1,10 @@
+### Regular Empires
+# Planets
 triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #is_regular_empire = yes
-            is_ai = no
+            is_regular_empire = yes
         }
         NOR = {
             is_planet_class = pc_habitat
@@ -19,9 +20,8 @@ triggered_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            is_ai = no
-            #has_active_tradition = tr_virtuality_4
-            #is_regular_empire = yes
+            has_active_tradition = tr_virtuality_4
+            is_regular_empire = yes
         }
         NOR = {
             is_planet_class = pc_habitat
@@ -40,8 +40,7 @@ triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #is_regular_empire = yes
-            is_ai = no
+            is_regular_empire = yes
         }
         is_planet_class = pc_habitat
     }
@@ -53,9 +52,8 @@ triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            is_ai = no
-            #is_regular_empire = yes
-            #has_active_tradition = tr_virtuality_4
+            is_regular_empire = yes
+            has_active_tradition = tr_virtuality_4
         }
         is_planet_class = pc_habitat
     }
@@ -68,8 +66,7 @@ triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            is_ai = no
-            #is_regular_empire = yes
+            is_regular_empire = yes
         }
         OR = {
             is_planet_class = pc_city
@@ -86,9 +83,8 @@ triggered_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #has_active_tradition = tr_virtuality_4
-            #is_regular_empire = yes
-            is_ai = no
+            has_active_tradition = tr_virtuality_4
+            is_regular_empire = yes
         }
         OR = {
             is_planet_class = pc_city
@@ -105,8 +101,7 @@ triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #is_regular_empire = yes
-            is_ai = no
+            is_regular_empire = yes
         }
         is_planet_class = pc_ringworld_habitable
     }
@@ -118,9 +113,8 @@ triggered_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #has_active_tradition = tr_virtuality_4
-            #is_regular_empire = yes
-            is_ai = no
+            has_active_tradition = tr_virtuality_4
+            is_regular_empire = yes
         }
         is_planet_class = pc_ringworld_habitable
     }
@@ -133,22 +127,23 @@ triggered_desc = {
     trigger = {
         exists = owner
         owner = {
-            is_ai = no
-            #is_regular_empire = yes
+            is_regular_empire = yes
         }
     }
-    text = job_bureaucrat_effect_desc
+    text = job_admin_add_effect_2_desc
 }
 
 
-### Gestalt Empires
+### Gestalt Empires#普通格式塔
 # Planets
 triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         NOR = {
             is_planet_class = pc_habitat
@@ -165,9 +160,11 @@ triggered_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #has_active_tradition = tr_virtuality_4
+            has_active_tradition = tr_virtuality_4
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         NOR = {
             is_planet_class = pc_habitat
@@ -181,13 +178,15 @@ triggered_planet_modifier = {
     mult = 0.5
 }
 
-# Habitats
+# Habitats格式塔居住站
 triggered_district_planet_modifier = {
     potential = {
         exists = owner
         owner = {
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         is_planet_class = pc_habitat
     }
@@ -200,8 +199,10 @@ triggered_district_planet_modifier = {
         exists = owner
         owner = {
             is_gestalt = yes
-            #has_active_tradition = tr_virtuality_4
-            is_ai = no
+            has_active_tradition = tr_virtuality_4
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         is_planet_class = pc_habitat
     }
@@ -215,7 +216,9 @@ triggered_district_planet_modifier = {
         exists = owner
         owner = {
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         OR = {
             is_planet_class = pc_city
@@ -231,9 +234,11 @@ triggered_planet_modifier = {
     potential = {
         exists = owner
         owner = {
-            #has_active_tradition = tr_virtuality_4
+            has_active_tradition = tr_virtuality_4
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         OR = {
             is_planet_class = pc_city
@@ -251,7 +256,9 @@ triggered_district_planet_modifier = {
         exists = owner
         owner = {
             is_gestalt = yes
-            is_ai = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         is_planet_class = pc_ringworld_habitable
     }
@@ -265,13 +272,79 @@ triggered_district_planet_modifier = {
         exists = owner
         owner = {
             is_gestalt = yes
-            #has_active_tradition = tr_virtuality_4
-            is_ai = no
+            has_active_tradition = tr_virtuality_4
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
         }
         is_planet_class = pc_ringworld_habitable
     }
     job_gm_admin_add = $AMOUNT$
     mult = 2.5
+}
+
+# Planets
+triggered_district_planet_modifier = {
+    potential = {
+        exists = owner
+        owner = {
+            has_valid_civic = civic_machine_servitor
+        }
+        NOR = {
+            is_planet_class = pc_habitat
+            is_planet_class = pc_city
+            is_planet_class = pc_hive
+            is_planet_class = pc_machine
+            is_planet_class = pc_ringworld_habitable
+        }
+    }
+    job_gm_admin_add = $AMOUNT$
+    mult = 5
+}
+
+
+# Habitats
+triggered_district_planet_modifier = {
+    potential = {
+        exists = owner
+        owner = {
+            has_valid_civic = civic_machine_servitor
+        }
+        is_planet_class = pc_habitat
+    }
+    job_gm_admin_add = $AMOUNT$
+    mult = owner.value:hab_void_dweller_jobs_mult|MULT|5|
+}
+
+# Ecus
+triggered_district_planet_modifier = {
+    potential = {
+        exists = owner
+        owner = {
+            has_valid_civic = civic_machine_servitor
+        }
+        OR = {
+            is_planet_class = pc_city
+            is_planet_class = pc_hive
+            is_planet_class = pc_machine
+        }
+    }
+    job_gm_admin_add = $AMOUNT$
+    mult = 15
+}
+
+
+# Ringworlds
+triggered_district_planet_modifier = {
+    potential = {
+        exists = owner
+        owner = {
+            has_valid_civic = civic_machine_servitor
+        }
+        is_planet_class = pc_ringworld_habitable
+    }
+    job_gm_admin_add = $AMOUNT$
+    mult = 25
 }
 
 # Description
@@ -280,8 +353,20 @@ triggered_desc = {
         exists = owner
         owner = {
             is_gestalt = yes
-            #is_wilderness_empire = no
-            is_ai = no
+            is_wilderness_empire = no
+            NOT = {
+                has_valid_civic = civic_machine_servitor
+            }
+        }
+    }
+    text = job_admin_add_effect_1_desc
+}
+
+triggered_desc = {
+    trigger = {
+        exists = owner
+        owner = {
+            has_valid_civic = civic_machine_servitor
         }
     }
     text = job_admin_add_effect_1_desc
@@ -293,7 +378,6 @@ triggered_desc = {
         exists = owner
         owner = {
             is_wilderness_empire = yes
-            is_ai = no
         }
     }
     text = job_admin_add_effect_desc

@@ -1,0 +1,952 @@
+namespace = ev_event_mandate
+#ship_event = {
+#	id = ev_event_mandate.100
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		is_ship_size = homeless_ship
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_ev_build_homeless_1_chain
+#				has_event_chain = mandate_ev_build_homeless_2_chain
+#				has_event_chain = mandate_ev_build_homeless_3_chain
+#				has_event_chain = mandate_ev_build_homeless_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_homeless_1_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_homeless_1_chain"
+#					counter = "ev_build_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_homeless_2_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_homeless_2_chain"
+#					counter = "ev_build_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_homeless_3_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_homeless_3_chain"
+#					counter = "ev_build_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_homeless_4_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_homeless_4_chain"
+#					counter = "ev_build_homeless"
+#					amount = 1
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## 被摧毁
+#country_event = {
+#	id = ev_event_mandate.101
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FromFrom = {
+#			is_ship_size = homeless_ship
+#		}
+#		OR = {
+#			has_event_chain = mandate_ev_build_homeless_1_chain
+#			has_event_chain = mandate_ev_build_homeless_2_chain
+#			has_event_chain = mandate_ev_build_homeless_3_chain
+#			has_event_chain = mandate_ev_build_homeless_4_chain
+#		}
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_1_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_homeless_1_chain"
+#				counter = "ev_build_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_2_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_homeless_2_chain"
+#				counter = "ev_build_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_3_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_homeless_3_chain"
+#				counter = "ev_build_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_4_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_homeless_4_chain"
+#				counter = "ev_build_homeless"
+#				amount = -1
+#			}
+#		}
+#	}
+#}
+#
+#ship_event = {
+#	id = ev_event_mandate.110
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		is_ship_size = mini_homeless_ship
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_ev_build_mini_homeless_1_chain
+#				has_event_chain = mandate_ev_build_mini_homeless_2_chain
+#				has_event_chain = mandate_ev_build_mini_homeless_3_chain
+#				has_event_chain = mandate_ev_build_mini_homeless_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_mini_homeless_1_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_mini_homeless_1_chain"
+#					counter = "ev_build_mini_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_mini_homeless_2_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_mini_homeless_2_chain"
+#					counter = "ev_build_mini_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_mini_homeless_3_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_mini_homeless_3_chain"
+#					counter = "ev_build_mini_homeless"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_mini_homeless_4_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_mini_homeless_4_chain"
+#					counter = "ev_build_mini_homeless"
+#					amount = 1
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## 被摧毁
+#country_event = {
+#	id = ev_event_mandate.111
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FromFrom = {
+#			is_ship_size = mini_homeless_ship
+#		}
+#		OR = {
+#			has_event_chain = mandate_ev_build_mini_homeless_1_chain
+#			has_event_chain = mandate_ev_build_mini_homeless_2_chain
+#			has_event_chain = mandate_ev_build_mini_homeless_3_chain
+#			has_event_chain = mandate_ev_build_mini_homeless_4_chain
+#		}
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_1_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_mini_homeless_1_chain"
+#				counter = "ev_build_mini_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_2_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_mini_homeless_2_chain"
+#				counter = "ev_build_mini_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_3_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_mini_homeless_3_chain"
+#				counter = "ev_build_mini_homeless"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_4_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_mini_homeless_4_chain"
+#				counter = "ev_build_mini_homeless"
+#				amount = -1
+#			}
+#		}
+#	}
+#}
+#
+##任何舰船
+#ship_event = {
+#	id = ev_event_mandate.120
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_ev_build_any_ship_1_chain
+#				has_event_chain = mandate_ev_build_any_ship_2_chain
+#				has_event_chain = mandate_ev_build_any_ship_3_chain
+#				has_event_chain = mandate_ev_build_any_ship_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_any_ship_1_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_any_ship_1_chain"
+#					counter = "ev_build_any_ship"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_any_ship_2_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_any_ship_2_chain"
+#					counter = "ev_build_any_ship"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_any_ship_3_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_any_ship_3_chain"
+#					counter = "ev_build_any_ship"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_build_any_ship_4_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_build_any_ship_4_chain"
+#					counter = "ev_build_any_ship"
+#					amount = 1
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## 被摧毁
+#country_event = {
+#	id = ev_event_mandate.121
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		OR = {
+#			has_event_chain = mandate_ev_build_any_ship_1_chain
+#			has_event_chain = mandate_ev_build_any_ship_2_chain
+#			has_event_chain = mandate_ev_build_any_ship_3_chain
+#			has_event_chain = mandate_ev_build_any_ship_4_chain
+#		}
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_1_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_any_ship_1_chain"
+#				counter = "ev_build_any_ship"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_2_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_any_ship_2_chain"
+#				counter = "ev_build_any_ship"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_3_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_any_ship_3_chain"
+#				counter = "ev_build_any_ship"
+#				amount = -1
+#			}
+#		}
+#		else_if = {
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_4_chain
+#			}
+#			add_event_chain_counter = {
+#				event_chain = "mandate_ev_build_any_ship_4_chain"
+#				counter = "ev_build_any_ship"
+#				amount = -1
+#			}
+#		}
+#	}
+#}
+#
+## 探索一个球
+#ship_event = {
+#	id = ev_event_mandate.130
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_ev_survey_planet_chain
+#				has_event_chain = mandate_ev_survey_planet_2_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			if = {
+#				limit = {
+#					has_event_chain = mandate_ev_survey_planet_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_survey_planet_chain"
+#					counter = "ev_survey_planet"
+#					amount = 1
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					has_event_chain = mandate_ev_survey_planet_2_chain
+#				}
+#				add_event_chain_counter = {
+#					event_chain = "mandate_ev_survey_planet_2_chain"
+#					counter = "ev_survey_planet"
+#					amount = 1
+#				}
+#			}
+#		}
+#	}
+#}
+#
+##判断建造是否完成
+#country_event = {
+#	id = ev_event_mandate.400
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				#I
+#				has_event_chain = mandate_ev_build_homeless_1_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_homeless_1_chain
+#					counter = ev_build_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.500
+#			}
+#		}
+#		else_if = {
+#			#II
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_homeless_2_chain
+#					counter = ev_build_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.501
+#			}
+#		}
+#		else_if = {
+#			#III
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_3_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_homeless_3_chain
+#					counter = ev_build_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.502
+#			}
+#		}
+#		else_if = {
+#			#IV
+#			limit = {
+#				has_event_chain = mandate_ev_build_homeless_4_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_homeless_4_chain
+#					counter = ev_build_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.503
+#			}
+#		}
+#		#微型的
+#		if = {
+#			limit = {
+#				#I
+#				has_event_chain = mandate_ev_build_mini_homeless_1_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_mini_homeless_1_chain
+#					counter = ev_build_mini_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.500
+#			}
+#		}
+#		else_if = {
+#			#II
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_mini_homeless_2_chain
+#					counter = ev_build_mini_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.501
+#			}
+#		}
+#		else_if = {
+#			#III
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_3_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_mini_homeless_3_chain
+#					counter = ev_build_mini_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.502
+#			}
+#		}
+#		else_if = {
+#			#IV
+#			limit = {
+#				has_event_chain = mandate_ev_build_mini_homeless_4_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_mini_homeless_4_chain
+#					counter = ev_build_mini_homeless
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.503
+#			}
+#		}
+#		#任何
+#		if = {
+#			limit = {
+#				#I
+#				has_event_chain = mandate_ev_build_any_ship_1_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_any_ship_1_chain
+#					counter = ev_build_any_ship
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.500
+#			}
+#		}
+#		else_if = {
+#			#II
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_any_ship_2_chain
+#					counter = ev_build_any_ship
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.501
+#			}
+#		}
+#		else_if = {
+#			#III
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_3_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_any_ship_3_chain
+#					counter = ev_build_any_ship
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.502
+#			}
+#		}
+#		else_if = {
+#			#IV
+#			limit = {
+#				has_event_chain = mandate_ev_build_any_ship_4_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_build_any_ship_4_chain
+#					counter = ev_build_any_ship
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.503
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_ev_build_any_ship_4_chain
+#			end_event_chain = mandate_ev_build_any_ship_3_chain
+#			end_event_chain = mandate_ev_build_any_ship_2_chain
+#			end_event_chain = mandate_ev_build_any_ship_1_chain
+#			end_event_chain = mandate_ev_build_homeless_4_chain
+#			end_event_chain = mandate_ev_build_homeless_3_chain
+#			end_event_chain = mandate_ev_build_homeless_2_chain
+#			end_event_chain = mandate_ev_build_homeless_1_chain
+#			end_event_chain = mandate_ev_build_mini_homeless_4_chain
+#			end_event_chain = mandate_ev_build_mini_homeless_3_chain
+#			end_event_chain = mandate_ev_build_mini_homeless_2_chain
+#			end_event_chain = mandate_ev_build_mini_homeless_1_chain
+#		}
+#	}
+#}
+#
+##探索与科研
+#country_event = {
+#	id = ev_event_mandate.410
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				#探索星球
+#				#I
+#				has_event_chain = mandate_ev_survey_planet_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_survey_planet_chain
+#					counter = ev_survey_planet
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.510
+#			}
+#		}
+#		if = {
+#			limit = {
+#				#探索星球
+#				#II
+#				has_event_chain = mandate_ev_survey_planet_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_ev_survey_planet_2_chain
+#					counter = ev_survey_planet
+#				}
+#			}
+#			country_event = {
+#				id = ev_event_mandate.511
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_ev_survey_planet_chain
+#			end_event_chain = mandate_ev_survey_planet_2_chain
+#		}
+#	}
+#}
+#
+##舰队的
+## Mandate fulfilled
+##I class
+#country_event = {
+#	id = ev_event_mandate.500
+#	title = ev_event_mandate.500.title
+#	desc = ev_event_mandate.500.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_build_homeless_1_chain = {
+#				end_event_chain = mandate_ev_build_homeless_1_chain
+#			}
+#			mandate_ev_build_mini_homeless_1_chain = {
+#				end_event_chain = mandate_ev_build_mini_homeless_1_chain
+#			}
+#			mandate_ev_build_any_ship_1_chain = {
+#				end_event_chain = mandate_ev_build_any_ship_1_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##II class
+#country_event = {
+#	id = ev_event_mandate.501
+#	title = ev_event_mandate.500.title
+#	desc = ev_event_mandate.500.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_build_homeless_2_chain = {
+#				end_event_chain = mandate_ev_build_homeless_2_chain
+#			}
+#			mandate_ev_build_mini_homeless_2_chain = {
+#				end_event_chain = mandate_ev_build_mini_homeless_2_chain
+#			}
+#			mandate_ev_build_any_ship_2_chain = {
+#				end_event_chain = mandate_ev_build_any_ship_2_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##III class
+#country_event = {
+#	id = ev_event_mandate.502
+#	title = ev_event_mandate.500.title
+#	desc = ev_event_mandate.500.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_build_homeless_3_chain = {
+#				end_event_chain = mandate_ev_build_homeless_3_chain
+#			}
+#			mandate_ev_build_mini_homeless_3_chain = {
+#				end_event_chain = mandate_ev_build_mini_homeless_3_chain
+#			}
+#			mandate_ev_build_any_ship_3_chain = {
+#				end_event_chain = mandate_ev_build_any_ship_3_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 36
+#			min = 2000
+#			max = 23000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##IV class
+#country_event = {
+#	id = ev_event_mandate.503
+#	title = ev_event_mandate.500.title
+#	desc = ev_event_mandate.500.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_build_homeless_4_chain = {
+#				end_event_chain = mandate_ev_build_homeless_4_chain
+#			}
+#			mandate_ev_build_mini_homeless_4_chain = {
+#				end_event_chain = mandate_ev_build_mini_homeless_4_chain
+#			}
+#			mandate_ev_build_any_ship_4_chain = {
+#				end_event_chain = mandate_ev_build_any_ship_4_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 52
+#			min = 2500
+#			max = 50000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##科研与探索的
+##I class
+#country_event = {
+#	id = ev_event_mandate.500
+#	title = ev_event_mandate.500.title
+#	desc = ev_event_mandate.500.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_survey_planet_chain = {
+#				end_event_chain = mandate_ev_survey_planet_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+##科研与探索的
+## Mandate fulfilled
+##I class
+#country_event = {
+#	id = ev_event_mandate.510
+#	title = ev_event_mandate.510.title
+#	desc = ev_event_mandate.510.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_survey_planet_2_chain = {
+#				end_event_chain = mandate_ev_survey_planet_2_chain
+#			}
+#			mandate_ev_survey_planet_chain = {
+#				end_event_chain = mandate_ev_survey_planet_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+##II
+#country_event = {
+#	id = ev_event_mandate.511
+#	title = ev_event_mandate.510.title
+#	desc = ev_event_mandate.510.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_ev_survey_planet_2_chain = {
+#				end_event_chain = mandate_ev_survey_planet_2_chain
+#			}
+#			mandate_ev_survey_planet_chain = {
+#				end_event_chain = mandate_ev_survey_planet_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+
+#auth_ev_imperial酋长制度的事件
+#被选举时
+#country_event = {
+#	id = ev_event_mandate.1000
+#	hide_window = yes
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		
+#	}
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				has_authority = auth_ev_imperial
+#				NOT = {
+#					has_country_flag = auth_ev_imperial_mandate
+#				}
+#			}
+#			country_event = { id = mandate.160 }
+#			country_event = { id = mandate.140 }
+#			country_event = { id = mandate.171 }
+#			country_event = { id = mandate.185 }
+#			country_event = { id = datealive_event_mandate.100 }
+#			country_event = { id = datealive_event_mandate.101 }
+#			country_event = { id = datealive_event_mandate.102 }
+#			country_event = { id = datealive_event_mandate.103 }
+#			country_event = { id = ev_event_mandate.400 }
+#			country_event = { id = ev_event_mandate.410 }
+#			
+#
+#			set_timed_country_flag = {
+#				flag = auth_ev_imperial_mandate days = 3600
+#			}
+#		}
+#		
+#	}
+#}
+#
+## On leader death
+#country_event = {
+#	id = ev_event_mandate.1001
+#	hide_window = yes
+#
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		from = {
+#			is_same_value = root.ruler
+#		}
+#	}
+#
+#	immediate = {
+#		remove_country_flag = auth_ev_imperial_mandate
+#		country_event = { id = datealive_event_mandate.100 }
+#		country_event = { id = datealive_event_mandate.101 }
+#		country_event = { id = datealive_event_mandate.102 }
+#		country_event = { id = datealive_event_mandate.103 }
+#		country_event = { id = ev_event_mandate.400 }
+#		country_event = { id = ev_event_mandate.410 }
+#	}
+#}
+#
+##每年检测完成程度
+#event = {
+#	id = ev_event_mandate.1010
+#	hide_window = yes
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		
+#	}
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				has_authority = auth_ev_imperial
+#				NOT = {
+#					has_country_flag = auth_ev_imperial_mandate
+#				}
+#			}
+#			country_event = { id = mandate.160 }
+#			country_event = { id = mandate.140 }
+#			country_event = { id = mandate.171 }
+#			country_event = { id = mandate.185 }
+#			country_event = { id = datealive_event_mandate.100 }
+#			country_event = { id = datealive_event_mandate.101 }
+#			country_event = { id = datealive_event_mandate.102 }
+#			country_event = { id = datealive_event_mandate.103 }
+#			country_event = { id = ev_event_mandate.400 }
+#			country_event = { id = ev_event_mandate.410 }
+#			set_timed_country_flag = {
+#				flag = auth_ev_imperial_mandate days = 3600
+#			}
+#		}
+#		
+#	}
+#}

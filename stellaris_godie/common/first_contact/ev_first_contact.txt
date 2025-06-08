@@ -1,0 +1,128 @@
+### The difference between Proposal 1 and 2 is that 2 has a base template and just feeds extra events in, using everything else from the base template,
+### whereas 1 basically replaces everything in the First Contact site (except history in the UI of which events you've already had) when you swap which 
+### first contact phase you are in.
+### Either is fine, to be honest.
+
+
+# Scopes:
+# - Root = first contact site
+# - Root.Owner = your country (i.e. you should be able to scope from first contact scope to the owner via eventtarget.cpp)
+# - From = other country
+
+# Basic Starter Set
+
+# amoeba - start off event
+default_ev_stage_1 = {
+	icon = GFX_firstcontact_icon_progress
+	picture = GFX_evt_star_chart
+
+	difficulty = 5
+
+	stage_event = { # no inhabited systems known
+		summary = fcsum_stage_1_summary
+		event_weight = {
+			weight = 10
+			modifier = {
+				factor = 0
+				contact_country = {
+					any_system_within_border = {
+						root.owner = {
+							intel_level = {
+								level > low
+								system = prev
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				contact_country = {
+					any_controlled_fleet = {
+						is_within_borders_of = root.owner
+					}
+				}
+			}
+		}
+		event = first_contact.5
+	}
+
+	stage_event = { # no inhabited systems known, they are scanning us
+		summary = fcsum_stage_1_summary
+		event_weight = {
+			weight = 10
+			modifier = {
+				factor = 0
+				contact_country = {
+					any_system_within_border = {
+						root.owner = {
+							intel_level = {
+								level > low
+								system = prev
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					contact_country = {
+						any_controlled_fleet = {
+							is_within_borders_of = root.owner
+						}
+					}
+				}
+			}
+		}
+		event = first_contact.10
+	}
+
+	stage_event = { # inhabited systems known
+		summary = fcsum_stage_1_summary
+		event_weight = {
+			weight = 10
+			modifier = {
+				factor = 0
+				NOT = {
+					contact_country = {
+						any_system_within_border = {
+							root.owner = {
+								intel_level = {
+									level > low
+									system = prev
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		event = first_contact.15
+	}
+
+	on_roll_failed = {
+		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = early_fc_random_events }
+	}
+}
+
+#ev finish
+#default_ev_stage_2 = {
+#	icon = GFX_firstcontact_icon_success
+#	picture = GFX_evt_unidentified_monster
+#	
+#	difficulty = 3
+#
+#	stage_event = {
+#		summary = fcsum_ev_2
+#		event_weight = {
+#			weight = 1
+#		}
+#		event = ev_first_contact.2
+#	}
+#
+#	on_roll_failed = {
+#		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = space_fauna_fc_random_events }
+#	}
+#}
+	

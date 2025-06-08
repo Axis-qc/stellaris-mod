@@ -1,0 +1,4974 @@
+namespace = ev_game_start
+
+event = {
+	id = ev_game_start.0
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		country_event = {
+			id = ev_game_start.1 days = 3
+		}
+		#no_events = { id = ev_game_start.1 days = 1 }
+	}
+}
+event = {
+	id = ev_game_start.1
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		#设定检查
+		set_global_flag = enable_empty_vagrant_mod
+		#if use trigger ,use: enable_empty_vagrant_mod_trigger
+		#对全部球设定一个环绕加成的月份上限
+		every_galaxy_planet = {
+			limit = {
+				always = yes
+			}
+			set_variable = {
+				which = ev_planet_mining_time_setting
+				value = 60
+			}
+			add_modifier = {
+				modifier = ev_homeless_orbit_mining_time_set
+				days = -1
+				mult = ev_planet_mining_time_setting
+			}
+		}
+		every_country = {
+			limit = {
+				is_country_type = fallen_empire_ev
+			}
+			if = {
+				limit = {
+					species = {
+						is_species_class = DAL
+					}
+				}
+				modify_species = {
+					add_trait = trait_DAL_crystals_10
+					add_trait = trait_DAL_spirit_2
+				}
+			}
+			every_owned_planet = {
+				add_district = district_hab_cultural
+				add_district = district_hab_cultural
+				set_planet_entity = {
+					entity = "habitat_phase_03_entity"
+					graphical_culture = humanoid_01
+				}
+			}
+		}
+
+		
+		#对于普通国家-没有特殊起源
+		every_country = {
+			limit = {
+				has_civic = civic_empty_vagrant
+				NOR = {
+					has_origin = origin_FBCIV_apostate_of_ev_fallen
+					has_origin = origin_FBCIV_default
+					is_country_type = fallen_empire_ev
+				}
+			}
+			
+			#
+			#set_country_flag = testtesttesttesttesttest
+			ruler = {
+				#if = {
+				#	limit = { is_heir = no }
+				#	
+				#}
+				save_global_event_target_as = create_country_old_ruler
+			}
+			
+			save_global_event_target_as = create_country_old
+
+
+			#通讯
+			every_country = {
+				limit = {
+					has_communications = event_target:create_country_old
+				}
+				set_country_flag = create_country_old_communications@event_target:create_country_old
+				save_event_target_as = event_target:create_country_old_communications
+			}
+
+			capital_scope = {
+				#转移国家
+				create_country = {
+					name = event_target:create_country_old
+					type = default
+					species = event_target:create_country_old
+					authority = event_target:create_country_old
+					ethos = event_target:create_country_old
+					flag = event_target:create_country_old
+					civics = event_target:create_country_old
+					origin = event_target:create_country_old
+					auto_delete = no
+					ignore_initial_colony_error = yes
+					day_zero_contact = no
+					effect = {
+						
+						set_graphical_culture = event_target:create_country_old
+						save_global_event_target_as = create_country_new
+						set_country_flag = ev_create_country_flag
+						copy_flags_and_variables_from = event_target:create_country_old
+						
+						copy_techs_from = {
+							target = event_target:create_country_old
+						}
+
+						copy_basic_resources_effect = { FROM = PREVPREV }
+						copy_advanced_resources_effect = { FROM = PREVPREV }
+						copy_manufactured_resources_effect = { FROM = PREVPREV }
+						copy_rare_resources_effect = { FROM = PREVPREV }
+
+						every_galaxy_planet = {
+							set_surveyed = { surveyed = no }
+						}
+						set_all_comms_surveyed = no
+						every_country = {
+							remove_communications = root
+							event_target:create_country_new = {
+								remove_communications = prev
+							}
+						}
+						every_country = {
+							limit = {
+								is_same_value = event_target:create_country_old_communications
+							}
+							establish_communications_no_message = event_target:create_country_new
+						}
+						set_player = prevprev
+						
+						every_owned_leader = {
+							kill_leader = {
+								show_notification = no
+							}
+						}
+						add_modifier = {
+							modifier = ev_game_set_country_election days = 30
+						}
+					}
+				}
+			}
+			event_target:create_country_old = {
+				#every_owned_leader = {
+				#	limit = {
+				#		is_councilor = yes
+				#	}
+				#	set_leader_flag = ev_councilor_old
+				#}
+				modify_species = {
+					species = owner_main_species
+					add_trait = trait_vagrant
+				}
+				if = {
+					limit = { is_gestalt = yes }
+					every_owned_leader = {
+						limit = {
+							is_councilor = yes
+							NOT = { is_same_value = event_target:create_country_old_ruler }
+						}
+						kill_leader = {
+							show_notification = no
+						}
+					}
+				}
+				#通讯
+				#every_country = {
+				#	limit = {
+				#		has_communications = event_target:create_country_old
+				#	}
+				#	save_global_event_target_as = create_country_old_communications
+				#}
+				
+				every_owned_leader = {
+					set_owner = event_target:create_country_new
+				}
+				every_owned_planet = {
+					set_owner = event_target:create_country_new
+				}
+				every_owned_starbase = {
+					set_owner = event_target:create_country_new
+				}
+				every_owned_fleet = {
+					set_owner = event_target:create_country_new
+				}
+				every_owned_army = {
+					set_owner = event_target:create_country_new
+				}
+				event_target:create_country_new = { set_leader = event_target:create_country_old_ruler }
+			}
+
+			clear_global_event_target = create_country_old
+			
+
+			#恢复通讯
+			every_country = {
+				limit = {
+					is_same_value = event_target:create_country_old_communications
+				}
+				establish_communications_no_message = event_target:create_country_new
+			}
+			every_country = {
+				limit = {
+					has_country_flag = event_target:create_country_old_communications@event_target:create_country_old
+				}
+				establish_communications_no_message = event_target:create_country_new
+			}
+			clear_global_event_target = create_country_old_communications
+
+
+			destroy_country = yes
+			event_target:create_country_new = {
+				clear_global_event_target = create_country_new
+				random_owned_fleet = {
+					solar_system = {
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								create_ship = {
+									name = random
+									random_existing_design = constructor
+								}
+								set_location = prev.star
+							}
+						}
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								create_ship = {
+									name = random
+									random_existing_design = science
+								}
+								set_location = prev.star
+							}
+						}
+					}
+					
+				}
+				ev_gamestart_effect = yes #开局初始化
+				country_event = {
+					id = ev_extra_game_start.1  #屑遗产
+				}
+				
+				
+
+				if = {
+					limit = {
+						NOR = {
+							has_authority = auth_machine_intelligence
+							has_authority = auth_hive_mind
+							has_origin = origin_ev_exiles
+						}
+					}
+					#维持度系统
+					set_variable = {
+						which = ev_maintenance_value
+						value = 1
+					}
+					begin_event_chain = {
+						event_chain = "ev_maintenance_chain"
+						target = ROOT
+					}
+					maintenance_change_var_new = yes
+				}
+				#宇宙漂流起源
+				else_if = {
+					limit = {
+						has_origin = origin_ev_exiles
+						is_gestalt = no
+					}
+					set_variable = {
+						which = ev_maintenance_value
+						value = -11
+					}
+					maintenance_change_var_new = yes
+				}
+				
+				else = {
+					set_variable = {
+						which = ev_maintenance_value
+						value = 0
+					}
+				}
+				
+				
+				
+				clear_global_event_target = create_country_old_ruler
+
+				#给政体加上修正
+				#add_modifier = {
+				#	modifier = ev_government_auth_modifers_1
+				#	days = -1
+				#}
+				#if = {
+				#	limit = {
+				#		NOR = {
+				#			has_authority = auth_machine_intelligence
+				#			has_authority = auth_hive_mind
+				#		}
+				#	}
+				#	if = {
+				#		limit = {
+				#			NOR = {
+				#				has_authority = auth_ev_imperial
+				#				has_authority = auth_imperial
+				#				has_authority = auth_corporate
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_government_auth_modifers_1
+				#			days = -1
+				#		}
+				#	}
+				#	if = {
+				#		limit = {
+				#			OR = {
+				#				has_authority = auth_imperial
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_government_auth_modifers_2
+				#			days = -1
+				#		}
+				#	}
+				#	if = {
+				#		limit = {
+				#			OR = {
+				#				has_authority = auth_ev_imperial
+				#			}
+				#		}
+				#		add_modifier = {
+				#			modifier = ev_government_auth_modifers_3
+				#			days = -1
+				#		}
+				#	}
+				#}
+				#设定海外投资回报默认利率
+				#set_country_flag = ev_investment_interest_low
+				#set_variable = {
+				#	which = ev_investment_interest_value
+				#	value = 0.6
+				#}
+				#通货膨胀
+				#set_variable = {
+				#	which = ev_inflation_value
+				#	value = 1
+				#}
+				#if = {
+				#	limit = {
+				#		NOR = {
+				#			has_authority = auth_machine_intelligence
+				#			has_authority = auth_hive_mind
+				#		}
+				#	}
+				#inflation_change_var = yes
+				#remove_ev_inflation_buff = yes
+				#give_ev_inflation_buff = yes
+				#}
+				#硬核模式的默认变动系数
+				set_variable = {
+					which = ev_hard_core_base_ratio
+					value = 1
+				}
+				#特质
+				#give_technology = { message = no tech = tech_ev_genetic_trait }
+				give_ev_traits_buff = yes
+				
+				#额外资源
+				#add_resource = {
+				#	minerals = 300
+				#	energy = 300
+				#	alloys = 500
+				#	influence = 125
+				#	#manpower = 100
+				#}
+				#if = {
+				#	limit = {
+				#		has_authority = auth_machine_intelligence
+				#		NOT = {
+				#			local_human_species_class = LITHOID
+				#		}
+				#	}
+				#	add_resource = {
+				#		minerals = -150
+				#		energy = -150
+				#		food = -400
+				#		consumer_goods = -150
+				#		manpower = -100
+				#	}
+				#}
+				#else_if = {
+				#	limit = {
+				#		has_authority = auth_hive_mind
+				#		NOT = {
+				#			local_human_species_class = LITHOID
+				#		}
+				#	}
+				#	add_resource = {
+				#		minerals = -150
+				#		energy = -150
+				#		food = -100
+				#		consumer_goods = -150
+				#		manpower = -100
+				#	}
+				#}
+				#else_if = {
+				#	limit = {
+				#		local_human_species_class = LITHOID
+				#	}
+				#	add_resource = {
+				#		food = -400
+				#	}
+				#}
+				#else_if = {
+				#	limit = {
+				#		local_human_species_class = AQUATIC
+				#	}
+				#	add_resource = {
+				#		food = 200
+				#	}
+				#}
+				#else_if = {
+				#	limit = {
+				#		local_human_species_class = NECROID
+				#	}
+				#	add_resource = {
+				#		minerals = 100
+				#	}
+				#}
+				if = {
+					limit = {
+						has_civic = civic_ev_temporary_habitat
+					}
+					add_resource = {
+						alloys = 1000
+					}
+				}
+				#开始科技
+				if = {
+					limit = {
+						OR = {
+							has_civic = civic_ev_temporary_habitat
+						}
+					}
+					give_technology = {
+						message = no
+						tech = tech_temporary_habitat
+					}
+				}
+				#if = {
+				#	limit = {
+				#		has_civic = civic_ev_ship_build_ship
+				#	}
+				#	give_technology = {
+				#		message = no
+				#		tech = tech_ship_part_homeless_produce_build_ship_1
+				#	}
+				#}
+				
+				#初始领袖
+				#create_leader = {
+				#	class = commander
+				#	name = random
+				#	skill = 2
+				#	traits = {
+				#		trait = leader_trait_gale_speed
+				#		trait = leader_trait_trickster
+				#	}
+				#}
+				#开始建筑
+				#开局的星球
+				if = {
+					limit = {
+						#is_ai = no 
+						NOR = {
+							has_civic = civic_ev_planet_and_fleet
+							has_origin = origin_ev_both_choosen
+							#has_civic = civic_ev_meg_homeless_ship_strat
+							has_origin = origin_ev_meg_homeless_ship_strat
+						}
+						NOR = {
+							is_country_type = fallen_empire_ev
+							is_country_type = fallen_empire
+						}
+					}
+					capital_scope = {
+						save_event_target_as = ev_capital_scope
+						
+						solar_system = {
+							spawn_planet = {
+								class = "pc_habitat"
+								location = prevprev.capital_scope
+								orbit_location = yes
+								orbit_angle_offset = 65
+								orbit_distance_offset = 45							#9.899
+								size = 6
+								has_ring = no
+								init_effect = {
+									set_planet_flag = flag_ev_capital_scope_habitat
+									save_event_target_as = ev_capital_scope_habitat
+									create_ambient_object = {
+										type = "medium_debris_01_object"
+										location = event_target:ev_capital_scope_habitat
+									}
+									last_created_ambient_object = {
+										set_location = {
+											target = event_target:ev_capital_scope_habitat
+											distance = 4.9
+											angle = 90
+										}
+									}
+									create_ambient_object = {
+										type = "medium_debris_01_object"
+										location = event_target:ev_capital_scope_habitat
+									}
+									last_created_ambient_object = {
+										set_location = {
+											target = event_target:ev_capital_scope_habitat
+											distance = 0.8
+											angle = 90
+										}
+									}
+									create_ambient_object = {
+										type = "medium_debris_01_object"
+										location = event_target:ev_capital_scope_habitat
+									}
+									last_created_ambient_object = {
+										set_location = {
+											target = event_target:ev_capital_scope_habitat
+											distance = -3.3
+											angle = 90
+										}
+									}
+									create_ambient_object = {
+										type = "medium_debris_01_object"
+										location = event_target:ev_capital_scope_habitat
+									}
+									last_created_ambient_object = {
+										set_location = {
+											target = event_target:ev_capital_scope_habitat
+											distance = -7.5
+											angle = 90
+										}
+									}
+									set_planet_flag = mining_habitat
+									set_name = "NAME_EV_HABITAT_PLANET"
+									set_planet_entity = {
+										entity = "OAK_planet_entity"									#"caravaneer_cargoship_01_section_entity_ev_planet" #"orbital_habitat_entity"
+										#graphical_culture = fromfrom
+									}
+									
+									set_owner = prevprevprev
+									
+									create_pop_group = {
+										size = 400
+										species = prevprevprev.owner_species
+										
+									}
+									
+									set_capital = yes
+									#prevprevprev = {
+									#	if = {
+									#		limit = {
+									#			num_species > 1
+									#		}
+									#		every_owned_pop_group = {
+									#			limit = {
+									#				always = yes
+									#			}
+									#			resettle_pop_group = {
+									#				pop = this
+									#				planet = owner.capital_scope
+									#			}
+									#		}
+									#		capital_scope = {
+									#			add_district = district_hab_housing
+									#			#add_district = district_ev_hab_industrial_area
+									#		}
+									#	}
+									#}
+									#set_all_comms_surveyed = yes
+									#clear_blockers = yes
+									if = {
+										limit = {
+											prevprevprevprev = {
+												has_ascension_perk = ap_voidborn
+											}
+											NOT = {
+												has_modifier = master_builders_habitats
+											}
+										}
+										add_modifier = {
+											modifier = master_builders_habitats
+											days = -1
+										}
+									}
+									if = {
+										limit = {
+											prevprevprevprev = {
+												OR = {
+													has_authority = auth_hive_mind
+													has_authority = auth_machine_intelligence
+												}
+											}
+										}
+										add_district = district_ev_hab_industrial_area
+									}
+									set_planet_flag = megastructure
+									set_planet_flag = habitat
+								}
+							}
+							#开局的恒星基地
+							#create_starbase = {
+							#	size = starbase_starhold
+							#	owner = event_target:create_country_new
+							#	#module = shipyard
+							#	#building = crew_quarters
+							#	effect = {
+							#		set_starbase_module = {
+							#			slot = 1
+							#			module = shipyard
+							#		}
+							#		set_starbase_module = {
+							#			slot = 2
+							#			module = anchorage_ev
+							#		}
+							#		set_starbase_module = {
+							#			slot = 3
+							#			module = anchorage_ev
+							#		}
+							#		set_starbase_module = {
+							#			slot = 4
+							#			module = trading_hub
+							#		}
+							#		
+							#	}
+							#}
+							
+						}
+					}
+					
+				}
+				else_if = {
+					limit = {
+						NOR = {
+							is_country_type = fallen_empire_ev
+							is_country_type = fallen_empire
+						}
+						NOR = {
+							has_civic = civic_ev_planet_and_fleet
+							has_origin = origin_ev_both_choosen
+							#has_civic = civic_ev_meg_homeless_ship_strat 
+							has_origin = origin_ev_meg_homeless_ship_strat
+						}
+						is_ai = yes
+					}
+					capital_scope = {
+						solar_system = {
+							spawn_planet = {
+								class = "pc_habitat"
+								location = prev
+								orbit_location = yes
+								orbit_angle_offset = 65
+								orbit_distance_offset = 45							#9.899
+								size = 6
+								has_ring = no
+								init_effect = {
+									set_owner = prevprevprev
+									set_capital = yes
+									while = {
+										count = 6
+										create_pop_group = {
+											size = 100
+											species = owner_main_species
+										}
+									}
+									set_name = "NAME_EV_HABITAT_PLANET"
+									set_planet_entity = {
+										entity = "OAK_planet_entity"									#"caravaneer_cargoship_01_section_entity_ev_planet" #"orbital_habitat_entity"
+										#graphical_culture = fromfrom
+									}
+								}
+							}
+							create_starbase = {
+								size = starbase_starhold
+								owner = event_target:create_country_new
+								module = shipyard
+								#building = crew_quarters
+								effect = {
+									set_starbase_module = {
+										slot = 1
+										module = anchorage_ev
+									}
+									set_starbase_module = {
+										slot = 2
+										module = anchorage_ev
+									}
+									set_starbase_module = {
+										slot = 3
+										module = trading_hub
+									}
+									set_starbase_module = {
+										slot = 4
+										module = anchorage_ev
+									}
+								}
+							}
+						}
+					}
+				}
+				#巨型家园舰开局
+				else_if = {
+					limit = {
+						#has_civic = civic_ev_meg_homeless_ship_strat
+						has_origin = origin_ev_meg_homeless_ship_strat
+					}
+					#every_owned_leader = {
+					#	limit = {
+					#		NOT = {
+					#			leader_class = ruler
+					#		}
+					#	}
+					#	kill_leader = {
+					#		show_notification = no
+					#	}
+					#}
+					every_owned_ship = {
+						delete_ship = this
+					}
+					#预见者
+					#create_leader = {
+					#	class = admiral
+					#	skill = 5
+					#	traits = {
+					#		trait = trait_admiral_ev_event_produces_1
+					#	}
+					#}
+					#last_created_leader = {
+					#	add_ruler_trait = trait_ruler_ev_event_produces_1
+					#}
+					#assign_leader = last_created_leader
+
+					#create_fleet = {
+					#	effect = {
+					#		set_owner = prev
+					#		while = {
+					#			count = 8							#14#14
+					#			create_ship = {
+					#				name = random
+					#				design = "NAME_hate_homeless_ship_1"
+					#			}
+					#		}
+					#		#assign_leader = last_created_leader
+					#		set_fleet_stance = passive
+					#		set_location = prev.capital_star
+					#		#save_global_event_target_as = hate_homeless_ship
+					#	}
+					#}
+
+					#巨型家园舰
+					create_fleet = {
+						effect = {
+							set_owner = prev
+							while = {
+								count = 1							#14#14
+								create_ship = {
+									name = random
+									design = "NAME_meg_homeless_ship_1"
+									#design = "NAME_Great_Space_Organism_EV"
+									#random_existing_design = corvette
+									#design = "NAME_event_wandering_planet_ship"
+								}
+							}
+							add_modifier = {
+								modifier = ev_meg_ship_strat_upkeep_buff days = -1
+							}
+							
+							#assign_leader = last_created_leader
+							set_fleet_stance = passive
+							#set_location = event_target:hate_homeless_ship
+							set_location = prev.capital_star
+							#set_location = prev.capital_star
+							set_fleet_flag = ev_meg_homeless_ship_start_fleet_@root
+							starbase = {
+								set_ship_construction_type = starbase_shipyard
+							}
+						}
+						settings = {
+							can_upgrade = no
+						}
+					}
+					#while = {
+					#	count = 2
+					#	create_fleet = {
+					#		effect = {
+					#			set_owner = prev
+					#			create_ship = {
+					#				name = random
+					#				random_existing_design = science
+					#			}
+					#			set_location = prev.capital_star
+					#		}
+					#	}
+					#}
+					capital_scope = {
+						every_owned_pop_group = {
+							kill_all_pop = yes
+						}
+						destroy_colony = yes
+						#random_list = {
+						#	1 = { change_pc = pc_barren_cold }
+						#	1 = { change_pc = pc_barren }
+						#}
+						#random_list = {
+						#	1 = { set_deposit = d_minerals_8 }
+						#	1 = { set_deposit = d_minerals_7 }
+						#	1 = { set_deposit = d_minerals_6 }
+						#	1 = { set_deposit = d_minerals_9 }
+						#}
+					}
+					#add_resource = {
+					#	energy = 2000
+					#	minerals = 2000
+					#}
+				}
+				else_if = {
+					limit = {
+						has_origin = origin_ev_both_choosen
+					}
+				}
+				if = {
+					limit = {
+						#NOT = { has_civic = civic_ev_meg_homeless_ship_strat }
+						NOT = {
+							has_origin = origin_ev_meg_homeless_ship_strat
+						}
+					}
+					create_fleet = {
+						effect = {
+							set_owner = prev
+							while = {
+								count = 14							#14#14
+								create_ship = {
+									name = random
+									#design = "NAME_meg_homeless_ship_1"
+									#design = "NAME_Great_Space_Organism_EV"
+									random_existing_design = corvette
+									#design = "NAME_event_wandering_planet_ship"
+								}
+							}
+							#assign_leader = last_created_leader
+							set_fleet_stance = passive
+							set_location = prev.capital_star
+						}
+					}
+				}
+				#你要的清算
+				if = {
+					limit = {
+						AND = {
+							has_civic = civic_ev_god_elect
+							is_ai = no
+						}
+					}
+					country_event = {
+						id = ev_boom.1					#utopia.3320
+						days = 18000
+						random = 1800
+					}
+				}
+				#AI的叛乱与获取倍率
+				if = {
+					limit = {
+						is_ai = yes
+					}
+					set_country_flag = ev_ship_rebel_difficult_2X
+					set_variable = {
+						which = base_steal_ev
+						value = 1
+					}
+					set_variable = {
+						which = base_survey_resource_ev
+						value = 1 #3
+					}
+					set_variable = {
+						which = base_trade_fleet_ev
+						value = 1
+					}
+				}
+				if = {
+					limit = {
+						has_origin = origin_ev_planet_and_big_fleet
+					}
+					event_target:ev_capital_scope = {
+						every_owned_pop_group = {
+							kill_all_pop = yes
+						}
+						destroy_colony = yes
+						remove_all_buildings = yes
+					}
+				}
+				else_if = {
+					limit = {
+						has_origin = origin_ev_default
+					}
+					event_target:ev_capital_scope = {
+						every_owned_pop_group = {
+							kill_all_pop = yes
+						}
+						destroy_colony = yes
+						remove_all_buildings = yes
+						random_list = {
+							1 = {
+								change_pc = pc_barren_cold
+							}
+							1 = {
+								change_pc = pc_barren
+							}
+							1 = {
+								change_pc = pc_nuked
+								add_deposit = d_radioactive_wasteland
+								add_deposit = d_radioactive_wasteland
+								add_deposit = d_city_ruins
+								add_deposit = d_city_ruins
+								add_deposit = d_bomb_crater
+							}
+						}
+						random_list = {
+							1 = {
+								set_deposit = d_minerals_8
+							}
+							1 = {
+								set_deposit = d_minerals_7
+							}
+							1 = {
+								set_deposit = d_minerals_6
+							}
+							1 = {
+								set_deposit = d_minerals_9
+	
+							}
+						}
+					}
+				}
+				#初始选择遁入暗影
+				if = {
+					limit = {
+						has_civic = civic_ev_shadow_fleet
+						#always = no
+					}
+					give_technology = {
+						tech = tech_cloaking_1
+					}
+					
+				}
+				#############
+				#起源
+				##############
+				#根据起源给予修正
+				if = {
+					limit = {
+						has_origin = origin_default
+					}
+					add_modifier = {
+						modifier = ev_has_origin_default
+						days = -1
+					}
+				}
+				if = {
+					limit = {
+						has_origin = origin_mechanists
+					}
+					add_modifier = {
+						modifier = ev_has_origin_mechanists
+						days = -1
+					}
+				}
+				if = {
+					limit = {
+						has_origin = origin_post_apocalyptic
+					}
+					add_modifier = {
+						modifier = ev_has_origin_post_apocalyptic
+						days = -1
+					}
+				}
+				if = {
+					limit = {
+						has_origin = origin_void_dwellers
+					}
+					give_technology = {
+						tech = tech_temporary_habitat
+					}
+				}
+				#被召选者自爆
+				if = {
+					limit = {
+						has_origin = origin_ev_painful_price
+					}
+					if = {
+						limit = { is_ai = no }
+							
+						add_tradition = tr_ev_void_adopt
+						add_tradition = tr_ev_void_1 
+						add_tradition = tr_ev_void_2 
+						add_tradition = tr_ev_void_3 
+						add_tradition = tr_ev_void_4 
+						add_tradition = tr_ev_void_5
+						add_tradition = tr_ev_void_finish 
+
+						while = {
+							count = 3
+
+							create_fleet = {
+								effect = {
+									set_owner = root
+									while = {
+										count = 1
+										create_ship = {
+											name = random
+											design = "NAME_start_homeless_ship_ai_1_machine"
+										}
+									}
+									set_fleet_stance = evasive
+									set_location = event_target:ev_new_fleet_starbase_move
+								}
+								settings = {
+									uses_naval_capacity = no
+								}
+							}
+						}
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								while = {
+									count = 1
+									create_ship = {
+										name = random
+										design = "NAME_meg_homeless_ship_1"
+									}
+								}
+								add_modifier = {
+									modifier = ev_meg_ship_strat_upkeep_buff days = -1
+								}
+								set_fleet_stance = passive
+								set_location = prev.capital_star
+								set_fleet_flag = ev_meg_homeless_ship_start_fleet_@root
+							}
+							settings = {
+								can_upgrade = no
+							}
+						}
+						add_modifier = {
+							modifier = ev_boom_before days = -1
+						}
+						country_event = {
+							id = ev_boom.1
+							days = 31 random = 10
+						}
+						random_country = {
+							limit = {
+								is_country_type = fallen_empire
+							}
+							save_global_event_target_as = ev_copy_tech_target
+						}
+						copy_techs_from = {
+							target = event_target:ev_copy_tech_target
+						}
+						#加上热闹之地
+						random_system = {
+							limit = {
+								always = yes
+							}
+							spawn_system = {
+								initializer = marauder_1_1
+							}
+							spawn_system = {
+								initializer = marauder_1_2
+							}
+						}
+						random_country = {
+							limit = {
+								is_country_type = dormant_marauders
+							}
+							save_global_event_target_as = ev_copy_tech_target
+						}
+						country_event = {
+							id = ev_game_start.2
+						}
+
+						while = {
+							count = 3
+							every_owned_starbase = {
+								limit = {
+									always = yes
+								}
+								solar_system = {
+									while = {
+										count = 1
+										every_neighbor_system = {
+											limit = {
+												has_owner = no
+											}
+											create_starbase = {
+												size = starbase_outpost
+												owner = prevprevprev
+											}
+											every_system_planet = {
+												limit = {
+													habitable_planet = yes
+													has_owner = no
+													habitability = {
+														who = event_target:this_pop
+														value > 0.56
+													}
+												}
+												set_owner = prevprevprevprev
+												generate_start_pops = yes
+												generate_start_buildings_and_districts = yes
+												while = {
+													count = 20
+													create_pop_group = {
+														size = 100
+														species = event_target:this_pop
+													}
+												}
+												while = {
+													count = 1
+													add_building = building_research_lab_3
+													add_building = building_refinery
+													add_building = building_factory_1
+												}
+												while = {
+													count = 2
+													add_building = building_research_lab_2
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				#if = {
+				#	limit = {
+				#		has_origin = origin_shattered_ring
+				#	}
+				#	capital_scope = {
+				#		solar_system = {
+				#			random_system_planet = {
+				#				limit = {
+				#					is_planet_class = pc_ringworld_habitable
+				#				}
+				#				#生成一个土著
+				#				create_species = {
+				#					name = random
+				#					class = random
+				#					homeworld = this
+				#				}
+				#				create_country = {
+				#					name = random
+				#					type = primitive
+				#					flag = {
+				#						icon = {
+				#							category = "special"
+				#							file = "primitive.dds"
+				#						}
+				#						background = {
+				#							category = "backgrounds"
+				#							file = "new_dawn.dds"
+				#						}
+				#						colors = {
+				#							"yellow"
+				#							"red"
+				#							"null"
+				#							"null"
+				#						}
+				#					}
+				#					civics = {
+				#						civic = civic_increasing_urbanization
+				#						civic = civic_atmospheric_pollution
+				#					}
+				#					species = last_created_species
+				#					origin = "origin_enlightened"
+				#					effect = {
+				#						set_graphical_culture = industrial_01
+				#						set_country_flag = machine_age
+				#						set_pre_ftl_age = machine_age
+				#					}
+				#				}
+				#				set_owner = last_created_country
+				#				set_capital = yes
+				#				random_list = {
+				#					1 = {
+				#						while = {
+				#							count = 24
+				#							create_pop_group = {
+				#								species = last_created
+				#							}
+				#						}
+				#						add_building = building_primitive_farm
+				#						add_building = building_primitive_factory
+				#						add_building = building_primitive_mine
+				#						add_building = building_primitive_power_plant
+				#						add_building = building_primitive_capital
+				#						add_building = building_urban_dwellings
+				#					}
+				#				}
+				#			}
+				#		}
+				#	}
+				#}
+				#if = {
+				#	limit = {
+				#		has_origin = origin_syncretic_evolution
+				#	}
+				#	capital_scope = {
+				#		solar_system = {
+				#			random_system_planet = {
+				#				limit = {
+				#					is_star = no
+				#					is_capital = no
+				#				}
+				#				random_list = {
+				#					1 = {
+				#						change_pc = pc_tropical
+				#					}
+				#					1 = {
+				#						change_pc = pc_arid
+				#					}
+				#					1 = {
+				#						change_pc = pc_continental
+				#					}
+				#					1 = {
+				#						change_pc = pc_ocean
+				#					}
+				#					1 = {
+				#						change_pc = pc_tundra
+				#					}
+				#					1 = {
+				#						change_pc = pc_arctic
+				#					}
+				#					1 = {
+				#						change_pc = pc_alpine
+				#					}
+				#					1 = {
+				#						change_pc = pc_savannah
+				#					}
+				#				}
+				#				while = {
+				#					count = 2
+				#					add_deposit = d_submerged_ore_veins
+				#					add_deposit = d_rich_mountain
+				#					add_deposit = d_fertile_lands
+				#					add_deposit = d_fertile_lands
+				#					add_deposit = d_underwater_vent
+				#				}
+				#				#生成一个土著
+				#				create_species = {
+				#					name = random
+				#					class = random
+				#					homeworld = this
+				#				}
+				#				create_country = {
+				#					name = random
+				#					type = primitive
+				#					flag = {
+				#						icon = {
+				#							category = "special"
+				#							file = "primitive.dds"
+				#						}
+				#						background = {
+				#							category = "backgrounds"
+				#							file = "new_dawn.dds"
+				#						}
+				#						colors = {
+				#							"yellow"
+				#							"red"
+				#							"null"
+				#							"null"
+				#						}
+				#					}
+				#					civics = {
+				#						civic = civic_increasing_urbanization
+				#						civic = civic_atmospheric_pollution
+				#					}
+				#					species = last_created_species
+				#					origin = "origin_enlightened"
+				#					effect = {
+				#						set_graphical_culture = industrial_01
+				#						set_country_flag = machine_age
+				#						set_pre_ftl_age = machine_age
+				#					}
+				#				}
+				#				set_owner = last_created_country
+				#				set_capital = yes
+				#				random_list = {
+				#					1 = {
+				#						while = {
+				#							count = 24
+				#							create_pop_group = {
+				#								species = last_created
+				#							}
+				#						}
+				#						add_building = building_primitive_farm
+				#						add_building = building_primitive_factory
+				#						add_building = building_primitive_mine
+				#						add_building = building_primitive_power_plant
+				#						add_building = building_primitive_capital
+				#						add_building = building_urban_dwellings
+				#					}
+				#				}
+				#			}
+				#		}
+				#	}
+				#}
+				#if = {
+				#	limit = {
+				#		has_origin = origin_life_seeded
+				#	}
+				#	capital_scope = {
+				#		solar_system = {
+				#			random_system_planet = {
+				#				limit = {
+				#					is_star = no
+				#					is_capital = no
+				#				}
+				#				change_pc = pc_gaia
+				#				while = {
+				#					count = 2
+				#					add_deposit = d_submerged_ore_veins
+				#					add_deposit = d_submerged_ore_veins
+				#					add_deposit = d_rich_mountain
+				#					add_deposit = d_fungal_caves
+				#					add_deposit = d_fertile_lands
+				#					add_deposit = d_fertile_lands
+				#					add_deposit = d_submerged_ore_veins
+				#					add_deposit = d_tropical_island
+				#					add_deposit = d_underwater_vent
+				#					add_deposit = d_underwater_vent
+				#				}
+				#			}
+				#		}
+				#	}
+				#}
+				#大可汗起源
+				else_if = {
+					limit = {
+						has_origin = origin_ev_dakan
+					}
+					if = {
+						limit = {  is_ai = no }
+						random_owned_leader = {
+							limit = {
+								leader_class = ruler
+							}
+							add_skill = 10
+						}
+						country_event = {
+							id = ev_leader.5000
+						}
+						#加上热闹之地
+						random_system = {
+							limit = {
+								always = yes
+							}
+							spawn_system = {
+								initializer = marauder_1_1
+							}
+							spawn_system = {
+								initializer = marauder_1_2
+							}
+						}
+						random_country = {
+							limit = {
+								is_country_type = dormant_marauders
+							}
+							save_global_event_target_as = ev_copy_tech_target
+						}
+						#copy_techs_from = {
+						#	target = event_target:ev_copy_tech_target
+						#}
+						country_event = {
+							id = ev_game_start.2
+						}
+					}
+					
+				}
+				
+
+				#掠夺者同盟的开局
+				if = {
+					limit = {
+						has_origin = origin_ev_criminal_union
+						#always = no
+					}
+					while = {
+						count = 3
+						create_species = {
+							name = random
+							class = random_non_machine
+							portrait = random
+							traits = {
+								trait = "trait_pc_habitat_preference"
+								trait = "trait_vagrant"
+							}
+							allow_negative_traits = no
+							effect = {
+								save_event_target_as = ev_ev_species
+							}
+						}
+	
+						create_country = {
+							#type = default_ev
+							type = default
+							auto_delete = no
+							ignore_initial_colony_error = yes
+							civics = {
+								civic = civic_empty_vagrant
+								civic = civic_ev_criminal_ship
+							}
+							species = event_target:ev_ev_species
+							ethos = random
+							authority = random
+							origin = origin_ev_default
+							flag = random
+							name = {
+								key = "NAME_EV_Uprising_Country_Z"
+								variable_string = "[ev_ev_species.GetAdj]"
+								variable_string = "[GetEVCountry]"
+							}
+							effect = {
+								
+								copy_ethos_and_authority = prev
+								join_alliance = {
+									who = prev								#prev
+									override_requirements = yes
+									#override_requirements = yes
+								}
+								add_trust = {
+									amount = 100
+									who = prev
+								}
+								set_variable = {
+									which = ev_maintenance_value
+									value = 0
+								}
+								while = {
+									count = 2
+									create_leader = {
+										class = scientist
+										skill = 1
+									}
+								}
+								
+								random_list = {
+									1 = {
+										set_graphical_culture = humanoid_01
+									}
+									1 = {
+										set_graphical_culture = molluscoid_01
+									}
+									1 = {
+										set_graphical_culture = lithoid_01
+									}
+									1 = {
+										set_graphical_culture = avian_01
+									}
+									1 = {
+										set_graphical_culture = fungoid_01
+									}
+								}
+								add_resource = {
+									minerals = 300
+									energy = 300
+									food = 400
+									alloys = 400
+									consumer_goods = 150
+									influence = 75
+								}
+								change_government = {
+									civics = {
+										civic = civic_empty_vagrant
+										civic = civic_ev_criminal_ship
+									}
+								}
+
+								ev_ai_spwan_effect = yes
+							}
+						}
+						#create_fleet_from_naval_cap = 0.15
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								while = {
+									count = 12
+									create_ship = {
+										name = random
+										random_existing_design = corvette
+									}
+								}
+								set_location = owner.capital_scope
+							}
+						}
+						last_created_fleet = {
+							set_location = owner.capital_scope
+						}
+						last_created_fleet = {
+							set_owner = last_created_country
+							#set_name = "[last_created_country.GetName] I"
+						}
+						create_fleet = {
+							#name = "[last_created_country.GetName] II"
+							effect = {
+								create_ship = {
+									name = random
+									design = "NAME_start_homeless_ship_course_starbase"
+								}
+								set_fleet_flag = homeless_ship_ai_class_1
+								starbase = {
+									set_ship_construction_type = starbase_shipyard
+								}
+							}
+						}
+						last_created_fleet = {
+							set_location = prev.capital_scope
+							set_owner = last_created_country
+							save_event_target_as = ev_fleet_location
+						}
+						create_fleet = {
+							#name = "[last_created_country.GetName] III"
+							effect = {
+								set_owner = last_created_country
+								create_ship = {
+									random_existing_design = science
+								}
+								set_location = event_target:ev_fleet_location
+								owner = {
+									create_leader = {
+										class = scientist
+										sub_type = survey
+										name = random
+										species = owner_main_species
+									}
+								}
+								assign_leader = last_created_leader
+							}
+						}
+						create_fleet = {
+							#name = "[last_created_country.GetName] IV"
+							effect = {
+								set_owner = last_created_country
+								create_ship = {
+									random_existing_design = constructor
+								}
+								set_location = event_target:ev_fleet_location
+							}
+						}
+					}
+					this.federation = {
+						set_federation_type = ev_criminal_trade_federation					#trade_federation
+						add_cohesion = 200
+						#set_name = random
+						add_federation_experience = 20000
+					}
+				}
+				#初始选择封建
+				else_if = {
+					limit = {
+						has_origin = origin_ev_subjects_owner
+					}
+					capital_scope = {
+						solar_system = {
+							random_neighbor_system = {
+								save_event_target_as = ev_random_system_target
+							}
+							random_neighbor_system = {
+								limit = {
+									NOT = {
+										is_same_value = event_target:ev_random_system_target
+									}
+								}
+								save_event_target_as = ev_random_system_target_2
+							}
+						}
+					}
+					while = {
+						count = 2
+						create_species = {
+							name = random
+							class = random_non_machine
+							portrait = random
+							traits = {
+								trait = "trait_pc_habitat_preference"
+								trait = "trait_vagrant"
+							}
+							allow_negative_traits = no
+							effect = {
+								save_event_target_as = ev_ev_species
+							}
+						}
+	
+						create_country = {
+							#type = default_ev
+							type = default
+							auto_delete = no
+							civics = {
+								civic = civic_empty_vagrant
+								civic = random
+							}
+							authority = random
+							species = event_target:ev_ev_species
+							origin = origin_ev_default
+							name = random
+							#name = {
+							#	key = "NAME_EV_Uprising_Country_Z"
+							#	variable_string = "ev_ev_species.GetAdj"
+							#	variable_string = "GetEVCountry"
+							#}
+							effect = {
+								
+								add_trust = {
+									amount = 50
+									who = prev
+								}
+								event_target:is_homeless_fleet = {
+									set_owner = prev
+									set_location = event_target:ev_random_system_target.star
+								}
+								create_fleet = {
+									effect = {
+										set_owner = prev
+										while = {
+											count = 12
+											create_ship = {
+												name = random
+												random_existing_design = corvette
+											}
+										}
+										set_location = event_target:ev_random_system_target.star
+									}
+								}
+								last_created_fleet = {
+									set_location = event_target:ev_random_system_target.star
+								}
+								
+								while = {
+									count = 1
+									create_leader = {
+										class = scientist
+										skill = 1
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = prev
+										create_ship = {
+											name = random
+											random_existing_design = constructor
+										}
+										set_location = event_target:ev_random_system_target.star
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = prev
+										create_ship = {
+											name = random
+											random_existing_design = science
+										}
+										set_location = event_target:ev_random_system_target_2.star
+										assign_leader = last_created_leader
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = last_created_country
+										create_ship = {
+											name = random
+											design = "NAME_start_homeless_ship_course_starbase"
+										}
+										set_location = event_target:ev_random_system_target_2.star
+										set_fleet_flag = homeless_ship_ai_class_1
+										starbase = {
+											set_ship_construction_type = starbase_shipyard
+										}
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = last_created_country
+										create_ship = {
+											name = random
+											design = "NAME_start_homeless_ship_course_starbase"
+										}
+										set_fleet_flag = homeless_ship_ai_class_1
+										set_location = event_target:ev_random_system_target_2.star
+										starbase = {
+											set_ship_construction_type = starbase_shipyard
+										}
+									}
+								}
+								add_resource = {
+									minerals = 500
+									energy = 500
+									food = 1000
+									consumer_goods = 500
+									alloys = 1000
+									influence = 200
+								}
+								set_subject_of = {
+									who = prev
+									preset = preset_protectorate
+								}
+								set_variable = {
+									which = ev_maintenance_value
+									value = 0
+								}
+								random_list = {
+									1 = {
+										set_graphical_culture = humanoid_01
+									}
+									1 = {
+										set_graphical_culture = molluscoid_01
+									}
+									1 = {
+										set_graphical_culture = lithoid_01
+									}
+									1 = {
+										set_graphical_culture = avian_01
+									}
+									1 = {
+										set_graphical_culture = fungoid_01
+									}
+								}
+								ev_ai_spwan_effect = yes
+							}
+						}
+						add_intel = {
+							who = last_created_country
+							amount = 50
+						}
+					}
+				}
+				#初始选择星球与舰队联盟
+				else_if = {
+					limit = {
+						has_origin = origin_ev_planet_and_big_fleet
+					}
+					add_resource = {
+						influence = 200
+					}
+					create_fleet = {
+						effect = {
+							set_owner = prev
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+							set_fleet_flag = homeless_ship_ai_class_1
+							set_location = owner.capital_scope
+							starbase = {
+								set_ship_construction_type = starbase_shipyard
+							}
+						}
+					}
+					every_owned_planet = {
+						limit = {
+							is_capital = no
+						}
+						every_owned_pop_group = {
+							kill_all_pop = yes
+						}
+						destroy_colony = yes
+					}
+					save_event_target_as = ev_homeless_country
+					capital_scope = {
+						solar_system = {
+							random_neighbor_system = {
+								random_system_planet = {
+									limit = {
+										is_star = no
+										is_asteroid = no
+									}
+									random_list = {
+										1 = { change_pc = pc_continental }
+										1 = { change_pc = pc_tundra }
+										1 = { change_pc = pc_savannah }
+									}
+									set_planet_size = 18
+									save_global_event_target_as = ev_random_system_planet
+								}
+							}
+						}
+						
+					}
+					event_target:ev_random_system_planet = {
+						create_country = {
+							type = default
+							origin = origin_default
+							species = event_target:ev_homeless_country.owner_species
+							ethos = event_target:ev_homeless_country
+							authority = event_target:ev_homeless_country
+							
+							
+							effect = {
+								add_intel = {
+									who = event_target:ev_homeless_country
+									amount = 50
+								}
+								#copy_ethos_and_authority = prevprev
+								#change_government = {
+								#	civics = random
+								#}
+								set_government_cooldown = 0
+								set_name = random
+								add_resource = {
+									minerals = 1000
+									energy = 1000
+									food = 1000
+									consumer_goods = 500
+									alloys = 500
+									influence = 200
+								}
+								create_fleet = {
+									effect = {
+										set_owner = prev
+										create_ship = {
+											name = random
+											random_existing_design = constructor
+										}
+										set_location = prevprev.star
+									}
+								}
+								
+								
+								create_fleet = {
+									effect = {
+										set_owner = prev
+										create_ship = {
+											name = random
+											random_existing_design = science
+										}
+										set_location = prevprev.star
+										assign_leader = last_created_leader
+									}
+								}
+								random_list = {
+									1 = {
+										set_graphical_culture = humanoid_01
+									}
+									1 = {
+										set_graphical_culture = molluscoid_01
+									}
+									1 = {
+										set_graphical_culture = lithoid_01
+									}
+									1 = {
+										set_graphical_culture = avian_01
+									}
+									1 = {
+										set_graphical_culture = fungoid_01
+									}
+								}
+								establish_communications = prevprev
+								save_event_target_as = ev_alliance_country
+								join_alliance = {
+									who = prevprev
+									override_requirements = yes
+									#override_requirements = yes
+								}
+								federation = {
+									set_name = random
+									add_federation_experience = 2000
+								}
+								add_trust = {
+									amount = 100
+									who = prevprev
+								}
+								prevprev = {
+									add_trust = {
+										amount = 100
+										who = prev
+									}
+								}
+								capital_scope = {
+									generate_start_pops = yes
+									generate_start_deposits_and_blockers = yes
+									generate_start_buildings_and_districts = yes
+									solar_system = {
+										starbase = {
+											set_owner = last_created_country
+										}
+									}
+									add_modifier = {
+										modifier = ev_origin_ev_planet_and_big_fleet_ai
+									}
+								}
+								
+							}
+						}
+						event_target:ev_alliance_country = {
+							while = {
+								count = 3
+								create_leader = {
+									class = scientist
+								}
+								create_leader = {
+									class = commander
+								}
+								create_leader = {
+									class = official
+								}
+							}
+						}
+						
+						this.federation = {
+							add_cohesion = 100
+							set_name = random
+							add_federation_experience = 100
+						}
+						if = {
+							limit = {
+								num_pops < 10
+							}
+							while = {
+								count = 25
+								create_pop_group = {
+									size = 100
+									species = prev.owner_species
+								}
+							}
+						}
+						#generate_start_buildings_and_districts = yes
+						set_owner = last_created_country
+						last_created_country = {
+							#create_fleet_from_naval_cap = 0.15
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 12
+										create_ship = {
+											name = random
+											random_existing_design = corvette
+										}
+									}
+									set_location = owner.capital_scope
+								}
+							}
+							last_created_fleet = {
+								set_location = owner.capital_scope
+							}
+						}
+					}
+					add_intel = {
+						who = last_created_country
+						amount = 50
+					}
+					if = {
+						limit = {
+							is_ai = yes
+						}
+						every_owned_starbase = {
+							#set_owner = last_created_country
+						}
+					}
+					#create_fleet = {
+					#	effect = {
+					#		set_owner = prev
+					#		
+					#		while = {
+					#			count = 14 #14#14
+					#			create_ship = {
+					#				name = random
+					#				random_existing_design = corvette
+					#			}
+					#		}
+					#		set_fleet_stance = passive
+					#		set_location = prev.capital_star
+					#	}
+					#}
+					
+				}
+				else_if = {
+					limit = { 
+						has_origin = origin_ev_end_galaxy
+					}
+					if = {
+						limit = { is_ai = no }
+						country_event = {
+							id = ev_game_start.300 days = 1
+						}
+					}
+					
+				}
+				
+				#宇宙漂流起源
+				else_if = {
+					limit = {
+						has_origin = origin_ev_exiles
+					}
+					#random_system = {
+					#	limit = {
+					#		always = yes
+					#	}
+					#	spawn_system = {
+					#		initializer = marauder_1_1
+					#	}
+					#	spawn_system = {
+					#		initializer = marauder_1_2
+					#	}
+					#}
+					#random_country = {
+					#	limit = {
+					#		is_country_type = dormant_marauders
+					#	}
+					#	save_global_event_target_as = ev_copy_tech_target
+					#}
+					#copy_techs_from = {
+					#	target = event_target:ev_copy_tech_target
+					#}
+					capital_scope = {
+						add_deposit = d_ev_damaged_station
+						add_deposit = d_ev_meg_datebase
+						add_deposit = d_ev_meg_freezer
+						random_list = {
+							1 = {
+								add_deposit = d_ev_damaged_station
+							}
+							1 = {
+								add_deposit = d_ev_meg_datebase
+							}
+							1 = {
+								add_deposit = d_ev_meg_freezer
+							}
+						}
+					}
+					while = {
+						count = 20
+						add_random_research_option = {
+							add_progress = 0.6
+							ignore_prereqs = yes
+							area = engineering
+							tier = 1
+							fail_effects = {
+								add_random_research_option = {
+									add_progress = 0.6
+									ignore_prereqs = yes
+									area = engineering
+									tier = 2
+									fail_effects = {
+										add_random_research_option = {
+											add_progress = 0.6
+											ignore_prereqs = yes
+											area = engineering
+											tier = 3
+											fail_effects = {
+												add_random_research_option = {
+													add_progress = 0.6
+													ignore_prereqs = yes
+													area = engineering
+													tier = 4
+													fail_effects = {
+														add_random_research_option = {
+															add_progress = 0.6
+															ignore_prereqs = yes
+															area = engineering
+															tier = 5
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						add_random_research_option = {
+							add_progress = 0.6
+							ignore_prereqs = yes
+							area = physics
+							tier = 1
+							fail_effects = {
+								add_random_research_option = {
+									add_progress = 0.6
+									ignore_prereqs = yes
+									area = physics
+									tier = 2
+									fail_effects = {
+										add_random_research_option = {
+											add_progress = 0.6
+											ignore_prereqs = yes
+											area = physics
+											tier = 3
+											fail_effects = {
+												add_random_research_option = {
+													add_progress = 0.6
+													ignore_prereqs = yes
+													area = physics
+													tier = 4
+													fail_effects = {
+														add_random_research_option = {
+															add_progress = 0.6
+															ignore_prereqs = yes
+															area = physics
+															tier = 5
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						add_random_research_option = {
+							add_progress = 0.6
+							ignore_prereqs = yes
+							area = society
+							tier = 1
+							fail_effects = {
+								add_random_research_option = {
+									add_progress = 0.6
+									ignore_prereqs = yes
+									area = society
+									tier = 2
+									fail_effects = {
+										add_random_research_option = {
+											add_progress = 0.6
+											ignore_prereqs = yes
+											area = society
+											tier = 3
+											fail_effects = {
+												add_random_research_option = {
+													add_progress = 0.6
+													ignore_prereqs = yes
+													area = society
+													tier = 4
+													fail_effects = {
+														add_random_research_option = {
+															add_progress = 0.6
+															ignore_prereqs = yes
+															area = society
+															tier = 5
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+		}
+	}
+}
+
+#热闹银河系的开局给AI的资源
+country_event = {
+	id = ev_game_start.2
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		#高级的AI开局
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = default
+				}
+				is_ai = yes
+			}
+			random_owned_pop_group = {
+				limit = {
+					always = yes
+				}
+				save_event_target_as = this_pop
+			}
+			copy_techs_from = {
+				target = event_target:ev_copy_tech_target
+			}
+			add_resource = {
+				minerals = 8000
+				energy = 8000
+				food = 8000
+				consumer_goods = 2500
+				alloys = 4000
+				exotic_gases = 1000
+				rare_crystals = 1000
+				volatile_motes = 1000
+				unity = 5000
+				minor_artifacts = 20
+			}
+			capital_scope = {
+				while = {
+					count = 20
+					create_pop_group = {
+						size = 100
+						species = event_target:this_pop
+					}
+				}
+				while = {
+					count = 1
+					add_building = building_research_lab_3
+					add_building = building_refinery
+					add_building = building_factory_1
+				}
+				while = {
+					count = 2
+					add_building = building_research_lab_2
+				}
+			}
+			while = {
+				count = 5
+				every_owned_starbase = {
+					limit = {
+						always = yes
+					}
+					solar_system = {
+						while = {
+							count = 1
+							every_neighbor_system = {
+								limit = {
+									has_owner = no
+								}
+								create_starbase = {
+									size = starbase_outpost
+									owner = prevprevprev
+								}
+								every_system_planet = {
+									limit = {
+										habitable_planet = yes
+										has_owner = no
+										habitability = {
+											who = event_target:this_pop
+											value > 0.56
+										}
+									}
+									set_owner = prevprevprevprev
+									generate_start_pops = yes
+									generate_start_buildings_and_districts = yes
+									while = {
+										count = 20
+										create_pop_group = {
+											size = 100
+											species = event_target:this_pop
+										}
+									}
+									while = {
+										count = 1
+										add_building = building_research_lab_3
+										add_building = building_refinery
+										add_building = building_factory_1
+									}
+									while = {
+										count = 2
+										add_building = building_research_lab_2
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			while = {
+				count = 2
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = {
+							count = 12
+							create_ship = {
+								name = random
+								random_existing_design = corvette
+							}
+						}
+						set_location = owner.capital_scope
+					}
+				}
+				last_created_fleet = {
+					set_location = owner.capital_scope
+				}
+				#create_fleet_from_naval_cap = 0.2
+				#create_fleet_from_naval_cap = 0.25
+				#create_fleet_from_naval_cap = 0.15
+			}
+		}
+		every_country = {
+			limit = {
+				is_default_ev_country_type = yes
+				is_ai = yes
+				NOT = {
+					has_country_flag = is_ev_alliance_other_country
+				}
+			}
+			copy_techs_from = {
+				target = event_target:ev_copy_tech_target
+			}
+			while = {
+				count = 2
+				add_resource = {
+					minerals = 8000
+					energy = 8000
+					food = 8000
+					consumer_goods = 2500
+					alloys = 4000
+					exotic_gases = 1000
+					rare_crystals = 1000
+					volatile_motes = 1000
+					unity = 4000
+					manpower = 4000
+				}
+				#create_fleet_from_naval_cap = 0.15
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = {
+							count = 12
+							create_ship = {
+								name = random
+								random_existing_design = corvette
+							}
+						}
+						set_location = owner.capital_scope
+					}
+				}
+				last_created_fleet = {
+					set_location = owner.capital_scope
+				}
+				last_created_fleet = {
+					set_fleet_bombardment_stance = steal_ev 
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = {
+						has_origin = origin_ev_doomsday_templar
+						#has_origin = origin_ev_uprising_fleet
+					}
+				}
+			}
+			random_country = {
+				limit = {
+					is_country_type = fallen_empire
+				}
+				save_global_event_target_as = ev_copy_tech_target_2
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_country_type = default
+						is_default_ev_country_type = yes
+					}
+				}
+				#copy_techs_from = {
+				#	target = event_target:ev_copy_tech_target_2
+				#}
+				every_owned_planet = {
+					solar_system = {
+						create_starbase = {
+							size = starbase_starfortress
+							owner = prevprev
+							#module = shipyard
+							#module = anchorage
+							#module = anchorage
+							#module = gun_battery
+							#module = gun_battery
+							#building = crew_quarters
+							effect = {
+								set_starbase_module = {
+									slot = 1
+									module = shipyard
+								}
+								set_starbase_module = {
+									slot = 3
+									module = anchorage
+								}
+								set_starbase_module = {
+									slot = 2
+									module = anchorage
+								}
+							}
+						}
+					}
+					owner = {
+						add_resource = {
+							minerals = 8000
+							energy = 8000
+							food = 8000
+							consumer_goods = 2500
+							alloys = 4000
+							exotic_gases = 1000
+							rare_crystals = 1000
+							volatile_motes = 1000
+							unity = 5000
+							minor_artifacts = 5
+						}
+					}
+					while = {
+						count = 20
+						create_pop_group = {
+							size = 100
+							species = event_target:this_pop
+						}
+					}
+					while = {
+						count = 1
+						add_building = building_research_lab_3
+						add_building = building_refinery
+						add_building = building_factory_1
+					}
+					while = {
+						count = 2
+						add_building = building_research_lab_2
+					}
+				}
+				if = {
+					limit = {
+						num_owned_planets > 7
+					}
+					#理想城
+					random_owned_planet = {
+						clear_deposits = yes
+						change_pc = pc_city
+						set_planet_entity = {
+							entity = "city_planet_entity"
+							graphical_culture = owner
+						}
+						owner = {
+							country_event = {
+								id = distar.201
+							}
+							# port for living planet distar.197, triggers in event
+						}
+						planet_event = {
+							id = mega.200
+						}
+						if = {
+							limit = {
+								OR = {
+									is_active_resolution = "resolution_ecology_environmental_control_board"
+									is_active_resolution = "resolution_ecology_paradise_initiative"
+								}
+							}
+							owner = {
+								set_timed_country_flag = {
+									flag = resolution_breached_terraformed
+									days = 3600
+								}
+							}
+						}
+					}
+				}
+				every_owned_starbase = {
+					set_starbase_module = {
+						slot = 1
+						module = shipyard
+					}
+					set_starbase_module = {
+						slot = 2
+						module = anchorage
+					}
+					set_starbase_module = {
+						slot = 3
+						module = anchorage
+					}
+					set_starbase_module = {
+						slot = 4
+						module = anchorage
+					}
+					set_starbase_module = {
+						slot = 5
+						module = gun_battery
+					}
+					set_starbase_building = {
+						slot = 1
+						building = crew_quarters
+					}
+					set_starbase_building = {
+						slot = 2
+						building = naval_logistics_office
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					is_default_ev_country_type = yes
+				}
+				every_owned_pop_group = {
+					kill_all_pop = yes
+				}
+			}
+		}
+	}
+}
+
+#生成星系
+#在加载地图的开局事件
+event = {
+	id = ev_game_start.200
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		set_update_modifiers_batch = begin
+		every_country = {
+			#热闹之地起源
+			if = {
+				limit = {
+					OR = {
+						has_origin = origin_ev_late_start
+						#has_origin = origin_ev_uprising_fleet
+						has_origin = origin_ev_doomsday_templar
+					}
+					is_ai = no					#禁止非AI
+				}
+				#加上热闹之地
+				random_system = {
+					limit = {
+						always = yes
+					}
+					spawn_system = {
+						initializer = marauder_1_1
+					}
+					spawn_system = {
+						initializer = marauder_1_2
+					}
+				}
+				random_country = {
+					limit = {
+						is_country_type = dormant_marauders
+					}
+					save_global_event_target_as = ev_copy_tech_target
+				}
+				country_event = {
+					id = ev_game_start.2
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_civic = civic_empty_vagrant
+				NOT = {
+					is_country_type = fallen_empire_ev
+				}
+			}
+			#set_country_type = default_ev
+			
+		}
+		#生成星系
+		if = {
+			limit = {
+				NOT = {
+					has_global_flag = has_mumu_init_flag
+				}
+			}
+			set_spawn_system_batch = begin
+			# batch-processes the spawn_system effects between "begin" and "end",
+			# so caches are recalculated only once rather than for every system spawned
+			# can also be used when removing and adding hyperlanes
+			no_scope = {
+				# makes system positions originate from galactic core
+				spawn_system = {
+					min_distance >= 990
+					max_distance <= 1000
+					min_orientation_angle = 1
+					max_orientation_angle = 2
+					initializer = "ev_mumu_init_01"
+					hyperlane = no
+				}
+			}
+			set_spawn_system_batch = end
+			set_global_flag = has_mumu_init_flag
+		}
+		#亡世遗骸
+		if = {
+			limit = {
+				any_country = {
+					is_ai = no
+					has_origin = origin_ev_end_galaxy
+				}
+			}
+			
+			if = {
+				limit = {
+					NOT = {
+						has_civic = civic_empty_vagrant
+					}
+					has_origin = origin_ev_end_galaxy
+				}
+				random_owned_planet = {
+					save_event_target_as = ev_save_planets
+				}
+			}
+			every_system = {
+				every_system_ambient_object = {
+					destroy_ambient_object = this
+				}
+				every_system_planet = {
+					if = {
+						limit = { is_star = yes }
+						change_pc = pc_black_hole
+						random_list = {
+							1 = { add_deposit = d_dark_matter_deposit_1 }
+							1 = { add_deposit = d_dark_matter_deposit_2 }
+							1 = { add_deposit = d_dark_matter_deposit_3 }
+							20 = { }
+						}
+					}
+					destroy_colony = yes
+				}
+				set_asteroid_belt = {
+					radius = 0
+				}
+				every_system_planet = {
+					if = {
+						limit = {
+							planet_size > 7
+						}
+						change_planet_size = -3
+					}
+					destroy_colony = yes
+					if = {
+						limit = {
+							OR = {
+								is_planet_class = pc_habitat
+								is_planet_class = pc_asteroid
+								is_planet_class = pc_ice_asteroid
+							}
+						}
+						remove_planet = yes
+					}
+					if = {
+						limit = {
+							num_pops > 0
+						}
+						every_owned_pop_group = {
+							kill_all_pop = yes
+						}
+						remove_all_buildings = yes
+						remove_all_districts = yes
+						
+						if = {
+							limit = {
+								is_planet_class = pc_habitat
+							}
+							remove_planet = yes
+						}
+						else_if = {
+							limit = {
+								is_ringworld = yes
+							}
+							random_list = {
+								2 = {
+									add_deposit = d_minerals_2
+								}
+								5 = {
+								}
+							}
+							change_pc = pc_ringworld_habitable_damaged
+						}
+						else = {
+							change_pc = pc_shattered
+							clear_deposits = yes
+						}
+						random_list = {
+							2 = {
+								add_deposit = d_minerals_2
+							}
+							5 = {
+							}
+						}
+						destroy_colony = yes
+					}
+					else_if = {
+						limit = {
+							is_planet_class = pc_habitat
+						}
+						remove_planet = yes
+					}
+					else_if = {
+						limit = {
+							is_ringworld = yes
+						}
+						random_list = {
+							2 = {
+								add_deposit = d_minerals_2
+							}
+							5 = {
+							}
+						}
+						change_pc = pc_ringworld_habitable_damaged
+					}
+					else_if = {
+						limit = {
+							is_star = yes
+						}
+						change_pc = pc_black_hole
+					}
+					else = {
+						random_list = {
+							2 = {
+								add_deposit = d_minerals_1
+							}
+							5 = {
+							}
+						}
+						change_pc = pc_shattered
+						#clear_deposits = yes
+					}
+				}
+				system_star = {
+					change_pc = pc_black_hole
+				}
+				set_star_class = sc_black_hole
+			}
+			every_country = {
+				if = {
+					limit = {
+						NOT = { has_origin = origin_ev_end_galaxy }
+						#is_regular_empire = yes
+						is_country_type = default
+					}
+					destroy_country = yes
+				}
+				else = {
+					give_technology = {
+						tech = tech_hydroponics
+					}
+					capital_scope = {
+						solar_system = {
+							spawn_planet = {
+								class = "pc_habitat"
+								location = prevprev.capital_scope
+								orbit_location = yes
+								orbit_angle_offset = 15
+								orbit_distance_offset = 45							#9.899
+								size = 12
+								has_ring = no
+								init_effect = {
+									add_modifier = {
+										modifier = ev_pc_district_hab_mining_add mult = 6
+									}
+									add_modifier = {
+										modifier = ev_pc_district_hab_energy_add mult = 6
+									}
+									add_modifier = {
+										modifier = ev_pc_district_hab_science_add mult = 6
+									}
+									#set_planet_flag = flag_ev_capital_scope_habitat
+									save_event_target_as = ev_capital_scope_habitat
+									create_ambient_object = {
+										type = "medium_debris_01_object"
+										location = event_target:ev_capital_scope_habitat
+									}
+									last_created_ambient_object = {
+										set_location = {
+											target = event_target:ev_capital_scope_habitat
+											distance = 0
+											angle = 90
+										}
+									}
+									#set_planet_flag = mining_habitat
+									#set_planet_flag = energy_habitat
+									set_name = {
+										key = "NAME_EV_habitat_ev_end_galaxy"
+										variable_string = "[prev.GetName]"
+										variable_string = "[prevprevprev.GetSpeciesName]"
+									}
+									#surveyed = {
+									#	set_surveyed = yes
+									#	surveyor = prevprevprev
+									#}
+									set_owner = prevprevprev
+									set_planet_entity = {
+										entity = "habitat_phase_03_entity"
+										graphical_culture = owner
+									}
+									while = {
+										count = 16
+										create_pop_group = {
+											size = 100
+											species = prevprevprev.owner_species
+										}
+									}
+									#add_building = building_food_processing_facility
+									add_building = building_hydroponics_farm
+									add_deposit = d_ev_meg_freezer
+									add_district = district_hab_housing
+									add_district = district_hab_housing
+									add_district = district_hab_housing
+									add_district = district_hab_mining
+									add_district = district_hab_mining
+									#add_district = district_hab_cultural
+									add_district = district_hab_industrial
+									add_district = district_hab_energy
+									while = {
+										count = 4
+										add_deposit = d_ev_pc_habitat
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}
+			every_country = {
+				limit = {
+					has_origin = origin_ev_end_galaxy
+				}
+				capital_scope = {
+					solar_system = {
+						every_system_planet = {
+							limit = {
+								is_star = yes
+							}
+							change_pc = pc_black_hole
+							add_deposit = d_dark_matter_deposit_1
+						}
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					has_origin = origin_ev_end_galaxy
+					NOT = {
+						has_civic = civic_empty_vagrant
+					}
+				}
+				
+				
+			}
+		}
+		set_update_modifiers_batch = end
+	}
+}
+
+#亡世遗骸-炸雕非正常帝国
+country_event = {
+	id = ev_game_start.300
+	#hide_window = yes
+	title = ev_game_start.300.title
+	desc = ev_game_start.300.desc
+	is_triggered_only = yes
+	picture = GFX_evt_black_hole
+	trigger = {
+		is_ai = no
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = ev_game_start.300.a
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { 
+						AND = {
+							has_origin = origin_ev_end_galaxy
+							is_country_type = default 
+						}
+					}
+				}
+				destroy_country = yes
+			}
+		}
+	}
+	option = {
+		name = ev_game_start.300.b
+		
+	}
+}
+
+
+#默认禁止叛乱事件链，难度为1X
+#默认全产无加成
+country_event = {
+	id = ev_game_start.1999
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		AND = {
+			owner = {
+				is_ai = no
+			}
+		}
+	}
+	immediate = {
+		owner = {
+			set_country_flag = ev_leader.2000.a.open
+			set_country_flag = ban_rebel_event
+			set_country_flag = ev_ship_rebel_difficult_1X
+			set_country_flag = ev_ship_produce_4X
+		}
+	}
+}
+
+# 测试UI
+# country_event = {
+# 	id = ev_game_start.1020
+# 	title = cara_home_main.title
+# 	custom_gui = "enclave_ev_caravaneer_window"
+# 	#custom_gui = "enclave_caravaneer_window"
+# 	desc = anomaly.3103.a.response
+# 	#diplomatic = yes
+# 	is_triggered_only = yes
+# 	picture_event_data = {
+# 		portrait = root
+# 		room = root
+# 		planet_background = root
+# 		graphical_culture = root
+# 		city_level = root
+# 	}
+# 	trigger = {
+# 		always = no
+# 	}
+# 	option = {
+# 		custom_gui = "enclave_ev_caravaneer_option"
+# 		name = cara_homicide_exit
+# 	}
+# }
+#开局触发
+#告知各种舰船的用法
+country_event = {
+	id = ev_game_start.1998
+	title = ev_game_start.1998.title
+	desc = ev_game_start.1998.desc
+	picture = GFX_evt_cargoship_caravan
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.1998.title"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_homeless_in_room
+	#}	#图片只能用room
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+	}
+	option = {
+		#不要开启叛乱事件
+		name = OK
+	}
+}
+
+#开局触发菜单
+#叛乱事件难度设定
+country_event = {
+	id = ev_game_start.2000
+	title = ev_game_start.2000.name
+	desc = ev_game_start.2000.desc.all
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		always = yes
+	}
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2000.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = ev_void_room } #图片只能用room
+	#开启的提示,1X
+	is_triggered_only = yes
+	option = {
+		#不要开启叛乱事件
+		name = ev_game_start.2000.a
+		custom_tooltip = ev_game_start.2000.a.tooltip
+		owner = {
+			set_country_flag = ban_rebel_event
+			set_country_flag = ev_leader.2000.a.open
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_leader.2000.a.open
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+				remove_country_flag = ev_leader.2000.b.open
+			}
+		}
+	}
+	option = {
+		#开启叛乱事件
+		name = ev_game_start.2000.b
+		custom_tooltip = ev_game_start.2000.b.tooltip
+		owner = {
+			remove_country_flag = ban_rebel_event
+			set_country_flag = ev_leader.2000.b.open
+		}
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_leader.2000.b.open
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+				remove_country_flag = ev_leader.2000.a.open
+			}
+		}
+	}
+	option = {
+		#1X难度
+		name = ev_game_start.2000.d
+		custom_tooltip = ev_game_start.2000.d.tooltip
+		owner = {
+			remove_country_flag = ev_ship_rebel_difficult_1X
+			remove_country_flag = ev_ship_rebel_difficult_2X
+			remove_country_flag = ev_ship_rebel_difficult_5X
+			remove_country_flag = ev_ship_rebel_difficult_10X
+			remove_country_flag = ev_ship_rebel_difficult_25X
+			set_country_flag = ev_ship_rebel_difficult_1X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_rebel_difficult_1X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+			}
+		}
+	}
+	option = {
+		#2X难度
+		name = ev_game_start.2000.e
+		custom_tooltip = ev_game_start.2000.e.tooltip
+		owner = {
+			remove_country_flag = ev_ship_rebel_difficult_1X
+			remove_country_flag = ev_ship_rebel_difficult_2X
+			remove_country_flag = ev_ship_rebel_difficult_5X
+			remove_country_flag = ev_ship_rebel_difficult_10X
+			remove_country_flag = ev_ship_rebel_difficult_25X
+			set_country_flag = ev_ship_rebel_difficult_2X
+		}
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_rebel_difficult_2X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+			}
+		}
+	}
+	option = {
+		#5X难度
+		name = ev_game_start.2000.f
+		custom_tooltip = ev_game_start.2000.f.tooltip
+		owner = {
+			remove_country_flag = ev_ship_rebel_difficult_1X
+			remove_country_flag = ev_ship_rebel_difficult_2X
+			remove_country_flag = ev_ship_rebel_difficult_5X
+			remove_country_flag = ev_ship_rebel_difficult_10X
+			remove_country_flag = ev_ship_rebel_difficult_25X
+			set_country_flag = ev_ship_rebel_difficult_5X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_rebel_difficult_5X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+			}
+		}
+	}
+	option = {
+		#10X难度
+		name = ev_game_start.2000.g
+		custom_tooltip = ev_game_start.2000.g.tooltip
+		owner = {
+			remove_country_flag = ev_ship_rebel_difficult_1X
+			remove_country_flag = ev_ship_rebel_difficult_2X
+			remove_country_flag = ev_ship_rebel_difficult_5X
+			remove_country_flag = ev_ship_rebel_difficult_10X
+			remove_country_flag = ev_ship_rebel_difficult_25X
+			set_country_flag = ev_ship_rebel_difficult_10X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_rebel_difficult_10X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+			}
+		}
+	}
+	option = {
+		#25X难度
+		name = ev_game_start.2000.i
+		custom_tooltip = ev_game_start.2000.i.tooltip
+		owner = {
+			remove_country_flag = ev_ship_rebel_difficult_1X
+			remove_country_flag = ev_ship_rebel_difficult_2X
+			remove_country_flag = ev_ship_rebel_difficult_5X
+			remove_country_flag = ev_ship_rebel_difficult_10X
+			remove_country_flag = ev_ship_rebel_difficult_25X
+			set_country_flag = ev_ship_rebel_difficult_25X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_rebel_difficult_10X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2000
+				}
+			}
+		}
+	}
+	option = {
+		#保存，不返会菜单
+		name = ev_game_start.2000.c
+		custom_tooltip = ev_game_start.2000.c.tooltip
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2900
+				}
+			}
+		}
+	}
+	option = {
+		#保存，返回菜单
+		name = ev_game_start.2000.h
+		custom_tooltip = ev_game_start.2000.h.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+}
+
+#开局触发菜单
+#全产和舰队容量加成
+country_event = {
+	id = ev_game_start.2100
+	title = ev_game_start.2100.name
+	is_triggered_only = yes
+	#1X最简单，2X较为简单，4X正常，5X困难，10X非常困难
+	#开启的提示,1X
+	desc = {
+		text = ev_game_start.2100.desc.open.1X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_1X
+			}
+		}
+	}
+	#开启的提示,2X
+	desc = {
+		text = ev_game_start.2100.desc.open.2X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_2X
+			}
+		}
+	}
+	#开启的提示,4X
+	desc = {
+		text = ev_game_start.2100.desc.open.4X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_4X
+			}
+		}
+	}
+	#开启的提示,5X
+	desc = {
+		text = ev_game_start.2100.desc.open.5X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_5X
+			}
+		}
+	}
+	#开启的提示,10X
+	desc = {
+		text = ev_game_start.2100.desc.open.10X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_10X
+			}
+		}
+	}
+	#开启的提示,20X
+	desc = {
+		text = ev_game_start.2100.desc.open.20X
+		trigger = {
+			owner = {
+				has_country_flag = ev_ship_produce_20X
+			}
+		}
+	}
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2100.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		AND = {
+			owner = {
+				is_ai = no
+			}
+			owner = {
+				is_default_ev_country_type = yes
+			}
+		}
+	}
+	option = {
+		#1X难度
+		name = ev_game_start.2100.d
+		custom_tooltip = ev_game_start.2100.d.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_2X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_5X
+			remove_country_flag = ev_ship_produce_10X
+			remove_country_flag = ev_ship_produce_20X
+			set_country_flag = ev_ship_produce_1X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_1X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#2X难度
+		name = ev_game_start.2100.e
+		custom_tooltip = ev_game_start.2100.e.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_1X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_5X
+			remove_country_flag = ev_ship_produce_10X
+			remove_country_flag = ev_ship_produce_20X
+			set_country_flag = ev_ship_produce_2X
+		}
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_2X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#4X难度
+		name = ev_game_start.2100.f
+		custom_tooltip = ev_game_start.2100.f.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_1X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_5X
+			remove_country_flag = ev_ship_produce_10X
+			remove_country_flag = ev_ship_produce_20X
+			set_country_flag = ev_ship_produce_4X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_4X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#5X难度
+		name = ev_game_start.2100.g
+		custom_tooltip = ev_game_start.2100.g.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_1X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_2X
+			remove_country_flag = ev_ship_produce_10X
+			remove_country_flag = ev_ship_produce_20X
+			set_country_flag = ev_ship_produce_5X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_5X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#10X难度
+		name = ev_game_start.2100.h
+		custom_tooltip = ev_game_start.2100.h.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_1X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_2X
+			remove_country_flag = ev_ship_produce_5X
+			remove_country_flag = ev_ship_produce_20X
+			set_country_flag = ev_ship_produce_10X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_10X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#20X难度
+		name = ev_game_start.2100.i
+		custom_tooltip = ev_game_start.2100.i.tooltip
+		owner = {
+			remove_country_flag = ev_ship_produce_1X
+			remove_country_flag = ev_ship_produce_4X
+			remove_country_flag = ev_ship_produce_2X
+			remove_country_flag = ev_ship_produce_5X
+			remove_country_flag = ev_ship_produce_10X
+			set_country_flag = ev_ship_produce_20X
+		}
+		trigger = {
+			owner = {
+				NOR = {
+					has_country_flag = ev_ship_produce_20X
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2100
+				}
+			}
+		}
+	}
+	option = {
+		#保存，返回菜单
+		name = ev_game_start.2100.c
+		custom_tooltip = ev_game_start.2100.c.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#结束,并确认
+		name = ev_game_start.2100.b
+		custom_tooltip = ev_game_start.2100.b.tooltip
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2900
+				}
+			}
+		}
+	}
+}
+
+#开局触发菜单
+#掠夺轰炸效率倍数，探索奖励效率倍数，商贸倍数
+country_event = {
+	id = ev_game_start.2150
+	title = ev_game_start.2150.name
+	is_triggered_only = yes
+	#1X默认
+	#开启的提示
+	desc = {
+		text = ev_game_start.2150.desc
+	}
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2150.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		AND = {
+			owner = {
+				is_ai = no
+			}
+			owner = {
+				is_default_ev_country_type = yes
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				check_variable = {
+					which = base_steal_ev
+					value <= 0
+				}
+			}
+			set_variable = {
+				which = base_steal_ev
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = base_survey_resource_ev
+					value <= 0
+				}
+			}
+			set_variable = {
+				which = base_survey_resource_ev
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = base_trade_fleet_ev
+					value <= 0
+				}
+			}
+			set_variable = {
+				which = base_trade_fleet_ev
+				value = 1
+			}
+		}
+	}
+	option = {
+		#恢复到1倍
+		name = ev_game_start.2150.all
+		set_variable = {
+			which = base_steal_ev
+			value = 1
+		}
+		set_variable = {
+			which = base_survey_resource_ev
+			value = 1
+		}
+		set_variable = {
+			which = base_trade_fleet_ev
+			value = 1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸增加1倍
+		name = ev_game_start.2150.a1
+		change_variable = {
+			which = base_steal_ev
+			value = 1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸增加5倍
+		name = ev_game_start.2150.a5
+		change_variable = {
+			which = base_steal_ev
+			value = 5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸增加20倍
+		name = ev_game_start.2150.a10
+		change_variable = {
+			which = base_steal_ev
+			value = 20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸减少1倍
+		name = ev_game_start.2150.a11
+		change_variable = {
+			which = base_steal_ev
+			value = -1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸减少5倍
+		name = ev_game_start.2150.a15
+		change_variable = {
+			which = base_steal_ev
+			value = -5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次掠夺轰炸增加20倍
+		name = ev_game_start.2150.a20
+		change_variable = {
+			which = base_steal_ev
+			value = -20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#分割符
+		name = ev_game_start.2150.none
+		allow = {
+			always = no
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励增加1倍
+		name = ev_game_start.2150.b1
+		change_variable = {
+			which = base_survey_resource_ev
+			value = 1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励增加5倍
+		name = ev_game_start.2150.b5
+		change_variable = {
+			which = base_survey_resource_ev
+			value = 5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励增加20倍
+		name = ev_game_start.2150.b10
+		change_variable = {
+			which = base_survey_resource_ev
+			value = 20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励减少1倍
+		name = ev_game_start.2150.b11
+		change_variable = {
+			which = base_survey_resource_ev
+			value = -1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励减少5倍
+		name = ev_game_start.2150.b15
+		change_variable = {
+			which = base_survey_resource_ev
+			value = -5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次探索奖励增加20倍
+		name = ev_game_start.2150.b20
+		change_variable = {
+			which = base_survey_resource_ev
+			value = -20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#分割符
+		name = ev_game_start.2150.none
+		allow = {
+			always = no
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸增加1倍
+		name = ev_game_start.2150.c1
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = 1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸增加5倍
+		name = ev_game_start.2150.c5
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = 5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸增加5倍
+		name = ev_game_start.2150.c10
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = 20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸减少1倍
+		name = ev_game_start.2150.c11
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = -1
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸减少5倍
+		name = ev_game_start.2150.c15
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = -5
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#点一次商贸减少20倍
+		name = ev_game_start.2150.c20
+		change_variable = {
+			which = base_trade_fleet_ev
+			value = -20
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2150
+				}
+			}
+		}
+	}
+	option = {
+		#保存，返回菜单
+		name = ev_game_start.2100.c
+		custom_tooltip = ev_game_start.2100.c.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#结束,并确认
+		name = ev_game_start.2100.b
+		custom_tooltip = ev_game_start.2100.b.tooltip
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2900
+				}
+			}
+		}
+	}
+}
+
+#开局的全部球的可破坏性开采的时长
+country_event = {
+	id = ev_game_start.2160
+	title = ev_game_start.2160.name
+	is_triggered_only = yes
+	desc = ev_game_start.2160.desc
+	#默认12月
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2160.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+	}
+	immediate = {
+		if = {
+			limit = {
+				check_variable = {
+					which = ev_planet_mining_time_setting
+					value = 0
+				}
+			}
+			set_variable = {
+				which = ev_planet_mining_time_setting
+				value = 12
+			}
+		}
+	}
+	option = {
+		#恢复到12月
+		name = ev_game_start.2150.all
+		set_variable = {
+			which = ev_planet_mining_time_setting
+			value = 12
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次增加1月
+		name = ev_game_start.2160.a1
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次增加6月
+		name = ev_game_start.2160.a2
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = 6
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次增加24月
+		name = ev_game_start.2160.a3
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = 24
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次增加120月
+		name = ev_game_start.2160.a4
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = 120
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次减少1月
+		name = ev_game_start.2160.b1
+		allow = {
+			check_variable = {
+				which = ev_planet_mining_time_setting
+				value > 1
+			}
+		}
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = -1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次减少6月
+		name = ev_game_start.2160.b2
+		allow = {
+			check_variable = {
+				which = ev_planet_mining_time_setting
+				value > 6
+			}
+		}
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = -6
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次减少24月
+		name = ev_game_start.2160.b3
+		allow = {
+			check_variable = {
+				which = ev_planet_mining_time_setting
+				value > 24
+			}
+		}
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = -24
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#点一次减少120月
+		name = ev_game_start.2160.b4
+		allow = {
+			check_variable = {
+				which = ev_planet_mining_time_setting
+				value > 120
+			}
+		}
+		change_variable = {
+			which = ev_planet_mining_time_setting
+			value = -120
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	option = {
+		#仅仅确认变更
+		name = ev_game_start.2160.d
+		set_timed_country_flag = {
+			flag = enable_ev_planet_mining_time_setting
+			days = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#放弃变更并且退回到上一级
+		name = ev_game_start.2160.e
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#放弃变更并且直接退出
+		name = ev_game_start.2160.f
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2900
+			}
+		}
+	}
+	after = {
+		if = {
+			limit = {
+				has_country_flag = enable_ev_planet_mining_time_setting
+			}
+			every_galaxy_planet = {
+				limit = {
+					always = yes
+				}
+				set_variable = {
+					which = ev_planet_mining_time_setting
+					value = root.ev_planet_mining_time_setting
+				}
+				add_modifier = {
+					modifier = ev_homeless_orbit_mining_time_set
+					days = -1
+					mult = ev_planet_mining_time_setting
+				}
+			}
+		}
+	}
+}
+
+#开局的选择维持度事件触发频率，默认12月
+country_event = {
+	id = ev_game_start.2170
+	title = ev_game_start.2170.name
+	is_triggered_only = yes
+	desc = ev_game_start.2170.desc
+	#默认12月
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2170.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+	}
+	option = {
+		#恢复到12月
+		name = ev_game_start.2150.all
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_12_month
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2170
+				}
+			}
+		}
+	}
+	option = {
+		#设定为6月
+		name = ev_game_start.2170.a
+		trigger = {
+			NOT = {
+				has_country_flag = trigger_maintenance_6_month
+			}
+		}
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_6_month
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#设定为12月
+		name = ev_game_start.2170.b
+		trigger = {
+			NOT = {
+				has_country_flag = trigger_maintenance_12_month
+			}
+		}
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_12_month
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#设定为24月
+		name = ev_game_start.2170.c
+		trigger = {
+			NOT = {
+				has_country_flag = trigger_maintenance_24_month
+			}
+		}
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_24_month
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#设定为60月
+		name = ev_game_start.2170.d
+		trigger = {
+			NOT = {
+				has_country_flag = trigger_maintenance_60_month
+			}
+		}
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_60_month
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#设定为120月
+		name = ev_game_start.2170.e
+		trigger = {
+			NOT = {
+				has_country_flag = trigger_maintenance_120_month
+			}
+		}
+		remove_country_flag = trigger_maintenance_6_month
+		remove_country_flag = trigger_maintenance_12_month
+		remove_country_flag = trigger_maintenance_24_month
+		remove_country_flag = trigger_maintenance_60_month
+		remove_country_flag = trigger_maintenance_120_month
+		set_country_flag = trigger_maintenance_120_month
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#关闭这个事件
+		name = ev_game_start.2170.h
+		trigger = {
+			NOT = {
+				has_country_flag = no_trigger_maintenance_event
+			}
+		}
+		set_country_flag = no_trigger_maintenance_event
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#开启这个事件
+		name = ev_game_start.2170.i
+		trigger = {
+			has_country_flag = no_trigger_maintenance_event
+		}
+		remove_country_flag = no_trigger_maintenance_event
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	option = {
+		#返回上一级
+		name = ev_game_start.2170.f
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#放弃变更并且直接开始
+		name = ev_game_start.2170.g
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2900
+			}
+		}
+	}
+}
+
+#开局的硬核模式选择
+country_event = {
+	id = ev_game_start.2175
+	title = ev_game_start.2175.name
+	is_triggered_only = yes
+	desc = ev_game_start.2175.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2175.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+	}
+	option = {
+		#开启
+		name = ev_game_start.2175.a
+		trigger = {
+			NOT = {
+				has_country_flag = enable_ev_hard_core
+			}
+		}
+		hidden_effect = {
+			set_country_flag = enable_ev_hard_core
+			country_event = {
+				id = ev_game_start.2175
+			}
+		}
+	}
+	option = {
+		#关闭
+		name = ev_game_start.2175.b
+		trigger = {
+			has_country_flag = enable_ev_hard_core
+		}
+		hidden_effect = {
+			remove_country_flag = enable_ev_hard_core
+			country_event = {
+				id = ev_game_start.2175
+			}
+		}
+	}
+	option = {
+		#返回上一级
+		name = ev_game_start.2170.f
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#直接开始
+		name = ev_game_start.2170.g
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2900
+				}
+			}
+		}
+	}
+}
+#开局的拟真模式选择
+country_event = {
+	id = ev_game_start.2180
+	title = ev_game_start.2180.name
+	is_triggered_only = yes
+	desc = ev_game_start.2180.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2180.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+	}
+	option = {
+		#开启
+		name = ev_game_start.2180.a
+		trigger = {
+			NOT = {
+				has_modifier = ev_simreal_mod
+			}
+		}
+		add_modifier = {
+			modifier = ev_simreal_mod
+			days = -1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2180
+			}
+		}
+	}
+	option = {
+		#关闭
+		name = ev_game_start.2180.b
+		trigger = {
+			OR = {
+				has_modifier = ev_simreal_mod
+			}
+		}
+		remove_modifier = ev_simreal_mod
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2180
+			}
+		}
+	}
+	option = {
+		#返回上一级
+		name = ev_game_start.2170.f
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#直接开始
+		name = ev_game_start.2170.g
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_game_start.2900
+				}
+			}
+		}
+	}
+}
+
+#太虚AI增强
+country_event = {
+	id = ev_game_start.2190
+	title = ev_game_start.2190.name
+	is_triggered_only = yes
+	desc = ev_game_start.2190.desc
+	#默认12月
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2190.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					is_variable_set = ev_ai_buff
+				}
+			}
+			set_variable = {
+				which = ev_ai_buff
+				value = 1
+			}
+		}
+	}
+	option = {
+		#恢复默认，即1倍
+		name = ev_game_start.2150.all
+		set_variable = {
+			which = ev_ai_buff
+			value = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次+0.1
+		name = ev_game_start.2190.a0
+		change_variable = {
+			which = ev_ai_buff
+			value = 0.1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次+1
+		name = ev_game_start.2190.a1
+		change_variable = {
+			which = ev_ai_buff
+			value = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次+10
+		name = ev_game_start.2190.a2
+		change_variable = {
+			which = ev_ai_buff
+			value = 10
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次-0.1
+		name = ev_game_start.2190.b0
+		change_variable = {
+			which = ev_ai_buff
+			value = -0.1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次-1
+		name = ev_game_start.2190.b1
+		change_variable = {
+			which = ev_ai_buff
+			value = -1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次-10
+		name = ev_game_start.2190.b2
+		change_variable = {
+			which = ev_ai_buff
+			value = -10
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次*0.1
+		name = ev_game_start.2190.c1
+		multiply_variable = {
+			which = ev_ai_buff
+			value = 0.1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次*0.5
+		name = ev_game_start.2190.c2
+		multiply_variable = {
+			which = ev_ai_buff
+			value = 0.5
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次*2
+		name = ev_game_start.2190.c3
+		multiply_variable = {
+			which = ev_ai_buff
+			value = 2
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次*5
+		name = ev_game_start.2190.c4
+		multiply_variable = {
+			which = ev_ai_buff
+			value = 5
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#点一次*10
+		name = ev_game_start.2190.c5
+		multiply_variable = {
+			which = ev_ai_buff
+			value = 10
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#确认变更
+		name = ev_game_start.2190.d
+		custom_tooltip = ev_game_start.2190.d.tooltip
+		tooltip = {
+			add_modifier = {
+				modifier = ev_ai_buff_mod
+				multiplier = ev_ai_buff
+			}
+		}
+		custom_tooltip = ev_game_start.2190.d.tooltip.crisis
+		tooltip = {
+			add_modifier = {
+				modifier = ev_ai_buff_mod
+				multiplier = ev_ai_buff_crisis
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#放弃变更并且直接退出
+		name = ev_game_start.2160.f
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2900
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			set_variable = {
+				which = ev_ai_buff_crisis
+				value = ev_ai_buff
+			}
+			multiply_variable = {
+				which = ev_ai_buff_crisis
+				value = 10
+			}
+		}
+		hidden_effect = {
+			random_country = {
+				limit = {
+					is_country_type = global_event
+				}
+				set_variable = {
+					which = ev_ai_buff
+					value = root.ev_ai_buff
+				}
+			}
+		}
+	}
+}
+
+#开局难度菜单，包括2000,2100（叛军\全产
+country_event = {
+	id = ev_game_start.2200
+	title = ev_game_start.2200.name
+	is_triggered_only = yes
+	desc = ev_game_start.2200.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_game_start.2200.name"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	picture = GFX_evt_cargoship_caravan
+	trigger = {
+		is_ai = no
+		is_default_ev_country_type = yes
+		#always = yes
+	}
+	option = {
+		#打开叛军难度选项
+		name = ev_game_start.2200.a
+		custom_tooltip = ev_game_start.2200.a.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2000
+			}
+		}
+	}
+	option = {
+		#打开全产难度选项
+		name = ev_game_start.2200.b
+		custom_tooltip = ev_game_start.2200.b.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2100
+			}
+		}
+	}
+	#三种特殊收入资源
+	option = {
+		name = ev_game_start.2200.d
+		custom_tooltip = ev_game_start.2200.d.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2150
+			}
+		}
+	}
+	#破坏性开采
+	option = {
+		name = ev_game_start.2200.e
+		custom_tooltip = ev_game_start.2200.e.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2160
+			}
+		}
+	}
+	#维持度触发事件频率
+	option = {
+		name = ev_game_start.2200.f
+		custom_tooltip = ev_game_start.2200.f.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2170
+			}
+		}
+	}
+	#硬核
+	#option = {
+	#	name = ev_game_start.2200.g
+	#	hidden_effect = {
+	#		country_event = {
+	#			id = ev_game_start.2175
+	#		}
+	#	}
+	#}
+	#拟真模式
+	option = {
+		name = ev_game_start.2200.h
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2180
+			}
+		}
+	}
+	option = {
+		name = ev_game_start.2200.i
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2190
+			}
+		}
+	}
+	option = {
+		#谢谢，我不需要，保持默认
+		name = ev_game_start.2200.c
+		custom_tooltip = ev_game_start.2200.c.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2900
+			}
+			#country_event = {
+			#	id = ev_course.1
+			#}
+		}
+	}
+}
+
+#全产加成赋予
+country_event = {
+	id = ev_game_start.2900
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				has_country_flag = datealive_2
+			}
+			event_target:ev_capital_scope_habitat = {
+				create_pop_group = {
+					size = 100
+					species = event_target:DateALiveSpecies_2
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ev_ship_produce_20X
+			}
+			add_modifier = {
+				modifier = ev_ship_produce_20X_modifers
+				days = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ev_ship_produce_10X
+			}
+			add_modifier = {
+				modifier = ev_ship_produce_10X_modifers
+				days = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ev_ship_produce_5X
+			}
+			add_modifier = {
+				modifier = ev_ship_produce_5X_modifers
+				days = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ev_ship_produce_2X
+			}
+			add_modifier = {
+				modifier = ev_ship_produce_2X_modifers
+				days = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ev_ship_produce_1X
+			}
+			add_modifier = {
+				modifier = ev_ship_produce_1X_modifers
+				days = -1
+			}
+		}
+	}
+}
+
+#非ai的开局给船事件
+#country_event = {
+#	id = ev_game_start.3000
+#	title = "ev_game_start.3000.title"
+#	desc = ev_game_start.3000.desc
+#	picture = GFX_evt_derelict_interior
+#	is_triggered_only = yes
+#	option = {
+#		name = ev_game_start.3000.a
+#		remove_country_flag = has_shown_homeless_fix
+#	}
+#}
+country_event = {
+	id = ev_game_start.3100
+	title = "ev_game_start.3100.title"
+	desc = ev_game_start.3100.desc
+	picture = GFX_evt_early_space_age
+	##diplomatic = yes
+	##diplomatic_title = "ev_game_start.3100.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window"	#窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option"	#选项
+	#picture_event_data = {
+	#	room = ev_void_room
+	#}	#图片只能用room
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = ev_deploy_homeless_fleet
+		}
+	}
+	option = {
+		name = ev_game_start.3100.a
+		ai_chance = {
+			factor = 10
+		}
+		hidden_effect = {
+			random_controlled_fleet = {
+				save_event_target_as = ev_ship_location
+			}
+			create_fleet = {
+				effect = {
+					set_owner = root
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							random_existing_design = homeless_ship
+						}
+					}
+					set_fleet_stance = passive
+					set_location = event_target:ev_ship_location
+				}
+			}
+			owner = {
+				set_country_flag = ev_deploy_homeless_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_game_start.3100.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			remove_country_flag = ev_has_start_homeless_fleet
+		}
+	}
+}
+
+country_event = {
+	id = ev_game_start.3200
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				num_pops = 0
+			}
+			random_controlled_fleet = {
+				save_event_target_as = ev_ship_location
+			}
+			create_fleet = {
+				effect = {
+					set_owner = root
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_start_homeless_ship_course_starbase"
+						}
+					}
+					set_fleet_stance = passive
+					set_location = event_target:ev_ship_location
+					set_fleet_flag = homeless_ship_ai_class_1
+					starbase = {
+						set_ship_construction_type = starbase_shipyard
+					}
+				}
+			}
+		}
+		else = {
+			create_fleet = {
+				effect = {
+					set_owner = prev
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_start_homeless_ship_course_starbase"
+						}
+					}
+					set_fleet_stance = passive
+					set_location = root.capital_star
+					set_fleet_flag = homeless_ship_ai_class_1
+					starbase = {
+						set_ship_construction_type = starbase_shipyard
+					}
+				}
+			}
+		}
+	}
+}

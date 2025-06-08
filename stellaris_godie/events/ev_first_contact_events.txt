@@ -1,0 +1,282 @@
+################################
+#
+# First Contact Events
+#
+# Written by Pierre du Plessis
+#
+################################
+
+namespace = ev_first_contact
+
+#country_event = {
+#	id = ev_first_contact.100
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	
+#	#is_triggered_only = yes
+#	mean_time_to_happen = {
+#		months = 1
+#	}
+#	trigger = {
+#		any_system = {
+#			owner = {
+#				is_same_value = root
+#			}
+#			any_fleet_in_system = {
+#				owner = {
+#					OR = {
+#						is_country_type = default_ev
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#						is_country_type = fallen_empire_ev
+#					}
+#					NOR = { has_communications = ROOT }
+#					NOT = { has_country_flag = has_communications@root }
+#				}
+#			
+#			}
+#		}
+#		
+#		
+#		
+#		#OR = {
+#		#	is_country_type = default_ev
+#		#	is_country_type = default
+#		#	is_country_type = fallen_empire
+#		#	is_country_type = fallen_empire_ev
+#		#}
+#		#
+#		#NOT = { has_country_flag = day_0 }
+#		#from = { NOT = { has_country_flag = day_0 } }
+#		#FROM = {
+#		#	OR = {
+#		#		is_country_type = default_ev
+#		#		is_country_type = default
+#		#		is_country_type = fallen_empire
+#		#		is_country_type = fallen_empire_ev
+#		#		#is_country_type = nomad
+#		#	}
+#		#}
+#		#NOT = { has_country_flag = has_communications@from }
+#	}
+#
+#	immediate = {
+#		every_system = {
+#			limit = {
+#				owner = {
+#					is_same_value = root
+#				}
+#				any_fleet_in_system = {
+#					owner = {
+#						OR = {
+#							is_country_type = default_ev
+#							is_country_type = default
+#							is_country_type = fallen_empire
+#							is_country_type = fallen_empire_ev
+#						}
+#						NOR = { has_communications = ROOT }
+#						NOT = { has_country_flag = has_communications@root }
+#					}
+#				
+#				}
+#			}
+#			random_fleet_in_orbit = {
+#				limit = {
+#					owner = {
+#						OR = {
+#							is_country_type = default_ev
+#							is_country_type = default
+#							is_country_type = fallen_empire
+#							is_country_type = fallen_empire_ev
+#						}
+#						NOR = {
+#							has_communications = ROOT
+#						}
+#						NOT = { has_country_flag = has_communications@root }
+#					}
+#				}
+#				save_global_event_target_as = ev_fleet
+#				owner = {
+#					save_event_target_as = ev_fleet_owner
+#					set_country_flag = has_communications@root
+#				}
+#			}
+#			
+#		}
+#		
+#		
+#		capital_scope = { save_event_target_as = pc_home }
+#		event_target:ev_fleet_owner = {
+#			
+#			establish_communications = root
+#		}
+#		
+#	}
+#	
+#	option = {
+#		name = "action.10.a"
+#		#event_target:ev_fleet_owner = {
+#		#	
+#		#	establish_communications_no_message = root
+#		#} 
+#		#set_first_contact_stage = base_contact_set
+#		##hidden_effect = {
+#		#	owner = {
+#		#		set_timed_country_flag = {
+#		#			flag = recent_first_contact_process_started
+#		#			years = 20
+#		#		}
+#		#	}
+#		#	if = {
+#		#		limit = {
+#		#			From = {
+#		#				OR = {
+#		#					is_country_type = default
+#		#					is_country_type = prikki
+#		#				}
+#		#			}
+#		#		}
+#		#		set_first_contact_stage = default_stage_1
+#		#	}
+#		#	if = {
+#		#		limit = {
+#		#			From = {
+#		#				OR = {
+#		#					is_country_type = default_ev
+#		#					is_country_type = fallen_empire_ev
+#		#				}
+#		#			}
+#		#		}
+#		#		
+#		#	}
+#		##}
+#	}
+#}
+
+#country_event = {
+#	id = ev_first_contact.0
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		OR = {
+#			is_country_type = default_ev
+#			is_country_type = default
+#			is_country_type = fallen_empire
+#			is_country_type = fallen_empire_ev
+#		}
+#		exists = capital_scope
+#		NOT = { has_country_flag = day_0 }
+#		from = { NOT = { has_country_flag = day_0 } }
+#		FROM = {
+#			OR = {
+#				is_country_type = default_ev
+#				is_country_type = default
+#				is_country_type = fallen_empire
+#				is_country_type = fallen_empire_ev
+#				#is_country_type = nomad
+#			}
+#		}
+#		NOT = { has_country_flag = has_communications@from }
+#	}
+#
+#	immediate = {
+#		capital_scope = { save_event_target_as = pc_home }
+#		
+#	}
+#	
+#	option = {
+#		name = "action.10.a"
+#		set_first_contact_stage = base_contact_set
+#		#hidden_effect = {
+#			owner = {
+#				set_timed_country_flag = {
+#					flag = recent_first_contact_process_started
+#					years = 20
+#				}
+#			}
+#			if = {
+#				limit = {
+#					From = {
+#						OR = {
+#							is_country_type = default
+#							is_country_type = prikki
+#						}
+#					}
+#				}
+#				set_first_contact_stage = default_stage_1
+#			}
+#			if = {
+#				limit = {
+#					From = {
+#						OR = {
+#							is_country_type = default_ev
+#							is_country_type = fallen_empire_ev
+#						}
+#					}
+#				}
+#				set_first_contact_stage = ev_stage_1
+#			}
+#		#}
+#	}
+#}
+
+first_contact_event = {
+	id = ev_first_contact.1
+	title = ev_first_contact.1.name
+	desc = ev_first_contact.1.desc
+	picture = GFX_evt_fleet_neutral
+	#show_sound = event_space_amoeba
+	
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+	}
+
+	after = { 
+		set_site_progress_locked = no
+	}
+	
+	option = {
+		name = first_contact_critters.1.A
+		set_first_contact_stage = default_ev_stage_1
+	}
+}
+
+first_contact_event = {
+	id = ev_first_contact.2
+	title = ev_first_contact.2.name
+	desc = ev_first_contact.2.desc
+	picture = GFX_evt_friendly_amoeba
+	show_sound = event_space_amoeba
+	
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+	}
+
+	after = { 
+		set_site_progress_locked = no
+	}
+	
+	option = {
+		name = story.101.aa
+		
+		finish_first_contact_effect = yes
+	}
+
+	
+}
+

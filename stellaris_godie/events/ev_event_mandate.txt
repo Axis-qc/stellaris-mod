@@ -1,0 +1,1312 @@
+namespace = datealive_event_mandate
+#I class judge
+#country_event = {
+#	id = datealive_event_mandate.100
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				OR = {
+#					AND = {
+#						has_event_chain = mandate_monthly_energy_dal_1_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 50
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_minerals_dal_1_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 70
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_food_dal_1_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 40
+#						}
+#					}
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.200
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_monthly_energy_dal_1_chain
+#			end_event_chain = mandate_monthly_minerals_dal_1_chain
+#			end_event_chain = mandate_monthly_food_dal_1_chain
+#		}
+#	}
+#}
+#
+##II class judge
+#country_event = {
+#	id = datealive_event_mandate.101
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				OR = {
+#					AND = {
+#						has_event_chain = mandate_monthly_energy_dal_2_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 120
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_minerals_dal_2_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 180
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_food_dal_2_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 100
+#						}
+#					}
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.201
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_monthly_energy_dal_2_chain
+#			end_event_chain = mandate_monthly_minerals_dal_2_chain
+#			end_event_chain = mandate_monthly_food_dal_2_chain
+#		}
+#	}
+#}
+#
+##III class judge
+#country_event = {
+#	id = datealive_event_mandate.102
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				OR = {
+#					AND = {
+#						has_event_chain = mandate_monthly_energy_dal_3_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 300
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_minerals_dal_3_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 400
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_food_dal_3_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 250
+#						}
+#					}
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.202
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_monthly_energy_dal_3_chain
+#			end_event_chain = mandate_monthly_minerals_dal_3_chain
+#			end_event_chain = mandate_monthly_food_dal_3_chain
+#		}
+#	}
+#}
+#
+##IV class judge
+#country_event = {
+#	id = datealive_event_mandate.103
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				OR = {
+#					AND = {
+#						has_event_chain = mandate_monthly_energy_dal_4_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 800
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_minerals_dal_4_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 1000
+#						}
+#					}
+#					AND = {
+#						has_event_chain = mandate_monthly_food_dal_4_chain
+#						has_monthly_income = {
+#							resource = energy
+#							value >= 600
+#						}
+#					}
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.203
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_monthly_energy_dal_4_chain
+#			end_event_chain = mandate_monthly_minerals_dal_4_chain
+#			end_event_chain = mandate_monthly_food_dal_4_chain
+#		}
+#	}
+#}
+#
+##I class unity
+#country_event = {
+#	id = datealive_event_mandate.200
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_1_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_1_chain
+#			}
+#			mandate_monthly_minerals_dal_1_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_1_chain
+#			}
+#			mandate_monthly_food_dal_1_chain = {
+#				end_event_chain = mandate_monthly_food_dal_1_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+##II class unity
+#country_event = {
+#	id = datealive_event_mandate.201
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_2_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_2_chain
+#			}
+#			mandate_monthly_minerals_dal_2_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_2_chain
+#			}
+#			mandate_monthly_food_dal_2_chain = {
+#				end_event_chain = mandate_monthly_food_dal_2_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+#
+##III class unity
+#country_event = {
+#	id = datealive_event_mandate.202
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_3_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_3_chain
+#			}
+#			mandate_monthly_minerals_dal_3_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_3_chain
+#			}
+#			mandate_monthly_food_dal_3_chain = {
+#				end_event_chain = mandate_monthly_food_dal_3_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 36
+#			min = 2000
+#			max = 23000
+#		}
+#	}
+#}
+#
+##IV class unity
+#country_event = {
+#	id = datealive_event_mandate.203
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_4_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_4_chain
+#			}
+#			mandate_monthly_minerals_dal_4_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_4_chain
+#			}
+#			mandate_monthly_food_dal_4_chain = {
+#				end_event_chain = mandate_monthly_food_dal_4_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 52
+#			min = 2500
+#			max = 50000
+#		}
+#	}
+#}
+#
+## District built
+#planet_event = {
+#	id = datealive_event_mandate.300
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		switch = {
+#			trigger = last_district_changed
+#			district_city = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_1_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_1_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_2_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_2_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_3_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_3_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_4_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_4_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_generator = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_generator_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_generator_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_mining = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_mining_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_mining_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_farming = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_farming_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_farming_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			default = {
+#			}
+#		}
+#	}
+#}
+#
+## District demolished
+#planet_event = {
+#	id = datealive_event_mandate.301
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		switch = {
+#			trigger = last_district_changed
+#			district_city = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_1_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_1_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_2_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_2_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_3_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_3_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_4_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_4_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_generator = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_generator_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_generator_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_mining = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_mining_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_mining_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_farming = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_farming_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_farming_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			default = {
+#			}
+#		}
+#	}
+#}
+#
+##judge city
+#country_event = {
+#	id = datealive_event_mandate.400
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				#I
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_1_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.500
+#			}
+#		}
+#		else_if = {
+#			#II
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_2_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.501
+#			}
+#		}
+#		else_if = {
+#			#III
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_3_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.502
+#			}
+#		}
+#		else_if = {
+#			#IV
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_4_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_4_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.503
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#			end_event_chain = mandate_district_city_dal_1_chain
+#			end_event_chain = mandate_district_city_dal_2_chain
+#			end_event_chain = mandate_district_city_dal_3_chain
+#			end_event_chain = mandate_district_city_dal_4_chain
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##I class
+#country_event = {
+#	id = datealive_event_mandate.500
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_1_chain = {
+#				end_event_chain = mandate_district_city_dal_1_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##II class
+#country_event = {
+#	id = datealive_event_mandate.501
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_2_chain = {
+#				end_event_chain = mandate_district_city_dal_2_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##III class
+#country_event = {
+#	id = datealive_event_mandate.502
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_3_chain = {
+#				end_event_chain = mandate_district_city_dal_3_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 36
+#			min = 2000
+#			max = 23000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##IV class
+#country_event = {
+#	id = datealive_event_mandate.503
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_4_chain = {
+#				end_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 52
+#			min = 2500
+#			max = 50000
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = datealive_event_mandate.1000
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				owner = {
+#					has_country_flag = do_not_need_ftl
+#				}
+#			}
+#			this = {
+#				#remove_modifier = jump_drive_cooldown
+#			}
+#		}
+#	}
+#}
+#
+##I class unity
+#country_event = {
+#	id = datealive_event_mandate.200
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_1_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_1_chain
+#			}
+#			mandate_monthly_minerals_dal_1_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_1_chain
+#			}
+#			mandate_monthly_food_dal_1_chain = {
+#				end_event_chain = mandate_monthly_food_dal_1_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+##II class unity
+#country_event = {
+#	id = datealive_event_mandate.201
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_2_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_2_chain
+#			}
+#			mandate_monthly_minerals_dal_2_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_2_chain
+#			}
+#			mandate_monthly_food_dal_2_chain = {
+#				end_event_chain = mandate_monthly_food_dal_2_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+#
+##III class unity
+#country_event = {
+#	id = datealive_event_mandate.202
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_3_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_3_chain
+#			}
+#			mandate_monthly_minerals_dal_3_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_3_chain
+#			}
+#			mandate_monthly_food_dal_3_chain = {
+#				end_event_chain = mandate_monthly_food_dal_3_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 36
+#			min = 2000
+#			max = 23000
+#		}
+#	}
+#}
+#
+##IV class unity
+#country_event = {
+#	id = datealive_event_mandate.203
+#	title = mandate.170.title
+#	desc = mandate.170.desc
+#	picture = GFX_evt_financial_instruments
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		log = ".170 active"
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_monthly_energy_dal_4_chain = {
+#				end_event_chain = mandate_monthly_energy_dal_4_chain
+#			}
+#			mandate_monthly_minerals_dal_4_chain = {
+#				end_event_chain = mandate_monthly_minerals_dal_4_chain
+#			}
+#			mandate_monthly_food_dal_4_chain = {
+#				end_event_chain = mandate_monthly_food_dal_4_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 52
+#			min = 2500
+#			max = 50000
+#		}
+#	}
+#}
+#
+## District built
+#planet_event = {
+#	id = datealive_event_mandate.300
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		switch = {
+#			trigger = last_district_changed
+#			district_city = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_1_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_1_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_2_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_2_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_3_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_3_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_4_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_4_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_generator = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_generator_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_generator_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_mining = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_mining_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_mining_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			district_farming = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_farming_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_farming_chain"
+#							counter = "built_district"
+#							amount = 1
+#						}
+#					}
+#				}
+#			}
+#			default = {
+#			}
+#		}
+#	}
+#}
+#
+## District demolished
+#planet_event = {
+#	id = datealive_event_mandate.301
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			OR = {
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	immediate = {
+#		switch = {
+#			trigger = last_district_changed
+#			district_city = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_1_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_1_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_2_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_2_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_3_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_3_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							has_event_chain = mandate_district_city_dal_4_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_city_dal_4_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_generator = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_generator_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_generator_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_mining = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_mining_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_mining_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			district_farming = {
+#				owner = {
+#					if = {
+#						limit = {
+#							has_event_chain = mandate_district_farming_chain
+#						}
+#						add_event_chain_counter = {
+#							event_chain = "mandate_district_farming_chain"
+#							counter = "built_district"
+#							amount = -1
+#						}
+#					}
+#				}
+#			}
+#			default = {
+#			}
+#		}
+#	}
+#}
+#
+##judge city
+#country_event = {
+#	id = datealive_event_mandate.400
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				#I
+#				has_event_chain = mandate_district_city_dal_1_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_1_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.500
+#			}
+#		}
+#		else_if = {
+#			#II
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_2_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_2_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.501
+#			}
+#		}
+#		else_if = {
+#			#III
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_3_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_3_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.502
+#			}
+#		}
+#		else_if = {
+#			#IV
+#			limit = {
+#				has_event_chain = mandate_district_city_dal_4_chain
+#				has_completed_event_chain_counter = {
+#					event_chain = mandate_district_city_dal_4_chain
+#					counter = built_district
+#				}
+#			}
+#			country_event = {
+#				id = datealive_event_mandate.503
+#			}
+#		}
+#		else = {
+#			country_event = {
+#				id = mandate.2
+#			}
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##I class
+#country_event = {
+#	id = datealive_event_mandate.500
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_1_chain = {
+#				end_event_chain = mandate_district_city_dal_1_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 12
+#			min = 300
+#			max = 4000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##II class
+#country_event = {
+#	id = datealive_event_mandate.501
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_2_chain = {
+#				end_event_chain = mandate_district_city_dal_2_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 20
+#			min = 700
+#			max = 10000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##III class
+#country_event = {
+#	id = datealive_event_mandate.502
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_3_chain = {
+#				end_event_chain = mandate_district_city_dal_3_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 36
+#			min = 2000
+#			max = 23000
+#		}
+#	}
+#}
+#
+## Mandate fulfilled
+##IV class
+#country_event = {
+#	id = datealive_event_mandate.503
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	is_triggered_only = yes
+#	immediate = {
+#		switch = {
+#			trigger = has_event_chain
+#			mandate_district_city_dal_4_chain = {
+#				end_event_chain = mandate_district_city_dal_4_chain
+#			}
+#		}
+#	}
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = unity
+#			value = 52
+#			min = 2500
+#			max = 50000
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = datealive_event_mandate.1000
+#	title = mandate.186.title
+#	desc = mandate.186.desc
+#	picture = GFX_evt_throne_room
+#	show_sound = event_default
+#	hide_window = no
+#	is_triggered_only = yes
+#	immediate = {
+#		if = {
+#			limit = {
+#				owner = {
+#					has_country_flag = do_not_need_ftl
+#				}
+#			}
+#			this = {
+#				#remove_modifier = jump_drive_cooldown
+#			}
+#		}
+#	}
+#}

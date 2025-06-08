@@ -1,0 +1,31 @@
+#	Example:
+#
+#	example_trigger = {
+#		is_country_type = default
+#		num_communications > 0
+#	}
+#
+#
+#	In a script file:
+#
+#	trigger = {
+#		example_trigger = yes
+#	}
+#
+is_regular_empire = {
+	OR = {
+		is_country_type = default
+		is_country_type = fallen_empire
+		is_country_type = default_ev
+		is_country_type = fallen_empire_ev
+		is_country_type = awakened_fallen_empire
+		is_country_type = awakened_fallen_empire_ev #for checks in buildings
+	}
+	NOT = { has_ethic = ethic_gestalt_consciousness	}
+}
+
+
+###判断此mod的开启
+enable_empty_vagrant_mod_trigger = {
+	always = yes
+}

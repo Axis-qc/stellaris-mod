@@ -1,0 +1,142 @@
+#建立女奴军团
+add_juntuan_decision = {
+	picture = "gfx/interface/illustrations/decisions/slave_legion.dds"
+	title = add_juntuan_trait_title
+	desc = add_juntuan_trait_desc
+	selection_tooltip = add_juntuan_trait_tooltip
+	confirm_text = "Ok"
+
+	is_shown = {
+		#is_landed = yes
+		NOT = {
+			has_trait = juntuan_trait_3
+		}
+		
+	}
+	#always = yes
+
+	effect = {
+		if = {
+			limit = {
+				NOR = {
+					has_trait = juntuan_trait
+					has_trait = juntuan_trait_2
+					has_trait = juntuan_trait_3
+				}
+			}
+
+			add_trait = juntuan_trait
+		}
+		else_if = {
+			limit = {
+				has_trait = juntuan_trait
+			}
+			hidden_effect = {
+				remove_trait = juntuan_trait
+				remove_trait = juntuan_trait_2
+				remove_trait = juntuan_trait_3
+				add_trait = juntuan_trait_2
+			}
+			custom_tooltip = add_juntuan_decision_effect_2
+			
+		}
+		else_if = {
+			limit = {
+				has_trait = juntuan_trait_2
+			}
+			
+			hidden_effect = {
+				remove_trait = juntuan_trait
+				remove_trait = juntuan_trait_2
+				remove_trait = juntuan_trait_3
+				add_trait = juntuan_trait_3
+			}
+			custom_tooltip = add_juntuan_decision_effect_3
+			
+		}
+		
+		root.culture = {
+			add_innovation = innovation_junji
+			add_innovation = innovation_rouchu
+		}
+	}
+	ai_check_interval = 0
+	ai_will_do = 0
+	
+}
+remove_juntuan_decision = {
+	picture = "gfx/interface/illustrations/decisions/slave_legion.dds"
+	title = remove_juntuan_trait_title
+	desc = remove_juntuan_trait_desc
+	selection_tooltip = remove_juntuan_trait_tooltip
+	confirm_text = "Ok"
+	is_shown = {
+		OR = {
+			has_trait = juntuan_trait
+			has_trait = juntuan_trait_2
+			has_trait = juntuan_trait_3
+		}
+		
+	}
+	effect = {
+		remove_trait = juntuan_trait
+		remove_trait = juntuan_trait_2
+		remove_trait = juntuan_trait_3
+	}
+
+	ai_check_interval = 0
+	ai_will_do = 0
+}
+
+
+
+#######################
+ #营妓#
+ #######################
+
+slave_legion_test_decision = {
+	picture = "gfx/interface/illustrations/decisions/slave_market.dds"
+	title = slave_legion_test_decision
+	desc = slave_legion_test_decision_desc
+	selection_tooltip = slave_legion_test_decision_effect_tooltip
+	confirm_text = "Ok"
+
+	cooldown = { days = 365 }	
+	
+	is_shown = {
+		debug_only = yes
+		is_landed = yes
+		NOR = {
+			number_maa_soldiers_of_type = {
+				type = junji_junji
+				value < 160
+			}
+		}
+	}	
+	
+
+
+
+
+	is_valid_showing_failures_only = {
+		is_available_adult_or_is_commanding = yes
+	}
+
+	effect = {
+		trigger_event = {
+			id = slave_maa_event.0002
+		}
+		custom_tooltip = slave_legion_test_decision_effect_tooltip
+
+	}
+
+	ai_check_interval = 0
+	
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}

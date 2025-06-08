@@ -1,0 +1,396 @@
+namespace = ev_crisis_other
+# 设定虫子来的事件
+country_event = {
+	id = ev_crisis_other.1
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = prethoryn_subspace_echoes
+		NOT = {
+			has_country_flag = has_trigger_crisis_10
+		}
+	}
+	immediate = {
+		set_country_flag = has_trigger_crisis_10
+		begin_event_chain = {
+			event_chain = "coming_storm_chain"
+			target = ROOT
+		}
+	}
+}
+
+#来了之后交流
+country_event = {
+	id = ev_crisis_other.2
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = prethoryn_arrival
+		NOT = {
+			has_country_flag = has_trigger_crisis_17
+		}
+	}
+	immediate = {
+		end_event_chain = "coming_storm_chain"
+		begin_event_chain = {
+			event_chain = "prethoryn_scourge_chain"
+			target = ROOT
+		}
+		set_country_flag = has_trigger_crisis_17
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = swarm
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#虫子被击败
+country_event = {
+	id = ev_crisis_other.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = swarm
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			country_event = {
+				id = crisis.211
+			}
+		}
+	}
+}
+
+##################################################################################
+# 设定恶魔的事件
+country_event = {
+	id = ev_crisis_other.4
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = galactic_crisis_happened
+		NOT = {
+			has_country_flag = has_trigger_crisis_100
+		}
+	}
+	immediate = {
+		set_country_flag = has_trigger_crisis_100
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = extradimensional
+					is_country_type = extradimensional_2
+					is_country_type = extradimensional_3
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+# 第一恶魔交流
+country_event = {
+	id = ev_crisis_other.5
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = galactic_crisis_happened
+		NOT = {
+			has_country_flag = has_trigger_crisis_1000
+		}
+	}
+	immediate = {
+		begin_event_chain = {
+			event_chain = "extradimensional_invasion_chain"
+			target = ROOT
+		}
+		set_country_flag = has_trigger_crisis_1000
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = extradimensional
+					is_country_type = extradimensional_2
+					is_country_type = extradimensional_3
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#第二波恶魔
+country_event = {
+	id = ev_crisis_other.6
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = extradimensional_second_portal
+		NOT = {
+			has_country_flag = has_trigger_crisis_10001
+		}
+	}
+	immediate = {
+		begin_event_chain = {
+			event_chain = "extradimensional_invasion_chain_2"
+			target = ROOT
+		}
+		set_country_flag = has_trigger_crisis_10001
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = extradimensional
+					is_country_type = extradimensional_2
+					is_country_type = extradimensional_3
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#第三波恶魔
+country_event = {
+	id = ev_crisis_other.7
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = extradimensional_third_portal
+		NOT = {
+			has_country_flag = has_trigger_crisis_10002
+		}
+	}
+	immediate = {
+		begin_event_chain = {
+			event_chain = "extradimensional_invasion_chain_3"
+			target = ROOT
+		}
+		set_country_flag = has_trigger_crisis_10002
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = extradimensional
+					is_country_type = extradimensional_2
+					is_country_type = extradimensional_3
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#击败恶魔
+country_event = {
+	id = ev_crisis_other.8
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			is_country_type = extradimensional
+			is_country_type = extradimensional_2
+			is_country_type = extradimensional_3
+		}
+		NOT = {
+			any_country = {
+				AND = {
+					NOT = {
+						is_same_value = ROOT
+					}
+					OR = {
+						is_country_type = extradimensional
+						is_country_type = extradimensional_2
+						is_country_type = extradimensional_3
+					}
+				}
+			}
+		}
+	}
+	immediate = {
+		observer_event = {
+			id = observer.40
+		}
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			country_event = {
+				id = crisis.1271
+			}
+		}
+	}
+}
+
+##################################################################################
+#设定肃正屑议的前置事件
+country_event = {
+	id = ev_crisis_other.9
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = ai_invasion_happened
+		NOT = {
+			has_country_flag = has_trigger_crisis_2000
+		}
+	}
+	immediate = {
+		set_country_flag = has_trigger_crisis_2000
+		begin_event_chain = {
+			event_chain = "ghost_signal_chain"
+			target = ROOT
+		}
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = ai_empire
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#到达
+country_event = {
+	id = ev_crisis_other.10
+	hide_window = yes
+	#fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		has_global_flag = ghost_signal_5_flag
+		NOT = {
+			has_country_flag = has_trigger_crisis_2700
+		}
+	}
+	immediate = {
+		observer_event = {
+			id = observer.44
+		}
+		end_event_chain = "ghost_signal_chain"
+		begin_event_chain = {
+			event_chain = "ai_crisis_chain"
+			target = ROOT
+		}
+		set_country_flag = has_trigger_crisis_2700
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = ai_empire
+				}
+			}
+			establish_communications_no_message = root
+		}
+	}
+}
+
+#击败肃正屑议
+planet_event = {
+	id = ev_crisis_other.11
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_planet_class = pc_ai
+		has_planet_flag = machine_lair
+		OR = {
+			# cracked or bombarded to death
+			from = {
+				is_same_value = root
+			}
+			planet_devastation >= 50
+		}
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+					is_country_type = fallen_empire_ev
+					is_country_type = awakened_fallen_empire_ev
+				}
+			}
+			stop_crisis_sound = yes
+			from = {
+				save_event_target_as = final_machine_world_destroyer
+			}
+		}
+		planet_event = {
+			id = crisis.2046
+		}
+	}
+}

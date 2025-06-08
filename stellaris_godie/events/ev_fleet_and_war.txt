@@ -1,0 +1,367 @@
+namespace = ev_fleet_and_war
+#选择一个作为佣兵
+country_event = {
+	id = ev_fleet_and_war.1
+	title = "ev_fleet_and_war.1.title"
+	desc = ev_fleet_and_war.1.desc
+	#picture = GFX_evt_derelict_interior
+	is_triggered_only = yes
+	diplomatic = yes
+	#mean_time_to_happen = {
+	#	months = 3
+	#}
+	trigger = {
+		always = no
+		#NOT = {
+		#	has_country_flag = ev_reject_request_mercenary
+		#}
+		#is_ai = no
+		#is_country_type = default_ev
+		#any_country = {
+		#	is_ai = yes
+		#	is_country_type = default
+		#	is_at_war = yes
+		#	NOT = {
+		#		is_at_war_with = root
+		#	}
+		#	has_communications = root
+		#}
+		#any_controlled_fleet = {
+		#	any_controlled_ship = {
+		#		NOT = { is_ship_class = shipclass_starbase }
+		#	}
+		#	fleet_power > 1
+		#}
+	}
+	picture_event_data = {
+		graphical_culture = event_target:ev_will_buy_mercenary_fleet_country
+		city_level = event_target:ev_will_buy_mercenary_fleet_country
+		room = event_target:ev_will_buy_mercenary_fleet_country
+		portrait = event_target:ev_will_buy_mercenary_fleet_country
+		planet_background = event_target:ev_will_buy_mercenary_fleet_country
+	}
+	immediate = {
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 60
+		}
+		random_country = {
+			limit = {
+				is_ai = yes
+				is_country_type = default
+				is_at_war = yes
+			}
+			save_event_target_as = ev_will_buy_mercenary_fleet_country
+			random_country = {
+				limit = {
+					is_at_war_with = prev
+				}
+				save_global_event_target_as = ev_will_buy_mercenary_fleet_country_war_target
+			}
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+			}
+			save_event_target_as = ev_fleet_option_1
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+				}
+			}
+			save_event_target_as = ev_fleet_option_2
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+				}
+			}
+			save_event_target_as = ev_fleet_option_3
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+				}
+			}
+			save_event_target_as = ev_fleet_option_4
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+					is_same_value = event_target:ev_fleet_option_4
+				}
+			}
+			save_event_target_as = ev_fleet_option_5
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = no
+					}
+					NOT = {
+						is_ship_class = shipclass_starbase
+					}
+				}
+				fleet_power > 1
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+					is_same_value = event_target:ev_fleet_option_4
+					is_same_value = event_target:ev_fleet_option_5
+				}
+			}
+			save_event_target_as = ev_fleet_option_6
+		}
+	}
+	option = {
+		name = ev_hard_core.1.a
+		trigger = {
+			exists = event_target:ev_fleet_option_1
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_1 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	option = {
+		name = ev_hard_core.1.b
+		trigger = {
+			exists = event_target:ev_fleet_option_2
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_2 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	option = {
+		name = ev_hard_core.1.c
+		trigger = {
+			exists = event_target:ev_fleet_option_3
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_3 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	option = {
+		name = ev_hard_core.1.d
+		trigger = {
+			exists = event_target:ev_fleet_option_4
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_4 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	option = {
+		name = ev_hard_core.1.e
+		trigger = {
+			exists = event_target:ev_fleet_option_5
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_5 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	option = {
+		name = ev_hard_core.1.f
+		trigger = {
+			exists = event_target:ev_fleet_option_6
+		}
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+		event_target:ev_fleet_option_6 = {
+			ev_mercenary_fleet_effect = yes
+		}
+	}
+	#再来一次
+	#option = {
+	#	name = ev_fleet_and_war.1.g
+	#	hidden_effect = {
+	#		country_event = {
+	#			id = ev_fleet_and_war.1
+	#		}
+	#	}
+	#	
+	#}
+	#退出
+	option = {
+		name = ev_fleet_and_war.1.h
+		set_timed_country_flag = {
+			flag = ev_reject_request_mercenary
+			days = 360
+		}
+	}
+	after = {
+	}
+}
+
+#设置为自己
+fleet_event = {
+	id = ev_fleet_and_war.2
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_owner = from
+		#delete_fleet = this
+		#clear_global_event_target = ev_will_investment_fleet_owner
+	}
+}
+
+#执行攻击
+country_event = {
+	id = ev_fleet_and_war.3
+	hide_window = yes
+	#is_triggered_only = yes
+	mean_time_to_happen = {
+		months = 22
+	}
+	trigger = {
+		has_country_flag = ev_mercenary_fleet_country
+		NOT = {
+			has_country_flag = ev_mercenary_fleet_country_no_need
+		}
+	}
+	immediate = {
+		set_timed_country_flag = {
+			flag = ev_mercenary_fleet_country_no_need
+			days = 240
+		}
+		#every_owned_fleet = {
+		#	clear_orders = yes
+		#	clear_fleet_actions = this
+		#	queue_actions = {
+		#		wait = 10
+		#		repeat = {
+		#			find_closest_system = {
+		#				trigger = {
+		#					id = mercenary.3
+		#					OR = {
+		#						any_system_planet = {
+		#							is_colony = yes
+		#							num_pops > 0
+		#							owner = {
+		#								is_same_value = event_target:ev_will_buy_mercenary_fleet_country_war_target
+		#							}
+		#						}
+		#						any_fleet_in_system = {
+		#							owner = {
+		#								is_same_value = event_target:ev_will_buy_mercenary_fleet_country_war_target
+		#							}
+		#						}
+		#					}
+		#					
+		#				}
+		#				found_system = {
+		#					move_to = this
+		#					effect = {
+		#						id = mercenary.4
+		#						owner = {
+		#							country_event = {
+		#								id = ev_fleet_and_war.3 days = 12
+		#							}	
+		#						}
+		#						prev = {
+		#							clear_fleet_actions = this
+		#							
+		#						}
+		#						prevprev = {
+		#							clear_fleet_actions = this
+		#						}
+		#					}
+		#				}
+		#			}
+		#		}
+		#	}
+		#}
+		#country_event = {
+		#	id = achievement.1
+		#}
+		#clear_global_event_target = ev_will_investment_fleet_owner
+	}
+}
+
+#循环找目标
+fleet_event = {
+	id = ev_fleet_and_war.4
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		owner = {
+			is_country_type = neutral_faction			#faction
+		}
+	}
+}

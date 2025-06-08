@@ -1,0 +1,76 @@
+namespace = ev_resolution
+#??????
+country_event = {
+	id = ev_resolution.1
+	title = ev_resolution.1.title
+	desc = ev_resolution.1.desc
+	picture = GFX_evt_signing
+	is_triggered_only = yes
+	option = {
+		name = OK
+		add_resource = {
+			energy = 1000
+		}
+		add_modifier = {
+			modifier = ev_resolution_economic_aid_1
+			days = 3600
+		}
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			if = {
+				limit = {
+					is_gestalt = no
+				}
+				every_owned_planet = {
+					limit = {
+						free_housing < 0
+					}
+					add_district = district_city
+				}
+			}
+			if = {
+				limit = {
+					is_hive_empire = yes
+				}
+				every_owned_planet = {
+					limit = {
+						free_housing < 0
+					}
+					add_district = district_hive
+				}
+			}
+			if = {
+				limit = {
+					is_machine_empire = yes
+				}
+				every_owned_planet = {
+					limit = {
+						free_housing < 0
+					}
+					add_district = district_nexus
+				}
+			}
+		}
+	}
+}
+
+#??????
+country_event = {
+	id = ev_resolution.2
+	title = ev_resolution.1.title
+	desc = ev_resolution.1.desc
+	picture = GFX_evt_signing
+	is_triggered_only = yes
+	option = {
+		name = OK
+		add_resource = {
+			energy = 1000
+		}
+		add_modifier = {
+			modifier = ev_resolution_economic_aid_2
+			days = 3600
+		}
+	}
+}

@@ -1,0 +1,899 @@
+ev_stars_for_home = {
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+		NOT = {
+			has_ascension_perk = ev_stars_for_home
+		}
+	}
+	modifier = {
+		#country_command_limit_add = 30
+		#country_starbase_influence_cost_mult = -0.33
+		#country_claim_influence_cost_mult = 0.5
+		country_resource_max_add = 5000
+		country_naval_cap_mult = 0.15
+		country_base_influence_produces_add = 1
+	}
+	
+	on_enabled = {
+		custom_tooltip = "ev_embrace_universe_effect"
+		if = {
+			limit = {
+				NOT = {
+					is_default_ev_country_type = yes
+				}
+			}
+			#set_country_type = default_ev
+			#add_resource = {
+			#	energy = 2000
+			#	minerals = 2000
+			#	food = 2000
+			#	alloys = 100
+			#	consumer_goods = 200
+			#}
+			#add_monthly_resource_mult = {
+			#	resource = energy
+			#	value = 36
+			#	min = 5000
+			#}
+			#add_monthly_resource_mult = {
+			#	resource = minerals
+			#	value = 36
+			#	min = 5000
+			#}
+			#add_monthly_resource_mult = {
+			#	resource = food
+			#	value = 36
+			#	min = 5000
+			#}
+			#add_monthly_resource_mult = {
+			#	resource = alloys
+			#	value = 36
+			#	min = 5000
+			#}
+			#add_monthly_resource_mult = {
+			#	resource = consumer_goods
+			#	value = 36
+			#	min = 5000
+			#}
+			set_government_cooldown = 0
+			force_add_civic = civic_empty_vagrant
+			force_add_civic = civic_ev_planet_and_fleet
+			#add_modifier = {
+			#	modifier = "empty_vagrant_landed_planet"
+			#	days = -1
+			#}
+			add_modifier = {
+				modifier = "ev_policy_bias_ship_var"
+				days = 7200
+				mult = 2
+			}
+			#change_government = {
+			#	civics = {
+			#		civic = civic_empty_vagrant
+			#		civic = random
+			#	}
+			#}
+		}
+	}
+	possible = {
+		#前置1飞升
+		#NOT = {
+		#	has_ascension_perk = ev_land_planets
+		#}
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_1"
+			num_ascension_perks > 0
+		}
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	ai_weight = {
+		factor = 50
+		modifier = {
+			factor = 100
+			is_default_ev_country_type = yes
+		}
+	}
+}
+
+ev_embrace_universe = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_embrace_universe
+		}
+	}
+	modifier = {
+		command_limit_mult = 0.25
+		country_base_influence_produces_add = 1
+		country_resource_max_add = 5000
+		country_naval_cap_add = 100
+	}
+	on_enabled = {
+		#give_technology = {
+		#	message = no
+		#	tech = tech_gateway_activation
+		#}
+		#give_technology = {
+		#	message = no
+		#	tech = tech_gateway_construction
+		#}
+		custom_tooltip = "ev_embrace_universe_effect"
+	}
+	possible = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		has_ascension_perk = ev_stars_for_home
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_3"
+			num_ascension_perks > 2
+		}
+	}
+	ai_weight = {
+		factor = 50
+		modifier = {
+			factor = 100
+			is_default_ev_country_type = yes
+		}
+	}
+}
+
+#掠夺1
+ap_orbital_bombardment_steal = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ap_orbital_bombardment_steal
+		}
+	}
+	on_enabled = {
+		custom_tooltip = "allow_orbital_bombardment_steal_all"
+	}
+	modifier = {
+		#bombardment_steal_ev_mult = 2
+		country_bombardment_steal_produces_mult = 2
+	}
+	possible = {
+		NOT = {
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		NOT = {
+			has_ascension_perk = ev_exploring_unknown
+		}
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	ai_weight = {
+		factor = 80
+		modifier = {
+			factor = 0
+			NOT = {
+				has_ai_personality_behaviour = slaver
+			}
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+	}
+}
+
+#掠夺2
+ap_orbital_predatory_planet = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ap_orbital_predatory_planet
+		}
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ap_orbital_predatory_planet"
+	}
+	modifier = {
+		decisions_cost_mult = -0.15
+	}
+	possible = {
+		has_ascension_perk = ap_orbital_bombardment_steal
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_3"
+			num_ascension_perks > 2
+		}
+	}
+	ai_weight = {
+		factor = 200
+		modifier = {
+			factor = 0
+			NOT = {
+				has_ai_personality_behaviour = slaver
+			}
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+	}
+}
+
+#探索1
+ev_exploring_unknown = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_inwards_perfection
+			has_valid_civic = civic_machine_terminator
+		}
+		NOT = {
+			has_ascension_perk = ev_exploring_unknown
+		}
+	}
+	modifier = {
+		science_ship_survey_speed = 0.5
+		
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_exploring_unknown"
+	}
+	possible = {
+		NOT = {
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		NOT = {
+			has_ascension_perk = ap_orbital_bombardment_steal
+		}
+		is_default_ev_country_type = yes
+		has_technology = tech_exploring_unknown_1
+	}
+	ai_weight = {
+		factor = 100
+		modifier = {
+			factor = 100
+			has_technology = tech_exploring_unknown_1
+		}
+		modifier = {
+			factor = 100
+			has_technology = tech_exploring_unknown_2
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+	}
+}
+
+#探索2
+ev_knowledge_is_ours = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_inwards_perfection
+			has_valid_civic = civic_machine_terminator
+		}
+		NOT = {
+			has_ascension_perk = ev_knowledge_is_ours
+		}
+	}
+	modifier = {
+		shipclass_science_ship_disengage_mult = 0.5
+		ship_anomaly_research_speed_mult = 0.5
+		ship_anomaly_generation_chance_mult = 1
+		ship_archaeological_site_clues_add = 3
+		num_tech_alternatives_add = 1
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_knowledge_is_ours"
+	}
+	possible = {
+		has_ascension_perk = ev_exploring_unknown
+		is_default_ev_country_type = yes
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_2"
+			num_ascension_perks > 1
+		}
+	}
+	ai_weight = {
+		factor = 100
+		modifier = {
+			factor = 100
+			has_technology = tech_exploring_unknown_1
+		}
+		modifier = {
+			factor = 100
+			has_technology = tech_exploring_unknown_2
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+	}
+}
+
+#贸易1
+ev_more_trade_fleet = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOR = {
+			has_authority = auth_machine_intelligence
+			has_authority = auth_hive_mind
+		}
+		NOT = {
+			has_ascension_perk = ev_more_trade_fleet
+		}
+	}
+	modifier = {
+		#monthly_trades_produces_mult = 0.5
+		country_homeless_trade_produces_mult = 2
+		#trade_routes_produces_mult = 0.5
+		trade_value_mult = 0.25
+		#homeless_trade_produces_mult = 0.5
+	}
+	on_enabled = {
+		#custom_tooltip = "allow_ev_more_trade_fleet"
+	}
+	possible = {
+		NOT = {
+			has_ascension_perk = ap_orbital_bombardment_steal
+		}
+		NOT = {
+			has_ascension_perk = ev_exploring_unknown
+		}
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		NOR = {
+			has_ethic = ethic_fanatic_xenophobe
+			has_ethic = ethic_fanatic_militarist
+		}
+	}
+	ai_weight = {
+		factor = 0
+	}
+}
+
+#贸易2
+ev_galaxy_free_trader = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOR = {
+			has_authority = auth_machine_intelligence
+			has_authority = auth_hive_mind
+		}
+		NOT = {
+			has_ascension_perk = ev_galaxy_free_trader
+		}
+	}
+	modifier = {
+		country_trade_fee = -0.25
+		#trade_routes_produces_mult = 0.
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_galaxy_free_trader"
+	}
+	possible = {
+		has_ascension_perk = ev_more_trade_fleet
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		NOR = {
+			has_ethic = ethic_fanatic_xenophobe
+			has_ethic = ethic_fanatic_militarist
+		}
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_3"
+			num_ascension_perks > 2
+		}
+	}
+	ai_weight = {
+		factor = 0
+	}
+}
+
+#资源合成
+ev_advanced_homeless = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_advanced_homeless
+		}
+	}
+	modifier = {
+
+		#ship_homeless_ev_upkeep_mult = 0.1
+		#country_naval_cap_mult = 0.1
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_advanced_homeless"
+		random_controlled_ship = {
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+			enable_special_project = {
+				name = EV_ADVANCED_HOMELESS_PROJECT
+				location = this
+			}
+		}
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
+				}
+				add_trait = leader_trait_expertise_homeless_production
+			}
+		}
+	}
+	possible = {
+		is_default_ev_country_type = yes
+		has_technology = tech_homeless_section_templates_3
+		NOT = {
+			#has_ascension_perk = ev_land_planets
+		}
+		has_ascension_perk = ev_embrace_universe
+		custom_tooltip = {
+			fail_text = "need_any_homeless_ship"
+			count_owned_ship = {
+				limit = {
+					OR = {
+						is_ship_size = homeless_ship
+						is_ship_size = homeless_ship_starbase
+						is_ship_size = private_homeless_ship
+						is_ship_size = private_homeless_ship
+						is_ship_size = megastructures_homeless_ship
+					}
+				}
+				count > 0
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_4"
+			num_ascension_perks > 3
+		}
+	}
+	ai_weight = {
+		factor = 50000
+	}
+}
+
+#落地
+#ev_land_planets = {
+#	potential = {
+#		is_default_ev_country_type = yes
+#		NOT = {
+#			has_ascension_perk = ev_land_planets
+#		}
+#	}
+#	modifier = {
+#		#unemployment_resources_energy_produces_add = 10
+#		#planet_jobs_worker_energy_produces_add = 10
+#		pop_category_drones_energy_produces_add = 2.5
+#		pop_category_workers_alloys_produces_add = 0.25
+#		pop_category_rulers_unity_produces_add = 2
+#		planet_jobs_produces_mult = 0.15
+#		pop_growth_speed = 0.25
+#	}
+#	on_enabled = {
+#		custom_tooltip = "allow_ev_land_planets"
+#		hidden_effect = {
+#			#owner = {
+#			#	save_global_event_target_as = ev_land_planets_country
+#			#}
+#			country_event = {
+#				id = ev_planet_correct.5000
+#			}
+#			every_owned_planet = {
+#				remove_modifier = "ev_grow_pop"
+#			}
+#		}
+#	}
+#	possible = {
+#		is_default_ev_country_type = yes
+#		NOR = {
+#			has_origin = origin_ev_subjects_owner
+#			has_origin = origin_ev_both_choosen
+#			has_civic = civic_ev_planet_and_fleet
+#			has_civic = civic_ev_god_elect
+#			has_ascension_perk = ev_advanced_homeless
+#			has_ascension_perk = ev_ask_the_void
+#			has_ascension_perk = ev_stars_for_home
+#		}
+#		any_controlled_ship = {
+#			is_any_type_homeless_ship = yes
+#		}
+#		custom_tooltip = {
+#			fail_text = "requires_ascension_perks_2"
+#			num_ascension_perks > 1
+#		}
+#		#num_starbases >= 1
+#	}
+#	ai_weight = {
+#		factor = 1
+#	}
+#}
+
+#访问虚空
+ev_ask_the_void = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_ask_the_void
+		}
+		is_gestalt = no
+	}
+	modifier = {
+		#country_command_limit_add = 20
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_ask_the_void"
+
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.9
+			}
+			set_country_flag = has_ap_ev_ask_the_void
+		}
+		country_event = {
+			id = ev_resource.10
+		}
+	}
+	possible = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		NOT = {
+			has_ascension_perk = ev_land_planets
+		}
+		has_ascension_perk = ev_stars_for_home
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_2"
+			num_ascension_perks > 1
+		}
+	}
+	ai_weight = {
+		factor = 50
+	}
+}
+
+#大可汗
+#ev_become_da_khan = {
+#	potential = {
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOR = {
+#			has_authority = auth_machine_intelligence
+#			has_authority = auth_hive_mind
+#		}
+#	}
+#	modifier = {
+#	}
+#	on_enabled = {
+#		custom_tooltip = "allow_ev_become_da_khan"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_leader.5000
+#			}
+#		}
+#	}
+#	possible = {
+#		NOT = {
+#			has_origin = origin_ev_subjects_owner
+#		}
+#		NOT = {
+#			has_origin = origin_ev_dakan
+#		}
+#		is_default_ev_country_type = yes
+#		any_owned_leader = {
+#			has_level > 4
+#		}
+#		NOT = {
+#			has_ascension_perk = ev_land_planets
+#		}
+#		num_starbases >= 1
+#		has_ascension_perk = ev_ask_the_void
+#		custom_tooltip = {
+#			fail_text = "requires_no_great_khan_ruler_ev"
+#			NOT = {
+#				exists = event_target:great_khan_ruler_ev
+#			}
+#		}
+#		
+#		
+#	}
+#	ai_weight = {
+#		factor = 0
+#	}
+#}
+
+#武力屏障
+ev_very_great_fleet = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_very_great_fleet
+		}
+	}
+	modifier = {
+		ship_weapon_damage = 0.15
+		country_starbase_capacity_add = 6
+	}
+	on_enabled = {
+		custom_tooltip = "allow_ev_very_great_fleet"
+		hidden_effect = {
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				add_modifier = {
+					modifier = ev_very_great_fleet_ai
+					days = -1
+				}
+			}
+		}
+	}
+	possible = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		OR = {
+			has_ascension_perk = ap_orbital_predatory_planet
+			has_ascension_perk = ev_knowledge_is_ours
+			has_ascension_perk = ev_galaxy_free_trader
+		}
+		#NOT = { has_ascension_perk = ev_land_planets }
+	}
+	ai_weight = {
+		factor = 200
+	}
+}
+
+#星基生产人力
+#ev_starbase_manpower = {
+#	potential = {
+#		is_default_ev_country_type = yes
+#		NOT = {
+#			has_ascension_perk = ev_starbase_manpower
+#		}
+#	}
+#	modifier = {
+#		ship_homeless_ev_manpower_produces_mult = 0.15
+#		planet_jobs_manpower_produces_mult = 0.33
+#		ship_components_manpower_ev_cost_mult = -0.5
+#	}
+#	on_enabled = {
+#		custom_tooltip = "allow_ev_starbase_manpower"
+#		hidden_effect = {
+#		}
+#	}
+#	possible = {
+#		OR = {
+#			is_default_ev_country_type = yes
+#		}
+#		OR = {
+#			has_ascension_perk = ev_stars_for_home
+#		}
+#		NOT = {
+#			has_ascension_perk = ev_land_planets
+#		}
+#	}
+#	ai_weight = {
+#		factor = 30
+#	}
+#}
+
+#解锁巨型家园舰
+ev_unlock_megastructures_homeless_ship = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_unlock_megastructures_homeless_ship
+		}
+	}
+	modifier = {
+		country_resource_max_add = 10000
+		#starbase_shipyard_capacity_add = 1
+	}
+	on_enabled = {
+		#add_research_option = tech_megastructures_homeless_ship
+		#add_tech_progress = {
+		#	tech = tech_megastructures_homeless_ship
+		#	progress = 0.01
+		#}
+		add_tech_option_or_research_effect = {
+			TECH = tech_megastructures_homeless_ship
+			PROGRESS = 0.1
+			CATEGORY = society_research
+		}
+
+	}
+	possible = {
+		has_ascension_perk = ev_advanced_homeless
+		has_ascension_perk = ev_embrace_universe
+	}
+	ai_weight = {
+		factor = 10
+	}
+}
+
+#开采等级+4
+ev_endless_homeless_ship_orbit_mining = {
+	potential = {
+		is_default_ev_country_type = yes
+		NOT = {
+			has_ascension_perk = ev_endless_homeless_ship_orbit_mining
+		}
+	}
+	modifier = {
+		#ship_components_energy_ev_energy_produces_add = 2
+		#ship_components_minerals_ev_minerals_produces_add = 2
+		ev_destructive_mining_level = 6
+	}
+	on_enabled = {
+		#custom_tooltip = ev_endless_homeless_ship_orbit_mining_effect
+		hidden_effect = {
+			#change_variable = {
+			#	which = ev_planet_mining_tech_level
+			#	value = 4
+			#}
+			#every_owned_fleet = {
+			#	change_variable = {
+			#		which = ev_planet_mining_tech_level
+			#		value = 4
+			#	}
+			#}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				every_owned_fleet = {
+					add_modifier = {
+						modifier = ev_homeless_orbit_alloys_buff
+						days = -1
+					}
+					add_modifier = {
+						modifier = ev_homeless_orbit_minerals_buff
+						days = -1
+					}
+				}
+			}
+		}
+	}
+	possible = {
+		has_ascension_perk = ev_advanced_homeless
+		has_technology = tech_ev_destructive_mining
+	}
+	ai_weight = {
+		factor = 10
+	}
+}
+
+
+#跨星系打击
+ev_strategic_strike_system = {
+	potential = {
+		always = no
+		#is_default_ev_country_type = yes
+		#NOT = {
+		#	has_ascension_perk = ev_strategic_strike_system
+		#}
+		
+	}
+	modifier = {
+		#country_command_limit_add = 20
+	}
+	on_enabled = {
+		give_technology = {
+			tech = tech_ev_strategic_strike_system
+		}
+		set_country_flag = enable_ev_beacon_fleet
+		country_event = { id = ev_planet_correct.7301 }
+	}
+	possible = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+		has_ascension_perk = ev_unlock_megastructures_homeless_ship
+	}
+	ai_weight = {
+		factor = 0
+	}
+}
+
+
+#消除补给船负面修正
+ev_fleet_size_ships_buff = {
+	potential = {
+		NOT = {
+			has_ascension_perk = ev_fleet_size_ships_buff
+		}
+	}
+	modifier = {
+		country_naval_cap_add = 30
+	}
+	on_enabled = {
+		custom_tooltip = ev_fleet_size_ships_buff_effect
+	}
+	possible = {
+		is_default_ev_country_type = yes
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_1"
+			num_ascension_perks > 0
+		}
+	}
+	ai_weight = {
+		factor = 0
+	}
+}
+
+
+
+#兼容三大飞升
+#ev_three_ascension_compatible = {
+#	potential = {
+#		is_default_ev_country_type = yes  
+#		NOT = { has_ascension_perk = ev_three_ascension_compatible }
+#	}
+#	modifier = {
+#		BIOLOGICAL_species_trait_points_add = 1
+#		ROBOT_species_trait_points_add = 1
+#		LITHOID_species_trait_points_add = 1
+#		MACHINE_species_trait_points_add = 1
+#	}
+#	on_enabled = {
+#		hidden_effect = {
+#			#every_owned_leader = {
+#			#	limit = {
+#			#		species = { has_trait = trait_cybernetic }
+#			#		NOR = {
+#			#			has_trait = leader_trait_ev_ruler_cyborg
+#			#			
+#			#		}
+#			#	}
+##
+#			#	add_ruler_trait = leader_trait_ev_ruler_cyborg
+#			#	
+#			#}
+#		}
+#	}
+#
+#	possible = {
+#		has_ascension_perk = ev_advanced_homeless
+#		has_ascension_perk = ev_embrace_universe
+#	}
+#	ai_weight = {
+#		factor = 10
+#	}
+#}

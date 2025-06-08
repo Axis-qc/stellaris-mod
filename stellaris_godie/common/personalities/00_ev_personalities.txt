@@ -1,0 +1,735 @@
+##### Behaviours:
+# conqueror -> Will they conquer planets from other empires?
+# subjugator -> Will they vassalise other empires?
+# liberator -> Will they liberate conquered empires?
+# opportunist -> Are they more likely to attack someone already embroiled in war?
+# uplifter -> Will they uplift and enlighten other species?
+# infiltrator -> Will they infiltrate primitives?
+# dominator -> Will they invade primitives?
+# slaver -> Will they enslave pops?
+# purger -> Will they purge alien pops?
+# robot_exploiter -> Will they use robots for menial labor?
+# robot_liberator -> Will they give rights to robots?
+# propagator -> Will they only get aggressive once boxed in?
+# multispecies -> Will they give rights to aliens?
+# species_mod_priority = {}		define weights for how much the AI should try to modify a given species (root=country, this=species)
+##### Modifiers:
+# aggressiveness -> Chance of declaring wars
+# trade_willingness -> At 1.0 willingness they will accept a deal that is equally good for both sides
+# bravery -> Affects the chance that they will pick rivals & war targets of similar strength instead of picking on the weak
+# military_spending -> Affects mineral & energy budget that goes to navies and armies
+# colony_spending -> Affects mineral & energy budget that goes to new colonies
+# threat_modifier -> Affects how much threat is generated for this empire when others are conquered
+# threat_others_modifier -> Afffects how much threat is generated for other empires when this empire is conquered
+# friction_modifier -> Affects border friction
+# claims_modifier -> Affects opinion penalty from claims
+# Ships
+# armor_ratio -> Amount of armor they should aim for on ships
+# shields_ratio -> Amount of shields they should aim for on ships
+# hull_ratio -> Amount of hull boosters they should aim for on ships (if available)
+##### Diplomacy:
+# federation_acceptance -> Added directly to chance of accepting to form/join a federation
+# nap_acceptance -> Added directly to chance of accepting to form a non-aggression pact
+# commercial_pact_acceptance -> Added directly to chance of accepting to form a commercial pact
+# research_agreement_acceptance -> Added directly to chance of accepting to form a research agreement
+# migration_pact_acceptance -> Added directly to chance of accepting to form a migration pact
+# defensive_pact_acceptance -> Added directly to chance of accepting to form a defensive pact
+##### Diplomacy:
+# advanced_start_chance -> Likelyhood of this empire being an advanced start (higher = better chance of being one of empires selected for advanced start)
+# NOTE: Weight is additive!
+ev_empty_vagrant = {
+	aggressiveness = 0.7
+	trade_willingness = 0.7
+	bravery = 0.75
+	combat_bravery = 0.6	# rarely ever retreat in battle
+	military_spending = 2
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0.75
+	threat_others_modifier = 1.25
+	friction_modifier = 0.8
+	claims_modifier = 1.75
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = yes
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	weight_modifier = {
+		weight = 100
+	}
+}
+
+ev_empty_vagrant_dakhan = {
+	aggressiveness = 2
+	trade_willingness = 0.5
+	bravery = 1.5
+	combat_bravery = 1.5	# rarely ever retreat in battle
+	military_spending = 3
+	colony_spending = 0.1
+	federation_acceptance = -100
+	nap_acceptance = -20
+	commercial_pact_acceptance = -20
+	research_agreement_acceptance = -100
+	defensive_pact_acceptance = -200
+	migration_pact_acceptance = -20
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1
+	threat_others_modifier = 0.5
+	friction_modifier = 1.5
+	claims_modifier = 1.75
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			has_government = gov_empty_vagrant_dakhan
+		}
+	}
+	weight_modifier = {
+		weight = 10000000
+	}
+}
+
+ev_empty_vagrant_all_friendship = {
+	aggressiveness = 0.5
+	trade_willingness = 0.95
+	bravery = 0.75
+	combat_bravery = 0.75	# rarely ever retreat in battle
+	military_spending = 2
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 50
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0.6
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ethic = ethic_fanatic_xenophile
+		}
+	}
+	weight_modifier = {
+		weight = 500
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_xenophile
+		}
+	}
+}
+
+ev_empty_vagrant_industrial_production = {
+	aggressiveness = 0.75
+	trade_willingness = 0.7
+	bravery = 0.75
+	combat_bravery = 0.75	# rarely ever retreat in battle
+	military_spending = 2
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0.6
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_industrial_production
+				has_government = gov_empty_vagrant_civic_ev_exotic_gases_lithoid
+				has_ethic = ethic_fanatic_industrial
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 500
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_industrial
+		}
+	}
+}
+
+ev_empty_vagrant_ship_research = {
+	aggressiveness = 0.75
+	trade_willingness = 0.7
+	bravery = 0.75
+	combat_bravery = 0.75	# rarely ever retreat in battle
+	military_spending = 2
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 50
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0.6
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_ship_research
+				has_government = gov_empty_vagrant_civic_ev_space_survey
+				has_ethic = ethic_materialist
+				has_ethic = ethic_fanatic_materialist
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 500
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_materialist
+		}
+	}
+}
+
+ev_empty_vagrant_ev_missionary = {
+	aggressiveness = 1.25
+	trade_willingness = 0.6
+	bravery = 1
+	combat_bravery = 1	# rarely ever retreat in battle
+	military_spending = 2.5
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1.2
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = yes
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_missionary
+				has_government = gov_empty_vagrant_civic_ev_fanatic_martyr
+				has_ethic = ethic_fanatic_spiritualist
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 500
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_spiritualist
+		}
+	}
+}
+
+ev_empty_vagrant_ev_criminal_ship = {
+	aggressiveness = 0.75
+	trade_willingness = 0.75
+	bravery = 1
+	combat_bravery = 1	# rarely ever retreat in battle
+	military_spending = 2.5
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = no
+		purger = no
+		displacer = no
+		infiltrator = yes
+		dominator = no
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = no
+		multispecies = yes
+		crisis_fighter = yes
+		wants_tribute = yes
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_criminal_ship
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 800
+	}
+}
+
+#伟大舰队
+ev_empty_vagrant_ev_great_ship = {
+	aggressiveness = 1.5
+	trade_willingness = 0.3
+	bravery = 1.5
+	combat_bravery = 1.5	# rarely ever retreat in battle
+	military_spending = 4
+	colony_spending = 0.1
+	federation_acceptance = -50
+	nap_acceptance = 0
+	commercial_pact_acceptance = -30
+	research_agreement_acceptance = -30
+	defensive_pact_acceptance = -100
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1.2
+	threat_others_modifier = 2
+	friction_modifier = 1.5
+	claims_modifier = 1.5
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = no
+		dominator = yes
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+		wants_tribute = yes
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_great_ship
+				has_ethic = ethic_fanatic_militarist
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 500
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_militarist
+		}
+	}
+}
+
+#舰队朝贡者
+ev_empty_vagrant_ev_subjects_owner = {
+	aggressiveness = 1.25
+	trade_willingness = 0.4
+	bravery = 1.5
+	combat_bravery = 1.25	# rarely ever retreat in battle
+	military_spending = 4
+	colony_spending = 0.1
+	federation_acceptance = -50
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = -50
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1.25
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = yes
+		uplifter = no
+		purger = no
+		displacer = no
+		infiltrator = yes
+		dominator = yes
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+		wants_tribute = yes
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_origin = origin_ev_subjects_owner
+				has_ethic = ethic_fanatic_authoritarian
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 700
+		modifier = {
+			factor = 1.1
+			has_ethic = ethic_fanatic_authoritarian
+		}
+		modifier = {
+			factor = 1.1
+			has_authority = auth_imperial
+		}
+	}
+}
+
+#舰队灯塔者
+ev_empty_vagrant_ev_ideal_ship = {
+	aggressiveness = 1.33
+	trade_willingness = 0.5
+	bravery = 1.5
+	combat_bravery = 1.5	# rarely ever retreat in battle
+	military_spending = 4
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 1
+	threat_others_modifier = 1
+	friction_modifier = 1
+	claims_modifier = 1.25
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = yes
+		opportunist = yes
+		slaver = yes
+		uplifter = yes
+		purger = no
+		displacer = no
+		infiltrator = yes
+		dominator = yes
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = yes
+		multispecies = yes
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_government = gov_empty_vagrant_civic_ev_ideal_ship
+				has_ethic = ethic_fanatic_egalitarian
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 800
+		modifier = {
+			factor = 1.05
+			OR = {
+				has_ethic = ethic_fanatic_egalitarian
+			}
+		}
+	}
+}
+
+#舰队灭绝者
+ev_empty_vagrant_fanatic_purifiers = {
+	aggressiveness = 3
+	trade_willingness = 0.1
+	bravery = 1.5
+	combat_bravery = 1.5	# rarely ever retreat in battle
+	military_spending = 4
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0
+	threat_others_modifier = 0
+	friction_modifier = 0
+	claims_modifier = 0
+	behaviour = {
+		conqueror = yes
+		subjugator = no
+		liberator = no
+		opportunist = yes
+		slaver = no
+		uplifter = no
+		purger = yes
+		displacer = no
+		dominator = yes
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+		crisis_fighter = no
+		attack_neutrals = yes
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				has_civic = civic_hive_devouring_swarm
+				has_civic = civic_fanatic_purifiers
+				has_civic = civic_machine_terminator
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 100000
+	}
+}
+
+#舰队格式塔
+ev_empty_vagrant_gestalt = {
+	aggressiveness = 1.5
+	trade_willingness = 0.4
+	bravery = 1.25
+	combat_bravery = 1.25	# rarely ever retreat in battle
+	military_spending = 4
+	colony_spending = 0.1
+	federation_acceptance = 0
+	nap_acceptance = 0
+	commercial_pact_acceptance = 0
+	research_agreement_acceptance = 0
+	defensive_pact_acceptance = 0
+	migration_pact_acceptance = 0
+	advanced_start_chance = 0
+	weapon_preferences = weapon_type_energy
+	#weapon_preferences = weapon_type_ev_produce
+	armor_ratio = 0.4
+	shields_ratio = 0.3
+	hull_ratio = 0.3
+	threat_modifier = 0.5
+	threat_others_modifier = 0.5
+	friction_modifier = 0.5
+	claims_modifier = 0.5
+	behaviour = {
+		conqueror = yes
+		subjugator = no
+		liberator = no
+		opportunist = yes
+		slaver = no
+		uplifter = no
+		purger = yes
+		displacer = no
+		dominator = yes
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+		crisis_fighter = no
+	}
+	allow = {
+		#		is_default_ev_country_type = yes
+		AND = {
+			is_default_ev_country_type = yes
+			OR = {
+				is_gestalt = yes
+			}
+		}
+	}
+	weight_modifier = {
+		weight = 5000
+	}
+}

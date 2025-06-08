@@ -1,0 +1,1159 @@
+namespace = ev_sell_fleet
+# #进入外交界面
+# country_event = {
+# 	id = ev_sell_fleet.1
+# 	diplomatic = yes
+# 	picture_event_data = {
+# 		portrait = event_target:ev_sell_fleet
+# 		planet_background = event_target:ev_sell_fleet
+# 		graphical_culture = event_target:ev_sell_fleet
+# 		room = event_target:ev_sell_fleet
+# 	}
+# 	location = event_target:ev_sell_fleet
+# 	is_triggered_only = yes
+# 	option = {
+# 		name = ev_sell_fleet.1.a
+# 		custom_tooltip = ev_sell_fleet.1.a.tooltip
+# 		event_target:ev_sell_fleet = {
+# 			add_opinion_modifier = {
+# 				who = root
+# 				modifier = opinion_insult
+# 			}
+# 		}
+# 		clear_global_event_target = ev_sell_fleet
+# 	}
+# 	#投资星球
+# 	option = {
+# 		name = ev_sell_fleet.2.a
+# 		custom_tooltip = ev_sell_fleet.2.a.tooltip
+# 		trigger = {
+# 			event_target:ev_sell_fleet = {
+# 				is_ai = yes
+# 			}
+# 			root = {
+# 				is_ai = no
+# 			}
+# 		}
+# 		allow = {
+# 			custom_tooltip = {
+# 				fail_text = "requires_can_be_ev_investment_country"
+# 				event_target:ev_sell_fleet = {
+# 					can_be_ev_investment_country = yes
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			event_target:ev_sell_fleet = {
+# 				save_global_event_target_as = ev_real_country_option
+# 				country_event = {
+# 					id = ev_investment.2
+# 				}
+# 			}
+# 			clear_global_event_target = ev_sell_fleet
+# 		}
+# 	}
+# 	#贩卖舰队
+# 	option = {
+# 		name = ev_sell_fleet.3.a
+# 		custom_tooltip = ev_sell_fleet.3.a.tooltip
+# 		trigger = {
+# 			event_target:ev_sell_fleet = {
+# 				is_ai = yes
+# 			}
+# 			root = {
+# 				is_ai = no
+# 			}
+# 		}
+# 		allow = {
+# 			custom_tooltip = {
+# 				fail_text = "requires_is_ev_need_fleet_country_base_1"
+# 				event_target:ev_sell_fleet = {
+# 					is_ev_need_fleet_country_base_1 = yes
+# 				}
+# 			}
+# 			custom_tooltip = {
+# 				fail_text = "requires_is_ev_need_fleet_country_base_2"
+# 				event_target:ev_sell_fleet = {
+# 					opinion = {
+# 						who = ROOT
+# 						value > -99
+# 					}
+# 				}
+# 			}
+# 			custom_tooltip = {
+# 				fail_text = "requires_is_ev_need_fleet_country_base_3"
+# 				event_target:ev_sell_fleet = {
+# 					is_ev_need_fleet_country_base_3 = yes
+# 				}
+# 			}
+# 			custom_tooltip = {
+# 				fail_text = "requires_is_ev_need_fleet_country_base_4"
+# 				NOT = {
+# 					has_country_flag = has_in_once_fleet_sell
+# 				}
+# 			}
+# 			custom_tooltip = {
+# 				fail_text = "requires_is_ev_need_fleet_country_base_5"
+# 				event_target:ev_sell_fleet = {
+# 					NOT = {
+# 						has_country_flag = has_buy_some_fleet
+# 					}
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_sell_fleet.100
+# 				days = 1
+# 			}
+# 			set_country_flag = has_in_once_fleet_sell
+# 		}
+# 	}
+# 	#退出
+# 	option = {
+# 		name = ev_sell_fleet.4.a
+# 		clear_global_event_target = ev_sell_fleet
+# 	}
+# }
+
+# #ai对于舰队需要组成
+# country_event = {
+# 	id = ev_sell_fleet.100
+# 	title = ev_sell_fleet.100.name
+# 	desc = ev_sell_fleet.100.desc
+# 	diplomatic = yes
+# 	picture_event_data = {
+# 		portrait = event_target:ev_sell_fleet
+# 		planet_background = event_target:ev_sell_fleet
+# 		graphical_culture = event_target:ev_sell_fleet
+# 		room = event_target:ev_sell_fleet
+# 	}
+# 	location = event_target:ev_sell_fleet
+# 	is_triggered_only = yes
+# 	after = {
+# 	}
+# 	immediate = {
+# 		#基础值
+# 		#计算护卫
+# 		#set_variable = {
+# 		#	which = ev_need_corvette_var
+# 		#	value = 10
+# 		#}
+# 		random_country = {
+# 			limit = {
+# 				is_at_war_with = event_target:ev_sell_fleet
+# 			}
+# 			save_event_target_as = ev_need_to_war_country
+# 		}
+# 		change_variable = {
+# 			which = ev_need_times_num
+# 			value = 1
+# 		}
+# 		event_target:ev_sell_fleet = {
+# 			if = {
+# 				limit = {
+# 					relative_power = {
+# 						who = event_target:ev_need_to_war_country
+# 						category = fleet
+# 						value >= equivalent
+# 					}
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					used_naval_capacity_percent < 0.7
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					used_naval_capacity_percent < 0.5
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					used_naval_capacity_percent < 0.2
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					OR = {
+# 						defender_war_exhaustion > 0.1
+# 						attacker_war_exhaustion > 0.25
+# 					}
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					OR = {
+# 						defender_war_exhaustion > 0.3
+# 						attacker_war_exhaustion > 0.4
+# 					}
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					OR = {
+# 						defender_war_exhaustion > 0.6
+# 						attacker_war_exhaustion > 0.8
+# 					}
+# 				}
+# 				change_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 		}
+# 		#计算组成部分
+# 		#每一个组成部分需要
+# 		#护卫1700，驱逐1700，巡洋2200，战列舰1500
+# 		#计算金额
+# 		while = {
+# 			count = ev_need_times_num
+# 			#舰船组成
+# 			change_variable = {
+# 				which = ev_need_corvette_var
+# 				value = 10
+# 			}
+# 			change_variable = {
+# 				which = ev_need_destroyer_var
+# 				value = 0				#5
+# 			}
+# 			change_variable = {
+# 				which = ev_need_cruiser_var
+# 				value = 0				#3
+# 			}
+# 			change_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 1
+# 			}
+# 			#金额
+# 			change_variable = {
+# 				which = ev_need_energy_var
+# 				value = 1700
+# 			}
+# 			#if = {
+# 			#	limit = {
+# 			#		has_technology = tech_destroyers
+# 			#	}
+# 			#	change_variable = {
+# 			#		which = ev_need_energy_var
+# 			#		value = 1700
+# 			#	}
+# 			#}
+# 			#if = {
+# 			#	limit = {
+# 			#		has_technology = tech_cruisers
+# 			#	}
+# 			#	change_variable = {
+# 			#		which = ev_need_energy_var
+# 			#		value = 2200
+# 			#	}
+# 			#}
+# 			if = {
+# 				limit = {
+# 					has_technology = tech_battleships
+# 				}
+# 				change_variable = {
+# 					which = ev_need_energy_var
+# 					value = 1500
+# 				}
+# 			}
+# 		}
+# 		#如果没有科技，舰船组成就清零
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					has_technology = tech_destroyers
+# 				}
+# 			}
+# 			set_variable = {
+# 				which = ev_need_destroyer_var
+# 				value = 0
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					has_technology = tech_cruisers
+# 				}
+# 			}
+# 			set_variable = {
+# 				which = ev_need_cruiser_var
+# 				value = 0
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					has_technology = tech_battleships
+# 				}
+# 			}
+# 			set_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 0
+# 			}
+# 		}
+# 		#set_variable = {
+# 		#	which = my1
+# 		#	value = 10
+# 		#}
+# 		#set_variable = {
+# 		#	which = my211
+# 		#	value = 0
+# 		#}
+# 		#while = {
+# 		#	count = my1
+# 		#	change_variable = {
+# 		#		which = my211
+# 		#		value = 1.5
+# 		#	}
+# 		#}
+# 	}
+# 	#好的
+# 	option = {
+# 		name = ev_sell_fleet.100.a
+# 		custom_tooltip = ev_sell_fleet.100.a.tooltip
+# 		#获得30%的定金
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = ev_sell_fleet.101
+# 				days = 180
+# 			}
+# 			while = {
+# 				count = ev_need_times_num
+# 				add_resource = {
+# 					energy = 510
+# 				}
+# 				#if = {
+# 				#	limit = {
+# 				#		has_technology = tech_destroyers
+# 				#	}
+# 				#	add_resource = { energy = 510 }
+# 				#}
+# 				#if = {
+# 				#	limit = {
+# 				#		has_technology = tech_cruisers
+# 				#	}
+# 				#	add_resource = { energy = 660 }
+# 				#}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_battleships
+# 					}
+# 					add_resource = {
+# 						energy = 450
+# 					}
+# 				}
+# 				event_target:ev_need_to_war_country = {
+# 					add_resource = {
+# 						energy = -400
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	#不好
+# 	option = {
+# 		name = ev_sell_fleet.100.b
+# 		remove_country_flag = has_in_once_fleet_sell
+# 		clear_global_event_target = ev_sell_fleet
+# 		hidden_effect = {
+# 			event_target:ev_sell_fleet = {
+# 				set_timed_country_flag = {
+# 					flag = has_buy_some_fleet
+# 					days = 180
+# 				}
+# 			}
+# 			clear_global_event_target = ev_sell_fleet
+# 			remove_country_flag = has_in_once_fleet_sell
+# 			set_variable = {
+# 				which = ev_need_times_num
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_corvette_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_energy_var
+# 				value = 0
+# 			}
+# 		}
+# 	}
+# }
+
+# #ai索要货物
+# country_event = {
+# 	id = ev_sell_fleet.101
+# 	title = ev_sell_fleet.101.name
+# 	desc = ev_sell_fleet.101.desc
+# 	diplomatic = yes
+# 	picture_event_data = {
+# 		portrait = event_target:ev_sell_fleet
+# 		planet_background = event_target:ev_sell_fleet
+# 		graphical_culture = event_target:ev_sell_fleet
+# 		room = event_target:ev_sell_fleet
+# 	}
+# 	location = event_target:ev_sell_fleet
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		exists = event_target:ev_sell_fleet
+# 	}
+# 	after = {
+# 	}
+# 	immediate = {
+# 		if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 1
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 10
+# 					}
+					
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 1
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 2
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 20
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 2
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 3
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 30
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 3
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 4
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 40
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 4
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 5
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 50
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 5
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 6
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 60
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 6
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 7
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 70
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 7
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				check_variable = {
+# 					which = ev_need_times_num
+# 					value = 8
+# 				}
+# 			}
+# 			random_controlled_fleet = {
+# 				limit = {
+# 					count_owned_ship = {
+# 						limit = {
+# 							is_ship_size = corvette
+# 						}
+# 						count >= 80
+# 					}
+# 					if = {
+# 						limit = {
+# 							root = {
+# 								has_technology = tech_battleships
+# 							}
+# 						}
+# 						count_owned_ship = {
+# 							limit = {
+# 								is_ship_size = battleship
+# 							}
+# 							count >= 8
+# 						}
+# 					}
+# 				}
+# 				save_event_target_as = ev_candidate_fleet_1
+# 			}
+# 		}
+# 	}
+# 	#第一支舰队
+# 	option = {
+# 		name = ev_sell_fleet.101.a
+# 		trigger = {
+# 			exists = event_target:ev_candidate_fleet_1
+# 		}
+# 		event_target:ev_candidate_fleet_1 = {
+# 			set_owner = event_target:ev_sell_fleet
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 500
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 1500
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 1000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 2000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 2000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 3000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 4000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 4000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 4000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 6000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 7500
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 9000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 12000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 13000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 20000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 17000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 35000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 24000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 60000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 35000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_1 = {
+# 					fleet_power > 100000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 45000
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = ev_sell_fleet.101.a.tooltip
+# 		#获得剩下的70%的定金
+# 		hidden_effect = {
+# 			while = {
+# 				count = ev_need_times_num
+# 				add_resource = {
+# 					energy = 1190
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_destroyers
+# 					}
+# 					add_resource = {
+# 						energy = 1190
+# 					}
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_cruisers
+# 					}
+# 					add_resource = {
+# 						energy = 1540
+# 					}
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_battleships
+# 					}
+# 					add_resource = {
+# 						energy = 1050
+# 					}
+# 				}
+# 			}
+# 		}
+# 		add_trust = {
+# 			amount = 30
+# 			who = event_target:ev_sell_fleet
+# 		}
+# 		event_target:ev_sell_fleet = {
+# 			add_trust = {
+# 				amount = 30
+# 				who = root
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			event_target:ev_sell_fleet = {
+# 				set_timed_country_flag = {
+# 					flag = has_buy_some_fleet
+# 					days = 360
+# 				}
+# 			}
+# 			clear_global_event_target = ev_sell_fleet
+# 			remove_country_flag = has_in_once_fleet_sell
+# 			set_variable = {
+# 				which = ev_need_times_num
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_corvette_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_energy_var
+# 				value = 0
+# 			}
+# 		}
+# 	}
+# 	#第二支舰队
+# 	option = {
+# 		name = ev_sell_fleet.101.a
+# 		trigger = {
+# 			exists = event_target:ev_candidate_fleet_2
+# 		}
+# 		event_target:ev_candidate_fleet_2 = {
+# 			set_owner = event_target:ev_sell_fleet
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 500
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 1000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 1000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 1000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 2000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 2000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 4000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 2000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 4000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 2000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 7500
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 2000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 12000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 3000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 20000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 4000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 35000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 6000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 60000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 9000
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				event_target:ev_candidate_fleet_2 = {
+# 					fleet_power > 100000
+# 				}
+# 			}
+# 			root = {
+# 				add_resource = {
+# 					energy = 14000
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = ev_sell_fleet.101.a.tooltip
+# 		#获得剩下的70%的定金
+# 		hidden_effect = {
+# 			while = {
+# 				count = ev_need_times_num
+# 				add_resource = {
+# 					energy = 1190
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_destroyers
+# 					}
+# 					add_resource = {
+# 						energy = 1190
+# 					}
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_cruisers
+# 					}
+# 					add_resource = {
+# 						energy = 1540
+# 					}
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_technology = tech_battleships
+# 					}
+# 					add_resource = {
+# 						energy = 1050
+# 					}
+# 				}
+# 			}
+# 		}
+# 		add_trust = {
+# 			amount = 30
+# 			who = event_target:ev_sell_fleet
+# 		}
+# 		event_target:ev_sell_fleet = {
+# 			add_trust = {
+# 				amount = 30
+# 				who = root
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			event_target:ev_sell_fleet = {
+# 				set_timed_country_flag = {
+# 					flag = has_buy_some_fleet
+# 					days = 360
+# 				}
+# 			}
+# 			clear_global_event_target = ev_sell_fleet
+# 			remove_country_flag = has_in_once_fleet_sell
+# 			set_variable = {
+# 				which = ev_need_times_num
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_corvette_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_energy_var
+# 				value = 0
+# 			}
+# 		}
+# 	}
+# 	#再随机一次
+# 	option = {
+# 		name = ev_sell_fleet.101.c
+# 		country_event = {
+# 			id = ev_sell_fleet.101
+# 		}
+# 	}
+# 	#不好
+# 	option = {
+# 		name = ev_sell_fleet.100.b
+# 		clear_global_event_target = ev_sell_fleet
+# 		event_target:ev_sell_fleet = {
+# 			add_opinion_modifier = {
+# 				who = root
+# 				modifier = opinion_ev_bug_fleet_fail
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			event_target:ev_sell_fleet = {
+# 				set_timed_country_flag = {
+# 					flag = has_buy_some_fleet
+# 					days = 720
+# 				}
+# 			}
+# 			clear_global_event_target = ev_sell_fleet
+# 			remove_country_flag = has_in_once_fleet_sell
+# 			set_variable = {
+# 				which = ev_need_times_num
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_battleship_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_corvette_var
+# 				value = 0
+# 			}
+# 			set_variable = {
+# 				which = ev_need_energy_var
+# 				value = 0
+# 			}
+# 		}
+# 	}
+# }

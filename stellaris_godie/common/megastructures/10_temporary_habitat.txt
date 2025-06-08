@@ -1,0 +1,821 @@
+# see README.txt for example
+temporary_habitat_0 = {
+	# graphical_culture = { "pirate_01" }
+	entity = "station_generic_01_entity"
+	construction_entity = "station_generic_01_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = yes
+	entity_offset = {
+		x = 0
+		y = 0
+	}
+	build_time = 360
+	prerequisites = {
+		"tech_temporary_habitat"
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			alloys = 2000
+			influence = 50
+		}
+		produces = {
+			energy = 25
+		}
+	}
+	construction_blocks_others = no
+	potential = {
+		OR = {
+			has_technology = tech_temporary_habitat
+		}
+	}
+	possible = {
+		exists = starbase
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
+	}
+	placement_rules = {
+		planet_possible = {
+			custom_tooltip = {
+				fail_text = "requires_surveyed_planet"
+				is_surveyed = {
+					# prevent leaking habitability information
+					who = prev.from
+					status = yes
+				}
+			}
+			#要勘测过
+			custom_tooltip = {
+				fail_text = "requires_no_anomaly"
+				NOT = {
+					has_anomaly = yes
+				}
+			}
+			#没异常
+			custom_tooltip = {
+				fail_text = "requires_no_existing_megastructure"
+				NOR = {
+					solar_system = {
+						has_star_flag = ring_world_built
+					}
+					is_planet_class = pc_ringworld_habitable
+					is_planet_class = pc_ringworld_habitable_damaged
+					is_planet_class = pc_ringworld_tech
+					is_planet_class = pc_ringworld_tech_damaged
+					is_planet_class = pc_ringworld_seam
+					is_planet_class = pc_ringworld_seam_damaged
+					is_planet_class = pc_habitat
+				}
+			}
+			#不允许各种形式的环世界
+			custom_tooltip = {
+				fail_text = "requires_no_orbital_station"
+				has_orbital_station = no
+			}
+			#不允许有空间站
+			custom_tooltip = {
+				fail_text = "ev_build_upper_limit"
+				NAND = {
+					has_planet_flag = has_ev_temporary_habitat_0_1
+					has_planet_flag = has_ev_temporary_habitat_0_2
+					has_planet_flag = has_ev_temporary_habitat_0_3
+					has_planet_flag = has_ev_temporary_habitat_0_4
+				}
+			}
+			#建造达到上限
+		}
+		# root = system
+		# from = country
+	}
+	on_build_start = {
+	}
+	on_build_cancel = {
+	}
+	on_build_complete = {
+		#建筑完成时
+		# activate_habitat = fromfrom
+		#bypass_type = habitat
+		
+		#在建造的时候生成一个恒星站点
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = from
+		#		create_ship = {
+		#			name = random
+		#			random_existing_design = military_station_large #starbase_citadel
+		#			#constructor
+		#		}
+		#		set_location = {
+		#			target = fromfrom.planet
+		#			distance = 10
+		#			
+		#		}
+		#	}
+		#}
+		from = {
+			#country_event = {
+			#	id = ev_planet_correct.0
+			#}
+			#country_event = {
+			#	id = ev_planet_correct.1
+			#	days = 14400
+			#}
+			if = {
+				limit = {
+					has_civic = civic_ev_temporary_habitat
+				}
+				#change_variable = {
+				#	which = ev_maintenance_value
+				#	value = 6
+				#}  
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					from = {
+						has_civic = civic_ev_temporary_habitat
+					}
+				}
+			}
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 0
+						fromfrom.planet = {
+							has_planet_flag = has_ev_temporary_habitat_0_1
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 270
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_1
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						fromfrom.planet = {
+							has_planet_flag = has_ev_temporary_habitat_0_2
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 90
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_2
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						fromfrom.planet = {
+							has_planet_flag = has_ev_temporary_habitat_0_3
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 180
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_3
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						fromfrom.planet = {
+							has_planet_flag = has_ev_temporary_habitat_0_4
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 0
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_4
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					from = {
+						has_civic = civic_ev_temporary_habitat
+					}
+				}
+			}
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 0
+						OR = {
+							fromfrom.planet = {
+								has_planet_flag = has_ev_temporary_habitat_0_1
+							}
+							fromfrom.planet = {
+								has_planet_flag = has_ev_temporary_habitat_0_2
+							}
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 90
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_1
+									days = 14400
+								}
+							}
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 270
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_2
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						OR = {
+							fromfrom.planet = {
+								has_planet_flag = has_ev_temporary_habitat_0_4
+							}
+							fromfrom.planet = {
+								has_planet_flag = has_ev_temporary_habitat_0_3
+							}
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 0
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_4
+									days = 14400
+								}
+							}
+						}
+					}
+					spawn_planet = {
+						class = "pc_habitat"
+						location = fromfrom.planet
+						orbit_location = yes
+						orbit_angle_offset = 180
+						orbit_distance_offset = 10
+						size = 5
+						has_ring = no
+						init_effect = {
+							ev_habitats_effect = yes
+							fromfrom.planet = {
+								set_timed_planet_flag = {
+									flag = has_ev_temporary_habitat_0_4
+									days = 14400
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_megastructure = fromfrom
+		event_target:ev_temporary_habitat = {
+		}
+	}
+	ai_weight = {
+		factor = 0
+		
+	}
+}
+
+
+##由于有虚空之母增强-拥有无需造船厂可造家园舰
+ev_homeless_ship_starbase_fleet_expand = {
+	# graphical_culture = { "pirate_01" }
+	entity = "station_generic_01_entity"
+	construction_entity = "station_generic_01_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = yes
+	entity_offset = {
+		x = 0
+		y = 0
+	}
+	build_time = 3600
+	#prerequisites = {
+	#	"tech_temporary_habitat"
+	#}
+	resources = {
+		category = megastructures
+		cost = {
+			alloys = 7500
+		}
+		produces = {
+			energy = 25
+		}
+	}
+	construction_blocks_others = no
+	potential = {
+		has_country_flag = ev_void_tr_t4
+		#is_country_type = enclave_mercenary
+	}
+	possible = {
+		always = yes
+		#exists = starbase
+		#custom_tooltip = {
+		#	fail_text = "requires_inside_border"
+		#	is_inside_border = from
+		#}
+	}
+	placement_rules = {
+		always = yes
+		#planet_possible = {
+		#	custom_tooltip = {
+		#		fail_text = "requires_surveyed_planet"
+		#		is_surveyed = {
+		#			# prevent leaking habitability information
+		#			who = prev.from
+		#			status = yes
+		#		}
+		#	}
+		#	#要勘测过
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_anomaly"
+		#		NOT = {
+		#			has_anomaly = yes
+		#		}
+		#	}
+		#	#没异常
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_existing_megastructure"
+		#		NOR = {
+		#			solar_system = {
+		#				has_star_flag = ring_world_built
+		#			}
+		#			is_planet_class = pc_ringworld_habitable
+		#			is_planet_class = pc_ringworld_habitable_damaged
+		#			is_planet_class = pc_ringworld_tech
+		#			is_planet_class = pc_ringworld_tech_damaged
+		#			is_planet_class = pc_ringworld_seam
+		#			is_planet_class = pc_ringworld_seam_damaged
+		#			is_planet_class = pc_habitat
+		#		}
+		#	}
+		#	#不允许各种形式的环世界
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_orbital_station"
+		#		has_orbital_station = no
+		#	}
+		#	#不允许有空间站
+		#	custom_tooltip = {
+		#		fail_text = "ev_build_upper_limit"
+		#		NAND = {
+		#			has_planet_flag = has_ev_temporary_habitat_0_1
+		#			has_planet_flag = has_ev_temporary_habitat_0_2
+		#			has_planet_flag = has_ev_temporary_habitat_0_3
+		#			has_planet_flag = has_ev_temporary_habitat_0_4
+		#		}
+		#	}
+		#	#建造达到上限
+		#}
+		# root = system
+		# from = country
+	}
+	on_build_start = {
+	}
+	on_build_cancel = {
+	}
+	on_build_complete = {
+		
+
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = from
+				create_ship = {
+					name = random
+					random_existing_design = homeless_ship_starbase
+				}
+				#create_ship = {
+				#	name = random
+				#	design = "NAME_Mercenary_Enclave_Station"
+				#	graphical_culture = from
+				#}
+				set_location = {
+					target = fromfrom
+					distance = 10
+					angle = 120
+				}
+				#save_event_target_as = mercenary_enclave_station
+			}
+		}
+		remove_megastructure = fromfrom
+
+		#建筑完成时
+		# activate_habitat = fromfrom
+		#bypass_type = habitat
+		
+		#在建造的时候生成一个恒星站点
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = from
+		#		create_ship = {
+		#			name = random
+		#			random_existing_design = military_station_large #starbase_citadel
+		#			#constructor
+		#		}
+		#		set_location = {
+		#			target = fromfrom.planet
+		#			distance = 10
+		#			
+		#		}
+		#	}
+		#}
+
+
+
+	}
+	ai_weight = {
+		factor = 0
+		
+	}
+}
+
+
+
+
+##由于有虚空之母增强-拥有无需造船厂可造巨型家园舰
+ev_megastructures_homeless_ship_fleet_expand = {
+	# graphical_culture = { "pirate_01" }
+	entity = "station_generic_01_entity"
+	construction_entity = "station_generic_01_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = yes
+	entity_offset = {
+		x = 0
+		y = 0
+	}
+	build_time = 7200
+	#prerequisites = {
+	#	"tech_temporary_habitat"
+	#}
+	resources = {
+		category = megastructures
+		cost = {
+			alloys = 50000
+		}
+		produces = {
+			energy = 25
+		}
+	}
+	construction_blocks_others = no
+	potential = {
+		has_country_flag = ev_void_tr_t4
+		has_ascension_perk = ev_unlock_megastructures_homeless_ship
+		#is_country_type = enclave_mercenary
+	}
+	possible = {
+		always = yes
+		#exists = starbase
+		#custom_tooltip = {
+		#	fail_text = "requires_inside_border"
+		#	is_inside_border = from
+		#}
+	}
+	placement_rules = {
+		always = yes
+		#planet_possible = {
+		#	custom_tooltip = {
+		#		fail_text = "requires_surveyed_planet"
+		#		is_surveyed = {
+		#			# prevent leaking habitability information
+		#			who = prev.from
+		#			status = yes
+		#		}
+		#	}
+		#	#要勘测过
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_anomaly"
+		#		NOT = {
+		#			has_anomaly = yes
+		#		}
+		#	}
+		#	#没异常
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_existing_megastructure"
+		#		NOR = {
+		#			solar_system = {
+		#				has_star_flag = ring_world_built
+		#			}
+		#			is_planet_class = pc_ringworld_habitable
+		#			is_planet_class = pc_ringworld_habitable_damaged
+		#			is_planet_class = pc_ringworld_tech
+		#			is_planet_class = pc_ringworld_tech_damaged
+		#			is_planet_class = pc_ringworld_seam
+		#			is_planet_class = pc_ringworld_seam_damaged
+		#			is_planet_class = pc_habitat
+		#		}
+		#	}
+		#	#不允许各种形式的环世界
+		#	custom_tooltip = {
+		#		fail_text = "requires_no_orbital_station"
+		#		has_orbital_station = no
+		#	}
+		#	#不允许有空间站
+		#	custom_tooltip = {
+		#		fail_text = "ev_build_upper_limit"
+		#		NAND = {
+		#			has_planet_flag = has_ev_temporary_habitat_0_1
+		#			has_planet_flag = has_ev_temporary_habitat_0_2
+		#			has_planet_flag = has_ev_temporary_habitat_0_3
+		#			has_planet_flag = has_ev_temporary_habitat_0_4
+		#		}
+		#	}
+		#	#建造达到上限
+		#}
+		# root = system
+		# from = country
+	}
+	on_build_start = {
+	}
+	on_build_cancel = {
+	}
+	on_build_complete = {
+		
+
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = from
+				create_ship = {
+					name = random
+					random_existing_design = megastructures_homeless_ship
+				}
+				#create_ship = {
+				#	name = random
+				#	design = "NAME_Mercenary_Enclave_Station"
+				#	graphical_culture = from
+				#}
+				set_location = {
+					target = fromfrom
+					distance = 10
+					angle = 120
+				}
+				#save_event_target_as = mercenary_enclave_station
+			}
+		}
+		remove_megastructure = fromfrom
+
+		#建筑完成时
+		# activate_habitat = fromfrom
+		#bypass_type = habitat
+		
+		#在建造的时候生成一个恒星站点
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = from
+		#		create_ship = {
+		#			name = random
+		#			random_existing_design = military_station_large #starbase_citadel
+		#			#constructor
+		#		}
+		#		set_location = {
+		#			target = fromfrom.planet
+		#			distance = 10
+		#			
+		#		}
+		#	}
+		#}
+
+
+
+	}
+	ai_weight = {
+		factor = 0
+		
+	}
+}
+
+##佣兵独有
+#ev_enclave_fleet_expand = {
+#	# graphical_culture = { "pirate_01" }
+#	entity = "station_generic_01_entity"
+#	construction_entity = "station_generic_01_entity"
+#	portrait = "GFX_megastructure_construction_background"
+#	place_entity_on_planet_plane = yes
+#	entity_offset = {
+#		x = 0
+#		y = 0
+#	}
+#	build_time = 3600
+#	#prerequisites = {
+#	#	"tech_temporary_habitat"
+#	#}
+#	resources = {
+#		category = megastructures
+#		cost = {
+#			alloys = 2000
+#		}
+#		produces = {
+#			energy = 25
+#		}
+#	}
+#	construction_blocks_others = no
+#	potential = {
+#		is_country_type = enclave_mercenary
+#	}
+#	possible = {
+#		always = yes
+#		#exists = starbase
+#		#custom_tooltip = {
+#		#	fail_text = "requires_inside_border"
+#		#	is_inside_border = from
+#		#}
+#	}
+#	placement_rules = {
+#		always = yes
+#		#planet_possible = {
+#		#	custom_tooltip = {
+#		#		fail_text = "requires_surveyed_planet"
+#		#		is_surveyed = {
+#		#			# prevent leaking habitability information
+#		#			who = prev.from
+#		#			status = yes
+#		#		}
+#		#	}
+#		#	#要勘测过
+#		#	custom_tooltip = {
+#		#		fail_text = "requires_no_anomaly"
+#		#		NOT = {
+#		#			has_anomaly = yes
+#		#		}
+#		#	}
+#		#	#没异常
+#		#	custom_tooltip = {
+#		#		fail_text = "requires_no_existing_megastructure"
+#		#		NOR = {
+#		#			solar_system = {
+#		#				has_star_flag = ring_world_built
+#		#			}
+#		#			is_planet_class = pc_ringworld_habitable
+#		#			is_planet_class = pc_ringworld_habitable_damaged
+#		#			is_planet_class = pc_ringworld_tech
+#		#			is_planet_class = pc_ringworld_tech_damaged
+#		#			is_planet_class = pc_ringworld_seam
+#		#			is_planet_class = pc_ringworld_seam_damaged
+#		#			is_planet_class = pc_habitat
+#		#		}
+#		#	}
+#		#	#不允许各种形式的环世界
+#		#	custom_tooltip = {
+#		#		fail_text = "requires_no_orbital_station"
+#		#		has_orbital_station = no
+#		#	}
+#		#	#不允许有空间站
+#		#	custom_tooltip = {
+#		#		fail_text = "ev_build_upper_limit"
+#		#		NAND = {
+#		#			has_planet_flag = has_ev_temporary_habitat_0_1
+#		#			has_planet_flag = has_ev_temporary_habitat_0_2
+#		#			has_planet_flag = has_ev_temporary_habitat_0_3
+#		#			has_planet_flag = has_ev_temporary_habitat_0_4
+#		#		}
+#		#	}
+#		#	#建造达到上限
+#		#}
+#		# root = system
+#		# from = country
+#	}
+#	on_build_start = {
+#	}
+#	on_build_cancel = {
+#	}
+#	on_build_complete = {
+#		
+#
+#		create_fleet = {
+#			settings = { spawn_debris = no }
+#			effect = {
+#				set_owner = from
+#				create_ship = {
+#					name = random
+#					design = "NAME_Mercenary_Enclave_Station"
+#					graphical_culture = from
+#				}
+#				set_location = {
+#					target = fromfrom
+#					distance = 10
+#					angle = 120
+#				}
+#				#save_event_target_as = mercenary_enclave_station
+#			}
+#		}
+#		remove_megastructure = fromfrom
+#
+#		#建筑完成时
+#		# activate_habitat = fromfrom
+#		#bypass_type = habitat
+#		
+#		#在建造的时候生成一个恒星站点
+#		#create_fleet = {
+#		#	effect = {
+#		#		set_owner = from
+#		#		create_ship = {
+#		#			name = random
+#		#			random_existing_design = military_station_large #starbase_citadel
+#		#			#constructor
+#		#		}
+#		#		set_location = {
+#		#			target = fromfrom.planet
+#		#			distance = 10
+#		#			
+#		#		}
+#		#	}
+#		#}
+#
+#
+#
+#	}
+#	ai_weight = {
+#		factor = 10
+#		
+#	}
+#}
+

@@ -1,0 +1,1092 @@
+
+#3.0之后
+##维持度系统
+#每5作为一个区段，初始维持为0
+#当维持度<X的时候，每月回复 ((当前数值-X)*-0.05+ 0.1)，当维持度>X每月减少 ((当前数值-X)*0.05+ 0.1)
+#X的值倍称为“维持度平衡值”可以由国策，政策，科技等提升
+#维持度本身则可以通过事件等因素短暂改变（因为X的存在会使得维持度最终回落到X）
+#维持度buff = +1的buff
+empty_vagrant_maintenance_var = {
+	icon = "gfx/interface/icons/stability.dds"
+	tech_cost_empire_size_mult = -0.002
+	tradition_cost_empire_size_mult = -0.002
+	country_edict_fund_add = 2
+	ship_homeless_ev_produces_mult = 0.005
+	starbase_shipyard_build_speed_mult = 0.005
+	#ship_homeless_ev_cost_mult = -0.01
+	ship_homeless_ev_influence_upkeep_mult = -0.0025
+	country_base_unity_produces_add = 2.5
+}
+
+#3.0之前
+##维持度系统
+#每5作为一个区段，最高为110
+#低于50，每低5，-5%家园舰全产，+2.5%家园舰造价，-5%造船速度
+#高于50，每高5，+3%家园舰全产，-1%家园舰造价，+3%造船速度
+#高于100，每高1，+2%家园舰全产，-0.5%家园舰造价，+2%造船速度
+#低于0，每低5，-10%家园舰全产，+5%家园舰造价，-10%造船速度
+#n_xx = 负数xx
+empty_vagrant_maintenance_n_30 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1.1
+	starbase_shipyard_build_speed_mult = -1.1
+	ship_homeless_ev_cost_mult = 0.6
+}
+
+empty_vagrant_maintenance_n_29 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1.08
+	starbase_shipyard_build_speed_mult = -1.08
+	ship_homeless_ev_cost_mult = 0.58
+}
+
+empty_vagrant_maintenance_n_28 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1.06
+	starbase_shipyard_build_speed_mult = -1.06
+	ship_homeless_ev_cost_mult = 0.56
+}
+
+empty_vagrant_maintenance_n_27 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1.04
+	starbase_shipyard_build_speed_mult = -1.04
+	ship_homeless_ev_cost_mult = 0.54
+}
+
+empty_vagrant_maintenance_n_26 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1.02
+	starbase_shipyard_build_speed_mult = -1.02
+	ship_homeless_ev_cost_mult = 0.52
+}
+
+empty_vagrant_maintenance_n_25 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -1
+	starbase_shipyard_build_speed_mult = -1
+	ship_homeless_ev_cost_mult = 0.5
+}
+
+empty_vagrant_maintenance_n_24 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.98
+	starbase_shipyard_build_speed_mult = -0.98
+	ship_homeless_ev_cost_mult = 0.49
+}
+
+empty_vagrant_maintenance_n_23 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.96
+	starbase_shipyard_build_speed_mult = -0.96
+	ship_homeless_ev_cost_mult = 0.48
+}
+
+empty_vagrant_maintenance_n_22 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.94
+	starbase_shipyard_build_speed_mult = -0.94
+	ship_homeless_ev_cost_mult = 0.47
+}
+
+empty_vagrant_maintenance_n_21 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.92
+	starbase_shipyard_build_speed_mult = -0.92
+	ship_homeless_ev_cost_mult = 0.46
+}
+
+empty_vagrant_maintenance_n_20 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.9
+	starbase_shipyard_build_speed_mult = -0.9
+	ship_homeless_ev_cost_mult = 0.45
+}
+
+empty_vagrant_maintenance_n_19 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.88
+	starbase_shipyard_build_speed_mult = -0.88
+	ship_homeless_ev_cost_mult = 0.44
+}
+
+empty_vagrant_maintenance_n_18 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.86
+	starbase_shipyard_build_speed_mult = -0.86
+	ship_homeless_ev_cost_mult = 0.43
+}
+
+empty_vagrant_maintenance_n_17 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.84
+	starbase_shipyard_build_speed_mult = -0.84
+	ship_homeless_ev_cost_mult = 0.42
+}
+
+empty_vagrant_maintenance_n_16 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.82
+	starbase_shipyard_build_speed_mult = -0.82
+	ship_homeless_ev_cost_mult = 0.41
+}
+
+empty_vagrant_maintenance_n_15 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.8
+	starbase_shipyard_build_speed_mult = -0.8
+	ship_homeless_ev_cost_mult = 0.4
+}
+
+empty_vagrant_maintenance_n_14 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.78
+	starbase_shipyard_build_speed_mult = -0.78
+	ship_homeless_ev_cost_mult = 0.39
+}
+
+empty_vagrant_maintenance_n_13 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.76
+	starbase_shipyard_build_speed_mult = -0.76
+	ship_homeless_ev_cost_mult = 0.38
+}
+
+empty_vagrant_maintenance_n_12 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.74
+	starbase_shipyard_build_speed_mult = -0.74
+	ship_homeless_ev_cost_mult = 0.37
+}
+
+empty_vagrant_maintenance_n_11 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.72
+	starbase_shipyard_build_speed_mult = -0.72
+	ship_homeless_ev_cost_mult = 0.36
+}
+
+empty_vagrant_maintenance_n_10 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.7
+	starbase_shipyard_build_speed_mult = -0.7
+	ship_homeless_ev_cost_mult = 0.35
+}
+
+empty_vagrant_maintenance_n_9 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.68
+	starbase_shipyard_build_speed_mult = -0.68
+	ship_homeless_ev_cost_mult = 0.34
+}
+
+empty_vagrant_maintenance_n_8 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.66
+	starbase_shipyard_build_speed_mult = -0.66
+	ship_homeless_ev_cost_mult = 0.33
+}
+
+empty_vagrant_maintenance_n_7 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.64
+	starbase_shipyard_build_speed_mult = -0.64
+	ship_homeless_ev_cost_mult = 0.32
+}
+
+empty_vagrant_maintenance_n_6 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.62
+	starbase_shipyard_build_speed_mult = -0.62
+	ship_homeless_ev_cost_mult = 0.31
+}
+
+empty_vagrant_maintenance_n_5 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.6
+	starbase_shipyard_build_speed_mult = -0.6
+	ship_homeless_ev_cost_mult = 0.3
+}
+
+empty_vagrant_maintenance_n_4 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.58
+	starbase_shipyard_build_speed_mult = -0.58
+	ship_homeless_ev_cost_mult = 0.29
+}
+
+empty_vagrant_maintenance_n_3 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.56
+	starbase_shipyard_build_speed_mult = -0.56
+	ship_homeless_ev_cost_mult = 0.28
+}
+
+empty_vagrant_maintenance_n_2 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.54
+	starbase_shipyard_build_speed_mult = -0.54
+	ship_homeless_ev_cost_mult = 0.27
+}
+
+empty_vagrant_maintenance_n_1 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.52
+	starbase_shipyard_build_speed_mult = -0.52
+	ship_homeless_ev_cost_mult = 0.26
+}
+
+empty_vagrant_maintenance_0 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.5
+	starbase_shipyard_build_speed_mult = -0.5
+	ship_homeless_ev_cost_mult = 0.25
+}
+
+empty_vagrant_maintenance_1 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.49
+	starbase_shipyard_build_speed_mult = -0.49
+	ship_homeless_ev_cost_mult = 0.245
+}
+
+empty_vagrant_maintenance_2 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.48
+	starbase_shipyard_build_speed_mult = -0.48
+	ship_homeless_ev_cost_mult = 0.24
+}
+
+empty_vagrant_maintenance_3 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.47
+	starbase_shipyard_build_speed_mult = -0.47
+	ship_homeless_ev_cost_mult = 0.235
+}
+
+empty_vagrant_maintenance_4 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.46
+	starbase_shipyard_build_speed_mult = -0.46
+	ship_homeless_ev_cost_mult = 0.23
+}
+
+empty_vagrant_maintenance_5 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.45
+	starbase_shipyard_build_speed_mult = -0.45
+	ship_homeless_ev_cost_mult = 0.225
+}
+
+empty_vagrant_maintenance_6 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.44
+	starbase_shipyard_build_speed_mult = -0.44
+	ship_homeless_ev_cost_mult = 0.22
+}
+
+empty_vagrant_maintenance_7 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.43
+	starbase_shipyard_build_speed_mult = -0.43
+	ship_homeless_ev_cost_mult = 0.215
+}
+
+empty_vagrant_maintenance_8 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.42
+	starbase_shipyard_build_speed_mult = -0.42
+	ship_homeless_ev_cost_mult = 0.21
+}
+
+empty_vagrant_maintenance_9 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.41
+	starbase_shipyard_build_speed_mult = -0.41
+	ship_homeless_ev_cost_mult = 0.205
+}
+
+empty_vagrant_maintenance_10 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.4
+	starbase_shipyard_build_speed_mult = -0.4
+	ship_homeless_ev_cost_mult = 0.2
+}
+
+empty_vagrant_maintenance_11 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.39
+	starbase_shipyard_build_speed_mult = -0.39
+	ship_homeless_ev_cost_mult = 0.195
+}
+
+empty_vagrant_maintenance_12 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.38
+	starbase_shipyard_build_speed_mult = -0.38
+	ship_homeless_ev_cost_mult = 0.19
+}
+
+empty_vagrant_maintenance_13 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.37
+	starbase_shipyard_build_speed_mult = -0.37
+	ship_homeless_ev_cost_mult = 0.185
+}
+
+empty_vagrant_maintenance_14 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.36
+	starbase_shipyard_build_speed_mult = -0.36
+	ship_homeless_ev_cost_mult = 0.18
+}
+
+empty_vagrant_maintenance_15 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.35
+	starbase_shipyard_build_speed_mult = -0.35
+	ship_homeless_ev_cost_mult = 0.175
+}
+
+empty_vagrant_maintenance_16 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.34
+	starbase_shipyard_build_speed_mult = -0.34
+	ship_homeless_ev_cost_mult = 0.17
+}
+
+empty_vagrant_maintenance_17 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.33
+	starbase_shipyard_build_speed_mult = -0.33
+	ship_homeless_ev_cost_mult = 0.165
+}
+
+empty_vagrant_maintenance_18 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.32
+	starbase_shipyard_build_speed_mult = -0.32
+	ship_homeless_ev_cost_mult = 0.16
+}
+
+empty_vagrant_maintenance_19 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.31
+	starbase_shipyard_build_speed_mult = -0.31
+	ship_homeless_ev_cost_mult = 0.155
+}
+
+empty_vagrant_maintenance_20 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.3
+	starbase_shipyard_build_speed_mult = -0.3
+	ship_homeless_ev_cost_mult = 0.15
+}
+
+empty_vagrant_maintenance_21 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.29
+	starbase_shipyard_build_speed_mult = -0.29
+	ship_homeless_ev_cost_mult = 0.145
+}
+
+empty_vagrant_maintenance_22 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.28
+	starbase_shipyard_build_speed_mult = -0.28
+	ship_homeless_ev_cost_mult = 0.14
+}
+
+empty_vagrant_maintenance_23 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.27
+	starbase_shipyard_build_speed_mult = -0.27
+	ship_homeless_ev_cost_mult = 0.135
+}
+
+empty_vagrant_maintenance_24 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.26
+	starbase_shipyard_build_speed_mult = -0.26
+	ship_homeless_ev_cost_mult = 0.13
+}
+
+empty_vagrant_maintenance_25 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.25
+	starbase_shipyard_build_speed_mult = -0.25
+	ship_homeless_ev_cost_mult = 0.125
+}
+
+empty_vagrant_maintenance_26 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.24
+	starbase_shipyard_build_speed_mult = -0.24
+	ship_homeless_ev_cost_mult = 0.12
+}
+
+empty_vagrant_maintenance_27 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.23
+	starbase_shipyard_build_speed_mult = -0.23
+	ship_homeless_ev_cost_mult = 0.115
+}
+
+empty_vagrant_maintenance_28 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.22
+	starbase_shipyard_build_speed_mult = -0.22
+	ship_homeless_ev_cost_mult = 0.11
+}
+
+empty_vagrant_maintenance_29 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.21
+	starbase_shipyard_build_speed_mult = -0.21
+	ship_homeless_ev_cost_mult = 0.105
+}
+
+empty_vagrant_maintenance_30 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.2
+	starbase_shipyard_build_speed_mult = -0.2
+	ship_homeless_ev_cost_mult = 0.1
+}
+
+####
+empty_vagrant_maintenance_31 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.19
+	starbase_shipyard_build_speed_mult = -0.19
+	ship_homeless_ev_cost_mult = 0.095
+}
+
+empty_vagrant_maintenance_32 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.18
+	starbase_shipyard_build_speed_mult = -0.18
+	ship_homeless_ev_cost_mult = 0.09
+}
+
+empty_vagrant_maintenance_33 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.17
+	starbase_shipyard_build_speed_mult = -0.17
+	ship_homeless_ev_cost_mult = 0.085
+}
+
+empty_vagrant_maintenance_34 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.16
+	starbase_shipyard_build_speed_mult = -0.16
+	ship_homeless_ev_cost_mult = 0.08
+}
+
+empty_vagrant_maintenance_35 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.15
+	starbase_shipyard_build_speed_mult = -0.15
+	ship_homeless_ev_cost_mult = 0.075
+}
+
+empty_vagrant_maintenance_36 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.14
+	starbase_shipyard_build_speed_mult = -0.14
+	ship_homeless_ev_cost_mult = 0.07
+}
+
+empty_vagrant_maintenance_37 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.13
+	starbase_shipyard_build_speed_mult = -0.13
+	ship_homeless_ev_cost_mult = 0.065
+}
+
+empty_vagrant_maintenance_38 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.12
+	starbase_shipyard_build_speed_mult = -0.12
+	ship_homeless_ev_cost_mult = 0.06
+}
+
+empty_vagrant_maintenance_39 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.11
+	starbase_shipyard_build_speed_mult = -0.11
+	ship_homeless_ev_cost_mult = 0.055
+}
+
+empty_vagrant_maintenance_40 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.1
+	starbase_shipyard_build_speed_mult = -0.1
+	ship_homeless_ev_cost_mult = 0.05
+}
+
+####
+empty_vagrant_maintenance_41 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.09
+	starbase_shipyard_build_speed_mult = -0.09
+	ship_homeless_ev_cost_mult = 0.045
+}
+
+empty_vagrant_maintenance_42 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.08
+	starbase_shipyard_build_speed_mult = -0.08
+	ship_homeless_ev_cost_mult = 0.04
+}
+
+empty_vagrant_maintenance_43 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.07
+	starbase_shipyard_build_speed_mult = -0.07
+	ship_homeless_ev_cost_mult = 0.035
+}
+
+empty_vagrant_maintenance_44 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.06
+	starbase_shipyard_build_speed_mult = -0.06
+	ship_homeless_ev_cost_mult = 0.03
+}
+
+empty_vagrant_maintenance_45 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.05
+	starbase_shipyard_build_speed_mult = -0.05
+	ship_homeless_ev_cost_mult = 0.025
+}
+
+empty_vagrant_maintenance_46 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.04
+	starbase_shipyard_build_speed_mult = -0.04
+	ship_homeless_ev_cost_mult = 0.02
+}
+
+empty_vagrant_maintenance_47 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.03
+	starbase_shipyard_build_speed_mult = -0.03
+	ship_homeless_ev_cost_mult = 0.015
+}
+
+empty_vagrant_maintenance_48 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.02
+	starbase_shipyard_build_speed_mult = -0.02
+	ship_homeless_ev_cost_mult = 0.01
+}
+
+empty_vagrant_maintenance_49 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = -0.01
+	starbase_shipyard_build_speed_mult = -0.01
+	ship_homeless_ev_cost_mult = 0.005
+}
+
+empty_vagrant_maintenance_50 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.002
+	starbase_shipyard_build_speed_mult = 0.002
+	ship_homeless_ev_cost_mult = -0.001
+}
+
+##高于50
+empty_vagrant_maintenance_51 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.006
+	starbase_shipyard_build_speed_mult = 0.006
+	ship_homeless_ev_cost_mult = -0.004
+}
+
+empty_vagrant_maintenance_52 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.012
+	starbase_shipyard_build_speed_mult = 0.012
+	ship_homeless_ev_cost_mult = -0.008
+}
+
+empty_vagrant_maintenance_53 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.018
+	starbase_shipyard_build_speed_mult = 0.018
+	ship_homeless_ev_cost_mult = -0.012
+}
+
+empty_vagrant_maintenance_54 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.024
+	starbase_shipyard_build_speed_mult = 0.024
+	ship_homeless_ev_cost_mult = -0.016
+}
+
+empty_vagrant_maintenance_55 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.03
+	starbase_shipyard_build_speed_mult = 0.03
+	ship_homeless_ev_cost_mult = -0.02
+}
+
+empty_vagrant_maintenance_56 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.036
+	starbase_shipyard_build_speed_mult = 0.036
+	ship_homeless_ev_cost_mult = -0.024
+}
+
+empty_vagrant_maintenance_57 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.042
+	starbase_shipyard_build_speed_mult = 0.042
+	ship_homeless_ev_cost_mult = -0.028
+}
+
+empty_vagrant_maintenance_58 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.048
+	starbase_shipyard_build_speed_mult = 0.048
+	ship_homeless_ev_cost_mult = -0.032
+}
+
+empty_vagrant_maintenance_59 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.054
+	starbase_shipyard_build_speed_mult = 0.054
+	ship_homeless_ev_cost_mult = -0.036
+}
+
+empty_vagrant_maintenance_60 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.06
+	starbase_shipyard_build_speed_mult = 0.06
+	ship_homeless_ev_cost_mult = -0.04
+}
+
+######
+empty_vagrant_maintenance_61 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.066
+	starbase_shipyard_build_speed_mult = 0.066
+	ship_homeless_ev_cost_mult = -0.044
+}
+
+empty_vagrant_maintenance_62 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.072
+	starbase_shipyard_build_speed_mult = 0.072
+	ship_homeless_ev_cost_mult = -0.048
+}
+
+empty_vagrant_maintenance_63 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.078
+	starbase_shipyard_build_speed_mult = 0.078
+	ship_homeless_ev_cost_mult = -0.052
+}
+
+empty_vagrant_maintenance_64 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.084
+	starbase_shipyard_build_speed_mult = 0.084
+	ship_homeless_ev_cost_mult = -0.056
+}
+
+empty_vagrant_maintenance_65 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.09
+	starbase_shipyard_build_speed_mult = 0.09
+	ship_homeless_ev_cost_mult = -0.06
+}
+
+empty_vagrant_maintenance_66 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.096
+	starbase_shipyard_build_speed_mult = 0.096
+	ship_homeless_ev_cost_mult = -0.064
+}
+
+empty_vagrant_maintenance_67 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.102
+	starbase_shipyard_build_speed_mult = 0.102
+	ship_homeless_ev_cost_mult = -0.068
+}
+
+empty_vagrant_maintenance_68 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.108
+	starbase_shipyard_build_speed_mult = 0.108
+	ship_homeless_ev_cost_mult = -0.072
+}
+
+empty_vagrant_maintenance_69 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.114
+	starbase_shipyard_build_speed_mult = 0.114
+	ship_homeless_ev_cost_mult = -0.076
+}
+
+empty_vagrant_maintenance_70 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.12
+	starbase_shipyard_build_speed_mult = 0.12
+	ship_homeless_ev_cost_mult = -0.08
+}
+
+######
+######
+empty_vagrant_maintenance_71 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.126
+	starbase_shipyard_build_speed_mult = 0.126
+	ship_homeless_ev_cost_mult = -0.084
+}
+
+empty_vagrant_maintenance_72 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.132
+	starbase_shipyard_build_speed_mult = 0.132
+	ship_homeless_ev_cost_mult = -0.088
+}
+
+empty_vagrant_maintenance_73 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.138
+	starbase_shipyard_build_speed_mult = 0.138
+	ship_homeless_ev_cost_mult = -0.082
+}
+
+empty_vagrant_maintenance_74 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.144
+	starbase_shipyard_build_speed_mult = 0.144
+	ship_homeless_ev_cost_mult = -0.086
+}
+
+empty_vagrant_maintenance_75 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.15
+	starbase_shipyard_build_speed_mult = 0.15
+	ship_homeless_ev_cost_mult = -0.09
+}
+
+empty_vagrant_maintenance_76 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.156
+	starbase_shipyard_build_speed_mult = 0.156
+	ship_homeless_ev_cost_mult = -0.094
+}
+
+empty_vagrant_maintenance_77 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.162
+	starbase_shipyard_build_speed_mult = 0.162
+	ship_homeless_ev_cost_mult = -0.098
+}
+
+empty_vagrant_maintenance_78 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.168
+	starbase_shipyard_build_speed_mult = 0.168
+	ship_homeless_ev_cost_mult = -0.102
+}
+
+empty_vagrant_maintenance_79 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.174
+	starbase_shipyard_build_speed_mult = 0.174
+	ship_homeless_ev_cost_mult = -0.106
+}
+
+empty_vagrant_maintenance_80 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.18
+	starbase_shipyard_build_speed_mult = 0.18
+	ship_homeless_ev_cost_mult = -0.11
+}
+
+######
+empty_vagrant_maintenance_81 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.186
+	starbase_shipyard_build_speed_mult = 0.186
+	ship_homeless_ev_cost_mult = -0.114
+}
+
+empty_vagrant_maintenance_82 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.192
+	starbase_shipyard_build_speed_mult = 0.192
+	ship_homeless_ev_cost_mult = -0.118
+}
+
+empty_vagrant_maintenance_83 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.198
+	starbase_shipyard_build_speed_mult = 0.198
+	ship_homeless_ev_cost_mult = -0.122
+}
+
+empty_vagrant_maintenance_84 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.204
+	starbase_shipyard_build_speed_mult = 0.204
+	ship_homeless_ev_cost_mult = -0.126
+}
+
+empty_vagrant_maintenance_85 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.21
+	starbase_shipyard_build_speed_mult = 0.21
+	ship_homeless_ev_cost_mult = -0.13
+}
+
+empty_vagrant_maintenance_86 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.216
+	starbase_shipyard_build_speed_mult = 0.216
+	ship_homeless_ev_cost_mult = -0.134
+}
+
+empty_vagrant_maintenance_87 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.222
+	starbase_shipyard_build_speed_mult = 0.222
+	ship_homeless_ev_cost_mult = -0.138
+}
+
+empty_vagrant_maintenance_88 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.228
+	starbase_shipyard_build_speed_mult = 0.228
+	ship_homeless_ev_cost_mult = -0.142
+}
+
+empty_vagrant_maintenance_89 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.234
+	starbase_shipyard_build_speed_mult = 0.234
+	ship_homeless_ev_cost_mult = -0.146
+}
+
+empty_vagrant_maintenance_90 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.24
+	starbase_shipyard_build_speed_mult = 0.24
+	ship_homeless_ev_cost_mult = -0.16
+}
+
+######
+######
+empty_vagrant_maintenance_91 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.246
+	starbase_shipyard_build_speed_mult = 0.246
+	ship_homeless_ev_cost_mult = -0.164
+}
+
+empty_vagrant_maintenance_92 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.252
+	starbase_shipyard_build_speed_mult = 0.252
+	ship_homeless_ev_cost_mult = -0.168
+}
+
+empty_vagrant_maintenance_93 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.258
+	starbase_shipyard_build_speed_mult = 0.258
+	ship_homeless_ev_cost_mult = -0.172
+}
+
+empty_vagrant_maintenance_94 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.264
+	starbase_shipyard_build_speed_mult = 0.264
+	ship_homeless_ev_cost_mult = -0.176
+}
+
+empty_vagrant_maintenance_95 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.27
+	starbase_shipyard_build_speed_mult = 0.27
+	ship_homeless_ev_cost_mult = -0.18
+	ship_homeless_ev_influence_upkeep_mult = -0.005
+}
+
+empty_vagrant_maintenance_96 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.276
+	starbase_shipyard_build_speed_mult = 0.276
+	ship_homeless_ev_cost_mult = -0.184
+	ship_homeless_ev_influence_upkeep_mult = -0.01
+}
+
+empty_vagrant_maintenance_97 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.282
+	starbase_shipyard_build_speed_mult = 0.282
+	ship_homeless_ev_cost_mult = -0.188
+	ship_homeless_ev_influence_upkeep_mult = -0.015
+}
+
+empty_vagrant_maintenance_98 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.288
+	starbase_shipyard_build_speed_mult = 0.288
+	ship_homeless_ev_cost_mult = -0.192
+	ship_homeless_ev_influence_upkeep_mult = -0.02
+}
+
+empty_vagrant_maintenance_99 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.294
+	starbase_shipyard_build_speed_mult = 0.294
+	ship_homeless_ev_cost_mult = -0.196
+	ship_homeless_ev_influence_upkeep_mult = -0.025
+}
+
+empty_vagrant_maintenance_100 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.3
+	starbase_shipyard_build_speed_mult = 0.3
+	ship_homeless_ev_cost_mult = -0.2
+	ship_homeless_ev_influence_upkeep_mult = -0.03
+}
+
+######
+empty_vagrant_maintenance_101 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.31
+	starbase_shipyard_build_speed_mult = 0.31
+	ship_homeless_ev_cost_mult = -0.205
+	ship_homeless_ev_influence_upkeep_mult = -0.035
+}
+
+empty_vagrant_maintenance_102 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.32
+	starbase_shipyard_build_speed_mult = 0.32
+	ship_homeless_ev_cost_mult = -0.21
+	ship_homeless_ev_influence_upkeep_mult = -0.04
+}
+
+empty_vagrant_maintenance_103 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.33
+	starbase_shipyard_build_speed_mult = 0.33
+	ship_homeless_ev_cost_mult = -0.215
+	ship_homeless_ev_influence_upkeep_mult = -0.045
+}
+
+empty_vagrant_maintenance_104 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.34
+	starbase_shipyard_build_speed_mult = 0.34
+	ship_homeless_ev_cost_mult = -0.22
+	ship_homeless_ev_influence_upkeep_mult = -0.05
+}
+
+empty_vagrant_maintenance_105 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.35
+	starbase_shipyard_build_speed_mult = 0.35
+	ship_homeless_ev_cost_mult = -0.225
+	ship_homeless_ev_influence_upkeep_mult = -0.055
+}
+
+empty_vagrant_maintenance_106 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.36
+	starbase_shipyard_build_speed_mult = 0.36
+	ship_homeless_ev_cost_mult = -0.23
+	ship_homeless_ev_influence_upkeep_mult = -0.06
+}
+
+empty_vagrant_maintenance_107 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.37
+	starbase_shipyard_build_speed_mult = 0.37
+	ship_homeless_ev_cost_mult = -0.235
+	ship_homeless_ev_influence_upkeep_mult = -0.065
+}
+
+empty_vagrant_maintenance_108 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.38
+	starbase_shipyard_build_speed_mult = 0.38
+	ship_homeless_ev_cost_mult = -0.24
+	ship_homeless_ev_influence_upkeep_mult = -0.07
+}
+
+empty_vagrant_maintenance_109 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.39
+	starbase_shipyard_build_speed_mult = 0.39
+	ship_homeless_ev_cost_mult = -0.245
+	ship_homeless_ev_influence_upkeep_mult = -0.075
+}
+
+empty_vagrant_maintenance_110 = {
+	icon = "gfx/interface/icons/stability.dds"
+	ship_homeless_ev_produces_mult = 0.4
+	starbase_shipyard_build_speed_mult = 0.4
+	ship_homeless_ev_cost_mult = -0.25
+	ship_homeless_ev_influence_upkeep_mult = -0.08
+}
+
+######
+#废弃
+######
+#empty_vagrant_maintenance_5 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = -0.50
+#	starbase_shipyard_build_speed_mult = -0.50
+#	ship_homeless_ev_cost_mult = 0.25
+#}
+#empty_vagrant_maintenance_10 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = -0.45
+#	starbase_shipyard_build_speed_mult = -0.45
+#	ship_homeless_ev_cost_mult = 0.225
+#}
+#empty_vagrant_maintenance_15 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = -0.40
+#	starbase_shipyard_build_speed_mult = -0.40
+#	ship_homeless_ev_cost_mult = 0.20
+#}
+#empty_vagrant_maintenance_100 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = 0.30
+#	starbase_shipyard_build_speed_mult = 0.30
+#	ship_homeless_ev_cost_mult = -0.10
+#}
+#empty_vagrant_maintenance_102 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = 0.33
+#	starbase_shipyard_build_speed_mult = 0.33
+#	ship_homeless_ev_cost_mult = -0.11
+#}
+#empty_vagrant_maintenance_105 = {
+#	icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = 0.36
+#	starbase_shipyard_build_speed_mult = 0.36
+#	ship_homeless_ev_cost_mult = -0.12
+#}
+#empty_vagrant_maintenance_107 = {
+#icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = 0.39
+#	starbase_shipyard_build_speed_mult = 0.39
+#	ship_homeless_ev_cost_mult = -0.13
+#}
+#empty_vagrant_maintenance_110 = {
+#icon = "gfx/interface/icons/stability.dds"	
+#	ship_homeless_ev_produces_mult = 0.45
+#	starbase_shipyard_build_speed_mult = 0.45
+#	ship_homeless_ev_cost_mult = -0.15
+#}

@@ -1,0 +1,464 @@
+## Possible Deposit Variables ##
+# resources, resource and amount
+# potential trigger (planet scope)
+# blocked_modifier - applied to planet
+# constant_modifier - applied to planet always
+# station = station class in orbit to gather
+# blocker_swap_types = {}
+# all_blocker_swap_types = yes/no
+# use_weights_for_blocker_swap_types = yes/no
+# terraforming_swap_types = { }
+# should_swap_deposit_on_terraforming = yes/no
+# all_terraforming_swap_types = yes/no
+# use_weights_for_terraforming_swap_types = yes/no
+@high = 16
+@med = 8
+@low = 4
+@high_rare = 0.5
+@mid_rare = 0.25
+@low_rare = 0.1
+@planet_type_bonus = 1.5
+###############
+#### ENERGY ###
+###############
+d_ev_deep_excavation_8 = {
+	icon = d_ruined_system
+	is_for_colonizable = yes
+	use_weights_for_terraforming_swap_types = no
+	should_swap_deposit_on_terraforming = no
+	planet_modifier = {
+		job_researcher_per_pop = 0.02
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+d_ev_deep_excavation = {
+	icon = d_ruined_system
+	is_for_colonizable = yes
+	use_weights_for_terraforming_swap_types = no
+	should_swap_deposit_on_terraforming = no
+	planet_modifier = {
+		pop_environment_tolerance = -0.2
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+d_ev_predatory_planet = {
+	icon = d_crater
+	category = deposit_cat_blockers
+	is_for_colonizable = yes
+	use_weights_for_terraforming_swap_types = no
+	should_swap_deposit_on_terraforming = no
+	can_be_cleared = {
+		exists = owner
+		owner = {
+			OR = {
+				has_ascension_perk = ap_orbital_predatory_planet
+			}
+		}
+	}
+	time = 360
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+	planet_modifier = {
+		pop_environment_tolerance = -0.25
+		planet_jobs_produces_mult = -0.1
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#巨型家园舰
+#冷冻仓
+d_ev_meg_freezer = {
+	time = 360
+	is_for_colonizable = yes
+	
+	category = deposit_cat_blockers
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+	resources = {
+		category = planet_deposits
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_add = -1
+	}
+	on_cleared = {
+		hidden_effect = {
+			random_list = {
+				33 = {
+					owner = {
+						country_event = {
+							id = ev_planet_correct.7200
+						}
+					}
+				}
+				33 = {
+					while = {
+						count = 2
+						if = {
+							limit = {
+								any_owned_pop_group = {
+									is_gestalt = no
+									is_robot_pop_group = no
+								}
+							}
+							random_owned_pop_group = {
+								limit = {
+									is_gestalt = no
+									is_robot_pop_group = no
+								}
+								root = {
+									create_pop_group = {
+										size = 100
+										species = prev
+									}
+								}
+							}
+						}
+						else = {
+							random_owned_pop_group = {
+								root = {
+									create_pop_group = {
+										size = 100
+										species = prev
+									}
+								}
+							}
+						}
+					}
+					owner = {
+						country_event = {
+							id = ev_planet_correct.7201
+						}
+					}
+				}
+				33 = {
+					create_country = {
+						name = "NAME_mutant_organism"
+						type = faction
+						effect = {
+							establish_communications_no_message = root.owner
+							establish_contact = {
+								who = root.owner
+								location = root.solar_system
+							}
+						}
+					}
+					while = {
+						count = 4
+						create_army = {
+							name = "NAME_mutant_organism"
+							owner = last_created_country
+							species = root.owner_main_species
+							type = enraged_army
+						}
+					}
+					owner = {
+						country_event = {
+							id = ev_planet_correct.7202
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#数据库
+d_ev_meg_datebase = {
+	time = 360
+	is_for_colonizable = yes
+	category = deposit_cat_blockers
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+	resources = {
+		category = planet_deposits
+		produces = {
+			physics_research = 20
+			society_research = 20
+			engineering_research = 20
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_add = -1
+		planet_researchers_produces_mult = 0.1
+	}
+	on_cleared = {
+		owner = {
+			add_monthly_resource_mult = {
+				resource = physics_research
+				value = 6
+			}
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = 6
+			}
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = 6
+			}
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#完全损坏的结构
+d_ev_damaged_station = {
+	time = 360
+	is_for_colonizable = yes
+	category = deposit_cat_blockers
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+	resources = {
+		category = planet_deposits
+		produces = {
+			alloys = 5
+			minerals = 10
+		}
+		produces = {
+			trigger = {
+				owner = {
+					is_machine_empire = no
+				}
+			}
+			food = 10
+		}
+		produces = {
+			trigger = {
+				owner = {
+					is_machine_empire = yes
+				}
+			}
+			energy = 10
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_add = -1
+	}
+	on_cleared = {
+		owner = {
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = 6
+			}
+			add_monthly_resource_mult = {
+				resource = minerals
+				value = 6
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					is_machine_empire = yes
+				}
+			}
+			owner = {
+				add_monthly_resource_mult = {
+					resource = energy
+					value = 6
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					is_machine_empire = no
+				}
+			}
+			owner = {
+				add_monthly_resource_mult = {
+					resource = food
+					value = 6
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#数据源泉
+d_ev_cpu_core = {
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+	icon = d_ev_meg_datebase
+	resources = {
+		category = planet_deposits
+		produces = {
+			physics_research = 200
+			society_research = 200
+			engineering_research = 200
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_mult = 10
+		district_farming_max = 50
+		district_generator_max = 50
+		district_mining_max = 50
+	}
+	
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#数据源泉
+d_ev_cpu_core_ring = {
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+	icon = d_ev_meg_datebase
+	resources = {
+		category = planet_deposits
+		produces = {
+			physics_research = 1000
+			society_research = 1000
+			engineering_research = 1000
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_mult = 5
+	}
+	
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#土著损坏的家园舰
+d_ev_abndoned_homeless = {
+	time = 1200
+	is_for_colonizable = yes
+	category = deposit_cat_blockers
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_districts_add = -2
+	}
+	on_cleared = {
+		hidden_effect = {
+			planet_event = {
+				id = ev_ancient_relics.230
+			}
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+	drop_weight = {
+		weight = 0
+	}
+}
+
+#数据源泉
+d_ev_pc_habitat = {
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+	icon = d_ev_meg_datebase
+	resources = {
+		category = planet_deposits
+		upkeep = {
+			energy = 1
+		}
+	}
+	potential = {
+	}
+	planet_modifier = {
+		planet_max_buildings_add = 1
+	}
+	
+	drop_weight = {
+		weight = 0
+	}
+}
+#ev_d_food_3_50 = {
+#	resources = {
+#		category = orbital_mining_deposits
+#		produces = {
+#			minerals = 500
+#		}
+#	}
+#	station = shipclass_mining_station
+#	is_for_colonizeable = no
+#	
+#	potential = {
+#		OR = {
+#			is_planet_class = pc_asteroid
+#			is_planet_class = pc_molten
+#			is_planet_class = pc_toxic
+#			is_planet_class = pc_frozen
+#			is_planet_class = pc_barren
+#			is_planet_class = pc_barren_cold
+#			is_planet_class = pc_broken
+#			is_planet_class = pc_shattered			
+#		}	
+#	}
+#	
+#	drop_weight = {
+#		weight = 1000
+#		modifier = {
+#			factor = 0.5
+#			OR = {
+#				is_planet_class = pc_molten
+#				is_planet_class = pc_toxic
+#				is_planet_class = pc_frozen
+#			}
+#		}
+#		modifier = {
+#			factor = 2.0
+#			is_asteroid = yes
+#		}		
+#	}
+#}

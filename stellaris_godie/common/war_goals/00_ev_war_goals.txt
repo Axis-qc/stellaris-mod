@@ -1,0 +1,2447 @@
+# See wg_example.txt for an explanation
+#同化
+#wg_assimilation_ev = {
+#	casus_belli = cb_base_ev
+#
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat_assimilators
+#
+#	allowed_peace_offers = {
+#		status_quo
+#	}
+#
+#	surrender_acceptance = -1000
+#
+#	potential = {
+#		
+#		has_valid_civic = civic_machine_assimilator
+#	}
+#	possible = {
+#		#has_total_war_cb = yes
+#		NOT = { is_overlord_to = FROM }
+#		OR = {
+#			is_subject = no
+#			overlord = { NOT = { is_same_value = from } }
+#		}
+#	}
+#
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+##清洗
+#wg_cleansing_ev = {
+#	casus_belli = cb_base_ev
+#
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat
+#
+#	allowed_peace_offers = {
+#		status_quo
+#	}
+#
+#	surrender_acceptance = -1000
+#
+#	potential = {
+#		OR = {
+#			is_berserk_fallen_machine_empire = yes
+#			OR = {
+#				
+#				has_valid_civic = civic_fanatic_purifiers
+#				has_valid_civic = civic_machine_terminator
+#			}
+#			
+#		}
+#	}
+#	possible = {
+#		#has_total_war_cb = yes
+#		NOT = { is_overlord_to = FROM }
+#		OR = {
+#			is_subject = no
+#			overlord = { NOT = { is_same_value = from } }
+#		}
+#	}
+#
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+#wg_absorption_ev = {
+#	casus_belli = cb_base_ev
+#
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat
+#
+#	allowed_peace_offers = {
+#		status_quo
+#	}
+#
+#	surrender_acceptance = -1000
+#
+#	potential = {
+#		
+#		has_valid_civic = civic_hive_devouring_swarm
+#	}
+#	possible = {
+#		#has_total_war_cb = yes
+#		NOT = { is_overlord_to = FROM }
+#		OR = {
+#			is_subject = no
+#			overlord = { NOT = { is_same_value = from } }
+#		}
+#	}
+#
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+#wg_absorption_ev = {
+#	casus_belli = cb_base_ev
+#
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat
+#
+#	allowed_peace_offers = {
+#		status_quo
+#	}
+#
+#	surrender_acceptance = -1000
+#
+#	potential = {
+#		
+#		has_valid_civic = civic_hive_devouring_swarm
+#	}
+#	possible = {
+#		#has_total_war_cb = yes
+#		NOT = { is_overlord_to = FROM }
+#		OR = {
+#			is_subject = no
+#			overlord = { NOT = { is_same_value = from } }
+#		}
+#	}
+#
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+
+
+
+##################
+#wg_absorption_ev = {
+#	casus_belli = cb_hunger_ev
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat_swarm
+#	surrender_acceptance = -1000
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		from = {
+#			NOT = {
+#				is_country_type = fallen_empire
+#			}
+#		}
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		from = {
+#			every_owned_ship = {
+#				delete_ship = this
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 1000
+#	}
+#}
+
+#wg_colossus_ev = {
+#	casus_belli = cb_colossus_ev
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat_colossus
+#	surrender_acceptance = -1000
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		always = yes
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		from = {
+#			every_owned_ship = {
+#				delete_ship = this
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 1000
+#	}
+#}
+#
+#wg_independence_ev = {
+#	casus_belli = cb_subject_ev
+#	hide_if_no_cb = yes
+#	set_defender_wargoal = wg_assert_overlordship
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		always = yes
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_status_quo = {
+#		custom_tooltip = wg_independence_status_quo
+#		hidden_effect = {
+#			set_subject_of = {
+#				who = none
+#			}
+#		}
+#	}
+#	on_accept = {
+#		custom_tooltip = wg_independence_accept
+#		hidden_effect = {
+#			set_subject_of = {
+#				who = none
+#			}
+#			every_system_within_border = {
+#				limit = {
+#					from = {
+#						has_claim = prev
+#					}
+#				}
+#				remove_claims = {
+#					who = from
+#				}
+#			}
+#		}
+#	}
+#	on_wargoal_set = {
+#		every_system_within_border = {
+#			limit = {
+#				NOT = {
+#					from = {
+#						has_claim = prev
+#					}
+#				}
+#			}
+#			add_claims = {
+#				who = from
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+#
+#wg_end_threat_ev = {
+#	casus_belli = cb_containment_ev
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_cleansing
+#	surrender_acceptance = -1000
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		from = {
+#			every_owned_ship = {
+#				delete_ship = this
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 50
+#	}
+#}
+#
+#wg_plunder_ev = {
+#	casus_belli = cb_despoliation_ev
+#	hide_if_no_cb = no
+#	total_war = no
+#	surrender_acceptance = -25
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		has_total_war_cb = no
+#		has_valid_civic = civic_barbaric_despoilers
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		custom_tooltip = wg_plunder_accept_them
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets <= 3
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_1
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 500
+#					minerals = 500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 4
+#					num_owned_planets <= 6
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_2
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 1000
+#					minerals = 1000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 7
+#					num_owned_planets <= 9
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_3
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 1500
+#					minerals = 1500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 10
+#					num_owned_planets <= 12
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_4
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 2000
+#					minerals = 2000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 13
+#					num_owned_planets <= 15
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_5
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 2500
+#					minerals = 2500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 16
+#					num_owned_planets <= 18
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_6
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 3000
+#					minerals = 3000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 19
+#					num_owned_planets <= 21
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_7
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 3500
+#					minerals = 3500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 22
+#					num_owned_planets <= 24
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_8
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 4000
+#					minerals = 4000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 25
+#					num_owned_planets <= 27
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_9
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 4500
+#					minerals = 4500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 28
+#					num_owned_planets <= 30
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_10
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 5000
+#					minerals = 5000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 31
+#					num_owned_planets <= 33
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_11
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 5500
+#					minerals = 5500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 34
+#					num_owned_planets <= 36
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_12
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 6000
+#					minerals = 6000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 37
+#					num_owned_planets <= 39
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_13
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 6500
+#					minerals = 6500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 40
+#					num_owned_planets <= 42
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_14
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 7000
+#					minerals = 7000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 43
+#					num_owned_planets <= 45
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_15
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 7500
+#					minerals = 7500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 46
+#					num_owned_planets <= 48
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_16
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 8000
+#					minerals = 8000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 49
+#					num_owned_planets <= 51
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_17
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 8500
+#					minerals = 8500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 52
+#					num_owned_planets <= 54
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_18
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 9000
+#					minerals = 9000
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 55
+#					num_owned_planets <= 57
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_19
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 9500
+#					minerals = 9500
+#				}
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					num_owned_planets >= 58
+#				}
+#			}
+#			custom_tooltip = wg_plunder_accept_us_21
+#			hidden_effect = {
+#				add_resource = {
+#					energy = 10000
+#					minerals = 10000
+#				}
+#			}
+#		}
+#		hidden_effect = {
+#			from = {
+#				add_modifier = {
+#					modifier = raided
+#					days = 3600
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+#
+#wg_subjugation_ev = {
+#	casus_belli = cb_subjugation_ev
+#	hide_if_no_cb = no
+#	release_occupied_systems_on_status_quo = yes
+#	surrender_acceptance = -100
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		NOR = {
+#			has_valid_civic = civic_inwards_perfection
+#			has_authority = auth_corporate
+#		}
+#		has_total_war_cb = no
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		hidden_effect = {
+#			from = {
+#				add_threat = {
+#					who = root
+#					amount = 0.5
+#				}
+#			}
+#		}
+#		from = {
+#			set_subject_of = {
+#				who = root
+#				preset = preset_protectorate
+#			}
+#		}
+#	}
+#	on_status_quo = {
+#		if = {
+#			limit = {
+#				last_created_country = {
+#					has_country_flag = released_empire
+#				}
+#			}
+#			last_created_country = {
+#				set_subject_of = {
+#					who = ROOT
+#					preset = preset_protectorate
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 10
+#		modifier = {
+#			factor = 0
+#			has_ai_personality_behaviour = wants_tribute
+#		}
+#	}
+#}
+#
+#wg_conquest_ev = {
+#	casus_belli = cb_claim_ev
+#	hide_if_no_cb = no
+#	threat_multiplier = 0.75
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		has_total_war_cb = no
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	ai_weight = {
+#		weight = 2
+#	}
+#}
+#
+#wg_humiliation_ev = {
+#	casus_belli = cb_humiliation_ev
+#	hide_if_no_cb = no
+#	defender_default = yes
+#	surrender_acceptance = -25
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		is_default_ev_country_type = yes
+#		has_total_war_cb = no
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		if = {
+#			limit = {
+#				is_country_type = fallen_empire
+#			}
+#			custom_tooltip = wg_humiliation_fe_accept
+#			save_event_target_as = fallen_empire_humiliator
+#			from = {
+#				fallen_empire_humiliate_effect = yes
+#			}
+#			else = {
+#				custom_tooltip = wg_humiliation_accept
+#				hidden_effect = {
+#					add_resource = {
+#						influence = 100
+#					}
+#					from = {
+#						add_modifier = {
+#							modifier = humiliated
+#							days = 3600
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 2
+#	}
+#}
+
+wg_open_borders_ev = {
+	casus_belli = cb_open_borders_ev
+	hide_if_no_cb = no
+	defender_default = yes
+	set_defender_wargoal = wg_humiliation
+	surrender_acceptance = 25
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		is_default_ev_country_type = yes
+		has_total_war_cb = no
+	}
+	possible = {
+		always = yes
+	}
+	on_accept = {
+		from = {
+			set_closed_borders = {
+				who = prev
+				status = no
+				forced = 30
+			}
+		}
+	}
+	ai_weight = {
+		weight = 2
+	}
+}
+
+wg_stop_bombardment_steal_ev = {
+	casus_belli = cb_stop_bombardment_steal_ev
+	hide_if_no_cb = yes
+	defender_default = yes
+	set_defender_wargoal = wg_bombardment_steal_ev
+	surrender_acceptance = -15
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		#has_total_war_cb = no
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	on_accept = {
+		if = {
+			limit = {
+				is_country_type = default
+			}
+			from = {
+				change_variable = {
+					which = ev_maintenance_value
+					value = -30
+				}
+			}
+			custom_tooltip = wg_stop_bombardment_steal_ev_accept_1
+			hidden_effect = {
+				from = {
+					add_modifier = {
+						modifier = humiliated
+						days = 7200
+					}
+					
+				}
+				add_resource = {
+					influence = 200
+				}
+				set_timed_country_flag = {
+					flag = can_not_be_steal_ev
+					days = 7200
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+				}
+			}
+			custom_tooltip = wg_stop_bombardment_steal_ev_accept_1
+			hidden_effect = {
+				from = {
+					add_modifier = {
+						modifier = humiliated
+						days = 7200
+					}
+					change_variable = {
+						which = ev_maintenance_value
+						value = -50
+					}
+				}
+				add_resource = {
+					influence = 200
+				}
+				set_timed_country_flag = {
+					flag = can_not_be_steal_ev
+					days = 14400
+				}
+				wg_steal_ev_1th_resources_win_new = yes
+				wg_steal_ev_2th_resources_win_new = yes
+				#wg_steal_ev_food_resources_win = yes
+				#wg_steal_ev_minerals_resources_win = yes
+				#wg_steal_ev_energy_resources_win = yes
+				#wg_steal_ev_consumer_goods_resources_win = yes
+				#wg_steal_ev_alloys_resources_win = yes
+			}
+		}
+	}
+	ai_weight = {
+		weight = 1
+	}
+}
+
+wg_bombardment_steal_ev = {
+	casus_belli = cb_bombardment_steal_ev
+	hide_if_no_cb = no
+	defender_default = yes
+	set_defender_wargoal = wg_stop_bombardment_steal_ev
+	surrender_acceptance = -15
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		is_default_ev_country_type = yes
+		has_total_war_cb = no
+	}
+	possible = {
+		NOR = {
+			has_ethic = "ethic_pacifist"
+			has_ethic = "ethic_fanatic_pacifist"
+		}
+		FROM = {
+			NOT = {
+				has_country_flag = can_not_be_steal_ev
+			}
+		}
+	}
+	on_accept = {
+		hidden_effect = {
+			if = {
+				limit = {
+					federation = {
+						has_federation_perk = ev_crime_base_1
+					}
+					
+				}
+				root = {
+					set_variable = {
+						which = ev_bombardment_steal_times
+						value = 2
+					}
+				}
+			}
+			else = {
+				root = {
+					set_variable = {
+						which = ev_bombardment_steal_times
+						value = 1
+					}
+				}
+			}
+		}
+		
+		while = {
+			count = ev_bombardment_steal_times
+			change_variable = {
+				which = ev_maintenance_value
+				value = 10
+			}
+			if = {
+				limit = {
+					has_policy_flag = orbital_bombardment_steal_1th
+				}
+				custom_tooltip = wg_bombardment_steal_ev_1
+				#wg_steal_ev_food_resources_win = yes
+				#wg_steal_ev_minerals_resources_win = yes
+				#wg_steal_ev_energy_resources_win = yes
+				hidden_effect = { 
+					wg_steal_ev_1th_resources_win_new = yes 
+					every_country = {
+						limit = {
+							is_in_federation_with = root
+						}
+						wg_steal_ev_1th_resources_win_federation_new = yes 
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_policy_flag = orbital_bombardment_steal_2th
+				}
+				custom_tooltip = wg_bombardment_steal_ev_2
+				hidden_effect = { 
+					wg_steal_ev_2th_resources_win_new = yes 
+					every_country = {
+						limit = {
+							is_in_federation_with = root
+						}
+						wg_steal_ev_2th_resources_win_federation_new = yes 
+					}
+					
+				}
+			}
+			else_if = {
+				limit = {
+					has_policy_flag = orbital_bombardment_steal_all
+				}
+				custom_tooltip = wg_bombardment_steal_ev_3
+				hidden_effect = {
+					wg_steal_ev_1th_resources_win_new = yes
+					wg_steal_ev_2th_resources_win_new = yes
+					every_country = {
+						limit = {
+							is_in_federation_with = root
+						}
+						wg_steal_ev_1th_resources_win_federation_new = yes 
+						wg_steal_ev_2th_resources_win_federation_new = yes 
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					wg_steal_ev_1th_resources_win_new = yes
+					every_country = {
+						limit = {
+							is_in_federation_with = root
+						}
+						wg_steal_ev_1th_resources_win_federation_new = yes 
+					}
+				}
+			}
+		}
+		
+	}
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = {
+				is_default_ev_country_type = yes
+			}
+		}
+		
+		modifier = {
+			factor = 1.5
+			check_variable = {
+				which = ev_maintenance_value
+				value < 1
+			}
+		}
+	}
+}
+
+#wg_cleansing_ev = {
+#	casus_belli = cb_purification_ev
+#	hide_if_no_cb = yes
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat
+#	surrender_acceptance = -1000
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		from = {
+#			NOT = {
+#				is_country_type = fallen_empire
+#			}
+#		}
+#	}
+#	possible = {
+#		always = yes
+#	}
+#	on_accept = {
+#		from = {
+#			every_owned_ship = {
+#				delete_ship = this
+#			}
+#		}
+#	}
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+
+#太虚死灵接口
+#wg_end_threat_gestalt_ev = {
+#	casus_belli = cb_purification_ev
+#	hide_if_no_cb = no
+#	total_war = yes
+#	set_defender_wargoal = wg_end_threat
+#	defender_default = yes
+#	surrender_acceptance = -1000
+#	allowed_peace_offers = {
+#		status_quo
+#		surrender
+#		demand_surrender
+#	}
+#	potential = {
+#		is_default_ev_country_type = yes
+#		#OR = {
+#		#	has_valid_civic = civic_fanatic_purifiers
+#		#	has_valid_civic = civic_machine_terminator	
+#		#	has_valid_civic = civic_hive_devouring_swarm
+#		#	has_valid_civic = civic_machine_assimilator
+#		#}
+#		from = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#				is_country_type = default
+#			}
+#		}
+#	}
+#	possible = {
+#		always = no
+#	}
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+
+wg_ev_ship_uprising = {
+	casus_belli = cb_event
+	total_war = yes
+	surrender_acceptance = -1000
+	war_exhaustion = 0.5
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	set_defender_wargoal = wg_ev_ship_uprising
+	potential = {
+		always = no		# event only
+	}
+	possible = {
+		always = yes
+	}
+	on_accept = {
+		from = {
+			every_owned_fleet = {
+				set_owner = root
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+wg_ev_da_khan = {
+	casus_belli = cb_event
+	total_war = yes
+	surrender_acceptance = -1000
+	war_exhaustion = 0.5
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	set_defender_wargoal = wg_ev_da_khan
+	potential = {
+		always = no		# event only
+	}
+	possible = {
+		always = yes
+	}
+	on_accept = {
+		#hidden_effect = {
+		#	change_variable = {
+		#		which = ev_kehan_declare_war_num
+		#		value = -1
+		#	}
+		#}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+wg_holy_war_ev = {
+	casus_belli = cb_claim_ev
+	total_war = yes
+	hide_if_no_cb = no
+	surrender_acceptance = -1000
+	threat_multiplier = 1.5
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	set_defender_wargoal = wg_end_threat
+	potential = {
+		#has_total_war_cb = no
+		is_default_ev_country_type = yes
+		has_civic = civic_ev_fanatic_martyr
+		from = {
+			NOR = {
+				is_country_type = fallen_empire
+				is_country_type = fallen_empire_ev
+				is_country_type = awakened_fallen_empire
+				is_country_type = awakened_fallen_empire_ev
+			}
+		}
+	}
+	possible = {
+		always = yes
+	}
+	on_status_quo = {
+		from = {
+			every_owned_pop_group = {
+				random_list = {
+					2 = {
+						wipe_pop_ethos = yes
+						pop_change_ethic = ethic_spiritualist
+					}
+					1 = {
+						wipe_pop_ethos = yes
+						pop_change_ethic = ethic_fanatic_spiritualist
+					}
+					6 = {
+					}
+				}
+				set_timed_pop_group_flag = {
+					flag = changed_pop
+					days = 2
+				}
+			}
+			every_neighbor_country = {
+				every_owned_pop_group = {
+					random_list = {
+						1 = {
+							wipe_pop_ethos = yes
+							pop_change_ethic = ethic_spiritualist
+						}
+						4 = {
+						}
+					}
+					set_timed_pop_group_flag = {
+						flag = changed_pop
+						days = 2
+					}
+				}
+			}
+		}
+	}
+	on_accept = {
+		root = {
+			change_variable = {
+				which = ev_maintenance_value
+				value = 20
+			}
+		}
+		from = {
+			every_owned_pop_group = {
+				wipe_pop_ethos = yes
+				pop_change_ethic = ethic_fanatic_spiritualist
+				set_timed_pop_group_flag = {
+					flag = changed_pop
+					days = 2
+				}
+			}
+			every_neighbor_country = {
+				every_owned_pop_group = {
+					random_list = {
+						1 = {
+							wipe_pop_ethos = yes
+							pop_change_ethic = ethic_spiritualist
+						}
+						1 = {
+						}
+					}
+					set_timed_pop_group_flag = {
+						flag = changed_pop
+						days = 2
+					}
+				}
+			}
+			every_owned_ship = {
+				delete_ship = this
+			}
+		}
+	}
+	ai_weight = {
+		weight = 200
+	}
+}
+
+wg_pop_over_sovereignty_ev = {
+	casus_belli = cb_claim_ev
+	#total_war = yes
+	hide_if_no_cb = no
+	surrender_acceptance = -50
+	threat_multiplier = 0.7
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	#set_defender_wargoal = wg_end_threat
+	potential = {
+		#has_total_war_cb = no
+		is_default_ev_country_type = yes
+		has_civic = civic_ev_pop_over_sovereignty
+		from = {
+			NOR = {
+				is_country_type = fallen_empire
+				is_country_type = fallen_empire_ev
+				is_country_type = awakened_fallen_empire
+				is_country_type = awakened_fallen_empire_ev
+			}
+			NOT = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	possible = {
+		always = yes
+	}
+	on_status_quo = {
+		from = {
+			every_owned_pop_group = {
+				random_list = {
+					1 = {
+						wipe_pop_ethos = yes
+						pop_change_ethic = ethic_egalitarian
+					}
+					4 = {
+					}
+				}
+				set_timed_pop_group_flag = {
+					flag = changed_pop
+					days = 2
+				}
+			}
+			hidden_effect = {
+				random_list = {
+					1 = {
+						modifier = {
+							factor = 0
+							is_ai = no
+						}
+						create_country = {
+							type = default
+							species = from
+							effect = {
+								copy_ethos_and_authority = root
+								copy_techs_from = {
+									target = from
+								}
+							}
+						}
+						random_owned_planet = {
+							set_owner = last_created_country
+							add_modifier = {
+								modifier = "martial_law"
+								days = 3600
+							}
+							add_modifier = {
+								modifier = "crime_lord_deal"
+								days = 3600
+							}
+						}
+						last_created_country = {
+							add_resource = {
+								food = 2000
+								energy = 2000
+								minerals = 2000
+							}
+							while = {
+								count = 2
+								create_fleet_from_naval_cap = 0.15
+							}
+							declare_war = {
+								target = from
+								attacker_war_goal = wg_ev_orthodoxy
+							}
+						}
+					}
+					2 = {
+					}
+				}
+			}
+		}
+	}
+	on_accept = {
+		custom_tooltip = wg_pop_over_sovereignty_ev_accept
+		root = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = 24
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = 10
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOR = {
+						is_country_type = fallen_empire
+						is_country_type = fallen_empire_ev
+						is_country_type = awakened_fallen_empire
+						is_country_type = awakened_fallen_empire_ev
+					}
+				}
+				add_threat = {
+					who = root
+					amount = 0.1
+				}
+			}
+			from = {
+				copy_ethos_and_authority = root
+			}
+			from = {
+				add_modifier = {
+					modifier = recently_liberated
+					days = 7300
+				}
+			}
+			add_opinion_modifier = {
+				modifier = opinion_we_liberated
+				who = from
+			}
+			from = {
+				add_opinion_modifier = {
+					modifier = opinion_liberated_us
+					who = root
+				}
+			}
+			end_rivalry = from
+			from = {
+				end_rivalry = root
+			}
+			from = {
+				every_owned_pop_group = {
+					random_list = {
+						1 = {
+							wipe_pop_ethos = yes
+							pop_change_ethic = ethic_egalitarian
+						}
+						3 = {
+						}
+					}
+					set_timed_pop_group_flag = {
+						flag = changed_pop
+						days = 2
+					}
+				}
+				capital_scope = {
+					every_owned_pop_group = {
+						wipe_pop_ethos = yes
+						make_intelligent = yes
+						make_unleashed_messenger = yes
+						pop_change_ethic = ethic_egalitarian
+						set_timed_pop_group_flag = {
+							flag = changed_pop
+							days = 2
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 40
+	}
+}
+
+wg_ev_communist = {
+	casus_belli = cb_claim_ev
+	#total_war = yes
+	hide_if_no_cb = no
+	surrender_acceptance = -50
+	threat_multiplier = 0.7
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	#set_defender_wargoal = wg_end_threat
+	potential = {
+		#has_total_war_cb = no
+		is_default_ev_country_type = yes
+		has_civic = civic_ev_communist
+		from = {
+			NOR = {
+				is_country_type = fallen_empire
+				is_country_type = fallen_empire_ev
+				is_country_type = awakened_fallen_empire
+				is_country_type = awakened_fallen_empire_ev
+			}
+			NOT = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+			NOR = {
+				has_civic = civic_ev_communist
+				has_civic = civic_shared_burden
+			}
+		}
+	}
+	possible = {
+		always = yes
+	}
+	on_status_quo = {
+		from = {
+			every_owned_pop_group = {
+				random_list = {
+					1 = {
+						wipe_pop_ethos = yes
+						pop_change_ethic = ethic_egalitarian
+					}
+					4 = {
+					}
+				}
+				set_timed_pop_group_flag = {
+					flag = changed_pop
+					days = 2
+				}
+			}
+			#hidden_effect = {
+			#	random_list = {
+			#		2 = {
+			#			modifier = {
+			#				factor = 0
+			#				is_ai = no
+			#			}
+			#			create_country = {
+			#				type = default
+			#				species = from
+			#				
+			#				civics = {
+			#					civic = civic_shared_burden
+			#					civic = random
+			#				}
+			#				effect = {
+			#					copy_ethos_and_authority = root
+			#					copy_techs_from = {
+			#						target = from
+			#					}
+			#				}
+			#			}
+			#			random_owned_planet = {
+			#				set_owner = last_created_country
+			#				add_modifier = { modifier = "martial_law" days = 3600 }
+			#				add_modifier = { modifier = "crime_lord_deal" days = 3600 }
+			#			}
+			#			
+			#			last_created_country = {
+			#				add_resource = {
+			#					food = 2000
+			#					energy = 2000
+			#					minerals = 2000
+			#				}
+			#				while = {
+			#					count = 2
+			#					create_fleet_from_naval_cap = 0.15
+			#				}
+			#				declare_war = {
+			#					target = from
+			#					attacker_war_goal = wg_ev_orthodoxy
+			#				}
+			#			}
+			#		}
+			#		8 = {}
+			#	}
+			#}
+		}
+	}
+	on_accept = {
+		custom_tooltip = wg_ev_communist_accept
+		root = {
+			add_resource = {
+				influence = 100
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = 10
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOR = {
+						is_country_type = fallen_empire
+						is_country_type = fallen_empire_ev
+						is_country_type = awakened_fallen_empire
+						is_country_type = awakened_fallen_empire_ev
+					}
+				}
+				add_threat = {
+					who = root
+					amount = 0.1
+				}
+			}
+			from = {
+				copy_ethos_and_authority = root
+			}
+			from = {
+				add_modifier = {
+					modifier = recently_liberated
+					days = 7300
+				}
+			}
+			add_opinion_modifier = {
+				modifier = opinion_we_liberated
+				who = from
+			}
+			from = {
+				add_opinion_modifier = {
+					modifier = opinion_liberated_us
+					who = root
+				}
+			}
+			end_rivalry = from
+			from = {
+				end_rivalry = root
+			}
+			from = {
+				every_owned_pop_group = {
+					random_list = {
+						1 = {
+							wipe_pop_ethos = yes
+							pop_change_ethic = ethic_egalitarian
+						}
+						3 = {
+						}
+					}
+					set_timed_pop_group_flag = {
+						flag = changed_pop
+						days = 2
+					}
+				}
+				capital_scope = {
+					every_owned_pop_group = {
+						wipe_pop_ethos = yes
+						#make_intelligent = yes
+						#make_unleashed_messenger = yes
+						pop_change_ethic = ethic_egalitarian
+						set_timed_pop_group_flag = {
+							flag = changed_pop
+							days = 2
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					from = {
+						is_country_type = default
+					}
+					#from = { is_ai = yes }
+				}
+				from = {
+					change_government = {
+						civics = {
+							civic = civic_shared_burden
+							civic = random
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					from = {
+						is_default_ev_country_type = yes
+					}
+					#from = { is_ai = yes }
+				}
+				from = {
+					change_government = {
+						civics = {
+							civic = civic_empty_vagrant
+							civic = civic_ev_communist
+							civic = random
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 40
+		modifier = {
+			factor = 0
+			AND = {
+				root = {
+					is_ai = yes
+				}
+				from = {
+					is_ai = no
+				}
+			}
+		}
+	}
+}
+
+#对太虚的全面战争
+wg_end_country_ev = {
+	casus_belli = cb_end_country_ev
+	hide_if_no_cb = yes
+	total_war = yes
+	set_defender_wargoal = wg_end_threat
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	surrender_acceptance = -1000
+	potential = {
+		#is_country_type = default
+	}
+	possible = {
+		always = yes
+	}
+	on_status_quo = {
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+				}
+			}
+			add_threat = {
+				who = root
+				amount = 0.06
+			}
+		}
+	}
+	on_accept = {
+		from = {
+			every_owned_ship = {
+				delete_ship = this
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					is_default_ev_country_type = yes
+				}
+			}
+			add_threat = {
+				who = root
+				amount = 0.15
+			}
+		}
+	}
+	ai_weight = {
+		weight = 15
+	}
+}
+
+#太虚游牧之间的争霸战争
+wg_ev_scramble_hegemony = {
+	casus_belli = cb_ev_scramble_hegemony
+	#total_war = yes
+	hide_if_no_cb = no
+	surrender_acceptance = -50
+	threat_multiplier = 0.55
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	set_defender_wargoal = wg_ev_scramble_hegemony
+	potential = {
+		#has_total_war_cb = no
+		is_default_ev_country_type = yes
+		from = {
+			is_default_ev_country_type = yes
+		}
+	}
+	possible = {
+		always = yes
+	}
+	on_status_quo = {
+	}
+	on_accept = {
+		#custom_tooltip = wg_ev_scramble_hegemony_accept
+		root = {
+			add_resource = {
+				influence = 50
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = 40
+			}
+			end_rivalry = from
+			if = {
+				limit = {
+					has_origin = origin_ev_subjects_owner
+				}
+				add_resource = {
+					influence = 100
+				}
+				from = {
+					add_trust = {
+						amount = 100
+						who = root
+					}
+				}
+			}
+		}
+		from = {
+			if = {
+				limit = {
+					is_overlord = yes
+				}
+				every_subject = {
+					set_subject_of = {
+						who = ROOT
+						preset = preset_protectorate
+					}
+				}
+			}
+			set_subject_of = {
+				who = ROOT
+				preset = preset_protectorate
+			}
+			end_rivalry = root
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						is_default_ev_country_type = yes
+					}
+				}
+				add_threat = {
+					who = root
+					amount = 0.02
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 10
+			has_ai_personality = ev_empty_vagrant_ev_subjects_owner
+		}
+	}
+}
+
+#正统性之战
+wg_ev_orthodoxy = {
+	casus_belli = cb_ev_orthodoxy
+	hide_if_no_cb = yes
+	total_war = yes
+	set_defender_wargoal = wg_ev_orthodoxy
+	surrender_acceptance = -1000
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	ai_weight = {
+		weight = 100
+	}
+}
+
+#附庸之战
+wg_ev_subjugation = {
+	casus_belli = cb_ev_subjugation
+	hide_if_no_cb = yes
+	total_war = no
+	surrender_acceptance = -75
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		always = yes #弃用
+	}
+	possible = {
+		is_default_ev_country_type = yes
+		is_subject = no
+		NOR = {
+			is_berserk_fallen_machine_empire = yes
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_assimilator
+			is_subject = yes
+		}
+	}
+	on_status_quo = {
+		custom_tooltip = wg_ev_subjugation_on_status_quo
+		hidden_effect = {
+			from = {
+				create_country = {
+					type = default
+					species = from
+					civics = random
+					effect = {
+						save_event_target_as = ev_will_subjugation_country
+						if = {
+							limit = {
+								from = {
+									is_gestalt = yes
+								}
+							}
+							copy_ethos_and_authority = from
+						}
+						copy_techs_from = {
+							target = from
+						}
+						set_subject_of = {
+							who = ROOT
+							preset = preset_protectorate
+						}
+						add_resource = {
+							minerals = 5000
+							energy = 5000
+							food = 5000
+							alloys = 5000
+							consumer_goods = 5000
+						}
+						create_fleet_from_naval_cap = 0.1
+					}
+				}
+				every_owned_planet = {
+					limit = {
+						is_controlled_by = root
+					}
+					solar_system = {
+						starbase = {
+							set_owner = event_target:ev_will_subjugation_country
+						}
+					}
+					set_owner = event_target:ev_will_subjugation_country
+				}
+			}
+		}
+	}
+	on_accept = {
+		#custom_tooltip = wg_ev_scramble_hegemony_accept
+		root = {
+			add_resource = {
+				influence = 50
+			}
+			end_rivalry = from
+			if = {
+				limit = {
+					has_origin = origin_ev_subjects_owner
+				}
+				add_resource = {
+					influence = 100
+				}
+				from = {
+					add_trust = {
+						amount = 100
+						who = root
+					}
+				}
+			}
+		}
+		from = {
+			if = {
+				limit = {
+					is_overlord = yes
+				}
+				every_subject = {
+					set_subject_of = {
+						who = root
+						preset = preset_protectorate
+					}
+				}
+			}
+			set_subject_of = {
+				who = root
+				preset = preset_protectorate
+			}
+			end_rivalry = root
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						is_country_type = default
+					}
+				}
+				add_threat = {
+					who = root
+					amount = 0.015
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 10
+	}
+}
+
+#肢解
+wg_ev_division = {
+	casus_belli = cb_ev_subjugation
+	hide_if_no_cb = yes
+	total_war = no
+	surrender_acceptance = -75
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	potential = {
+		has_civic = civic_ev_division_others
+	}
+	possible = {
+		is_default_ev_country_type = yes
+		is_subject = no
+		NOR = {
+			is_berserk_fallen_machine_empire = yes
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_assimilator
+			is_subject = yes
+		}
+	}
+	on_status_quo = {
+		custom_tooltip = wg_ev_division_on_status_quo
+		hidden_effect = {
+			from = {
+				every_owned_planet = {
+					limit = {
+						is_controlled_by = root
+					}
+					create_country = {
+						type = default
+						species = from
+						civics = random
+						effect = {
+							save_event_target_as = ev_will_division_country
+							if = {
+								limit = {
+									from = {
+										is_gestalt = yes
+									}
+								}
+								copy_ethos_and_authority = from
+							}
+							copy_techs_from = {
+								target = from
+							}
+							add_resource = {
+								minerals = 5000
+								energy = 5000
+								food = 5000
+								alloys = 5000
+								consumer_goods = 5000
+							}
+							create_fleet_from_naval_cap = 0.1
+						}
+					}
+					solar_system = {
+						starbase = {
+							set_owner = event_target:ev_will_division_country
+						}
+					}
+					set_owner = event_target:ev_will_division_country
+				}
+			}
+		}
+	}
+	on_accept = {
+		root = {
+			add_resource = {
+				influence = 50
+			}
+		}
+		custom_tooltip = wg_ev_division_on_accept
+		hidden_effect = {
+			from = {
+				every_owned_planet = {
+					limit = {
+						#is_controlled_by = root
+						is_capital = no
+					}
+					create_country = {
+						type = default
+						species = from
+						civics = random
+						effect = {
+							save_event_target_as = ev_will_division_country
+							if = {
+								limit = {
+									from = {
+										is_gestalt = yes
+									}
+								}
+								copy_ethos_and_authority = from
+							}
+							#copy_ethos_and_authority = from
+							copy_techs_from = {
+								target = from
+							}
+							#set_subject_of = {
+							#	who = root
+							#	preset = preset_protectorate
+							#}
+							add_resource = {
+								minerals = 5000
+								energy = 5000
+								food = 5000
+								alloys = 5000
+								consumer_goods = 5000
+							}
+							create_fleet_from_naval_cap = 0.1
+						}
+					}
+					solar_system = {
+						starbase = {
+							set_owner = event_target:ev_will_division_country
+						}
+						while = {
+							count = 5
+							random_neighbor_system = {
+								limit = {
+									space_owner = {
+										is_same_value = from
+									}
+									any_system_planet = {
+										num_pops = 0
+									}
+								}
+								starbase = {
+									set_owner = event_target:ev_will_division_country
+								}
+							}
+						}
+					}
+					set_owner = event_target:ev_will_division_country
+				}
+				if = {
+					limit = {
+						is_ai = yes
+					}
+					random_planet_within_border = {
+						limit = {
+							habitable_planet = yes
+							#solar_system = {
+							#	space_owner = {
+							#		is_same_value = from
+							#	}
+							#}
+						}
+						set_owner = from
+						while = {
+							count = 5
+							create_pop_group = {
+								size = 100
+								species = from.owner_main_species
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 10
+	}
+}
+
+
+
+wg_force_ideology_ev = {
+	casus_belli = cb_base_ev
+
+	hide_if_no_cb = no
+	release_occupied_systems_on_status_quo = yes
+	
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+
+	surrender_acceptance = -100
+
+	war_exhaustion = 0.75
+
+	potential = {
+		has_policy_flag = liberation_wars
+		#has_total_war_cb = no
+		#from = { is_default_ev_country_type = yes }
+		NOT = { is_in_federation_with = from }
+	}
+	possible = {
+		custom_tooltip = {
+			fail_text = has_claimed_all_systems
+			from = {
+				is_country_type = default
+				any_owned_planet = {
+					is_colony = yes
+					root = {
+						NOT = { has_claim = prev.solar_system }
+					}
+				}
+			}
+		}
+	}
+	on_status_quo = {
+		if = {
+			limit = {
+				exists = last_created_country
+				last_created_country = {
+					has_country_flag = released_empire
+				}
+			}
+
+			last_created_country = { 
+				
+				add_modifier = { modifier = recently_liberated days = 7300 } 
+				set_name = random
+				set_subject_of = {
+					preset = preset_protectorate
+					who = root
+				}
+				set_origin = origin_default
+			
+			}
+
+			root = { add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country } }
+			last_created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
+
+			every_country = {
+				limit = {
+					OR = {
+						is_in_federation_with = root
+						AND = {
+							is_subject = yes
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
+					}
+				}
+
+				add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country }
+				last_created_country = { 
+					add_opinion_modifier = { modifier = opinion_liberated_us who = prev } 
+				}
+			}
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.10
+				}
+			}
+		}
+		#hidden_effect = {
+		#	if = {
+		#		limit = {
+		#			#exists = event_target:ev_will_division_country
+		#			#event_target:ev_will_division_country = {
+		#			#	has_country_flag = released_empire
+		#			#}
+		#			from = {
+		#				num_owned_planets > 1
+		#				count_system = {
+		#					limit = { 
+		#						any_system_planet = {
+		#							num_pops >= 1
+		#							is_owned_by = from
+		#						}
+		#					}
+		#					count > 1
+		#				}
+		#			}
+		#			
+		#		}
+		#		from = {
+		#			create_country = {
+		#				type = default
+		#				species = from
+		#				civics = random
+		#				effect = {
+		#					save_event_target_as = ev_will_division_country
+		#					if = {
+		#						limit = {
+		#							from = {
+		#								is_gestalt = no
+		#							}
+		#						}
+		#						copy_ethos_and_authority = root
+		#					}
+		#					copy_techs_from = {
+		#						target = from
+		#					}
+		#					add_resource = {
+		#						minerals = 5000
+		#						energy = 5000
+		#						food = 5000
+		#						alloys = 5000
+		#						consumer_goods = 5000
+		#					}
+		#					create_fleet_from_naval_cap = 0.1
+		#					establish_communications = root
+		#				}
+		#			}
+		#			
+		#			every_owned_planet = {
+		#				limit = {
+		#					is_controlled_by = root
+		#				}
+		#				#save_event_target_as = ev_is_controlled_by_root_planet
+		#				set_owner = event_target:ev_will_division_country
+		#				solar_system = {
+		#					starbase = {
+		#						set_owner = event_target:ev_will_division_country
+		#					}
+		#				}
+		#				set_owner = event_target:ev_will_division_country
+		#			}
+		#			event_target:ev_will_division_country = {
+		#				set_name = random
+		#			}
+		#		}
+	#
+		#		event_target:ev_will_division_country = { add_modifier = { modifier = recently_liberated days = 7300 } }
+	#
+		#		root = { add_opinion_modifier = { modifier = opinion_we_liberated who = event_target:ev_will_division_country } }
+		#		event_target:ev_will_division_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
+	#
+		#		every_country = {
+		#			limit = {
+		#				OR = {
+		#					is_in_federation_with = root
+		#					AND = {
+		#						is_subject = yes
+		#						exists = overlord
+		#						overlord = { is_same_value = root }
+		#					}
+		#				}
+		#			}
+	#
+		#			add_opinion_modifier = { modifier = opinion_we_liberated who = event_target:ev_will_division_country }
+		#			event_target:ev_will_division_country = { 
+		#				set_subject_of = { subject_type = ev_protect who = root }
+		#				add_opinion_modifier = { modifier = opinion_liberated_us who = prev }  
+		#			}
+		#		}
+		#		from = {
+		#			add_threat = {
+		#				who = root
+		#				amount = 0.10
+		#			}
+		#			
+		#		}
+		#	}
+		#	else = {
+		#		if = {
+		#			limit = {
+		#				from = {
+		#					any_owned_planet = {
+		#						num_pops >= 1
+		#						NOT = {
+		#							is_controlled_by = from
+		#						}
+		#					}
+		#				}
+		#				
+		#			}
+		#			from = { copy_ethos_and_authority = root }
+		#			from = { add_modifier = { modifier = recently_liberated days = 7300 } }
+		#			add_opinion_modifier = { modifier = opinion_we_liberated who = from }
+		#			from = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
+		#			end_rivalry = from
+		#			from = { end_rivalry = root }
+		#			every_system_within_border = {
+		#				limit = {
+		#					from = { has_claim = prev }
+		#				}
+		#				remove_claims = { who = from }
+		#			}
+		#			every_country = {
+		#				limit = {
+		#					OR = {
+		#						is_in_federation_with = root
+		#						AND = {
+		#							is_subject = yes
+		#							exists = overlord
+		#							overlord = { is_same_value = root }
+		#						}
+		#					}
+		#				}
+		#				end_rivalry = from
+		#				from = { end_rivalry = prev }
+		#				add_opinion_modifier = { modifier = opinion_we_liberated who = from }
+		#				from = { add_opinion_modifier = { modifier = opinion_liberated_us who = prev } }
+		#				every_system_within_border = {
+		#					limit = {
+		#						from = { has_claim = prev }
+		#					}
+		#					remove_claims = { who = from }
+		#				}
+		#			}
+		#			from = {
+		#				add_threat = {
+		#					who = root
+		#					amount = 0.10
+		#				}
+		#				set_subject_of = {
+		#					subject_type = ev_protect
+		#					who = root
+		#				}
+		#			}
+		#			
+		#			from = {
+		#				leave_alliance = { override_requirements = yes }
+		#			}
+		#		}
+		#		
+		#		
+		#	}
+		#}
+		
+	}
+	on_accept = {
+		custom_tooltip = wg_force_ideology_accept
+		custom_tooltip = wg_force_ideology_accept_2
+		
+		if = {
+			limit = {
+				from = { has_federation = yes }
+			}
+			custom_tooltip = wg_force_ideology_accept_3
+		}
+		root = {
+			add_resource = {
+				influence = 50
+			}
+		}
+		hidden_effect = {
+			from = { copy_ethos_and_authority = root }
+			from = { add_modifier = { modifier = recently_liberated days = 7300 } }
+			add_opinion_modifier = { modifier = opinion_we_liberated who = from }
+			from = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
+			end_rivalry = from
+			from = { end_rivalry = root }
+			every_system_within_border = {
+				limit = {
+					from = { has_claim = prev }
+				}
+				remove_claims = { who = from }
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_in_federation_with = root
+						AND = {
+							is_subject = yes
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
+					}
+				}
+				end_rivalry = from
+				from = { end_rivalry = prev }
+				add_opinion_modifier = { modifier = opinion_we_liberated who = from }
+				from = { add_opinion_modifier = { modifier = opinion_liberated_us who = prev } }
+				every_system_within_border = {
+					limit = {
+						from = { has_claim = prev }
+					}
+					remove_claims = { who = from }
+				}
+			}
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.10
+				}
+				
+			}
+			from = {
+				leave_alliance = { override_requirements = yes }
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 5
+	}
+}

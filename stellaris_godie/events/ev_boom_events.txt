@@ -1,0 +1,441 @@
+namespace = ev_boom
+# 虚空之母的清算
+country_event = {
+	id = ev_boom.1
+	title = "ev_boom.1.name"
+	picture = GFX_evt_unspeakable_horror
+	show_sound = event_red_alert
+	location = event_target:ev_course_event_ship
+	is_triggered_only = yes
+	desc = ev_boom.1.desc
+	trigger = {
+		NOT = {
+			has_country_flag = trigger_ev_boom_1
+		}
+	}
+	immediate = {
+		set_country_flag = trigger_ev_boom_1
+		add_modifier = {
+			modifier = ev_boom_base_produces
+			days = 3600
+			mult = value:ev_cap_cost
+		}
+		remove_modifier = ev_boom_before 
+		
+		if = {
+			limit = { 
+				has_civic = civic_ev_god_elect
+			}
+			force_remove_civic = civic_ev_god_elect
+			force_add_civic = civic_ev_industrial_production
+		}
+		
+		set_global_flag = end_of_the_cycle_complete
+		set_country_flag = end_of_the_cycle_reckoning
+		clear_resources = yes
+		
+		
+		if = {
+			limit = {
+				NOT = {
+					exists = event_target:shroud_country
+				}
+			}
+			create_country = {
+				name = "NAME_Creatures_of_the_Shroud"
+				type = shroud_spirits
+				flag = {
+					icon = {
+						category = "special"
+						file = "the_shroud.dds"
+					}
+					background = {
+						category = "backgrounds"
+						file = "00_solid.dds"
+					}
+					colors = {
+						"dark_purple"
+						"black"
+						"null"
+						"null"
+					}
+				}
+			}
+			last_created_country = {
+				establish_communications_no_message = root
+				save_global_event_target_as = shroud_country
+			}
+		}
+		capital_scope = {
+			save_event_target_as = former_capital
+			remove_planet = yes
+		}
+		every_subject = {
+			set_subject_of = {
+				who = none
+			}
+		}
+		#every_owned_leader = {
+		#	kill_leader = {
+		#		show_notification = no
+		#	}
+		#}
+		#kill_leader = {
+		#	type = ruler
+		#	show_notification = no
+		#	heir = yes
+		#}
+		#kill_leader = {
+		#	type = ruler
+		#	show_notification = no
+		#	heir = no
+		#}
+		every_owned_leader = {
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		create_leader = {
+			class = commander
+			species = root.owner_species
+			name = random
+			skill = 5
+		}
+		assign_leader = last_created_leader
+		
+		last_created_leader = {
+			save_event_target_as = ev_new_ruler
+		}
+		
+		random_system = {
+			star = {
+				save_event_target_as = ev_new_fleet_starbase_move
+			}
+			
+		}
+		
+		
+		add_resource = {
+			minerals = 5000
+			energy = 5000
+			food = 1000
+			influence = 100
+			alloys = 2000
+			
+		}
+		
+		random_owned_fleet = {
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+			while = {
+				count = 2
+				if = {
+					limit = {
+						
+					}
+				}
+				create_fleet = {
+					name = {
+						key = NAME_Shroud_Manifestation_EV
+						variable_string = Root.GetSpeciesNameInsult
+						#variable_string = prev.GetName
+					}
+					settings = {
+						spawn_debris = no
+						is_boss = yes
+					}
+					effect = {
+						set_owner = event_target:shroud_country
+						
+						create_ship = {
+							name = "NAME_Fragment"
+							design = "NAME_Shroud_Manifestation"
+						}
+						set_location = prev
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = return_point
+						set_aggro_range = 3000
+						add_modifier = {
+							modifier = "ev_absorbed_consciousness_low"
+							days = -1
+						}
+					}
+				}
+			}
+			
+		}
+		every_owned_planet = {
+			limit = {
+				always = yes
+			}
+			remove_all_armies = yes
+			every_owned_pop_group = {
+				kill_all_pop = yes
+			}
+			if = {
+				limit = {
+					has_owner = yes
+					owner = {
+						NOT = {
+							has_country_flag = end_of_the_cycle_reckoning
+						}
+					}
+				}
+				owner = {
+					set_country_flag = end_of_the_cycle_reckoning
+					set_country_flag = end_of_cycle_lost_planets
+					country_event = {
+						id = utopia.3321
+					}
+				}
+			}
+			
+			if = {
+				limit = {
+					is_planet_class = pc_habitat
+				}
+				destroy_colony = yes
+				remove_planet = yes
+			}
+			else_if = {
+				limit = {
+					is_planet_class = pc_ringworld_habitable
+				}
+				change_pc = pc_ringworld_habitable_damaged
+				clear_planet_modifiers = yes
+				clear_deposits = yes
+			}
+			else = {
+				change_pc = pc_shrouded
+				clear_planet_modifiers = yes
+				clear_deposits = yes
+			}
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					is_same_value = root
+				}
+				is_country_type = default
+			}
+			add_opinion_modifier = {
+				modifier = opinion_doomed_us_all
+				who = root
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = end_of_the_cycle_reckoning
+					}
+				}
+				set_country_flag = end_of_the_cycle_reckoning
+				country_event = {
+					id = utopia.3321
+				}
+			}
+		}
+		create_fleet = {
+			name = "NAME_The_End"
+			settings = {
+				spawn_debris = no
+				ai_ignore_strength = yes
+				is_boss = yes
+			}
+			effect = {
+				save_global_event_target_as = the_end_of_the_cycle
+				
+				set_owner = event_target:shroud_country
+				create_ship = {
+					name = "NAME_Reckoning"
+					design = "NAME_EV_Warped_Consciousness"
+				}
+				set_location = event_target:former_capital
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = return_point
+				set_aggro_range = 3000
+				add_modifier = {
+					modifier = "ev_absorbed_consciousness"
+					days = -1
+				}
+			}
+		}
+
+		every_owned_fleet = {
+			destroy_fleet = this
+		}
+
+
+		create_fleet = {
+			effect = {
+				set_owner = root
+				create_ship = {
+					name = random
+					design = NAME_start_homeless_ship_starbase
+				}
+				set_location = event_target:ev_new_fleet_starbase_move
+			}
+		}
+		last_created_fleet = {
+			save_event_target_as = ev_new_fleet_starbase
+		}
+		create_fleet_from_naval_cap = 0.1
+		last_created_fleet = {
+			set_location = event_target:ev_new_fleet_starbase_move
+		}
+		add_resource = {
+			minerals = 5000
+			energy = 5000
+			food = 1000
+			influence = 100
+			alloys = 2000
+			#manpower = 2000
+		}
+
+		random_controlled_fleet = {
+			save_event_target_as = ev_course_event_ship_location
+		}
+		#和平送船
+		while = {
+			count = 2
+			create_fleet = {
+				effect = {
+					set_owner = root
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_start_homeless_ship_course_starbase"
+						}
+						set_fleet_flag = homeless_ship_ai_class_1
+						#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+					}
+					starbase = {
+						set_ship_construction_type = starbase_shipyard
+					}
+					save_global_event_target_as = ev_course_event_ship
+					set_fleet_stance = evasive
+					set_location = event_target:ev_course_event_ship_location
+				}
+				settings = {
+					#can_upgrade = no
+					#can_change_composition = no
+					#can_change_leader = no
+					uses_naval_capacity = no
+				}
+			}
+		}
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = root
+		#		while = {
+		#			count = 1
+		#			create_ship = {
+		#				name = random
+		#				design = "NAME_start_homeless_ship_ai_1_machine"
+		#			}
+		#			#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+		#		}
+		#		save_global_event_target_as = ev_course_event_ship
+		#		set_fleet_stance = evasive
+		#		set_location = event_target:ev_new_fleet_starbase_move
+		#	}
+		#	settings = {
+		#		#can_upgrade = no
+		#		#can_change_composition = no
+		#		#can_change_leader = no
+		#		uses_naval_capacity = no
+		#	}
+		#}
+	}
+	option = {
+		name = "utopia.3320.opt.a"
+	}
+}
+
+#自爆开局
+country_event = {
+	id = ev_boom.100
+	hide_window = yes
+	location = root
+	#is_triggered_only = yes
+	desc = ev_boom.1.desc
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		has_origin = origin_ev_painful_price
+		NOT = {
+			has_country_flag = trigger_ev_painful_price
+		}
+	}
+	immediate = {
+		set_country_flag = trigger_ev_painful_price
+		if = {
+			limit = {
+				AND = {
+					has_origin = origin_ev_painful_price
+					is_ai = no
+				}
+			}
+			#country_event = { id = ev_boom.1 days = 1 }
+		}
+	}
+	
+}
+#红激光
+country_event = {
+	id = ev_boom.200
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = {
+			any_controlled_ship = {
+				has_component = LARGE_RED_LASER_IMBA
+			}
+		}
+	}
+	immediate = {
+		From = {
+			destroy_country = yes
+		}
+	}
+}
+
+#红激光
+country_event = {
+	id = ev_boom.201
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = {
+			any_controlled_ship = {
+				has_component = MEDIUM_RED_LASER_IMBA
+			}
+		}
+	}
+	immediate = {
+		From = {
+			random_controlled_fleet = {
+				destroy_fleet = this
+			}
+		}
+	}
+}
+
+#红激光
+ship_event = {
+	id = ev_boom.202
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		root = {
+			has_component = EX_RED_LASER_IMBA
+		}
+	}
+	immediate = {
+		owner = {
+			win = yes
+		}
+	}
+}

@@ -1,0 +1,5592 @@
+namespace = ev_leader
+#雇佣兵特质
+#生成领袖
+country_event = {
+	id = ev_leader.900
+	hide_window = yes
+	is_triggered_only = yes
+	#trigger = {
+	#is_default_ev_country_type = yes
+	#}
+	immediate = {
+		#雇佣兵
+		if = {
+			limit = {
+				is_default_ev_country_type = yes
+			}
+			random_list = {
+				33 = {
+					from = {
+						if = {
+							limit = {
+								leader_class = commander
+							}
+							add_trait = leader_trait_mercenary_warrior
+						}
+						if = {
+							limit = {
+								leader_class = general
+							}
+							add_trait = leader_trait_general_mercenary_warrior
+						}
+					}
+				}
+				66 = {
+				}
+			}
+		}
+		#天选者
+		if = {
+			limit = {
+				has_technology = tech_ultimate_answer
+			}
+			random_list = {
+				20 = {
+					from = {
+						add_ruler_trait = leader_trait_ruler_chosen
+						if = {
+							limit = {
+								leader_class = official
+							}
+							add_trait = leader_trait_governor_chosen
+						}
+						if = {
+							limit = {
+								leader_class = scientist
+							}
+							add_trait = leader_trait_scientist_chosen
+						}
+						if = {
+							limit = {
+								leader_class = commander
+							}
+							add_trait = leader_trait_admiral_chosen
+						}
+						if = {
+							limit = {
+								leader_class = general
+							}
+							add_trait = leader_trait_general_chosen
+						}
+					}
+				}
+				80 = {
+				}
+			}
+		}
+		#科学家等级+3
+		if = {
+			limit = {
+				OR = {
+					has_civic = civic_ev_exploration_of_space
+				}
+				from = {
+					leader_class = scientist
+				}
+			}
+			from = {
+				add_skill = 3
+			}
+		}
+		#格式塔传统效果
+		if = {
+			limit = {
+				has_tradition = tr_ev_void_5
+				is_default_ev_country_type = yes
+				OR = {
+					is_hive_empire = yes
+					is_machine_empire = yes
+				}
+			}
+			from = {
+				add_skill = 3
+			}
+		}
+		#特质
+		if = {
+			limit = {
+				from = {
+					species = {
+						has_trait = trait_ev_skills_add
+					}
+				}
+				#any_owned_pop_group = { has_trait = trait_ev_skills_add }
+			}
+			from = {
+				if = {
+					limit = {
+						leader_class = official
+					}
+					add_skill = 1
+				}
+			}
+			#from = {
+			#	add_trait = trait_ruler_ev_da_khan
+			#}
+		}
+		#高级特质
+		if = {
+			limit = {
+				#any_owned_pop_group = { has_trait = trait_ev_advanced_research }
+				from = {
+					species = {
+						has_trait = trait_ev_advanced_research
+					}
+				}
+			}
+			from = {
+				add_skill = 3
+			}
+		}
+		#高级特质
+		if = {
+			limit = {
+				#any_owned_pop_group = { has_trait = trait_ev_advanced_war }
+				from = {
+					species = {
+						has_trait = trait_ev_advanced_war
+					}
+				}
+			}
+			from = {
+				if = {
+					limit = {
+						leader_class = commander
+					}
+					add_skill = 4
+				}
+			}
+		}
+		if = {
+			limit = {
+				from = {
+					is_same_value = heir
+				}
+			}
+			from = {
+				add_skill = 4
+			}
+		}
+	}
+}
+
+#生成天选
+#country_event = {
+#	id = ev_leader.1000
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		has_technology = tech_ultimate_answer
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			20 = { 
+#				from = { 
+#					add_ruler_trait = leader_trait_ruler_chosen
+##					if = { limit = { leader_class = ruler }
+##						add_trait = leader_trait_ruler_chosen 
+##					}
+#					if = { limit = { leader_class = official}
+#						add_trait = leader_trait_governor_chosen 
+#					}
+#					if = { limit = { leader_class = scientist }
+#						add_trait = leader_trait_scientist_chosen 
+#					}
+#					if = { limit = { leader_class = commander }
+#						add_trait = leader_trait_admiral_chosen 
+#					}
+#					if = { limit = { leader_class = general }
+#						add_trait = leader_trait_general_chosen 
+#					}			
+#				}
+#			}
+#			80 = { }
+#		}
+#	}
+#}	
+#spawn special leader
+#country_event = {
+#	id = ev_leader.1010
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		OR = {
+#			has_civic = civic_ev_exploration_of_space
+#		}
+#		from = { leader_class = scientist }
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			1 = { from = { add_skill = 3 } }
+#		}
+#	}
+#}
+#外交传统闭门，对格式塔
+#country_event = {
+#	id = ev_leader.1020
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		AND = {
+#			has_swapped_tradition = tr_adaptability_finish_ev
+#			is_default_ev_country_type = yes
+#			OR = {
+#				is_hive_empire = yes
+#				is_machine_empire = yes
+#			}
+#		}
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			1 = { from = { add_skill = 3 } }
+#		}
+#	}
+#}
+#country_event = {
+#	id = ev_leader.1030
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		any_owned_pop_group = { has_trait = trait_ev_skills_add }
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			100 = { 
+#				from = { 
+#					if = { limit = { leader_class = commander }
+#						add_skill = 1
+#					}			
+#				}
+#			}
+#			0 = { }
+#		}
+#	}
+#}	
+#高级智能特质
+#country_event = {
+#	id = ev_leader.1040
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		any_owned_pop_group = { has_trait = trait_ev_advanced_research }
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			100 = { 
+#				from = { add_skill = 3 }			
+#			}
+#			0 = { }
+#		}
+#	}
+#}	
+#
+##高级战斗特质
+#country_event = {
+#	id = ev_leader.1050
+#	hide_window = yes
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		any_owned_pop_group = { has_trait = trait_ev_advanced_war }
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			100 = { 
+#				from = { 
+#					if = { limit = { leader_class = commander }
+#						add_skill = 4
+#					}	
+#				}			
+#			}
+#			0 = { }
+#		}
+#	}
+#}	
+#2000-3000领袖叛变事件链
+#前兆1,判定事件链
+
+#改用局势事件链-2022-05-14
+country_event = {
+	id = ev_leader.2000
+	hide_window = yes
+	#is_triggered_only = yes
+	trigger = {
+		is_gestalt = no
+		is_default_ev_country_type = yes
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+		#always = no
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		
+	}
+	mean_time_to_happen = {
+		months = 300
+		modifier = {
+			factor = 10
+			mid_game_years_passed < 0
+		}
+		modifier = {
+			factor = 0.75
+			mid_game_years_passed > 30
+		}
+		modifier = {
+			factor = 0.7
+			mid_game_years_passed > 60
+		}
+		modifier = {
+			factor = 0.7
+			end_game_years_passed > 0
+		}
+		modifier = {
+			factor = 0.6
+			end_game_years_passed > 30
+		}
+		modifier = {
+			factor = 0.6
+			end_game_years_passed > 60
+		}
+		modifier = {
+			factor = 0.85
+			years_passed > 40
+		}
+		modifier = {
+			factor = 0.85
+			years_passed > 70
+		}
+		modifier = {
+			factor = 0.85
+			years_passed > 110
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = {
+				which = ev_maintenance_value
+				value < 20
+			}
+		}
+		modifier = {
+			factor = 0.15
+			check_variable = {
+				which = ev_maintenance_value
+				value < 0
+			}
+		}
+		modifier = {
+			factor = 0.05
+			check_variable = {
+				which = ev_maintenance_value
+				value < -20
+			}
+		}
+		#modifier = {
+		#	factor = 0.8
+		#	mult = 1
+		#	check_variable = {
+		#		which = ev_struggle_value
+		#		value > 5
+		#	}
+		#}
+		#modifier = {
+		#	factor = 0.8
+		#	check_variable = {
+		#		which = ev_struggle_value
+		#		value > 10
+		#	}
+		#}
+		#modifier = {
+		#	factor = 0.5
+		#	is_ai = no
+		#}
+	}
+	immediate = {
+		#新版的判断2022-05-14
+		random_list = {
+			5 = {
+				
+			}
+
+
+			2 = {
+				modifier = {
+					factor = 0.1 #1.1
+					mult = value:ev_cap_cost 
+					end_game_years_passed > 0
+				}
+				random_list = {
+					1 = {
+						owner = {
+							country_event = {
+								id = ev_leader.2010
+								days = 100
+								random = 50
+							}
+						}
+					}
+					1 = {
+						owner = {
+							country_event = {
+								id = ev_leader.2020
+								days = 100
+								random = 50
+							}
+						}
+					}
+					1 = {
+						owner = {
+							country_event = {
+								id = ev_leader.2030
+								days = 100
+								random = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		
+
+
+
+
+		#旧版的判断
+		#random_list = {
+		#	2 = {
+		#		modifier = {
+		#			factor = 2
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		modifier = {
+		#			factor = 1.5
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value > 0
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 1.5
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value > 10
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 0.9
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value < 15
+		#			}
+		#		}
+		#		
+		#	}
+		#	1 = {
+		#		modifier = {
+		#			factor = 2
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value < -10
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value < -20
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 3
+		#			check_variable = {
+		#				which = ev_maintenance_value
+		#				value < -30
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_energy
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_food
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_minerals
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_consumer_goods
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_alloys
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_exotic_gases
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_rare_crystals
+		#		}
+		#		modifier = {
+		#			factor = 10
+		#			has_modifier = empty_vagrant_no_volatile_motes
+		#		}
+		#		modifier = {
+		#			factor = 20
+		#			has_modifier = empty_vagrant_no_influence
+		#		}
+		#		modifier = {
+		#			factor = 0.2
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count < 5
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 1.5
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count > 8
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 1.5
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count > 12
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 1.75
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count > 18
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 1.75
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count > 25
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			count_owned_ship = {
+		#				limit = {
+		#					is_ship_size = homeless_ship
+		#				}
+		#				count > 40
+		#			}
+		#		}
+		#		#舰队容量
+		#		modifier = {
+		#			factor = 1.1
+		#			used_naval_capacity_integer > 500
+		#		}
+		#		modifier = {
+		#			factor = 1.2
+		#			used_naval_capacity_integer > 1500
+		#		}
+		#		modifier = {
+		#			factor = 1.5
+		#			used_naval_capacity_integer > 3000
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			used_naval_capacity_integer > 5000
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			used_naval_capacity_integer > 9000
+		#		}
+		#		modifier = {
+		#			factor = 0
+		#			has_country_flag = has_ev_ship_traitor
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			is_ai = no
+		#		}
+		#		modifier = {
+		#			factor = 0.5
+		#			is_ai = yes
+		#		}
+		#		#在此触发阻止事件链
+		#		random_list = {
+		#			1 = {
+		#				owner = {
+		#					country_event = {
+		#						id = ev_leader.2010
+		#						days = 100
+		#						random = 50
+		#					}
+		#				}
+		#			}
+		#			1 = {
+		#				owner = {
+		#					country_event = {
+		#						id = ev_leader.2020
+		#						days = 100
+		#						random = 50
+		#					}
+		#				}
+		#			}
+		#			1 = {
+		#				owner = {
+		#					country_event = {
+		#						id = ev_leader.2030
+		#						days = 100
+		#						random = 50
+		#					}
+		#				}
+		#			}
+		#		}
+		#		#owner = { country_event = { id = ev_leader.2021 } }
+		#	}
+		#}
+	}
+}
+
+#A事件链
+country_event = {
+	id = ev_leader.2010
+	title = ev_leader.2010.name
+	desc = {
+		text = ev_leader.2010.desc.1
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2010.desc.2
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+	}
+	picture = GFX_evt_federation_fleet
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	#option = {
+	#	name = ev_leader.2010.sp
+	#	locked_random_list = {
+	#		1 = {
+	#			change_variable = {
+	#				which = ev_maintenance_value
+	#				value = -10
+	#			}
+	#		}
+	#		1 = {
+	#			change_variable = {
+	#				which = ev_maintenance_value
+	#				value = -15
+	#			}
+	#		}
+	#	}
+	#	custom_tooltip = ev_leader.2010.sp.no_effect
+	#}
+	option = {
+		name = ev_leader.2010.a
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 160
+							random = 100
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2011
+							days = 160
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2010.b
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				80 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2015
+							days = 160
+							random = 100
+						}
+					}
+				}
+				20 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2011
+							days = 160
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2010.c
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 250
+					random = 100
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2011
+	title = ev_leader.2011.name
+	desc = ev_leader.2011.desc
+	picture = GFX_evt_physics_research
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2011.a
+		add_resource = {
+			influence = -25
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2011.b
+		add_resource = {
+			energy = -400
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2011.c
+		trigger = {
+			owner = {
+				has_civic = civic_ev_great_ship
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2012
+	title = ev_leader.2012.name
+	desc = ev_leader.2012.desc
+	picture = GFX_evt_fleet_good
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2012.a
+		hidden_effect = {
+			#rebel			
+			owner = {
+				country_event = {
+					id = ev_leader.2011
+					days = 180
+					random = 100
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2015
+	title = ev_leader.2015.name
+	desc = ev_leader.2015.desc
+	picture = GFX_evt_physics_research
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2015.a
+		add_resource = {
+			influence = -25
+		}
+		hidden_effect = {
+			random_list = {
+				80 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				20 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2015.b
+		add_resource = {
+			energy = -400
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				70 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				30 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2015.c
+		trigger = {
+			owner = {
+				has_civic = civic_ev_great_ship
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				70 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2019
+							days = 360
+							random = 200
+						}
+					}
+				}
+				30 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2012
+							days = 360
+							random = 200
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2019
+	title = ev_leader.2019.name
+	desc = ev_leader.2019.desc
+	picture = GFX_evt_ship_in_orbit_3
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2019.a
+		add_resource = {
+			unity = -70
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2032
+							days = 60
+							random = 20
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2033
+							days = 60
+							random = 20
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2019.b
+		add_resource = {
+			unity = 70
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 180
+					random = 80
+				}
+			}
+		}
+	}
+}
+
+#B事件链
+country_event = {
+	id = ev_leader.2020
+	title = ev_leader.2020.name
+	desc = {
+		text = ev_leader.2020.desc.1
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2020.desc.2
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+	}
+	picture = GFX_evt_ev_load_5_small
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2010.sp
+		locked_random_list = {
+			1 = {
+				change_variable = {
+					which = ev_maintenance_value
+					value = -10
+				}
+			}
+			1 = {
+				change_variable = {
+					which = ev_maintenance_value
+					value = -15
+				}
+			}
+		}
+		custom_tooltip = ev_leader.2010.sp.no_effect
+	}
+	option = {
+		name = ev_leader.2020.a
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+		owner = {
+			add_modifier = {
+				modifier = "ev_event_ev_leader_2020"
+				days = 360
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2021
+							days = 180
+							random = 100
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2022
+							days = 180
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2020.b
+		owner = {
+			add_resource = {
+				energy = -1200
+				multiplier = value:ev_cap_cost
+			}
+		}
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				80 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2021
+							days = 180
+							random = 100
+						}
+					}
+				}
+				20 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2022
+							days = 180
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2020.c
+		owner = {
+			add_resource = {
+				energy = -500
+				multiplier = value:ev_cap_cost
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				20 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2021
+							days = 180
+							random = 100
+						}
+					}
+				}
+				80 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2022
+							days = 180
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#结束叛乱事件链（被乱枪打死）
+country_event = {
+	id = ev_leader.2021
+	title = ev_leader.2021.name
+	desc = {
+		text = ev_leader.2021.desc.1
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2021.desc.2
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+	}
+	picture = GFX_evt_debris
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2021.a
+		trigger = {
+			#NOT = { owner = { has_civic = civic_ev_police_ship } }
+		}
+		add_resource = {
+			minerals = 300
+			multiplier = value:ev_cap_cost
+		}
+	}
+	option = {
+		name = ev_leader.2021.b
+		trigger = {
+			#owner = { has_civic = civic_ev_police_ship } 
+		}
+		add_resource = {
+			alloys = 100
+			multiplier = value:ev_cap_cost
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2022
+	title = ev_leader.2022.name
+	desc = ev_leader.2022.desc
+	picture = GFX_evt_large_explosion
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2022.a
+		trigger = {
+			#NOT = { owner = { has_civic = civic_ev_police_ship } }
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2025
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2022.b
+		trigger = {
+			#owner = { has_civic = civic_ev_police_ship } 
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2025
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2025
+	title = ev_leader.2025.name
+	desc = ev_leader.2025.desc
+	picture = GFX_evt_pirate_armada
+	is_triggered_only = yes
+	location = event_target:ev_pirate_rebel_fleet
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	immediate = {
+		#create_fleet = {
+		#	effect = {
+		#		save_event_target_as = ev_pirate_rebel_fleet
+		#		set_variable = {
+		#			which = ev_count_event_rebal
+		#			value = root.value:ev_cap_cost
+		#		}
+		#		multiply_variable = {
+		#			which = ev_count_event_rebal
+		#			value = 2
+		#		}
+#
+		#		#while = {
+		#		#	count = ev_count_event_rebal #35
+		#		#	create_ship = {
+		#		#		name = random
+		#		#		random_existing_design = corvette
+		#		#	}
+		#		#}
+		#		while = {
+		#			count = 25
+		#			create_ship = {
+		#				name = random
+		#				random_existing_design = corvette
+		#			}
+		#		}
+		#	}
+		#}
+		
+		owner = {
+			random_controlled_fleet = {
+				save_event_target_as = ev_pirate_rebel_location
+			}
+		}
+
+		create_country = {
+			type = pirate
+			authority = random
+			day_zero_contact = no
+			#species = random	
+			ethos = random
+			flag = random
+			effect = {
+				save_event_target_as = ev_pirate_rebel_country
+			}
+		}
+		
+		create_fleet_from_naval_cap = 0.05
+
+		create_fleet = {
+			effect = {
+				set_owner = event_target:ev_pirate_rebel_country
+				save_event_target_as = ev_pirate_rebel_fleet
+				set_variable = {
+					which = ev_count_event_rebal
+					value = root.value:ev_cap_cost
+				}
+				multiply_variable = {
+					which = ev_count_event_rebal
+					value = 2
+				}
+				while = {
+					count = ev_count_event_rebal #35
+					create_ship = {
+						name = random
+						random_existing_design = corvette
+					}
+				}
+				while = {
+					count = 10
+					create_ship = {
+						name = random
+						random_existing_design = corvette
+					}
+				}
+
+				
+			}
+			
+		}
+		
+		last_created_fleet = {
+			set_fleet_flag = ev_pirate_rebel_flag
+			set_owner = event_target:ev_pirate_rebel_country  #last_created_country
+			set_location = {
+				target = event_target:ev_pirate_rebel_location
+				distance = 150
+				angle = random
+			}
+			set_fleet_stance = aggressive
+			set_aggro_range = 800
+		}
+		
+	
+	}
+	option = {
+		name = ev_leader.2025.a
+	}
+}
+
+country_event = {
+	id = ev_leader.2026
+	title = ev_leader.2026.name
+	desc = ev_leader.2026.desc
+	picture = GFX_evt_ship_in_orbit_2
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+		FromFromFrom = {
+			has_fleet_flag = ev_pirate_rebel_flag
+		}
+	}
+	option = {
+		name = ev_leader.2026.a
+		add_resource = {
+			unity = -50
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2032
+							days = 60
+							random = 20
+						}
+					}
+				}
+				50 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2033
+							days = 60
+							random = 20
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2026.b
+		add_resource = {
+			unity = 120
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 180
+					random = 80
+				}
+			}
+		}
+	}
+}
+
+#C事件链
+country_event = {
+	id = ev_leader.2030
+	title = ev_leader.2030.name
+	desc = ev_leader.2030.desc
+	picture = GFX_evt_large_explosion
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2010.sp
+		locked_random_list = {
+			1 = {
+				change_variable = {
+					which = ev_maintenance_value
+					value = -10
+				}
+			}
+			1 = {
+				change_variable = {
+					which = ev_maintenance_value
+					value = -15
+				}
+			}
+		}
+		custom_tooltip = ev_leader.2010.sp.no_effect
+	}
+	option = {
+		name = ev_leader.2030.a
+		add_resource = {
+			unity = -100
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				60 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2031
+							days = 260
+							random = 90
+						}
+					}
+				}
+				40 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 260
+							random = 90
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2030.b
+		add_resource = {
+			unity = -100
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				40 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2031
+							days = 260
+							random = 90
+						}
+					}
+				}
+				60 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 260
+							random = 90
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2030.c
+		add_resource = {
+			unity = -200
+			multiplier = value:ev_cap_cost
+		}
+		hidden_effect = {
+			random_list = {
+				75 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2031
+							days = 260
+							random = 20
+						}
+					}
+				}
+				25 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 260
+							random = 20
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2030.d
+		add_resource = {
+			unity = -100
+			multiplier = value:ev_cap_cost
+		}
+		owner = {
+			add_modifier = {
+				modifier = "ev_event_ev_leader_2030"
+				days = 360
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				90 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2031
+							days = 360
+							random = 100
+						}
+					}
+				}
+				10 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 360
+							random = 100
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2031
+	title = ev_leader.2031.name
+	desc = ev_leader.2031.desc
+	picture = GFX_evt_smugglers_in_bar
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2031.a
+		hidden_effect = {
+			random_list = {
+				60 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2032
+							days = 80
+							random = 30
+						}
+					}
+				}
+				40 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2033
+							days = 80
+							random = 30
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2031.b
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 260
+					random = 90
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2031.c
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_pacifist
+				has_ethic = ethic_fanatic_pacifist
+			}
+		}
+		add_resource = {
+			influence = 40
+		}
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 20
+			min = 200
+			max = 4000
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 180
+					random = 90
+				}
+			}
+		}
+	}
+}
+
+#审讯事件链
+#共通线
+country_event = {
+	id = ev_leader.2032
+	title = ev_leader.2032.name
+	desc = ev_leader.2032.desc
+	picture = GFX_evt_intelligence_report
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2032.a
+		add_resource = {
+			unity = -70
+			multiplier = value:ev_cap_cost
+		}
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2034
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2032.b
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2034
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2032.c
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2080
+					days = 120
+					random = 50
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2033
+	title = ev_leader.2033.name
+	desc = ev_leader.2033.desc
+	picture = GFX_evt_interior_battle
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2033.a
+		add_resource = {
+			unity = -70
+			multiplier = value:ev_cap_cost
+		}
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2034
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2033.b
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = ev_leader.2034
+					days = 200
+					random = 80
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2034
+	title = ev_leader.2034.name
+	desc = {
+		text = ev_leader.2034.desc.2
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2034.desc.1
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+	}
+	picture = GFX_evt_mysterious_signal
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	immediate = {
+		set_country_flag = ev_has_been_monitor
+		random_list = {
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_1
+				}
+			}
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_2
+				}
+			}
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_3
+				}
+			}
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_4
+				}
+			}
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_5
+				}
+			}
+			1 = {
+				owner = {
+					set_country_flag = ev_leader.2070.desc_6
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2034.a
+		hidden_effect = {
+			random_list = {
+				60 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2070
+							days = 40
+							random = 10
+						}
+					}
+				}
+				40 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 90
+							random = 40
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2034.b
+		hidden_effect = {
+			random_list = {
+				25 = {
+					#no rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2070
+							days = 40
+							random = 10
+						}
+					}
+				}
+				75 = {
+					#rebel
+					owner = {
+						country_event = {
+							id = ev_leader.2080
+							days = 90
+							random = 40
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2070
+	title = ev_leader.2070.name
+	desc = {
+		text = ev_leader.2070.desc.1
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_1
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2070.desc.2
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_2
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2070.desc.3
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_3
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2070.desc.4
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_4
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2070.desc.5
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_5
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2070.desc.6
+		trigger = {
+			owner = {
+				has_country_flag = ev_leader.2070.desc_6
+			}
+		}
+	}
+	picture = GFX_evt_ev_load_5_small
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	after = {
+		owner = {
+			remove_country_flag = ev_leader.2070.desc_1
+			remove_country_flag = ev_leader.2070.desc_2
+			remove_country_flag = ev_leader.2070.desc_3
+			remove_country_flag = ev_leader.2070.desc_4
+			remove_country_flag = ev_leader.2070.desc_5
+			remove_country_flag = ev_leader.2070.desc_6
+		}
+	}
+	option = {
+		name = ev_leader.2070.a
+		add_resource = {
+			unity = 100
+			multiplier = value:ev_cap_cost
+		}
+		custom_tooltip = ev_leader.2070.a.custom_tooltip
+		start_situation = { type = ev_leader_rebal target = this }
+		hidden_effect = {
+			owner = {
+				
+				change_variable = {
+					which = ev_leader_rebal_opinion
+					value = -8
+				}
+				change_variable = {
+					which = ev_leader_rebal_strong
+					value = -8
+				}
+			}
+		}
+	}
+	#option = {
+	#	name = ev_leader.2070.b
+	#	add_resource = {
+	#		influence = 50
+	#	}
+	#}
+}
+
+country_event = {
+	id = ev_leader.2080
+	title = ev_leader.2080.name
+	desc = ev_leader.2080.desc
+	picture = GFX_evt_alien_segregation
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2080.a
+		hidden_effect = {
+			country_event = {
+				id = ev_leader.2081
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2080.b
+		hidden_effect = {
+			owner = {
+				start_situation = { type = ev_leader_rebal target = this }
+				hidden_effect = {
+					change_variable = {
+						which = ev_leader_rebal_opinion
+						value = 10
+					}
+					change_variable = {
+						which = ev_leader_rebal_strong
+						value = 5
+					}
+				}
+				
+			}
+			#country_event = {
+			#	id = ev_leader.2091
+			#	days = 80
+			#	random = 30
+			#}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2081
+	title = ev_leader.2081.name
+	desc = {
+		text = ev_leader.2081.desc.1
+		trigger = {
+			has_country_flag = ev_has_been_monitor
+		}
+	}
+	desc = {
+		text = ev_leader.2081.desc.2
+		trigger = {
+			NOT = {
+				has_country_flag = ev_has_been_monitor
+			}
+		}
+	}
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	trigger = {
+		NOT = {
+			has_country_flag = has_ev_ship_traitor
+		}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	after = {
+		remove_country_flag = ev_has_been_monitor
+	}
+	option = {
+		name = ev_leader.2081.a
+		response_text = ev_leader.2081.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = ev_leader.2081.b
+		response_text = ev_leader.2081.b.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = ev_leader.2081.c
+		response_text = ev_leader.2081.c.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = ev_leader.2081.d
+		response_text = ev_leader.2081.d.response
+		owner = {
+			start_situation = {
+				type = ev_leader_rebal
+				target = this
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_leader_rebal_opinion
+				value = 2
+			}
+			change_variable = {
+				which = ev_leader_rebal_strong
+				value = 2
+			}
+			
+		}
+	}
+}
+
+
+
+#爆叛军事件无图，无描述
+country_event = {
+	id = ev_leader.2091
+	title = ev_leader.2091.name
+	desc = {
+		text = ev_leader.2091.desc.1
+		trigger = {
+			NOT = {
+				owner = {
+					has_civic = civic_ev_police_ship
+				}
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.2091.desc.2
+		trigger = {
+			owner = {
+				has_civic = civic_ev_police_ship
+			}
+		}
+	}
+	picture = GFX_evt_ev_load_5_small
+	is_triggered_only = yes
+	trigger = {
+		#NOT = {
+		#	has_country_flag = has_ev_ship_traitor
+		#}
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	immediate = {
+		
+		random_list = {
+			2 = {
+				set_timed_country_flag = {
+					flag = has_ev_ship_traitor
+					days = 4200
+				}
+			}
+			3 = {
+				set_timed_country_flag = {
+					flag = has_ev_ship_traitor
+					days = 3600
+				}
+			}
+			1 = {
+				set_timed_country_flag = {
+					flag = has_ev_ship_traitor
+					days = 5200
+				}
+			}
+		}
+		root = {
+			save_global_event_target_as = been_ship_traitor_country
+		}
+		#random_list = {
+		#	7 = {
+		#		modifier = {
+		#			factor = 0.1
+		#			root = {
+		#				NOT = {
+		#					has_ethic = ethic_gestalt_consciousness
+		#				}
+		#			}
+		#		}
+		#		create_country = {
+		#			species = root.owner_species
+		#			type = default_ev
+		#			ethos = {
+		#				ethic = ethic_gestalt_consciousness
+		#			}
+		#			origin = "origin_ev_separatists"
+		#			authority = random
+		#			day_zero_contact = no
+		#			civics = {
+		#				civic = civic_empty_vagrant
+		#				civic = random
+		#			}
+		#			#species = random	
+		#			flag = random
+		#			name = random					#NAME_EV_Uprising_Country_1
+		#			effect = {
+		#				random_list = {
+		#					1 = {
+		#						set_graphical_culture = humanoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = molluscoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = lithoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = avian_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = fungoid_01
+		#					}
+		#				}
+		#			}
+		#		}
+		#	}
+		#	2 = {
+		#		create_country = {
+		#			species = root.owner_species
+		#			type = default_ev
+		#			authority = random
+		#			day_zero_contact = no
+		#			civics = {
+		#				civic = civic_empty_vagrant
+		#				civic = random
+		#			}
+		#			origin = "origin_ev_separatists"
+		#			#species = random	
+		#			ethos = random
+		#			flag = random
+		#			name = random					#NAME_EV_Uprising_Country_2
+		#			effect = {
+		#				random_list = {
+		#					1 = {
+		#						set_graphical_culture = humanoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = molluscoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = lithoid_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = avian_01
+		#					}
+		#					1 = {
+		#						set_graphical_culture = fungoid_01
+		#					}
+		#				}
+		#			}
+		#		}
+		#	}
+		#	#1 = {
+		#	#	create_country = {
+		#	#		species = root.owner_species
+		#	#		type = default_ev
+		#	#		authority = random
+		#	#		day_zero_contact = no
+		#	#		civics = {
+		#	#			civic = civic_empty_vagrant
+		#	#			civic = random
+		#	#		}
+		#	#		
+		#	#		ethos = random
+		#	#		flag = random
+		#	#		name = random #NAME_EV_Uprising_Country_3
+		#	#	}	
+		#	#}
+		#}
+		#last_created_country = {
+		#	root = {
+		#		random_owned_leader = {
+		#			limit = {
+		#				NOT = {
+		#					leader_class = ruler
+		#				}
+		#			}
+		#			save_event_target_as = rebel_country_ruler
+		#		}
+		#	}
+		#	clone_leader = {
+		#		target = event_target:rebel_country_ruler
+		#		class = ruler
+		#		effect = {
+		#			add_experience = 200
+		#			add_skill = 1
+		#			random_list = {
+		#				1 = {
+		#					add_ruler_trait = trait_ruler_ev_all_produces
+		#				}
+		#				1 = {
+		#					add_ruler_trait = trait_ruler_ev_food_produces
+		#				}
+		#				1 = {
+		#					add_ruler_trait = trait_ruler_ev_minerals_produces
+		#				}
+		#				1 = {
+		#					add_ruler_trait = trait_ruler_ev_minerals_energy_upkeep
+		#				}
+		#				1 = {
+		#					add_ruler_trait = trait_ruler_ev_research_produces
+		#				}
+		#			}
+		#			save_global_event_target_as = rebel_country_ruler_ture
+		#		}
+		#	}
+		#	assign_leader = last_created_leader
+		#	event_target:rebel_country_ruler = {
+		#		kill_leader = {
+		#			show_notification = no
+		#		}
+		#	}
+		#	copy_techs_from = {
+		#		target = root
+		#	}
+		#	country_event = {
+		#		id = ev_leader.2092
+		#		days = 2 
+		#	}
+		#	save_event_target_as = is_ev_ship_rebel_country
+		#	set_country_flag = is_ev_ship_rebel_country
+		#	#思潮修正
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_spiritualist
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_1
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_materialist
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_2
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_militarist
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_3
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_pacifist
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_4
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_authoritarian
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_5
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_egalitarian
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_6
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_xenophile
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_7
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_ethic = ethic_fanatic_xenophobe
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_8
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_authority = auth_machine_intelligence
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_9
+		#			days = -1
+		#		}
+		#	}
+		#	if = {
+		#		limit = {
+		#			has_authority = auth_hive_mind
+		#		}
+		#		add_modifier = {
+		#			modifier = ev_government_modifers_10
+		#			days = -1
+		#		}
+		#	}
+		#	#维持度系统
+		#	set_variable = {
+		#		which = ev_maintenance_value
+		#		value = 49.8
+		#	}
+		#	begin_event_chain = {
+		#		event_chain = "ev_maintenance_chain"
+		#		target = ROOT
+		#	}
+		#	#通货膨胀
+		#	#set_variable = {
+		#	#	which = ev_inflation_value
+		#	#	value = 1
+		#	#}
+		#	add_resource = {
+		#		energy = 40000
+		#		minerals = 10000				# enough for a spaceport and then some
+		#		alloys = 8000
+		#		food = 12000
+		#		consumer_goods = 50000
+		#		volatile_motes = 5000
+		#		exotic_gases = 5000
+		#		rare_crystals = 5000
+		#		influence = 500
+		#	}
+		#	copy_techs_from = {
+		#		target = prevprev
+		#	}
+		#	#没写战争目标
+		#	declare_war = {
+		#		target = prevprev
+		#		name = NAME_EV_Uprising_War
+		#		# "[This.MainDefender.GetAdj] Machine Uprising"
+		#		attacker_war_goal = "wg_ev_ship_uprising"
+		#	}
+		#	while = {
+		#		count = 2
+		#		create_leader = {
+		#			skill = 2
+		#			class = scientist
+		#			sub_type = engineering
+		#			name = random
+		#			species = owner_main_species
+		#		}
+		#		create_leader = {
+		#			skill = 2
+		#			class = scientist
+		#			sub_type = society
+		#			name = random
+		#			species = owner_main_species
+		#		}
+		#		create_leader = {
+		#			skill = 2
+		#			class = scientist
+		#			sub_type = physics
+		#			name = random
+		#			species = owner_main_species
+		#		}
+		#		create_leader = {
+		#			class = admiral
+		#			name = random
+		#			skill = 4
+		#			traits = {
+		#				trait = leader_trait_gale_speed
+		#				trait = leader_trait_trickster
+		#			}
+		#		}
+		#		create_leader = {
+		#			class = admiral
+		#			skill = 2
+		#		}
+		#	}
+		#}
+		#ROOT = {
+		#	random_controlled_fleet = {
+		#		#				FROM = {
+		#		save_event_target_as = ev_ship_rebel_location
+		#		#				}
+		#	}
+		#}
+		##1x难度为2队
+		##有警察国策减少一半
+		#if = {
+		#	limit = {
+		#		has_civic = civic_ev_police_ship
+		#		has_country_flag = ev_ship_rebel_difficult_1X
+		#	}
+		#	while = {
+		#		count = 1
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#}
+		##没有警察国策多一倍
+		#else_if = {
+		#	limit = {
+		#		NOR = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_1X
+		#	}
+		#	while = {
+		#		count = 2
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#}
+		##2x难度为4队
+		##有警察国策减少一半
+		#else_if = {
+		#	limit = {
+		#		has_civic = civic_ev_police_ship
+		#		has_country_flag = ev_ship_rebel_difficult_2X
+		#	}
+		#	while = {
+		#		count = 2
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#}
+		##没有警察国策多一倍
+		#else_if = {
+		#	limit = {
+		#		NOR = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_2X
+		#	}
+		#	while = {
+		#		count = 4
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#}
+		##5x难度为10队
+		##有警察国策减少一半
+		#else_if = {
+		#	limit = {
+		#		has_civic = civic_ev_police_ship
+		#		has_country_flag = ev_ship_rebel_difficult_5X
+		#	}
+		#	while = {
+		#		count = 5
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r
+		#				days = -1
+		#			}
+		#		}
+		#	}
+		#}
+		##没有警察国策多一倍
+		#else_if = {
+		#	limit = {
+		#		NOR = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_5X
+		#	}
+		#	while = {
+		#		count = 10
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r
+		#				days = -1
+		#			}
+		#		}
+		#	}
+		#}
+		##10x难度为20队
+		##有警察国策减少一半
+		#else_if = {
+		#	limit = {
+		#		has_civic = civic_ev_police_ship
+		#		has_country_flag = ev_ship_rebel_difficult_10X
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			while = {
+		#				count = 1
+		#				create_ship = {
+		#					name = random
+		#					design = "NAME_titan_ev_01"
+		#				}
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 1
+		#		create_fleet = {
+		#			effect = {
+		#				set_owner = event_target:is_ev_ship_rebel_country
+		#				while = {
+		#					count = 20
+		#					create_ship = {
+		#						name = random
+		#						#random_existing_design = mothership
+		#						random_existing_design = corvette
+		#					}
+		#					create_ship = {
+		#						name = random
+		#						design = "NAME_battleship_ev_01"
+		#					}
+		#				}
+		#				set_location = {
+		#					target = event_target:ev_ship_rebel_location
+		#					distance = 150
+		#					angle = random
+		#				}
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 10
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r
+		#				days = -1
+		#			}
+		#			#add_modifier = empty_vagrant_ship_rebel_difficult_10X
+		#		}
+		#	}
+		#}
+		##没有警察国策多一倍
+		#else_if = {
+		#	limit = {
+		#		NOR = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_10X
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			while = {
+		#				count = 1
+		#				create_ship = {
+		#					name = random
+		#					design = "NAME_titan_ev_01"
+		#				}
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 2
+		#		create_fleet = {
+		#			effect = {
+		#				set_owner = event_target:is_ev_ship_rebel_country
+		#				while = {
+		#					count = 20
+		#					create_ship = {
+		#						name = random
+		#						#random_existing_design = mothership
+		#						random_existing_design = corvette
+		#					}
+		#					create_ship = {
+		#						name = random
+		#						design = "NAME_battleship_ev_01"
+		#					}
+		#				}
+		#				set_location = {
+		#					target = event_target:ev_ship_rebel_location
+		#					distance = 150
+		#					angle = random
+		#				}
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 20
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r
+		#				days = -1
+		#			}
+		#			#add_modifier = empty_vagrant_ship_rebel_difficult_10X
+		#		}
+		#	}
+		#}
+		##25x难度为50队
+		##有警察国策减少一半
+		#else_if = {
+		#	limit = {
+		#		AND = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_10X
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			while = {
+		#				count = 1
+		#				create_ship = {
+		#					name = random
+		#					design = "NAME_titan_ev_01"
+		#				}
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 1
+		#		create_fleet = {
+		#			effect = {
+		#				set_owner = event_target:is_ev_ship_rebel_country
+		#				while = {
+		#					count = 50
+		#					create_ship = {
+		#						name = random
+		#						#random_existing_design = mothership
+		#						random_existing_design = corvette
+		#					}
+		#					create_ship = {
+		#						name = random
+		#						design = "NAME_battleship_ev_01"
+		#					}
+		#				}
+		#				set_location = {
+		#					target = event_target:ev_ship_rebel_location
+		#					distance = 150
+		#					angle = random
+		#				}
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 25
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r2
+		#				days = -1
+		#			}
+		#			#add_modifier = empty_vagrant_ship_rebel_difficult_10X
+		#		}
+		#	}
+		#}
+		##没有警察国策多一倍
+		#else_if = {
+		#	limit = {
+		#		NOR = {
+		#			has_civic = civic_ev_police_ship
+		#		}
+		#		has_country_flag = ev_ship_rebel_difficult_25X
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			while = {
+		#				count = 1
+		#				create_ship = {
+		#					name = random
+		#					design = "NAME_titan_ev_01"
+		#				}
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 2
+		#		create_fleet = {
+		#			effect = {
+		#				set_owner = event_target:is_ev_ship_rebel_country
+		#				while = {
+		#					count = 100
+		#					create_ship = {
+		#						name = random
+		#						#random_existing_design = mothership
+		#						random_existing_design = corvette
+		#					}
+		#					create_ship = {
+		#						name = random
+		#						design = "NAME_battleship_ev_01"
+		#					}
+		#				}
+		#				set_location = {
+		#					target = event_target:ev_ship_rebel_location
+		#					distance = 150
+		#					angle = random
+		#				}
+		#			}
+		#		}
+		#	}
+		#	while = {
+		#		count = 50
+		#		create_fleet_from_naval_cap = 0.1
+		#		last_created_fleet = {
+		#			set_fleet_flag = is_ev_ship_rebel_fleet
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			set_fleet_bombardment_stance = indiscriminate
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			add_modifier = {
+		#				modifier = empty_vagrant_homeless_ship_ai_r2
+		#				days = -1
+		#			}
+		#			#add_modifier = empty_vagrant_ship_rebel_difficult_10X
+		#		}
+		#	}
+		#}
+		#event_target:is_ev_ship_rebel_country = {
+		#	create_ship_design = {
+		#		design = "NAME_Pirate_Transport"
+		#	}
+		#}
+		#while = {
+		#	count = 2
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			create_ship = {
+		#				name = random
+		#				#random_existing_design = mothership
+		#				random_existing_design = science
+		#			}
+		#			#set_fleet_stance = passive
+		#			#					set_location = prev.capital_star
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#			owner = {
+		#				create_leader = {
+		#					class = scientist
+		#					sub_type = survey
+		#					name = random
+		#					species = owner_main_species
+		#				}
+		#			}
+		#			set_leader = last_created_leader
+		#		}
+		#	}
+		#	#工程船
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			#set_fleet_stance = passive
+		#			create_ship = {
+		#				name = random
+		#				#random_existing_design = fathership
+		#				random_existing_design = constructor
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 150
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	#运输队
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			while = {
+		#				count = 80
+		#				create_army_transport = {
+		#					ship_name = "NAME_Pirate_Transport"
+		#					graphical_culture = "mammalian_01"
+		#					army_type = "ev_assault_army"
+		#				}
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 120
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	#家园舰
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			while = {
+		#				count = 1
+		#				create_ship = {
+		#					name = random
+		#					design = "NAME_start_homeless_ship"
+		#				}
+		#			}
+		#			set_fleet_stance = passive
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			create_ship = {
+		#				name = random
+		#				random_existing_design = science
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#			owner = {
+		#				create_leader = {
+		#					class = scientist
+		#					sub_type = survey
+		#					name = random
+		#					species = owner_main_species
+		#				}
+		#			}
+		#			set_leader = last_created_leader
+		#		}
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = event_target:is_ev_ship_rebel_country
+		#			create_ship = {
+		#				name = random
+		#				design = NAME_start_homeless_ship_machine_starbase
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ship_rebel_location
+		#				distance = 100
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#	event_target:is_ev_ship_rebel_country = {
+		#		add_opinion_modifier = {
+		#			who = ROOT
+		#			modifier = opinion_ev_ship_rebal
+		#		}
+		#	}
+		#	ROOT = {
+		#		add_opinion_modifier = {
+		#			who = event_target:is_ev_ship_rebel_country
+		#			modifier = opinion_ev_ship_rebal
+		#		}
+		#	}
+		#}
+
+		
+		if = {
+			limit = { 
+				NOT = { has_civic = civic_ev_police_ship }
+			}
+			switch = {
+				trigger = has_country_flag 
+				ev_ship_rebel_difficult_1X = {
+					ev_leader_rebal_new_effect = { NUM = 0.2 }
+				}
+				ev_ship_rebel_difficult_2X = {
+					ev_leader_rebal_new_effect = { NUM = 0.4 }
+				}
+				ev_ship_rebel_difficult_5X = {
+					ev_leader_rebal_new_effect = { NUM = 0.8 }
+				}
+				ev_ship_rebel_difficult_10X = {
+					ev_leader_rebal_new_effect = { NUM = 2 }
+				}
+				ev_ship_rebel_difficult_25X = {
+					ev_leader_rebal_new_effect = { NUM = 5 }
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				has_civic = civic_ev_police_ship
+			}
+			switch = {
+				trigger = has_country_flag 
+				ev_ship_rebel_difficult_1X = {
+					ev_leader_rebal_new_effect = { NUM = 0.1 }
+				}
+				ev_ship_rebel_difficult_2X = {
+					ev_leader_rebal_new_effect = { NUM = 0.2 }
+				}
+				ev_ship_rebel_difficult_5X = {
+					ev_leader_rebal_new_effect = { NUM = 0.4 }
+				}
+				ev_ship_rebel_difficult_10X = {
+					ev_leader_rebal_new_effect = { NUM = 1 }
+				}
+				ev_ship_rebel_difficult_25X = {
+					ev_leader_rebal_new_effect = { NUM = 2.5 }
+				}
+			}
+		}
+
+
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = default
+					is_default_ev_country_type = yes
+					is_country_type = awakened_fallen_empire
+					is_country_type = awakened_fallen_empire_ev
+					is_country_type = fallen_empire
+					is_country_type = fallen_empire_ev
+				}
+			}
+			country_event = {
+				id = ev_leader.2093
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = ev_leader.2091.a
+	}
+	option = {
+		name = ev_leader.2091.b
+		event_target:is_ev_ship_rebel_country = {
+			set_player = root
+		}
+	}
+	after = {
+		clear_global_event_target = been_ship_traitor_country
+	}
+}
+
+#给AI叛变国家buff
+country_event = {
+	id = ev_leader.2092
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		#已经叛变的舰队本身不会再生成叛军舰队
+		set_timed_country_flag = {
+			flag = has_ev_ship_traitor
+			days = 7200
+		}
+		set_country_flag = ev_ship_rebel_difficult_2X
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_build_escort
+		# }
+		give_technology = {
+			message = no
+			tech = tech_homeless_ship
+		}
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_build_mothership
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_build_fathership
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_ark_drive_1
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_ark_reactor_1
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_ark_cpu
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_fathership_section_templates_1
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_mothership_section_templates_1
+		# }
+		# give_technology = {
+		# 	message = no
+		# 	tech = tech_escort_ship_section_templates_1
+		# }
+		give_technology = {
+			message = no
+			tech = tech_homeless_production_resources_1
+		}
+		give_technology = {
+			message = no
+			tech = tech_homeless_space_research_base_1
+		}
+		give_technology = {
+			message = no
+			tech = tech_homeless_section_templates_1
+		}
+		create_leader = {
+			class = scientist
+			skill = 4
+			name = random
+			species = owner_main_species
+			effect = {
+				add_experience = 107
+			}
+		}
+		#船坞
+		if = {
+			limit = {
+				fleet_power < 800
+				has_technology = tech_battleships
+			}
+			while = {
+				count = 5
+				create_fleet = {
+					effect = {
+						set_owner = event_target:is_ev_ship_rebel_country
+						while = {
+							count = 10
+							create_ship = {
+								name = random
+								#random_existing_design = mothership
+								random_existing_design = corvette
+							}
+							create_ship = {
+								name = random
+								design = "NAME_battleship_ev_01"
+							}
+						}
+						set_location = {
+							target = event_target:ev_ship_rebel_location
+							distance = 150
+							angle = random
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				event_target:been_ship_traitor_country = {
+					has_country_flag = ev_ship_rebel_difficult_2X
+				}
+			}
+			add_modifier = {
+				modifier = empty_vagrant_ship_rebel_country_2X
+				days = 3600
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:been_ship_traitor_country = {
+					has_country_flag = ev_ship_rebel_difficult_5X
+				}
+			}
+			add_modifier = {
+				modifier = empty_vagrant_ship_rebel_country_5X
+				days = 3600
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:been_ship_traitor_country = {
+					has_country_flag = ev_ship_rebel_difficult_10X
+				}
+			}
+			add_modifier = {
+				modifier = empty_vagrant_ship_rebel_country_10X
+				days = 3600
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:been_ship_traitor_country = {
+					has_country_flag = ev_ship_rebel_difficult_25X
+				}
+			}
+			add_modifier = {
+				modifier = empty_vagrant_ship_rebel_country_25X
+				days = 3600
+			}
+		}
+		add_modifier = {
+			modifier = empty_vagrant_ship_rebel_country_timed
+			days = 3600
+		}
+		add_modifier = {
+			modifier = empty_vagrant_ship_rebel_country
+			days = -1
+		}
+		country_event = {
+			id = ev_leader.2094
+			days = 3600
+		}
+	}
+	after = {
+		clear_global_event_target = been_ship_traitor_country
+	}
+}
+
+#叛乱发生后给其他帝国的消息
+country_event = {
+	id = ev_leader.2093
+	title = ev_leader.2093.name
+	desc = ev_leader.2093.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.2093.a
+	}
+}
+
+#10年后如果舰队实力太少就删除，要么就改名称
+country_event = {
+	id = ev_leader.2094
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				fleet_power < 100
+			}
+			every_owned_ship = {
+				destroy_ship = this
+			}
+		}
+		else = {
+			change_government = {
+				civics = {
+					civic = civic_empty_vagrant
+					civic = random
+				}
+			}
+			add_resource = {
+				energy = 10000
+				alloys = 2000
+			}
+			create_fleet_from_naval_cap = 0.15
+			create_fleet_from_naval_cap = 0.15
+		}
+	}
+}
+
+#当击败一支舰队
+country_event = {
+	id = ev_leader.2095
+	title = ev_leader.2095.name
+	desc = ev_leader.2095.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2095.a
+		#clear_global_event_target = is_ev_ship_rebel_fleet
+		add_monthly_resource_mult = {
+			resource = alloys
+			value = 20
+			min = 50
+			max = 2000
+		}
+	}
+}
+
+#
+country_event = {
+	id = ev_leader.2096
+	title = ev_leader.2095.name
+	desc = ev_leader.2095.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+	}
+	option = {
+		name = ev_leader.2095.a
+		#clear_global_event_target =  is_ev_ship_rebel_fleet
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = 20
+			min = 200
+			max = 5000
+		}
+	}
+}
+
+#获得遗物
+#5%概率
+country_event = {
+	id = ev_leader.2097
+	title = ev_leader.2097.name
+	desc = ev_leader.2097.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+		NOT = {
+			has_country_flag = ev_has_r_ev_fleet_maintenance
+		}
+	}
+	option = {
+		name = ev_leader.2097.a
+		#clear_global_event_target = is_ev_ship_rebel_fleet
+		if = {
+			limit = {
+				has_relic = r_ev_fleet_maintenance
+			}
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = 50
+				min = 200
+				max = 5000
+			}
+		}
+		else = {
+			add_relic = r_ev_fleet_maintenance
+			set_country_flag = ev_has_r_ev_fleet_maintenance
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.2100
+	hide_window = yes
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = ban_rebel_event
+		}
+		FromFromFrom = {
+			has_fleet_flag = is_ev_ship_rebel_fleet
+		}
+	}
+	immediate = {
+		FromFromFrom = {
+			save_global_event_target_as = was_ev_ship_rebel_fleet
+		}
+		random_list = {
+			3 = {
+				modifier = {
+					factor = 0
+					has_country_flag = ev_has_r_ev_fleet_maintenance
+				}
+				country_event = {
+					id = ev_leader.2097
+				}
+			}
+			20 = {
+				country_event = {
+					id = ev_leader.2096
+				}
+			}
+			20 = {
+				country_event = {
+					id = ev_leader.2095
+				}
+			}
+			57 = {
+			}
+		}
+	}
+}
+
+
+
+#战士文化效果-胜利
+country_event = {
+	id = ev_leader.3000
+	hide_window = yes
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		This = {
+			has_civic = civic_ev_great_ship
+		}
+	}
+	immediate = {
+		FromFromFrom = {
+			save_global_event_target_as = civic_ev_great_ship_lost_fleet
+		}
+		if = {
+			limit = {
+				This = {
+					NOT = {
+						has_country_flag = ban_great_ship_event
+					}
+				}
+			}
+			random_list = {
+				30 = {
+					This = {
+						country_event = {
+							id = ev_leader.3001
+						}
+					}
+				}
+				38 = {
+					This = {
+						country_event = {
+							id = ev_leader.3002
+						}
+					}
+				}
+				20 = {
+					This = {
+						country_event = {
+							id = ev_leader.3003
+						}
+					}
+				}
+				10 = {
+					This = {
+						country_event = {
+							id = ev_leader.3004
+						}
+					}
+				}
+				2 = {
+					This = {
+						country_event = {
+							id = ev_leader.3005
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ban_great_ship_event
+			}
+			random_list = {
+				1 = {
+					This = {
+						add_monthly_resource_mult = {
+							resource = unity
+							value = 4
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.3001
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3001.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 3
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3001.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 3
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3002
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3001.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 4
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3001.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 4
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3003
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3001.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 6
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3001.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 6
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3004
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3001.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 10
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3001.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 10
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3005
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3001.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 15
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3001.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 15
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+#战士文化效果-失败
+country_event = {
+	id = ev_leader.3010
+	hide_window = yes
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		From = {
+			has_civic = civic_ev_great_ship
+		}
+	}
+	immediate = {
+		FromFrom = {
+			save_global_event_target_as = civic_ev_great_ship_lost_fleet
+		}
+		if = {
+			limit = {
+				From = {
+					NOT = {
+						has_country_flag = ban_great_ship_event
+					}
+				}
+			}
+			random_list = {
+				30 = {
+					From = {
+						country_event = {
+							id = ev_leader.3011
+						}
+					}
+				}
+				38 = {
+					From = {
+						country_event = {
+							id = ev_leader.3012
+						}
+					}
+				}
+				20 = {
+					From = {
+						country_event = {
+							id = ev_leader.3013
+						}
+					}
+				}
+				10 = {
+					From = {
+						country_event = {
+							id = ev_leader.3014
+						}
+					}
+				}
+				2 = {
+					From = {
+						country_event = {
+							id = ev_leader.3015
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ban_great_ship_event
+			}
+			random_list = {
+				1 = {
+					From = {
+						add_monthly_resource_mult = {
+							resource = unity
+							value = -8
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.3011
+	title = ev_leader.3011.name
+	desc = ev_leader.3011.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3011.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -6
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3011.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -6
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3012
+	title = ev_leader.3011.name
+	desc = ev_leader.3011.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3011.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -8
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3011.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -8
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3013
+	title = ev_leader.3011.name
+	desc = ev_leader.3011.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3011.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -12
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3011.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -12
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3014
+	title = ev_leader.3011.name
+	desc = ev_leader.3011.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3011.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -20
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3011.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -20
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+country_event = {
+	id = ev_leader.3015
+	title = ev_leader.3001.name
+	desc = ev_leader.3001.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3011.a
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -30
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3011.b
+		add_monthly_resource_mult = {
+			resource = unity
+			value = -30
+		}
+		clear_global_event_target = civic_ev_great_ship_lost_fleet
+		set_country_flag = ban_great_ship_event
+	}
+}
+
+#文明实验效果
+country_event = {
+	id = ev_leader.3020
+	hide_window = yes
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			From = {
+				has_civic = civic_ev_civilization_test
+			}
+		}
+	}
+	immediate = {
+		FromFrom = {
+			save_global_event_target_as = civic_ev_civilization_test_fleet
+		}
+		if = {
+			limit = {
+				From = {
+					NOT = {
+						has_country_flag = ban_ev_civilization_test_event
+					}
+				}
+			}
+			random_list = {
+				30 = {
+					From = {
+						country_event = {
+							id = ev_leader.3022
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ban_ev_civilization_test_event
+			}
+			random_list = {
+				1 = {
+					From = {
+						add_monthly_resource_mult = {
+							resource = engineering_research
+							value = 2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.3021
+	hide_window = yes
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			This = {
+				has_civic = civic_ev_civilization_test
+			}
+		}
+	}
+	immediate = {
+		FromFromFrom = {
+			save_global_event_target_as = civic_ev_civilization_test_fleet
+		}
+		if = {
+			limit = {
+				This = {
+					NOT = {
+						has_country_flag = ban_ev_civilization_test_event
+					}
+				}
+			}
+			random_list = {
+				30 = {
+					This = {
+						country_event = {
+							id = ev_leader.3022
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ban_ev_civilization_test_event
+			}
+			random_list = {
+				1 = {
+					This = {
+						add_monthly_resource_mult = {
+							resource = engineering_research
+							value = 2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.3022
+	title = ev_leader.3021.name
+	desc = ev_leader.3021.desc
+	picture = GFX_evt_exploding_ship
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.3021.a
+		clear_global_event_target = civic_ev_civilization_test_fleet
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 2
+		}
+	}
+	#屏蔽消息
+	option = {
+		name = ev_leader.3021.b
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 2
+		}
+		clear_global_event_target = civic_ev_civilization_test_fleet
+		set_country_flag = ban_ev_civilization_test_event
+	}
+}
+
+#变成大可汗事件
+#会挤掉原版的大可汗
+country_event = {
+	id = ev_leader.5000
+	title = ev_leader.5000.name
+	desc = ev_leader.5000.desc
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	location = root.capital_scope
+	after = {
+		hidden_effect = {
+			set_global_flag = marauder_crisis_started
+			set_global_flag = marauder_crisis_ongoing
+			owner = {
+				save_global_event_target_as = raider_khanate_ev
+			}
+			set_country_flag = is_khanate_country_ev
+			#set_name = random
+			event_target:raider_khanate_ev = {
+				create_ship_design = {
+					design = "NAME_Pirate_Transport"
+				}
+				add_ship_design = last_created_design
+				create_ship_design = {
+					design = "NAME_Clan_Builder"
+				}
+				add_ship_design = last_created_design
+			}
+			change_government = {
+				authority = auth_dictatorial
+			}
+			event_target:raider_khanate_ev = {
+				random_planet_within_border = {
+					limit = {
+						habitable_planet = no
+					}
+					save_global_event_target_as = marauder_rally_point_ev
+					set_planet_flag = marauder_rally_point_ev
+					while = {
+						count = 4
+						add_deposit = d_energy_5
+					}
+					add_modifier = {
+						modifier = marauder_rally_point_ev_modifier
+						days = -1
+					}
+				}
+			}
+			event_target:raider_khanate = {
+				#set_timed_global_flag = { flag = khan_no_die days = 7200 } # Should only die in battle first 20 years
+				country_event = {
+					id = marauder.514
+					days = 7
+				}
+				# Khan dies of old age if still around
+			}
+			### Admiral Khan
+			clone_leader = {
+				target = event_target:great_khan_ruler_ev
+				class = admiral
+				skill = 10
+				traits = {
+					trait = leader_trait_mercenary_warrior
+					trait = random_trait
+					trait = random_trait
+					trait = random_trait
+				}
+				effect = {
+					#set_is_female = yes
+					set_leader_flag = great_khan_ev
+					save_global_event_target_as = great_khan_ev
+				}
+			}
+			assign_leader = event_target:great_khan_ruler_ev
+			event_target:raider_khanate_ev = {
+				create_1st_khan_fleet_ev = yes
+				create_da_khan_marauder_armies_ev = yes
+				while = {
+					count = 4
+					create_marauder_fleet_ev = yes
+					create_marauder_constructors_ev = yes
+				}
+				while = {
+					count = 4
+					create_marauder_armies_ev = yes
+				}
+			}
+			country_event = {
+				id = ev_leader.5100
+				days = 5400
+				random = 2400
+			}
+			#大可汗危机
+			country_event = {
+				id = ev_leader.5020
+				days = 180
+			}
+			# 可汗补兵
+			country_event = {
+				id = ev_leader.5030
+				days = 2
+			}
+			#附庸选项
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = horde_triggered
+					}
+				}
+				observer_event = {
+					id = observer.13
+				}
+				every_country = {
+					limit = {
+						#is_ai = yes
+						OR = {
+							#is_default_ev_country_type = yes
+							is_country_type = default
+						}
+						NOR = {
+							is_overlord_to = event_target:raider_khanate_ev
+							is_in_federation_with = event_target:raider_khanate_ev
+						}
+					}
+					establish_communications_no_message = root
+					country_event = {
+						id = marauder.501
+					}
+					add_threat = {
+						who = event_target:raider_khanate_ev
+						amount = 2
+					}
+					declare_war = {
+						target = event_target:raider_khanate_ev
+						name = {
+							key = "NAME_EV_da_khan"
+							variable_string = "event_target:raider_khanate_ev.GetSpeciesAdj"
+							#variable_string = "[Root.GetSpeciesAdj]"
+						}
+						attacker_war_goal = "wg_ev_da_khan"
+					}
+					#设定函数，用以检查
+					event_target:raider_khanate_ev = {
+						change_variable = {
+							which = ev_kehan_declare_war_num
+							value = 1
+						}
+					}
+				}
+			}
+			else = {
+				observer_event = {
+					id = observer.18
+				}
+				every_country = {
+					limit = {
+						is_ai = yes
+						OR = {
+							is_default_ev_country_type = yes
+							is_country_type = default
+						}
+					}
+					establish_communications_no_message = root
+					country_event = {
+						id = marauder.526
+					}
+				}
+			}
+			# Mercenaries Join the Great Khan
+			#country_event = { id = marauder.78 days = 20 }
+			# Should not attack Enclaves
+			every_country = {
+				limit = {
+					is_country_type = enclave
+				}
+				event_target:raider_khanate = {
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = no
+						set_friendly = yes
+					}
+				}
+			}
+		}
+	}
+	immediate = {
+		#至少得保持大可汗一年
+		set_timed_country_flag = {
+			flag = triggered_ev_leader_5095
+			days = 360
+		}
+		random_owned_leader = {
+			limit = {
+				has_level > 4
+			}
+			save_event_target_as = great_khan_ruler_ev_choosen
+		}
+	}
+	option = {
+		name = ev_leader.5000.OK
+		### Ruler Khan
+		event_target:great_khan_ruler_ev_choosen = {
+			add_ruler_trait = trait_ruler_ev_da_khan
+			#set_skill = 10
+			add_skill = 10
+			set_leader_flag = great_khan_ev
+			save_global_event_target_as = great_khan_ruler_ev
+		}
+		#random_owned_leader = {
+		#	limit = {
+		#		has_level > 4
+		#	}
+		#	add_ruler_trait = trait_ruler_ev_da_khan
+		#	set_skill = 10
+		#	set_leader_flag = great_khan_ev
+		#	save_global_event_target_as = great_khan_ruler_ev
+		#	set_is_female = yes
+		#}
+		custom_tooltip = ev_leader.5000.a.tooltip
+	}
+	option = {
+		name = ev_leader.5000.ruler
+		trigger = {
+			any_owned_leader = {
+				has_level > 4
+				leader_class = ruler
+			}
+		}
+		add_resource = {
+			influence = -50
+		}
+		set_country_flag = EV_chosen_old_ruler
+		### Ruler Khan
+		random_owned_leader = {
+			limit = {
+				has_level > 4
+				leader_class = ruler
+			}
+			add_ruler_trait = trait_ruler_ev_da_khan
+			add_skill = 10
+			set_leader_flag = great_khan_ev
+			save_global_event_target_as = great_khan_ruler_ev
+			#set_is_female = yes
+		}
+		#custom_tooltip = ev_leader.5000.a.tooltip
+	}
+}
+
+# 可汗补兵循环
+country_event = {
+	id = ev_leader.5020
+	title = ev_leader.5020.name
+	desc = ev_leader.5020.desc
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = marauder_crisis_started
+		any_planet_within_border = {
+			has_planet_flag = marauder_rally_point_ev			# Make sure home system still owned
+		}
+	}
+	immediate = {
+		country_event = {
+			id = ev_leader.5020
+			days = 310
+			random = 60
+		}
+	}
+	option = {
+		name = ev_leader.5020.a
+		hidden_effect = {
+			if = {
+				limit = {
+					fleet_power < 50000
+				}
+				create_marauder_Increase_fleet_ev = yes
+				create_marauder_Increase_fleet_ev = yes
+			}
+			#else_if = {
+			#	limit = {
+			#		fleet_power > 200000
+			#	}
+			#	create_marauder_fleet_low_ev = yes
+			#}
+			else = {
+				#create_marauder_fleet_ev = yes
+				create_marauder_Increase_fleet_ev = yes
+			}
+			random_list = {
+				1 = {
+					create_marauder_armies_ev = yes
+				}
+				2 = {
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.5020.b
+	}
+}
+
+#设置是否附庸
+country_event = {
+	id = ev_leader.5030
+	title = ev_leader.5030.name
+	desc = ev_leader.5030.desc
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = is_khanate_country_ev
+	}
+	option = {
+		#允许
+		name = ev_leader.5030.a
+		set_country_flag = ev_khanate_country_allow_subject
+	}
+	option = {
+		#禁止
+		name = ev_leader.5030.b
+		remove_country_flag = ev_khanate_country_allow_subject
+	}
+}
+
+#大于20的厌战度，有概率变成附庸
+#仅在战斗的时候触发
+country_event = {
+	id = ev_leader.5050
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = marauder_crisis_started
+		from = {
+			is_country_type = default
+		}
+		this = {
+			has_country_flag = ev_khanate_country_allow_subject
+		}
+		any_war = {
+			#any_attacker = { is_same_value = this }
+			#any_defender = { is_same_value = from }
+			attacker_war_exhaustion > 0.2
+			OR = {
+				using_war_goal = {
+					type = wg_ev_da_khan
+					owner = attacker
+				}
+			}
+		}
+	}
+	immediate = {
+		#被附庸
+		from = {
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 2
+						any_war = {
+							attacker_war_exhaustion > 0.5
+							OR = {
+								using_war_goal = {
+									type = wg_ev_da_khan
+									owner = attacker
+								}
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						any_war = {
+							attacker_war_exhaustion > 0.75
+							OR = {
+								using_war_goal = {
+									type = wg_ev_da_khan
+									owner = attacker
+								}
+							}
+						}
+					}
+					country_event = {
+						id = ev_leader.5060
+					}
+				}
+				7 = {
+				}
+			}
+		}
+	}
+}
+
+#正常国家被附庸
+country_event = {
+	id = ev_leader.5060
+	title = "greatkhan_diplo_header"
+	desc = marauder.551.a.desc
+	picture_event_data = {
+		portrait = event_target:raider_khanate_ev
+		room = ethic_spaceship_room
+	}
+	trigger = {
+		is_ai = yes
+		NOT = {
+			has_country_flag = marauder_diplomacy_engaged
+		}
+	}
+	is_triggered_only = yes
+	force_open = yes
+	diplomatic = yes
+	immediate = {
+		set_timed_country_flag = {
+			flag = marauder_diplomacy_engaged
+			days = 60
+		}
+	}
+	after = {
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+		}
+	}
+	option = {
+		name = marauder.551.a
+		response_text = marauder.551.a.response
+		if = {
+			limit = {
+				is_overlord = yes
+			}
+			every_subject = {
+				set_subject_of = {
+					who = event_target:raider_khanate_ev
+					preset = preset_protectorate
+				}
+				
+				hidden_effect = {
+					country_event = {
+						id = marauder.553
+						days = 10
+					}
+					event_target:raider_khanate_ev = {
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_neutral = no
+							set_friendly = yes
+						}
+					}
+				}
+			}
+		}
+		set_subject_of = {
+			who = event_target:raider_khanate_ev
+			preset = preset_protectorate
+		}
+		hidden_effect = {
+			set_timed_country_flag = {
+				flag = rebellion_cooldown
+				days = 360
+			}
+			# Can't rebel for a year after submitting.
+			save_event_target_as = new_satrapy
+			observer_event = {
+				id = observer.19
+			}
+			every_country = {
+				limit = {
+					is_ai = no
+					has_communications = root
+					NOT = {
+						is_same_value = root
+					}
+				}
+			}
+			country_event = {
+				id = ev_leader.5080
+				days = 10
+			}
+			event_target:raider_khanate_ev = {
+				#消息提示
+				change_variable = {
+					which = ev_kehan_declare_war_num
+					value = -1
+				}
+				country_event = {
+					id = ev_leader.5070
+					days = 1
+				}
+				country_event = {
+					id = ev_leader.5071
+					days = 10
+				}
+				set_faction_hostility = {
+					target = root
+					set_hostile = no
+					set_neutral = no
+					set_friendly = yes
+				}
+			}
+			add_modifier = {
+				modifier = "satrapy_of_horde"
+				days = -1
+			}
+		}
+	}
+	#option = {
+	#	name = marauder.551.b
+	#	response_text = marauder.551.b.response
+	#	default_hide_option = yes
+	#}
+}
+
+country_event = {
+	id = ev_leader.5070
+	title = ev_leader.5070.name
+	desc = ev_leader.5070.desc
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.5070.a
+	}
+}
+
+country_event = {
+	id = ev_leader.5071
+	title = ev_leader.5071.name
+	desc = ev_leader.5071.desc
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.5071.a
+	}
+}
+
+# Marauder Establishes Base in Capital System
+country_event = {
+	id = ev_leader.5080
+	title = "marauder.553.name"
+	desc = "marauder.553.desc"
+	picture = GFX_evt_khan_throne_room
+	show_sound = event_conversation
+	location = event_target:garrison_base
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = satrapy_empire
+		capital_scope = {
+			save_event_target_as = capital_planet
+			solar_system = {
+				save_event_target_as = capital_system
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:raider_khanate_ev
+				create_ship = {
+					name = "NAME_Garrison_Base"
+					design = "NAME_Void_Dwelling"
+					graphical_culture = "pirate_01"
+				}
+				set_location = {
+					target = event_target:capital_planet
+					distance = 50
+					angle = random
+				}
+			}
+		}
+		last_created_fleet = {
+			save_event_target_as = garrison_base
+			set_fleet_flag = satrapy_garrison
+			fleet_event = {
+				id = marauder.560
+				days = 10
+			}
+		}
+		create_fleet = {
+			name = "NAME_Garrison_Fleet"
+			effect = {
+				set_owner = event_target:raider_khanate_ev
+				while = {
+					count = 22
+					create_ship = {
+						name = random
+						design = "NAME_Outrider"
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 14
+					create_ship = {
+						name = random
+						design = "NAME_Lancer"
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						design = "NAME_Void_Champion"
+						graphical_culture = "pirate_01"
+					}
+				}
+				set_formation_scale = 2
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 250
+				set_location = {
+					target = event_target:garrison_base
+					distance = 20
+					angle = random
+				}
+			}
+			settings = {
+				garrison = yes
+			}
+		}
+		last_created_fleet = {
+			set_fleet_flag = satrapy_garrison_fleet
+		}
+	}
+	option = {
+		name = marauder.553.a
+	}
+}
+
+#当大可汗战争借口毁灭了一个国家
+country_event = {
+	id = ev_leader.5090
+	title = ev_leader.5090.name
+	desc = ev_leader.5090.desc
+	picture = GFX_evt_khan_throne_room
+	#hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		#OR = {
+		#	NOT = { exists = from }
+		#	from = {
+		#		OR = { has_country_flag = is_khanate_country_ev }
+		#	}
+		#}
+		#from = {
+		#	#is_same_value = event_target:raider_khanate_ev
+		#	has_country_flag = is_khanate_country_ev
+		#}
+		has_global_flag = marauder_crisis_started
+		is_country_type = default
+	}
+	immediate = {
+		event_target:raider_khanate_ev = {
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = ev_kehan_declare_war_num
+							value = 0
+						}
+					}
+				}
+				change_variable = {
+					which = ev_kehan_declare_war_num
+					value = -1
+				}
+			}
+		}
+	}
+	option = {
+		name = OK
+	}
+}
+
+#大可汗完成了目标
+country_event = {
+	id = ev_leader.5095
+	title = ev_leader.5095.name
+	desc = ev_leader.5095.desc
+	picture = GFX_evt_khan_throne_room
+	#hide_window = yes
+	#is_triggered_only = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		NOT = {
+			has_country_flag = triggered_ev_leader_5095
+		}
+		check_variable = {
+			which = ev_kehan_declare_war_num
+			value <= 2
+		}
+		has_global_flag = marauder_crisis_started
+		is_same_value = event_target:raider_khanate_ev
+	}
+	immediate = {
+		set_country_flag = triggered_ev_leader_5095
+	}
+	option = {
+		name = ev_leader.5095.a
+		add_monthly_resource_mult = {
+			resource = unity
+			value = 120
+		}
+		add_monthly_resource_mult = {
+			resource = influence
+			value = 120
+		}
+	}
+}
+
+# 大可汗死亡危机
+country_event = {
+	id = ev_leader.5100
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		#set_global_flag = great_khan_dead
+		random_list = {
+			10 = {
+				set_country_flag = khan_dead_poison
+			}
+			10 = {
+				set_country_flag = khan_dead_disease
+			}
+			10 = {
+				set_country_flag = khan_dead_assassin
+			}
+			10 = {
+				set_country_flag = khan_dead_concubine
+			}
+		}
+		country_event = {
+			id = ev_leader.5101
+			days = 10
+		}
+	}
+	trigger = {
+		NOT = {
+			has_country_flag = triggered_ev_leader_5095
+		}
+	}
+}
+
+country_event = {
+	id = ev_leader.5101
+	title = "ev_leader.5101.name"
+	desc = {
+		text = ev_leader.5101.a.desc
+		trigger = {
+			from = {
+				has_country_flag = khan_dead_poison
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.5101.b.desc
+		trigger = {
+			from = {
+				has_country_flag = khan_dead_disease
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.5101.c.desc
+		trigger = {
+			from = {
+				has_country_flag = khan_dead_assassin
+			}
+		}
+	}
+	desc = {
+		text = ev_leader.5101.d.desc
+		trigger = {
+			from = {
+				has_country_flag = khan_dead_concubine
+			}
+		}
+	}
+	trigger = {
+		NOT = {
+			has_country_flag = triggered_ev_leader_5095
+		}
+	}
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	immediate = {
+		change_variable = {
+			which = ev_khan_dead_value
+			value = 1
+		}
+	}
+	after = {
+		remove_country_flag = khan_dead_poison
+		remove_country_flag = khan_dead_disease
+		remove_country_flag = khan_dead_assassin
+		remove_country_flag = khan_dead_concubine
+		if = {
+			limit = {
+				check_variable = {
+					which = ev_khan_dead_value
+					value <= 2
+				}
+			}
+			country_event = {
+				id = ev_leader.5100
+				days = 560
+				random = 100
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = ev_khan_dead_value
+					value > 2
+				}
+				check_variable = {
+					which = ev_khan_dead_value
+					value <= 4
+				}
+			}
+			country_event = {
+				id = ev_leader.5100
+				days = 400
+				random = 50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = ev_khan_dead_value
+					value > 4
+				}
+				check_variable = {
+					which = ev_khan_dead_value
+					value <= 6
+				}
+			}
+			country_event = {
+				id = ev_leader.5100
+				days = 300
+				random = 15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = ev_khan_dead_value
+					value > 6
+				}
+			}
+			country_event = {
+				id = ev_leader.5100
+				days = 200
+				random = 10
+			}
+		}
+	}
+	option = {
+		#阻止,高成功
+		name = ev_leader.5101.a
+		add_resource = {
+			influence = -50
+		}
+		hidden_effect = {
+			random_list = {
+				90 = {
+					country_event = {
+						id = ev_leader.5110
+						days = 20
+					}
+				}
+				#成功
+				10 = {
+					country_event = {
+						id = ev_leader.5111
+						days = 20
+					}
+				}
+				#失败
+			}
+		}
+	}
+	option = {
+		#阻止,低成功
+		name = ev_leader.5101.b
+		add_resource = {
+			influence = -20
+		}
+		hidden_effect = {
+			random_list = {
+				70 = {
+					country_event = {
+						id = ev_leader.5110
+						days = 20
+					}
+				}
+				#成功
+				30 = {
+					country_event = {
+						id = ev_leader.5111
+						days = 20
+					}
+				}
+				#失败
+			}
+		}
+	}
+	option = {
+		#无力阻止
+		name = ev_leader.5101.c
+		hidden_effect = {
+			random_list = {
+				40 = {
+					country_event = {
+						id = ev_leader.5110
+						days = 20
+					}
+				}
+				#成功
+				60 = {
+					country_event = {
+						id = ev_leader.5111
+						days = 20
+					}
+				}
+				#失败
+			}
+		}
+	}
+}
+
+#大可汗逃过一劫
+country_event = {
+	id = ev_leader.5110
+	title = "ev_leader.5110.name"
+	desc = "ev_leader.5110.desc"
+	picture = GFX_evt_khan_throne_room
+	is_triggered_only = yes
+	option = {
+		name = ev_leader.5110.a
+	}
+}
+
+#大可汗之死
+country_event = {
+	id = ev_leader.5111
+	title = "ev_leader.5111.name"
+	desc = "ev_leader.5111.desc"
+	picture = GFX_evt_space_funeral
+	is_triggered_only = yes
+	show_sound = event_life_support_fail
+	immediate = {
+		#当大可汗死了之后，不会触发完成大业事件
+		set_country_flag = triggered_ev_leader_5095
+		set_global_flag = great_khan_dead
+		remove_global_flag = marauder_crisis_started
+		#country_event = { id = marauder.600 days = 200 random = 100 }
+		event_target:great_khan_ruler_ev = {
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		event_target:great_khan_ev = {
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		every_owned_leader = {
+			limit = {
+				has_trait = trait_ruler_ev_da_khan
+			}
+			kill_leader = {
+				show_notification = no
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = ev_struggle_value
+					value > 5
+				}
+				is_at_war = yes
+			}
+			set_variable = {
+				which = ev_kehan_declare_war_num
+				value = 0
+			}
+			ev_affter_daken_died_effect = yes
+		}
+	}
+	option = {
+		name = ev_leader.5111.a
+		add_modifier = {
+			modifier = ev_great_Khan_legacy
+			days = -1
+		}
+	}
+}
+
+#检测大可汗是不是存在
+event = {
+	id = ev_leader.5120
+	hide_window = yes
+	#is_triggered_only = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		has_global_flag = marauder_crisis_started
+		NOT = {
+			has_global_flag = great_khan_dead
+		}
+		NOR = {
+			exists = event_target:great_khan_ruler_ev
+		}
+	}
+	immediate = {
+		set_global_flag = great_khan_dead
+		remove_global_flag = marauder_crisis_started
+		every_country = {
+			limit = {
+				has_ascension_perk = ev_become_da_khan
+				is_same_value = event_target:raider_khanate_ev
+			}
+			owner = {
+				country_event = {
+					id = ev_leader.5111
+					days = 1
+				}
+				ev_affter_daken_died_effect = yes
+				#country_event = { id = ev_leader.2091 days = 150 random = 360 }
+			}
+		}
+	}
+}
+
+#大可汗死后，宣布独立
+country_event = {
+	id = ev_leader.5130
+	title = "ev_leader.5130.name"
+	desc = "ev_leader.5130.desc"
+	picture = GFX_evt_space_funeral
+	is_triggered_only = yes
+	show_sound = event_life_support_fail
+	location = event_target:ev_will_division_planet
+	trigger = {
+		check_variable = {
+			which = ev_struggle_value
+			value > 2.8
+		}
+	}
+	immediate = {
+		random_owned_planet = {
+			limit = {
+				is_capital = no
+				num_pops > 15
+			}
+			random_owned_pop_group = {
+				species = {
+					save_event_target_as = ev_will_division_species
+				}
+			}
+			save_event_target_as = ev_will_division_planet
+			create_country = {
+				type = default
+				species = event_target:ev_will_division_species
+				civics = random
+				effect = {
+					save_event_target_as = ev_will_division_country
+					if = {
+						limit = {
+							from = {
+								is_gestalt = yes
+							}
+						}
+						copy_ethos_and_authority = from
+					}
+					#copy_ethos_and_authority = from
+					copy_techs_from = {
+						target = from
+					}
+					#set_subject_of = {
+					#	who = root
+					#	subject_type = ev_vassal
+					#}
+					add_resource = {
+						minerals = 5000
+						energy = 5000
+						food = 5000
+						alloys = 5000
+						consumer_goods = 5000
+					}
+					while = {
+						count = 3
+						create_fleet_from_naval_cap = 0.15
+					}
+				}
+			}
+			set_owner = event_target:ev_will_division_country
+			event_target:ev_will_division_country = {
+				create_leader = {
+					skill = 3
+					class = ruler
+					species = event_target:ev_will_division_species
+				}
+				assign_leader = last_created_leader
+			}
+			last_created_leader = {
+				save_event_target_as = ev_will_division_leader
+			}
+			solar_system = {
+				starbase = {
+					set_owner = event_target:ev_will_division_country
+				}
+				while = {
+					count = 4
+					random_neighbor_system = {
+						limit = {
+							space_owner = {
+								is_same_value = root
+							}
+							any_system_planet = {
+								num_pops = 0
+							}
+						}
+						starbase = {
+							set_owner = event_target:ev_will_division_country
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.5130.a
+	}
+}
+
+#开局事件，清洗格式塔内阁
+
+country_event = {
+	id = ev_leader.6000
+	hide_window = yes
+	is_triggered_only = yes
+	#show_sound = event_life_support_fail
+	#location = event_target:ev_will_division_planet
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				is_councilor = yes
+				is_ruler = no
+			}
+			kill_leader = {
+				show_notification = no
+			}
+		}
+	}
+}
+
+########事件招募
+
+country_event = {
+	id = ev_leader.6500
+	title = ev_leader.6500.name
+	desc = ev_leader.6500.desc
+	hide_window = no
+	is_triggered_only = yes
+	picture = GFX_evt_spy_network
+	#show_sound = event_life_support_fail
+	location = event_target:ev_leader_6500_target
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		random_owned_ship = {
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+			fleet = {
+				save_event_target_as = ev_leader_6500_target
+			}
+		}
+		set_country_flag = triggered_ev_leader_6500
+
+		#用于检测AI
+		#export_modifier_to_variable = {
+		#	modifier = country_official_cap_add
+		#	variable = ev_country_official_cap_add
+		#}
+		#export_modifier_to_variable = {
+		#	modifier = country_commander_cap_add
+		#	variable = ev_country_commander_cap_add
+		#}
+		#export_modifier_to_variable = {
+		#	modifier = country_scientist_cap_add
+		#	variable = ev_country_scientist_cap_add
+		#}
+		set_variable = {
+			which = ev_country_official_cap_add
+			value = value:ev_count_leader_class_cap|CLASS|official|
+		}
+		set_variable = {
+			which = ev_country_commander_cap_add
+			value = value:ev_count_leader_class_cap|CLASS|commander|
+		}
+		set_variable = {
+			which = ev_country_scientist_cap_add
+			value = value:ev_count_leader_class_cap|CLASS|scientist|
+		}
+
+		set_variable = {
+			which = country_official_now_var
+			value = value:ev_count_leader_class|CLASS|official|
+		}
+		set_variable = {
+			which = country_commander_now_var
+			value = value:ev_count_leader_class|CLASS|commander|
+		}
+		set_variable = {
+			which = country_scientist_now_var
+			value = value:ev_count_leader_class|CLASS|scientist|
+		}
+
+	}
+	after = {
+		remove_country_flag = triggered_ev_leader_6500
+	}
+	option = {
+		name = ev_leader.6500.a
+		allow = {
+			has_country_resource = {
+				type = unity
+				amount > 200
+			}
+		}
+		add_resource = {
+			unity = -200
+		}
+		custom_tooltip = ev_leader.6500_official_1
+		create_leader = {
+			class = official
+			species = owner_main_species
+			randomize_traits = yes
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				any_pool_leader = {
+					leader_class = official
+				}
+			}
+			modifier = {
+				factor = 0
+				check_variable = {
+					which = ev_country_official_cap_add
+					value < country_official_now_var
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.6500.b
+		allow = {
+			has_country_resource = {
+				type = unity
+				amount > 200
+			}
+		}
+		add_resource = {
+			unity = -200
+		}
+		custom_tooltip = ev_leader.6500_commander_1
+		create_leader = {
+			class = commander
+			species = owner_main_species
+			randomize_traits = yes
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 0
+				any_pool_leader = {
+					leader_class = commander
+				}
+			}
+			modifier = {
+				factor = 0
+				check_variable = {
+					which = ev_country_commander_cap_add
+					value < country_commander_now_var
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.6500.c
+		allow = {
+			has_country_resource = {
+				type = unity
+				amount > 200
+			}
+		}
+		add_resource = {
+			unity = -200
+		}
+		custom_tooltip = ev_leader.6500_scientist_1
+		create_leader = {
+			class = scientist
+			species = owner_main_species
+			randomize_traits = yes
+			
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 0
+				any_pool_leader = {
+					leader_class = scientist
+				}
+			}
+			modifier = {
+				factor = 0
+				check_variable = {
+					which = ev_country_scientist_cap_add
+					value < country_scientist_now_var
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_leader.6500.d
+		trigger = {
+			exists = event_target:ev_leader_6500_target
+		}
+		allow = {
+			has_country_resource = {
+				type = unity
+				amount > 1000
+			}
+		}
+		add_resource = {
+			unity = -1000
+		}
+		locked_random_list = {
+			1 = {
+				custom_tooltip = ev_leader.6500_scientist_3
+				
+				hidden_effect = {
+					create_leader = {
+						class = scientist
+						species = owner_main_species
+						randomize_traits = yes
+					}
+					last_created_leader = {
+						add_skill = 2
+					}
+				}
+			}
+			1 = {
+				custom_tooltip = ev_leader.6500_commander_3
+
+				hidden_effect = {
+					create_leader = {
+						class = commander
+						species = owner_main_species
+						randomize_traits = yes
+					}
+					last_created_leader = {
+						add_skill = 2
+					}
+				}
+			}
+			1 = {
+				custom_tooltip = ev_leader.6500_official_3
+
+				hidden_effect = {
+					create_leader = {
+						class = official
+						species = owner_main_species
+						randomize_traits = yes
+					}
+					last_created_leader = {
+						add_skill = 2
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+			
+		}
+	}
+	option = {
+		name = ev_leader.6500.e
+
+	}
+}

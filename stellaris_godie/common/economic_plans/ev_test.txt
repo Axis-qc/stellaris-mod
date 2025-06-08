@@ -1,0 +1,2219 @@
+
+@subplan_requirement = 30
+@consumer_goods_target = 30
+@research_target = 4000
+@unity_target = 70
+@alloy_target = 900
+@rare_resource_target = 4
+
+
+#######################早期科研#########################
+#蜂群的早期科研
+#ev_early_research_plan_hive = {
+#	type = early
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 10
+#		consumer_goods = 0
+#		alloys = 60
+#		unity = 50
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		exotic_gases = 2
+#		volatile_motes = 1
+#		rare_crystals = 1
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 500
+#	empire_size = 1.2
+#	ai_weight = {
+#		weight = 1
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_hive_2 = {
+#	type = early
+#	potential = {
+#		years_passed > 20
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 10
+#		consumer_goods = 0
+#		alloys = 60
+#		unity = 70
+#		physics_research = 2000
+#		society_research = 2000
+#		engineering_research = 2000
+#		exotic_gases = 4
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 800
+#	empire_size = 1.15
+#	ai_weight = {
+#		weight = 3
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_hive_3 = {
+#	type = early
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 10
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 100
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 5
+#		volatile_motes = 4
+#		rare_crystals = 4
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 2000
+#	empire_size = 1.15
+#	ai_weight = {
+#		weight = 7
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_hive_4 = {
+#	type = early
+#	potential = {
+#		years_passed > 60
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 5
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 150
+#		physics_research = 5500
+#		society_research = 5500
+#		engineering_research = 5500
+#		exotic_gases = 5
+#		volatile_motes = 4
+#		rare_crystals = 4
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 3500
+#	empire_size = 1.15
+#	ai_weight = {
+#		weight = 11
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+##机械的早期科研
+#ev_early_research_plan_machine = {
+#	type = early
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 60
+#		unity = 50
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		exotic_gases = 2
+#		volatile_motes = 1
+#		rare_crystals = 1
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 500
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_machine_2 = {
+#	type = early
+#	potential = {
+#		years_passed > 20
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 60
+#		unity = 75
+#		physics_research = 2000
+#		society_research = 2000
+#		engineering_research = 2000
+#		exotic_gases = 3
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 700
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 4
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_machine_3 = {
+#	type = early
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 70
+#		unity = 125
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 3
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 1200
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 8
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_early_research_plan_machine_3 = {
+#	type = early
+#	potential = {
+#		years_passed > 60
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 200
+#		physics_research = 6000
+#		society_research = 6000
+#		engineering_research = 6000
+#		exotic_gases = 5
+#		volatile_motes = 3
+#		rare_crystals = 3
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 2000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 12
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+##有机的早期科研
+#ev_early_research_plan = {
+#	type = early
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 0
+#		minerals = 30
+#		food = 1
+#		consumer_goods = 10
+#		alloys = 60
+#		unity = 50
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		exotic_gases = 2
+#		volatile_motes = 1
+#		rare_crystals = 1
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 500
+#	empire_size = 1.25
+#	ai_weight = {
+#		weight = 2
+#	}
+#}
+#
+#ev_early_research_plan_2 = {
+#	type = early
+#	potential = {
+#		years_passed > 20
+#	}
+#	income = {
+#		energy = 0
+#		minerals = 30
+#		food = 1
+#		consumer_goods = 10
+#		alloys = 60
+#		unity = 50
+#		physics_research = 2000
+#		society_research = 2000
+#		engineering_research = 2000
+#		exotic_gases = 4
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 700
+#	empire_size = 1.25
+#	ai_weight = {
+#		weight = 4
+#	}
+#}
+#
+#ev_early_research_plan_3 = {
+#	type = early
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 0
+#		minerals = 30
+#		food = 1
+#		consumer_goods = 10
+#		alloys = 60
+#		unity = 70
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 4
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 1000
+#	empire_size = 1.1
+#	ai_weight = {
+#		weight = 8
+#	}
+#}
+#
+#ev_early_research_plan_4 = {
+#	type = early
+#	potential = {
+#		years_passed > 60
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 300
+#		food = 10
+#		consumer_goods = 20
+#		alloys = 70
+#		unity = 70
+#		physics_research = 6000
+#		society_research = 6000
+#		engineering_research = 6000
+#		exotic_gases = 6
+#		volatile_motes = 3
+#		rare_crystals = 3
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 2000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 12
+#	}
+#}
+#
+########################中期科研#########################
+##蜂群的中期科研
+#ev_middle_research_plan_hive = {
+#	type = middle
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 5
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 300
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 1000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_hive_2 = {
+#	type = middle
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 5
+#		consumer_goods = 0
+#		alloys = 90
+#		unity = 300
+#		physics_research = 7500
+#		society_research = 7500
+#		engineering_research = 7500
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 4000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 4
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_hive_3 = {
+#	type = middle
+#	potential = {
+#		years_passed > 70
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 5
+#		consumer_goods = 0
+#		alloys = 90
+#		unity = 300
+#		physics_research = 12000
+#		society_research = 12000
+#		engineering_research = 12000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 3500
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 8
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_hive_4 = {
+#	type = middle
+#	potential = {
+#		years_passed > 100
+#	}
+#	income = {
+#		energy = 20
+#		minerals = 20
+#		food = 20
+#		consumer_goods = 0
+#		alloys = 90
+#		unity = 500
+#		physics_research = 25000
+#		society_research = 25000
+#		engineering_research = 25000
+#		exotic_gases = 10
+#		volatile_motes = 4
+#		rare_crystals = 4
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 8000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 12
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+##机械的中期科研
+#ev_middle_research_plan_machine = {
+#	type = middle
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 1
+#		minerals = 30
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 85
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 4
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 1000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 1
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_machine_2 = {
+#	type = middle
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 150
+#		unity = 100
+#		physics_research = 7000
+#		society_research = 7000
+#		engineering_research = 7000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 2000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 3
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_machine_3 = {
+#	type = middle
+#	potential = {
+#		years_passed > 70
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 150
+#		unity = 125
+#		physics_research = 14000
+#		society_research = 14000
+#		engineering_research = 14000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 4000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 7
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+#ev_middle_research_plan_machine_4 = {
+#	type = middle
+#	potential = {
+#		years_passed > 100
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 20
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 90
+#		unity = 200
+#		physics_research = 30000
+#		society_research = 30000
+#		engineering_research = 30000
+#		exotic_gases = 10
+#		volatile_motes = 10
+#		rare_crystals = 10
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 8000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 11
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+#
+##有机的中期科研
+#ev_middle_research_plan = {
+#	type = middle
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 50
+#		food = 10
+#		consumer_goods = 10
+#		alloys = 90
+#		unity = 50
+#		physics_research = 4000
+#		society_research = 4000
+#		engineering_research = 4000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 1000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#	}
+#}
+#
+#ev_middle_research_plan_2 = {
+#	type = middle
+#	potential = {
+#		years_passed > 40
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 30
+#		food = 10
+#		consumer_goods = 10
+#		alloys = 90
+#		unity = 80
+#		physics_research = 8000
+#		society_research = 8000
+#		engineering_research = 8000
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 2000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 4
+#	}
+#}
+#
+#ev_middle_research_plan_3 = {
+#	type = middle
+#	potential = {
+#		years_passed > 70
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 30
+#		food = 10
+#		consumer_goods = 10
+#		alloys = 90
+#		unity = 200
+#		physics_research = 14500
+#		society_research = 14500
+#		engineering_research = 14500
+#		exotic_gases = 6
+#		volatile_motes = 6
+#		rare_crystals = 6
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 3500
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 8
+#	}
+#}
+#
+#ev_middle_research_plan_4 = {
+#	type = middle
+#	potential = {
+#		years_passed > 100
+#	}
+#	income = {
+#		energy = 10
+#		minerals = 50
+#		food = 10
+#		consumer_goods = 20
+#		alloys = 90
+#		unity = 70
+#		physics_research = 28000
+#		society_research = 28000
+#		engineering_research = 28000
+#		exotic_gases = 10
+#		volatile_motes = 10
+#		rare_crystals = 10
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 80
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 1000
+#		society_research = 1000
+#		engineering_research = 1000
+#		unity = 200
+#	}
+#	pops = 20000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 12
+#	}
+#}
+#
+###################后期科研#############
+#ev_end_research_plan_hive = {
+#	type = end
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 50
+#		minerals = 50
+#		food = 50
+#		consumer_goods = 0
+#		alloys = 400
+#		unity = 400
+#		physics_research = 100000
+#		society_research = 100000
+#		engineering_research = 100000
+#		exotic_gases = 20
+#		volatile_motes = 20
+#		rare_crystals = 20
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 300
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 300
+#		society_research = 300
+#		engineering_research = 300
+#		unity = 200
+#	}
+#	pops = 20000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#		modifier = {
+#			add = 2
+#			is_hive_empire = yes
+#		}
+#	}
+#}
+#
+#ev_end_research_plan = {
+#	type = end
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 50
+#		minerals = 50
+#		food = 50
+#		consumer_goods = 10
+#		alloys = 300
+#		unity = 400
+#		physics_research = 100000
+#		society_research = 100000
+#		engineering_research = 100000
+#		exotic_gases = 20
+#		volatile_motes = 20
+#		rare_crystals = 20
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		consumer_goods = 50
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 300
+#		society_research = 300
+#		engineering_research = 300
+#		unity = 200
+#	}
+#	pops = 20000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#	}
+#}
+#
+#ev_end_research_plan_machine = {
+#	type = end
+#	potential = {
+#		always = yes
+#	}
+#	income = {
+#		energy = 50
+#		minerals = 50
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 300
+#		unity = 400
+#		physics_research = 100000
+#		society_research = 100000
+#		engineering_research = 100000
+#		exotic_gases = 20
+#		volatile_motes = 20
+#		rare_crystals = 20
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#	}
+#	focus = {
+#		alloys = 90
+#		volatile_motes = 600
+#		rare_crystals = 800
+#		exotic_gases = 2000
+#		physics_research = 300
+#		society_research = 300
+#		engineering_research = 300
+#		unity = 200
+#	}
+#	pops = 20000
+#	empire_size = 1
+#	ai_weight = {
+#		weight = 2
+#		modifier = {
+#			add = 2
+#			is_machine_empire = yes
+#			NOR = {
+#				has_civic = civic_machine_servitor
+#				has_civic = civic_machine_assimilator
+#			}
+#		}
+#	}
+#}
+
+#新的
+
+#ev_early_default_plan = {
+#	type = early
+#
+#	income = {
+#		energy = 50
+#		minerals = 50
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 100
+#		unity = 30
+#		physics_research = 500
+#		society_research = 500
+#		engineering_research = 500
+#		exotic_gases = 2
+#		volatile_motes = 2
+#		rare_crystals = 2
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#		datealive_crystals = 0
+#	}
+#
+#	focus = {
+#		energy = 50
+#		minerals = 90
+#		alloys = 130
+#		exotic_gases = 70
+#		volatile_motes = 30
+#		rare_crystals = 50
+#		physics_research = 150
+#		society_research = 150
+#		engineering_research = 150
+#	}
+#	
+#	
+#	#根据思潮
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_materialist
+#				has_ethic = ethic_fanatic_materialist
+#				any_country = {
+#					has_research_agreement = root
+#				}
+#				any_country = {
+#					is_country_type = default
+#					relative_power = {
+#						who = root
+#						category = technology
+#						value >= equivalent
+#					}
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 1000
+#			society_research = 1000
+#			engineering_research = 1000
+#		}
+#
+#		focus = {
+#			physics_research = 100
+#			society_research = 100
+#			engineering_research = 100
+#		}
+#	}
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_militarist
+#				has_ethic = ethic_fanatic_militarist
+#				has_ethic = ethic_fanatic_xenophobe
+#				has_ethic = ethic_xenophobe
+#				is_at_war = yes
+#				any_country = {
+#					has_rival = root
+#				}
+#				used_naval_capacity_percent < 0.7
+#			}
+#		}
+#
+#		income = {
+#			alloys = 150
+#		}
+#
+#		focus = {
+#			alloys = 900
+#		}
+#	}
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_spiritualist
+#				has_ethic = ethic_fanatic_spiritualist
+#				num_ascension_perks < 7
+#			}
+#			is_at_war = no
+#		}
+#
+#		income = {
+#			unity = 60
+#		}
+#
+#		focus = {
+#			unity = 800
+#		}
+#	}
+#	#根据政体
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = yes
+#
+#		}
+#
+#		income = {
+#			food = 20
+#			consumer_goods = 25
+#		}
+#
+#		focus = {
+#			food = 50
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = no
+#		}
+#
+#		income = {
+#			consumer_goods = 5
+#		}
+#
+#		focus = {
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	# increased food goals for hiveminds
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = no
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food  = 25
+#		}
+#
+#		focus = {
+#			food = 50
+#		}
+#	}
+#	#根据种族
+#	subplan = {
+#		potential = {
+#			any_owned_pop_group = {
+#				species = {
+#					is_species_class = DAL
+#				}
+#			}
+#		}
+#
+#		income = {
+#			datealive_crystals = 10
+#		}
+#
+#		focus = {
+#			datealive_crystals = 200
+#		}
+#	}
+#	pops = 500
+#	empire_size = 1.05
+#
+#	ai_weight = {
+#		weight = 3
+#	}
+#}
+#
+#ev_middle_default_plan = {
+#	type = middle
+#
+#	income = {
+#		energy = 40
+#		minerals = 150
+#		food = 0
+#		consumer_goods = 0
+#		alloys = 80
+#		unity = 50
+#		physics_research = 3000
+#		society_research = 3000
+#		engineering_research = 3000
+#		exotic_gases = 3
+#		volatile_motes = 3
+#		rare_crystals = 3
+#		sr_living_metal = 1
+#		sr_zro = 1
+#		sr_dark_matter = 1
+#		datealive_crystals = 0
+#	}
+#
+#	focus = {
+#		energy = 50
+#		minerals = 90
+#		alloys = 130
+#		exotic_gases = 70
+#		volatile_motes = 30
+#		rare_crystals = 50
+#		physics_research = 150
+#		society_research = 150
+#		engineering_research = 150
+#	}
+#	#根据思潮
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_materialist
+#				has_ethic = ethic_fanatic_materialist
+#				any_country = {
+#					has_research_agreement = root
+#				}
+#				any_country = {
+#					is_country_type = default
+#					relative_power = {
+#						who = root
+#						category = technology
+#						value >= equivalent
+#					}
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 2500
+#			society_research = 2500
+#			engineering_research = 2500
+#		}
+#
+#		focus = {
+#			physics_research = 300
+#			society_research = 300
+#			engineering_research = 300
+#		}
+#	}
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_militarist
+#				has_ethic = ethic_fanatic_militarist
+#				has_ethic = ethic_fanatic_xenophobe
+#				has_ethic = ethic_xenophobe
+#				is_at_war = yes
+#				any_country = {
+#					has_rival = root
+#				}
+#				used_naval_capacity_percent < 0.7
+#			}
+#		}
+#
+#		income = {
+#			alloys = 200
+#		}
+#
+#		focus = {
+#			alloys = 900
+#		}
+#	}
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_spiritualist
+#				has_ethic = ethic_fanatic_spiritualist
+#				num_ascension_perks < 7
+#			}
+#		}
+#
+#		income = {
+#			unity = 80
+#		}
+#
+#		focus = {
+#			unity = 800
+#		}
+#	}
+#	#根据政体
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food = 20
+#			consumer_goods = 10
+#		}
+#
+#		focus = {
+#			food = 50
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = no
+#		}
+#
+#		income = {
+#			consumer_goods = 25
+#		}
+#
+#		focus = {
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	# increased food goals for hiveminds
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = no
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food = 25
+#		}
+#
+#		focus = {
+#			food = 50
+#		}
+#	}
+#	#根据种族
+#	subplan = {
+#		potential = {
+#			any_owned_pop_group = {
+#				species = {
+#					is_species_class = DAL
+#				}
+#			}
+#		}
+#
+#		income = {
+#			datealive_crystals = 25
+#		}
+#
+#		focus = {
+#			datealive_crystals = 200
+#		}
+#	}
+#	#根据种族
+#	subplan = {
+#		potential = {
+#			any_owned_pop_group = {
+#				species = {
+#					is_species_class = DAL
+#				}
+#			}
+#		}
+#
+#		income = {
+#			datealive_crystals = 25
+#		}
+#
+#		focus = {
+#			datealive_crystals = 200
+#		}
+#	}
+#	pops = 2500
+#	empire_size = 1.05
+#
+#	ai_weight = {
+#		weight = 3
+#	}
+#}
+
+#ev_end_default_plan = {
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#
+#	income = {
+#		energy = 75
+#		minerals = 75
+#		#datealive_crystals = 0
+#	}
+#
+#	focus = {
+#		energy = 50
+#		minerals = 90
+#		alloys = 130
+#		exotic_gases = 70
+#		volatile_motes = 30
+#		rare_crystals = 50
+#		physics_research = 150
+#		society_research = 150
+#		engineering_research = 150
+#	}
+#	#早期<100 pop 中期 500；晚期2500
+#	#根据思潮
+#	#科研阶段1
+#	subplan = {
+#		potential = {
+#			AND = {
+#				num_pops < 200
+#				has_monthly_income = { resource = consumer_goods value >= -1 }
+#				has_monthly_income = { resource = energy value >= 15 }
+#				OR = {
+#					is_gestalt = yes
+#					has_ethic = ethic_materialist
+#					has_ethic = ethic_fanatic_materialist
+#					any_country = {
+#						has_research_agreement = root
+#					}
+#					any_country = {
+#						is_country_type = default
+#						relative_power = {
+#							who = root
+#							category = technology
+#							value >= equivalent
+#						}
+#					}
+#					
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 1000
+#			society_research = 1000
+#			engineering_research = 1000
+#		}
+#
+#		focus = {
+#			physics_research = 1000
+#			society_research = 1000
+#			engineering_research = 1000
+#		}
+#	}
+#	#科研阶段2
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 200 num_pops < 1000 }
+#				has_monthly_income = { resource = consumer_goods value >= -1 }
+#				has_monthly_income = { resource = energy value >= 25 }
+#				OR = {
+#					is_gestalt = yes
+#					has_ethic = ethic_materialist
+#					has_ethic = ethic_fanatic_materialist
+#					any_country = {
+#						has_research_agreement = root
+#					}
+#					any_country = {
+#						is_country_type = default
+#						relative_power = {
+#							who = root
+#							category = technology
+#							value >= equivalent
+#						}
+#					}
+#					
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 5000
+#			society_research = 5000
+#			engineering_research = 5000
+#		}
+#
+#		focus = {
+#			physics_research = 10000
+#			society_research = 10000
+#			engineering_research = 10000
+#		}
+#	}
+#
+#	#科研阶段3
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 1000 num_pops < 4000 }
+#				has_monthly_income = { resource = consumer_goods value >= -1 }
+#				has_monthly_income = { resource = energy value >= 40 }
+#				OR = {
+#					is_gestalt = yes
+#					has_ethic = ethic_materialist
+#					has_ethic = ethic_fanatic_materialist
+#					any_country = {
+#						has_research_agreement = root
+#					}
+#					any_country = {
+#						is_country_type = default
+#						relative_power = {
+#							who = root
+#							category = technology
+#							value >= equivalent
+#						}
+#					}
+#					
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 20000
+#			society_research = 20000
+#			engineering_research = 20000
+#		}
+#
+#		focus = {
+#			physics_research = 50000
+#			society_research = 50000
+#			engineering_research = 50000
+#		}
+#	}
+#
+#	#科研阶段4
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 4000 }
+#				has_monthly_income = { resource = consumer_goods value >= -1 }
+#				has_monthly_income = { resource = energy value >= 40 }
+#				OR = {
+#					is_gestalt = yes
+#					has_ethic = ethic_materialist
+#					has_ethic = ethic_fanatic_materialist
+#					any_country = {
+#						has_research_agreement = root
+#					}
+#					any_country = {
+#						is_country_type = default
+#						relative_power = {
+#							who = root
+#							category = technology
+#							value >= equivalent
+#						}
+#					}
+#					
+#				}
+#			}
+#		}
+#
+#		income = {
+#			physics_research = 40000
+#			society_research = 40000
+#			engineering_research = 40000
+#		}
+#
+#		focus = {
+#			physics_research = 150000
+#			society_research = 150000
+#			engineering_research = 150000
+#		}
+#	}
+#
+#
+#	#合金阶段1
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops < 200 }
+#				has_monthly_income = { resource = minerals value >= 25 }
+#				OR = {
+#					NOT = { has_ethic = ethic_fanatic_pacifist }
+#					NOT = {	has_ethic = ethic_pacifist }
+#					is_at_war = yes
+#					any_country = {
+#						has_rival = root
+#					}
+#					used_naval_capacity_percent < 0.85
+#				}
+#			}
+#		}
+#
+#		income = {
+#			alloys = 150
+#		}
+#
+#		focus = {
+#			alloys = 900
+#		}
+#	}
+#	#合金阶段2
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 200 num_pops < 700 }
+#				has_monthly_income = { resource = minerals value >= 35 }
+#				OR = {
+#					NOT = { has_ethic = ethic_fanatic_pacifist }
+#					NOT = {	has_ethic = ethic_pacifist }
+#					is_at_war = yes
+#					any_country = {
+#						has_rival = root
+#					}
+#					used_naval_capacity_percent < 0.85
+#				}
+#			}
+#		}
+#
+#		income = {
+#			alloys = 1250
+#		}
+#
+#		focus = {
+#			alloys = 9000
+#		}
+#	}
+#
+#	#合金阶段3
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 700 num_pops < 7000 }
+#				has_monthly_income = { resource = minerals value >= 35 }
+#				OR = {
+#					NOT = { has_ethic = ethic_fanatic_pacifist }
+#					NOT = {	has_ethic = ethic_pacifist }
+#					is_at_war = yes
+#					any_country = {
+#						has_rival = root
+#					}
+#					used_naval_capacity_percent < 0.85
+#				}
+#			}
+#		}
+#
+#		income = {
+#			alloys = 4500
+#		}
+#
+#		focus = {
+#			alloys = 60000
+#		}
+#	}
+#
+#	#合金阶段4
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 7000 }
+#				has_monthly_income = { resource = minerals value >= 35 }
+#				OR = {
+#					NOT = { has_ethic = ethic_fanatic_pacifist }
+#					NOT = {	has_ethic = ethic_pacifist }
+#					is_at_war = yes
+#					any_country = {
+#						has_rival = root
+#					}
+#					used_naval_capacity_percent < 0.85
+#				}
+#			}
+#		}
+#
+#		income = {
+#			alloys = 10000
+#		}
+#
+#		focus = {
+#			alloys = 200000
+#		}
+#	}
+#	#特殊合金阶段
+#	subplan = {
+#		potential = {
+#			AND = {
+#				AND = { num_pops >= 200 }
+#				has_monthly_income = { resource = minerals value >= 35 }
+#				OR = {
+#					has_crisis = yes
+#				}
+#			}
+#		}
+#
+#		income = {
+#			alloys = 200
+#		}
+#
+#		focus = {
+#			alloys = 3500
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			has_monthly_income = { resource = minerals value >= 250 }
+#		}
+#
+#		income = {
+#			alloys = 100000
+#			consumer_goods = 50
+#		}
+#
+#		focus = {
+#			alloys = 50000
+#			consumer_goods = 200
+#		}
+#	}
+#
+#	#传统
+#	subplan = {
+#		potential = {
+#			OR = {
+#				has_ethic = ethic_spiritualist
+#				has_ethic = ethic_fanatic_spiritualist
+#				num_ascension_perks <= 7
+#				has_monthly_income = { resource = unity value < 40 }
+#			}
+#		}
+#
+#		income = {
+#			unity = 200
+#		}
+#
+#		focus = {
+#			unity = 850
+#		}
+#	}
+#
+#	#根据政体
+#	subplan = {
+#		potential = {
+#			AND = {
+#				country_uses_consumer_goods = yes # This includes Rogue Servitors
+#				country_uses_food = no
+#				has_monthly_income = { resource = minerals value > 30 }			
+#			}
+#		}
+#		income = {
+#			consumer_goods = @consumer_goods_target
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				country_uses_consumer_goods = yes # This includes Rogue Servitors
+#				country_uses_food = yes
+#				has_monthly_income = { resource = minerals value > 30 }			
+#				has_monthly_income = { resource = food value > 10 }
+#			}
+#		}
+#		income = {
+#			consumer_goods = @consumer_goods_target
+#		}
+#	}	
+#
+#	# increased food goals for hiveminds
+#	subplan = {
+#		potential = {
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food = 45
+#		}
+#
+#		focus = {
+#			food = 100
+#		}
+#	}
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			has_monthly_income = { resource = consumer_goods value < 0 }			
+#		}
+#
+#		income = {
+#			consumer_goods = 40
+#		}
+#
+#		focus = {
+#			consumer_goods = 999999999
+#		}
+#	}
+#	#根据种族
+#	subplan = {
+#		potential = {
+#			any_owned_pop_group = {
+#				species = {
+#					is_species_class = DAL
+#				}
+#			}
+#		}
+#
+#		income = {
+#			datealive_crystals = 20
+#		}
+#
+#		focus = {
+#			datealive_crystals = 200
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				is_gestalt = yes
+#				is_catalytic_empire = no
+#				country_uses_food = yes
+#				has_monthly_income = { resource = energy value > @subplan_requirement }			
+#				has_monthly_income = { resource = minerals value > @subplan_requirement }
+#				has_monthly_income = { resource = food value > 10 }			
+#			}
+#		}
+#
+#		income = {
+#			physics_research = @research_target
+#			society_research = @research_target
+#			engineering_research = @research_target
+#			unity = @unity_target
+#			alloys = @alloy_target
+#			exotic_gases = @rare_resource_target
+#			volatile_motes = @rare_resource_target
+#			rare_crystals = @rare_resource_target
+#		}
+#		pops = 9000
+#	}	
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				is_gestalt = yes
+#				is_catalytic_empire = yes
+#				has_monthly_income = { resource = energy value > @subplan_requirement }			
+#				has_monthly_income = { resource = food value > @subplan_requirement }			
+#			}
+#		}
+#
+#		income = {
+#			physics_research = @research_target
+#			society_research = @research_target
+#			engineering_research = @research_target
+#			unity = @unity_target
+#			alloys = @alloy_target
+#			exotic_gases = @rare_resource_target
+#			volatile_motes = @rare_resource_target
+#			rare_crystals = @rare_resource_target
+#		}
+#		pops = 9000
+#	}
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				is_gestalt = no
+#				is_catalytic_empire = no
+#				country_uses_food = no
+#				has_monthly_income = { resource = energy value > @subplan_requirement }
+#				has_monthly_income = { resource = minerals value > @subplan_requirement }
+#				has_monthly_income = { resource = consumer_goods value > 20 }			
+#			}
+#		}
+#		
+#		income = {
+#			physics_research = @research_target
+#			society_research = @research_target
+#			engineering_research = @research_target
+#			unity = @unity_target
+#			alloys = @alloy_target
+#			exotic_gases = @rare_resource_target
+#			volatile_motes = @rare_resource_target
+#			rare_crystals = @rare_resource_target
+#		}		
+#		pops = 9000
+#	}
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				is_gestalt = no	
+#				is_catalytic_empire = no
+#				country_uses_food = yes
+#				has_monthly_income = { resource = energy value > @subplan_requirement}
+#				has_monthly_income = { resource = minerals value > @subplan_requirement }
+#				has_monthly_income = { resource = consumer_goods value > 20 }
+#				has_monthly_income = { resource = food value > 10 }		
+#			}
+#		}
+#		
+#		income = {
+#			physics_research = @research_target
+#			society_research = @research_target
+#			engineering_research = @research_target
+#			unity = @unity_target
+#			alloys = @alloy_target
+#			exotic_gases = @rare_resource_target
+#			volatile_motes = @rare_resource_target
+#			rare_crystals = @rare_resource_target
+#		}		
+#		pops = 9000
+#	}	
+#
+#	subplan = {
+#		potential = {
+#			AND = {
+#				is_gestalt = no		
+#				is_catalytic_empire = yes
+#				has_monthly_income = { resource = energy value > @subplan_requirement }
+#				has_monthly_income = { resource = food value > @subplan_requirement }
+#				has_monthly_income = { resource = consumer_goods value > 20 }			
+#			}
+#		}
+#		
+#		income = {
+#			physics_research = @research_target
+#			society_research = @research_target
+#			engineering_research = @research_target
+#			unity = @unity_target
+#			alloys = @alloy_target
+#			exotic_gases = @rare_resource_target
+#			volatile_motes = @rare_resource_target
+#			rare_crystals = @rare_resource_target
+#		}		
+#		pops = 9000
+#	}
+#
+#	pops = 4000
+#	empire_size = 1.15
+#
+#	ai_weight = {
+#		weight = 100
+#	}
+#}
+
+
+# Ultimate ---------------------------------------
+# End game plan is fulfilled, let's invest what we can in pop growth and science
+
+#ev_ultimate_default_plan = {
+#	#type = ultimate
+#
+#	income = {
+#		energy = 300
+#		minerals = 500
+#		food = 300
+#		consumer_goods = 300
+#		alloys = 5000
+#		unity = 400
+#		physics_research = 100000
+#		society_research = 100000
+#		engineering_research = 100000
+#		exotic_gases = 40
+#		volatile_motes = 40
+#		rare_crystals = 40
+#		sr_living_metal = 4
+#		sr_zro = 4
+#		sr_dark_matter = 4
+#		datealive_crystals = 0
+#	}
+#
+#	focus = {
+#		energy = 50
+#		minerals = 100
+#		alloys = 200
+#	}
+#
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food = 200
+#			consumer_goods = 200
+#		}
+#
+#		focus = {
+#			food = 50
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = yes
+#			country_uses_food = no
+#		}
+#
+#		income = {
+#			consumer_goods = 200
+#		}
+#
+#		focus = {
+#			consumer_goods = 50
+#		}
+#	}
+#
+#	# increased food goals for hiveminds
+#	subplan = {
+#		potential = {
+#			country_uses_consumer_goods = no
+#			country_uses_food = yes
+#		}
+#
+#		income = {
+#			food  = 200
+#		}
+#
+#		focus = {
+#			food = 50
+#		}
+#	}
+#	#根据种族
+#	subplan = {
+#		potential = {
+#			any_owned_pop_group = {
+#				species = {
+#					is_species_class = DAL
+#				}
+#			}
+#		}
+#
+#		income = {
+#			datealive_crystals = 50
+#		}
+#
+#		focus = {
+#			datealive_crystals = 200
+#		}
+#	}
+#	pops = 40000
+#	empire_size = 1.25
+#
+#	ai_weight = {
+#		weight = 1.5
+#	}
+#}

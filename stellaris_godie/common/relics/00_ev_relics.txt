@@ -1,0 +1,168 @@
+@activation_cost = 150
+@triumph_duration = 3600
+@triumph_duration_short = 1800
+r_ev_fleet_maintenance = {
+	activation_duration = @triumph_duration
+	portrait = "GFX_relic_ev_fleet_maintenance"
+	sound = "relic_activation_the_rubricator"
+	resources = {
+		category = relics
+		# Activation cost
+		cost = {
+			influence = @activation_cost
+		}
+	}
+	ai_weight = {
+		weight = 10
+	}
+	triggered_country_modifier = {
+		potential = {
+			NOT = {
+				is_default_ev_country_type = yes
+			}
+		}
+		country_base_engineering_research_produces_add = 500
+	}
+	triggered_country_modifier = {
+		potential = {
+			has_civic = civic_empty_vagrant
+		}
+		ship_homeless_ev_influence_upkeep_mult = -0.25
+	}
+	score = 4000
+	active_effect = {
+		if = {
+			limit = {
+				is_default_ev_country_type = yes
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = 10
+			}
+			add_modifier = {
+				modifier = "relic_ev_fleet_maintenance_1"
+				days = @triumph_duration_short
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					is_default_ev_country_type = yes
+				}
+			}
+			add_modifier = {
+				modifier = "relic_ev_fleet_maintenance_2"
+				days = 2400
+			}
+		}
+		custom_tooltip = relic_triumph_cooldown
+		hidden_effect = {
+			add_modifier = {
+				modifier = "relic_activation_cooldown"
+				days = @triumph_duration
+			}
+		}
+	}
+	# Possible check for activation
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_relic_no_cooldown"
+			NOT = {
+				has_modifier = relic_activation_cooldown
+			}
+		}
+	}
+}
+
+r_ev_fleet_influence_mult = {
+	activation_duration = @triumph_duration
+	portrait = "GFX_relic_ev_fleet_influence_mult"
+	sound = "relic_activation_vultaum_real_perforator"
+	resources = {
+		category = relics
+		# Activation cost
+		cost = {
+			energy = 1000
+		}
+	}
+	
+	
+	ai_weight = {
+		weight = 10
+	}
+	triggered_country_modifier = {
+		relics_cost_mult = -0.5
+		country_base_influence_produces_add = 1
+		country_influence_produces_mult = 0.5
+	}
+	score = 20000
+	active_effect = {
+		add_modifier = {
+			modifier = "relic_ev_fleet_influence_mult"
+			days = @triumph_duration
+		}
+		custom_tooltip = relic_triumph_cooldown
+		hidden_effect = {
+			add_modifier = {
+				modifier = "relic_activation_cooldown"
+				days = @triumph_duration
+			}
+		}
+	}
+	# Possible check for activation
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_relic_no_cooldown"
+			NOT = {
+				has_modifier = relic_activation_cooldown
+			}
+		}
+	}
+}
+
+#ÀûÎ¬Ì¹
+r_ev_dragon_trophy = {
+	activation_duration = @triumph_duration
+	portrait = "GFX_ev_relic_dragon_trophy"
+	sound = "relic_activation_ether_drake_trophy"
+	resources = {
+		category = relics
+		# Activation cost
+		cost = {
+			influence = @activation_cost
+		}
+	}
+	ai_weight = {
+		weight = 1000
+	}
+	triggered_country_modifier = {
+		potential = {
+			always = yes
+		}
+		ship_armor_damage_mult = 0.5
+		ship_hull_damage_mult = 0.5
+	}
+	score = 40000
+	active_effect = {
+		add_modifier = {
+			modifier = "leviathans_crisis_relics"
+			days = @triumph_duration
+		}
+		custom_tooltip = relic_triumph_cooldown
+		hidden_effect = {
+			add_modifier = {
+				modifier = "relic_activation_cooldown"
+				days = @triumph_duration
+			}
+		}
+	}
+	# Possible check for activation
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_relic_no_cooldown"
+			NOT = {
+				has_modifier = relic_activation_cooldown
+			}
+		}
+	}
+}

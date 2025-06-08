@@ -1,0 +1,147 @@
+
+#You can create new modifiers here. There are various settings available which will affect how it displays in tooltips.
+#Note that any modifier created here will do nothing by default. You need to manually give it effects.
+#And example would be by putting "mult = modifier:my_modifier" in certain triggered modifiers or resource tables. See 01_ruler_jobs.txt/head_researcher and 04_species_traits.txt/trait_charismatic for examples.
+
+#Settings:
+	# icon: name of file in gfx\interface\icons\modifiers (without the .dds). Default is "mod_" + key
+	# percentage: show as a % or not (default: no)
+	# min_mult: sets the minimum this modifier can be when used as a multiplier in the source code (so probably not relevant since this modifier will not be applied in the source code - but you could theoretically overwrite a code-generated modifier here). Default 0
+	# max_decimals: default 2
+	# good: sets if it registers as "good" (i.e. a positive number is green, a negative red). Default no.
+	# neutral: sets if no value is either good or bad (all is yellow). Default no.
+	# hidden: probably hides it in tooltips? Needs testing. Default no.
+	# no_diff: not sure what this does either. Default no
+	# cap_zero_to_one: ditto. Default no
+	# localize_with_value_key: expects you to put $VALUE$ in the loc key (the number will be printed there). Default no
+	# category: sets the modifier category, which is sometimes used to determine whether it is applied to a certain object (so make sure this is set to what you want)
+	#	In other words, this is referring to the object that the modifier is read from. I.e. where you could get its value via check_modifier_value, for instance.
+	# 	It should be set to the lowest possible place in the hierarchy, where country is the top, then planet would be in the middle, and pop would be at the bottom.
+	# 	Possible values: all, pop, ship, station, fleet, country, army, leader, planet, component, pop_faction (currently unused, do not use), deposit,
+	# 		megastructure, habitability, starbase, economic_unit, system, trade, federation, espionage
+
+
+#homeless_ship_produces_minerals_add = {
+#	icon = planet_jobs_minerals_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#	locale_with_value_key = KEY_homeless_ship_produces_minerals_add
+#}
+#homeless_ship_produces_food_add = {
+#	icon = planet_jobs_food_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#homeless_ship_produces_energy_add = {
+#	icon = planet_jobs_energy_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#
+#homeless_ship_produces_alloys_add = {
+#	icon = planet_jobs_alloys_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#homeless_ship_produces_consumer_goods_add = {
+#	icon = planet_jobs_consumer_goods_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#homeless_ship_produces_research_add = { #全部3项科研点
+#	icon = planet_jobs_physics_research_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#
+#homeless_ship_produces_unity_add = {
+#	icon = planet_jobs_unity_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#}
+#开采时间（无实际作用）
+homeless_orbit_mining_time = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	neutral = yes
+	category = planet
+}
+#舰队贸易值（无实际作用）
+homeless_other_homeless_trade = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	neutral = yes
+	category = planet
+}
+#轨道轰炸掠夺的资源mult（用于修正资源获取百分比）
+bombardment_steal_ev_mult = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	good = yes
+	category = planet
+}
+#轨道轰炸掠夺的资源的显示值（无实际作用）
+bombardment_steal_ev_value = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	neutral = yes
+	category = planet
+}
+#破坏性开采的等级修正
+ev_destructive_mining_level = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	good = yes
+	category = planet
+}
+#维持度平衡值 add
+ev_maintenance_value_balance_add = {
+	icon = planet_jobs_produces_mult
+	percentage = no
+	good = yes
+	category = planet
+}
+#维持度平衡值 mult
+ev_maintenance_value_balance_mult = {
+	icon = planet_jobs_produces_mult
+	percentage = yes
+	good = yes
+	category = planet
+}
+#家园舰规模占据 mult
+ev_homeless_ship_cap_cost_mult = {
+	icon = planet_jobs_produces_mult
+	percentage = yes
+	good = no
+	category = planet
+}
+#家园舰规模占据 add
+ev_homeless_ship_cap_cost_add = {
+	icon = planet_jobs_produces_mult
+	percentage = yes
+	good = no
+	category = planet
+}
+
+
+
+
+
+####################################
+#新经济系统
+####################################
+
+#homeless_ship_produces_minerals_add = {
+#	icon = planet_jobs_minerals_produces_mult
+#	percentage = no
+#	good = yes
+#	category = ship 
+#	locale_with_value_key = KEY_homeless_ship_produces_minerals_add
+#}

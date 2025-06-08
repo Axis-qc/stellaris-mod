@@ -1,0 +1,1136 @@
+ev_ambassador_ship = {
+	entity = "caravaneer_cargoship_01_section_entity_s"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 1000
+	icon = ship_size_colonizer
+	modifier = {
+	}
+	size_multiplier = 10
+	fleet_slot_size = 4
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 1
+	is_space_station = no
+	#icon_frame = 11
+	base_buildtime = 480
+	combat_disengage_chance = 1
+	#enable_default_design = yes
+	prerequisites = {
+		"tech_homeless_ship"
+	}
+	#is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+	#auto_upgrade = yes
+
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+
+	#empire_limit = {
+	#	base = 1
+	#	naval_cap_div = 1000
+	#	max = 4
+	#	show = {
+	#		is_scope_valid = yes
+	#		is_default_ev_country_type = yes
+	#	}
+	#}
+	resources = {
+		category = ships
+		cost = {
+			alloys = 25
+			influence = 100
+		}
+		upkeep = {
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 100
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	ai_ship_data = {
+		min = 0
+		max = 1
+	}
+}
+
+#微型工业舰
+mini_homeless_ship = {
+	#entity = "HOMELESS_SHIP_FRAME_entity"
+	entity = "homeless_ship_entity"
+	max_speed = 150
+	acceleration = 0.6
+	rotation_speed = 0.5
+	max_hitpoints = 500
+	icon = ev_mini_homeless_ship
+	modifier = {
+	}
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 1
+	is_space_station = no
+	#icon_frame = 6
+	base_buildtime = 100
+	combat_disengage_chance = 1
+	#enable_default_design = yes
+	prerequisites = {
+		#"tech_homeless_ship"
+		tech_ev_eco_industry
+	}
+	#	is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+
+	#empire_limit = {
+	#	base = 2
+	#	naval_cap_div = 10
+	#	
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			alloys = -30
+			influence = 25
+		}
+		upkeep = {
+			energy = 0
+			alloys = 0
+			influence = 0
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 5
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	ai_ship_data = {
+		min = 1
+		max = 25
+	}
+}
+
+homeless_ship = {
+	entity = "HOEMLAND_SHIP_FRAME_entity"	#homeless_ship_entity #"caravaneer_cargoship_01_section_entity_s"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 1000
+	icon = ev_homeless_ship
+	modifier = {
+		#   ships_upkeep_mult = 0.2
+		#	  country_ship_upgrade_cost_mult = -0.20
+		ship_fire_rate_mult = -0.5
+		ship_weapon_damage = -0.5
+		#ship_homeless_ev_unity_produces_mult = -0.3
+		#starbase_shipyard_capacity_add = 1
+	}
+	collision_radius = 100000
+	size_multiplier = 20
+	fleet_slot_size = 3
+	section_slots = {
+		"bow" = {
+			locator = "park1"
+		}
+		"mid" = {
+			locator = "park2"
+		}
+		"stern" = {
+			locator = "park3"
+		}
+	}
+	#	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 1
+	is_space_station = no
+	#icon_frame = 6
+	base_buildtime = 1800
+	combat_disengage_chance = 1
+	enable_default_design = yes	
+	prerequisites = {
+		"tech_homeless_ship"
+	}
+	
+	#is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core_ev"
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+
+	#empire_limit = {
+	#	base = 3
+	#	naval_cap_div = 70
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			alloys = 25
+			influence = 50
+		}
+		upkeep = {
+			energy = 5
+			alloys = 3
+			influence = 0.1
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 100
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	ai_ship_data = {
+		min = 1
+		max = 20
+	}
+}
+
+homeless_ship_starbase = {
+	#entity = "homeless_ship_entity"
+	entity = "HOEMLAND_SHIP_FRAME_entity"	#homeless_ship_entity #"caravaneer_cargoship_01_section_entity_s"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 2500
+	icon = ev_homeless_ship
+	modifier = {
+		#   ships_upkeep_mult = 0.2
+		#	  country_ship_upgrade_cost_mult = -0.20
+		#ship_fire_rate_mult = -0.5
+		#ship_weapon_damage = -0.5
+		#ship_fire_rate_mult = -0.5
+		#ship_weapon_damage = -0.5
+		#ship_homeless_ev_unity_produces_mult = -0.3
+		starbase_shipyard_capacity_add = 1
+		#为什么加造船的部件修正不生效？？
+	}
+	size_multiplier = 20
+	fleet_slot_size = 3
+	section_slots = {
+		#"bow" = {
+		#	locator = "park1"
+		#}
+		"mid" = {
+			locator = "park2"
+		}
+		#"stern" = {
+		#	locator = "park3"
+		#}
+	}
+	num_target_locators = 1
+	is_space_station = no
+	icon_frame = 7
+	base_buildtime = 3600
+	combat_disengage_chance = 0.65
+	default_behavior = colossus
+	enable_default_design = yes
+	prerequisites = {
+		"tech_homeless_ship"
+	}
+	can_disable = no
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_starbase
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core_ev"
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	required_component_set = "homeless_computers"
+
+	#on_finish = {
+	#	starbase = {
+	#		set_ship_construction_type = { starbase_shipyard starbase_beastport }
+	#	}
+	#}
+
+	#empire_limit = {
+	#	base = 3
+	#	naval_cap_div = 120
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			alloys = 1000
+			influence = 50
+		}
+		upkeep = {
+			energy = 5
+			alloys = 3
+			influence = 0.1
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 100
+	}
+	possible_starbase = {
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	#max_speed = 100
+	#acceleration = 0.3
+	#rotation_speed = 0.2
+	#max_hitpoints = 1000
+	#modifier = {
+	#   #ships_upkeep_mult = 0.2
+	#	#  country_ship_upgrade_cost_mult = -0.20
+	#	ship_fire_rate_mult = -0.5
+	#	ship_weapon_damage = -0.5
+	#	#ship_homeless_ev_unity_produces_mult = -0.3
+	#	starbase_shipyard_capacity_add = 1
+	#}
+	#
+	#size_multiplier = 30
+	#fleet_slot_size = 3
+	#section_slots = { 
+	#	"bow" = { locator = "park1" } 
+	#	"mid" = { locator = "park2" } 
+	#	"stern" = { locator = "park3" } 
+	#}
+	#	#section_slots = { "mid" = { locator = "part1" } }
+	#num_target_locators = 1
+	#is_space_station = no
+	#icon_frame = 6
+	#base_buildtime = 1800
+	#
+	#combat_disengage_chance = 1
+	#
+	##enable_default_design = yes	
+	#prerequisites = { "tech_homeless_ship" }
+	#	#is_civilian = yes
+	#is_designable = yes
+	#components_add_to_cost = yes
+	#class = shipclass_starbase
+	#construction_type = { starbase_shipyard starbase_beastport }
+	#valid_target_aggressive_stance = yes
+	#	
+	#required_component_set = "power_core"
+	#required_component_set = "ftl_components"
+	#required_component_set = "thruster_components"
+	#required_component_set = "sensor_components"
+	#required_component_set = "combat_computers"
+	#
+	#empire_limit = {
+	#	base = 3
+	#	naval_cap_div = 120
+	#}
+	#
+	#resources = {
+	#	category = ships
+	#	cost = {
+	#		alloys = 1000
+	#	}
+	#	upkeep = {
+	#		energy = 5
+	#		alloys = 3
+	#		influence = 0.1
+	#	}
+	#}
+	#min_upgrade_cost = {
+	#	alloys = 100
+	#}
+	#potential_country = {
+	#	OR = {
+	#		is_default_ev_country_type = yes	
+	#	}
+	#}
+	ai_ship_data = {
+		min = 1
+		max = 10
+	}
+}
+
+private_homeless_ship = {
+	#entity = "homeless_ship_entity"
+	entity = "HOEMLAND_SHIP_FRAME_entity"	#homeless_ship_entity #"caravaneer_cargoship_01_section_entity_s"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 2000
+	icon = ev_homeless_ship
+	modifier = {
+		#   ships_upkeep_mult = 0.2
+		#	  country_ship_upgrade_cost_mult = -0.20
+		ship_fire_rate_mult = -0.5
+		ship_weapon_damage = -0.5
+		#ship_homeless_ev_unity_produces_mult = -0.3
+	}
+	size_multiplier = 20
+	fleet_slot_size = 3
+	section_slots = {
+		"bow" = {
+			locator = "park1"
+		}
+		"mid" = {
+			locator = "park2"
+		}
+		"stern" = {
+			locator = "park3"
+		}
+	}
+	#	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 1
+	is_space_station = no
+	icon_frame = 6
+	base_buildtime = 720
+	combat_disengage_chance = 1
+	enable_default_design = yes
+	prerequisites = {
+		"tech_homeless_ship"
+	}
+	#	is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core_ev"
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+
+	#empire_limit = {
+	#	base = 2
+	#	#max = 20
+	#	naval_cap_div = 100
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			energy = 25
+		}
+		upkeep = {
+			energy = 10
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		AND = {
+			is_default_ev_country_type = yes
+			has_civic = civic_ev_private_homeless
+		}
+	}
+	ai_ship_data = {
+		min = 0
+		max = 20
+	}
+}
+
+private_homeless_ship_starbase = {
+	#entity = "homeless_ship_entity"
+	entity = "HOEMLAND_SHIP_FRAME_entity"	#homeless_ship_entity #"caravaneer_cargoship_01_section_entity_s"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 1000
+	icon = ev_homeless_ship
+	modifier = {
+		#   ships_upkeep_mult = 0.2
+		#	  country_ship_upgrade_cost_mult = -0.20
+		ship_fire_rate_mult = -0.5
+		ship_weapon_damage = -0.5
+		#ship_homeless_ev_unity_produces_mult = -0.3
+		starbase_shipyard_capacity_add = 1
+	}
+	size_multiplier = 20
+	fleet_slot_size = 3
+	section_slots = {
+		#"bow" = {
+		#	locator = "park1"
+		#}
+		"mid" = {
+			locator = "park2"
+		}
+		#"stern" = {
+		#	locator = "park3"
+		#}
+	}
+	#	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 1
+	is_space_station = no
+	icon_frame = 6
+	base_buildtime = 1800
+	combat_disengage_chance = 1
+	enable_default_design = yes
+	prerequisites = {
+		"tech_homeless_ship"
+	}
+	can_disable = no
+	#	is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_starbase
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core_ev"
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	required_component_set = "homeless_computers"
+
+	#empire_limit = {
+	#	base = 2
+	#	#max = 20
+	#	naval_cap_div = 150
+	#	
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			energy = 1000
+		}
+		upkeep = {
+			energy = 10
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		AND = {
+			is_default_ev_country_type = yes
+			has_civic = civic_ev_private_homeless
+		}
+	}
+	ai_ship_data = {
+		min = 0
+		max = 20
+	}
+}
+
+megastructures_homeless_ship = {
+	entity = "OAK_frem_entity"	#entity = "caravaneer_cargoship_01_section_entity_ev_homeless"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 100000
+	icon = ev_megastructures_homeless_ship
+	modifier = {
+		#   ships_upkeep_mult = 0.2
+		#	  country_ship_upgrade_cost_mult = -0.20
+		#ship_fire_rate_mult = -0.5
+		#ship_weapon_damage = -0.5
+		ship_homeless_ev_produces_mult = 0.1
+		starbase_shipyard_capacity_add = 10
+	}
+	size_multiplier = 200
+	fleet_slot_size = 50
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+		#"core" = {
+		#	locator = "part2"
+		#}
+		#"data" = {
+		#	locator = "part3"
+		#}
+		#"bow" = {
+		#	locator = "part4"
+		#}
+	}
+	num_target_locators = 1
+	is_space_station = no
+	#icon_frame = 6
+	icon_frame = 7
+	base_buildtime = 7200
+	combat_disengage_chance = 0.65
+	default_behavior = colossus
+	enable_default_design = yes
+	prerequisites = {
+		"tech_megastructures_homeless_ship"
+	}
+	can_disable = no
+	#is_civilian = yes
+	is_designable = yes
+	components_add_to_cost = yes
+	class = shipclass_starbase
+	construction_type = { starbase_shipyard starbase_beastport }
+	valid_target_aggressive_stance = yes
+
+	required_component_set = "power_core_ev"
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	required_component_set = "homeless_computers"
+
+	#empire_limit = {
+	#	base = 1
+	#	naval_cap_div = 5000
+	#	show = {
+	#		is_scope_valid = yes
+	#		has_ascension_perk = ev_unlock_megastructures_homeless_ship
+	#	}
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			alloys = 10000
+			influence = 400
+		}
+		upkeep = {
+			energy = 50
+			alloys = 10
+			influence = 0.25
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1000
+	}
+	possible_construction = {
+		custom_tooltip = {
+			fail_text = starbase_citadel_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					has_starbase_size >= starbase_citadel
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = starbase_colossal_yards_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					#has_starbase_building = colossus_yards
+				}
+			}
+		}
+	}
+	possible_starbase = {
+		has_starbase_size >= starbase_citadel
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	ai_ship_data = {
+		min = 0
+		max = 10
+	}
+}
+
+ev_fleet_size_ship = {
+	entity = "homeless_ship_entity"	#fighter_entity"fighter_entity" #entity = "pirate_corvette_S3_entity"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	icon = ship_size_constructor
+	modifier = {
+		ship_armor_add = 300
+	}
+	build_time = 240
+	max_hitpoints = 1000
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 9
+	enable_default_design = yes
+	is_civilian = no
+	is_designable = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	default_behavior = colossus
+	
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	#empire_limit = {
+	#	base = 1
+	#	naval_cap_div = 15
+	#	show = {
+	#		is_scope_valid = yes
+	#		is_default_ev_country_type = yes
+	#	}
+	#}
+	resources = {
+		category = ev_ships
+		cost = {
+			alloys = 400
+		}
+		upkeep = {
+			energy = 10
+		}
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+	ai_ship_data = {
+		min = 5
+		max = 100
+	}
+}
+
+#利维坦天灾船只
+####################
+# CRISES STARBASES #
+####################
+starbase_ev_leviathans = {
+	#graphical_culture = { "swarm_01" }
+	entity = crystal_station_large_entity
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	modifier = {
+		ship_evasion_mult = -0.1
+		ship_armor_add = 50000
+		ship_armor_regen_add_perc = 2
+		ship_hull_regen_add_perc = 2
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 2
+	}
+	max_hitpoints = 50000
+	base_buildtime = 725
+	combat_size_multiplier = 50
+	size_multiplier = 4
+	fleet_slot_size = 2
+	section_slots = { "core" = { locator = "root" } }
+	is_designable = yes #no
+	num_target_locators = 0
+	is_space_station = no
+	can_have_federation_design = no
+	is_civilian = no
+	components_add_to_cost = no
+	is_listed = no
+	can_disable = no
+
+	enable_default_design = yes #no	#if yes, countries will have an auto-generated design at start
+	class = shipclass_starbase
+
+	required_component_set = "sensor_components"
+	
+	potential_country = {
+		is_country_type = ev_leviathans_crisis
+	}
+	#icon_frame = -1
+}
+
+#利维坦建造船
+construction_ship_ev_leviathans = {
+	#graphical_culture = { "swarm_01" }
+	entity = "crystal_ship_small_blue_entity"
+	is_space_object = yes
+	max_speed = 150
+	acceleration = 0.3
+	rotation_speed = 0.2
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 3000
+		ship_weapon_damage = 5
+	}
+	max_hitpoints = 3000
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 0
+	is_space_station = no
+	#icon_frame = 9
+	is_civilian = yes
+	is_designable = no
+	class = shipclass_constructor
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+
+#利维坦殖民船
+colony_ship_ev_leviathans = {
+	#graphical_culture = { "swarm_01" }
+	entity = "space_amoeba_large_section_entity"
+	is_space_object = yes
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 3000
+	}
+	max_hitpoints = 3000
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 0
+	is_space_station = no
+	#icon_frame = 10
+	is_civilian = yes
+	is_designable = no
+	class = shipclass_colonizer
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+
+#利维坦运输船
+transport_ship_ev_leviathans = {
+	#graphical_culture = { "swarm_01" }
+	entity = "space_amoeba_large_section_entity"
+	is_space_object = yes
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	modifier = {
+		ship_evasion_add = 70
+		ship_armor_add = 300
+	}
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	#icon_frame = 11
+	is_designable = no
+	class = shipclass_transport
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+##########
+#小型叛军
+#########
+##########
+# PIRATE #
+##########
+ev_pirate_corvette = {
+	#graphical_culture = { "pirate_01" }
+	entity = "pirate_01_pirate_corvette_M1S1_entity"
+	max_speed = @speed_very_fast
+	acceleration = 0.35
+	rotation_speed = 0.1
+	collision_radius = @corvette_collision_radius
+	max_hitpoints = 400
+	modifier = {
+		ship_evasion_add = @corvette_evasion
+		ship_piracy_suppression_add = 10
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 2
+	is_space_station = no
+	#icon_frame = 2
+	base_buildtime = @corvette_build_time
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	default_behavior = swarm
+	combat_disengage_chance = 1
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	#required_component_set = "combat_computers"
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @corvette_upkeep_energy
+			alloys = @corvette_upkeep_alloys
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		OR = { is_country_type = ev_pirate }
+	}
+}
+
+ev_pirate_destroyer = {
+	#graphical_culture = { "pirate_01" }
+	entity = "pirate_01_pirate_destroyer_entity"
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.1
+	collision_radius = @corvette_collision_radius
+	max_hitpoints = 1000
+	modifier = {
+		ship_evasion_add = 40
+		ship_piracy_suppression_add = 10
+	}
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 2
+	is_space_station = no
+	#icon_frame = 3
+	base_buildtime = @corvette_build_time
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	default_behavior = line
+	combat_disengage_chance = 1
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	#required_component_set = "combat_computers"
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @corvette_upkeep_energy
+			alloys = @corvette_upkeep_alloys
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		OR = {
+			is_country_type = ev_pirate
+		}
+	}
+}
+
+ev_pirate_cruiser = {
+	max_speed = @speed_default
+	entity = "pirate_01_cruiser_hull_entity"
+	acceleration = 0.25
+	rotation_speed = 0.1
+	collision_radius = @corvette_collision_radius
+	max_hitpoints = 3000
+	modifier = {
+		ship_evasion_add = 20
+		ship_piracy_suppression_add = 10
+	}
+	size_multiplier = 8
+	fleet_slot_size = 8
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 2
+	is_space_station = no
+	#icon_frame = 5
+	base_buildtime = @corvette_build_time
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	default_behavior = artillery
+	combat_disengage_chance = 1
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	#required_component_set = "combat_computers"
+
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @corvette_upkeep_energy
+			alloys = @corvette_upkeep_alloys
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		OR = {
+			is_country_type = ev_pirate
+		}
+	}
+}
+#信标
+ev_beacon = {
+	max_speed = 5000
+	entity = "ai_01_fighter_entity"
+	acceleration = 1
+	rotation_speed = 1
+	collision_radius = @corvette_collision_radius
+	max_hitpoints = 900000
+	modifier = {
+		ship_jumpdrive_cooldown_mult = -10
+	}
+	size_multiplier = 0
+	fleet_slot_size = 0
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	
+	num_target_locators = 2
+	is_space_station = no
+	#icon_frame = 5
+	base_buildtime = 0
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	default_behavior = artillery
+	combat_disengage_chance = 1
+	class = shipclass_military
+	is_civilian = yes
+	is_designable = no
+	construction_type = { starbase_shipyard starbase_beastport }
+
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @corvette_upkeep_energy
+			alloys = @corvette_upkeep_alloys
+		}
+	}
+	min_upgrade_cost = {
+		alloys = 1
+	}
+	potential_country = {
+		always = no
+	}
+}
+
+
+ev_army_ship = {
+	entity = "humanoid_01_transport_ship_entity"	#fighter_entity"fighter_entity" #entity = "pirate_corvette_S3_entity"
+	max_speed = 100
+	acceleration = 0.3
+	rotation_speed = 0.2
+	icon = ship_size_transport
+	modifier = {
+		ship_armor_add = 300
+	}
+	build_time = 180
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = {
+		"mid" = {
+			locator = "part1"
+		}
+	}
+	num_target_locators = 0
+	is_space_station = no
+	enable_default_design = yes
+	is_civilian = no
+	is_designable = yes
+	class = shipclass_military
+	construction_type = { starbase_shipyard starbase_beastport }
+	
+	#required_component_set = "power_core"
+	required_component_set = "ev_army_core"
+	#required_component_set = "ftl_components"
+	#required_component_set = "thruster_components"
+	#required_component_set = "sensor_components"
+	#required_component_set = "combat_computers"
+	
+	resources = {
+		category = ships
+		cost = {
+			minerals = 0
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+	potential_country = {
+		OR = {
+			is_default_ev_country_type = yes
+		}
+	}
+}

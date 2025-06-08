@@ -1,0 +1,1385 @@
+#start_tech = yes    起始科技
+tech_homeless_ship = {
+	#icon = "tech_build_new_ship"
+	area = engineering
+	cost = 0
+	tier = 0
+	start_tech = yes
+	starting_potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	modifier = {
+		country_naval_cap_add = 60
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight_modifier = {
+		factor = 1
+	}
+}
+#
+
+#------------------------------基础科技---------------------------------------
+tech_exploring_unknown_1 = {
+	icon = "tech_exploring_unknown"
+	area = society
+	cost = 1000
+	tier = 1
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	is_reverse_engineerable = no
+	category = {
+		new_worlds
+	}
+	ai_update_type = all
+	weight = 90
+	prereqfor_desc = {
+		ship = {
+			title = "tech_exploring_unknown_1.title"
+			desc = "tech_exploring_unknown_1.desc"
+		}
+	}
+	#start_tech = yes
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_exploring_unknown_2 = {
+	icon = "tech_exploring_unknown"
+	area = society
+	cost = 5000
+	tier = 2
+	is_rare = yes
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	is_reverse_engineerable = no
+	category = {
+		new_worlds
+	}
+	ai_update_type = all
+	weight = 40
+	prereqfor_desc = {
+		ship = {
+			title = "tech_exploring_unknown_2.title"
+			desc = "tech_exploring_unknown_2.desc"
+		}
+	}
+	prerequisites = {
+		"tech_exploring_unknown_1"
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_wormhole_launcher = {
+	area = society
+	cost = 6000
+	tier = 2
+	is_reverse_engineerable = no
+	category = {
+		military_theory
+	}
+	ai_update_type = all
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight = 40
+	modifier = {
+		ship_emergency_ftl_mult = -0.1
+		ship_disengage_chance_mult = 0.15
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_phase_recall = {
+	area = society
+	cost = 10000
+	tier = 3
+	is_rare = yes
+	is_reverse_engineerable = yes
+	category = {
+		military_theory
+	}
+	ai_update_type = all
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight = 25
+	prerequisites = {
+		"tech_wormhole_launcher"
+	}
+	modifier = {
+		ship_emergency_ftl_mult = -0.1
+		ship_disengage_chance_mult = 0.15
+		ship_ftl_jumpdrive_range_mult = 0.15
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+#-----------------------------一段飞升科技----------------------------------
+tech_temporary_habitat = {
+	area = engineering
+	cost = 15000
+	tier = 2
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_origin = origin_void_dwellers
+		}
+	}
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = {
+		industry
+	}
+	ai_update_type = all
+	weight = 40
+	prereqfor_desc = {
+		ship = {
+			title = "tech_temporary_habitat.title"
+			desc = "tech_temporary_habitat.desc"
+		}
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 0
+			NOR = {
+				has_ascension_perk = ev_stars_for_home
+				is_default_ev_country_type = yes
+				has_civic = civic_ev_temporary_habitat
+			}
+		}
+		modifier = {
+			factor = 10
+			OR = {
+				has_civic = civic_ev_temporary_habitat
+			}
+		}
+	}
+}
+
+tech_efficient_building_module = {
+	icon = "tech_efficient_building_module"
+	area = society
+	cost = 20000
+	tier = 3
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = {
+		new_worlds
+	}
+	ai_update_type = all
+	weight = 40
+	modifier = {
+		starbase_buildings_cost_mult = -0.2
+		starbase_modules_cost_mult = -0.2
+		starbase_upgrade_cost_mult = -0.1
+		starbase_upgrade_speed_mult = 1
+		country_resource_max_add = 4000
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 0
+			NOR = {
+				has_ascension_perk = ev_stars_for_home
+			}
+		}
+	}
+}
+
+#---------------------------一段后科技---------------------------------------
+#---------------------------------二段特殊科技--------------------------------------
+#-------------------------------二段后解锁-------------------------------------
+tech_ship_homeless_ev_cost_1 = {
+	area = engineering
+	cost = 25000
+	tier = 3
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 30
+	prerequisites = {
+		"tech_homeless_production_resources_2"
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	modifier = {
+		ship_homeless_ev_cost_mult = -0.1
+	}
+}
+
+tech_space_research_base_output_1 = {
+	area = physics
+	cost = 4000
+	tier = 1
+	category = {
+		computing
+	}
+	prerequisites = {
+		"tech_homeless_space_research_base_1"
+	}
+	weight = 50
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_research_ev_physics_research_produces_mult = 0.1
+		ship_components_research_ev_society_research_produces_mult = 0.1
+		ship_components_research_ev_engineering_research_produces_mult = 0.1
+	}
+}
+
+tech_space_research_base_output_2 = {
+	area = physics
+	cost = 9000
+	tier = 2
+	category = {
+		computing
+	}
+	prerequisites = {
+		"tech_homeless_space_research_base_2"
+		"tech_space_research_base_output_1"
+	}
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_research_ev_physics_research_produces_mult = 0.1
+		ship_components_research_ev_society_research_produces_mult = 0.1
+		ship_components_research_ev_engineering_research_produces_mult = 0.1
+	}
+}
+
+tech_space_research_base_output_3 = {
+	area = physics
+	cost = 18000
+	tier = 3
+	category = {
+		computing
+	}
+	prerequisites = {
+		"tech_homeless_space_research_base_3"
+		"tech_space_research_base_output_2"
+	}
+	weight = 30
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_research_ev_physics_research_produces_mult = 0.1
+		ship_components_research_ev_society_research_produces_mult = 0.1
+		ship_components_research_ev_engineering_research_produces_mult = 0.1
+	}
+}
+
+tech_space_research_base_output_4 = {
+	area = physics
+	cost = 35000
+	tier = 4
+	category = {
+		computing
+	}
+	prerequisites = {
+		"tech_homeless_space_research_base_4"
+		"tech_space_research_base_output_3"
+	}
+	weight = 15
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_research_ev_physics_research_produces_mult = 0.1
+		ship_components_research_ev_society_research_produces_mult = 0.1
+		ship_components_research_ev_engineering_research_produces_mult = 0.1
+	}
+}
+
+#######
+tech_space_minerals_base_output_1 = {
+	area = engineering
+	cost = 4000
+	tier = 1
+	category = {
+		industry
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_1"
+	}
+	weight = 60
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_minerals_ev_minerals_produces_mult = 0.15
+	}
+}
+
+tech_space_minerals_base_output_2 = {
+	area = engineering
+	cost = 9000
+	tier = 3
+	category = {
+		industry
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_2"
+		"tech_space_minerals_base_output_1"
+	}
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_minerals_ev_minerals_produces_mult = 0.15
+	}
+}
+
+tech_space_minerals_base_output_3 = {
+	area = engineering
+	cost = 20000
+	tier = 4
+	category = {
+		industry
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_3"
+		"tech_space_minerals_base_output_2"
+	}
+	weight = 30
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_minerals_ev_minerals_produces_mult = 0.15
+	}
+}
+
+###############
+tech_space_energy_base_output_1 = {
+	area = physics
+	cost = 4000
+	tier = 1
+	category = {
+		field_manipulation
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_1"
+	}
+	weight = 60
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_energy_ev_energy_produces_mult = 0.15
+	}
+}
+
+tech_space_energy_base_output_2 = {
+	area = physics
+	cost = 9000
+	tier = 3
+	category = {
+		field_manipulation
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_2"
+		"tech_space_energy_base_output_1"
+	}
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_energy_ev_energy_produces_mult = 0.15
+	}
+}
+
+tech_space_energy_base_output_3 = {
+	area = physics
+	cost = 20000
+	tier = 4
+	category = {
+		field_manipulation
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_3"
+		"tech_space_energy_base_output_2"
+	}
+	weight = 30
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_energy_ev_energy_produces_mult = 0.15
+	}
+}
+
+###########
+tech_space_food_base_output_1 = {
+	area = society
+	cost = 4000
+	tier = 1
+	category = {
+		biology
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_1"
+	}
+	weight = 60
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_food_ev_food_produces_mult = 0.15
+	}
+}
+
+tech_space_food_base_output_2 = {
+	area = society
+	cost = 9000
+	tier = 2
+	category = {
+		biology
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_2"
+		"tech_space_food_base_output_1"
+	}
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_food_ev_food_produces_mult = 0.15
+	}
+}
+
+tech_space_food_base_output_3 = {
+	area = society
+	cost = 20000
+	tier = 4
+	category = {
+		biology
+	}
+	prerequisites = {
+		"tech_homeless_production_resources_3"
+		"tech_space_food_base_output_2"
+	}
+	weight = 30
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			is_lithoid_empire = yes
+		}
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		ship_components_food_ev_food_produces_mult = 0.15
+	}
+}
+
+#tech_space_manpower_base_output_1 = {
+#	area = society
+#	cost = 4000
+#	tier = 1
+#	category = {
+#		biology
+#	}
+#	weight = 70
+#	potential = {
+#		is_default_ev_country_type = yes
+#		is_gestalt = no
+#	}
+#	weight_modifier = {
+#		factor = 1
+#		modifier = {
+#			factor = 0.75
+#			is_lithoid_empire = yes
+#		}
+#	}
+#	ai_weight = {
+#		factor = 10
+#	}
+#	modifier = {
+#		
+#	}
+#}
+#
+#tech_space_manpower_base_output_2 = {
+#	area = society
+#	cost = 12000
+#	tier = 3
+#	category = {
+#		biology
+#	}
+#	weight = 40
+#	prerequisites = {
+#		"tech_space_manpower_base_output_1"
+#	}
+#	potential = {
+#		is_default_ev_country_type = yes
+#		is_gestalt = no
+#	}
+#	weight_modifier = {
+#		factor = 1
+#		modifier = {
+#			factor = 0.75
+#			is_lithoid_empire = yes
+#		}
+#	}
+#	ai_weight = {
+#		factor = 10
+#	}
+#	modifier = {
+#		ship_components_manpower_ev_manpower_produces_mult = 0.1
+#	}
+#}
+#
+#tech_space_manpower_base_output_3 = {
+#	area = society
+#	cost = 30000
+#	tier = 4
+#	category = {
+#		biology
+#	}
+#	weight = 20
+#	prerequisites = {
+#		"tech_space_manpower_base_output_2"
+#	}
+#	potential = {
+#		is_default_ev_country_type = yes
+#		is_gestalt = no
+#	}
+#	weight_modifier = {
+#		factor = 1
+#	}
+#	ai_weight = {
+#		factor = 10
+#	}
+#	modifier = {
+#		ship_components_manpower_ev_manpower_produces_mult = 0.1
+#		leader_age = 20
+#	}
+#}
+
+tech_anchorage_ev_add_1 = {
+	icon = "tech_space_manpower_base_output_3"
+	area = physics
+	cost = 10000
+	tier = 3
+	category = {
+		computing
+	}
+	prerequisites = {
+	}
+	weight = 75
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		custom_tooltip = ANCHORAGE_EV_ADD_2
+	}
+}
+
+tech_anchorage_ev_add_2 = {
+	icon = "tech_space_manpower_base_output_3"
+	area = physics
+	cost = 25000
+	tier = 4
+	category = {
+		computing
+	}
+	prerequisites = {
+		"tech_anchorage_ev_add_1"
+	}
+	weight = 50
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 10
+	}
+	modifier = {
+		custom_tooltip = ANCHORAGE_EV_ADD_2
+	}
+}
+
+#tech_anchorage_ev_add_3 = {
+#	icon = "tech_bwm_magma_diver"
+#	area = physics
+#	cost = 16000
+#	tier = 4
+#	category = { computing }
+#	prerequisites = { "tech_anchorage_ev_add_2" }
+#	weight = 30
+#
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#
+#	weight_modifier = {
+#		factor = 1
+#	}
+#
+#	ai_weight = {
+#		factor = 10
+#	}
+#
+#	modifier = {
+#		custom_tooltip = ANCHORAGE_EV_ADD_2
+#	}
+#}
+#tech_anchorage_ev_add_4 = {
+#	icon = "tech_bwm_magma_diver"
+#	area = physics
+#	cost = 30000
+#	tier = 4
+#	category = { computing }
+#	prerequisites = { "tech_anchorage_ev_add_3" }
+#	weight = 30
+#
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#
+#	weight_modifier = {
+#		factor = 1
+#	}
+#
+#	ai_weight = {
+#		factor = 10
+#	}
+#
+#	modifier = {
+#		custom_tooltip = ANCHORAGE_EV_ADD_2
+#	}
+#}
+#破坏性开采
+tech_ev_destructive_mining = {
+	#icon = "tech_bwm_magma_diver"
+	area = engineering
+	cost = 6000
+	tier = 2
+	category = {
+		industry
+	}
+	weight = 50
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "EV_DESTRUCTIVE_MINING_1"
+			desc = "EV_DESTRUCTIVE_MINING_1_DESC"
+		}
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	modifier = {
+		ev_destructive_mining_level = 1
+	}
+
+	ai_weight = {
+		factor = 30
+	}
+	#modifier = {
+	#	description = GIVE_EV_DESTRUCTIVE_MINING_LEVEL_DESC
+	#}
+}
+
+#破坏性开采2级
+tech_ev_destructive_mining_2 = {
+	#icon = "tech_bwm_magma_diver"
+	area = engineering
+	cost = 20000
+	tier = 4
+	category = {
+		industry
+	}
+	weight = 30
+	prerequisites = {
+		"tech_ev_destructive_mining"
+	}
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prereqfor_desc = {
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	modifier = {
+		ev_destructive_mining_level = 1
+	}
+	ai_weight = {
+		factor = 30
+	}
+	#modifier = {
+	#	description = GIVE_EV_DESTRUCTIVE_MINING_LEVEL_DESC
+	#}
+}
+
+#破坏性开采3级
+tech_ev_destructive_mining_3 = {
+	#icon = "tech_bwm_magma_diver"
+	area = engineering
+	cost = 40000
+	tier = 5
+	category = {
+		industry
+	}
+	weight = 15
+	prerequisites = {
+		"tech_ev_destructive_mining_2"
+	}
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prereqfor_desc = {
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 30
+	}
+	#modifier = {
+	#	description = GIVE_EV_DESTRUCTIVE_MINING_LEVEL_DESC
+	#}
+	modifier = {
+		ev_destructive_mining_level = 1
+	}
+}
+
+#专门的事件科技，用于充当工具人
+tech_space_ion_cannon = {
+	area = engineering
+	cost = 0
+	tier = 1
+	category = {
+		industry
+	}
+	weight = 0
+	potential = {
+		always = no
+	}
+	weight_modifier = {
+		factor = 1
+	}
+	ai_weight = {
+		factor = 0
+	}
+}
+
+#特质
+#tech_ev_genetic_trait = {
+#	cost = @tier4cost1
+#	area = society
+#	tier = 3
+#	is_rare = yes
+#	icon = tech_genome_mapping
+#	category = {
+#		biology
+#	}
+#	weight = 40
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#	prereqfor_desc = {
+#		ship = {
+#			title = "EV_GENETIC_TRAIT_1"
+#			desc = "EV_GENETIC_TRAIT_1_DESC"
+#		}
+#	}
+#	ai_weight = {
+#		modifier = {
+#			factor = 1.25
+#			research_leader = {
+#				area = society
+#				has_trait = "leader_trait_expertise_biology"
+#			}
+#		}
+#	}
+#}
+
+##家园舰生产舰船
+#tech_ship_part_homeless_produce_build_ship_1 = {
+#	#icon = "tech_bwm_magma_diver"
+#	area = society
+#	cost = 6000
+#	tier = 2
+#	category = { new_worlds }
+#	
+#	weight = 70
+#
+#	potential = {
+#		is_default_ev_country_type = yes
+#	}
+#
+#	weight_modifier = {
+#		factor = 1
+#	}
+#
+#	ai_weight = {
+#		factor = 100
+#	}
+#
+#	modifier = {
+#		starbase_shipyard_build_cost_mult = -0.1
+#	}
+#}
+##无实际意义的初始科技，仅仅加强代入感
+tech_ev_eco_industry = {
+	icon = "tech_ev_eco_industry"
+	area = society
+	tier = 0
+	start_tech = yes
+	starting_potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	is_reverse_engineerable = no
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_ev_eco_industry_2 = {
+	icon = "tech_ev_eco_industry_2"
+	area = society
+	cost = 6000
+	tier = 3
+	prerequisites = {
+		"tech_ev_eco_industry"
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	is_reverse_engineerable = no
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 60
+	modifier = {
+		ship_homeless_ev_food_upkeep_mult = -0.1
+		ship_homeless_ev_energy_upkeep_mult = -0.1
+		ship_homeless_ev_minerals_upkeep_mult = -0.1
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_ev_eco_industry_3 = {
+	icon = "tech_ev_eco_industry_3"
+	area = society
+	cost = 25000
+	tier = 4
+	prerequisites = {
+		"tech_ev_eco_industry_2"
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	is_reverse_engineerable = no
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 30
+	modifier = {
+		ship_homeless_ev_food_upkeep_mult = -0.1
+		ship_homeless_ev_energy_upkeep_mult = -0.1
+		ship_homeless_ev_minerals_upkeep_mult = -0.1
+		#ship_components_food_ev_food_produces_mult = 0.15
+		#ship_components_energy_ev_energy_produces_mult = 0.15
+		#ship_components_minerals_ev_minerals_produces_mult = 0.15
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_ev_eco_industry_4 = {
+	icon = "tech_ev_eco_industry_4"
+	area = society
+	cost = 70000
+	tier = 5
+	prerequisites = {
+		"tech_ev_eco_industry_3"
+	}
+	potential = {
+		OR = {
+			is_default_ev_country_type = yes
+			has_country_flag = can_build_homeless_in_default
+		}
+	}
+	is_reverse_engineerable = no
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 30
+	modifier = {
+		ship_homeless_ev_food_upkeep_mult = -0.1
+		ship_homeless_ev_energy_upkeep_mult = -0.1
+		ship_homeless_ev_minerals_upkeep_mult = -0.1
+	}
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+#tech_ev_eco_industry = {
+#	#icon = "tech_build_new_ship"  
+#	area = society
+#	cost = 5000
+#	tier = 3
+#	start_tech = yes
+#	category = { 
+#	potential = {
+#		OR = {
+#			is_default_ev_country_type = yes	
+#			has_country_flag = can_build_homeless_in_default
+#		}
+#	}
+#	modifier = {
+#		
+#	}
+#
+#	is_reverse_engineerable = no
+#	category = { homeless_production }
+#	ai_update_type = all
+#	weight = 50
+#	weight_modifier = { 
+#		factor = 1
+#	}
+#}
+
+###反制科技
+tech_anti_crisis_1 = {
+	area = society
+	cost = 400000
+	tier = 5
+	potential = {
+		has_country_flag = triggered_ev_crisis_1015
+	}
+	is_reverse_engineerable = no
+	category = {
+		biology
+	}
+	ai_update_type = all
+	weight = 0
+	
+	#start_tech = yes
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+tech_ev_strategic_strike_system = {	
+	is_rare = yes
+	area = engineering
+	cost = 60000
+	tier = 5
+	potential = {
+		OR = {
+			has_ascension_perk = ev_strategic_strike_system
+		}
+	}
+	modifier = {
+		country_naval_cap_add = 40
+		country_resource_max_energy_add = 20000
+	}
+	is_reverse_engineerable = no
+	category = {
+		voidcraft
+	}
+	ai_update_type = all
+	weight = 50
+	weight_modifier = {
+		factor = 1
+	}
+}
+
+
+####
+#维持度科技
+###
+tech_ev_maintenance_1 = {
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 15000
+	tier = 2
+	is_reverse_engineerable = yes
+	
+	category = {
+		statecraft
+	}
+	ai_update_type = all
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+		is_gestalt = no
+	}
+	#prerequisites = { "tech_make_enemies" }
+	modifier = {
+		#custom_tooltip = TECH_EV_MAINTENANCE_ADD
+		ev_maintenance_value_balance_mult = 0.1
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+
+tech_ev_maintenance_2 = {
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 70000
+	tier = 5
+	is_reverse_engineerable = yes
+	
+	is_rare = yes
+	category = {
+		statecraft
+	}
+	ai_update_type = all
+	weight = 15
+	potential = {
+		is_default_ev_country_type = yes
+		is_gestalt = no
+	}
+	
+	prerequisites = {
+		"tech_ev_maintenance_1"
+	}
+	modifier = {
+		#custom_tooltip = TECH_EV_MAINTENANCE_ADD
+		ev_maintenance_value_balance_mult = 0.1
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+
+#虚空之母恩赐-舰船能源部件
+
+tech_ev_void_reactor_bosster_1 = {
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 50000
+	tier = 5
+	is_reverse_engineerable = yes
+	
+	is_rare = yes
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 40
+	potential = {
+		has_country_flag = ev_void_tr_t5
+	}
+	
+	prerequisites = {
+		
+	}
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+tech_ev_void_reactor_bosster_2 = {
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 70000
+	tier = 5
+	is_reverse_engineerable = yes
+	
+	is_rare = yes
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 35
+	potential = {
+		has_country_flag = ev_void_tr_t5
+	}
+	
+	prerequisites = {
+		"tech_ev_void_reactor_bosster_1"
+	}
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+tech_ev_void_reactor_bosster_3 = {
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 100000
+	tier = 5
+	is_reverse_engineerable = yes
+	
+	is_rare = yes
+	category = {
+		homeless_production
+	}
+	ai_update_type = all
+	weight = 20
+	potential = {
+		has_country_flag = ev_void_tr_t5
+	}
+	
+	prerequisites = {
+		"tech_ev_void_reactor_bosster_2"
+	}
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+
+#虚空之母圣教军
+tech_ev_void_amry = {  #ev_void_army
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 100000
+	tier = 5
+	is_reverse_engineerable = yes
+	
+	is_rare = yes
+	category = {
+		military_theory
+	}
+	ai_update_type = all
+	weight = 0
+	potential = {
+		has_country_flag = ev_void_tr_t6
+	}
+	
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 0.8
+		modifier = {
+			factor = 1.2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+	}
+}
+#虚空之母圣教军
+tech_ev_event = {  #ev_void_army
+	#icon = "tech_temporary_habitat"
+	area = society
+	cost = 1
+	tier = 5
+	is_reverse_engineerable = no
+	
+	is_rare = no
+	category = {
+		military_theory
+	}
+	ai_update_type = all
+	weight = 0
+	potential = {
+		has_country_flag = no_any_flag
+	}
+	
+	modifier = {
+		
+	}
+	weight_modifier = {
+		factor = 0
+	}
+}

@@ -1,0 +1,150 @@
+#################################################################################
+#																				#
+#									额外思潮科技								#
+#																				#
+#################################################################################
+#-----------------------------------智械科技线--------------------------------------
+#略
+#-----------------------------------蜂群科技线--------------------------------------
+#蜂群1段 主宰意志
+tech_dominate_will = {
+	area = society
+	cost = 4000
+	tier = 1
+	is_reverse_engineerable = no
+	category = {
+		psionics
+	}
+	ai_update_type = all
+	weight = 55
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	modifier = {
+		councilor_exp_gain = 0.33
+	}
+	weight_modifier = {
+		factor = 0.3
+		modifier = {
+			factor = 0
+			NOR = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			factor = 1
+			is_gestalt = yes
+		}
+	}
+}
+
+#蜂群2段 神经节点
+tech_neural_node = {
+	area = society
+	cost = 8000
+	tier = 3
+	is_reverse_engineerable = no
+	category = {
+		psionics
+	}
+	ai_update_type = all
+	weight = 40
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_dominate_will"
+	}
+	modifier = {
+		councilor_skill_add = 1
+		leaders_cost_mult = -0.33
+		leaders_upkeep_mult = -0.33
+	}
+	weight_modifier = {
+		factor = 0.3
+		modifier = {
+			factor = 0
+			NOR = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			factor = 1
+			is_gestalt = yes
+		}
+	}
+}
+
+#蜂群三段 集中知识
+tech_centralized_knowledge = {
+	area = society
+	cost = 15000
+	tier = 4
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = {
+		psionics
+	}
+	ai_update_type = all
+	weight = 25
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_neural_node"
+	}
+	modifier = {
+		all_technology_research_speed = 0.1
+		country_leader_pool_size = 2
+	}
+	weight_modifier = {
+		factor = 0.3
+		modifier = {
+			factor = 0
+			NOR = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			factor = 1
+			is_gestalt = yes
+		}
+	}
+}
+
+#蜂群4段 暴君
+tech_tyrant = {
+	area = society
+	cost = 50000
+	tier = 5
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = {
+		psionics
+	}
+	ai_update_type = all
+	weight = 10
+	potential = {
+		is_default_ev_country_type = yes
+	}
+	prerequisites = {
+		"tech_centralized_knowledge"
+	}
+	modifier = {
+		ship_hull_regen_add_static = 25
+		ship_weapon_damage = 0.33
+	}
+	weight_modifier = {
+		factor = 0.3
+		modifier = {
+			factor = 0
+			NOR = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			factor = 1
+			is_gestalt = yes
+		}
+	}
+}

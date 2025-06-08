@@ -1,0 +1,404 @@
+#遇见者
+#事件的
+trait_admiral_ev_event_produces_1 = {
+	initial = no
+	randomized = no
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_eye_for_talent"
+		RARITY = yes
+		COUNCIL = no
+		TIER = 1
+	}
+
+	councilor_modifier = {
+		ship_homeless_ev_upkeep_mult = -0.2
+		ship_homeless_ev_produces_mult = 0.2
+		ship_accuracy_add = 10
+		ship_tracking_add = 10
+	}
+	leader_class = { commander }
+}
+
+#家园舰队食物
+leader_trait_ev_homeless_food = {
+	veteran_class_locked_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_fertility_preacher"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_potential_add = {
+		owner = {
+			is_default_ev_country_type = yes
+			country_uses_food = yes
+		}
+	}
+	leader_class = { commander }
+	fleet_modifier = {
+		ship_homeless_ev_food_produces_mult = 0.15
+	}
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_food_2 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_food" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_fertility_preacher"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 2
+	}
+	fleet_modifier = {
+		ship_homeless_ev_food_produces_mult = 0.15
+		ship_components_food_ev_food_produces_add = 1.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+leader_trait_ev_homeless_food_3 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_food_2" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_fertility_preacher"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 3
+	}
+	fleet_modifier = {
+		ship_homeless_ev_food_produces_mult = 0.25
+		ship_components_food_ev_food_produces_add = 2.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+		factor = 2
+	}
+}
+#######矿物
+leader_trait_ev_homeless_minerals = {
+	veteran_class_locked_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_frontier_spirit"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_potential_add = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	leader_class = { commander }
+	fleet_modifier = {
+		ship_homeless_ev_minerals_produces_mult = 0.15
+	}
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_minerals_2 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_minerals" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_frontier_spirit"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 2
+	}
+	fleet_modifier = {
+		ship_homeless_ev_minerals_produces_mult = 0.15
+		ship_components_minerals_ev_minerals_produces_add = 1.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+leader_trait_ev_homeless_minerals_3 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_minerals_2" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_frontier_spirit"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 3
+	}
+	fleet_modifier = {
+		ship_homeless_ev_minerals_produces_mult = 0.25
+		ship_components_minerals_ev_minerals_produces_add = 2.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+		factor = 2
+	}
+}
+
+#######能量币
+leader_trait_ev_homeless_energy = {
+	veteran_class_locked_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_financial"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_potential_add = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	leader_class = { commander }
+	fleet_modifier = {
+		ship_homeless_ev_energy_produces_mult = 0.15
+	}
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_energy_2 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_energy" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_financial"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 2
+	}
+	fleet_modifier = {
+		ship_homeless_ev_energy_produces_mult = 0.15
+		ship_components_energy_ev_energy_produces_add = 1.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+leader_trait_ev_homeless_energy_3 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_energy_2" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_financial"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 3
+	}
+	fleet_modifier = {
+		ship_homeless_ev_energy_produces_mult = 0.25
+		ship_components_energy_ev_energy_produces_add = 2.5
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+		factor = 2
+	}
+}
+
+
+#######工业
+leader_trait_ev_homeless_alloys = {
+	veteran_class_locked_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_prospectorium_extractor"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_potential_add = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	leader_class = { commander }
+	fleet_modifier = {
+		ship_homeless_ev_alloys_produces_mult = 0.05
+		ship_homeless_ev_consumer_goods_produces_mult = 0.05
+	}
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_alloys_2 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_alloys" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_prospectorium_extractor"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 2
+	}
+	fleet_modifier = {
+		ship_homeless_ev_alloys_produces_mult = 0.05
+		ship_homeless_ev_consumer_goods_produces_mult = 0.05
+		ship_components_alloys_ev_alloys_produces_add = 0.5
+		ship_components_consumer_goods_ev_consumer_goods_produces_add = 1
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+leader_trait_ev_homeless_alloys_3 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_alloys_2" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_prospectorium_extractor"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 3
+	}
+	fleet_modifier = {
+		ship_homeless_ev_alloys_produces_mult = 0.1
+		ship_homeless_ev_consumer_goods_produces_mult = 0.1
+		ship_components_alloys_ev_alloys_produces_add = 1
+		ship_components_consumer_goods_ev_consumer_goods_produces_add = 2
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+		factor = 2
+	}
+}
+#######科研
+leader_trait_ev_homeless_research = {
+	veteran_class_locked_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_spark_of_genius"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_potential_add = {
+		owner = {
+			is_default_ev_country_type = yes
+		}
+	}
+	leader_class = { commander }
+	fleet_modifier = {
+		ship_homeless_ev_physics_research_produces_mult = 0.05
+		ship_homeless_ev_society_research_produces_mult = 0.05
+		ship_homeless_ev_engineering_research_produces_mult = 0.05
+	}
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_research_2 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_research" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_spark_of_genius"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 2
+	}
+	fleet_modifier = {
+		ship_homeless_ev_physics_research_produces_mult = 0.05
+		ship_homeless_ev_society_research_produces_mult = 0.05
+		ship_homeless_ev_engineering_research_produces_mult = 0.05
+
+		ship_components_research_ev_physics_research_produces_add = 1
+		ship_components_research_ev_society_research_produces_add = 1
+		ship_components_research_ev_engineering_research_produces_add = 1
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+	}
+}
+
+leader_trait_ev_homeless_research_3 = {
+	veteran_class_locked_trait = yes
+	replace_traits = { "leader_trait_ev_homeless_research_2" }
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = "GFX_leader_trait_spark_of_genius"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 3
+	}
+	fleet_modifier = {
+		ship_homeless_ev_physics_research_produces_mult = 0.1
+		ship_homeless_ev_society_research_produces_mult = 0.1
+		ship_homeless_ev_engineering_research_produces_mult = 0.1
+
+		ship_components_research_ev_physics_research_produces_add = 2
+		ship_components_research_ev_society_research_produces_add = 2
+		ship_components_research_ev_engineering_research_produces_add = 2
+	}
+	leader_class = { commander }
+	selectable_weight = {
+		weight = @homeless_class_trait_weight
+		factor = 2
+	}
+}
+
+
+
+
+#通用特质
+trait_leader_ev_rebal_1 = {
+	cost = 1
+	initial = no
+	randomized = no
+	icon = "gfx/interface/icons/traits/trait_wasteful.dds"
+	leader_potential_add = {
+		always = no
+	}
+	self_modifier = {
+		leaders_upkeep_mult = -0.25
+		species_leader_exp_gain = -0.25
+		negative_leader_traits_species = 1
+		leader_skill_levels = -1
+	}
+	councilor_modifier = {
+		councilor_skill_add = -1
+	}
+	on_gained_effect = {
+		#add_age = 5
+		add_experience = -300
+	}
+	leader_class = all
+}
+

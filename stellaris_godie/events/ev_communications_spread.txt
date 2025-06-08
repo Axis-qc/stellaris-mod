@@ -1,0 +1,3793 @@
+############################
+#
+# Spread of communications
+#
+# Written by Martin Anward
+#
+############################
+namespace = ev_communications_spread
+
+# Communications - neighbor
+#country_event = {
+#	id = ev_communications_spread.1
+#	title = "communications_spread.1.name"
+#	desc = "communications_spread.1.desc"
+#	picture = GFX_evt_star_chart
+#	show_sound = event_alien_signal
+#	
+#	trigger = {
+#		OR = {
+#			is_country_type = default
+#			is_default_ev_country_type = yes
+#		}
+#		NOT = { has_country_flag = starting_event }
+#		any_neighbor_country = {
+#			OR = {
+#				is_country_type = default
+#				is_default_ev_country_type = yes
+#			}
+#			NOT = { is_country = ROOT }
+#			has_communications = ROOT
+#			any_neighbor_country = {
+#				OR = {
+#					
+#					is_country_type = default
+#					is_default_ev_country_type = yes
+#					is_country_type = fallen_empire
+#					is_country_type = fallen_empire_ev
+#				}
+#				NOT = { is_country = ROOT }
+#				has_communications = PREV
+#				NOT = { has_communications = ROOT }
+#			}
+#		}
+#	}
+#	
+#	immediate = {
+#		random_neighbor_country = {
+#			limit = {		
+#				is_country_type = default
+#				NOT = { is_country = ROOT }
+#				has_communications = ROOT
+#				any_neighbor_country = {
+#					OR = {
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#					}
+#					NOT = { is_country = ROOT }
+#					has_communications = PREV
+#					NOT = { has_communications = ROOT }
+#				}				
+#			}
+#			save_event_target_as = CommSpreader
+#			random_neighbor_country = {
+#				limit = {
+#					OR = {
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#					}
+#					NOT = { is_country = ROOT }
+#					has_communications = PREV
+#					NOT = { has_communications = ROOT }
+#				}
+#				save_event_target_as = contact_empire
+#				#establish_communications_no_message = root
+#			}				
+#		}
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 120
+#		modifier = {
+#			factor = 0.5
+#			check_modifier_value = {
+#				modifier = intel_decryption_add
+#				value >= 4
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			mid_game_years_passed > 0
+#		}
+#		modifier = {
+#			factor = 0.5
+#			mid_game_years_passed > 50
+#		}
+#		modifier = {
+#			factor = 0.5
+#			end_game_years_passed > 0
+#		}		
+#		modifier = {
+#			factor = 0.5
+#			end_game_years_passed > 50
+#		}		
+#	}
+#
+#	option = {
+#		name = "communications_spread.1.a"		
+#		custom_tooltip = communications_spread.1.tooltip
+#		hidden_effect = {
+#			country_event = { id = action.1 }
+#			event_target:contact_empire = {
+#				country_event = { id = communications_spread.2 }
+#			}
+#		}			
+#	}
+#}
+#
+#
+## Communications - any
+#country_event = {
+#	id = ev_communications_spread.3
+#	title = "communications_spread.1.name"
+#	desc = "communications_spread.1.desc"
+#	picture = GFX_evt_star_chart
+#	show_sound = event_alien_signal
+#	
+#	trigger = {
+#		OR = {
+#			is_country_type = default
+#			is_default_ev_country_type = yes
+#		}
+#		NOT = { has_country_flag = starting_event }
+#		any_relation = {
+#			OR = {
+#				is_country_type = default
+#				is_default_ev_country_type = yes
+#			}
+#			
+#			NOT = { is_country = ROOT }
+#			has_communications = ROOT
+#			OR = { # stops Scions spreading knowledge across the galaxy quite so much (FE can be anywhere, if you establish comms with the FE then you get them with the Scion, then you soon find out about the whole opposite side of the galaxy)
+#				NOT = { has_origin = origin_scion }
+#				any_neighbor_country = {
+#					has_communications = root
+#				}
+#			}
+#			any_neighbor_country = {
+#				OR = {
+#					is_country_type = default
+#					is_country_type = fallen_empire
+#					is_default_ev_country_type = yes
+#					is_country_type = fallen_empire_ev
+#				}
+#				NOT = { is_country = ROOT }
+#				has_communications = PREV
+#				NOT = { has_communications = ROOT }
+#			}
+#		}
+#	}
+#	
+#	immediate = {
+#		random_relation = {
+#			limit = {		
+#				is_country_type = default
+#				NOT = { is_country = ROOT }
+#				has_communications = ROOT
+#				OR = { # stops Scions spreading knowledge across the galaxy quite so much (FE can be anywhere, if you establish comms with the FE then you get them with the Scion, then you soon find out about the whole opposite side of the galaxy)
+#					NOT = { has_origin = origin_scion }
+#					any_neighbor_country = {
+#						has_communications = root
+#					}
+#				}
+#				any_neighbor_country = {
+#					OR = {
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#					}
+#					NOT = { is_country = ROOT }
+#					has_communications = PREV
+#					NOT = { has_communications = ROOT }
+#				}				
+#			}
+#			save_event_target_as = CommSpreader
+#			random_neighbor_country = {
+#				limit = {
+#					OR = {
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#					}
+#					NOT = { is_country = ROOT }
+#					has_communications = PREV
+#					NOT = { has_communications = ROOT }
+#				}
+#				save_event_target_as = contact_empire
+#				#establish_communications_no_message = root
+#			}				
+#		}
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 240
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 50
+#		}
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 100
+#		}
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 150
+#		}		
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 200
+#		}	
+#		modifier = {
+#			factor = 0.5
+#			check_modifier_value = {
+#				modifier = intel_decryption_add
+#				value >= 4
+#			}
+#		}		
+#	}
+#
+#	option = {
+#		name = "communications_spread.1.a"		
+#		custom_tooltip = communications_spread.1.tooltip
+#		hidden_effect = {
+#			country_event = { id = action.1 }
+#			event_target:contact_empire = {
+#				country_event = { id = communications_spread.2 }
+#			}
+#		}
+#	}
+#}
+
+
+# Communications - neighbor
+#country_event = {
+#	id = ev_communications_spread.1
+#	title = "communications_spread.1.name"
+#	desc = "communications_spread.1.desc"
+#	picture = GFX_evt_star_chart
+#	show_sound = event_alien_signal
+#	trigger = {
+#		OR = {
+#			is_country_type = default
+#			is_default_ev_country_type = yes
+#		}
+#		NOT = {
+#			has_country_flag = starting_event
+#		}
+#		any_neighbor_country = {
+#			OR = {
+#				is_country_type = default
+#				is_default_ev_country_type = yes
+#			}
+#			NOT = {
+#				is_country = ROOT
+#			}
+#			has_communications = ROOT
+#			any_neighbor_country = {
+#				OR = {
+#					is_country_type = default
+#					is_default_ev_country_type = yes
+#					is_country_type = fallen_empire
+#					is_country_type = fallen_empire_ev
+#				}
+#				NOT = {
+#					is_country = ROOT
+#				}
+#				has_communications = PREV
+#				NOT = {
+#					has_communications = ROOT
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		random_neighbor_country = {
+#			limit = {
+#				OR = {
+#					is_country_type = default
+#					is_default_ev_country_type = yes
+#				}
+#				NOT = {
+#					is_country = ROOT
+#				}
+#				has_communications = ROOT
+#				any_neighbor_country = {
+#					OR = {
+#						is_default_ev_country_type = yes
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#						is_country_type = fallen_empire_ev
+#					}
+#					NOT = {
+#						is_country = ROOT
+#					}
+#					has_communications = PREV
+#					NOT = {
+#						has_communications = ROOT
+#					}
+#				}
+#			}
+#			save_event_target_as = CommSpreader
+#			random_neighbor_country = {
+#				limit = {
+#					OR = {
+#						is_default_ev_country_type = yes
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#						is_country_type = fallen_empire_ev
+#					}
+#					NOT = {
+#						is_country = ROOT
+#					}
+#					has_communications = PREV
+#					NOT = {
+#						has_communications = ROOT
+#					}
+#				}
+#				save_event_target_as = contact_empire
+#				#establish_communications_no_message = root
+#			}
+#		}
+#	}
+#	mean_time_to_happen = {
+#		months = 60
+#		modifier = {
+#			factor = 0.5
+#			mid_game_years_passed > 0
+#		}
+#		modifier = {
+#			factor = 0.5
+#			mid_game_years_passed > 50
+#		}
+#		modifier = {
+#			factor = 0.5
+#			end_game_years_passed > 0
+#		}
+#		modifier = {
+#			factor = 0.5
+#			end_game_years_passed > 50
+#		}
+#	}
+#	option = {
+#		name = "communications_spread.1.a"
+#		custom_tooltip = communications_spread.1.tooltip
+#		hidden_effect = {
+#			country_event = {
+#				id = action.1
+#			}
+#			event_target:contact_empire = {
+#				country_event = {
+#					id = communications_spread.2
+#				}
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.2
+#	title = "communications_spread.2.name"
+#	desc = "communications_spread.2.desc"
+#	picture = GFX_evt_star_chart
+#	show_sound = event_alien_signal
+#	is_triggered_only = yes
+#	option = {
+#		name = "communications_spread.2.a"
+#		custom_tooltip = communications_spread.2.tooltip
+#		hidden_effect = {
+#			FROM = {
+#				save_event_target_as = contact_empire
+#			}
+#			country_event = {
+#				id = action.1
+#			}
+#		}
+#	}
+#}
+#
+## Communications - any
+#country_event = {
+#	id = ev_communications_spread.3
+#	title = "communications_spread.1.name"
+#	desc = "communications_spread.1.desc"
+#	picture = GFX_evt_star_chart
+#	show_sound = event_alien_signal
+#	trigger = {
+#		OR = {
+#			is_country_type = default
+#			is_default_ev_country_type = yes
+#			is_country_type = fallen_empire
+#			is_country_type = fallen_empire_ev
+#		}
+#		NOT = {
+#			has_country_flag = starting_event
+#		}
+#		any_country = {
+#			OR = {
+#				#				is_country_type = default
+#				is_default_ev_country_type = yes
+#				is_country_type = fallen_empire
+#				is_country_type = fallen_empire_ev
+#			}
+#			NOT = {
+#				is_country = ROOT
+#			}
+#			has_communications = ROOT
+#			any_neighbor_country = {
+#				OR = {
+#					is_default_ev_country_type = yes
+#					is_country_type = default
+#					is_country_type = fallen_empire
+#					is_country_type = fallen_empire_ev
+#				}
+#				NOT = {
+#					is_country = ROOT
+#				}
+#				has_communications = PREV
+#				NOT = {
+#					has_communications = ROOT
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		random_country = {
+#			limit = {
+#				OR = {
+#					is_country_type = default
+#					is_default_ev_country_type = yes
+#					is_country_type = fallen_empire
+#					is_country_type = fallen_empire_ev
+#				}
+#				NOT = {
+#					is_country = ROOT
+#				}
+#				has_communications = ROOT
+#				any_neighbor_country = {
+#					OR = {
+#						is_default_ev_country_type = yes
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#						is_country_type = fallen_empire_ev
+#					}
+#					NOT = {
+#						is_country = ROOT
+#					}
+#					has_communications = PREV
+#					NOT = {
+#						has_communications = ROOT
+#					}
+#				}
+#			}
+#			save_event_target_as = CommSpreader
+#			random_neighbor_country = {
+#				limit = {
+#					OR = {
+#						is_default_ev_country_type = yes
+#						is_country_type = default
+#						is_country_type = fallen_empire
+#						is_country_type = fallen_empire_ev
+#					}
+#					NOT = {
+#						is_country = ROOT
+#					}
+#					has_communications = PREV
+#					NOT = {
+#						has_communications = ROOT
+#					}
+#				}
+#				save_event_target_as = contact_empire
+#				#establish_communications_no_message = root
+#			}
+#		}
+#	}
+#	mean_time_to_happen = {
+#		months = 120
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 50
+#		}
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 100
+#		}
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 150
+#		}
+#		modifier = {
+#			factor = 0.5
+#			years_passed > 200
+#		}
+#	}
+#	option = {
+#		name = "communications_spread.1.a"
+#		custom_tooltip = communications_spread.1.tooltip
+#		hidden_effect = {
+#			country_event = {
+#				id = action.1
+#			}
+#			event_target:contact_empire = {
+#				country_event = {
+#					id = communications_spread.2
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Primitives gain comms with anyone that has surveyed their planet
+#country_event = {
+#	id = ev_communications_spread.4
+#	hide_window = yes
+#	trigger = {
+#		is_country_type = primitive
+#		any_playable_country = {
+#			root = {
+#				NOT = {
+#					has_communications = prev
+#				}
+#				capital_scope = {
+#					is_surveyed = {
+#						who = prevprev
+#						status = yes
+#					}
+#				}
+#			}
+#		}
+#	}
+#	mean_time_to_happen = {
+#		months = 1
+#	}
+#	immediate = {
+#		every_playable_country = {
+#			limit = {
+#				root = {
+#					NOT = {
+#						has_communications = prev
+#					}
+#					capital_scope = {
+#						is_surveyed = {
+#							who = prevprev
+#							status = yes
+#						}
+#					}
+#				}
+#			}
+#			#establish_communications_no_message = root
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.9
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		OR = {
+#			is_country_type = default
+#			#			is_default_ev_country_type = yes
+#		}
+#		exists = capital_scope
+#		NOT = {
+#			has_country_flag = day_0
+#		}
+#		from = {
+#			NOT = {
+#				has_country_flag = day_0
+#			}
+#		}
+#		FROM = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#				#				is_country_type = default
+#				#is_country_type = nomad
+#			}
+#		}
+#		NOT = {
+#			has_country_flag = has_communications@from
+#		}
+#	}
+#	immediate = {
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "ESTABLISH_COMMUNICATIONS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "ESTABLISH_COMMUNICATIONS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.10
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		OR = {
+#			#			is_country_type = default
+#			is_default_ev_country_type = yes
+#			is_country_type = fallen_empire
+#			is_country_type = fallen_empire_ev
+#		}
+#		exists = capital_scope
+#		NOT = {
+#			has_country_flag = day_0
+#		}
+#		from = {
+#			NOT = {
+#				has_country_flag = day_0
+#			}
+#		}
+#		FROM = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#				is_country_type = default
+#				is_country_type = fallen_empire
+#				is_country_type = fallen_empire_ev
+#				#is_country_type = nomad
+#			}
+#		}
+#		NOT = {
+#			has_country_flag = has_communications@from
+#		}
+#	}
+#	immediate = {
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "ESTABLISH_COMMUNICATIONS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "ESTABLISH_COMMUNICATIONS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.11
+#	title = "action.11.name"
+#	desc = {
+#		text = "action.11.desc"
+#		trigger = {
+#			fromfrom = {
+#				NOT = {
+#					has_relation_flag = {
+#						who = root
+#						flag = AbandonedRefugees
+#					}
+#				}
+#			}
+#		}
+#	}
+#	desc = {
+#		text = action.11.abandoned.desc
+#		trigger = {
+#			fromfrom = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#		}
+#	}
+#	picture = GFX_evt_throne_room
+#	show_sound = event_radio_chatter
+#	is_triggered_only = yes
+#	trigger = {
+#		NOT = {
+#			has_country_flag = day_0
+#		}
+#		fromfrom = {
+#			NOT = {
+#				has_country_flag = day_0
+#			}
+#			OR = {
+#				is_default_ev_country_type = yes
+#				is_country_type = enclave
+#				is_country_type = nomad
+#			}
+#		}
+#	}
+#	immediate = {
+#		fromfrom = {
+#			country_event = {
+#				id = action.13
+#			}
+#			save_event_target_as = contact_empire
+#		}
+#		country_event = {
+#			id = distar.238
+#			days = 1
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			fromfrom = {
+#				NOT = {
+#					has_relation_flag = {
+#						who = root
+#						flag = AbandonedRefugees
+#					}
+#				}
+#			}
+#		}
+#		name = "action.11.a"
+#		if = {
+#			limit = {
+#				OR = {
+#					has_ethic = ethic_xenophile
+#					has_ethic = ethic_fanatic_xenophile
+#				}
+#			}
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontactxenophile
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		else = {
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontact
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		hidden_effect = {
+#			country_event = {
+#				id = action.1
+#			}
+#			#from = { country_event = { id = action.100 } }
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			fromfrom = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#			NOR = {
+#				has_ethic = ethic_fanatic_xenophobe
+#				has_ethic = ethic_xenophobe
+#			}
+#		}
+#		name = WORRYING
+#		if = {
+#			limit = {
+#				OR = {
+#					has_ethic = ethic_xenophile
+#					has_ethic = ethic_fanatic_xenophile
+#				}
+#			}
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontactxenophile
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		else = {
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontact
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		hidden_effect = {
+#			country_event = {
+#				id = action.1
+#			}
+#			#from = { country_event = { id = action.100 } }
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			fromfrom = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#			OR = {
+#				has_ethic = ethic_fanatic_xenophobe
+#				has_ethic = ethic_xenophobe
+#			}
+#		}
+#		name = OK
+#		if = {
+#			limit = {
+#				OR = {
+#					has_ethic = ethic_xenophile
+#					has_ethic = ethic_fanatic_xenophile
+#				}
+#			}
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontactxenophile
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		else = {
+#			add_monthly_resource_mult = {
+#				resource = influence
+#				value = @tier2influencecontact
+#				min = @tier2influencecontactmin
+#				max = @tier2influencecontactmax
+#			}
+#		}
+#		hidden_effect = {
+#			country_event = {
+#				id = action.1
+#			}
+#			#from = { country_event = { id = action.100 } }
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.13
+#	title = "action.13.name"
+#	desc = {
+#		text = "action.13.nomad.desc"
+#		trigger = {
+#			from = {
+#				is_country_type = nomad
+#			}
+#		}
+#	}
+#	desc = {
+#		text = "action.13.desc"
+#		trigger = {
+#			from = {
+#				NOR = {
+#					is_country_type = nomad
+#					has_relation_flag = {
+#						who = root
+#						flag = AbandonedRefugees
+#					}
+#				}
+#			}
+#		}
+#	}
+#	desc = {
+#		text = "action.13.abandoned.desc"
+#		trigger = {
+#			from = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#		}
+#	}
+#	picture = GFX_evt_throne_room
+#	show_sound = event_radio_chatter
+#	is_triggered_only = yes
+#	trigger = {
+#		NOT = {
+#			has_country_flag = day_0
+#		}
+#		from = {
+#			NOT = {
+#				has_country_flag = day_0
+#			}
+#			OR = {
+#				is_default_ev_country_type = yes
+#				is_country_type = default
+#				is_country_type = nomad
+#				is_country_type = enclave
+#			}
+#		}
+#	}
+#	immediate = {
+#		from = {
+#			save_event_target_as = contact_empire
+#		}
+#		country_event = {
+#			id = distar.239
+#			days = 1
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			from = {
+#				NOT = {
+#					has_relation_flag = {
+#						who = root
+#						flag = AbandonedRefugees
+#					}
+#				}
+#			}
+#		}
+#		name = "action.13.a"
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					from = {
+#						NOT = {
+#							is_country_type = nomad
+#						}
+#					}
+#				}
+#				country_event = {
+#					id = action.100
+#				}
+#			}
+#			else = {
+#				country_event = {
+#					id = nomad.10
+#				}
+#			}
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			from = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#		}
+#		name = WORRYING
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					from = {
+#						NOT = {
+#							is_country_type = nomad
+#						}
+#					}
+#				}
+#				country_event = {
+#					id = action.100
+#				}
+#			}
+#			else = {
+#				country_event = {
+#					id = nomad.10
+#				}
+#			}
+#		}
+#	}
+#	option = {
+#		trigger = {
+#			from = {
+#				has_relation_flag = {
+#					who = root
+#					flag = AbandonedRefugees
+#				}
+#			}
+#			OR = {
+#				has_ethic = ethic_fanatic_xenophobe
+#				has_ethic = ethic_xenophobe
+#			}
+#		}
+#		name = "action.13.c"
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					from = {
+#						NOT = {
+#							is_country_type = nomad
+#						}
+#					}
+#				}
+#				country_event = {
+#					id = action.100
+#				}
+#			}
+#			else = {
+#				country_event = {
+#					id = nomad.10
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Primitive Civilization Conquered - HIDDEN
+#country_event = {
+#	id = ev_communications_spread.14
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = primitive
+#		}
+#		is_default_ev_country_type = yes
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				is_regular_empire = yes
+#			}
+#			FROMFROM = {
+#				add_modifier = {
+#					modifier = planet_culture_shock
+#					years = 10
+#				}
+#				set_owner = ROOT
+#			}
+#		}
+#		else = {
+#			FROMFROM = {
+#				set_owner = ROOT
+#			}
+#		}
+#		every_country = {
+#			limit = {
+#				has_communications = root
+#				is_country_type = default
+#				NOT = {
+#					is_same_value = root
+#				}
+#			}
+#			add_opinion_modifier = {
+#				who = root
+#				modifier = opinion_primitive_violation
+#			}
+#		}
+#		if = {
+#			limit = {
+#				is_ai = no
+#			}
+#			fromfrom = {
+#				save_event_target_as = conquered_primitive_country
+#			}
+#			from = {
+#				owner_species = {
+#					save_event_target_as = conquered_primitive_species
+#				}
+#			}
+#			country_event = {
+#				id = action.140
+#			}
+#		}
+#		reset_years_of_peace = yes
+#	}
+#}
+#
+## First Contact Space Amoeba
+#country_event = {
+#	id = ev_communications_spread.15
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = amoeba
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = amoeba_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = amoeba_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_SPACE_AMOEBA"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_SPACE_AMOEBA"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Crystals
+#country_event = {
+#	id = ev_communications_spread.16
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = crystal
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = crystal_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = crystal_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_CRYSTALS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_CRYSTALS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Drones
+#country_event = {
+#	id = ev_communications_spread.17
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = drone
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = drone_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = drone_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_DRONES"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_DRONES"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Space Clouds
+#country_event = {
+#	id = ev_communications_spread.18
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = cloud
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = cloud_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = cloud_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_SPACE_CLOUDS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_SPACE_CLOUDS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Tiyanki
+#country_event = {
+#	id = ev_communications_spread.25
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = tiyanki
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = tiyanki_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = tiyanki_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_TIYANKI"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_TIYANKI"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Marauders
+#country_event = {
+#	id = ev_communications_spread.26
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = dormant_marauders
+#		}
+#		is_default_ev_country_type = yes
+#		NOR = {
+#			AND = {
+#				has_country_flag = marauder_encountered_1
+#				from = {
+#					has_country_flag = marauder_1
+#				}
+#			}
+#			AND = {
+#				has_country_flag = marauder_encountered_2
+#				from = {
+#					has_country_flag = marauder_2
+#				}
+#			}
+#			AND = {
+#				has_country_flag = marauder_encountered_3
+#				from = {
+#					has_country_flag = marauder_3
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		from = {
+#			save_event_target_as = encountered_marauder
+#		}
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_MARAUDERS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					has_country_flag = marauder_1
+#				}
+#			}
+#			set_country_flag = marauder_encountered_1
+#			break = yes
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					has_country_flag = marauder_2
+#				}
+#			}
+#			set_country_flag = marauder_encountered_2
+#			break = yes
+#		}
+#		if = {
+#			limit = {
+#				from = {
+#					has_country_flag = marauder_3
+#				}
+#			}
+#			set_country_flag = marauder_encountered_3
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_MARAUDERS"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## First Contact Pirate Critters
+#country_event = {
+#	id = ev_communications_spread.50
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROMFROMFROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			is_country_type = pirate
+#		}
+#		is_default_ev_country_type = yes
+#		is_ai = no
+#		NOT = {
+#			has_country_flag = pirate_encountered
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = pirate_encountered
+#		capital_scope = {
+#			save_event_target_as = pc_home
+#		}
+#		from = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_PIRATES"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		tooltip = {
+#			enable_special_project = {
+#				name = "INVESTIGATE_PIRATES"
+#				location = event_target:pc_home
+#				owner = ROOT
+#			}
+#		}
+#	}
+#}
+#
+## New Contact opinion modifier added
+#country_event = {
+#	id = ev_communications_spread.19
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		is_default_ev_country_type = yes
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				NOR = {
+#					exists = overlord
+#					AND = {
+#						exists = overlord
+#						overlord = {
+#							is_same_value = from
+#						}
+#					}
+#				}
+#			}
+#			add_opinion_modifier = {
+#				modifier = opinion_new_contact
+#				who = from
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.100
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		from = {
+#			is_guardian_country = yes
+#		}
+#		OR = {
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	immediate = {
+#		from = {
+#			#establish_communications_no_message = root
+#			save_event_target_as = leviathan_story_country
+#		}
+#		country_event = {
+#			id = story.8
+#			days = 15
+#		}
+#	}
+#}
+#
+#### TUTORIAL: FIRST CONTACT PROJECT
+## Start
+#country_event = {
+#	id = ev_communications_spread.200
+#	title = tutorial.59.name
+#	desc = tutorial.59.desc
+#	show_sound = tut_new_first_contact_intro
+#	is_triggered_only = yes
+#	is_advisor_event = yes
+#	trigger = {
+#		is_tutorial_level = 2
+#		NOR = {
+#			has_event_chain = tutorial_23_chain
+#			has_country_flag = finished_tutorial_23
+#			#FROM = { is_country_type = primitive }
+#			has_ethic = ethic_gestalt_consciousness
+#		}
+#		from = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#			}
+#		}
+#	}
+#	immediate = {
+#		begin_event_chain = {
+#			event_chain = "tutorial_23_chain"
+#			target = ROOT
+#		}
+#	}
+#	option = {
+#		name = SITLOG
+#		custom_tooltip = tutorial_23_tooltip
+#	}
+#}
+#
+## Country finds nomads and cannot contact #replaces action.10
+#country_event = {
+#	id = ev_communications_spread.300
+#	title = nomad.6.name
+#	desc = nomad.6.desc
+#	picture = GFX_evt_unknown_ships
+#	location = FROMFROMFROM
+#	is_triggered_only = yes
+#	trigger = {
+#		is_default_ev_country_type = yes
+#		exists = capital_scope
+#		FROM = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#	}
+#}
+#
+#fleet_event = {
+#	id = ev_communications_spread.500
+#	title = "action.10.name"
+#	desc = "action.15.desc"
+#	picture = GFX_evt_star_chart
+#	location = FROM
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			is_default_ev_country_type = yes
+#			exists = capital_scope
+#		}
+#		from = {
+#			has_star_flag = enclave
+#			any_ship_in_system = {
+#				exists = owner
+#				owner = {
+#					is_country_type = enclave
+#					NOR = {
+#						has_communications = root.owner
+#						reverse_has_relation_flag = {
+#							flag = ongoing_enclave_investigation
+#							who = root.owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			capital_scope = {
+#				save_event_target_as = pc_home
+#			}
+#			from = {
+#				random_fleet_in_system = {
+#					limit = {
+#						exists = owner
+#						owner = {
+#							is_country_type = enclave
+#						}
+#					}
+#					owner = {
+#						save_event_target_as = target_enclave
+#						country_event = {
+#							id = leviathans.97
+#							days = 300
+#							random = 50
+#						}
+#						enable_special_project = {
+#							name = "INVESTIGATE_ENCLAVE"
+#							location = event_target:pc_home
+#							owner = root.owner
+#						}
+#						country_event = {
+#							id = leviathans.960
+#						}
+#					}
+#				}
+#			}
+#			set_relation_flag = {
+#				flag = ongoing_enclave_investigation
+#				who = event_target:target_enclave
+#			}
+#		}
+#	}
+#	option = {
+#		name = "action.10.a"
+#		owner = {
+#			tooltip = {
+#				enable_special_project = {
+#					name = "INVESTIGATE_ENCLAVE"
+#					location = event_target:pc_home
+#					owner = ROOT
+#				}
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.1000
+#	title = OK
+#	desc = OK
+#	hide_window = yes
+#	mean_time_to_happen = {
+#		months = 1
+#	}
+#	trigger = {
+#		OR = {
+#			is_country_type = fallen_empire
+#			is_country_type = awakened_fallen_empire
+#			is_country_type = fallen_empire_ev
+#			is_country_type = awakened_fallen_empire_ev
+#		}
+#		is_at_war = no
+#		any_country = {
+#			OR = {
+#				is_default_ev_country_type = yes
+#				is_country_type = fallen_empire
+#				is_country_type = fallen_empire_ev
+#				is_country_type = awakened_fallen_empire_ev
+#			}
+#			NOT = {
+#				has_communications = root
+#			}
+#			OR = {
+#				AND = {
+#					root = {
+#						has_ai_personality = fallen_empire_spiritualist
+#					}
+#					any_owned_planet = {
+#						has_modifier = "holy_planet"
+#					}
+#				}
+#				# if we're both fallen empires, we know of each other
+#				is_country_type = fallen_empire
+#				is_country_type = fallen_empire_ev
+#				# also contact if we border them
+#				any_system_within_border = {
+#					root = {
+#						any_system_within_border = {
+#							has_hyperlane_to = prevprev
+#						}
+#					}
+#				}
+#				# always if we're awakened
+#				root = {
+#					is_country_type = awakened_fallen_empire
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		random_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				NOT = {
+#					has_communications = root
+#				}
+#				OR = {
+#					AND = {
+#						root = {
+#							has_ai_personality = fallen_empire_spiritualist
+#						}
+#						any_owned_planet = {
+#							has_modifier = "holy_planet"
+#						}
+#					}
+#					AND = {
+#						root = {
+#							has_ai_personality = fallen_empire_materialist
+#						}
+#						OR = {
+#							has_technology = tech_sapient_ai
+#							has_technology = tech_synthetic_workers
+#						}
+#						any_system = {
+#							distance = {
+#								source = root.capital_scope
+#								max_distance <= 200
+#							}
+#						}
+#					}
+#					# also contact if we border them
+#					any_system_within_border = {
+#						root = {
+#							any_system_within_border = {
+#								has_hyperlane_to = prevprev
+#							}
+#						}
+#					}
+#					any_controlled_fleet = {
+#						is_ship_class = shipclass_starbase
+#						distance_to_empire = {
+#							who = root
+#							distance = 75
+#						}
+#					}
+#				}
+#			}
+#			#establish_communications_no_message = root
+#			root = {
+#				save_event_target_as = contact_empire
+#			}
+#			country_event = {
+#				id = action.1
+#			}
+#		}
+#	}
+#}
+#
+##以太龙后续事件链
+#planet_event = {
+#	id = ev_communications_spread.1100
+#	hide_window = yes
+#	mean_time_to_happen = {
+#		years = 50
+#	}
+#	trigger = {
+#		has_planet_flag = hoard_planet
+#		#has_deposit = d_guardian_dragon_hoard
+#		NOT = {
+#			has_planet_flag = deboned
+#		}
+#		has_mining_station = yes
+#		exists = controller
+#		controller = {
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	immediate = {
+#		set_planet_flag = deboned
+#		controller = {
+#			country_event = {
+#				id = leviathans.661
+#			}
+#		}
+#	}
+#}
+#
+#planet_event = {
+#	id = ev_communications_spread.1101
+#	hide_window = yes
+#	mean_time_to_happen = {
+#		years = 50
+#	}
+#	trigger = {
+#		has_planet_flag = hoard_planet
+#		#has_deposit = d_guardian_dragon_hoard
+#		NOT = {
+#			has_planet_flag = deegged
+#		}
+#		has_mining_station = yes
+#		exists = controller
+#		controller = {
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	immediate = {
+#		set_planet_flag = deegged
+#		controller = {
+#			country_event = {
+#				id = leviathans.663
+#			}
+#		}
+#	}
+#}
+#
+##给特质
+## victorious admiral gains dragonslayer trait
+#country_event = {
+#	id = ev_communications_spread.1120
+#	title = leviathans.670.name
+#	desc = {
+#		text = leviathans.670.desc
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#			fromfrom = {
+#				exists = leader
+#			}
+#		}
+#	}
+#	desc = {
+#		text = leviathans.670.desc.noleader
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#			fromfrom = {
+#				NOT = {
+#					exists = leader
+#				}
+#			}
+#		}
+#	}
+#	desc = {
+#		text = leviathans.670.desc.gesta
+#		trigger = {
+#			has_ethic = ethic_gestalt_consciousness
+#			fromfrom = {
+#				NOT = {
+#					exists = leader
+#				}
+#			}
+#		}
+#	}
+#	picture = GFX_evt_space_dragon
+#	location = fromfrom
+#	show_sound = event_mystic_reveal
+#	is_triggered_only = yes
+#	trigger = {
+#		from = {
+#			is_country_type = guardian_dragon
+#			NOT = {
+#				has_country_flag = rubricator_dragon_country
+#			}
+#		}
+#		#fromfromfrom = {
+#		#	has_fleet_flag = dragon_fleet
+#		#}
+#	}
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_modifier = draconic_beats
+#			}
+#			remove_modifier = draconic_beats
+#		}
+#		fromfrom.solar_system = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_dragon
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_dragon
+#			end_curator_chain = yes
+#		}
+#	}
+#	option = {
+#		name = leviathans.670.a
+#		trigger = {
+#			fromfrom = {
+#				exists = leader
+#			}
+#		}
+#		fromfrom = {
+#			leader = {
+#				add_trait = leader_trait_dragonslayer
+#			}
+#		}
+#		add_resource = {
+#			influence = 300
+#		}
+#		add_relic = r_dragon_trophy
+#		capital_scope = {
+#			add_deposit = d_dragon_monument
+#		}
+#	}
+#	option = {
+#		name = leviathans.670.a
+#		trigger = {
+#			fromfrom = {
+#				NOT = {
+#					exists = leader
+#				}
+#			}
+#		}
+#		add_resource = {
+#			influence = 300
+#		}
+#		add_relic = r_dragon_trophy
+#		capital_scope = {
+#			add_deposit = d_dragon_monument
+#		}
+#	}
+#}
+#
+## Stellarite dies and creates special project
+#country_event = {
+#	id = ev_communications_spread.1130
+#	title = leviathans.1000.name
+#	desc = {
+#		text = leviathans.1016.desc
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#		}
+#	}
+#	desc = {
+#		text = leviathans.1016.desc.gesta
+#		trigger = {
+#			has_ethic = ethic_gestalt_consciousness
+#		}
+#	}
+#	picture = GFX_evt_stellarites
+#	show_sound = event_radio_chatter
+#	location = event_target:stellarite_project_object
+#	trackable = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		is_default_ev_country_type = yes
+#		from = {
+#			is_country_type = guardian_stellarite
+#		}
+#		fromfromfrom = {
+#			has_ship_flag = stellarite_ship
+#			solar_system = {
+#				has_star_flag = stellarite_present
+#				NOT = {
+#					has_star_flag = stellarite_slain
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		fromfromfrom = {
+#			solar_system = {
+#				save_event_target_as = slain_guardian_system
+#			}
+#			create_ambient_object = {
+#				type = stellarite_object
+#				location = this
+#			}
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_stellarite
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_stellarite
+#			end_curator_chain = yes
+#		}
+#		last_created_ambient_object = {
+#			save_event_target_as = stellarite_project_object
+#			set_ambient_object_flag = stellarite_project_object
+#			solar_system = {
+#				set_star_flag = stellarite_slain
+#			}
+#		}
+#		random_system = {
+#			limit = {
+#				has_star_flag = stellarite_present
+#			}
+#			every_system_planet = {
+#				limit = {
+#					has_modifier = stellarite_high_temp
+#				}
+#				remove_modifier = stellarite_high_temp
+#			}
+#		}
+#	}
+#	option = {
+#		name = leviathans.1016.a
+#		#hidden_effect = {
+#		event_target:stellarite_project_object = {
+#			enable_special_project = {
+#				name = "STELLARITE_DEAD_PROJECT"
+#				location = this
+#				owner = root
+#			}
+#		}
+#		#}
+#	}
+#	option = {
+#		name = leviathans.1016.b
+#		trigger = {
+#			OR = {
+#				has_ethic = ethic_militarist
+#				has_ethic = ethic_fanatic_militarist
+#				has_ethic = ethic_xenophobe
+#				has_ethic = ethic_fanatic_xenophobe
+#			}
+#		}
+#		add_resource = {
+#			influence = 500
+#		}
+#		capital_scope = {
+#			add_deposit = d_stellarite_trophy
+#		}
+#		hidden_effect = {
+#			set_country_flag = stellarite_trophy_allowed
+#			random_ambient_object = {
+#				limit = {
+#					has_ambient_object_flag = stellarite_project_object
+#				}
+#				destroy_ambient_object = this
+#			}
+#		}
+#	}
+#	after = {
+#		hidden_effect = {
+#			random_system = {
+#				limit = {
+#					has_star_flag = stellarite_present
+#				}
+#				remove_star_flag = stellarite_present
+#			}
+#		}
+#	}
+#}
+#
+#country_event = {
+#	id = ev_communications_spread.1140
+#	title = leviathans.1030.name
+#	desc = {
+#		trigger = {
+#			switch = {
+#				trigger = has_country_flag
+#				technosphere_sabotaged = {
+#					text = leviathans.1040.desc.alt
+#				}
+#				technosphere_studied = {
+#					text = leviathans.1040.desc.detail
+#				}
+#				default = {
+#					text = leviathans.1040.desc
+#				}
+#			}
+#		}
+#	}
+#	picture = GFX_evt_technosphere
+#	show_sound = event_super_explosion
+#	location = fromfrom
+#	is_triggered_only = yes
+#	trigger = {
+#		OR = {
+#			AND = {
+#				has_country_flag = technosphere_sabotaged
+#				fromfrom = {
+#					owner = {
+#						is_country_type = guardian_sphere
+#					}
+#				}
+#			}
+#			AND = {
+#				from = {
+#					is_country_type = guardian_sphere
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		fromfrom = {
+#			solar_system = {
+#				save_event_target_as = technosphere_location
+#				save_event_target_as = slain_guardian_system
+#			}
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_technosphere
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_technosphere
+#			end_curator_chain = yes
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = technosphere_chain
+#			}
+#			end_event_chain = technosphere_chain
+#		}
+#		every_country = {
+#			limit = {
+#				NOR = {
+#					is_same_value = root
+#					is_hostile = event_target:guardian_technosphere_country
+#				}
+#				is_default_ev_country_type = yes
+#				OR = {
+#					has_modifier = infinity_calculations
+#					has_modifier = technosphere_praising
+#					has_country_flag = guardians_technosphere_encountered
+#				}
+#			}
+#			country_event = {
+#				id = leviathans.1041
+#			}
+#		}
+#	}
+#	after = {
+#		if = {
+#			limit = {
+#				has_modifier = infinity_calculations
+#			}
+#			remove_modifier = infinity_calculations
+#		}
+#		if = {
+#			limit = {
+#				has_modifier = technosphere_praising
+#			}
+#			remove_modifier = technosphere_praising
+#		}
+#	}
+#	option = {
+#		name = leviathans.1040.a
+#		add_monthly_resource_mult = {
+#			resource = influence
+#			value = @tier5influencereward
+#			min = @tier5influencemin
+#			max = @tier5influencemax
+#		}
+#		add_monthly_resource_mult = {
+#			resource = minerals
+#			value = @tier5materialreward
+#			min = @tier5materialmin
+#			max = @tier5materialmax
+#		}
+#	}
+#	option = {
+#		name = leviathans.1040.c
+#		trigger = {
+#			NOR = {
+#				has_ethic = ethic_gestalt_consciousness
+#				has_technology = tech_robotic_workers
+#				has_technology = tech_droid_workers
+#				has_technology = tech_synthetic_workers
+#				has_technology = tech_synthetic_leaders
+#			}
+#		}
+#		add_research_option = tech_robotic_workers
+#		add_tech_progress = {
+#			tech = tech_robotic_workers
+#			progress = 0.5
+#		}
+#	}
+#	option = {
+#		name = leviathans.1040.c
+#		trigger = {
+#			has_technology = tech_robotic_workers
+#			NOR = {
+#				has_ethic = ethic_gestalt_consciousness
+#				has_technology = tech_droid_workers
+#				has_technology = tech_synthetic_workers
+#				has_technology = tech_synthetic_leaders
+#			}
+#		}
+#		add_research_option = tech_droid_workers
+#		add_tech_progress = {
+#			tech = tech_droid_workers
+#			progress = 0.5
+#		}
+#	}
+#	option = {
+#		name = leviathans.1040.c
+#		trigger = {
+#			has_technology = tech_robotic_workers
+#			has_technology = tech_droid_workers
+#			NOR = {
+#				has_ethic = ethic_gestalt_consciousness
+#				has_technology = tech_synthetic_workers
+#				has_technology = tech_synthetic_leaders
+#			}
+#		}
+#		add_research_option = tech_synthetic_workers
+#		add_tech_progress = {
+#			tech = tech_synthetic_workers
+#			progress = 0.5
+#		}
+#	}
+#	option = {
+#		name = leviathans.1040.c
+#		trigger = {
+#			has_technology = tech_robotic_workers
+#			has_technology = tech_droid_workers
+#			has_technology = tech_synthetic_workers
+#			NOR = {
+#				has_ethic = ethic_gestalt_consciousness
+#				has_technology = tech_synthetic_leaders
+#			}
+#		}
+#		add_research_option = tech_synthetic_leaders
+#		add_tech_progress = {
+#			tech = tech_synthetic_leaders
+#			progress = 0.5
+#		}
+#	}
+#}
+#
+## Wraith killed
+#country_event = {
+#	id = ev_communications_spread.1150
+#	title = "leviathans.2014.name"
+#	desc = {
+#		text = leviathans.2014.desc
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#		}
+#	}
+#	desc = {
+#		text = leviathans.2014.desc.gesta
+#		trigger = {
+#			has_ethic = ethic_gestalt_consciousness
+#		}
+#	}
+#	picture = GFX_evt_wraith
+#	show_sound = event_space_whale
+#	is_triggered_only = yes
+#	trigger = {
+#		from = {
+#			has_country_flag = wraith_country
+#		}
+#	}
+#	immediate = {
+#		set_country_flag = killed_wraith
+#		fromfrom.solar_system = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_wraith
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_wraith
+#			end_curator_chain = yes
+#		}
+#	}
+#	option = {
+#		name = leviathans.2014.a
+#		add_modifier = {
+#			modifier = "spectral_residue_studies"
+#			days = -1
+#		}
+#	}
+#}
+#
+## Enigmatic Fortress Disabled (HIDDEN)
+#ship_event = {
+#	id = ev_communications_spread.1160
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		has_ship_flag = fortress_vault
+#		from.owner = {
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	immediate = {
+#		from.owner = {
+#			country_event = {
+#				id = leviathans.2101
+#			}
+#		}
+#	}
+#}
+#
+##重做神秘堡垒事件链
+## Enigmatic Fortress Disabled (HIDDEN)
+#ship_event = {
+#	id = ev_communications_spread.2100
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		has_ship_flag = fortress_vault
+#		from.owner = {
+#			is_default_ev_country_type = yes
+#		}
+#	}
+#	immediate = {
+#		from.owner = {
+#			country_event = {
+#				id = ev_communications_spread.2101
+#			}
+#		}
+#	}
+#}
+#
+## Ship destroyed perp port
+#country_event = {
+#	id = ev_communications_spread.2099
+#	title = "leviathans.2101.name"
+#	desc = {
+#		text = "leviathans.2101.desc"
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#		}
+#	}
+#	desc = {
+#		text = "leviathans.2101.desc.gesta"
+#		trigger = {
+#			has_ethic = ethic_gestalt_consciousness
+#		}
+#	}
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_space_battle
+#	location = fromfrom
+#	is_triggered_only = yes
+#	trigger = {
+#		exists = from
+#		exists = event_target:fortress_country
+#		from = {
+#			is_same_value = event_target:fortress_country
+#		}
+#		exists = event_target:fortress_vault_core
+#		event_target:fortress_country = {
+#			count_owned_ship = {
+#				# Check that all ships are disabled
+#				limit = {
+#					is_disabled = no
+#				}
+#				count < 1
+#			}
+#		}
+#	}
+#	immediate = {
+#		country_event = {
+#			id = story.8
+#			days = 15
+#		}
+#		#establish_communications_no_message = event_target:fortress_country
+#		#event_target:fortress_country = {
+#		event_target:fortress_vault_core = {
+#			#limit = { has_ship_flag = fortress_vault }
+#			save_global_event_target_as = disabled_enigmatic_fortress
+#		}
+#		#}
+#		every_playable_country = {
+#			limit = {
+#				has_event_chain = "enigmatic_fortress_chain"
+#			}
+#			end_event_chain = "enigmatic_fortress_chain"
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2101.a"
+#		begin_event_chain = {
+#			event_chain = "enigmatic_fortress_chain"
+#			target = root
+#		}
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2111
+#			}
+#		}
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2101.b"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2160
+#				days = 360
+#			}
+#		}
+#		trigger = {
+#			NOT = {
+#				has_ethic = ethic_gestalt_consciousness
+#			}
+#		}
+#	}
+#	option = {
+#		name = leviathans.2101.c.gesta
+#		trigger = {
+#			has_ethic = ethic_gestalt_consciousness
+#		}
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = physics_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = society_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_research_option = tech_enigmatic_encoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_encoder
+#			progress = 0.3
+#		}
+#		add_research_option = tech_enigmatic_decoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_decoder
+#			progress = 0.3
+#		}
+#		hidden_effect = {
+#			# scuttle fortress
+#			event_target:fortress_vault_core = {
+#				fleet = {
+#					set_event_locked = no
+#					destroy_fleet = this
+#				}
+#			}
+#			#event_target:fortress_country = {
+#			#	every_owned_fleet = {
+#			#		delete_fleet = this
+#			#	}
+#			#}
+#			#event_target:fortress_vault_core = {
+#			#	solar_system = {
+#			#		random_system_planet = {
+#			#			limit = { is_star = yes }
+#			#			create_ambient_object = {
+#			#				type = "dead_enigmatic_fortress_object"
+#			#				location = solar_system
+#			#			}
+#			#			last_created_ambient_object = {
+#			#				save_global_event_target_as = fortress_ambient
+#			#				set_location = {
+#			#					target = PREV
+#			#					distance = 110
+#			#					angle = 110
+#			#				}
+#			#			}
+#			#		}
+#			#	}
+#			#	fleet = {
+#			#		delete_fleet = this
+#			#	}
+#			#}
+#		}
+#	}
+#}
+#
+## The Enigmatic Fortress
+#country_event = {
+#	id = ev_communications_spread.2101
+#	title = "leviathans.2101.name"
+#	desc = "leviathans.2101.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_space_battle
+#	location = from
+#	is_triggered_only = yes
+#	trigger = {
+#		from.owner = {
+#			is_same_value = event_target:fortress_country
+#		}
+#		event_target:fortress_country = {
+#			count_owned_ship = {
+#				# Check that all ships are disabled
+#				limit = {
+#					is_disabled = no
+#				}
+#				count < 1
+#			}
+#		}
+#	}
+#	immediate = {
+#		if = {
+#			limit = {
+#				NOT = {
+#					has_communications = event_target:fortress_country
+#				}
+#			}
+#			country_event = {
+#				id = story.8
+#				days = 15
+#			}
+#			#establish_communications_no_message = event_target:fortress_country
+#		}
+#		event_target:fortress_country = {
+#			random_controlled_ship = {
+#				limit = {
+#					has_ship_flag = fortress_vault
+#				}
+#				save_global_event_target_as = disabled_enigmatic_fortress
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2101.a"
+#		begin_event_chain = {
+#			event_chain = "enigmatic_fortress_chain"
+#			target = root
+#		}
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2111
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2101.b"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2160
+#				days = 360
+#			}
+#		}
+#	}
+#}
+#
+## Entering System
+#ship_event = {
+#	id = ev_communications_spread.2105
+#	title = "leviathans.2105.name"
+#	desc = "leviathans.2105.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_ship_bridge
+#	location = FROM
+#	is_triggered_only = yes
+#	trigger = {
+#		FROM = {
+#			has_star_flag = guardians_fortress_system
+#			any_ship = {
+#				AND = {
+#					is_ship_size = station_xl
+#					is_disabled = no
+#				}
+#			}
+#		}
+#		owner = {
+#			NOT = {
+#				has_country_flag = encountered_fortress
+#			}
+#			is_ai = no
+#		}
+#	}
+#	immediate = {
+#		FROM = {
+#			save_event_target_as = fortress_system
+#		}
+#		owner = {
+#			set_country_flag = encountered_fortress
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2105.a"
+#	}
+#}
+#
+## Entering the Fortress
+#country_event = {
+#	id = ev_communications_spread.2111
+#	title = "leviathans.2111.name"
+#	desc = "leviathans.2111.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_mystic_reveal
+#	location = event_target:disabled_enigmatic_fortress
+#	trackable = yes
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2111.a"
+#		custom_tooltip = leviathans.2111.a.tooltip
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				enable_special_project = {
+#					name = "EV_ENIGMATIC_FORTRESS_1A"
+#					location = this
+#					owner = ROOT
+#				}
+#			}
+#			event_target:disabled_enigmatic_fortress = {
+#				enable_special_project = {
+#					name = "EV_ENIGMATIC_FORTRESS_1B"
+#					location = this
+#					owner = ROOT
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Uncontrolled Demolition
+#ship_event = {
+#	id = ev_communications_spread.2112
+#	title = "leviathans.2112.name"
+#	desc = "leviathans.2112.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_ground_battle
+#	location = fromfrom
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2112.a"
+#		custom_tooltip = leviathans.2112.a.tooltip
+#		hidden_effect = {
+#			owner = {
+#				country_event = {
+#					id = ev_communications_spread.2131
+#					days = 30
+#				}
+#			}
+#			fleet = {
+#				destroy_fleet = this
+#			}
+#		}
+#	}
+#}
+#
+## Adjusting Energy Supply
+#ship_event = {
+#	id = ev_communications_spread.2113
+#	title = "leviathans.2113.name"
+#	desc = "leviathans.2113.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_laboratory_sound
+#	location = fromfrom
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2113.a"
+#		trigger = {
+#			owner = {
+#				resource_stockpile_compare = {
+#					resource = energy
+#					value >= 500
+#				}
+#			}
+#		}
+#		owner = {
+#			add_resource = {
+#				energy = -500
+#			}
+#			hidden_effect = {
+#				country_event = {
+#					id = ev_communications_spread.2114
+#				}
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2113.b"
+#		owner = {
+#			add_resource = {
+#				energy = -50
+#			}
+#			hidden_effect = {
+#				country_event = {
+#					id = ev_communications_spread.2115
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Fortress Repowers (Energy Surge)
+#country_event = {
+#	id = ev_communications_spread.2114
+#	title = "leviathans.2114.name"
+#	desc = "leviathans.2114.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_activating_unknown_technology
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2114.a"
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				set_disabled = no
+#				repair_ship = yes
+#			}
+#		}
+#		end_event_chain = "enigmatic_fortress_chain"
+#	}
+#}
+#
+## Airlock Opened
+#country_event = {
+#	id = ev_communications_spread.2115
+#	title = "leviathans.2115.name"
+#	desc = "leviathans.2115.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_airlock
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2115.a"
+#		custom_tooltip = leviathans.2112.a.tooltip
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2131
+#				days = 30
+#			}
+#		}
+#	}
+#}
+#
+## The Tower
+#country_event = {
+#	id = ev_communications_spread.2131
+#	title = "leviathans.2131.name"
+#	desc = "leviathans.2131.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_mystic_reveal
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2131.a"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2132
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2131.b"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2132
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2131.c"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2133
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2131.d"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2132
+#			}
+#		}
+#	}
+#}
+#
+## Disturbing Noises
+#country_event = {
+#	id = ev_communications_spread.2132
+#	title = "leviathans.2132.name"
+#	desc = "leviathans.2132.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_activating_unknown_technology
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2132.a"
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				set_disabled = no
+#				repair_ship = yes
+#			}
+#		}
+#		end_event_chain = "enigmatic_fortress_chain"
+#	}
+#}
+#
+## Tower Rebuilt
+#country_event = {
+#	id = ev_communications_spread.2133
+#	title = "leviathans.2133.name"
+#	desc = "leviathans.2133.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_radio_chatter
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2133.a"
+#		custom_tooltip = guardian.fortress.continue
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2150
+#				days = 30
+#			}
+#		}
+#	}
+#}
+#
+## The Pivot
+#country_event = {
+#	id = ev_communications_spread.2150
+#	title = "leviathans.2150.name"
+#	desc = "leviathans.2150.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_mystic_reveal
+#	location = event_target:disabled_enigmatic_fortress
+#	trackable = yes
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2150.a"
+#		event_target:disabled_enigmatic_fortress = {
+#			solar_system = {
+#				random_system_planet = {
+#					limit = {
+#						is_star = yes
+#					}
+#					enable_special_project = {
+#						name = "EV_ENIGMATIC_FORTRESS_5B"
+#						location = this
+#						owner = ROOT
+#					}
+#				}
+#			}
+#			if = {
+#				limit = {
+#					ROOT = {
+#						has_country_resource = {
+#							type = sr_dark_matter
+#							amount > 10
+#						}
+#					}
+#				}
+#				enable_special_project = {
+#					name = "EV_ENIGMATIC_FORTRESS_5C"
+#					location = this
+#					owner = ROOT
+#				}
+#			}
+#			enable_special_project = {
+#				name = "EV_ENIGMATIC_FORTRESS_5D"
+#				location = this
+#				owner = ROOT
+#			}
+#		}
+#		add_resource = {
+#			sr_dark_matter = -10
+#		}
+#		capital_scope = {
+#			closest_system = {
+#				limit = {
+#					has_access_fleet = ROOT
+#					has_planet_class = pc_black_hole
+#				}
+#				random_system_planet = {
+#					limit = {
+#						is_planet_class = pc_black_hole
+#					}
+#					enable_special_project = {
+#						name = "EV_ENIGMATIC_FORTRESS_5A"
+#						location = this
+#						owner = ROOT
+#					}
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## The Heart of Dark Matter
+#country_event = {
+#	id = ev_communications_spread.2151
+#	title = "leviathans.2151.name"
+#	desc = "leviathans.2151.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_laboratory_sound
+#	location = from
+#	is_triggered_only = yes
+#	immediate = {
+#		set_country_flag = fortress_solved
+#		event_target:disabled_enigmatic_fortress = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_fortress
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_fortress
+#			end_curator_chain = yes
+#		}
+#		event_target:disabled_enigmatic_fortress = {
+#			solar_system = {
+#				random_system_planet = {
+#					limit = {
+#						is_star = yes
+#					}
+#					create_ambient_object = {
+#						type = "dead_enigmatic_fortress_object"
+#						location = solar_system
+#					}
+#					last_created_ambient_object = {
+#						save_global_event_target_as = fortress_ambient
+#						set_location = {
+#							target = PREV
+#							distance = 110
+#							angle = 110
+#						}
+#					}
+#				}
+#			}
+#			fleet = {
+#				delete_fleet = this
+#			}
+#		}
+#	}
+#	option = {
+#		name = "ev_communications_spread.2151.a"
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = physics_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = society_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_research_option = tech_enigmatic_encoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_encoder
+#			progress = 0.3
+#		}
+#		add_research_option = tech_enigmatic_decoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_decoder
+#			progress = 0.3
+#		}
+#		end_event_chain = "enigmatic_fortress_chain"
+#	}
+#}
+#
+## Our Star Witness
+#country_event = {
+#	id = ev_communications_spread.2152
+#	title = "leviathans.2152.name"
+#	desc = "leviathans.2152.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_alien_signal
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2152.a"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2153
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2152.b"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2154
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2152.c"
+#		hidden_effect = {
+#			country_event = {
+#				id = ev_communications_spread.2155
+#			}
+#		}
+#	}
+#}
+#
+## Fruitless Beginnings
+#country_event = {
+#	id = ev_communications_spread.2153
+#	title = "leviathans.2153.name"
+#	desc = "leviathans.2153.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_activating_unknown_technology
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2153.a"
+#		end_event_chain = "enigmatic_fortress_chain"
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				set_disabled = no
+#				repair_ship = yes
+#			}
+#		}
+#	}
+#}
+#
+## The Middle Path
+#country_event = {
+#	id = ev_communications_spread.2154
+#	title = "leviathans.2154.name"
+#	desc = "leviathans.2154.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_laboratory_sound
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	immediate = {
+#		set_country_flag = fortress_solved
+#		event_target:disabled_enigmatic_fortress = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_fortress
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_fortress
+#			end_curator_chain = yes
+#		}
+#		event_target:disabled_enigmatic_fortress = {
+#			solar_system = {
+#				random_system_planet = {
+#					limit = {
+#						is_star = yes
+#					}
+#					create_ambient_object = {
+#						type = "dead_enigmatic_fortress_object"
+#						location = solar_system
+#					}
+#					last_created_ambient_object = {
+#						save_global_event_target_as = fortress_ambient
+#						set_location = {
+#							target = PREV
+#							distance = 110
+#							angle = 110
+#						}
+#					}
+#					#create_ambient_object = {
+#					#	type = explosion_particle_object
+#					#	location = this
+#					#	use_3d_location = yes
+#					#	duration = 10
+#					#	scale = 20
+#					#}
+#					#last_created_ambient_object = {
+#					#	set_location = {
+#					#		target = PREV
+#					#		distance = 110
+#					#		angle = 110
+#					#	}
+#					#}
+#				}
+#			}
+#			fleet = {
+#				delete_fleet = this
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2154.a"
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = physics_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = society_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_research_option = tech_enigmatic_encoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_encoder
+#			progress = 0.3
+#		}
+#		add_research_option = tech_enigmatic_decoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_decoder
+#			progress = 0.3
+#		}
+#		end_event_chain = "enigmatic_fortress_chain"
+#	}
+#}
+#
+## The End
+#country_event = {
+#	id = ev_communications_spread.2155
+#	title = "leviathans.2155.name"
+#	desc = "leviathans.2155.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_activating_unknown_technology
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2155.a"
+#		end_event_chain = "enigmatic_fortress_chain"
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				set_disabled = no
+#				repair_ship = yes
+#			}
+#		}
+#	}
+#}
+#
+## Dark Matter Gambit
+#country_event = {
+#	id = ev_communications_spread.2156
+#	title = "leviathans.2156.name"
+#	desc = "leviathans.2156.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_laboratory_sound
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	immediate = {
+#		set_country_flag = fortress_solved
+#		event_target:disabled_enigmatic_fortress = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_fortress
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_fortress
+#			end_curator_chain = yes
+#		}
+#		event_target:disabled_enigmatic_fortress = {
+#			solar_system = {
+#				random_system_planet = {
+#					limit = {
+#						is_star = yes
+#					}
+#					create_ambient_object = {
+#						type = "dead_enigmatic_fortress_object"
+#						location = solar_system
+#					}
+#					last_created_ambient_object = {
+#						save_global_event_target_as = fortress_ambient
+#						set_location = {
+#							target = PREV
+#							distance = 110
+#							angle = 110
+#						}
+#					}
+#				}
+#			}
+#			fleet = {
+#				delete_fleet = this
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2156.a"
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = physics_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_monthly_resource_mult = {
+#			resource = society_research
+#			value = 24
+#			min = 1000
+#			max = 5000
+#		}
+#		add_research_option = tech_enigmatic_encoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_encoder
+#			progress = 0.3
+#		}
+#		add_research_option = tech_enigmatic_decoder
+#		add_tech_progress = {
+#			tech = tech_enigmatic_decoder
+#			progress = 0.3
+#		}
+#		end_event_chain = "enigmatic_fortress_chain"
+#	}
+#}
+#
+## Shot Through the Heart
+#country_event = {
+#	id = ev_communications_spread.2157
+#	title = "leviathans.2157.name"
+#	desc = "leviathans.2157.desc"
+#	picture = GFX_evt_exploding_ship
+#	show_sound = event_super_explosion
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	immediate = {
+#		event_target:disabled_enigmatic_fortress = {
+#			save_event_target_as = slain_guardian_system
+#		}
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_event_chain = curator_poi_chain
+#				event_target:slain_guardian_system = {
+#					is_point_of_interest = {
+#						id = curator_poi_fortress
+#						event_chain = curator_poi_chain
+#						owner = prev
+#					}
+#				}
+#			}
+#			remove_point_of_interest = curator_poi_fortress
+#			end_curator_chain = yes
+#		}
+#		event_target:disabled_enigmatic_fortress = {
+#			solar_system = {
+#				random_system_planet = {
+#					limit = {
+#						is_star = yes
+#					}
+#					create_ambient_object = {
+#						type = "large_debris_object"						# Actually explosion
+#						location = solar_system
+#					}
+#					last_created_ambient_object = {
+#						save_global_event_target_as = fortress_ambient
+#						set_location = {
+#							target = PREV
+#							distance = 110
+#							angle = 110
+#						}
+#					}
+#				}
+#			}
+#			create_ambient_object = {
+#				type = explosion_particle_object
+#				location = this
+#				use_3d_location = yes
+#				duration = 10
+#				scale = 30
+#			}
+#			fleet = {
+#				delete_fleet = this
+#			}
+#		}
+#	}
+#	option = {
+#		name = "leviathans.2157.a"
+#		custom_tooltip = leviathans.2157.a.tooltip
+#		end_event_chain = "enigmatic_fortress_chain"
+#		hidden_effect = {
+#			event_target:disabled_enigmatic_fortress = {
+#				solar_system = {
+#					every_system_planet = {
+#						limit = {
+#							habitable_planet = yes
+#							NOR = {
+#								is_planet_class = pc_ringworld_habitable
+#								is_planet_class = pc_habitat
+#							}
+#						}
+#						create_ambient_object = {
+#							type = explosion_particle_object
+#							location = this
+#							use_3d_location = yes
+#							duration = 10
+#							scale = 20
+#						}
+#						change_pc = pc_nuked
+#						reset_planet = yes
+#					}
+#					every_system_planet = {
+#						limit = {
+#							habitable_planet = no
+#							is_asteroid = no
+#							is_star = no
+#							NOT = {
+#								is_planet_class = pc_gas_giant
+#							}
+#						}
+#						create_ambient_object = {
+#							type = explosion_particle_object
+#							location = this
+#							use_3d_location = yes
+#							duration = 10
+#							scale = 20
+#						}
+#						change_pc = pc_molten
+#						reset_planet = yes
+#					}
+#					every_fleet_in_system = {
+#						destroy_fleet = this
+#					}
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Fortress Repowers (Generic)
+#country_event = {
+#	id = ev_communications_spread.2160
+#	title = "leviathans.2160.name"
+#	desc = "leviathans.2160.desc"
+#	picture = GFX_evt_enigmatic_fortress
+#	show_sound = event_activating_unknown_technology
+#	location = event_target:disabled_enigmatic_fortress
+#	is_triggered_only = yes
+#	option = {
+#		name = "leviathans.2160.a"
+#		end_event_chain = "enigmatic_fortress_chain"
+#		hidden_effect = {
+#			random_country = {
+#				limit = {
+#					is_country_type = guardian_fortress
+#				}
+#				random_controlled_ship = {
+#					limit = {
+#						has_ship_flag = fortress_vault
+#					}
+#					save_event_target_as = disabled_enigmatic_fortress
+#				}
+#			}
+#			event_target:disabled_enigmatic_fortress = {
+#				set_disabled = no
+#				repair_ship = yes
+#			}
+#		}
+#	}
+#}
+#
+##行商舰队
+## Fleet 1 - Entering Borders, cara.1010
+#fleet_event = {
+#	# on_crossing_border
+#	# Scope = Fleet
+#	# From = Origin System
+#	# FromFrom = Destination System
+#	id = ev_communications_spread.3000
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet1_fleet
+#		is_same_value = event_target:caravaneer_fleet1_fleet
+#		fromfrom = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#			}
+#		}
+#		from = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.fromfrom.space_owner
+#						}
+#					}
+#					# technically redundant
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		log = "fleet 1 entered system"
+#		# Establish Communications
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_communications = root.owner
+#					}
+#				}
+#			}
+#			#fromfrom.space_owner = {
+#			#country_event = { id = story.7 }
+#			# moved to separate event to correct scopes
+#			owner = {
+#				country_event = {
+#					id = cara.1011
+#				}
+#			}
+#			#}
+#		}
+#		# First Contact message
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_country_flag = caravaneer_fleet1_contact
+#					}
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				set_country_flag = caravaneer_fleet1_contact
+#				country_event = {
+#					id = cara.1020
+#					days = 10
+#				}
+#			}
+#		}
+#		# Return message
+#		else_if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					has_country_flag = caravaneer_fleet1_contact
+#					is_homicidal = no
+#					caravaneer_fleet1_active_diplo = no
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				country_event = {
+#					id = cara.1100
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Fleet 2 - Entering Borders, cara.2010
+#fleet_event = {
+#	# on_crossing_border
+#	# Scope = Fleet
+#	# From = Origin System
+#	# FromFrom = Destination System
+#	id = ev_communications_spread.3010
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet2_fleet
+#		is_same_value = event_target:caravaneer_fleet2_fleet
+#		fromfrom = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#			}
+#		}
+#		from = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.fromfrom.space_owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		# Establish Communications
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_communications = root.owner
+#					}
+#				}
+#			}
+#			owner = {
+#				country_event = {
+#					id = cara.1011
+#				}
+#			}
+#		}
+#		# First Contact message
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_country_flag = caravaneer_fleet2_contact
+#					}
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				set_country_flag = caravaneer_fleet2_contact
+#				country_event = {
+#					id = cara.2020
+#					days = 10
+#				}
+#			}
+#		}
+#		# Return message
+#		else_if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					has_country_flag = caravaneer_fleet2_contact
+#					is_homicidal = no
+#					caravaneer_fleet2_active_diplo = no
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				country_event = {
+#					id = cara.2100
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Fleet 3 - Entering Borders, cara.3010
+#fleet_event = {
+#	# on_crossing_border
+#	# Scope = Fleet
+#	# From = Origin System
+#	# FromFrom = Destination System
+#	id = ev_communications_spread.3020
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet3_fleet
+#		is_same_value = event_target:caravaneer_fleet3_fleet
+#		fromfrom = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#			}
+#		}
+#		from = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.fromfrom.space_owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		# Establish Communications
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_communications = root.owner
+#					}
+#				}
+#			}
+#			owner = {
+#				country_event = {
+#					id = cara.1011
+#				}
+#			}
+#		}
+#		# First Contact message
+#		if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					NOT = {
+#						has_country_flag = caravaneer_fleet3_contact
+#					}
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				set_country_flag = caravaneer_fleet3_contact
+#				country_event = {
+#					id = cara.3020
+#					days = 10
+#				}
+#			}
+#		}
+#		# Return message
+#		else_if = {
+#			limit = {
+#				fromfrom.space_owner = {
+#					has_country_flag = caravaneer_fleet3_contact
+#					is_homicidal = no
+#					caravaneer_fleet3_active_diplo = no
+#				}
+#			}
+#			fromfrom.space_owner = {
+#				country_event = {
+#					id = cara.3100
+#				}
+#			}
+#		}
+#	}
+#}
+#
+## Fleet 1 - Port to re-offer deal, cara.1250
+#fleet_event = {
+#	id = ev_communications_spread.3050
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet1_fleet
+#		owner = {
+#			is_country_type = caravaneer_fleet
+#		}
+#		is_same_value = event_target:caravaneer_fleet1_fleet
+#		from = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#				has_country_flag = cara_fleet1_getback
+#			}
+#		}
+#		fromfrom = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.from.space_owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		from.space_owner = {
+#			country_event = {
+#				id = cara.1251
+#			}
+#		}
+#	}
+#}
+#
+## Fleet 2 - Port to re-offer deal, cara.2250
+#fleet_event = {
+#	id = ev_communications_spread.3060
+#	is_triggered_only = yes
+#	hide_window = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet2_fleet
+#		owner = {
+#			is_country_type = caravaneer_fleet
+#		}
+#		is_same_value = event_target:caravaneer_fleet2_fleet
+#		from = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#				has_country_flag = cara_fleet2_getback
+#			}
+#		}
+#		fromfrom = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.from.space_owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		from.space_owner = {
+#			country_event = {
+#				id = cara.2251
+#			}
+#		}
+#	}
+#}
+#
+## Fleet 3 - Port to re-offer deal, cara.3250
+#fleet_event = {
+#	id = ev_communications_spread.3070
+#	is_triggered_only = yes
+#	hide_window = yes
+#	trigger = {
+#		exists = event_target:caravaneer_fleet3_fleet
+#		owner = {
+#			is_country_type = caravaneer_fleet
+#		}
+#		is_same_value = event_target:caravaneer_fleet3_fleet
+#		from = {
+#			exists = space_owner
+#			space_owner = {
+#				is_default_ev_country_type = yes
+#				has_country_flag = cara_fleet3_getback
+#			}
+#		}
+#		fromfrom = {
+#			OR = {
+#				NOT = {
+#					exists = space_owner
+#				}
+#				AND = {
+#					exists = space_owner
+#					space_owner = {
+#						NOT = {
+#							is_same_value = root.from.space_owner
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		from.space_owner = {
+#			country_event = {
+#				id = cara.3251
+#			}
+#		}
+#	}
+#}

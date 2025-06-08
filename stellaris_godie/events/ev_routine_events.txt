@@ -1,0 +1,184 @@
+namespace = ev_routine
+#勘测奖励
+ship_event = {
+	id = ev_routine.1
+	hide_window = yes
+	location = from
+	is_triggered_only = yes
+	trigger = {
+		fleet = {
+			owner = {
+				OR = {
+					has_technology = tech_exploring_unknown_1
+					has_technology = tech_exploring_unknown_2
+				}
+			}
+		}
+	}
+	immediate = {
+
+		if = {
+			limit = { owner = { has_technology = tech_exploring_unknown_1 } }
+			give_survey_resource_ev = { VAR = 0.15 }
+			if = {
+				limit = {
+					owner = {
+						has_ascension_perk = ev_exploring_unknown
+					}
+				}
+				give_survey_resource_ev = { VAR = 0.15 }
+				leader = {
+					add_experience = 25
+				}
+			}
+		}
+
+		else_if = {
+			limit = { owner = { has_technology = tech_exploring_unknown_2 } }
+			give_survey_resource_ev = { VAR = 0.5 }
+			if = {
+				limit = {
+					owner = {
+						has_ascension_perk = ev_exploring_unknown
+					}
+				}
+				give_survey_resource_ev = { VAR = 0.5 }
+				leader = {
+					add_experience = 25
+				}
+			}
+
+		}
+		
+	}
+}
+
+#ship_event = {
+#	id = ev_routine.2
+#	hide_window = yes
+#	location = from
+#	is_triggered_only = yes
+#	trigger = {
+#		owner = {
+#			has_technology = tech_exploring_unknown_1
+#			has_technology = tech_exploring_unknown_2
+#		}
+#	}
+#	immediate = {
+#		while = {
+#			count = base_survey_resource_ev
+#			
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					has_ascension_perk = ev_exploring_unknown
+#				}
+#			}
+#			while = {
+#				count = base_survey_resource_ev
+#				give_survey_resource_ev_2 = yes
+#				give_survey_resource_ev_2 = yes
+#			}
+#		}
+#	}
+#}
+
+#资源打包带走
+event = {
+	id = ev_routine.123
+	hide_window = yes
+	location = ROOT
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				has_technology = tech_exploring_unknown_1
+			}
+			random_list = {
+				20 = {
+					From = {
+						clear_deposits = yes
+					}
+					ROOT = {
+						clear_deposits = yes
+					}
+					clear_deposits = yes
+					owner = {
+						add_monthly_resource_mult = {
+							resource = energy
+							value = 3
+							min = 50
+						}
+						add_monthly_resource_mult = {
+							resource = minerals
+							value = 3
+							min = 50
+						}
+						add_monthly_resource_mult = {
+							resource = alloys
+							value = 3
+							min = 10
+						}
+					}
+				}
+				80 = {
+				}
+			}
+		}
+		
+		
+	}
+}
+
+#外交补正
+#也整不出来
+event = {
+	id = ev_routine.10
+	#	hide_window = yes
+	picture = GFX_evt_space_station
+	location = FromFrom
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			NOT = {
+				is_default_ev_country_type = yes
+			}
+		}
+		This = {
+			is_default_ev_country_type = yes
+		}
+	}
+	option = {
+		name = OK
+		#has bug ,can not from to this
+		from = {
+			add_opinion_modifier = {
+				who = this
+				modifier = opinion_nomadic_fleet
+			}
+		}
+		#effect is from to from
+		this = {
+			add_opinion_modifier = {
+				who = from
+				modifier = opinion_nomadic_fleet
+			}
+		}
+	}
+}
+
+#孤军奋战
+country_event = {
+	id = ev_routine.101
+	hide_window = yes
+	location = from
+	is_triggered_only = yes
+	immediate = {
+		clear_resources = yes
+		add_modifier = {
+			modifier = ev_fight_alone_modifers
+			days = 3600
+		}
+	}
+}

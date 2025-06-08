@@ -1,0 +1,94 @@
+###########################################
+#
+# Nemesis Espionage Events
+# Written by Gemma Thomson
+#
+###########################################
+
+namespace = ev_operation
+
+# SUBTERFUGE (.1XXX)
+# SABOTAGE (.2XXX)
+# MANIPULATION (.3XXX)
+# PROVOCATION (.4XXX)
+# RANDOM EVENTS (.5XXX)
+# CUSTODIAN (.6XXX)
+# INTEL (.7XXX)
+
+@OperationBribeCost1 = -400
+@OperationBribeCost2 = -600
+@OperationBribeCost3 = -800
+@OperationBribeThreshold1 = 400
+@OperationBribeThreshold2 = 600
+@OperationBribeThreshold3 = 800
+
+@StealTechnologyAmount = 1000 #Amount of science research in every discipline which will be granted if the operation cannot steal a Technology
+@StealTechnologyTimer = 2160 #days (6 years) until Steal Technology can be repeated. Referenced in tooltip strings "operation.1026.tooltip.cooldown" and "operation_steal_technology_too_recent".
+@SabotageStarbaseTimer = 1440 #days (4 years) until Sabotage Starbase can be repeated against this target.
+@CrisisBeaconTimer = 1440 #days (4 years) until Crisis Beacon can be attempted again. Referenced in tooltip string "operation_crisis_beacon_too_recent".
+
+# Number of days before a single event should (ideally) stand a chance of coming up again.
+@RandomOperationEventTimer = 600
+@RandomOperationEventTimerLong = 1000
+
+############################
+# SUBTERFUGE: ACQUIRE ASSET
+############################
+# this = operation; from = target (country)
+
+###########################
+# GATHER INFORMATION
+###########################
+# this = operation; from = target (country)
+
+# Single Stage Operation - the stakes have never been lower
+#espionage_operation_event = {
+#    id = ev_operation.1000
+#    title = ev_operation_gather_information
+#    desc = ev_operation.1000.desc
+#
+#    picture = GFX_evt_spymaster
+#    show_sound = event_espionage_concluded
+#    espionage_operation = yes
+#    is_triggered_only = yes
+#
+#    trigger = {
+#        exists = from
+#    }
+#
+#    immediate = {
+#        
+#        
+#	}
+#
+#    option = {
+#        trigger = {
+#            has_espionage_operation_flag = intel_report_gov_3
+#        }
+#        name = operation.7000.a
+#        owner = { add_intel_report = { category = government level = 3 days = 360 who = prev.target } }
+#    }
+#    
+#
+#    
+#    after = {
+#        spynetwork = {
+#            add_spy_network_level = -5
+#        }
+#        hidden_effect = {
+#            if = {
+#                limit = {
+#                    owner = { NOT = { has_country_flag = operation_complete_gather_information } }
+#                }
+#                owner = {
+#                    change_variable = {
+#                        which = tinker_tailor_soldier_blorg_achievement_count
+#                        value = 1
+#                    }
+#                    set_country_flag = operation_complete_gather_information
+#                }
+#            }
+#        }
+#        destroy_espionage_operation = this
+#    }
+#}

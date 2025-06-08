@@ -1,0 +1,1673 @@
+namespace = ev_extra_game_start
+country_event = {
+	id = ev_extra_game_start.1
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		if = {
+			limit = {
+				#有太虚国策并且不是堕落
+				has_civic = civic_empty_vagrant
+				NOT = {
+					is_country_type = fallen_empire_ev
+				}
+			}
+			#幻海梦蝶
+			if = {
+				limit = {
+					#拥有起源：幻海梦蝶
+					has_origin = origin_ev_lost_sea_dream_butterfly
+				}
+				#ev_gamestart_effect = yes
+				#维持度系统
+				set_variable = {
+					which = ev_maintenance_value
+					value = 0
+				}
+				#set_variable = {
+				#	which = ev_maintenance_value_balance
+				#	value = 0
+				#}
+				##开事件链（但我还没准备好）
+				#begin_event_chain = {
+				#	event_chain = "ev_maintenance_chain"
+				#	target = ROOT
+				#}
+				#maintenance_change_var_new = yes
+				#获得一些科技
+				give_technology = {
+					message = no
+					tech = tech_psionic_theory
+				}
+				#灵能理论
+				give_technology = {
+					message = no
+					tech = tech_telepathy
+				}
+				#灵能陆军
+				give_technology = {
+					message = no
+					tech = tech_precognition_interface
+				}
+				#预知接口
+				give_technology = {
+					message = no
+					tech = tech_psi_jump_drive_1
+				}
+				#灵能跳
+				give_technology = {
+					message = no
+					tech = tech_psionic_barrier
+				}
+				#灵能屏障
+				give_technology = {
+					message = no
+					tech = tech_psionic_shield
+				}
+				#灵能护盾
+				#give_technology = {
+				#	message = no
+				#	tech = tech_ev_lost_sea_dream_butterfly
+				#}
+				##唯心思潮科技
+				#give_technology = {
+				#	message = no
+				#	tech = tech_methodology
+				#}
+				#give_technology = {
+				#	message = no
+				#	tech = tech_metaphysics
+				#}
+				#资源掉光
+				#add_resource = {
+				#	minerals = -500
+				#	energy = -500
+				#	food = -500
+				#	consumer_goods = -500
+				#	alloys = -500
+				#	manpower = -100
+				#}
+				#创建虚境国家
+				random_country = {
+					limit = {
+						is_country_type = shroud
+					}
+					save_event_target_as = the_shroud
+				}
+				#立刻建立联系
+				establish_communications_no_message = event_target:the_shroud
+				#后续增援舰队事件
+				#country_event = {
+				#	id = ev_extra_game_start.10
+				#	days = 180
+				#	random = 180
+				#}
+			}
+			#末世圣堂
+			#if = {
+			#	limit = {
+			#		#拥有起源：末世圣堂
+			#		has_origin = origin_ev_doomsday_templar
+			#	}
+			#	#获得科技
+			#	#give_technology = {
+			#	#	message = no
+			#	#	tech = tech_ev_doomsday_templar
+			#	#}
+			#	#专属科技
+			#	random_country = {
+			#		limit = {
+			#			is_country_type = fallen_empire
+			#		}
+			#		save_global_event_target_as = ev_copy_tech_target
+			#	}
+			#	copy_techs_from = {
+			#		target = event_target:ev_copy_tech_target
+			#	}
+			#	#获得资源
+			#	add_resource = {
+			#		minerals = 5000
+			#		energy = 5000
+			#		food = 5000
+			#		consumer_goods = 1000
+			#		alloys = 4000
+			#		manpower = 100
+			#	}
+			#	#获得舰队
+			#	#护卫
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			while = {
+			#				count = 23							#40-14-3=23台护卫
+			#				create_ship = {
+			#					name = random
+			#					random_existing_design = corvette
+			#				}
+			#			}
+			#			set_fleet_stance = passive
+			#			set_location = prev.capital_star
+			#		}
+			#	}
+			#	#驱逐
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			while = {
+			#				count = 20
+			#				create_ship = {
+			#					name = random
+			#					random_existing_design = destroyer
+			#				}
+			#			}
+			#			set_fleet_stance = passive
+			#			set_location = prev.capital_star
+			#		}
+			#	}
+			#	#巡洋
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			while = {
+			#				count = 10
+			#				create_ship = {
+			#					name = random
+			#					random_existing_design = cruiser
+			#				}
+			#			}
+			#			set_fleet_stance = passive
+			#			set_location = prev.capital_star
+			#		}
+			#	}
+			#	#战列
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			while = {
+			#				count = 25
+			#				create_ship = {
+			#					name = random
+			#					random_existing_design = battleship
+			#				}
+			#			}
+			#			set_fleet_stance = passive
+			#			set_location = prev.capital_star
+			#		}
+			#	}
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			while = {
+			#				count = 25
+			#				create_ship = {
+			#					name = random
+			#					random_existing_design = battleship
+			#				}
+			#			}
+			#			set_fleet_stance = passive
+			#			set_location = prev.capital_star
+			#		}
+			#	}
+			#	#随机天灾事件
+			#	random_list = {
+			#		#恶魔
+			#		50 = {
+			#			country_event = {
+			#				id = crisis.1000
+			#			}
+			#		}
+			#		#虫灾
+			#		50 = {
+			#			country_event = {
+			#				id = crisis.10
+			#			}
+			#			every_country = {
+			#				limit = {
+			#					is_default_ev_country_type = yes
+			#				}
+			#				country_event = {
+			#					id = crisis.11
+			#				}
+			#			}
+			#		}
+			#		#利维坦
+			#		#50 = {
+			#		#	random_country = {
+			#		#		country_event = { id = ev_crisis_other.1  }
+			#		#	}
+			#		#}
+			#	}
+			#	#热闹
+			#	#country_event = { id = ev_game_start.2 }
+			#}
+			#迷失太虚
+			if = {
+				limit = {
+					#拥有起源：迷失太虚
+					has_origin = origin_ev_lost_empty
+				}
+				save_event_target_as = current_uprising
+				create_country = {
+					name = random
+					#type = default_ev					#太虚帝国
+					type = default
+					auto_delete = no
+					ignore_initial_colony_error = yes					#忽视殖民地问题？
+					day_zero_contact = no					#不懂
+					species = root.owner_species
+					ethos = event_target:current_uprising #random					#随机思潮
+					authority = event_target:current_uprising					#随机政体
+					origin = origin_ev_default					#太虚默认起源
+					civics = {
+						civic = civic_empty_vagrant						#太虚国策
+						civic = random						#随机国策
+					}
+					flag = random
+					effect = {
+						#ev_gamestart_effect = yes
+
+						if = {
+							limit = { event_target:current_uprising = { is_gestalt = no  } }
+							while = {
+								count = 2
+								random_list = {
+									1 = {
+										shift_ethic = ethic_authoritarian
+									}
+									1 = {
+										shift_ethic = ethic_egalitarian
+									}
+									1 = {
+										shift_ethic = ethic_materialist
+									}
+									1 = {
+										shift_ethic = ethic_pacifist
+									}
+									1 = {
+										shift_ethic = ethic_xenophile
+									}
+									1 = {
+										shift_ethic = ethic_militarist
+									}
+									1 = {
+										shift_ethic = ethic_spiritualist
+									}
+									1 = {
+										shift_ethic = ethic_xenophobe
+									}
+								}
+							}
+							random_list = {
+								1 = {
+									shift_ethic = ethic_fanatic_authoritarian
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_egalitarian
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_materialist
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_pacifist
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_xenophile
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_militarist
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_spiritualist
+								}
+								1 = {
+									shift_ethic = ethic_fanatic_xenophobe
+								}
+							}
+							set_government_cooldown = 0
+						}
+
+						create_country = {
+							type = ev_technology_module_3
+							auto_delete = no
+							effect = {
+								save_global_event_target_as = ev_copy_tech_target
+							}
+						}
+						give_technology = {
+							tech = tech_cruisers
+						}
+						
+						copy_techs_from = {
+							target = event_target:ev_copy_tech_target
+						}
+						event_target:ev_copy_tech_target = {
+							clear_global_event_target = ev_copy_tech_target
+							destroy_country = yes
+						}
+						#设置图像文化
+						random_list = {
+							1 = { set_graphical_culture = humanoid_01 }
+							1 = { set_graphical_culture = molluscoid_01 }
+							1 = { set_graphical_culture = lithoid_01 }
+							1 = { set_graphical_culture = avian_01 }
+							1 = { set_graphical_culture = fungoid_01 }
+						}
+						#设置种族特性
+						modify_species = {
+							species = this
+							add_trait = trait_vagrant
+							add_traits_at_start_of_list = yes							#是否显示在开局界面
+						}
+						#save_event_target_as = current_uprising	#设置全局变量
+						while = {
+							count = 2
+							create_fleet_from_naval_cap = 0.1
+							create_leader = {
+								class = commander
+							}
+						}
+						save_event_target_as = is_ev_alliance_other_country
+						set_country_flag = is_ev_alliance_other_country
+						#设置出现的地点
+						random_system = {
+							limit = {
+								distance = {
+									source = event_target:current_uprising.capital_scope
+									use_bypasses = no
+									min_jumps = 8
+									max_jumps = 15
+								}
+								
+								any_ship_in_system = {
+									NOT = { is_ship_class = shipclass_starbase }
+								}
+							}
+							random_system_planet = {
+								limit = {
+									is_planet_class = star
+								}
+								save_event_target_as = ev_alliance_other_location
+							}
+							#开局的恒星基地
+							create_starbase = {
+								size = starbase_starhold
+								owner = event_target:is_ev_alliance_other_country
+								effect = {
+									set_starbase_module = {
+										slot = 1
+										module = shipyard
+									}
+									set_starbase_module = {
+										slot = 2
+										module = anchorage_ev
+									}
+									set_starbase_module = {
+										slot = 3
+										module = anchorage_ev
+									}
+									set_starbase_module = {
+										slot = 4
+										module = trading_hub
+									}
+									set_starbase_building = {
+										slot = 1
+										building = crew_quarters
+									}
+								}
+							}
+							
+						}
+						#增加资源
+						add_resource = {
+							minerals = 5000
+							energy = 5000
+							food = 5000
+							consumer_goods = 1000
+							alloys = 2500
+						}
+						
+						#创建舰队
+						#工程船
+						while = {
+							count = 3
+							create_fleet = {
+								effect = {
+									set_owner = event_target:is_ev_alliance_other_country									#另外的国家
+									create_ship = {
+										name = random
+										random_existing_design = constructor
+									}
+									set_location = {
+										target = event_target:ev_alliance_other_location										#另外的国家所在地
+										distance = 100
+										angle = random
+									}
+								}
+							}
+						}
+						#科研船
+						while = {
+							count = 4
+							create_leader = {
+								skill = 4
+								class = scientist
+								name = random
+								species = owner_main_species
+							}
+							create_fleet = {
+								effect = {
+									set_owner = event_target:is_ev_alliance_other_country									#另外的国家
+									create_ship = {
+										name = random
+										random_existing_design = science
+									}
+									set_location = {
+										target = event_target:ev_alliance_other_location										#另外的国家所在地
+										distance = 100
+										angle = random
+									}
+									assign_leader = last_created_leader
+								}
+							}
+						}
+						while = {
+							count = 4
+							create_fleet = {
+								effect = {
+									set_owner = event_target:is_ev_alliance_other_country
+									create_ship = {
+										name = random
+										design = "NAME_start_homeless_ship_course_starbase"
+									}
+									starbase = {
+										set_ship_construction_type = starbase_shipyard
+									}
+									set_location = event_target:ev_alliance_other_location #ev_random_system_target_2.star
+									set_fleet_flag = homeless_ship_ai_class_1
+								}
+							}
+						}
+						#家园舰
+						#create_fleet = {
+						#	effect = {
+						#		set_owner = event_target:is_ev_alliance_other_country								#另外的国家
+						#		while = {
+						#			count = 3
+						#			create_ship = {
+						#				name = random
+						#				design = "NAME_start_homeless_ship"
+						#			}
+						#		}
+						#		set_location = {
+						#			target = event_target:ev_alliance_other_location									#另外的国家所在地
+						#			distance = 100
+						#			angle = random
+						#		}
+						#	}
+						#}
+						##船坞家园舰
+						#create_fleet = {
+						#	effect = {
+						#		set_owner = event_target:is_ev_alliance_other_country								#另外的国家
+						#		while = {
+						#			count = 1
+						#			create_ship = {
+						#				name = random
+						#				design = "NAME_start_homeless_ship_machine_starbase"
+						#			}
+						#		}
+						#		set_location = {
+						#			target = event_target:ev_alliance_other_location									#另外的国家所在地
+						#			distance = 100
+						#			angle = random
+						#		}
+						#	}
+						#}
+						#护卫舰
+						create_fleet = {
+							effect = {
+								set_owner = event_target:is_ev_alliance_other_country								#另外的国家
+								while = {
+									count = 20
+									create_ship = {
+										name = random
+										random_existing_design = corvette
+									}
+								}
+								set_location = {
+									target = event_target:ev_alliance_other_location									#另外的国家所在地
+									distance = 100
+									angle = random
+								}
+							}
+						}
+
+						ev_ai_spwan_effect = yes
+					}
+				}
+				last_created_country = {
+					#设置国家标记
+				}
+			}
+			#起义舰队
+			if = {
+				limit = {
+					#拥有起源：起义舰队
+					has_origin = origin_ev_uprising_fleet
+				}
+				save_event_target_as = current_uprising_country
+				random_owned_fleet = {
+					save_event_target_as = ev_ship_rebel_location
+				}
+				add_modifier = {
+					modifier = empty_vagrant_rebal_fleet_modifier mult = 3 days = 1800
+				}
+				#create_fleet_from_naval_cap = 3
+				#增加资源
+				#add_resource = {
+				#	minerals = 50000
+				#	energy = 50000
+				#	food = 50000
+				#	consumer_goods = 10000
+				#	alloys = 50000			
+				#	manpower = 5000
+				#}
+				#random_country = {
+				#	limit = {
+				#		is_country_type = fallen_empire
+				#	}
+				#	save_global_event_target_as = ev_copy_tech_target
+				#}
+				hidden_effect = {
+					#while = {
+					#	count = 65
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = engineering
+					#		tier = 1
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = society
+					#		tier = 1
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = physics
+					#		tier = 1
+					#	}
+					#}
+					#while = {
+					#	count = 35
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = engineering
+					#		tier = 2
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = society
+					#		tier = 2
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = physics
+					#		tier = 2
+					#	}
+					#}
+					#while = {
+					#	count = 35
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = engineering
+					#		tier = 3
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = society
+					#		tier = 3
+					#	}
+					#	add_random_research_option = {
+					#		add_progress = 1
+					#		ignore_prereqs = yes
+					#		area = physics
+					#		tier = 3
+					#	}
+					#}
+					create_country = {
+						type = ev_technology_module_2
+						auto_delete = no
+						effect = {
+							save_global_event_target_as = ev_copy_tech_target
+						}
+					}
+					give_technology = {
+						tech = tech_cruisers
+					}
+	
+				}
+				
+				copy_techs_from = {
+					target = event_target:ev_copy_tech_target
+				}
+				event_target:ev_copy_tech_target = {
+					clear_global_event_target = ev_copy_tech_target
+					destroy_country = yes
+				}
+				capital_scope = {
+					
+				}
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+						}
+						starbase = {
+							set_ship_construction_type = starbase_shipyard
+						}
+						set_location = {
+							target = prev.capital_star
+							distance = 40
+							angle = random
+						}
+					}
+				}
+				
+				#船坞家园舰
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+						}
+						starbase = {
+							set_ship_construction_type = starbase_shipyard
+						}
+					}
+				}
+				event_target:current_uprising_country = {
+					random_owned_fleet = {
+						while = {
+							count = 2
+							create_fleet = {
+								effect = {
+									set_owner = event_target:current_uprising_country
+									while = {
+										count = 20
+										create_ship = {
+											name = random
+											random_existing_design = corvette
+										}
+									}
+									#while = {
+									#	count = 4
+									#	create_ship = {
+									#		name = random
+									#		random_existing_design = cruiser
+									#	}
+									#}
+									set_location = prev
+								}
+							}
+						}
+						create_fleet = {
+							effect = {
+								set_owner = event_target:current_uprising_country
+								while = {
+									count = 20
+									create_ship = {
+										name = random
+										random_existing_design = corvette
+									}
+								}
+								while = {
+									count = 4
+									create_ship = {
+										name = random
+										random_existing_design = cruiser
+									}
+								}
+							}
+						}
+
+					}
+				}
+
+				while = {
+					count = 4
+					add_resource = {
+						minerals = 2500
+						energy = 5500
+						food = 2000
+						consumer_goods = 2500
+						alloys = 5000
+						exotic_gases = 400
+						rare_crystals = 400
+						volatile_motes = 400
+					}
+					
+					every_owned_starbase = {
+						limit = {
+							always = yes
+						}
+						solar_system = {
+							while = {
+								count = 1
+								every_neighbor_system = {
+									limit = {
+										has_owner = no
+									}
+									create_starbase = {
+										size = starbase_outpost
+										owner = prevprevprev
+									}
+								}
+							}
+							create_fleet = {
+								effect = {
+									set_owner = prevprevprev
+									while = {
+										count = 3							
+										create_ship = {
+											name = random
+											random_existing_design = corvette
+										}
+									}
+									#while = {
+									#	count = 11							
+									#	create_ship = {
+									#		name = random
+									#		random_existing_design = cruiser
+									#	}
+									#}
+									#assign_leader = last_created_leader
+									set_fleet_stance = passive
+									set_location = prevprev
+								}
+							}
+						}
+					}
+				}
+				
+				every_country = {
+					copy_techs_from = {
+						target = event_target:current_uprising_country	
+					}
+				}
+				create_country = {
+					name = random
+					#type = default_ev					
+					type = default
+					auto_delete = no
+					day_zero_contact = no					
+					species = prev.owner_species
+					ethos = random						
+					authority = random					
+					origin = origin_ev_default	
+					civics = {
+						civic = civic_empty_vagrant					
+						civic = random						
+					}
+					flag = random
+					effect = {
+						#ev_gamestart_effect = yes
+						#手动增加初始科技
+						copy_techs_from = {
+							target = event_target:current_uprising_country	
+						}
+						#设置国家标记
+						save_event_target_as = is_ev_alliance_other_country
+						set_country_flag = is_ev_alliance_other_country
+						create_fleet = {
+							effect = {
+								set_owner = prev
+								while = {
+									count = 15
+									create_army_transport = {
+										ship_name = random
+										graphical_culture = empty_vagrant_01
+										army_type = clone_army
+									}
+								}
+								
+								set_location = {
+									target = prev.capital_scope
+									distance = 1
+									angle = random
+								}
+							}
+						}
+						event_target:current_uprising_country = {
+							while = {
+								count = 2
+								random_owned_starbase = {
+									limit = {
+										solar_system = {
+											any_system_planet = {
+												is_capital = no
+											}
+										}
+									}
+									save_event_target_as = ev_ship_rebel_location2
+									set_owner = event_target:is_ev_alliance_other_country
+									solar_system = {
+										every_neighbor_system = {
+											limit = {
+												any_system_planet = {
+													is_capital = no
+												}
+											}
+											starbase = {
+												set_owner = event_target:is_ev_alliance_other_country
+												owner = {
+													add_resource = {
+														minerals = 50000
+														energy = 50000
+														food = 50000
+														consumer_goods = 10000
+														alloys = 50000
+														#manpower = 5000
+													}
+												}
+												create_fleet = {
+													effect = {
+														set_owner = event_target:is_ev_alliance_other_country
+														while = {
+															count = 30
+															create_ship = {
+																name = random
+																random_existing_design = corvette
+															}
+														}
+														while = {
+															count = 8
+															create_ship = {
+																name = random
+																random_existing_design = cruiser
+															}
+														}
+														while = {
+															count = 2
+															create_ship = {
+																name = random
+																random_existing_design = destroyer
+															}
+														}
+			
+														set_location = {
+															target = prev
+															distance = 150
+															angle = random
+														}
+													}
+												}
+											}
+											
+										}
+									}
+									
+								}
+							}
+							
+							#every_owned_planet = {
+							#	limit = {
+							#		is_capital = no
+							#		#is_planet_class = pc_habitat
+							#	}
+							#	solar_system = {
+							#		starbase = {
+							#			set_owner = event_target:is_ev_alliance_other_country
+							#		}
+							#	}
+							#	set_owner = event_target:is_ev_alliance_other_country
+							#	random_neighbor_system = {
+							#		
+							#		starbase = {
+							#			set_owner = event_target:is_ev_alliance_other_country
+							#		}
+							#	}
+							#}
+							
+						}
+						#random_owned_planet = {
+						#	limit = {
+						#		NOT = {
+						#			is_planet_class = pc_habitat
+						#		}
+						#	}
+						#	solar_system = {
+						#		save_event_target_as = ev_alliance_other_location
+						#	}
+						#}
+						every_owned_planet = {
+							set_surveyed = {
+								surveyed = yes
+							}
+						}
+						
+						#宣战
+						declare_war = {
+							target = root
+							name = NAME_EV_Uprising_War
+							# "[This.MainDefender.GetAdj] Machine Uprising"
+							attacker_war_goal = "wg_ev_ship_uprising"
+						}
+						
+						event_target:current_uprising_country = {
+							random_owned_starbase = {
+								save_event_target_as = event_target:ev_ship_rebel_location
+							}
+							capital_scope = {
+								#起义舰队的舰队
+								while = {
+									count = 2
+									#运输队
+									create_fleet = {
+										effect = {
+											set_owner = event_target:current_uprising_country
+											while = {
+												count = 7
+												create_army_transport = {
+													ship_name = "NAME_Pirate_Transport"
+													graphical_culture = "mammalian_01"
+													army_type = "ev_assault_army"
+												}
+											}
+											set_location = {
+												target = event_target:ev_ship_rebel_location
+												distance = 120
+												angle = random
+											}
+										}
+									}
+								
+									#create_fleet = {
+									#	effect = {
+									#		set_owner = event_target:current_uprising_country
+									#		while = {
+									#			count = 5
+									#			create_ship = {
+									#				name = random
+									#				random_existing_design = corvette
+									#			}
+									#		}
+									#		while = {
+									#			count = 2
+									#			create_ship = {
+									#				name = random
+									#				random_existing_design = destroyer
+									#			}
+									#		}
+									#		set_location = {
+									#			target = event_target:ev_ship_rebel_location
+									#			distance = 150
+									#			angle = random
+									#		}
+									#	}
+									#}
+
+									#科研船
+									create_fleet = {
+										effect = {
+											set_owner = event_target:current_uprising_country
+											create_ship = {
+												name = random
+												random_existing_design = science
+											}
+											set_location = {
+												target = event_target:ev_ship_rebel_location
+												distance = 200
+												angle = random
+											}
+											owner = {
+												create_leader = {
+													class = scientist
+													sub_type = survey
+													name = random
+													species = owner_main_species
+												}
+											}
+											set_leader = last_created_leader
+										}
+									}
+									#家园舰
+									create_fleet = {
+										effect = {
+											set_owner = event_target:current_uprising_country
+											while = {
+												count = 1
+												create_ship = {
+													name = random
+													design = "NAME_start_homeless_ship_course_starbase"
+												}
+											}
+											starbase = {
+												set_ship_construction_type = starbase_shipyard
+											}
+											set_fleet_stance = passive
+											set_location = {
+												target = event_target:ev_ship_rebel_location
+												distance = 100
+												angle = random
+											}
+										}
+									}
+									#船坞家园舰
+									create_fleet = {
+										effect = {
+											set_owner = prev
+											while = {
+												count = 1
+												create_ship = {
+													name = random
+													design = "NAME_start_homeless_ship_course_starbase"
+												}
+											}
+											starbase = {
+												set_ship_construction_type = starbase_shipyard
+											}
+											set_location = {
+												target = event_target:ev_ship_rebel_location
+												distance = 100
+												angle = random
+											}
+										}
+									}
+									
+									last_created_fleet = {
+										solar_system = {
+											random_neighbor_system = {
+												save_event_target_as = event_target:ev_ship_rebel_location
+											}
+										}
+									}
+								}
+							}
+						}
+						
+						
+						
+						
+
+
+						#被起义舰队的舰队
+						while = {
+							count = 2
+							#船坞家园舰
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 1
+										create_ship = {
+											name = random
+											design = "NAME_start_homeless_ship_course_starbase"
+										}
+									}
+									starbase = {
+										set_ship_construction_type = starbase_shipyard
+									}
+									set_location = {
+										target = event_target:ev_ship_rebel_location2
+										distance = 100
+										angle = random
+									}
+								}
+							}
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 10
+										create_ship = {
+											name = random
+											random_existing_design = corvette
+										}
+									}
+									while = {
+										count = 4
+										create_ship = {
+											name = random
+											random_existing_design = destroyer
+										}
+									}
+									while = {
+										count = 3
+										create_ship = {
+											name = random
+											random_existing_design = cruiser
+										}
+									}
+									set_location = {
+										target = event_target:ev_ship_rebel_location2
+										distance = 150
+										angle = random
+									}
+								}
+							}
+							
+							create_fleet = {
+								effect = {
+									set_owner = prev
+									while = {
+										count = 1
+										create_ship = {
+											name = random
+											design = "NAME_start_homeless_ship_course_starbase"
+										}
+									}
+									starbase = {
+										set_ship_construction_type = starbase_shipyard
+									}
+									set_location = {
+										target = event_target:ev_ship_rebel_location2
+										distance = 40
+										angle = random
+									}
+								}
+							}
+
+							random_owned_fleet = {
+								save_event_target_as = ev_ship_rebel_location2
+							}
+							#create_fleet_from_naval_cap = 0.18
+							
+						}
+						random_owned_fleet = {
+							limit = {
+								fleet_power > 10
+							}
+							set_owner = root
+						}
+						
+						#give_technology = {
+						#	message = no
+						#	tech = tech_ev_lost_empty
+						#}
+						#思潮修正
+						
+						#添加领导
+						while = {
+							count = 2
+							create_leader = {
+								skill = 4
+								class = scientist
+								sub_type = engineering
+								name = random
+								species = owner_main_species
+							}
+							create_leader = {
+								class = commander
+								name = random
+								skill = 4
+								traits = {
+									trait = leader_trait_gale_speed
+									trait = leader_trait_trickster
+								}
+							}
+							#工程船
+							while = {
+								count = 2
+								create_fleet = {
+									effect = {
+										set_owner = event_target:is_ev_alliance_other_country										#另外的国家
+										create_ship = {
+											name = random
+											random_existing_design = constructor
+										}
+										set_location = {
+											target = event_target:ev_alliance_other_location											#另外的国家所在地
+											distance = 100
+											angle = random
+										}
+									}
+								}
+							}
+							#科研船
+							while = {
+								count = 2
+								create_fleet = {
+									effect = {
+										set_owner = event_target:is_ev_alliance_other_country										#另外的国家
+										create_ship = {
+											name = random
+											random_existing_design = science
+										}
+										set_location = {
+											target = event_target:ev_alliance_other_location											#另外的国家所在地
+											distance = 100
+											angle = random
+										}
+									}
+								}
+							}
+							#save_event_target_as = current_uprising	#设置全局变量
+						}
+
+
+						ev_ai_spwan_effect = yes
+
+					}
+				}
+				while = {
+					count = 2
+					add_opinion_modifier = {
+						who = event_target:is_ev_alliance_other_country
+						modifier = opinion_ev_ship_rebal
+					}
+					event_target:is_ev_alliance_other_country = {
+						add_opinion_modifier = {
+							who = prevprev
+							modifier = opinion_ev_ship_rebal
+						}
+					}
+				}
+				#设置出现的地点
+				#	event_target:current_uprising = {
+				#		random_controlled_fleet = {
+				#			solar_system = {
+				#				closest_system = {
+				#					create_starbase = {
+				#						size = starbase_starhold
+				#						owner = event_target:is_ev_alliance_other_country
+				#						effect = {
+				#							set_starbase_module = {
+				#								slot = 0
+				#								module = shipyard
+				#							}
+				#							set_starbase_module = {
+				#								slot = 1
+				#								module = anchorage_ev
+				#							}
+				#							set_starbase_module = {
+				#								slot = 2
+				#								module = anchorage_ev
+				#							}
+				#							set_starbase_module = {
+				#								slot = 3
+				#								module = trading_hub
+				#							}
+				#							set_starbase_building = {
+				#								slot = 1
+				#								building = crew_quarters
+				#							}
+				#						}
+				#					}
+				#					random_system_planet = {
+				#						#创建舰队
+				#						event_target:is_ev_alliance_other_country = {
+				#							create_fleet_from_naval_cap = 0.7
+				#						}
+				#						
+				#						last_created_fleet = {
+				#							set_location = prev
+				#						}
+				#					}
+				#				}
+				#			}
+				#		}
+				#	}
+				#	random_system = {
+				#		limit = {
+				#			is_surveyed = {
+				#				who = from
+				#				status = no
+				#			}
+				#			distance = {
+				#				source = event_target:capital
+				#				use_bypasses = no
+				#				min_jumps = 2
+				#				max_jumps = 3
+				#			}
+				#		}
+				#
+				#		#开局的恒星基地
+				#		#create_starbase = {
+				#		#	size = starbase_starhold
+				#		#	owner = event_target:is_ev_alliance_other_country
+				#		#	effect = {
+				#		#		set_starbase_module = {
+				#		#			slot = 0
+				#		#			module = shipyard
+				#		#		}
+				#		#		set_starbase_module = {
+				#		#			slot = 1
+				#		#			module = anchorage_ev
+				#		#		}
+				#		#		set_starbase_module = {
+				#		#			slot = 2
+				#		#			module = anchorage_ev
+				#		#		}
+				#		#		set_starbase_module = {
+				#		#			slot = 3
+				#		#			module = trading_hub
+				#		#		}
+				#		#		set_starbase_building = {
+				#		#			slot = 1
+				#		#			building = crew_quarters
+				#		#		}
+				#		#	}
+				#		#}
+				#
+				#		random_planet = { 
+				#			limit = { 
+				#				solar_system = {
+				#					any_ship_in_system = {
+				#						exists = owner
+				#						owner = { is_same_value = root }
+				#					}
+				#				}
+				#			}
+				#			save_event_target_as = ev_alliance_other_location
+				#		}
+				#	}
+				#	#增加资源
+				#	add_resource = {
+				#		minerals = 50000
+				#		energy = 50000
+				#		food = 50000
+				#		consumer_goods = 10000
+				#		alloys = 50000			
+				#		manpower = 5000
+				#	}
+				#
+				#	#没写战争目标
+				#	declare_war = {
+				#		target = root
+				#		name = NAME_EV_Uprising_War
+				#		# "[This.MainDefender.GetAdj] Machine Uprising"
+				#		attacker_war_goal = "wg_ev_ship_uprising"
+				#	}
+				#
+				#	#手动增加初始科技
+				#
+				#
+				#
+				##工程船
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				##家园舰
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				#
+				##护卫舰
+				#create_fleet = {
+				#	effect = {
+				#		set_owner = event_target:is_ev_alliance_other_country	#另外的国家
+				#		while = {
+				#		count = 20
+				#		create_ship = {
+				#			name = random
+				#			random_existing_design = corvette
+				#		}
+				#		}
+				#		set_location = {
+				#			target = event_target:ev_alliance_other_location	#另外的国家所在地
+				#			distance = 100
+				#			angle = random
+				#		}
+				#	}
+				#}
+				##驱逐
+				#create_fleet = {
+				#	effect = {
+				#		set_owner = event_target:is_ev_alliance_other_country	#另外的国家
+				#		while = {
+				#		count = 20
+				#		create_ship = {
+				#			name = random
+				#			random_existing_design = destroyer
+				#		}
+				#		}
+				#		set_location = {
+				#			target = event_target:ev_alliance_other_location	#另外的国家所在地
+				#			distance = 100
+				#			angle = random
+				#		}
+				#	}
+				#}
+				##巡洋
+				#create_fleet = {
+				#	effect = {
+				#		set_owner = event_target:is_ev_alliance_other_country	#另外的国家
+				#		while = {
+				#		count = 10
+				#		create_ship = {
+				#			name = random
+				#			random_existing_design = cruiser
+				#		}
+				#		}
+				#		set_location = {
+				#			target = event_target:ev_alliance_other_location	#另外的国家所在地
+				#			distance = 100
+				#			angle = random
+				#		}
+				#	}
+				#}
+				#热闹
+				country_event = {
+					id = ev_game_start.2
+				}
+			}
+			#下一个起源
+		}
+	}
+}
+
+country_event = {
+	id = ev_extra_game_start.10
+	title = "ev_extra_game_start.10.name"
+	desc = "ev_extra_game_start.10.desc"
+	picture = GFX_evt_overgrown_city
+	is_triggered_only = NO
+	mean_time_to_happen = {
+		months = 6
+	}
+	location = event_target:ev_ev_extra_game_start_10_target
+	trigger = {
+		has_origin = origin_ev_lost_sea_dream_butterfly
+		check_variable = {
+			which = ev_extra_game_start10_tigger
+			value < 10
+		}
+	}
+	immediate = {
+		change_variable = {
+			which = ev_extra_game_start10_tigger
+			value = 1
+		}
+		random_owned_fleet = {
+			save_global_event_target_as = ev_ev_extra_game_start_10_target
+		}
+		random_list = {
+			#小船
+			50 = {
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 2
+							create_ship = {
+								name = random
+								random_existing_design = corvette
+							}
+						}
+						set_fleet_stance = passive
+						set_location =event_target:ev_ev_extra_game_start_10_target
+						
+					}
+				}
+				
+			}
+			#多小船
+			30 = {
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 5
+							create_ship = {
+								name = random
+								random_existing_design = corvette
+							}
+						}
+						set_fleet_stance = passive
+						set_location =event_target:ev_ev_extra_game_start_10_target
+						
+					}
+				}
+				
+			}
+			#大船
+			20 = {
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_course_starbase"
+							}
+							#add_modifier = { modifier = empty_vagrant_homeless_ship_ai_no_move days = -1 }
+						}
+						starbase = {
+							set_ship_construction_type = starbase_shipyard
+						}
+						set_fleet_flag = homeless_ship_ai_class_1
+						set_fleet_stance = passive
+						set_location =event_target:ev_ev_extra_game_start_10_target
+						
+					}
+					
+				}
+			}
+		}
+		
+		#后续
+		#random_list = {
+		#	#再次触发
+		#	80 = {
+		#		modifier = {
+		#			factor = 2
+		#			check_variable = {
+		#				which = ev_extra_game_start10_tigger
+		#				value < 5
+		#			}
+		#		}
+		#		country_event = {
+		#			id = ev_extra_game_start.10
+		#			days = 180
+		#			random = 1800
+		#		}
+		#	}
+		#	#没了
+		#	20 = {
+		#		modifier = {
+		#			factor = 2
+		#			check_variable = {
+		#				which = ev_extra_game_start10_tigger
+		#				value > 10
+		#			}
+		#		}
+		#		modifier = {
+		#			factor = 2
+		#			check_variable = {
+		#				which = ev_extra_game_start10_tigger
+		#				value > 20
+		#			}
+		#		}
+		#		country_event = {
+		#			id = ev_extra_game_start.11
+		#			days = 10
+		#			random = 90
+		#		}
+		#	}
+		#}
+	}
+	option = {
+		name = ev_extra_game_start.10.a
+	}
+	after = {
+		clear_global_event_target = ev_ev_extra_game_start_10_target
+	}
+}
+
+country_event = {
+	id = ev_extra_game_start.11
+	is_triggered_only = yes
+	#fire_only_once = yes	#只触发一次
+	title = "ev_extra_game_start.11.name"
+	desc = "ev_extra_game_start.11.desc"
+	picture = GFX_evt_overgrown_city
+	option = {
+		name = ev_extra_game_start.11.a
+	}
+}

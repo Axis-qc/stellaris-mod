@@ -1,0 +1,1226 @@
+namespace = ev_hard_core
+#说明事件
+country_event = {
+	id = ev_hard_core.1
+	title = "ev_hard_core.1.title"
+	desc = ev_hard_core.1.desc
+	picture = GFX_evt_derelict_interior
+	is_triggered_only = yes
+	immediate = {
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+			}
+			save_event_target_as = ev_fleet_option_1
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+				}
+			}
+			save_event_target_as = ev_fleet_option_2
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+				}
+			}
+			save_event_target_as = ev_fleet_option_3
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+				}
+			}
+			save_event_target_as = ev_fleet_option_4
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+					is_same_value = event_target:ev_fleet_option_4
+				}
+			}
+			save_event_target_as = ev_fleet_option_5
+		}
+		random_controlled_fleet = {
+			limit = {
+				any_controlled_ship = {
+					OR = {
+						is_any_type_homeless_ship = yes
+					}
+				}
+				NOR = {
+					is_same_value = event_target:ev_fleet_option_1
+					is_same_value = event_target:ev_fleet_option_2
+					is_same_value = event_target:ev_fleet_option_3
+					is_same_value = event_target:ev_fleet_option_4
+					is_same_value = event_target:ev_fleet_option_5
+				}
+			}
+			save_event_target_as = ev_fleet_option_6
+		}
+	}
+	option = {
+		name = ev_hard_core.1.a
+		trigger = {
+			exists = event_target:ev_fleet_option_1
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_1 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_hard_core.1.b
+		trigger = {
+			exists = event_target:ev_fleet_option_2
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_2 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_hard_core.1.c
+		trigger = {
+			exists = event_target:ev_fleet_option_3
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_3 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_hard_core.1.d
+		trigger = {
+			exists = event_target:ev_fleet_option_4
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_4 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_hard_core.1.e
+		trigger = {
+			exists = event_target:ev_fleet_option_5
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_5 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	option = {
+		name = ev_hard_core.1.f
+		trigger = {
+			exists = event_target:ev_fleet_option_6
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.2
+			}
+			event_target:ev_fleet_option_6 = {
+				save_global_event_target_as = ev_will_investment_fleet
+			}
+		}
+	}
+	#再来一次
+	option = {
+		name = ev_hard_core.1.g
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+	}
+	#退出
+	option = {
+		name = ev_hard_core.1.h
+	}
+}
+
+#选择政策
+country_event = {
+	id = ev_hard_core.2
+	title = "ev_hard_core.2.title"
+	desc = ev_hard_core.2.desc
+	picture_event_data = {
+		graphical_culture = root
+		portrait = root.ruler
+		room = ev_in_room
+	}
+	is_triggered_only = yes
+	diplomatic = yes
+	#鼓励基础建设
+	option = {
+		name = ev_hard_core.2.a
+		custom_tooltip = ev_hard_core.2.a.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_infrastructure
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = -4
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_infrastructure
+				days = 1800
+			}
+		}
+	}
+	#鼓励教育发展
+	option = {
+		name = ev_hard_core.2.b
+		custom_tooltip = ev_hard_core.2.b.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_education
+				}
+				check_variable = {
+					which = ev_ship_education
+					value <= 60
+				}
+			}
+		}
+		#每月基础教育+0.15
+		add_monthly_resource_mult = {
+			resource = consumer_goods
+			value = -4
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_education
+				days = 1800
+			}
+		}
+	}
+	#打击犯罪
+	option = {
+		name = ev_hard_core.2.c
+		custom_tooltip = ev_hard_core.2.c.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_against_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value > 10
+				}
+			}
+		}
+		#每月基础犯罪-0.2
+		add_monthly_resource_mult = {
+			resource = energy
+			value = -7
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_against_crime
+				days = 1800
+			}
+		}
+	}
+	#打击罪犯，一次性
+	option = {
+		name = ev_hard_core.2.d
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_against_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value > 10
+				}
+			}
+		}
+		event_target:ev_will_investment_fleet = {
+			owner = {
+				add_monthly_resource_mult = {
+					resource = energy
+					value = -7
+					max = -200
+				}
+			}
+			subtract_variable = {
+				which = ev_ship_crime
+				value = 5
+			}
+			set_timed_fleet_flag = {
+				flag = ev_against_crime
+				days = 360
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = ev_ship_crime
+						value > 50
+					}
+				}
+				subtract_variable = {
+					which = ev_ship_crime
+					value = 7
+				}
+				owner = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = -12
+						max = -500
+					}
+				}
+			}
+		}
+	}
+	#教育创新
+	option = {
+		name = ev_hard_core.2.e
+		custom_tooltip = ev_hard_core.2.b.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_education
+				}
+				check_variable = {
+					which = ev_ship_education
+					value > 60
+				}
+			}
+		}
+		#每月基础教育+0.15
+		add_monthly_resource_mult = {
+			resource = consumer_goods
+			value = -10
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				#数值一样不需要改动flag
+				flag = ev_support_education
+				days = 1800
+			}
+		}
+	}
+	#科学统筹规划
+	option = {
+		name = ev_hard_core.2.f
+		custom_tooltip = ev_hard_core.2.a.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_infrastructure
+				}
+				check_variable = {
+					which = ev_ship_development
+					value >= 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = -10
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_infrastructure
+				days = 1800
+			}
+		}
+	}
+	#放宽犯罪管制条例
+	option = {
+		name = ev_hard_core.2.g
+		custom_tooltip = ev_hard_core.2.g.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value < 70
+				}
+			}
+		}
+		#每月犯罪度+0.25
+		change_variable = {
+			which = ev_ship_crime
+			value = 3
+		}
+		add_monthly_resource_mult = {
+			resource = energy
+			value = 4
+			min = 100
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_crime
+				days = 1800
+			}
+		}
+	}
+	#知识分子支援
+	option = {
+		name = ev_hard_core.2.h
+		custom_tooltip = ev_hard_core.2.h.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_infrastructure_because_education
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		add_monthly_resource_mult = {
+			resource = energy
+			value = -1
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_infrastructure_because_education
+				days = 1800
+			}
+		}
+	}
+	#娱乐用毒品
+	option = {
+		name = ev_hard_core.2.i
+		custom_tooltip = ev_hard_core.2.i.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_stability_because_crime
+				}
+				check_variable = {
+					which = ev_ship_stability
+					value < 70
+				}
+			}
+		}
+		#每月犯罪度+0.25
+		add_monthly_resource_mult = {
+			resource = consumer_goods
+			value = -5
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_stability_because_crime
+				days = 1800
+			}
+			change_variable = {
+				which = ev_ship_stability
+				value = 5
+			}
+		}
+	}
+	#私营基建
+	option = {
+		name = ev_hard_core.2.j
+		custom_tooltip = ev_hard_core.2.j.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+		trigger = {
+			event_target:ev_will_investment_fleet = {
+				NOT = {
+					has_fleet_flag = ev_support_development_because_stability
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月稳定度-0.05，发展度+0.1
+		add_monthly_resource_mult = {
+			resource = energy
+			value = -3
+			max = -200
+		}
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = -3
+			max = -200
+		}
+		event_target:ev_will_investment_fleet = {
+			set_timed_fleet_flag = {
+				flag = ev_support_development_because_stability
+				days = 1800
+			}
+			change_variable = {
+				which = ev_ship_development
+				value = 10
+			}
+		}
+	}
+	#返回上一级
+	option = {
+		name = ev_hard_core.1.g
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+	}
+	#退出
+	option = {
+		name = ev_hard_core.1.h
+	}
+}
+
+#数值的随机事件
+fleet_event = {
+	id = ev_hard_core.100
+	title = "ev_hard_core.100.title"
+	desc = {
+		trigger = {
+			check_variable = {
+				which = ev_ship_crime
+				value > 50
+			}
+			check_variable = {
+				which = ev_ship_crime
+				value <= 75
+			}
+		}
+		text = ev_hard_core.100.desc.1
+	}
+	desc = {
+		trigger = {
+			check_variable = {
+				which = ev_ship_crime
+				value > 75
+			}
+		}
+		text = ev_hard_core.100.desc.2
+	}
+	desc = {
+		trigger = {
+			check_variable = {
+				which = ev_ship_crime
+				value <= 50
+			}
+		}
+		text = ev_hard_core.100.desc
+	}
+	#desc = ev_hard_core.100.desc
+	picture = GFX_evt_smugglers_in_bar
+	is_triggered_only = yes
+	location = root
+	trigger = {
+		NOT = {
+			has_fleet_flag = trigger_ev_hard_core_100
+		}
+	}
+	immediate = {
+		set_timed_fleet_flag = {
+			flag = trigger_ev_hard_core_100
+			days = 360
+		}
+	}
+	option = {
+		name = ev_hard_core.100.a
+		if = {
+			limit = {
+				check_variable = {
+					which = ev_ship_crime
+					value > 30
+				}
+			}
+			locked_random_list = {
+				10 = {
+				}
+				0 = {
+					modifier = {
+						add = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 40
+						}
+					}
+					modifier = {
+						add = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 75
+						}
+					}
+					change_variable = {
+						which = ev_ship_education
+						value = -2
+					}
+				}
+				0 = {
+					modifier = {
+						add = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 40
+						}
+					}
+					modifier = {
+						add = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 75
+						}
+					}
+					change_variable = {
+						which = ev_ship_development
+						value = -3
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 50
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 70
+						}
+					}
+					owner = {
+						add_monthly_resource_mult = {
+							resource = energy
+							value = -2
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 50
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 70
+						}
+					}
+					owner = {
+						add_monthly_resource_mult = {
+							resource = minerals
+							value = -2
+						}
+					}
+				}
+				1 = {
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 50
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 70
+						}
+					}
+					owner = {
+						add_monthly_resource_mult = {
+							resource = food
+							value = -2
+						}
+					}
+				}
+				0 = {
+					modifier = {
+						add = 1
+						check_variable = {
+							which = ev_ship_crime
+							value > 60
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 80
+						}
+					}
+					owner = {
+						add_monthly_resource_mult = {
+							resource = alloys
+							value = -2
+						}
+					}
+				}
+				0 = {
+					modifier = {
+						add = 1
+						check_variable = {
+							which = ev_ship_crime
+							value > 60
+						}
+					}
+					modifier = {
+						factor = 2
+						check_variable = {
+							which = ev_ship_crime
+							value > 80
+						}
+					}
+					owner = {
+						add_monthly_resource_mult = {
+							resource = consumer_goods
+							value = -2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+##########################
+#新硬核系统
+
+#选择政策
+ship_event = {
+	id = ev_hard_core.1000
+	title = "ev_hard_core.2.title"
+	desc = ev_hard_core.2.desc
+	picture_event_data = {
+		graphical_culture = root.owner
+		portrait = root.owner.ruler
+		room = ev_in_room
+	}
+	is_triggered_only = yes
+	diplomatic = yes
+	#鼓励基础建设
+	immediate = {
+		
+	}
+	option = {
+		name = ev_hard_core.2.a
+		custom_tooltip = ev_hard_core.2.a.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_infrastructure
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		owner = {
+			add_monthly_resource_mult = {
+				resource = minerals
+				value = -4
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_infrastructure
+				days = 1800
+			}
+		}
+	}
+	#鼓励教育发展
+	option = {
+		name = ev_hard_core.2.b
+		custom_tooltip = ev_hard_core.2.b.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_education
+				}
+				check_variable = {
+					which = ev_ship_education
+					value <= 60
+				}
+			}
+		}
+		#每月基础教育+0.15
+		owner = {
+			add_monthly_resource_mult = {
+				resource = consumer_goods
+				value = -4
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_education
+				days = 1800
+			}
+		}
+	}
+	#打击犯罪
+	option = {
+		name = ev_hard_core.2.c
+		custom_tooltip = ev_hard_core.2.c.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_against_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value > 10
+				}
+			}
+		}
+		#每月基础犯罪-0.2
+		owner = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = -7
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_against_crime
+				days = 1800
+			}
+		}
+	}
+	#打击罪犯，一次性
+	option = {
+		name = ev_hard_core.2.d
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_against_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value > 10
+				}
+			}
+		}
+		root = {
+			owner = {
+				add_monthly_resource_mult = {
+					resource = energy
+					value = -7
+					max = -200
+				}
+			}
+			subtract_variable = {
+				which = ev_ship_crime
+				value = 5
+			}
+			set_timed_ship_flag = {
+				flag = ev_against_crime
+				days = 360
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = ev_ship_crime
+						value > 50
+					}
+				}
+				subtract_variable = {
+					which = ev_ship_crime
+					value = 7
+				}
+				owner = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = -12
+						max = -500
+					}
+				}
+			}
+		}
+	}
+	#教育创新
+	option = {
+		name = ev_hard_core.2.e
+		custom_tooltip = ev_hard_core.2.b.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_education
+				}
+				check_variable = {
+					which = ev_ship_education
+					value > 60
+				}
+			}
+		}
+		#每月基础教育+0.15
+		owner = {
+			add_monthly_resource_mult = {
+				resource = consumer_goods
+				value = -10
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				#数值一样不需要改动flag
+				flag = ev_support_education
+				days = 1800
+			}
+		}
+	}
+	#科学统筹规划
+	option = {
+		name = ev_hard_core.2.f
+		custom_tooltip = ev_hard_core.2.a.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_infrastructure
+				}
+				check_variable = {
+					which = ev_ship_development
+					value >= 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		owner = {
+			add_monthly_resource_mult = {
+				resource = minerals
+				value = -10
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_infrastructure
+				days = 1800
+			}
+		}
+	}
+	#放宽犯罪管制条例
+	option = {
+		name = ev_hard_core.2.g
+		custom_tooltip = ev_hard_core.2.g.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_crime
+				}
+				check_variable = {
+					which = ev_ship_crime
+					value < 70
+				}
+			}
+		}
+		#每月犯罪度+0.25
+		change_variable = {
+			which = ev_ship_crime
+			value = 3
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 4
+				min = 100
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_crime
+				days = 1800
+			}
+		}
+	}
+	#知识分子支援
+	option = {
+		name = ev_hard_core.2.h
+		custom_tooltip = ev_hard_core.2.h.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_infrastructure_because_education
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月基础建设+0.25
+		owner = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = -1
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_infrastructure_because_education
+				days = 1800
+			}
+		}
+	}
+	#娱乐用毒品
+	option = {
+		name = ev_hard_core.2.i
+		custom_tooltip = ev_hard_core.2.i.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_stability_because_crime
+				}
+				check_variable = {
+					which = ev_ship_stability
+					value < 70
+				}
+			}
+		}
+		#每月犯罪度+0.25
+		owner = {
+			add_monthly_resource_mult = {
+				resource = consumer_goods
+				value = -5
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_stability_because_crime
+				days = 1800
+			}
+			change_variable = {
+				which = ev_ship_stability
+				value = 5
+			}
+		}
+	}
+	#私营基建
+	option = {
+		name = ev_hard_core.2.j
+		custom_tooltip = ev_hard_core.2.j.tooltip
+		hidden_effect = {
+			ship_event = {
+				id = ev_hard_core.1000
+			}
+		}
+		trigger = {
+			root = {
+				NOT = {
+					has_ship_flag = ev_support_development_because_stability
+				}
+				check_variable = {
+					which = ev_ship_development
+					value < 70
+				}
+			}
+		}
+		#每月稳定度-0.05，发展度+0.1
+		owner = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = -3
+				max = -200
+			}
+			add_monthly_resource_mult = {
+				resource = minerals
+				value = -3
+				max = -200
+			}
+		}
+		root = {
+			set_timed_ship_flag = {
+				flag = ev_support_development_because_stability
+				days = 1800
+			}
+			change_variable = {
+				which = ev_ship_development
+				value = 10
+			}
+		}
+	}
+	#退出
+	option = {
+		name = ev_hard_core.1.h
+	}
+}

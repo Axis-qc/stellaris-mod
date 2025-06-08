@@ -1,0 +1,350 @@
+namespace = ev_hive_mind
+event = {
+	id = ev_hive_mind.0
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		shift_ethic = "ethic_gestalt_consciousness"
+		change_government = {
+			authority = auth_hive_mind
+		}
+	}
+}
+
+#思潮修正
+country_event = {
+	id = ev_hive_mind.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_civic = civic_empty_vagrant
+		has_authority = auth_hive_mind
+		has_origin = origin_ev_gluttonous_tyrant
+	}
+	immediate = {
+		clear_resources = yes
+		add_resource = {
+			minerals = 1000
+			energy = 1000
+			food = 2000
+			influence = 500
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_10
+			days = -1
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_10_others
+			days = -1
+		}
+		#give_technology = {
+		#	message = no
+		#	tech = tech_ev_hive_mind_modifers_0
+		#}
+		#give_technology = {
+		#	message = no
+		#	tech = tech_ev_hive_mind_modifers_1
+		#}
+		#give_technology = {
+		#	message = no
+		#	tech = tech_ev_hive_mind_modifers_2
+		#}
+		#give_technology = {
+		#	message = no
+		#	tech = tech_ev_hive_mind_modifers_3
+		#}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "STAR PREDATOR"
+					}
+				}
+				set_fleet_stance = passive
+				set_location = prev.capital_star
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				while = {
+					count = 14
+					create_ship = {
+						name = random
+						design = "NAME_hate_homeless_ship_1"
+					}
+				}
+				#assign_leader = last_created_leader
+				set_fleet_stance = passive
+				set_location = prev.capital_star
+				save_global_event_target_as = hate_homeless_ship
+			}
+		}
+	}
+}
+
+#太虚虫群介绍
+#country_event = {
+#	id = ev_hive_mind.2
+#	title = ev_gestalt.2.name
+#	desc = ev_gestalt.2.desc
+#	picture = GFX_evt_ev_load_5_small
+#	location = root
+#	is_triggered_only = yes
+#	trigger = {
+#		is_country_type = default_ev
+#		has_authority = auth_hive_mind
+#	}
+#	immediate = {
+#	}
+#	option = {
+#		name = ev_gestalt.2.a
+#	}
+#}
+
+#猎食星球
+planet_event = {
+	id = ev_hive_mind.1000
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		if = {
+			limit = {
+				ev_is_ringworld = yes
+			}
+			change_pc = pc_ringworld_habitable_damaged
+			clear_deposits = yes
+		}
+		else_if = {
+			limit = {
+				ev_is_habitat = yes
+			}
+			change_pc = pc_habitat_shielded
+			clear_deposits = yes
+		}
+		else = {
+			change_pc = pc_barren_cold
+			clear_deposits = yes
+		}
+		from.owner = {
+			country_event = {
+				id = ev_hive_mind.1001
+			}
+			
+		}
+	}
+}
+
+#吞噬星球获取资源
+country_event = {
+	id = ev_hive_mind.1001
+	title = ev_gestalt.1001.name
+	desc = ev_gestalt.1001.desc
+	picture = GFX_evt_ev_load_5_small
+	location = root
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+	immediate = {
+		from = {
+			switch = {
+				trigger = planet_size
+				1= { set_variable = { which = SME_planet_size value = 1 } }
+				2= { set_variable = { which = SME_planet_size value = 2 } }
+				3= { set_variable = { which = SME_planet_size value = 3 } }
+				4= { set_variable = { which = SME_planet_size value = 4 } }
+				5= { set_variable = { which = SME_planet_size value = 5 } }
+				6= { set_variable = { which = SME_planet_size value = 6 } }
+				7= { set_variable = { which = SME_planet_size value = 7 } }
+				8= { set_variable = { which = SME_planet_size value = 8 } }
+				9= { set_variable = { which = SME_planet_size value = 9 } }
+				10= { set_variable = { which = SME_planet_size value = 10 } }
+				11= { set_variable = { which = SME_planet_size value = 11 } }
+				12= { set_variable = { which = SME_planet_size value = 12 } }
+				13= { set_variable = { which = SME_planet_size value = 13 } }
+				14= { set_variable = { which = SME_planet_size value = 14 } }
+				15= { set_variable = { which = SME_planet_size value = 15 } }
+				16= { set_variable = { which = SME_planet_size value = 16 } }
+				17= { set_variable = { which = SME_planet_size value = 17 } }
+				18= { set_variable = { which = SME_planet_size value = 18 } }
+				19= { set_variable = { which = SME_planet_size value = 19 } }
+				20= { set_variable = { which = SME_planet_size value = 20 } }
+				21= { set_variable = { which = SME_planet_size value = 21 } }
+				22= { set_variable = { which = SME_planet_size value = 22 } }
+				23= { set_variable = { which = SME_planet_size value = 23 } }
+				24= { set_variable = { which = SME_planet_size value = 24 } }
+				25= { set_variable = { which = SME_planet_size value = 25 } }
+				26= { set_variable = { which = SME_planet_size value = 26 } }
+				27= { set_variable = { which = SME_planet_size value = 27 } }
+				28= { set_variable = { which = SME_planet_size value = 28 } }
+				29= { set_variable = { which = SME_planet_size value = 29 } }
+				30= { set_variable = { which = SME_planet_size value = 30 } }
+				31= { set_variable = { which = SME_planet_size value = 31 } }
+				32= { set_variable = { which = SME_planet_size value = 32 } }
+				33= { set_variable = { which = SME_planet_size value = 33 } }
+				34= { set_variable = { which = SME_planet_size value = 34 } }
+				35= { set_variable = { which = SME_planet_size value = 35 } }
+				36= { set_variable = { which = SME_planet_size value = 36 } }
+				37= { set_variable = { which = SME_planet_size value = 37 } }
+				38= { set_variable = { which = SME_planet_size value = 38 } }
+				39= { set_variable = { which = SME_planet_size value = 39 } }
+				40= { set_variable = { which = SME_planet_size value = 40 } }
+				41= { set_variable = { which = SME_planet_size value = 41 } }
+				42= { set_variable = { which = SME_planet_size value = 42 } }
+				43= { set_variable = { which = SME_planet_size value = 43 } }
+				44= { set_variable = { which = SME_planet_size value = 44 } }
+				45= { set_variable = { which = SME_planet_size value = 45 } }
+				46= { set_variable = { which = SME_planet_size value = 46 } }
+				47= { set_variable = { which = SME_planet_size value = 47 } }
+				48= { set_variable = { which = SME_planet_size value = 48 } }
+				49= { set_variable = { which = SME_planet_size value = 49 } }
+				50= { set_variable = { which = SME_planet_size value = 50 } }
+				51= { set_variable = { which = SME_planet_size value = 51 } }
+				52= { set_variable = { which = SME_planet_size value = 52 } }
+				53= { set_variable = { which = SME_planet_size value = 53 } }
+				54= { set_variable = { which = SME_planet_size value = 54 } }
+				55= { set_variable = { which = SME_planet_size value = 55 } }
+				56= { set_variable = { which = SME_planet_size value = 56 } }
+				57= { set_variable = { which = SME_planet_size value = 57 } }
+				58= { set_variable = { which = SME_planet_size value = 58 } }
+				59= { set_variable = { which = SME_planet_size value = 59 } }
+				60= { set_variable = { which = SME_planet_size value = 60 } }
+				61= { set_variable = { which = SME_planet_size value = 61 } }
+				62= { set_variable = { which = SME_planet_size value = 62 } }
+				63= { set_variable = { which = SME_planet_size value = 63 } }
+				64= { set_variable = { which = SME_planet_size value = 64 } }
+				65= { set_variable = { which = SME_planet_size value = 65 } }
+				66= { set_variable = { which = SME_planet_size value = 66 } }
+				67= { set_variable = { which = SME_planet_size value = 67 } }
+				68= { set_variable = { which = SME_planet_size value = 68 } }
+				69= { set_variable = { which = SME_planet_size value = 69 } }
+				70= { set_variable = { which = SME_planet_size value = 70 } }
+				71= { set_variable = { which = SME_planet_size value = 71 } }
+				72= { set_variable = { which = SME_planet_size value = 72 } }
+				73= { set_variable = { which = SME_planet_size value = 73 } }
+				74= { set_variable = { which = SME_planet_size value = 74 } }
+				75= { set_variable = { which = SME_planet_size value = 75 } }
+				76= { set_variable = { which = SME_planet_size value = 76 } }
+				77= { set_variable = { which = SME_planet_size value = 77 } }
+				78= { set_variable = { which = SME_planet_size value = 78 } }
+				79= { set_variable = { which = SME_planet_size value = 79 } }
+				80= { set_variable = { which = SME_planet_size value = 80 } }
+				81= { set_variable = { which = SME_planet_size value = 81 } }
+				82= { set_variable = { which = SME_planet_size value = 82 } }
+				83= { set_variable = { which = SME_planet_size value = 83 } }
+				84= { set_variable = { which = SME_planet_size value = 84 } }
+				85= { set_variable = { which = SME_planet_size value = 85 } }
+				86= { set_variable = { which = SME_planet_size value = 86 } }
+				87= { set_variable = { which = SME_planet_size value = 87 } }
+				88= { set_variable = { which = SME_planet_size value = 88 } }
+				89= { set_variable = { which = SME_planet_size value = 89 } }
+				90= { set_variable = { which = SME_planet_size value = 90 } }
+				91= { set_variable = { which = SME_planet_size value = 91 } }
+				92= { set_variable = { which = SME_planet_size value = 92 } }
+				93= { set_variable = { which = SME_planet_size value = 93 } }
+				94= { set_variable = { which = SME_planet_size value = 94 } }
+				95= { set_variable = { which = SME_planet_size value = 95 } }
+				96= { set_variable = { which = SME_planet_size value = 96 } }
+				97= { set_variable = { which = SME_planet_size value = 97 } }
+				98= { set_variable = { which = SME_planet_size value = 98 } }
+				99= { set_variable = { which = SME_planet_size value = 99 } }
+				100= { set_variable = { which = SME_planet_size value = 100 } }
+				default = { 
+					set_variable = { which = SME_planet_size value = 100 } 
+				}
+			}
+		}
+		root = {
+			set_variable = {
+				which = EV_give_planet_resouce
+				value = 1000 #基础1000
+			}
+			set_variable = {
+				which = SME_planet_size
+				value = from.SME_planet_size
+			}
+			multiply_variable = {
+				which = SME_planet_size
+				value = 10
+			}
+			export_resource_income_to_variable = {
+				resource = food
+				variable = EV_food_income
+			}
+			if = {
+				limit = { 
+					check_variable = {
+						which = EV_food_income
+						value < 0
+					}
+				}
+				set_variable = {
+					which = EV_food_income
+					value = 0
+				}
+			}
+			multiply_variable = {
+				which = EV_food_income
+				value = 24
+			}
+			
+			change_variable = {
+				which = EV_give_planet_resouce
+				value = SME_planet_size
+			}
+			change_variable = {
+				which = EV_give_planet_resouce
+				value = EV_food_income
+			}
+			
+			if = {
+				limit = { 
+					check_variable = {
+						which = EV_give_planet_resouce
+						value < 500
+					}
+				}
+				set_variable = {
+					which = EV_give_planet_resouce
+					value = 500
+				}
+			}
+		}
+	}
+	option = {
+		name = OK
+		add_resource = {
+			food = 1
+			energy = 1
+			minerals = 1
+			mult = EV_give_planet_resouce
+		}
+		if = {
+			limit = {
+				has_ascension_perk = ap_orbital_bombardment_steal
+			}
+			add_resource = {
+				food = 1
+				energy = 1
+				minerals = 1
+				mult = EV_give_planet_resouce
+			}
+		}
+		if = {
+			limit = {
+				has_ascension_perk = ap_orbital_predatory_planet
+			}
+			add_resource = {
+				food = 1.5
+				energy = 1.5
+				minerals = 1.5
+				mult = EV_give_planet_resouce
+			}
+		}
+	}
+}

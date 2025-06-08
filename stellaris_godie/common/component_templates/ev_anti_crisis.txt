@@ -1,0 +1,67 @@
+@alloys_part_cost_base_small_4 = 350
+@alloys_part_cost_base_medium_4 = 700
+@alloys_part_cost_base_large_4 = 1400
+@alloys_part_cost_base_small_5 = 700
+@alloys_part_cost_base_medium_5 = 1200
+@alloys_part_cost_base_large_5 = 2400
+#energy,minerals,food
+@first_industry_produce_small_4 = 45
+@first_industry_produce_medium_4 = 90
+@first_industry_produce_large_4 = 180
+#physics_research,society_research,engineering_research
+@research_produce_base_6 = 90
+@general_unity_produce_6 = 15
+#exotic_gases for research
+#rare_crystals for consumer_goods
+#volatile_motes for alloys
+@advanced_resources_base_upkeep_4 = 4
+@advanced_resources_base_upkeep_5 = 6
+@advanced_resources_base_upkeep_6 = 8
+#use consumer_goods to upkeep research
+#base energy upkeep
+@general_upkeep_energy_meg_small = 25
+@general_upkeep_energy_meg_medium = 45
+@general_upkeep_energy_meg_large = 75
+#produce consumer_goods
+@consumer_goods_produce_small_4 = 45
+@consumer_goods_produce_medium_4 = 90
+@consumer_goods_produce_large_4 = 180
+#produce alloys 
+@alloys_produce_small_4 = 25
+@alloys_produce_medium_4 = 50
+@alloys_produce_large_4 = 100
+#use minerals to upkeep alloys or consumer_goods
+@secondary_industry_produce_upkeep_small_4 = 32
+@secondary_industry_produce_upkeep_medium_4 = 72
+@secondary_industry_produce_upkeep_large_4 = 135
+#base consumer_goods upkeep
+@general_upkeep_consumer_goods_6 = 75
+@general_upkeep_consumer_goods_6_machine = 100
+@base_food_upkeep_5 = 25
+@rare_produce_large_4 = 6
+#反制控制部件
+
+utility_component_template = {
+	key = "EV_ANTI_CRISIS_1"
+	size = aux
+	icon = "GFX_ship_part_anti_crisis_1"
+	icon_frame = 1
+	power = -45
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = 200
+		}
+		upkeep = {
+			alloys = 0.5
+		}
+	}
+	
+	prerequisites = { "tech_anti_crisis_1" }
+	component_set = "EV_ANTI_CRISIS_1"
+	
+	ai_weight = {
+		weight = 1
+	}
+	
+}

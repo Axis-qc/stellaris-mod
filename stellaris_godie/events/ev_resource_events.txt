@@ -1,0 +1,5672 @@
+namespace = ev_resource
+#判断是不是有资源短缺
+#Resource shortage
+#country_event = {
+#	id = ev_resource.1
+#	hide_window = yes
+#	location = root
+#	#is_triggered_only = yes
+#	mean_time_to_happen = {
+#		days = 4		#months = 1
+#	}
+#	trigger = {
+#		owner = {
+#			is_country_type = default_ev
+#			is_ai = no
+#			OR = {
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = influence
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = influence
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = minerals
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = minerals
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					NOT = {
+#						is_lithoid_empire = yes
+#					}
+#					has_country_resource = {
+#						type = food
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = food
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = energy
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = energy
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					NOR = {
+#						has_authority = auth_machine_intelligence
+#						has_authority = auth_hive_mind
+#					}
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = consumer_goods
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = consumer_goods
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = alloys
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = alloys
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = volatile_motes
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = volatile_motes
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = exotic_gases
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = exotic_gases
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = rare_crystals
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = rare_crystals
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = sr_living_metal
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = sr_living_metal
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = sr_zro
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = sr_zro
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = sr_dark_matter
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = sr_dark_matter
+#						value < 0
+#					}
+#				}
+#				AND = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = nanites
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = nanites
+#						value < 0
+#					}
+#				}
+#			}
+#		}
+#	}
+#	immediate = {
+#		owner = {
+#			remove_modifier = empty_vagrant_no_minerals
+#			remove_modifier = empty_vagrant_no_consumer_goods
+#			remove_modifier = empty_vagrant_no_alloys
+#			remove_modifier = empty_vagrant_no_energy
+#			remove_modifier = empty_vagrant_no_food
+#			remove_modifier = empty_vagrant_no_advanced_resources
+#			remove_modifier = empty_vagrant_no_volatile_motes
+#			remove_modifier = empty_vagrant_no_exotic_gases
+#			remove_modifier = empty_vagrant_no_rare_crystals
+#			remove_modifier = empty_vagrant_no_influence
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = influence
+#						amount <= 0
+#					}
+#					has_monthly_income = {
+#						resource = influence
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_influence
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = minerals
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = minerals
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_minerals
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					is_country_type = default_ev
+#					NOT = {
+#						is_lithoid_empire = yes
+#					}
+#					has_country_resource = {
+#						type = food
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = food
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_food
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					NOR = {
+#						has_authority = auth_machine_intelligence
+#						has_authority = auth_hive_mind
+#					}
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = consumer_goods
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = consumer_goods
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_consumer_goods
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = alloys
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = alloys
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_alloys
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					is_country_type = default_ev
+#					has_country_resource = {
+#						type = energy
+#						amount < 1
+#					}
+#					has_monthly_income = {
+#						resource = energy
+#						value < 0
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_energy
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				is_country_type = default_ev
+#				has_country_resource = {
+#					type = volatile_motes
+#					amount <= 0
+#				}
+#				has_monthly_income = {
+#					resource = volatile_motes
+#					value < 0
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_volatile_motes
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				is_country_type = default_ev
+#				has_country_resource = {
+#					type = exotic_gases
+#					amount <= 0
+#				}
+#				has_monthly_income = {
+#					resource = exotic_gases
+#					value < 0
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_exotic_gases
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				is_country_type = default_ev
+#				has_country_resource = {
+#					type = rare_crystals
+#					amount <= 0
+#				}
+#				has_monthly_income = {
+#					resource = rare_crystals
+#					value < 0
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_rare_crystals
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#		if = {
+#			limit = {
+#				owner = {
+#					OR = {
+#						AND = {
+#							is_country_type = default_ev
+#							has_country_resource = {
+#								type = sr_living_metal
+#								amount <= 0
+#							}
+#							has_monthly_income = {
+#								resource = sr_living_metal
+#								value < 0
+#							}
+#						}
+#						AND = {
+#							is_country_type = default_ev
+#							has_country_resource = {
+#								type = sr_zro
+#								amount <= 0
+#							}
+#							has_monthly_income = {
+#								resource = sr_zro
+#								value < 0
+#							}
+#						}
+#						AND = {
+#							is_country_type = default_ev
+#							has_country_resource = {
+#								type = sr_dark_matter
+#								amount <= 0
+#							}
+#							has_monthly_income = {
+#								resource = sr_dark_matter
+#								value < 0
+#							}
+#						}
+#						AND = {
+#							is_country_type = default_ev
+#							has_country_resource = {
+#								type = nanites
+#								amount <= 0
+#							}
+#							has_monthly_income = {
+#								resource = nanites
+#								value < 0
+#							}
+#						}
+#					}
+#				}
+#			}
+#			add_modifier = {
+#				modifier = empty_vagrant_no_advanced_resources
+#				days = 30 multiplier = 0.5
+#			}
+#		}
+#	}
+#}
+
+country_event = {
+	id = ev_resource.9
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		
+		if = {
+			limit = { 
+				any_country = {
+					NOT = {
+						has_country_flag = ev_void_country
+					}
+				}
+			}
+			create_country = {
+				name = "NAME_void_country"
+				type = the_void
+				flag = {
+					icon = {
+						category = "pirate"
+						file = "flag_pirate_6.dds"
+					}
+					background = {
+						category = "backgrounds"
+						file = "sinus.dds"
+					}
+					colors = {
+						"black"
+						"black"
+						"null"
+						"null"
+					}
+				}
+				effect = {
+					establish_communications_no_message = root
+					save_global_event_target_as = ev_void_country
+					set_country_flag = ev_void_country
+				}
+			}
+			
+			root = {
+				country_event = {
+					id = ev_resource.10
+				}
+				set_country_flag = has_void_country
+			}
+		}
+		else = {
+			event_target:ev_void_country = {
+				establish_communications_no_message = root
+			}
+			root = {
+				country_event = {
+					id = ev_resource.10
+				}
+				set_country_flag = has_void_country
+			}
+		}
+		
+	}
+}
+
+country_event = {
+	id = ev_resource.10
+	title = "ev_resource.10.title"
+	desc = {
+		text = ev_resource.10.desc.1
+	}
+	desc = {
+		text = ev_resource.10.desc.2
+	}
+	desc = {
+		text = ev_resource.10.desc.3
+	}
+	desc = {
+		text = ev_resource.10.desc.4
+	}
+	desc = {
+		text = ev_resource.10.desc.5
+	}
+	desc = {
+		text = ev_resource.10.desc.6
+	}
+	desc = {
+		text = ev_resource.10.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			is_country_type = the_void
+		}
+		has_country_flag = has_void_country
+		#is_same_value = event_target:void_country_owner
+		#owner = {
+		#	is_default_ev_country_type = yes
+		#}
+		NOT = {
+			has_country_flag = ev_has_maintenance_change_resources
+		}
+	}
+	#trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room  #shroud_room
+	}
+	immediate = {
+		#基础等效1
+		set_variable = {
+			which = ev_count_homeless
+			value = value:ev_cap_cost
+		}
+		
+		multiply_variable  = {
+			which = ev_count_homeless
+			value = 0.05
+		}
+		change_variable = {
+			which = ev_count_homeless
+			value = 0.5
+		}
+		#every_owned_ship = {
+		#	limit = {
+		#		OR = {
+		#			is_ship_size = homeless_ship
+		#			is_ship_size = homeless_ship_starbase
+		#			is_ship_size = private_homeless_ship
+		#			is_ship_size = private_homeless_ship_starbase
+		#		}
+		#		
+		#	}
+		#	owner = {
+		#		change_variable = {
+		#			which = ev_count_homeless
+		#			value = 0.2
+		#		}
+		#	}
+		#}
+		#every_owned_ship = {
+		#	limit = {
+		#		OR = {
+		#			is_ship_size = megastructures_homeless_ship
+		#		}
+		#	}
+		#	owner = {
+		#		change_variable = {
+		#			which = ev_count_homeless
+		#			value = 2
+		#		}
+		#	}
+		#}
+		#every_owned_ship = {
+		#	limit = {
+		#		OR = {
+		#			is_ship_size = mini_homeless_ship
+		#		}
+		#	}
+		#	owner = {
+		#		change_variable = {
+		#			which = ev_count_homeless
+		#			value = 0.03
+		#		}
+		#	}
+		#}
+		if = { limit = { used_naval_capacity_percent > 0.9 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.7 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.5 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.3 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		
+		random_list = {
+			1 = { multiply_variable = { which = ev_count_homeless value = 0.80 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.35 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.45 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 0.65 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.25 } }
+			4 = {}
+		}
+		if = {
+			limit = { 
+				check_variable = {
+					which = ev_count_homeless
+					value >= 5
+				}
+			}
+			set_variable = {
+				which = ev_count_homeless
+				value = 5
+			}
+		}
+	}
+	after = {
+		remove_country_flag = ev_has_maintenance_change_resources
+	}
+	
+	option = {
+		#单发
+		name = ev_resource.10.a
+		trigger = {
+			#check_variable = {
+			#	which = ev_maintenance_value
+			#	value > 0
+			#}
+			NOT = {
+				has_country_flag = ev_has_maintenance_change_resources
+			}
+		}
+		allow = {
+			NOT = {
+				has_modifier = ev_has_maintenance_change_resources_modifier
+			}
+			
+		}
+		custom_tooltip = ev_resource.10.a.tooltip
+		hidden_effect = {
+			
+			change_variable = {
+				which = ev_count_draw_event
+				value = 1
+			}
+			country_event = {
+				id = ev_resource.200
+			}
+			set_timed_country_flag = {
+				flag = ev_has_maintenance_change_resources
+				days = 90
+			}
+			add_modifier = {
+				modifier = "ev_has_maintenance_change_resources_modifier"
+				days = 90
+			}
+			
+		}
+	}
+	option = {
+		#10连
+		name = ev_resource.10.b
+		trigger = {
+			#check_variable = {
+			#	which = ev_maintenance_value
+			#	value > 0
+			#}
+			NOT = {
+				has_country_flag = ev_has_maintenance_change_resources
+			}
+		}
+		allow = {
+			NOT = {
+				has_modifier = ev_has_maintenance_change_resources_modifier
+			}
+		}
+		custom_tooltip = ev_resource.10.b.tooltip
+		hidden_effect = {
+			change_variable = {
+				which = ev_count_draw_event
+				value = 10
+			}
+			#while = {
+			#	count = 9
+			#	ev_luck_draw_event = yes
+			#}
+			#ev_special_luck_draw_event = yes
+			while = {
+				count = 10
+				country_event = {
+					id = ev_resource.200
+				}
+			}
+			change_variable = {
+				which = ev_maintenance_value
+				value = 1
+			}
+			add_modifier = {
+				modifier = "ev_has_maintenance_change_resources_modifier"
+				days = 720
+			}
+			set_timed_country_flag = {
+				flag = ev_has_maintenance_change_resources
+				days = 720
+			}
+		}
+	}
+	option = {
+		name = ev_resource.10.c1
+		trigger = {
+			check_variable = {
+				which = ev_count_draw_event
+				value >= 10
+			}
+			NOT = {
+				has_country_flag = triggered_ev_resource_10_c1
+			}
+		}
+		add_resource = {
+			influence = 50
+			mult = ev_count_homeless
+		}
+		country_event = { id = ev_resource.10 }
+		set_country_flag = triggered_ev_resource_10_c1
+	}
+	option = {
+		name = ev_resource.10.c2
+		trigger = {
+			check_variable = {
+				which = ev_count_draw_event
+				value >= 50
+			}
+			NOT = {
+				has_country_flag = triggered_ev_resource_10_c2
+			}
+		}
+		add_resource = {
+			influence = 100
+			mult = ev_count_homeless
+		}
+		country_event = { id = ev_resource.10 }
+		set_country_flag = triggered_ev_resource_10_c2
+	}
+	option = {
+		name = ev_resource.10.c3
+		trigger = {
+			check_variable = {
+				which = ev_count_draw_event
+				value >= 100
+			}
+			NOT = {
+				has_country_flag = triggered_ev_resource_10_c3
+			}
+		}
+		add_resource = {
+			influence = 200
+			mult = ev_count_homeless
+		}
+		country_event = { id = ev_resource.10 }
+		set_country_flag = triggered_ev_resource_10_c3
+	}
+	option = {
+		name = ev_resource.10.c4
+		trigger = {
+			check_variable = {
+				which = ev_count_draw_event
+				value >= 500
+			}
+			NOT = {
+				has_country_flag = triggered_ev_resource_10_c4
+			}
+		}
+		country_event = { id = ev_resource.10 }
+		add_resource = {
+			influence = 200
+			mult = ev_count_homeless
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_01"
+			days = 1440
+			multiplier = ev_count_homeless
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_02"
+			days = 1440
+			multiplier = ev_count_homeless
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_03"
+			days = 1440
+			multiplier = ev_count_homeless
+		}
+		set_country_flag = triggered_ev_resource_10_c4
+	}
+	option = {
+		name = ev_resource.10.c5
+		trigger = {
+			check_variable = {
+				which = ev_count_draw_event
+				value >= 1000
+			}
+			NOT = {
+				has_country_flag = triggered_ev_resource_10_c5
+			}
+		}
+		add_resource = {
+			influence = 200
+			mult = ev_count_homeless
+		}
+		country_event = { id = ev_resource.10 }
+		if = {
+			limit = {
+				has_relic = r_ev_fleet_influence_mult
+			}
+			add_resource = {
+				unity = 10000
+				mult = ev_count_homeless
+			}
+		}
+		else = {
+			add_relic = r_ev_fleet_influence_mult
+			set_country_flag = ev_has_r_ev_fleet_influence_mult
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_01"
+			days = 7200
+			multiplier = ev_count_homeless
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_02"
+			days = 7200
+			multiplier = ev_count_homeless
+		}
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_03"
+			days = 7200
+			multiplier = ev_count_homeless
+		}
+		set_country_flag = triggered_ev_resource_10_c5
+	}
+	option = {
+		name = ev_resource.10.c
+		default_hide_option = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.100
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.b
+		if = {
+			limit = {
+				has_relic = r_ev_fleet_influence_mult
+			}
+			add_resource = {
+				unity = 10000
+				mult = ev_count_homeless
+			}
+		}
+		else = {
+			add_relic = r_ev_fleet_influence_mult
+			set_country_flag = ev_has_r_ev_fleet_influence_mult
+		}
+		
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.101
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			sr_dark_matter = 50
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.102
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			sr_zro = 50
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.103
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			volatile_motes = 400
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.104
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			exotic_gases = 400
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.105
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			rare_crystals = 400
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.106
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			rare_crystals = 400
+			exotic_gases = 400
+			volatile_motes = 400
+			mult = ev_count_homeless
+		}
+		
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.107
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+		add_resource = {
+			energy = 1000
+			minerals = 1000
+			food = 1000
+			physics_research = 1000
+			society_research = 1000
+			engineering_research = 1000
+			unity = 1000
+			alloys = 1000
+			consumer_goods = 1000
+			mult = ev_count_homeless
+		}
+		#add_monthly_resource_mult = {
+		#	resource = physics_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = society_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = engineering_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+	}
+}
+
+country_event = {
+	id = ev_resource.108
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			energy = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.109
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			minerals = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.110
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			food = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.111
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = { 
+			physics_research = 1000 
+			mult = ev_count_homeless
+		}
+		#add_monthly_resource_mult = {
+		#	resource = physics_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.112
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = { society_research = 1000 mult = ev_count_homeless } 
+		#add_monthly_resource_mult = {
+		#	resource = society_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.113
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = { engineering_research = 1000 mult = ev_count_homeless }
+		#add_monthly_resource_mult = {
+		#	resource = engineering_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.114
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			unity = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.115
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			alloys = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.116
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			consumer_goods = 1000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.117
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+		add_resource = {
+			consumer_goods = 1000
+			alloys = 1000
+			mult = ev_count_homeless
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.118
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+		add_resource = {
+			physics_research = 1000 
+			society_research = 1000
+			engineering_research = 1000
+			mult = ev_count_homeless
+		}
+		#add_monthly_resource_mult = {
+		#	resource = physics_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = society_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+		#add_monthly_resource_mult = {
+		#	resource = engineering_research
+		#	value = 100
+		#	min = 900
+		#	max = 1000
+		#}
+	}
+}
+
+country_event = {
+	id = ev_resource.119
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+		add_resource = {
+			energy = 1000
+			minerals = 100
+			food = 1000
+			mult = ev_count_homeless
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.120
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			energy = 3000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.121
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			minerals = 3000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.122
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			food = 3000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.123
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			alloys = 3000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.124
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			consumer_goods = 3000
+			mult = ev_count_homeless
+		}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.125
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			physics_research = 3000
+			mult = ev_count_homeless
+		}
+		
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.126
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			society_research = 3000
+			mult = ev_count_homeless
+		}
+		#add_monthly_resource_mult = {
+		#	resource = society_research
+		#	value = 100
+		#	min = 1900
+		#	max = 3000
+		#}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.127
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			engineering_research = 3000
+			mult = ev_count_homeless
+		}
+		#add_monthly_resource_mult = {
+		#	resource = engineering_research
+		#	value = 100
+		#	min = 1900
+		#	max = 3000
+		#}
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.128
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.128.a
+		#country_event = { id = ev_resource.10 }
+		#set_timed_country_flag = { flag = ev_has_maintenance_change_resources days = 360 }
+	}
+}
+
+country_event = {
+	id = ev_resource.129
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			minor_artifacts = 5
+			mult = ev_count_homeless
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.130
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			minor_artifacts = 15
+			mult = ev_count_homeless
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.131
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			minor_artifacts = 50
+			mult = ev_count_homeless
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.132
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_01"
+			days = 1440
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.133
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_02"
+			days = 1440
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.134
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_modifier = {
+			modifier = "ev_has_maintenance_change_resources_add_03"
+			days = 1440
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.140
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		add_resource = {
+			energy = 1000
+			mult = ev_count_homeless
+		}
+		random_owned_leader = {
+			limit = {
+				leader_class = commander
+			}
+			add_trait = trait_admiral_ev_event_produces_1
+			add_ruler_trait = trait_ruler_ev_event_produces_1
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.200
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room #shroud_room
+	}
+	option = {
+		name = ev_resource.100.a
+		ev_special_luck_draw = yes
+
+		#custom_tooltip = random_paper_name
+	}
+}
+
+#主动联系
+country_event = {
+	id = ev_resource.210
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.1
+	}
+	desc = {
+		text = ev_resource.100.desc.2
+	}
+	desc = {
+		text = ev_resource.100.desc.3
+	}
+	desc = {
+		text = ev_resource.100.desc.4
+	}
+	desc = {
+		text = ev_resource.100.desc.5
+	}
+	desc = {
+		text = ev_resource.100.desc.6
+	}
+	desc = {
+		text = ev_resource.100.desc.7
+	}
+	#hide_window = yes
+	trigger = {
+		has_country_flag = ev_void_tr_t6
+	}
+	mean_time_to_happen = {
+		years = 5
+	}
+	#is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room #shroud_room
+	}
+	immediate = {
+		set_variable = {
+			which = ev_count_homeless
+			value = value:ev_cap_cost
+		}
+		
+		multiply_variable  = {
+			which = ev_count_homeless
+			value = 0.05
+		}
+		change_variable = {
+			which = ev_count_homeless
+			value = 0.5
+		}
+		if = { limit = { used_naval_capacity_percent > 0.9 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.7 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.5 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		if = { limit = { used_naval_capacity_percent > 0.3 } multiply_variable = { which = ev_count_homeless value = 0.80 } }
+		
+		random_list = {
+			1 = { multiply_variable = { which = ev_count_homeless value = 0.80 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.35 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.45 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 0.65 } }
+			1 = { multiply_variable = { which = ev_count_homeless value = 1.25 } }
+			4 = {}
+		}
+		if = {
+			limit = { 
+				check_variable = {
+					which = ev_count_homeless
+					value >= 5
+				}
+			}
+			set_variable = {
+				which = ev_count_homeless
+				value = 5
+			}
+		}
+	}
+	option = {
+		name = ev_resource.210.a
+		ev_special_luck_draw = yes
+	}
+	option = {
+		name = ev_resource.210.b
+		locked_random_list = {
+			3 = {
+				multiply_variable = {
+					which = ev_maintenance_value
+					value = 1.1
+				}
+				add_resource = {
+					mult = ev_count_homeless
+					influence = 1
+				}
+			}
+			2 = {
+				multiply_variable = {
+					which = ev_maintenance_value
+					value = 1.2
+				}
+				add_resource = {
+					mult = ev_count_homeless
+					influence = 1
+				}
+			}
+			1 = {
+				multiply_variable = {
+					which = ev_maintenance_value
+					value = 1.35
+				}
+				add_resource = {
+					mult = ev_count_homeless
+					influence = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_resource.210.c
+		locked_random_list = {
+			1 = {
+				modifier = {
+					factor = 0
+					has_modifier = ev_has_maintenance_change_resources_add_01
+				}
+				modifier = {
+					factor = 5
+					has_country_flag = ev_void_tr_t1
+				}
+				add_modifier = {
+					modifier = "ev_has_maintenance_change_resources_add_01"
+					days = 1440
+					multiplier = ev_count_homeless
+				}
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					has_modifier = ev_has_maintenance_change_resources_add_02
+				}
+				modifier = {
+					factor = 5
+					has_country_flag = ev_void_tr_t1
+				}
+				add_modifier = {
+					modifier = "ev_has_maintenance_change_resources_add_02"
+					days = 1440
+					multiplier = ev_count_homeless
+				}
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					has_modifier = ev_has_maintenance_change_resources_add_03
+				}
+				modifier = {
+					factor = 5
+					has_country_flag = ev_void_tr_t1
+				}
+				add_modifier = {
+					modifier = "ev_has_maintenance_change_resources_add_03"
+					days = 1440
+					multiplier = ev_count_homeless
+				}
+			}
+			#1%虚空特质
+			1 = {
+				add_resource = {
+					energy = 1000
+					mult = ev_count_homeless
+				}
+				modifier = {
+					factor = 5
+					has_country_flag = ev_void_tr_t1
+				}
+				random_owned_leader = {
+					limit = {
+						leader_class = commander
+						NOT = {
+							has_trait = trait_admiral_ev_event_produces_1
+						}
+					}
+					add_trait = trait_admiral_ev_event_produces_1
+					add_ruler_trait = trait_ruler_ev_event_produces_1
+				}
+			}
+		}
+	}
+}
+
+####################
+#虚空之母增强事件
+country_event = {
+	id = ev_resource.300
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t0
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.300.a
+		custom_tooltip = ev_resource.300.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t0 #开始设立
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.301
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t1
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.301.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t1 # 
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.302
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t2
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.302.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t2 # 
+		}
+	}
+}
+country_event = {
+	id = ev_resource.303
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t3
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.303.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t3 # 
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.304
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t4
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.304.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t4 # 
+		}
+		give_technology = {
+			tech = tech_ev_void_amry
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.305
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t5
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.305.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t5 #开始设立
+		}
+		give_technology = {
+			tech = tech_ev_void_reactor_bosster_1
+		}
+	}
+}
+
+country_event = {
+	id = ev_resource.306
+	title = "ev_resource.100.title"
+	desc = {
+		text = ev_resource.100.desc.t6
+	}
+	
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = ev_void_2_room
+	}
+	option = {
+		name = ev_resource.301.a
+		custom_tooltip = ev_resource.306.tooltip
+		hidden_effect = {
+			set_country_flag = ev_void_tr_t6 #开始设立
+		}
+	}
+}
+#人力换人口
+country_event = {
+	id = ev_resource.1000
+	title = "ev_resource.1000.title"
+	desc = {
+		text = ev_resource.1000.desc.1
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	#diplomatic = yes
+	#picture_event_data = {
+	#	room = ev_in_room
+	#	#portrait = root.ruler
+	#}
+	after = {
+		remove_country_flag = ev_has_manpower_to_pop_event
+	}
+	#option = {
+	#	#100换1pop
+	#	name = ev_resource.1000.a
+	#	trigger = {
+	#	}
+	#	allow = {
+	#		resource_stockpile_compare = {
+	#			resource = manpower
+	#			value >= 100
+	#		}
+	#	}
+	#	add_resource = {
+	#		manpower = -100
+	#	}
+	#	custom_tooltip = ev_resource.1000.a.tooltip
+	#	hidden_effect = {
+	#		change_variable = {
+	#			which = ev_accumulate_manpower_pop
+	#			value = 1
+	#		}
+	#		owner = {
+	#			country_event = {
+	#				id = ev_resource.1000
+	#			}
+	#		}
+	#		capital_scope = {
+	#			create_pop_group = {
+	#				species = owner_main_species
+	#			}
+	#		}
+	#	}
+	#}
+	#option = {
+	#	#1000换10pop
+	#	name = ev_resource.1000.b
+	#	trigger = {
+	#	}
+	#	allow = {
+	#		resource_stockpile_compare = {
+	#			resource = manpower
+	#			value >= 1000
+	#		}
+	#		NOT = {
+	#			has_country_flag = ev_pop_to_manpower_is_in_CD_B
+	#		}
+	#	}
+	#	add_resource = {
+	#		manpower = -1000
+	#	}
+	#	custom_tooltip = ev_resource.1000.b.tooltip
+	#	hidden_effect = {
+	#		change_variable = {
+	#			which = ev_accumulate_manpower_pop
+	#			value = 10
+	#		}
+	#		owner = {
+	#			country_event = {
+	#				id = ev_resource.1000
+	#			}
+	#		}
+	#		capital_scope = {
+	#			while = {
+	#				count = 10
+	#				create_pop_group = {
+	#					species = owner_main_species
+	#				}
+	#			}
+	#		}
+	#		set_timed_country_flag = {
+	#			flag = ev_pop_to_manpower_is_in_CD_B
+	#			days = 90
+	#		}
+	#	}
+	#}
+	#option = {
+	#	#1000换10pop
+	#	name = ev_resource.1000.c
+	#	trigger = {
+	#	}
+	#	allow = {
+	#		resource_stockpile_compare = {
+	#			resource = manpower
+	#			value >= 10000
+	#		}
+	#		NOT = {
+	#			has_country_flag = ev_pop_to_manpower_is_in_CD_C
+	#		}
+	#	}
+	#	add_resource = {
+	#		manpower = -10000
+	#	}
+	#	custom_tooltip = ev_resource.1000.c.tooltip
+	#	hidden_effect = {
+	#		change_variable = {
+	#			which = ev_accumulate_manpower_pop
+	#			value = 100
+	#		}
+	#		owner = {
+	#			country_event = {
+	#				id = ev_resource.1000
+	#			}
+	#		}
+	#		capital_scope = {
+	#			while = {
+	#				count = 100
+	#				create_pop_group = {
+	#					species = owner_main_species
+	#				}
+	#			}
+	#		}
+	#		set_timed_country_flag = {
+	#			flag = ev_pop_to_manpower_is_in_CD_C
+	#			days = 720
+	#		}
+	#	}
+	#}
+	option = {
+		name = ev_resource.1000.d
+		default_hide_option = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.1100
+	title = "ev_resource.1100.title"
+	desc = {
+		text = ev_resource.1100.desc.1
+		trigger = {
+		}
+	}
+	desc = {
+		text = ev_resource.1100.desc.2
+		trigger = {
+		}
+	}
+	desc = {
+		text = ev_resource.1100.desc.3
+		trigger = {
+			has_country_flag = ev_no_repay_money
+		}
+	}
+	desc = {
+		text = ev_resource.1100.desc.4
+		trigger = {
+			has_country_flag = ev_no_repay_money
+		}
+	}
+	desc = {
+		text = ev_resource.1100.desc.5
+		trigger = {
+			has_country_flag = ev_has_bankruptcy
+		}
+	}
+	desc = {
+		text = ev_resource.1100.desc.6
+		trigger = {
+			has_country_flag = ev_has_bankruptcy
+		}
+	}
+	#hide_window = yes
+	is_triggered_only = yes
+	trackable = yes
+	diplomatic = yes
+	picture_event_data = {
+		room = shroud_room
+	}
+	after = {
+		remove_country_flag = ev_has_provide_loan_event
+	}
+	option = {
+		#借500
+		name = ev_resource.1100.a
+		trigger = {
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_has_provide_loan_500"
+				NOT = {
+					has_country_flag = ev_has_provide_loan_500
+				}
+			}
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_no_repay_money"
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_loan
+				value = 500
+			}
+			country_event = {
+				id = ev_resource.1110
+				days = 1800
+			}
+			country_event = {
+				id = ev_resource.1100
+			}
+		}
+		add_resource = {
+			energy = 500
+		}
+		set_country_flag = ev_has_provide_loan_500
+		custom_tooltip = ev_resource.1100.a.tooltip
+	}
+	option = {
+		#借2000
+		name = ev_resource.1100.c
+		trigger = {
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_has_provide_loan_2000"
+				NOT = {
+					has_country_flag = ev_has_provide_loan_2000
+				}
+			}
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_no_repay_money"
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_loan
+				value = 2000
+			}
+			country_event = {
+				id = ev_resource.1120
+				days = 3600
+			}
+			country_event = {
+				id = ev_resource.1100
+			}
+		}
+		add_resource = {
+			energy = 2000
+		}
+		set_country_flag = ev_has_provide_loan_2000
+		custom_tooltip = ev_resource.1100.c.tooltip
+	}
+	option = {
+		#借10000
+		name = ev_resource.1100.e
+		trigger = {
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_has_provide_loan_10000"
+				NOT = {
+					has_country_flag = ev_has_provide_loan_10000
+				}
+			}
+			custom_tooltip = {
+				fail_text = "custom_tooltip_ev_no_repay_money"
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_loan
+				value = 10000
+			}
+			country_event = {
+				id = ev_resource.1130
+				days = 7200
+			}
+			country_event = {
+				id = ev_resource.1100
+			}
+		}
+		add_resource = {
+			energy = 10000
+		}
+		set_country_flag = ev_has_provide_loan_10000
+		custom_tooltip = ev_resource.1100.e.tooltip
+	}
+	option = {
+		name = ev_resource.1100.g
+		default_hide_option = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.1110
+	title = "ev_resource.1110.title"
+	desc = ev_resource.1110.desc
+	picture = GFX_evt_throne_room
+	#hide_window = yes
+	is_triggered_only = yes
+	option = {
+		#还500，10%或25%利息
+		name = ev_resource.1110.a
+		trigger = {
+			has_country_flag = ev_has_provide_loan_500
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 625
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			add_resource = {
+				energy = -550
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			add_resource = {
+				energy = -625
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_repay_loan
+				value = 500
+			}
+		}
+		remove_country_flag = ev_has_provide_loan_500
+	}
+	option = {
+		#我没钱
+		name = ev_resource.1110.b
+		trigger = {
+			has_country_flag = ev_has_provide_loan_500
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.05
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 1.1
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.05
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 1.25
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 2700
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_no_repay_money
+			}
+			remove_country_flag = ev_no_repay_money
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 2700
+			}
+		}
+		default_hide_option = yes
+		remove_country_flag = ev_has_provide_loan_500
+	}
+}
+
+country_event = {
+	id = ev_resource.1120
+	title = "ev_resource.1120.title"
+	desc = ev_resource.1120.desc
+	picture = GFX_evt_throne_room
+	#hide_window = yes
+	is_triggered_only = yes
+	option = {
+		#还2000，10%或25%利息
+		name = ev_resource.1120.a
+		trigger = {
+			has_country_flag = ev_has_provide_loan_2000
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 2500
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			add_resource = {
+				energy = -2200
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			add_resource = {
+				energy = -2500
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_repay_loan
+				value = 2000
+			}
+		}
+		remove_country_flag = ev_has_provide_loan_2000
+	}
+	option = {
+		#我没钱
+		name = ev_resource.1120.b
+		trigger = {
+			has_country_flag = ev_has_provide_loan_2000
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.15
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 1.25
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.15
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 1.65
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 5400
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_no_repay_money
+			}
+			remove_country_flag = ev_no_repay_money
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 5400
+			}
+		}
+		default_hide_option = yes
+		remove_country_flag = ev_has_provide_loan_2000
+	}
+}
+
+country_event = {
+	id = ev_resource.1130
+	title = "ev_resource.1130.title"
+	desc = ev_resource.1130.desc
+	picture = GFX_evt_throne_room
+	#hide_window = yes
+	is_triggered_only = yes
+	option = {
+		#还10000，10%或25%利息
+		name = ev_resource.1130.a
+		trigger = {
+			has_country_flag = ev_has_provide_loan_10000
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 12500
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			add_resource = {
+				energy = -11000
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			add_resource = {
+				energy = -12500
+			}
+		}
+		hidden_effect = {
+			change_variable = {
+				which = ev_accumulate_repay_loan
+				value = 10000
+			}
+		}
+		remove_country_flag = ev_has_provide_loan_10000
+	}
+	option = {
+		#我没钱
+		name = ev_resource.1130.b
+		trigger = {
+			has_country_flag = ev_has_provide_loan_10000
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_has_bankruptcy
+				}
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.15
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 1.5
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_has_bankruptcy
+			}
+			change_variable = {
+				which = ev_inflation_value
+				value = 0.15
+			}
+			multiply_variable = {
+				which = ev_inflation_value
+				value = 2.25
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ev_no_repay_money
+				}
+			}
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 10800
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ev_no_repay_money
+			}
+			remove_country_flag = ev_no_repay_money
+			set_timed_country_flag = {
+				flag = ev_no_repay_money
+				days = 10800
+			}
+		}
+		default_hide_option = yes
+		remove_country_flag = ev_has_provide_loan_10000
+	}
+}
+
+#各种功能的菜单
+country_event = { 
+	id = ev_resource.2000
+	title = "ev_resource.2000.title"
+	desc = ev_resource.2000.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2000.title"
+	#custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	#custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = ev_homeless_in_room } #图片只能用room
+	#hide_window = yes
+	is_triggered_only = yes
+	picture = GFX_evt_cargoship_caravan
+	after = {
+		remove_country_flag = ev_has_menu_event
+	}
+	option = {
+		#进入开局菜单
+		name = ev_resource.2000.h
+		hidden_effect = {
+			country_event = {
+				id = ev_game_start.2200
+			}
+		}
+	}
+	option = {
+		#调节是否弹窗信息
+		name = ev_resource.2000.i
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.2110
+			}
+		}
+	}
+	#option = {
+	#	#舰队紧急征召
+	#	name = ev_resource.2000.a
+	#	custom_tooltip = ev_resource.2000.a.tooltip
+	#	hidden_effect = {
+	#		country_event = {
+	#			id = ev_maintenance.400
+	#		}
+	#		set_country_flag = ev_has_maintenance_fleet_event
+	#	}
+	#}
+	#option = {
+	#	#人力换人口
+	#	name = ev_resource.2000.b
+	#	custom_tooltip = ev_resource.2000.b.tooltip
+	#	hidden_effect = {
+	#		country_event = {
+	#			id = ev_resource.1000
+	#		}
+	#		set_country_flag = ev_has_manpower_to_pop_event
+	#	}
+	#}
+	#option = { #进入银行
+	#	name = ev_resource.2000.c
+	#	custom_tooltip = ev_resource.2000.c.tooltip
+	#	hidden_effect = {
+	#		owner = { country_event = { id = ev_resource.1100 } }
+	#		owner = { set_country_flag = ev_has_provide_loan_event }
+	#	}
+	#}
+	option = {
+		#进入大可汗附庸选项
+		name = ev_resource.2000.e
+		trigger = {
+			has_country_flag = is_khanate_country_ev
+		}
+		hidden_effect = {
+			country_event = {
+				id = ev_leader.5030
+			}
+		}
+	}
+	#option = {
+	#	#提示最优家园舰
+	#	name = ev_resource.2000.f
+	#	custom_tooltip = ev_resource.2000.f.tooltip
+	#	hidden_effect = {
+	#		country_event = {
+	#			id = ev_resource.2100
+	#		}
+	#	}
+	#}
+	option = {
+		#进入硬核模式的政策
+		name = ev_resource.2000.g
+		trigger = {
+			has_country_flag = enable_ev_hard_core
+		}
+		#custom_tooltip = ev_resource.2000.g.tooltip
+		hidden_effect = {
+			country_event = {
+				id = ev_hard_core.1
+			}
+		}
+	}
+	option = {
+		name = ev_resource.2000.d
+		default_hide_option = yes
+	}
+}
+
+#探测境内资源
+country_event = {
+	id = ev_resource.2050
+	title = ev_resource.2050.title
+	desc = ev_resource.2050.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2050.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = habitable_dig_site_room } #图片只能用room
+	picture = GFX_evt_mining_operations
+	location = event_target:chosen_planet
+	is_triggered_only = yes
+	immediate = {
+		random_galaxy_planet = {
+			limit = {
+				#habitable_planet = no 
+				research_candidate = no
+				num_pops < 1
+				solar_system = {
+					any_ship_in_system = {
+						exists = owner
+						is_any_type_homeless_ship = yes
+						owner = {
+							is_same_value = root
+						}
+					}
+				}
+			}
+			save_event_target_as = chosen_planet
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			NOT = { exists = event_target:chosen_planet }
+		}
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = 6
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			exists = event_target:chosen_planet
+		}
+		locked_random_list = {
+			# Energy-add
+			1 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						energy_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_energy_5
+					}
+				}
+			}
+			# Minerals-add
+			1 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						mineral_candidate = no
+						
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_minerals_5
+					}
+				}
+			}
+			# Alloys-add
+			1 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						alloy_candidate = no
+						
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_alloys_3
+					}
+				}
+			}
+			# Energy
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						energy_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_energy_5
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						energy_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_energy_7
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						energy_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_energy_9
+					}
+				}
+			}
+			# Minerals
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						mineral_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_minerals_5
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						mineral_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_minerals_7
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						mineral_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_minerals_9
+					}
+				}
+			}
+			# Alloys
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						alloy_candidate = no
+					}
+				}
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_alloys_2
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						alloy_candidate = no
+					}
+				}
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_alloys_3
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						alloy_candidate = no
+					}
+				}
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_alloys_4
+					}
+				}
+			}
+			# Exotic Gas
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						exotic_gas_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_exotic_gases_1
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						exotic_gas_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_exotic_gases_2
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						exotic_gas_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_exotic_gases_3
+					}
+				}
+			}
+			# Rare Crystals
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						rare_crystal_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_rare_crystals_1
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						rare_crystal_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_rare_crystals_2
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						rare_crystal_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_rare_crystals_3
+					}
+				}
+			}
+			# Volatile Motes
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						volatile_motes_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_volatile_motes_1
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						volatile_motes_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_volatile_motes_2
+					}
+				}
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					event_target:chosen_planet = {
+						volatile_motes_candidate = no
+					}
+				}
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_volatile_motes_3
+					}
+				}
+			}
+			1 = {
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_minerals_5
+					}
+				}
+			}
+		}
+	}
+}
+
+#探测新的星系
+country_event = {
+	id = ev_resource.2060
+	title = ev_resource.2060.title
+	desc = ev_resource.2060.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2060.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = habitable_dig_site_room } #图片只能用room
+	picture = GFX_evt_ship_travel
+	location = event_target:chosen_system
+	is_triggered_only = yes
+	immediate = {
+		random_system = {
+			limit = {
+				any_ship_in_system = {
+					exists = owner
+					is_any_type_homeless_ship = yes
+					owner = {
+						is_same_value = root
+					}
+				}
+			}
+			save_event_target_as = chosen_system
+		}
+		if = {
+			limit = { 
+				NOT = {
+					exists = event_target:chosen_system
+				}
+			}
+			random_system = {
+				save_event_target_as = chosen_system
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		set_spawn_system_batch = begin
+		locked_random_list = {
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "basic_init_01"
+					}
+				}
+			}
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 8
+						max_distance = 25
+						initializer = "basic_init_02"
+					}
+				}
+			}
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "basic_init_03"
+					}
+				}
+			}
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "basic_init_04"
+					}
+				}
+			}
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "basic_init_05"
+					}
+				}
+			}
+			10 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "basic_init_06"
+					}
+				}
+			}
+			20 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "trinary_init_02"
+					}
+				}
+			}
+			20 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "trinary_init_01"
+					}
+				}
+			}
+			20 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "asteroid_init_01"
+					}
+				}
+			}
+			20 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "binary_init_01"
+					}
+				}
+			}
+			20 = {
+				event_target:chosen_system = {
+					spawn_system = {
+						min_distance = 9
+						max_distance = 25
+						initializer = "binary_init_02"
+					}
+				}
+			}
+		}
+		set_spawn_system_batch = end
+	}
+}
+
+#二元舰队
+country_event = {
+	id = ev_resource.2070
+	title = ev_resource.2070.title
+	desc = ev_resource.2070.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2070.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = habitable_dig_site_room } #图片只能用room
+	picture = GFX_evt_ship_in_orbit_3
+	location = event_target:chosen_planet
+	is_triggered_only = yes
+	immediate = {
+		add_modifier = {
+			modifier = mod_is_ev_ship_binary_fleet_country
+			days = 1800
+		}
+		country_event = {
+			id = ev_resource.2071
+			days = 1800
+		}
+		random_owned_fleet = {
+			solar_system = {
+				random_system_planet = {
+					save_event_target_as = chosen_planet
+					
+				}
+			}
+			owner = {
+				create_fleet_from_naval_cap = 1
+			}
+		}
+		#random_galaxy_planet = {
+		#	limit = {
+		#		solar_system = {
+		#			any_ship_in_system = {
+		#				exists = owner
+		#				owner = {
+		#					is_same_value = root
+		#				}
+		#			}
+		#		}
+		#	}
+		#	save_event_target_as = chosen_planet
+		#}
+		
+		last_created_fleet = {
+			set_fleet_flag = is_ev_ship_binary_fleet
+			save_global_event_target_as = is_ev_ship_binary_fleet_target
+			set_location = {
+				target = event_target:chosen_planet
+				distance = 20
+				angle = random
+			}
+			add_modifier = {
+				modifier = mod_is_ev_ship_binary_fleet
+				days = -1
+			}
+			#settings = { 
+			#	can_upgrade = no 
+			#	can_disband = no
+			#	can_change_composition = no 
+			#	can_change_leader = no 
+			#	uses_naval_capacity = no
+			#}
+			#any_ship = {
+			#	limit = {	is_ship_size = homeless_ship } 
+			#	delete_ship = yes
+			#}
+		}
+	}
+	option = {
+		name = ev_resource.2070.a
+	}
+}
+
+#二元舰队消失
+country_event = {
+	id = ev_resource.2071
+	title = ev_resource.2071.title
+	desc = ev_resource.2071.desc
+	picture = GFX_evt_mining_operations
+	is_triggered_only = yes
+	trigger = {
+		exists = event_target:is_ev_ship_binary_fleet_target
+	}
+	immediate = {
+		event_target:is_ev_ship_binary_fleet_target = {
+			delete_fleet = this
+		}
+		clear_global_event_target = is_ev_ship_binary_fleet_target
+	}
+	option = {
+		name = ev_resource.2070.a
+	}
+}
+
+#提示配船信息
+country_event = {
+	id = ev_resource.2100
+	title = ev_resource.2100.title
+	desc = ev_resource.2100.desc
+	picture = GFX_evt_mining_operations
+	is_triggered_only = yes
+	option = {
+		name = ev_resource.2100.a
+	}
+}
+
+
+#提示信息
+country_event = {
+	id = ev_resource.2110
+	title = ev_resource.2110.title
+	desc = ev_resource.2110.desc
+	picture = GFX_evt_ev_load_5_small
+	is_triggered_only = yes
+	after = {
+		#remove_country_flag = ev_has_produce_amry
+	}
+	option = {
+		#关了
+		name = ev_resource.2110.a
+		trigger = {
+			has_country_flag = ev_show_meassage_flag
+		}
+		
+		remove_country_flag = ev_show_meassage_flag
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.2110
+			}
+		}
+	}
+	option = {
+		#开了
+		name = ev_resource.2110.b
+		trigger = {
+			NOT = { has_country_flag = ev_show_meassage_flag }
+		}
+		
+		set_country_flag = ev_show_meassage_flag
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.2110
+			}
+		}
+	}
+	option = {
+		name = ev_resource.1000.d
+		default_hide_option = yes
+	}
+}
+
+#探测新的科研点
+country_event = {
+	id = ev_resource.2150
+	title = ev_resource.2050.title
+	desc = ev_resource.2050.desc
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2150.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	#picture_event_data = { room = habitable_dig_site_room } #图片只能用room
+	picture = GFX_evt_physics_research
+	location = event_target:chosen_planet
+	is_triggered_only = yes
+	immediate = {
+		while = {
+			count = 1
+			random_galaxy_planet = {
+				limit = {
+					AND = {
+						#habitable_planet = no 
+						#research_candidate = yes
+						mineral_candidate = no
+						num_pops < 1
+					}
+					solar_system = {
+						any_ship_in_system = {
+							exists = owner
+							is_any_type_homeless_ship = yes
+							owner = {
+								is_same_value = root
+							}
+						}
+					}
+				}
+				save_event_target_as = chosen_planet
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			NOT = { exists = event_target:chosen_planet }
+		}
+		add_monthly_resource_mult = {
+			resource = physics_research
+			value = 4
+		}
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = 4
+		}
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 4
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			exists = event_target:chosen_planet
+		}
+		#坟头
+		#event_target:chosen_planet = {
+		#	#1 = {
+		#	#	create_archaeological_site = ancient_battle_site
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = it_was_aliens_site
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = asteroid_vault_1
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = omnirelic_site
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = city_of_bones
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = mutation_vats
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = planetary_mechanocalibrator
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = the_host
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = lithoids_digsite
+		#	#}
+		#	#1 = {
+		#	#	create_archaeological_site = oracle_digsite
+		#	#}
+		#	#locked_random_list = {
+		#	#	1 = {
+		#	#		create_archaeological_site = site_moon_bump
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_echoes_inside
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_target_from_orbit
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_shot_into_the_ground
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_cut_to_fit
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_deja_vu_dig
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_trench_world
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_ebb_and_flow
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_sky_glow_hymn
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_phoenix_collective
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_grand_herald
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_hive_coral
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_orbital_rain
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_fossilized_jellyfish
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_popular_rock
+		#	#	}
+		#	#	1 = {
+		#	#		create_archaeological_site = site_strange_flows
+		#	#	}
+		#	#	
+		#	#}
+		#}
+		#异常
+		#event_target:chosen_planet = {
+		#	surveyed = { set_surveyed = no surveyor = root }	
+		#	
+		#	if = {
+		#		limit = {
+		#			OR = {
+		#				is_planet_class = pc_barren_cold
+		#				is_planet_class = pc_barren
+		#			}
+		#		}
+		#		locked_random_list = {
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = terraforming_candidate_category } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = living_metal_category } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = life_barren_category } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = BAR_COLONY_CAT } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = FRBR_GRIMACING_CAT } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = UHB_BUOY_CAT } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = GEN_DERELICT_SHIP_CAT } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = COLD_RESEARCH_CAT } } } 
+		#		}
+		#	}
+		#	
+		#	else_if = {
+		#		limit = {
+		#			OR = {
+		#				is_planet_class = pc_toxic
+		#			}
+		#		}
+		#		locked_random_list = {
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = inhabited_toxic_category } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = life_toxic_category } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = TOX_PURPLE_RAIN_CAT } } } 
+		#			1 = { event_target:chosen_planet = { add_anomaly = { category = TOX_MAT_CAT } } } 
+		#			
+		#		}
+		#	}
+		#	
+		#}
+		#资源
+		locked_random_list = {
+			# 工程点
+			5 = {
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_engineering_4
+					}
+				}
+			}
+			1 = {
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_engineering_4
+					}
+				}
+			}
+			5 = {
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_society_4
+					}
+				}
+			}
+			1 = {
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_society_4
+					}
+				}
+			}
+			5 = {
+				while = {
+					count = 1
+					event_target:chosen_planet = {
+						add_deposit = d_physics_4
+					}
+				}
+			}
+			1 = {
+				while = {
+					count = 2
+					event_target:chosen_planet = {
+						add_deposit = d_physics_4
+					}
+				}
+			}
+		}
+	}
+}
+
+#人力换陆军
+country_event = {
+	id = ev_resource.2200
+	title = ev_resource.2200.title
+	desc = ev_resource.2200.desc
+	picture = GFX_evt_ground_combat
+	#diplomatic = yes
+	#diplomatic_title = "ev_resource.2200.title"
+	##custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	##custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	##picture_event_data = { room = ev_homeless_in_room } #图片只能用room
+	is_triggered_only = yes
+	location = event_target:ev_onwer_amry_ship_location
+	after = {
+		remove_country_flag = ev_has_produce_amry
+	}
+	immediate = {
+		random_owned_fleet = {
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+			save_event_target_as = ev_onwer_amry_ship_location
+		}
+	}
+	option = {
+		#10换1陆军
+		name = ev_resource.2200.a
+		trigger = {
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 100
+			}
+		}
+		add_resource = {
+			energy = -100
+		}
+		
+		create_fleet = {
+			effect = {
+				set_owner = root
+				while = {
+					count = 1
+					create_army_transport = {
+						ship_name = random
+						graphical_culture = empty_vagrant_01
+						army_type = "ev_assault_army"
+					}
+				}
+				set_location = {
+					target = event_target:ev_onwer_amry_ship_location
+					distance = 20
+					angle = random
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		#100换10陆军
+		name = ev_resource.2200.b
+		trigger = {
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 1000
+			}
+		}
+		add_resource = {
+			energy = -1000
+		}
+		
+		create_fleet = {
+			effect = {
+				set_owner = root
+				while = {
+					count = 10
+					create_army_transport = {
+						ship_name = random
+						graphical_culture = empty_vagrant_01
+						army_type = "ev_assault_army"
+					}
+				}
+				set_location = {
+					target = event_target:ev_onwer_amry_ship_location
+					distance = 20
+					angle = random
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		#500换50陆军
+		name = ev_resource.2200.c
+		trigger = {
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 5000
+			}
+		}
+		add_resource = {
+			energy = -5000
+		}
+		
+		create_fleet = {
+			effect = {
+				set_owner = root
+				while = {
+					count = 50
+					create_army_transport = {
+						ship_name = random
+						graphical_culture = empty_vagrant_01
+						army_type = "ev_assault_army"
+					}
+				}
+				set_location = {
+					target = event_target:ev_onwer_amry_ship_location
+					distance = 20
+					angle = random
+				}
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		#10000换100陆军
+		name = ev_resource.2200.d
+		trigger = {
+		}
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value >= 10000
+			}
+		}
+		add_resource = {
+			energy = -10000
+		}
+		
+		create_fleet = {
+			effect = {
+				set_owner = root
+				while = {
+					count = 100
+					create_army_transport = {
+						ship_name = random
+						graphical_culture = empty_vagrant_01
+						army_type = "ev_assault_army"
+					}
+				}
+				set_location = {
+					target = event_target:ev_onwer_amry_ship_location
+					distance = 20
+					angle = random
+				}
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ev_resource.1000.d
+		default_hide_option = yes
+		remove_country_flag =  ev_has_produce_amry
+	}
+}
+
+# 生成舰船
+# fleet_event = {
+# 	id = ev_resource.2300
+# 	hide_window = yes
+# 	trigger = {
+# 		#has_fleet_flag = pet_queen
+# 		#num_ships < 30
+# 		#any_ship = { 
+# 		#	is_ship_size = homeless_ship 
+# 		#	has_component = ark_produce_build_ship_1
+# 		#}
+# 		any_controlled_ship = {
+# 			AND = {
+# 				is_ship_size = megastructures_homeless_ship
+# 				has_component = ark_produce_build_ship_1
+# 			}
+# 		}
+# 	}
+# 	mean_time_to_happen = {
+# 		months = 4
+# 		modifier = {
+# 			factor = 4
+# 			owner = {
+# 				has_policy_flag = ev_fleet_size_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 30
+# 			owner = {
+# 				has_policy_flag = ev_homeless_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_mini_homeless_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_civilian_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1
+# 			owner = {
+# 				has_policy_flag = ev_corvette_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_destroyer_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 4
+# 			owner = {
+# 				has_policy_flag = ev_cruiser_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 8
+# 			owner = {
+# 				has_policy_flag = ev_battleship_build
+# 			}
+# 		}
+# 		#由于舰队上限
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 200
+# 					#used_naval_capacity_percent > 0.5
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 400
+# 					#used_naval_capacity_percent > 0.65
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 800
+# 					#used_naval_capacity_percent > 0.75
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 1600
+# 					#used_naval_capacity_percent > 0.85
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 3200
+# 					#used_naval_capacity_percent > 0.9
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 6400
+# 					#used_naval_capacity_percent > 0.95
+# 				}
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		this = {
+# 			save_event_target_as = ev_build_onwer_all_ship_location
+# 		}
+# 		#皿煮议程
+# 		owner = {
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_1_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_2_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_3_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_4_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 		}
+# 		#舰队容量加成舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_fleet_size_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = ev_fleet_size_ship
+# 			}
+# 		}
+# 		#民用船只
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_civilian_build
+# 				}
+# 			}
+# 			random_list = {
+# 				1 = {
+# 					create_fleet = {
+# 						effect = {
+# 							set_owner = root.owner
+# 							create_ship = {
+# 								name = random
+# 								random_existing_design = constructor
+# 							}
+# 							set_location = event_target:ev_build_onwer_all_ship_location
+# 						}
+# 					}
+# 				}
+# 				1 = {
+# 					create_fleet = {
+# 						effect = {
+# 							set_owner = root.owner
+# 							create_ship = {
+# 								name = random
+# 								random_existing_design = science
+# 							}
+# 							set_location = event_target:ev_build_onwer_all_ship_location
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		#工业生产舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_homeless_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = homeless_ship
+# 			}
+# 			#皿煮议程
+# 			owner = {
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_1_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_2_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_3_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_4_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_mini_homeless_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = mini_homeless_ship
+# 			}
+# 			#皿煮议程
+# 			owner = {
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_1_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_2_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_3_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_4_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 			}
+# 		}
+# 		#军舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_corvette_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = corvette
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_destroyer_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = destroyer
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_cruiser_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = cruiser
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_battleship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = battleship
+# 			}
+# 		}
+# 	}
+# }
+
+# 生成舰船
+# fleet_event = {
+# 	id = ev_resource.2301
+# 	hide_window = yes
+# 	trigger = {
+# 		#has_fleet_flag = pet_queen
+# 		#num_ships < 30
+# 		#any_ship = { 
+# 		#	is_ship_size = homeless_ship 
+# 		#	has_component = ark_produce_build_ship_1
+# 		#}
+# 		any_controlled_ship = {
+# 			AND = {
+# 				is_ship_size = homeless_ship
+# 				has_component = ark_produce_build_ship_1
+# 			}
+# 		}
+# 	}
+# 	mean_time_to_happen = {
+# 		months = 4
+# 		modifier = {
+# 			factor = 4
+# 			owner = {
+# 				has_policy_flag = ev_fleet_size_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 30
+# 			owner = {
+# 				has_policy_flag = ev_homeless_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_mini_homeless_ship_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_civilian_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1
+# 			owner = {
+# 				has_policy_flag = ev_corvette_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 2
+# 			owner = {
+# 				has_policy_flag = ev_destroyer_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 4
+# 			owner = {
+# 				has_policy_flag = ev_cruiser_build
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 8
+# 			owner = {
+# 				has_policy_flag = ev_battleship_build
+# 			}
+# 		}
+# 		#由于舰队上限
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 200
+# 					#used_naval_capacity_percent > 0.5
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 400
+# 					#used_naval_capacity_percent > 0.65
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 800
+# 					#used_naval_capacity_percent > 0.75
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 1600
+# 					#used_naval_capacity_percent > 0.85
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 3200
+# 					#used_naval_capacity_percent > 0.9
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 1.33
+# 			owner = {
+# 				OR = {
+# 					used_naval_capacity_integer > 6400
+# 					#used_naval_capacity_percent > 0.95
+# 				}
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		this = {
+# 			save_event_target_as = ev_build_onwer_all_ship_location
+# 		}
+# 		#皿煮议程
+# 		owner = {
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_1_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_2_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_3_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 			add_event_chain_counter = {
+# 				event_chain = "mandate_ev_build_any_ship_4_chain"
+# 				counter = "ev_build_any_ship"
+# 				amount = 1
+# 			}
+# 		}
+# 		#舰队容量加成舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_fleet_size_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = ev_fleet_size_ship
+# 			}
+# 		}
+# 		#民用船只
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_civilian_build
+# 				}
+# 			}
+# 			random_list = {
+# 				1 = {
+# 					create_fleet = {
+# 						effect = {
+# 							set_owner = root.owner
+# 							create_ship = {
+# 								name = random
+# 								random_existing_design = constructor
+# 							}
+# 							set_location = event_target:ev_build_onwer_all_ship_location
+# 						}
+# 					}
+# 				}
+# 				1 = {
+# 					create_fleet = {
+# 						effect = {
+# 							set_owner = root.owner
+# 							create_ship = {
+# 								name = random
+# 								random_existing_design = science
+# 							}
+# 							set_location = event_target:ev_build_onwer_all_ship_location
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		#工业生产舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_homeless_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = homeless_ship
+# 			}
+# 			#皿煮议程
+# 			owner = {
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_1_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_2_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_3_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_homeless_4_chain"
+# 					counter = "ev_build_homeless"
+# 					amount = 1
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_mini_homeless_ship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = mini_homeless_ship
+# 			}
+# 			#皿煮议程
+# 			owner = {
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_1_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_2_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_3_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 				add_event_chain_counter = {
+# 					event_chain = "mandate_ev_build_mini_homeless_4_chain"
+# 					counter = "ev_build_mini_homeless"
+# 					amount = 1
+# 				}
+# 			}
+# 		}
+# 		#军舰
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_corvette_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = corvette
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_destroyer_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = destroyer
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_cruiser_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = cruiser
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				owner = {
+# 					has_policy_flag = ev_battleship_build
+# 				}
+# 			}
+# 			create_ship = {
+# 				name = random
+# 				random_existing_design = battleship
+# 			}
+# 		}
+# 	}
+# }
+
+#资源合成飞升给的事件
+country_event = {
+	id = ev_resource.2350
+	title = ev_resource.2350.title
+	desc = ev_resource.2350.desc
+	picture = GFX_evt_advanced_homeless
+	is_triggered_only = yes
+	after = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						is_same_value = root
+					}
+					has_communications = root
+				}
+				country_event = {
+					id = ev_resource.2351
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = ev_resource.2350.a
+		add_resource = {
+			influence = 500
+		}
+		custom_tooltip = tev_modifier_ark_produce_food_new_2
+		custom_tooltip = tev_modifier_ark_produce_minerals_new_2
+		custom_tooltip = tev_modifier_ark_produce_energy_new_2
+
+		custom_tooltip = tev_modifier_ark_produce_volatile_motes_new_1
+		custom_tooltip = tev_modifier_ark_produce_rare_crystals_new_1
+		custom_tooltip = tev_modifier_ark_produce_exotic_gases_new_1
+
+		custom_tooltip = tev_modifier_ark_produce_research_all_new_2
+		#if = {
+		#	limit = { has_authority = auth_hive_mind }
+		#	custom_tooltip = tev_modifier_ark_upkeep_research_all_new_hive_2
+		#}
+		#else_if = {
+		#	limit = { has_authority = auth_machine_intelligence }
+		#	custom_tooltip = tev_modifier_ark_upkeep_research_all_new_machine_2
+		#}
+		#else = {
+		#	custom_tooltip = tev_modifier_ark_upkeep_research_all_new_2
+		#}
+
+		custom_tooltip = tev_modifier_ark_produce_consumer_goods_new_2
+		custom_tooltip = tev_modifier_ark_produce_alloys_new_2
+		#custom_tooltip = tev_modifier_ark_upkeep_consumer_goods_new_2
+		#custom_tooltip = tev_modifier_ark_upkeep_alloys_new_2
+
+		custom_tooltip = tev_modifier_ark_produce_unity_new_1
+		hidden_effect = {
+			#科研
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 2 VAR2 = 4 VAR3 = 8 RESOURCE = society_research }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 2 VAR2 = 4 VAR3 = 8 RESOURCE = physics_research }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 2 VAR2 = 4 VAR3 = 8 RESOURCE = engineering_research }
+			#if = {
+			#	limit = { has_authority = auth_hive_mind }
+			#	TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 3 VAR2 = 6 VAR3 = 12 RESOURCE1 = physics_research RESOURCE2 = food }
+			#}
+			#else_if = {
+			#	limit = { has_authority = auth_machine_intelligence }
+			#	TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 3 VAR2 = 6 VAR3 = 12 RESOURCE1 = physics_research RESOURCE2 = energy }
+			#}
+			#else = {
+			#	TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE1 = physics_research RESOURCE2 = consumer_goods }
+			#}
+
+			#一产
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 3 VAR2 = 6 VAR3 = 12 RESOURCE = food }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 3 VAR2 = 6 VAR3 = 12 RESOURCE = energy }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 3 VAR2 = 6 VAR3 = 12 RESOURCE = minerals }
+
+			#二产
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 2 VAR2 = 4 VAR3 = 8 RESOURCE = alloys }
+			#TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = alloys RESOURCE2 = minerals }
+			
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE = consumer_goods }
+			#TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = consumer_goods RESOURCE2 = minerals }
+
+			#稀有
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE = exotic_gases }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE = rare_crystals }
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE = volatile_motes }
+			#凝聚
+			TEV_new_ecom_system_add_var_resource_proudce = { VAR0 = 1 VAR1 = 2 VAR2 = 4 VAR3 = 8 RESOURCE = unity }
+		
+		}
+
+		#科研-维护费
+		if = {
+			limit = { has_authority = auth_hive_mind }
+			custom_tooltip = tev_modifier_ark_upkeep_research_all_new_hive_2
+			TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 2.5 VAR2 = 5 VAR3 = 10 RESOURCE1 = physics_research RESOURCE2 = food }
+		}
+		else_if = {
+			limit = { has_authority = auth_machine_intelligence }
+			custom_tooltip = tev_modifier_ark_upkeep_research_all_new_machine_2
+			TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 2.5 VAR2 = 5 VAR3 = 10 RESOURCE1 = physics_research RESOURCE2 = energy }
+		}
+		else = {
+			custom_tooltip = tev_modifier_ark_upkeep_research_all_new_2
+			TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE1 = physics_research RESOURCE2 = consumer_goods }
+		}
+
+
+		#凝聚力-维护费
+		if = {
+			limit = { has_authority = auth_hive_mind }
+			custom_tooltip = tev_modifier_ark_upkeep_unity_new_hive_2
+			TEV_new_ecom_system_set_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = unity RESOURCE2 = food }
+		}
+		else_if = {
+			limit = { has_authority = auth_machine_intelligence }
+			custom_tooltip = tev_modifier_ark_upkeep_unity_new_machine_2
+			TEV_new_ecom_system_set_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = unity RESOURCE2 = energy }
+		}
+		else = {
+			custom_tooltip = tev_modifier_ark_upkeep_unity_new_2
+			TEV_new_ecom_system_set_var_resource_upkeep = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE1 = unity RESOURCE2 = consumer_goods }
+			TEV_new_ecom_system_set_var_resource_upkeep = { VAR0 = 1 VAR1 = 1 VAR2 = 2 VAR3 = 4 RESOURCE1 = unity RESOURCE2 = food }
+		}
+
+
+		#合金-维护费
+		if = {
+			limit = { has_civic = civic_ev_catalytic_processing }
+			custom_tooltip = tev_modifier_ark_upkeep_alloys_new_2_food
+			TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 5 VAR2 = 10 VAR3 = 20 RESOURCE1 = alloys RESOURCE2 = food }
+		}
+		else = {
+			custom_tooltip = tev_modifier_ark_upkeep_alloys_new_2
+			TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = alloys RESOURCE2 = minerals }
+		}
+		#消费品-维护费
+		custom_tooltip = tev_modifier_ark_upkeep_consumer_goods_new_2
+		TEV_new_ecom_system_add_var_resource_upkeep = { VAR0 = 1 VAR1 = 4 VAR2 = 8 VAR3 = 16 RESOURCE1 = consumer_goods RESOURCE2 = minerals }
+
+		#其余-维护费
+
+
+
+		#if = {
+		#	limit = {
+		#		NOR = {
+		#			has_authority = auth_machine_intelligence
+		#			has_authority = auth_hive_mind
+		#			is_lithoid_empire = yes
+		#		}
+		#	}
+		#	add_research_option = tech_homeless_production_resources_3
+		#	add_tech_progress = {
+		#		tech = tech_homeless_production_resources_3
+		#		progress = 0.2
+		#	}
+		#}
+		#if = {
+		#	limit = {
+		#		OR = {
+		#			has_authority = auth_machine_intelligence
+		#			has_authority = auth_hive_mind
+		#		}
+		#	}
+		#	add_research_option = tech_homeless_production_resources_3_machine
+		#	add_tech_progress = {
+		#		tech = tech_homeless_production_resources_3_machine
+		#		progress = 0.2
+		#	}
+		#}
+		#if = {
+		#	limit = {
+		#		OR = {
+		#			is_lithoid_empire = yes
+		#		}
+		#	}
+		#	add_research_option = tech_homeless_production_resources_3_lithoid
+		#	add_tech_progress = {
+		#		tech = tech_homeless_production_resources_3_lithoid
+		#		progress = 0.2
+		#	}
+		#}
+	}
+}
+
+#资源合成飞升给的事件
+country_event = {
+	id = ev_resource.2351
+	title = ev_resource.2351.title
+	desc = ev_resource.2351.desc
+	picture = GFX_evt_advanced_homeless
+	location = from
+	is_triggered_only = yes
+	after = {
+	}
+	option = {
+		name = ev_resource.2351.a
+	}
+}
+
+
+#传统-回收协议-击毁舰船获得资源
+
+# Prethoryn Kill Count (HIDDEN)
+country_event = {
+	id = ev_resource.2400
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		from = {
+			has_tradition = tr_ev_learn_3
+		}
+	}
+	
+	immediate = {
+		from = {
+			#确定倍率
+			set_variable = {
+				which = ev_ev_learn_3_base
+				value = value:ev_cap_cost
+			}
+			multiply_variable = {
+				which = ev_ev_learn_3_base
+				value = 0.05
+			}
+			change_variable = {
+				which = ev_ev_learn_3_base
+				value = 1
+			}
+			fromfrom.fleet = {
+				export_trigger_value_to_variable = {
+					trigger = fleet_power
+					variable = ev_ev_learn_3_base_fleet
+				}
+				#舰队实力*0.001
+				multiply_variable = {
+					which = ev_ev_learn_3_base_fleet
+					value = 0.001
+				}
+				#舰队实力*0.1
+				multiply_variable = {
+					which = ev_ev_learn_3_base_fleet
+					value = 0.1
+				}
+				change_variable = {
+					which = ev_ev_learn_3_base_fleet
+					value = 1
+				}
+			}
+			change_variable = {
+				which = ev_ev_learn_3_base
+				value = fromfrom.fleet.ev_ev_learn_3_base_fleet
+			}
+
+			
+			add_resource = {
+				minerals = 10
+				mult = ev_ev_learn_3_base
+			}
+
+
+		}
+		
+	}
+}
+
+##########签订贸易协定时
+country_event = {
+	id = ev_resource.4000
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_civic = civic_ev_free_trade
+	}
+
+	immediate = {
+		add_monthly_resource_mult = {
+			resource = trade
+			value = 6
+			min = 1000
+		}
+	}
+}
+
+##########当改变政府时切换生产维护费类型
+# Recalculate divided patronage on government reform if you have Feudal Society or Franchising.
+country_event = {
+	id = ev_resource.5000
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			has_civic = civic_ev_catalytic_processing
+		}
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_catalytic_processing_remove = yes
+		#set_variable = {
+		#	which = exotic_gases_S1_homeless_ship_minerals_upkeep_add_var
+		#	value = exotic_gases_S1_homeless_ship_food_upkeep_add_var
+		#}
+		#set_variable = {
+		#	which = rare_crystals_S1_homeless_ship_minerals_upkeep_add_var
+		#	value = rare_crystals_S1_homeless_ship_food_upkeep_add_var
+		#}
+		#set_variable = {
+		#	which = volatile_motes_S1_homeless_ship_minerals_upkeep_add_var
+		#	value = volatile_motes_S1_homeless_ship_food_upkeep_add_var
+		#}
+		#set_variable = {
+		#	which = alloys_S1_homeless_ship_minerals_upkeep_add_var
+		#	value = alloys_S1_homeless_ship_food_upkeep_add_var
+		#}
+#
+		####设置0
+		#set_variable = {
+		#	which = exotic_gases_S1_homeless_ship_food_upkeep_add_var
+		#	value = 0
+		#}
+		#set_variable = {
+		#	which = rare_crystals_S1_homeless_ship_food_upkeep_add_var
+		#	value = 0
+		#}
+		#set_variable = {
+		#	which = volatile_motes_S1_homeless_ship_food_upkeep_add_var
+		#	value = 0
+		#}
+		#set_variable = {
+		#	which = alloys_S1_homeless_ship_food_upkeep_add_var
+		#	value = 0
+		#}
+	}
+}
+country_event = {
+	id = ev_resource.5001
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_civic = civic_ev_catalytic_processing
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_catalytic_processing_add = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.5002
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_civic = civic_ev_industrial_production
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_industrial_production_add = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.5003
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_civic = civic_ev_industrial_production }
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_industrial_production_remove = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.5004
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_civic = civic_ev_ship_research
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_ship_research_add = yes
+	}
+}
+
+country_event = {
+	id = ev_resource.5005
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_civic = civic_ev_ship_research }
+	}
+
+	immediate = {
+		TEV_new_ecom_system_exchange_civic_ev_ship_research_remove = yes
+	}
+}

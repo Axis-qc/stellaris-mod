@@ -1,0 +1,7248 @@
+#轨道站被建立
+ev_habitats_bulid = {
+	spawn_planet = {
+		class = "pc_habitat"
+		location = event_target:ev_capital_scope
+		orbit_location = yes
+		orbit_angle_offset = 45
+		orbit_distance_offset = 9.899
+		size = 6
+		has_ring = no
+	}
+}
+
+#轨道站的效果和设定
+ev_habitats_effect = {
+	set_planet_flag = ev_temporary_habitat
+	if = {
+		limit = {
+			has_planet_flag = ev_temporary_habitat
+		}
+		save_global_event_target_as = ev_temporary_habitat
+	}
+	set_owner = from
+	#set_planet_entity = {
+	#	entity = "orbital_habitat_entity"
+	#	graphical_culture = this.owner
+	#}
+	set_name = {
+		key = "NAME_EV_habitat"
+		variable_string = "[fromfrom.planet.GetName]"
+	}
+	set_planet_entity = {
+		entity = "habitat_phase_01_entity"
+		graphical_culture = this.owner
+	}
+	while = {
+		count = 3
+		create_pop_group = {
+			size = 100
+			species = owner_main_species
+		}
+	}
+	if = {
+		limit = {
+			this.owner = {
+				has_civic = civic_ev_temporary_habitat
+			}
+		}
+		while = {
+			count = 7
+			create_pop_group = {
+				size = 100
+				species = owner_main_species
+			}
+		}
+		add_district = district_hab_housing
+		if = {
+			limit = {
+				this.owner = {
+					is_gestalt = yes
+				}
+			}
+			add_building = building_maintenance_depot
+		}
+		else = {
+			add_building = building_holo_theatres
+		}
+	}
+	this = {
+		#planet_event = {
+		#	id = ev_planet_correct.4
+		#	days = 14400
+		#}
+	}
+	this = {
+		planet_event = {
+			id = ev_planet_correct.6
+			days = 1
+		}
+	}
+	
+	set_surveyed = {
+		surveyed = yes
+		surveyor = from
+	}
+	
+
+
+	add_modifier = {
+		modifier = modifier_temporary_residence
+		days = 14401
+	}
+	if = {
+		limit = {
+			from = {
+				has_civic = civic_ev_temporary_habitat
+			}
+		}
+		add_modifier = {
+			modifier = modifier_temporary_residence_2
+			days = 14401
+		}
+	}
+	set_all_comms_surveyed = yes
+	clear_blockers = yes
+	set_planet_flag = habitat
+	if = {
+		limit = {
+			OR = {
+				fromfrom.planet = {
+					has_deposit = d_minerals_1
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_2
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_3
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_4
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_5
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_6
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_7
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_8
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_9
+				}
+				fromfrom.planet = {
+					has_deposit = d_minerals_10
+				}
+			}
+		}
+		add_modifier = {
+			modifier = ev_pc_district_hab_mining_add days = -1 mult = 4
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				fromfrom.planet = {
+					has_deposit = d_energy_1
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_2
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_3
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_4
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_5
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_6
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_7
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_8
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_9
+				}
+				fromfrom.planet = {
+					has_deposit = d_energy_10
+				}
+			}
+		}
+		#set_planet_flag = energy_habitat
+		add_modifier = {
+			modifier = ev_pc_district_hab_energy_add days = -1 mult = 4
+		}
+	}
+	if = {
+		limit = {
+			fromfrom.planet = {
+				has_deposit_for = shipclass_research_station
+			}
+		}
+		add_modifier = {
+			modifier = ev_pc_district_hab_science_add days = -1 mult = 4
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				fromfrom.planet = {
+					has_deposit = d_trade_value_1
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_2
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_3
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_4
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_5
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_6
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_7
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_8
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_9
+				}
+				fromfrom.planet = {
+					has_deposit = d_trade_value_10
+				}
+			}
+		}
+		add_modifier = {
+			modifier = ev_pc_district_hab_energy_add days = -1 mult = 4
+		}
+	}
+	fromfrom.planet = {
+		while = {
+			count = 20
+			switch = {
+				trigger = has_deposit
+				d_exotic_gases_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_gas_1
+					}
+				}
+				d_exotic_gases_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_gas_2
+					}
+				}
+				d_exotic_gases_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_gas_3
+					}
+				}
+				d_exotic_gases_4 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_gas_4
+					}
+				}
+				d_exotic_gases_5 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_gas_5
+					}
+				}
+
+				d_rare_crystals_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_crystal_1
+					}
+				}
+				d_rare_crystals_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_crystal_2
+					}
+				}
+				d_rare_crystals_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_crystal_3
+					}
+				}
+				d_rare_crystals_4 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_crystal_4
+					}
+				}
+				d_rare_crystals_5 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_crystal_5
+					}
+				}
+
+				d_volatile_motes_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_mote_1
+					}
+				}
+				d_volatile_motes_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_mote_2
+					}
+				}
+				d_volatile_motes_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_mote_3
+					}
+				}
+				d_volatile_motes_4 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_mote_4
+					}
+				}
+				d_volatile_motes_5 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_mote_5
+					}
+				}
+				
+				d_alloys_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_alloy_1
+					}
+				}
+				d_alloys_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_alloy_2
+					}
+				}
+				d_alloys_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_alloy_3
+					}
+				}
+				d_alloys_4 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_alloy_4
+					}
+				}
+				d_alloys_5 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_alloy_5
+					}
+				}
+
+				d_zro_deposit_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_zro_1
+					}
+				}
+				d_zro_deposit_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_zro_2
+					}
+				}
+				d_zro_deposit_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_zro_3
+					}
+				}
+
+				d_dark_matter_deposit_1 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_dark_matter_1
+					}
+				}
+				d_dark_matter_deposit_2 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_dark_matter_2
+					}
+				}
+				d_dark_matter_deposit_3 = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_dark_matter_3
+					}
+				}
+
+				d_living_metal_deposit = {
+					event_target:ev_temporary_habitat = {
+						add_deposit = d_hab_living_metal_1
+					}
+				}
+
+			}
+		}
+	}
+	fromfrom.planet = {
+		clear_deposits = yes
+	}
+	clear_global_event_target = ev_temporary_habitat
+}
+
+
+#移除buff
+ev_remove_orbital_bombardment_steal_all_buff = {
+	set_variable = {
+		which = target_base_steal_ev_all
+		value = 0
+	}
+	remove_modifier = ev_bombardment_steal_ev_value_real_1th
+	remove_modifier = ev_bombardment_steal_ev_value_real_2th
+}
+#加入debuff
+ev_give_orbital_bombardment_steal_all_buff = {
+	switch = {
+		trigger = has_policy_flag
+		orbital_bombardment_steal_2th = {
+			add_modifier = {
+				modifier = ev_bombardment_steal_ev_value_real_2th
+				mult = target_base_steal_ev_all
+			}
+		}
+		orbital_bombardment_steal_1th = {
+			add_modifier = {
+				modifier = ev_bombardment_steal_ev_value_real_1th
+				mult = target_base_steal_ev_all
+			}
+		}
+		orbital_bombardment_steal_all = {
+			add_modifier = {
+				modifier = ev_bombardment_steal_ev_value_real_1th
+				mult = target_base_steal_ev_all
+			}
+			add_modifier = {
+				modifier = ev_bombardment_steal_ev_value_real_2th
+				mult = target_base_steal_ev_all
+			}
+		}
+	}
+}
+#轨道轰炸随机获取一产
+steal_ev_random_1th_resources = {
+	event_target:ev_will_orbital_bombardment_steal_country = {
+		set_variable = {
+			which = target_base_steal_ev
+			value = 0
+		}
+		change_variable = {
+			which = target_base_steal_ev
+			value = event_target:ev_been_orbital_bombardment_steal_planet.value:ev_count_planet_steal_resources_value
+		}
+		multiply_variable = {
+			which = target_base_steal_ev
+			value = base_steal_ev
+		}
+		multiply_variable = { #倍率
+			which = target_base_steal_ev
+			value = $VAR|1$
+		}
+		change_variable = { #统计值
+			which = target_base_steal_ev_all
+			value = target_base_steal_ev
+		}
+	}
+	remove_modifier = ev_bombardment_steal_ev_value_show
+	add_modifier = {
+		modifier = ev_bombardment_steal_ev_value_show 
+		days = 60 
+		mult= event_target:ev_will_orbital_bombardment_steal_country.target_base_steal_ev
+	}
+	#if = {
+	#	#prev.orbit = {
+	#	#	
+	#	#}
+	#	#add_resource = {
+	#	#	energy = 6
+	#	#	minerals = 6
+	#	#	food = 6
+	#	#	mult = target_base_steal_ev
+	#	#}
+	#	if = {
+	#		limit = { has_country_flag = ev_show_meassage_flag }
+	#		#country_event = {
+	#		#	id = ev_trade_event.1010 #提示事件
+	#		#}
+#
+	#		#不支持支架命令
+	#		#create_message = {
+	#		#	type = TRADITION_EFFECT
+	#		#	
+	#		#	localization = steal_ev_random_1th_resources_effect_desc #message_tradition_effect_amongst_peers_effect_desc
+	#		#	days = @toast_message_days
+	#		#	custom_toast_content_text = steal_ev_random_1th_resources_effect_desc
+	#		#	custom_toast_content_icon = GFX_topbar_leaders_button
+	#		#}
+	#	}
+	#	root.owner = {
+	#		#set_variable = {
+	#		#	which = target_base_steal_ev
+	#		#	value = from.target_base_steal_ev
+	#		#}
+	#		#add_resource = {
+	#		#	energy = -6
+	#		#	minerals = -6
+	#		#	food = -6
+	#		#	mult = target_base_steal_ev
+	#		#}
+	#	}
+	#}
+	
+	#random_list = {
+	#	20 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_generator
+	#				value < 1
+	#			}
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 1
+	#			}
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 1
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1
+	#			OR = {
+	#				num_districts = {
+	#					type = district_generator
+	#					value > 0
+	#				}
+	#				num_districts = {
+	#					type = district_farming
+	#					value > 0
+	#				}
+	#				num_districts = {
+	#					type = district_mining
+	#					value > 0
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 12
+	#					minerals = 12
+	#					food = 12
+	#				}
+	#			}
+	#		}
+	#	}
+	#	40 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 2
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 25
+	#				}
+	#			}
+	#		}
+	#	}
+	#	40 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 2
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					is_lithoid_empire = yes
+	#					has_authority = auth_machine_intelligence
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					food = 25
+	#				}
+	#			}
+	#		}
+	#	}
+	#	40 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 2
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.5
+	#			from = {
+	#				is_lithoid_empire = yes
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 25
+	#				}
+	#			}
+	#		}
+	#	}
+	#	120 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_generator
+	#				value < 4
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 45
+	#				}
+	#			}
+	#		}
+	#	}
+	#	120 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 4
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					is_lithoid_empire = yes
+	#					has_authority = auth_machine_intelligence
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					food = 45
+	#				}
+	#			}
+	#		}
+	#	}
+	#	120 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 4
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.5
+	#			from = {
+	#				is_lithoid_empire = yes
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 45
+	#				}
+	#			}
+	#		}
+	#	}
+	#	300 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_generator
+	#				value < 6
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 65
+	#				}
+	#			}
+	#		}
+	#	}
+	#	300 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 6
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					is_lithoid_empire = yes
+	#					has_authority = auth_machine_intelligence
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					food = 65
+	#				}
+	#			}
+	#		}
+	#	}
+	#	300 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 6
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.5
+	#			from = {
+	#				is_lithoid_empire = yes
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 65
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_generator
+	#				value < 8
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 85
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 8
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					is_lithoid_empire = yes
+	#					has_authority = auth_machine_intelligence
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					food = 85
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 8
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.5
+	#			from = {
+	#				is_lithoid_empire = yes
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 85
+	#				}
+	#			}
+	#		}
+	#	}
+	#	3000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_generator
+	#				value < 11
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					energy = 105
+	#				}
+	#			}
+	#		}
+	#	}
+	#	3000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_farming
+	#				value < 11
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					is_lithoid_empire = yes
+	#					has_authority = auth_machine_intelligence
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					food = 105
+	#				}
+	#			}
+	#		}
+	#	}
+	#	3000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_districts = {
+	#				type = district_mining
+	#				value < 11
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.5
+	#			from = {
+	#				is_lithoid_empire = yes
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 105
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1 = {
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					minerals = 5
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+
+}
+
+#轨道轰炸随机获取二产
+steal_ev_random_2th_resources = {
+	event_target:ev_will_orbital_bombardment_steal_country = {
+		set_variable = {
+			which = target_base_steal_ev
+			value = 0
+		}
+		change_variable = {
+			which = target_base_steal_ev
+			value = event_target:ev_been_orbital_bombardment_steal_planet.value:ev_count_planet_steal_resources_value
+		}
+		multiply_variable = {
+			which = target_base_steal_ev
+			value = base_steal_ev
+		}
+		multiply_variable = { #倍率
+			which = target_base_steal_ev
+			value = $VAR|1$
+		}
+		change_variable = { #统计值
+			which = target_base_steal_ev_all
+			value = target_base_steal_ev
+		}
+	}
+	remove_modifier = ev_bombardment_steal_ev_value_show
+	add_modifier = {
+		modifier = ev_bombardment_steal_ev_value_show 
+		days = 60 
+		mult= event_target:ev_will_orbital_bombardment_steal_country.target_base_steal_ev
+	}
+
+	#random_list = {
+	#	20 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_1
+	#				value < 1
+	#			}
+	#			num_buildings = {
+	#				type = building_foundry_2
+	#				value < 1
+	#			}
+	#			num_buildings = {
+	#				type = building_foundry_3
+	#				value < 1
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1
+	#			OR = {
+	#				num_buildings = {
+	#					type = building_foundry_1
+	#					value > 0
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 15
+	#				}
+	#			}
+	#		}
+	#	}
+	#	40 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_1
+	#				value < 3
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 25
+	#				}
+	#			}
+	#		}
+	#	}
+	#	100 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_1
+	#				value < 5
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 30
+	#				}
+	#			}
+	#		}
+	#	}
+	#	200 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_2
+	#				value < 2
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 35
+	#				}
+	#			}
+	#		}
+	#	}
+	#	500 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_1
+	#				value < 10
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 40
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_3
+	#				value < 2
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 40
+	#				}
+	#			}
+	#		}
+	#	}
+	#	2200 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_2
+	#				value < 4
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 50
+	#				}
+	#			}
+	#		}
+	#	}
+	#	4500 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_2
+	#				value < 7
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 70
+	#				}
+	#			}
+	#		}
+	#	}
+	#	10000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_3
+	#				value < 3
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 75
+	#				}
+	#			}
+	#		}
+	#	}
+	#	20000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_3
+	#				value < 5
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 80
+	#				}
+	#			}
+	#		}
+	#	}
+	#	50000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_foundry_3
+	#				value < 6
+	#			}
+	#			num_buildings = {
+	#				type = building_foundry_2
+	#				value < 8
+	#			}
+	#			num_buildings = {
+	#				type = building_foundry_1
+	#				value < 11
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					alloys = 100
+	#				}
+	#			}
+	#		}
+	#	}
+	#	10 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_1
+	#				value < 1
+	#			}
+	#			num_buildings = {
+	#				type = building_factory_2
+	#				value < 1
+	#			}
+	#			num_buildings = {
+	#				type = building_factory_3
+	#				value < 1
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1
+	#			OR = {
+	#				num_buildings = {
+	#					type = building_foundry_1
+	#					value > 0
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 20
+	#				}
+	#			}
+	#		}
+	#	}
+	#	20 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_1
+	#				value < 3
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 30
+	#				}
+	#			}
+	#		}
+	#	}
+	#	40 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_1
+	#				value < 5
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 55
+	#				}
+	#			}
+	#		}
+	#	}
+	#	100 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_2
+	#				value < 2
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 60
+	#				}
+	#			}
+	#		}
+	#	}
+	#	200 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_1
+	#				value < 10
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 70
+	#				}
+	#			}
+	#		}
+	#	}
+	#	500 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_3
+	#				value < 2
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 80
+	#				}
+	#			}
+	#		}
+	#	}
+	#	1000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_2
+	#				value < 4
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 90
+	#				}
+	#			}
+	#		}
+	#	}
+	#	2000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_2
+	#				value < 7
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 100
+	#				}
+	#			}
+	#		}
+	#	}
+	#	5000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_3
+	#				value < 4
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 110
+	#				}
+	#			}
+	#		}
+	#	}
+	#	10000 = {
+	#		modifier = {
+	#			factor = 0
+	#			num_buildings = {
+	#				type = building_factory_3
+	#				value < 5
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 120
+	#				}
+	#			}
+	#		}
+	#	}
+	#	12000 = {
+	#		modifier = {
+	#			factor = 0
+	#			OR = {
+	#				num_buildings = {
+	#					type = building_factory_3
+	#					value < 6
+	#				}
+	#				num_buildings = {
+	#					type = building_factory_2
+	#					value < 8
+	#				}
+	#				num_buildings = {
+	#					type = building_factory_1
+	#					value < 11
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			from = {
+	#				OR = {
+	#					has_authority = auth_machine_intelligence
+	#					has_authority = auth_hive_mind
+	#				}
+	#			}
+	#		}
+	#		from = {
+	#			while = {
+	#				count = base_steal_ev
+	#				add_resource = {
+	#					consumer_goods = 150
+	#				}
+	#			}
+	#		}
+	#	}
+	#	#1 = {
+	#	#	from = { add_resource = { alloys = 5 } }
+	#	#	from = { add_resource = { consumer_goods = 10 } }
+	#	#}
+	#}
+}
+
+#轨道轰炸随机获取社会学
+steal_ev_random_soc_resources = {
+	from = {
+		set_variable = {
+			which = target_base_steal_ev
+			value = 0
+		}
+		change_variable = {
+			which = target_base_steal_ev
+			value = root.value:ev_count_planet_steal_resources_value
+		}
+		multiply_variable = {
+			which = target_base_steal_ev
+			value = base_steal_ev
+		}
+		multiply_variable = { #倍率
+			which = target_base_steal_ev
+			value = $VAR|1$
+		}
+		add_resource = {
+			society_research = 8
+			mult = target_base_steal_ev
+		}
+		if = {
+			limit = { has_country_flag = ev_show_meassage_flag }
+			country_event = {
+				id = ev_trade_event.1030 #提示事件
+			}
+		}
+		
+		root.owner = {
+			set_variable = {
+				which = target_base_steal_ev
+				value = from.target_base_steal_ev
+			}
+			add_resource = {
+				society_research = -8
+				mult = target_base_steal_ev
+			}
+		}
+	}
+
+	#while = {
+	#	count = base_steal_ev
+	#	random_list = {
+	#		1 = {
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 1
+	#						max = 10
+	#					}
+	#				}
+	#			}
+	#		}
+	#		5 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 3
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 2
+	#						max = 20
+	#					}
+	#				}
+	#			}
+	#		}
+	#		30 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 10
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 4
+	#						max = 30
+	#					}
+	#				}
+	#			}
+	#		}
+	#		120 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 15
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 6
+	#						max = 40
+	#					}
+	#				}
+	#			}
+	#		}
+	#		500 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 20
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 8
+	#						max = 50
+	#					}
+	#				}
+	#			}
+	#		}
+	#		2000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 30
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 65
+	#					}
+	#				}
+	#			}
+	#		}
+	#		8000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 40
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 80
+	#					}
+	#				}
+	#			}
+	#		}
+	#		25000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 50
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 90
+	#					}
+	#				}
+	#			}
+	#		}
+	#		100000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 75
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 110
+	#					}
+	#				}
+	#			}
+	#		}
+	#		400000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 100
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 140
+	#					}
+	#				}
+	#			}
+	#		}
+	#		800000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 150
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 10
+	#						max = 200
+	#					}
+	#				}
+	#			}
+	#		}
+	#		1600000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 200
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 20
+	#						max = 300
+	#					}
+	#				}
+	#			}
+	#		}
+	#		3000000 = {
+	#			modifier = {
+	#				factor = 0
+	#				This = {
+	#					num_pops < 300
+	#				}
+	#			}
+	#			from = {
+	#				while = {
+	#					count = base_steal_ev
+	#					add_monthly_resource_mult = {
+	#						resource = society_research
+	#						value = 2
+	#						min = 20
+	#						max = 400
+	#					}
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+}
+
+#被轨道轰炸随机失去资源
+lose_steal_ev_2th_random_resources = {
+	
+}
+
+#探测奖励
+give_survey_resource_ev = {
+	owner = {
+		while = {
+			count = 1
+			export_resource_income_to_variable = {
+				resource = physics_research
+				variable = ev_physics_research_income
+			}
+			export_resource_income_to_variable = {
+				resource = society_research
+				variable = ev_society_research_income
+			}
+			export_resource_income_to_variable = {
+				resource = engineering_research
+				variable = ev_engineering_research_income
+			}
+			multiply_variable = {
+				which = ev_physics_research_income
+				value = base_survey_resource_ev
+			}
+			multiply_variable = {
+				which = ev_society_research_income
+				value = base_survey_resource_ev
+			}
+			multiply_variable = {
+				which = ev_engineering_research_income
+				value = base_survey_resource_ev
+			}
+			add_resource = {
+				physics_research = $VAR$
+				mult = ev_physics_research_income
+			}
+			add_resource = {
+				society_research = $VAR$
+				mult = ev_society_research_income
+			}
+			add_resource = {
+				engineering_research = $VAR$
+				mult = ev_engineering_research_income
+			}
+			
+			random_list = {
+				20 = {
+					export_resource_income_to_variable = {
+						resource = energy
+						variable = ev_energy_income
+					}
+					multiply_variable = {
+						which = ev_energy_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						energy = $VAR$
+						mult = ev_energy_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = minerals
+						variable = ev_minerals_income
+					}
+					multiply_variable = {
+						which = ev_minerals_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						minerals = $VAR$
+						mult = ev_minerals_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = food
+						variable = ev_food_income
+					}
+					multiply_variable = {
+						which = ev_food_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						food = $VAR$
+						mult = ev_food_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = unity
+						variable = ev_unity_income
+					}
+					multiply_variable = {
+						which = ev_unity_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						unity = $VAR$
+						mult = ev_unity_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = influence
+						variable = ev_influence_income
+					}
+					multiply_variable = {
+						which = ev_influence_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						influence = $VAR$
+						mult = ev_influence_income
+					}
+				}
+			}
+		}
+		
+	}
+	
+}
+
+give_survey_resource_ev_2 = {
+	owner = {
+		while = {
+			count = 1
+			export_resource_income_to_variable = {
+				resource = physics_research
+				variable = ev_physics_research_income
+			}
+			export_resource_income_to_variable = {
+				resource = society_research
+				variable = ev_society_research_income
+			}
+			export_resource_income_to_variable = {
+				resource = engineering_research
+				variable = ev_engineering_research_income
+			}
+			multiply_variable = {
+				which = ev_physics_research_income
+				value = base_survey_resource_ev
+			}
+			multiply_variable = {
+				which = ev_society_research_income
+				value = base_survey_resource_ev
+			}
+			multiply_variable = {
+				which = ev_engineering_research_income
+				value = base_survey_resource_ev
+			}
+			add_resource = {
+				physics_research = 0.5
+				mult = ev_physics_research_income
+			}
+			add_resource = {
+				society_research = 0.5
+				mult = ev_society_research_income
+			}
+			add_resource = {
+				engineering_research = 0.5
+				mult = ev_engineering_research_income
+			}
+			
+			random_list = {
+				20 = {
+					export_resource_income_to_variable = {
+						resource = energy
+						variable = ev_energy_income
+					}
+					multiply_variable = {
+						which = ev_energy_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						energy = 0.5
+						mult = ev_energy_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = minerals
+						variable = ev_minerals_income
+					}
+					multiply_variable = {
+						which = ev_minerals_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						minerals = 0.5
+						mult = ev_minerals_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = food
+						variable = ev_food_income
+					}
+					multiply_variable = {
+						which = ev_food_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						food = 0.5
+						mult = ev_food_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = unity
+						variable = ev_unity_income
+					}
+					multiply_variable = {
+						which = ev_unity_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						unity = 0.5
+						mult = ev_unity_income
+					}
+				}
+				20 = {
+					export_resource_income_to_variable = {
+						resource = influence
+						variable = ev_influence_income
+					}
+					multiply_variable = {
+						which = ev_influence_income
+						value = base_survey_resource_ev
+					}
+					add_resource = {
+						influence = 0.5
+						mult = ev_influence_income
+					}
+				}
+			}
+		}
+		
+	}
+}
+
+#仅用于测试，不做正式触发
+ev_luck_draw = {
+	change_variable = {
+		which = ev_maintenance_value
+		value = -1
+	}
+	#0.5%遗物
+	#49.5%普通资源
+	#10%高级资源
+	#2%暗物质/卓气
+	#38%啥都没有
+	random_list = {
+		#0.5%遗物
+		1 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_has_r_ev_fleet_influence_mult
+			}
+			add_relic = r_ev_fleet_influence_mult
+			set_country_flag = ev_has_r_ev_fleet_influence_mult
+		}
+		#2%暗物质/卓气
+		2 = {
+			add_resource = {
+				sr_dark_matter = 50
+			}
+		}
+		2 = {
+			add_resource = {
+				sr_zro = 50
+			}
+		}
+		#10%高级资源
+		5 = {
+			add_resource = {
+				volatile_motes = 400
+			}
+		}
+		5 = {
+			add_resource = {
+				exotic_gases = 400
+			}
+		}
+		5 = {
+			add_resource = {
+				rare_crystals = 400
+			}
+		}
+		5 = {
+			add_resource = {
+				volatile_motes = 400
+			}
+			add_resource = {
+				exotic_gases = 400
+			}
+			add_resource = {
+				rare_crystals = 400
+			}
+		}
+		#49.5%普通资源
+		#需要99权重
+		1 = {
+			add_resource = {
+				energy = 1000
+				minerals = 1000
+				food = 1000
+				physics_research = 1000
+				society_research = 1000
+				engineering_research = 1000
+				unity = 1000
+				alloys = 1000
+				consumer_goods = 1000
+			}
+		}
+		#一共54权重
+		6 = {
+			add_resource = {
+				energy = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				minerals = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				food = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				physics_research = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				society_research = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				engineering_research = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				unity = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				alloys = 1000
+			}
+		}
+		6 = {
+			add_resource = {
+				consumer_goods = 1000
+			}
+		}
+		#一共15权重
+		5 = {
+			add_resource = {
+				consumer_goods = 1000
+				alloys = 1000
+			}
+		}
+		5 = {
+			add_resource = {
+				physics_research = 1000
+				society_research = 1000
+				engineering_research = 1000
+			}
+		}
+		5 = {
+			add_resource = {
+				energy = 1000
+				minerals = 100
+				food = 1000
+			}
+		}
+		#29权重
+		4 = {
+			add_resource = {
+				energy = 2000
+			}
+		}
+		4 = {
+			add_resource = {
+				minerals = 2000
+			}
+		}
+		4 = {
+			add_resource = {
+				food = 2000
+			}
+		}
+		4 = {
+			add_resource = {
+				alloys = 2000
+			}
+		}
+		4 = {
+			add_resource = {
+				consumer_goods = 2000
+			}
+		}
+		3 = {
+			add_resource = {
+				physics_research = 2000
+			}
+		}
+		3 = {
+			add_resource = {
+				society_research = 2000
+			}
+		}
+		3 = {
+			add_resource = {
+				engineering_research = 2000
+			}
+		}
+		#38%啥都没有
+		76 = {
+		}
+	}
+}
+
+#仅用于测试，不做正式触发
+ev_special_luck_draw = {
+	if = {
+		limit = { 
+			NOT = {
+				has_country_flag = ev_void_tr_t2
+			}
+		}
+		subtract_variable = {
+			which = ev_maintenance_value
+			value = 1
+		}
+	}
+	
+	locked_random_list = {
+		15 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_void_tr_t0
+			}
+			custom_tooltip = ev_special_luck_draw_funny_1
+		}
+		20 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_void_tr_t0
+			}
+			custom_tooltip = ev_special_luck_draw_funny_2
+		}
+		15 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_void_tr_t0
+			}
+			custom_tooltip = ev_special_luck_draw_funny_3
+		}
+		#维持度组
+		5 = {
+			modifier = {
+				factor = 2
+				has_country_flag = ev_void_tr_t2
+			}
+			locked_random_list = {
+				3 = {
+					multiply_variable = {
+						which = ev_maintenance_value
+						value = 1.1
+					}
+					add_resource = {
+						mult = ev_count_homeless
+						influence = 1
+					}
+				}
+				2 = {
+					multiply_variable = {
+						which = ev_maintenance_value
+						value = 1.2
+					}
+					add_resource = {
+						mult = ev_count_homeless
+						influence = 1
+					}
+				}
+				1 = {
+					multiply_variable = {
+						which = ev_maintenance_value
+						value = 1.35
+					}
+					add_resource = {
+						mult = ev_count_homeless
+						influence = 1
+					}
+				}
+			}
+		}
+		
+		
+		#稀有资源组
+		15 = {
+			locked_random_list = {
+				#2%暗物质/卓气
+				2 = {
+					add_resource = {
+						mult = ev_count_homeless
+						sr_dark_matter = 50
+					}
+				}
+				2 = {
+					add_resource = {
+						mult = ev_count_homeless
+						sr_zro = 50
+					}
+				}
+				#10%高级资源
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						volatile_motes = 400
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						exotic_gases = 400
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						rare_crystals = 400
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						volatile_motes = 400
+					}
+					add_resource = {
+						mult = ev_count_homeless
+						exotic_gases = 400
+					}
+					add_resource = {
+						mult = ev_count_homeless
+						rare_crystals = 400
+					}
+				}
+			}
+		}
+		
+		#49.5%普通资源
+		#需要99权重
+		
+		#一共54权重
+		50 = {
+			modifier = {
+				factor = 0.1
+				has_country_flag = ev_void_tr_t4
+			}
+			locked_random_list = {
+				1 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 1000
+						minerals = 1000
+						food = 1000
+						physics_research = 1000
+						society_research = 1000
+						engineering_research = 1000
+						unity = 1000
+						alloys = 1000
+						consumer_goods = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						minerals = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						food = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						physics_research = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						society_research = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						engineering_research = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						unity = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						alloys = 1000
+					}
+				}
+				5 = {
+					add_resource = {
+						mult = ev_count_homeless
+						consumer_goods = 1000
+					}
+				}
+			}
+		}
+		
+		
+		#一共15权重
+		15 = {
+			locked_random_list = {
+				1 = {
+					add_resource = {
+						mult = ev_count_homeless
+						consumer_goods = 1000
+						alloys = 1000
+					}
+				}
+				1 = {
+					add_resource = {
+						mult = ev_count_homeless
+						physics_research = 1000
+						society_research = 1000
+						engineering_research = 1000
+					}
+				}
+				1 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 1000
+						minerals = 1000
+						food = 1000
+					}
+				}
+			}
+		}
+		
+		#29权重
+		30 = {
+			modifier = {
+				factor = 0.5
+				has_country_flag = ev_void_tr_t4
+			}
+			locked_random_list = {
+				4 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 2000
+					}
+				}
+				4 = {
+					add_resource = {
+						mult = ev_count_homeless
+						minerals = 2000
+					}
+				}
+				4 = {
+					add_resource = {
+						mult = ev_count_homeless
+						food = 2000
+					}
+				}
+				4 = {
+					add_resource = {
+						mult = ev_count_homeless
+						alloys = 2000
+					}
+				}
+				4 = {
+					add_resource = {
+						mult = ev_count_homeless
+						consumer_goods = 2000
+					}
+				}
+				3 = {
+					add_resource = {
+						mult = ev_count_homeless
+						physics_research = 2000
+					}
+				}
+				3 = {
+					add_resource = {
+						mult = ev_count_homeless
+						society_research = 2000
+					}
+				}
+				3 = {
+					add_resource = {
+						mult = ev_count_homeless
+						engineering_research = 2000
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						energy = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						minerals = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						food = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						physics_research = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						society_research = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						engineering_research = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						unity = 500
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						alloys = 500
+						
+					}
+				}
+				6 = {
+					add_resource = {
+						mult = ev_count_homeless
+						consumer_goods = 500
+						
+					}
+				}
+			}
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_has_r_ev_fleet_influence_mult
+			}
+			modifier = {
+				factor = 3
+				has_country_flag = ev_void_tr_t1
+			}
+			add_resource = {
+				mult = ev_count_homeless
+				unity = 40
+			}
+			add_relic = r_ev_fleet_influence_mult
+			set_country_flag = ev_has_r_ev_fleet_influence_mult
+		}
+		
+		#3%加成
+		1 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_01
+			}
+			modifier = {
+				factor = 5
+				has_country_flag = ev_void_tr_t1
+			}
+			add_modifier = {
+				modifier = "ev_has_maintenance_change_resources_add_01"
+				days = 1440
+				multiplier = ev_count_homeless
+			}
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_02
+			}
+			modifier = {
+				factor = 5
+				has_country_flag = ev_void_tr_t1
+			}
+			add_modifier = {
+				modifier = "ev_has_maintenance_change_resources_add_02"
+				days = 1440
+				multiplier = ev_count_homeless
+			}
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_03
+			}
+			modifier = {
+				factor = 5
+				has_country_flag = ev_void_tr_t1
+			}
+			add_modifier = {
+				modifier = "ev_has_maintenance_change_resources_add_03"
+				days = 1440
+				multiplier = ev_count_homeless
+			}
+		}
+		#1%虚空特质
+		1 = {
+			add_resource = {
+				energy = 1000
+				mult = ev_count_homeless
+			}
+			modifier = {
+				factor = 5
+				has_country_flag = ev_void_tr_t1
+			}
+			random_owned_leader = {
+				limit = {
+					leader_class = commander
+					NOT = {
+						has_trait = trait_admiral_ev_event_produces_1
+					}
+				}
+				add_trait = trait_admiral_ev_event_produces_1
+				#add_ruler_trait = trait_ruler_ev_event_produces_1
+			}
+		}
+
+		#得家园舰
+		5 = {  #
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = ev_void_tr_t3 }
+			}
+			custom_tooltip = ev_void_tr_t3_effect_1.tooltip
+			hidden_effect = {
+				random_owned_fleet = {
+					limit = {
+						NOT = {
+							is_in_combat = yes
+						}
+					}
+					save_event_target_as = ev_spwan_fleet_location
+				}
+
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								random_existing_design = homeless_ship
+							}
+						}
+						set_fleet_stance = passive
+						set_location = {
+							target = event_target:ev_spwan_fleet_location
+							distance = 100
+							angle = random
+						}
+					}
+				}
+			}
+			
+		}
+
+		#得家园舰
+		5 = {  #
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = ev_void_tr_t3 }
+			}
+			custom_tooltip = ev_void_tr_t3_effect_2.tooltip
+			hidden_effect = {
+				random_owned_fleet = {
+					limit = {
+						NOT = {
+							is_in_combat = yes
+						}
+					}
+					save_event_target_as = ev_spwan_fleet_location
+				}
+
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 1
+							create_ship = {
+								name = random
+								random_existing_design = homeless_ship_starbase
+							}
+						}
+						set_fleet_stance = passive
+						set_location = {
+							target = event_target:ev_spwan_fleet_location
+							distance = 100
+							angle = random
+						}
+					}
+				}
+			}
+			
+		}
+	}
+}
+
+#真正触发的
+#ev_resource.100-200
+ev_luck_draw_event = {
+	change_variable = {
+		which = ev_maintenance_value
+		value = -1
+	}
+	#0.5%遗物
+	#49.5%普通资源
+	#10%高级资源
+	#2%暗物质/卓气
+	#38%啥都没有
+	random_list = {
+		#0.5%遗物
+		1 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_has_r_ev_fleet_influence_mult
+			}
+			modifier = {
+				factor = 1.5
+				has_ethic = ethic_spiritualist
+			}
+			modifier = {
+				factor = 2
+				has_ethic = ethic_fanatic_spiritualist
+			}
+			country_event = {
+				id = ev_resource.100
+			}
+		}
+		#2%暗物质/卓气
+		2 = {
+			country_event = {
+				id = ev_resource.101
+			}
+		}
+		2 = {
+			country_event = {
+				id = ev_resource.102
+			}
+		}
+		#10%高级资源
+		5 = {
+			country_event = {
+				id = ev_resource.103
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.104
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.105
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.106
+			}
+		}
+		#49.5%普通资源
+		#需要99权重
+		1 = {
+			country_event = {
+				id = ev_resource.107
+			}
+		}
+		#一共54权重
+		6 = {
+			country_event = {
+				id = ev_resource.108
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.109
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.110
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.111
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.112
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.113
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.114
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.115
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.116
+			}
+		}
+		#一共15权重
+		5 = {
+			country_event = {
+				id = ev_resource.117
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.118
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.119
+			}
+		}
+		#29权重
+		4 = {
+			country_event = {
+				id = ev_resource.120
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.121
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.122
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.123
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.124
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.125
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.126
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.127
+			}
+		}
+		#29%啥都没有
+		58 = {
+			country_event = {
+				id = ev_resource.128
+			}
+		}
+		#5%遗物
+		5 = {
+			country_event = {
+				id = ev_resource.129
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.130
+			}
+		}
+		2 = {
+			country_event = {
+				id = ev_resource.131
+			}
+		}
+		#3%加成
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_01
+			}
+			country_event = {
+				id = ev_resource.132
+			}
+		}
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_02
+			}
+			country_event = {
+				id = ev_resource.133
+			}
+		}
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_03
+			}
+			country_event = {
+				id = ev_resource.134
+			}
+		}
+		#1%虚空特质
+		2 = {
+			country_event = {
+				id = ev_resource.140
+			}
+		}
+	}
+}
+
+ev_special_luck_draw_event = {
+	change_variable = {
+		which = ev_maintenance_value
+		value = -1
+	}
+	#0.5%遗物
+	#49.5%普通资源
+	#10%高级资源
+	#2%暗物质/卓气
+	#38%啥都没有
+	random_list = {
+		#0.5%遗物
+		1 = {
+			modifier = {
+				factor = 0
+				has_country_flag = ev_has_r_ev_fleet_influence_mult
+			}
+			modifier = {
+				factor = 2
+				has_ethic = ethic_spiritualist
+			}
+			modifier = {
+				factor = 3
+				has_ethic = ethic_fanatic_spiritualist
+			}
+			country_event = {
+				id = ev_resource.100
+			}
+		}
+		#2%暗物质/卓气
+		2 = {
+			country_event = {
+				id = ev_resource.101
+			}
+		}
+		2 = {
+			country_event = {
+				id = ev_resource.102
+			}
+		}
+		#10%高级资源
+		5 = {
+			country_event = {
+				id = ev_resource.103
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.104
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.105
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.106
+			}
+		}
+		#49.5%普通资源
+		#需要99权重
+		1 = {
+			country_event = {
+				id = ev_resource.107
+			}
+		}
+		#一共54权重
+		6 = {
+			country_event = {
+				id = ev_resource.108
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.109
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.110
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.111
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.112
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.113
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.114
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.115
+			}
+		}
+		6 = {
+			country_event = {
+				id = ev_resource.116
+			}
+		}
+		#一共15权重
+		5 = {
+			country_event = {
+				id = ev_resource.117
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.118
+			}
+		}
+		5 = {
+			country_event = {
+				id = ev_resource.119
+			}
+		}
+		#29权重
+		4 = {
+			country_event = {
+				id = ev_resource.120
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.121
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.122
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.123
+			}
+		}
+		4 = {
+			country_event = {
+				id = ev_resource.124
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.125
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.126
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.127
+			}
+		}
+		#5%遗物
+		5 = {
+			country_event = {
+				id = ev_resource.129
+			}
+		}
+		3 = {
+			country_event = {
+				id = ev_resource.130
+			}
+		}
+		2 = {
+			country_event = {
+				id = ev_resource.131
+			}
+		}
+		#3%加成
+		#3%加成
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_01
+			}
+			country_event = {
+				id = ev_resource.132
+			}
+		}
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_02
+			}
+			country_event = {
+				id = ev_resource.133
+			}
+		}
+		2 = {
+			modifier = {
+				factor = 0
+				has_modifier = ev_has_maintenance_change_resources_add_03
+			}
+			country_event = {
+				id = ev_resource.134
+			}
+		}
+	}
+}
+
+#根据补给船获得修正
+ev_give_fleet_ship_buff = {
+	remove_modifier = ev_fleet_size_ship_modifier_1
+	remove_modifier = ev_fleet_size_ship_modifier_2
+	remove_modifier = ev_fleet_size_ship_modifier_3
+	remove_modifier = ev_fleet_size_ship_modifier_4
+	remove_modifier = ev_fleet_size_ship_modifier_5
+	remove_modifier = ev_fleet_size_ship_modifier_6
+	remove_modifier = ev_fleet_size_ship_modifier_7
+	remove_modifier = ev_fleet_size_ship_modifier_8
+	remove_modifier = ev_fleet_size_ship_modifier_9
+	remove_modifier = ev_fleet_size_ship_modifier_10
+	remove_modifier = ev_fleet_size_ship_modifier_11
+	remove_modifier = ev_fleet_size_ship_modifier_12
+	remove_modifier = ev_fleet_size_ship_modifier_13
+	remove_modifier = ev_fleet_size_ship_modifier_14
+	remove_modifier = ev_fleet_size_ship_modifier_15
+	remove_modifier = ev_fleet_size_ship_modifier_16
+	remove_modifier = ev_fleet_size_ship_modifier_17
+	remove_modifier = ev_fleet_size_ship_modifier_18
+	remove_modifier = ev_fleet_size_ship_modifier_19
+	remove_modifier = ev_fleet_size_ship_modifier_20
+	remove_modifier = ev_fleet_size_ship_modifier_21
+	remove_modifier = ev_fleet_size_ship_modifier_22
+	remove_modifier = ev_fleet_size_ship_modifier_23
+	remove_modifier = ev_fleet_size_ship_modifier_24
+	remove_modifier = ev_fleet_size_ship_modifier_25
+	remove_modifier = ev_fleet_size_ship_modifier_26
+	remove_modifier = ev_fleet_size_ship_modifier_27
+	remove_modifier = ev_fleet_size_ship_modifier_28
+	remove_modifier = ev_fleet_size_ship_modifier_29
+	remove_modifier = ev_fleet_size_ship_modifier_30
+	remove_modifier = ev_fleet_size_ship_modifier_31
+	remove_modifier = ev_fleet_size_ship_modifier_32
+	remove_modifier = ev_fleet_size_ship_modifier_33
+	remove_modifier = ev_fleet_size_ship_modifier_34
+	remove_modifier = ev_fleet_size_ship_modifier_35
+	remove_modifier = ev_fleet_size_ship_modifier_36
+	remove_modifier = ev_fleet_size_ship_modifier_37
+	remove_modifier = ev_fleet_size_ship_modifier_38
+	remove_modifier = ev_fleet_size_ship_modifier_39
+	remove_modifier = ev_fleet_size_ship_modifier_40
+	remove_modifier = ev_fleet_size_ship_modifier_41
+	remove_modifier = ev_fleet_size_ship_modifier_42
+	remove_modifier = ev_fleet_size_ship_modifier_43
+	remove_modifier = ev_fleet_size_ship_modifier_44
+	remove_modifier = ev_fleet_size_ship_modifier_45
+	remove_modifier = ev_fleet_size_ship_modifier_46
+	remove_modifier = ev_fleet_size_ship_modifier_47
+	remove_modifier = ev_fleet_size_ship_modifier_48
+	remove_modifier = ev_fleet_size_ship_modifier_49
+	remove_modifier = ev_fleet_size_ship_modifier_50
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 1
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_1
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 2
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_2
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 3
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_3
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 4
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_4
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 5
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_5
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 6
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_6
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 7
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_7
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 8
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_8
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 9
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_9
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 10
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_10
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 11
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_11
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 12
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_12
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 13
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_13
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 14
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_14
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 15
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_15
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 16
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_16
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 17
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_17
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 18
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_18
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 19
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_19
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 20
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_20
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 21
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_21
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 22
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_22
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 23
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_23
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 24
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_24
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 25
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_25
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 26
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_26
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 27
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_27
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 28
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_28
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 29
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_29
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 30
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_30
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 31
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_31
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 32
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_32
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 33
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_33
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 34
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_34
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 35
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_35
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 36
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_36
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 37
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_37
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 38
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_38
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 39
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_39
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 40
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_40
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 41
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_41
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 42
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_42
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 43
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_43
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 44
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_44
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 45
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_45
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 46
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_46
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 47
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_47
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 48
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_48
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count = 49
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_49
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			count_owned_ship = {
+				limit = {
+					is_ship_size = ev_fleet_size_ship
+				}
+				count >= 50
+			}
+		}
+		add_modifier = {
+			modifier = ev_fleet_size_ship_modifier_50
+			days = -1
+		}
+	}
+
+	#set_variable = {
+	#	which = count_ev_fleet_size_ship
+	#	value = 0
+	#}
+	#if = {
+	#	limit = { 
+	#		has_modifier = ev_fleet_size_ship_modifier_var
+	#	}
+	#	remove_modifier = ev_fleet_size_ship_modifier_var
+	#}
+	#every_owned_ship = {
+	#	limit = {
+	#		is_ship_size = ev_fleet_size_ship
+	#	}
+	#	owner = {
+	#		change_variable = {
+	#			which = count_ev_fleet_size_ship
+	#			value = 1
+	#		}
+	#		add_modifier = {
+	#			modifier = ev_fleet_size_ship_modifier_var
+	#			multiplier = count_ev_fleet_size_ship
+	#			days = -1 
+	#		}
+	#	}
+	#}
+	
+
+
+}
+
+#根据附庸获得修正
+ev_give_subject_owner_buff = {
+	remove_modifier = ev_give_subject_owner_modifier_1
+	remove_modifier = ev_give_subject_owner_modifier_2
+	remove_modifier = ev_give_subject_owner_modifier_3
+	remove_modifier = ev_give_subject_owner_modifier_4
+	remove_modifier = ev_give_subject_owner_modifier_5
+	remove_modifier = ev_give_subject_owner_modifier_6
+	remove_modifier = ev_give_subject_owner_modifier_7
+	remove_modifier = ev_give_subject_owner_modifier_8
+	remove_modifier = ev_give_subject_owner_modifier_9
+	remove_modifier = ev_give_subject_owner_modifier_10
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 1
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_1
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 2
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_2
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 3
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_3
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 4
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_4
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 5
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_5
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 6
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_6
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 7
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_7
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 8
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_8
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value = 9
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_9
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_subject_num
+				value > 9
+			}
+		}
+		add_modifier = {
+			modifier = ev_give_subject_owner_modifier_10
+			days = -1
+		}
+	}
+}
+
+#判断大可汗死活的结局
+ev_affter_daken_died_effect = {
+	#
+	if = {
+		limit = {
+			check_variable = {
+				which = ev_struggle_value
+				value > 7
+			}
+		}
+		country_event = {
+			id = ev_leader.2091
+			days = 100
+			random = 50
+		}
+		country_event = {
+			id = ev_leader.2091
+			days = 600
+			random = 1400
+		}
+		random_list = {
+			1 = {
+				country_event = {
+					id = ev_leader.2010
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2020
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2030
+					days = 100
+					random = 50
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = ev_struggle_value
+				value > 5
+			}
+		}
+		country_event = {
+			id = ev_leader.2091
+			days = 100
+			random = 50
+		}
+		random_list = {
+			1 = {
+				country_event = {
+					id = ev_leader.2010
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2020
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2030
+					days = 100
+					random = 50
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = ev_struggle_value
+				value > 3
+			}
+		}
+		random_list = {
+			1 = {
+				country_event = {
+					id = ev_leader.2010
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2020
+					days = 100
+					random = 50
+				}
+			}
+			1 = {
+				country_event = {
+					id = ev_leader.2030
+					days = 100
+					random = 50
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			num_owned_planets > 95
+			check_variable = {
+				which = ev_struggle_value
+				value > 6
+			}
+		}
+		while = {
+			count = 8
+			country_event = {
+				id = ev_leader.5130
+				days = 200
+				random = 2400
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_owned_planets > 45
+			check_variable = {
+				which = ev_struggle_value
+				value > 6
+			}
+		}
+		while = {
+			count = 5
+			country_event = {
+				id = ev_leader.5130
+				days = 200
+				random = 2400
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_owned_planets > 25
+			check_variable = {
+				which = ev_struggle_value
+				value > 6
+			}
+		}
+		while = {
+			count = 3
+			country_event = {
+				id = ev_leader.5130
+				days = 200
+				random = 2400
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_owned_planets > 15
+			check_variable = {
+				which = ev_struggle_value
+				value > 6
+			}
+		}
+		set_variable = {
+			which = ev_struggle_value
+			value = 10
+		}
+		while = {
+			count = 1
+			country_event = {
+				id = ev_leader.5130
+				days = 200
+				random = 2400
+			}
+		}
+	}
+	#set_variable = {
+	#	which = ev_kehan_declare_war_num
+	#	value = 0
+	#}
+}
+
+ev_mercenary_fleet_effect = {
+	owner = {
+		add_opinion_modifier = {
+			who = event_target:ev_will_buy_mercenary_fleet_country
+			modifier = opinion_ev_trade_mercenary_fleet
+		}
+	}
+	event_target:ev_will_buy_mercenary_fleet_country = {
+		add_opinion_modifier = {
+			who = prev.owner
+			modifier = opinion_ev_trade_mercenary_fleet
+		}
+	}
+	hidden_effect = {
+		fleet_event = {
+			id = ev_fleet_and_war.2
+			days = 1800
+		}
+		fleet_event = {
+			id = ev_fleet_and_war.4
+			days = 30
+		}
+	}
+	owner = {
+		add_resource = {
+			energy = 500
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 1000
+		}
+		owner = {
+			add_resource = {
+				energy = 400
+			}
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 2000
+		}
+		owner = {
+			add_resource = {
+				energy = 500
+			}
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 5000
+		}
+		owner = {
+			add_resource = {
+				energy = 700
+			}
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 9000
+		}
+		owner = {
+			add_resource = {
+				energy = 1000
+			}
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 15000
+		}
+		owner = {
+			add_resource = {
+				energy = 2000
+			}
+		}
+	}
+	if = {
+		limit = {
+			fleet_power > 30000
+		}
+		owner = {
+			add_resource = {
+				energy = 3500
+			}
+		}
+	}
+	hidden_effect = {
+		create_country = {
+			type = mercenary_fleet			#neutral_faction #faction
+			name = "NAME_mercenary_fleet"
+			effect = {
+				copy_techs_from = {
+					target = root
+				}
+				establish_communications_no_message = root
+				establish_communications_no_message = event_target:ev_will_buy_mercenary_fleet_country
+				set_faction_hostility = {
+					target = event_target:ev_will_buy_mercenary_fleet_country_war_target
+					set_hostile = yes
+					set_neutral = no
+					set_friendly = no
+				}
+				set_faction_hostility = {
+					target = root
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = yes
+				}
+				set_timed_country_flag = {
+					flag = ev_mercenary_fleet_country
+					days = 1802
+				}
+				#变成自己的
+				#country_event = {
+				#	id = ev_fleet_and_war.3 days = 90
+				#}
+			}
+		}
+		set_owner = last_created_country
+		random_country = {
+			limit = {
+				is_country_type = default
+			}
+			#save_global_event_target_as = will_mercenary_attack_target
+		}
+		owner = {
+			country_event = {
+				id = ev_fleet_and_war.3
+				days = 10
+			}
+		}
+		queue_actions = {
+			wait = 10
+			repeat = {
+				find_closest_system = {
+					trigger = {
+						id = mercenary.1
+						OR = {
+							any_fleet_in_system = {
+								owner = {
+									is_same_value = event_target:ev_will_buy_mercenary_fleet_country_war_target
+								}
+							}
+							any_system_planet = {
+								is_colony = yes
+								num_pops > 0
+								owner = {
+									is_same_value = event_target:ev_will_buy_mercenary_fleet_country_war_target
+								}
+							}
+						}
+					}
+					found_system = {
+						move_to = this
+						effect = {
+							id = mercenary.2
+							prev = {
+								clear_fleet_actions = this
+							}
+							prevprev = {
+								clear_fleet_actions = this
+							}
+							prevprevprev = {
+								clear_fleet_actions = this
+							}
+							prevprevprevprev = {
+								clear_fleet_actions = this
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+merge_pop_to_10 = {
+	every_country = {
+		limit = {
+			is_country_type = default
+		}
+		every_owned_planet = {
+			every_owned_pop_group = {
+				limit = {
+					always = yes
+				}
+				planet = {
+					change_variable = {
+						which = merge_pop_to
+						value = 1
+					}
+				}
+			}
+			multiply_variable = {
+				which = merge_pop_to
+				value = 0.1
+			}
+			while = {
+				count = merge_pop_to
+				create_pop_group = {
+					size = 100
+					species = owner_main_species
+					effect = {
+						save_event_target_as = last_created_pop_group
+					}
+				}
+				event_target:last_created_pop_group = {
+					add_modifier = {
+						modifier = ev_merge_pop_10_buff
+						days = -1
+					}
+					set_pop_group_flag = is_merge_pop_10
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = merge_pop_to
+						value > 0.99
+					}
+				}
+				every_owned_pop_group = {
+					limit = {
+						NOT = {
+							has_pop_group_flag = is_merge_pop_10
+						}
+					}
+					kill_all_pop = yes
+				}
+			}
+		}
+	}
+}
+
+ev_homeless_orbit_mining_effect_new = {
+	
+	if = {
+		limit = {
+			orbit = {
+				OR = {
+					has_deposit = d_$RESOURCE$_1
+					has_deposit = d_$RESOURCE$_2
+					has_deposit = d_$RESOURCE$_3
+					has_deposit = d_$RESOURCE$_4
+					has_deposit = d_$RESOURCE$_5
+					has_deposit = d_$RESOURCE$_6
+					has_deposit = d_$RESOURCE$_7
+					has_deposit = d_$RESOURCE$_8
+					has_deposit = d_$RESOURCE$_9
+					has_deposit = d_$RESOURCE$_10
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_policy_flag = ev_destructive_mining
+				}
+				orbit = {
+					check_variable = {
+						which = ev_planet_mining_time
+						value < ev_planet_mining_time_setting
+					}
+				}
+			}
+			orbit = {
+				switch = {
+					trigger = has_deposit
+					d_$RESOURCE$_1 = { set_variable = { which = ev_planet_mining_time_mult value = -0 } }
+					d_$RESOURCE$_2 = { set_variable = { which = ev_planet_mining_time_mult value = -0.1 } }
+					d_$RESOURCE$_3 = { set_variable = { which = ev_planet_mining_time_mult value = -0.2 } }
+					d_$RESOURCE$_4 = { set_variable = { which = ev_planet_mining_time_mult value = -0.3 } }
+					d_$RESOURCE$_5 = { set_variable = { which = ev_planet_mining_time_mult value = -0.4 } }
+					d_$RESOURCE$_6 = { set_variable = { which = ev_planet_mining_time_mult value = -0.5 } }
+					d_$RESOURCE$_7 = { set_variable = { which = ev_planet_mining_time_mult value = -0.6 } }
+					d_$RESOURCE$_8 = { set_variable = { which = ev_planet_mining_time_mult value = -0.7 } }
+					d_$RESOURCE$_9 = { set_variable = { which = ev_planet_mining_time_mult value = -0.8 } }
+					d_$RESOURCE$_10 = { set_variable = { which = ev_planet_mining_time_mult value = -0.9 } }
+				}
+				#越多单产的消耗的越少
+				change_variable = {
+					which = ev_planet_mining_time_mult
+					value = 1
+				}
+				change_variable = {
+					which = ev_planet_mining_time
+					value = ev_planet_mining_time_mult
+				}
+			}
+			remove_modifier = ev_homeless_orbit_$RESOURCE$_buff
+			add_modifier = {
+				modifier = ev_homeless_orbit_$RESOURCE$_buff
+				days = 60
+				mult = ev_planet_mining_tech_level
+			}
+		}
+	}
+}
+ev_homeless_orbit_mining_effect = {
+	
+	set_variable = {
+		which = ev_planet_mining_tech_level
+		value = prev.ev_planet_mining_tech_level
+	}
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = minerals }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = energy }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = exotic_gases }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = rare_crystals }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = volatile_motes }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = alloys }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = engineering }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = physics }
+	ev_homeless_orbit_mining_effect_new = { RESOURCE = society }
+	orbit = {
+		#显示剩余时间
+		remove_modifier = ev_homeless_orbit_mining_time_buff
+		add_modifier = {
+			modifier = ev_homeless_orbit_mining_time_buff
+			days = 60
+			mult = ev_planet_mining_time
+		}
+	}
+	
+	#矿物
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_minerals_1
+	#				has_deposit = d_minerals_2
+	#				has_deposit = d_minerals_3
+	#				has_deposit = d_minerals_4
+	#				has_deposit = d_minerals_5
+	#				has_deposit = d_minerals_6
+	#				has_deposit = d_minerals_7
+	#				has_deposit = d_minerals_8
+	#				has_deposit = d_minerals_9
+	#				has_deposit = d_minerals_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			switch = {
+	#				trigger = has_deposit
+	#				d_minerals_1 = { set_variable = { which = ev_planet_mining_time_mult value = -0 } }
+	#				d_minerals_2 = { set_variable = { which = ev_planet_mining_time_mult value = -0.1 } }
+	#				d_minerals_3 = { set_variable = { which = ev_planet_mining_time_mult value = -0.2 } }
+	#				d_minerals_4 = { set_variable = { which = ev_planet_mining_time_mult value = -0.3 } }
+	#				d_minerals_5 = { set_variable = { which = ev_planet_mining_time_mult value = -0.4 } }
+	#				d_minerals_6 = { set_variable = { which = ev_planet_mining_time_mult value = -0.5 } }
+	#				d_minerals_7 = { set_variable = { which = ev_planet_mining_time_mult value = -0.6 } }
+	#				d_minerals_8 = { set_variable = { which = ev_planet_mining_time_mult value = -0.7 } }
+	#				d_minerals_9 = { set_variable = { which = ev_planet_mining_time_mult value = -0.8 } }
+	#				d_minerals_10 = { set_variable = { which = ev_planet_mining_time_mult value = -0.9 } }
+	#			}
+	#			#越多单产的消耗的越少
+	#			change_variable = {
+	#				which = ev_planet_mining_time_mult
+	#				value = 1
+	#			}
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = ev_planet_mining_time_mult
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_minerals_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_minerals_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#			#system_star = {
+	#			#	owner = {
+	#			#		add_opinion_modifier = {
+	#			#			who = prevprevprev.owner
+	#			#			modifier = opinion_ev_mining_in_our_system
+	#			#		}
+	#			#	}
+	#			#}
+	#		}
+	#	}
+	#}
+	##贸易点或者能量币
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_energy_1
+	#				has_deposit = d_energy_2
+	#				has_deposit = d_energy_3
+	#				has_deposit = d_energy_4
+	#				has_deposit = d_energy_5
+	#				has_deposit = d_energy_6
+	#				has_deposit = d_energy_7
+	#				has_deposit = d_energy_8
+	#				has_deposit = d_energy_9
+	#				has_deposit = d_energy_10
+	#				has_deposit = d_trade_value_1
+	#				has_deposit = d_trade_value_2
+	#				has_deposit = d_trade_value_3
+	#				has_deposit = d_trade_value_4
+	#				has_deposit = d_trade_value_5
+	#				has_deposit = d_trade_value_6
+	#				has_deposit = d_trade_value_7
+	#				has_deposit = d_trade_value_8
+	#				has_deposit = d_trade_value_9
+	#				has_deposit = d_trade_value_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+#
+	#		remove_modifier = ev_homeless_orbit_energy_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_energy_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##稀有
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_exotic_gases_1
+	#				has_deposit = d_exotic_gases_2
+	#				has_deposit = d_exotic_gases_3
+	#				has_deposit = d_exotic_gases_4
+	#				has_deposit = d_exotic_gases_5
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_exotic_gases_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_exotic_gases_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##稀有
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_rare_crystals_1
+	#				has_deposit = d_rare_crystals_2
+	#				has_deposit = d_rare_crystals_3
+	#				has_deposit = d_rare_crystals_4
+	#				has_deposit = d_rare_crystals_5
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_rare_crystals_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_rare_crystals_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+	#		
+#
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##稀有
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_volatile_motes_1
+	#				has_deposit = d_volatile_motes_2
+	#				has_deposit = d_volatile_motes_3
+	#				has_deposit = d_volatile_motes_4
+	#				has_deposit = d_volatile_motes_5
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_volatile_motes_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_volatile_motes_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+#
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##合金
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_alloys_1
+	#				has_deposit = d_alloys_2
+	#				has_deposit = d_alloys_3
+	#				has_deposit = d_alloys_4
+	#				has_deposit = d_alloys_5
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_alloys_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_alloys_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+#
+#
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##物理 
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_physics_1
+	#				has_deposit = d_physics_2
+	#				has_deposit = d_physics_3
+	#				has_deposit = d_physics_4
+	#				has_deposit = d_physics_5
+	#				has_deposit = d_physics_6
+	#				has_deposit = d_physics_7
+	#				has_deposit = d_physics_8
+	#				has_deposit = d_physics_9
+	#				has_deposit = d_physics_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_physics_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_physics_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+#
+#
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##社会点
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_society_1
+	#				has_deposit = d_society_2
+	#				has_deposit = d_society_3
+	#				has_deposit = d_society_4
+	#				has_deposit = d_society_5
+	#				has_deposit = d_society_6
+	#				has_deposit = d_society_7
+	#				has_deposit = d_society_8
+	#				has_deposit = d_society_9
+	#				has_deposit = d_society_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_society_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_society_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+#
+#
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	##工程点
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_engineering_1
+	#				has_deposit = d_engineering_2
+	#				has_deposit = d_engineering_3
+	#				has_deposit = d_engineering_4
+	#				has_deposit = d_engineering_5
+	#				has_deposit = d_engineering_6
+	#				has_deposit = d_engineering_7
+	#				has_deposit = d_engineering_8
+	#				has_deposit = d_engineering_9
+	#				has_deposit = d_engineering_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		remove_modifier = ev_homeless_orbit_engineering_buff
+	#		add_modifier = {
+	#			modifier = ev_homeless_orbit_engineering_buff
+	#			days = 60
+	#			mult = ev_planet_mining_tech_level
+	#		}
+	#		
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_policy_flag = ev_destructive_mining
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+}
+
+
+
+ev_simreal_homeless_orbit_mining_effect = {
+	#矿物
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_minerals_1
+	#				has_deposit = d_minerals_2
+	#				has_deposit = d_minerals_3
+	#				has_deposit = d_minerals_4
+	#				has_deposit = d_minerals_5
+	#				has_deposit = d_minerals_6
+	#				has_deposit = d_minerals_7
+	#				has_deposit = d_minerals_8
+	#				has_deposit = d_minerals_9
+	#				has_deposit = d_minerals_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_modifier = ev_simreal_mod
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		
+	#		while = {
+	#			count = 1
+	#			remove_modifier = ev_simreal_mod_have_minerals
+	#			add_modifier = {
+	#				modifier = ev_simreal_mod_have_minerals
+	#				days = 60
+	#			}
+	#		}
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_modifier = ev_simreal_mod
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#			#system_star = {
+	#			#	owner = {
+	#			#		add_opinion_modifier = {
+	#			#			who = prevprevprev.owner
+	#			#			modifier = opinion_ev_mining_in_our_system
+	#			#		}
+	#			#	}
+	#			#}
+	#		}
+	#	}
+	#}
+	###贸易点或者能量币
+	#if = {
+	#	limit = {
+	#		orbit = {
+	#			OR = {
+	#				has_deposit = d_energy_1
+	#				has_deposit = d_energy_2
+	#				has_deposit = d_energy_3
+	#				has_deposit = d_energy_4
+	#				has_deposit = d_energy_5
+	#				has_deposit = d_energy_6
+	#				has_deposit = d_energy_7
+	#				has_deposit = d_energy_8
+	#				has_deposit = d_energy_9
+	#				has_deposit = d_energy_10
+	#			}
+	#		}
+	#	}
+	#	if = {
+	#		limit = {
+	#			owner = {
+	#				has_modifier = ev_simreal_mod
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value < ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			change_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 1
+	#			}
+	#		}
+	#		while = {
+	#			count = 1
+	#			remove_modifier = ev_simreal_mod_have_energy
+	#		}
+	#		while = {
+	#			count = 1
+	#			add_modifier = {
+	#				modifier = ev_simreal_mod_have_energy
+	#				days = 60
+	#			}
+	#		}
+	#	}
+	#	else_if = {
+	#		limit = {
+	#			owner = {
+	#				has_modifier = ev_simreal_mod
+	#			}
+	#			orbit = {
+	#				check_variable = {
+	#					which = ev_planet_mining_time
+	#					value >= ev_planet_mining_time_setting
+	#				}
+	#			}
+	#		}
+	#		orbit = {
+	#			planet_event = {
+	#				id = ev_planet_correct.7001
+	#				days = 15
+	#			}
+	#			set_variable = {
+	#				which = ev_planet_mining_time
+	#				value = 0
+	#			}
+	#		}
+	#	}
+	#}
+	
+}
+
+
+
+#跨星系打击
+ev_strategic_strike_system = {
+	
+	add_victory_score = {
+		source = destroyed_stars_score
+		score = 10
+	}
+	every_country = {
+		limit = {
+			NOT = { is_in_federation_with = root }
+		}
+		add_opinion_modifier = {
+			who = root
+			modifier = opinion_ev_strategic_strike_system
+		}
+		add_threat = {
+			who = root
+			amount = 0.2
+		}
+	}
+	every_country = {
+		limit = {
+			OR = { 
+				is_in_federation_with = root 
+				root = { is_overlord_to = this }
+			}
+		}
+		add_opinion_modifier = {
+			who = root
+			modifier = opinion_ev_strategic_strike_system
+		}
+		
+	}
+	
+	every_controlled_fleet = {
+		limit = { has_fleet_flag = ev_beacon_fleet_@root }
+		solar_system = { save_event_target_as = ev_beacon_fleet_system }
+		save_event_target_as = ev_beacon_fleet
+		owner = { country_event = { id = ev_planet_correct.7300 } }
+		#其余相邻星系
+		every_system = {
+			limit = {
+				distance = {
+					source = prev
+					max_distance <= 30
+				}
+			}
+			every_system_planet = {
+				limit = { is_star = no }
+				add_modifier = {
+					modifier = ev_leviathans_nibble_2 days = 720
+				}
+			}
+		}
+		solar_system = {
+			add_modifier = {
+				modifier = ev_leviathans_system days = 1200
+			}
+			set_star_class = sc_black_hole
+			every_system_ambient_object = {
+				destroy_ambient_object = this
+			}
+			every_system_planet = {
+				limit = { is_star = yes }
+				change_pc = pc_black_hole
+				add_deposit = d_dark_matter_deposit_1
+			}
+			set_asteroid_belt = {
+				radius = 0
+			}
+			random_system_planet = {
+				limit = {
+					is_primary_star = yes
+				}
+				create_ambient_object = {
+					type = ev_technosphere_explosion_object
+					location = this
+					duration = 30
+					use_3d_location = yes
+					entity_offset = { min=0 max =0 }
+					entity_offset_angle = { min=0 max =0 }
+					entity_offset_height = { min=0 max =0 }
+					entity_scale_to_size = yes
+					scale = 1.75
+				}
+			}
+			
+			#本星系
+			every_fleet_in_system = {
+				limit = {
+					NOT = {
+						has_fleet_flag = ev_beacon_fleet_@root
+					}
+				}
+				
+				add_modifier = {
+					modifier = ev_star_break_in_fleet days = 1800
+				}
+				every_owned_ship = {
+					limit = {
+						is_ship_class = shipclass_starbase
+					}
+					reduce_hp_percent = 125
+				}
+				every_owned_ship = {
+					limit = { has_hp_percentage > 0.01 }
+					
+					while = {
+						count = 4
+						if = {
+							limit = { has_hp_percentage > 0.75 }
+							reduce_hp_percent = 75
+						}
+						else_if = {
+							limit = { has_hp_percentage > 0.5 }
+							reduce_hp_percent = 50
+						}
+						else_if = {
+							limit = { has_hp_percentage > 0.25 }
+							reduce_hp_percent = 25
+						}
+						else_if = {
+							limit = { has_hp_percentage > 0.1 }
+							reduce_hp_percent = 10
+						}
+						else_if = {
+							limit = { has_hp_percentage > 0.05 }
+							reduce_hp_percent = 5
+						}
+						else_if = {
+							limit = { has_hp_percentage > 0.02 }
+							reduce_hp_percent = 1
+						}
+					}
+					
+				}
+			}
+			
+			every_system_planet = {
+				if = {
+					limit = { 
+						planet_size > 6
+					}
+					change_planet_size = -2
+				}
+				if = {
+					limit = {
+						OR = {
+							is_planet_class = pc_habitat
+							is_planet_class = pc_asteroid
+							is_planet_class = pc_ice_asteroid
+						}
+						
+					}
+					remove_planet = yes
+				}
+				if = {
+					limit = {
+						is_planet_class = pc_frozen
+					}
+					root = { country_event = { id = planet_destruction.102 } }
+				}
+				else_if = {
+					limit = {
+						NOT = { is_planet_class = pc_ai }
+					}
+					root = { country_event = { id = planet_destruction.101 } }
+				}
+		
+				#Dismantle observation post
+				if = {
+					limit = {
+						has_observation_outpost = yes
+					}
+					observation_outpost_owner = {
+						country_event = { id = planet_destruction.1000 days = 1 }
+					}
+				}
+		
+				# Contingency Machine World
+				if = {
+					limit = {
+						is_planet_class = pc_ai
+						NOT = { has_planet_flag = machine_lair }
+					}
+					set_planet_flag = destroyed_by_colossus
+					set_planet_flag = planet_cracked
+					planet_event = { id = crisis.2040 }
+				}
+		
+				# Contingency Final Machine World
+				if = {
+					limit = {
+						is_planet_class = pc_ai
+						has_planet_flag = machine_lair
+					}
+					set_planet_flag = destroyed_by_colossus
+					set_planet_flag = planet_cracked
+					root = { save_event_target_as = final_machine_world_destroyer }
+					stop_crisis_sound = yes
+					planet_event = { id = crisis.2046 }
+				}
+		
+				# Swarm Situation Log counter
+				if = {
+					limit = {
+						exists = owner
+						owner = { is_country_type = swarm }
+					}
+					every_country = {
+						limit = { has_event_chain = "prethoryn_scourge_chain" }
+						add_event_chain_counter = {
+							event_chain = "prethoryn_scourge_chain"
+							counter = "infested_worlds"
+							amount = -1
+						}
+						add_event_chain_counter = {
+							event_chain = "prethoryn_scourge_chain"
+							counter = "infested_worlds_cleansed"
+							amount = 1
+						}
+					}
+				}
+		
+				if = {
+					limit = {
+						OR = {
+							is_active_resolution = "resolution_rulesofwar_reverence_for_life"
+							is_active_resolution = "resolution_rulesofwar_independent_tribunals"
+							is_active_resolution = "resolution_rulesofwar_last_resort_doctrine"
+							is_active_resolution = "resolution_rulesofwar_demobilization_initiative"
+						}
+					}
+					root = {
+						set_timed_country_flag = { flag = resolution_breached_fired_cracker days = 3600 }
+					}
+				}
+		
+				# Exterminatus Achievement
+				if = {
+					limit = { is_capital = yes }
+					root = { set_country_flag = exterminatus }
+				}
+				if = {
+					limit = {
+						exists = owner
+						owner = {
+							NOT = { is_same_value = root }
+							OR = {
+								is_country_type = default
+								is_country_type = fallen_empire
+								is_country_type = awakened_fallen_empire
+							}
+						}
+					}
+					# Generate threat
+					if = {
+						limit = {
+							is_colony = yes
+						}
+						owner = {
+							while = {
+								count = 3
+								add_opinion_modifier = {
+									who = root
+									modifier = opinion_ev_strategic_strike_system
+								}
+							}
+							
+						}
+						
+						add_threat = { who = root amount = 2 }
+						# modifier for allies + those upset by genocide
+						every_country = {
+							limit = {
+								NOR = {
+									is_same_value = root
+									is_same_value = prev.owner
+									AND = {
+										has_federation = yes
+										is_in_federation_with = root
+									}
+								}
+								OR = {
+									has_communications = root
+									has_communications = prev.owner
+								}
+								OR = {
+									AND = {
+										has_federation = yes
+										is_in_federation_with = prev.owner
+									}
+									has_ai_personality = awakened_fallen_empire_xenophile
+									AND = {
+										is_country_type = default
+										OR = {
+											is_egalitarian = yes
+											is_xenophile = yes
+										}
+									}
+								}
+							}
+							if = {
+								limit = { root = { is_colony = no } }
+								add_opinion_modifier = {
+									modifier = opinion_cracked_an_uninhabited_world
+									who = root
+								}
+							}
+							else = {
+								add_opinion_modifier = {
+									modifier = opinion_cracked_a_world
+									who = root
+								}
+							}
+						}
+					}
+					else = {
+						add_threat = { who = root amount = 1 }
+					}
+				}
+				if = {
+					limit = { num_pops > 0 }
+					every_owned_pop_group = {
+						kill_all_pop = yes
+					}
+					remove_all_buildings = yes
+					remove_all_districts = yes
+					destroy_colony = yes
+					if = {
+						limit = {
+							is_planet_class = pc_habitat
+						}
+						remove_planet = yes
+					}
+					else_if = {
+						limit = {
+							is_ringworld = yes
+						}
+						add_deposit = d_minerals_6
+						change_pc = pc_ringworld_habitable_damaged
+					}
+					else = {
+						change_pc = pc_shattered
+						clear_deposits = yes
+					}
+					add_deposit = d_minerals_6
+				}
+				else_if = {
+					limit = {
+						is_planet_class = pc_habitat
+					}
+					remove_planet = yes
+				}
+				else_if = {
+					limit = {
+						is_ringworld = yes
+					}
+					add_deposit = d_minerals_6
+					change_pc = pc_ringworld_habitable_damaged
+				}
+				else_if = {
+					limit = {
+						is_star = yes
+					}
+					change_pc = pc_black_hole
+				}
+				else = {
+					add_modifier = {
+						modifier = ev_leviathans_nibble_2 days = 10800
+					}
+					add_deposit = d_minerals_6
+					change_pc = pc_shattered
+					
+					#clear_deposits = yes
+				}
+			}
+			system_star = {
+				change_pc = pc_black_hole
+			}
+		}
+	}
+	
+}
+ev_land_planet_give_resouce_all_test = {
+	set_variable = {
+		which = ev_cap_cost
+		value = value:ev_cap_cost
+	}
+	ev_land_planet_give_resouce_all = { VAR = ev_cap_cost }
+}
+#给的资源
+ev_land_planet_give_resouce_all = {
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = minerals } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = energy } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = food } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = alloys } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = consumer_goods } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = unity } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = exotic_gases } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = rare_crystals } 
+	ev_land_planet_give_resouce = { VAR = $VAR$  RESOURCE = volatile_motes } 
+}
+ev_land_planet_give_resouce = {
+
+	owner = {
+		add_monthly_resource_mult = {
+			resource = $RESOURCE|energy$  
+			value = @\[( 36 * $VAR$ )]
+			min = 100
+		}
+	}
+
+
+	#[[VAR] owner = {
+	#	add_monthly_resource_mult = {
+	#		resource = minerals
+	#		value = $VAR$
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = energy
+	#		value = $VAR$
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = food
+	#		value = $VAR$
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = alloys
+	#		value = $VAR$
+	#		min = 100
+	#		max = 5000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = consumer_goods
+	#		value = $VAR$
+	#		min = 100
+	#		max = 7500
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = unity
+	#		value = $VAR$
+	#		min = 100
+	#		max = 6000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = exotic_gases
+	#		value = $VAR$
+	#		min = 100
+	#		max = 4000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = volatile_motes
+	#		value = $VAR$
+	#		min = 100
+	#		max = 4000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = rare_crystals
+	#		value = $VAR$
+	#		min = 100
+	#		max = 4000
+	#	}
+	#}]
+	#[[!VAR] owner = {
+	#	add_monthly_resource_mult = {
+	#		resource = minerals
+	#		value = 12
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = energy
+	#		value = 12
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = food
+	#		value = 12
+	#		min = 200
+	#		max = 15000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = alloys
+	#		value = 12
+	#		min = 100
+	#		max = 5000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = consumer_goods
+	#		value = 12
+	#		min = 100
+	#		max = 7500
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = unity
+	#		value = 12
+	#		min = 100
+	#		max = 6000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = exotic_gases
+	#		value = 12
+	#		min = 100
+	#		max = 4000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = volatile_motes
+	#		value = 12
+	#		min = 100
+	#		max = 4000
+	#	}
+	#	add_monthly_resource_mult = {
+	#		resource = rare_crystals
+	#		value = 12
+	#		min = 100
+	#		max = 4000
+	#	}
+	#}]
+}
+
+
+#掠夺战争胜利
+
+wg_steal_ev_1th_resources_win_new = {
+	from  = {
+		export_resource_stockpile_to_variable = { resource = food variable = wg_steal_food }
+		export_resource_stockpile_to_variable = { resource = minerals variable = wg_steal_minerals }
+		export_resource_stockpile_to_variable = { resource = energy variable = wg_steal_energy }
+		export_resource_stockpile_to_variable = { resource = alloys variable = wg_steal_alloys }
+		export_resource_stockpile_to_variable = { resource = consumer_goods variable = wg_steal_consumer_goods }
+	}
+	set_variable = {
+		which = wg_steal_food
+		value = from.wg_steal_food
+	}
+	set_variable = {
+		which = wg_steal_minerals
+		value = from.wg_steal_minerals
+	}
+	set_variable = {
+		which = wg_steal_energy
+		value = from.wg_steal_energy
+	}
+	add_resource = { food = 0.75  mult = wg_steal_food }
+	add_resource = { minerals = 0.75  mult = wg_steal_minerals }
+	add_resource = { energy = 0.75  mult = wg_steal_energy }
+}
+wg_steal_ev_2th_resources_win_new = {
+	from  = {
+		export_resource_stockpile_to_variable = { resource = food variable = wg_steal_food }
+		export_resource_stockpile_to_variable = { resource = minerals variable = wg_steal_minerals }
+		export_resource_stockpile_to_variable = { resource = energy variable = wg_steal_energy }
+		export_resource_stockpile_to_variable = { resource = alloys variable = wg_steal_alloys }
+		export_resource_stockpile_to_variable = { resource = consumer_goods variable = wg_steal_consumer_goods }
+	}
+	set_variable = {
+		which = wg_steal_alloys
+		value = from.wg_steal_alloys
+	}
+	set_variable = {
+		which = wg_steal_consumer_goods
+		value = from.wg_steal_consumer_goods
+	}
+	
+	add_resource = { alloys = 0.75  mult = wg_steal_alloys }
+	add_resource = { consumer_goods = 0.75  mult = wg_steal_consumer_goods }
+}
+
+wg_steal_ev_1th_resources_win_federation_new = {
+	from  = {
+		export_resource_stockpile_to_variable = { resource = food variable = wg_steal_food }
+		export_resource_stockpile_to_variable = { resource = minerals variable = wg_steal_minerals }
+		export_resource_stockpile_to_variable = { resource = energy variable = wg_steal_energy }
+		export_resource_stockpile_to_variable = { resource = alloys variable = wg_steal_alloys }
+		export_resource_stockpile_to_variable = { resource = consumer_goods variable = wg_steal_consumer_goods }
+	}
+	set_variable = {
+		which = wg_steal_food
+		value = from.wg_steal_food
+	}
+	set_variable = {
+		which = wg_steal_minerals
+		value = from.wg_steal_minerals
+	}
+	set_variable = {
+		which = wg_steal_energy
+		value = from.wg_steal_energy
+	}
+	add_resource = { food = 0.25  mult = wg_steal_food }
+	add_resource = { minerals = 0.25  mult = wg_steal_minerals }
+	add_resource = { energy = 0.25  mult = wg_steal_energy }
+}
+wg_steal_ev_2th_resources_win_federation_new = {
+	from  = {
+		export_resource_stockpile_to_variable = { resource = food variable = wg_steal_food }
+		export_resource_stockpile_to_variable = { resource = minerals variable = wg_steal_minerals }
+		export_resource_stockpile_to_variable = { resource = energy variable = wg_steal_energy }
+		export_resource_stockpile_to_variable = { resource = alloys variable = wg_steal_alloys }
+		export_resource_stockpile_to_variable = { resource = consumer_goods variable = wg_steal_consumer_goods }
+	}
+	set_variable = {
+		which = wg_steal_alloys
+		value = from.wg_steal_alloys
+	}
+	set_variable = {
+		which = wg_steal_consumer_goods
+		value = from.wg_steal_consumer_goods
+	}
+	
+	add_resource = { alloys = 0.25  mult = wg_steal_alloys }
+	add_resource = { consumer_goods = 0.25  mult = wg_steal_consumer_goods }
+}
+
+#根据补给船获得修正
+ev_give_fleet_ship_buff_new = {
+	remove_modifier = ev_fleet_size_ship_modifier_var
+	remove_modifier = ev_fleet_size_ship_modifier_var_ascension_perk
+	set_variable = {
+		which = ev_fleet_ship_count
+		value = value:ev_fleet_size_ship_var
+	}
+	
+	#set_variable = {
+	#	which = ev_fleet_ship_count
+	#	value = 0
+	#}
+	#every_owned_ship = {
+	#	limit = {
+	#		is_ship_size = ev_fleet_size_ship
+	#	}
+	#	owner = { 
+	#		change_variable = {
+	#			which = ev_fleet_ship_count
+	#			value = 1
+	#		} 
+	#	}
+	#	
+	#}
+	##设置1倍
+	#set_variable = {
+	#	which = ev_fleet_ship_count_mult
+	#	value = 1
+	#} 
+	#if = {
+	#	limit = {
+	#		has_tradition = tr_ev_escort_2
+	#	}
+	#	change_variable = {
+	#		which = ev_fleet_ship_count_mult
+	#		value = 0.1
+	#	} 
+	#	
+	#}
+	#if = {
+	#	limit = {
+	#		has_ascension_perk = ev_fleet_size_ships_buff
+	#	}
+	#	change_variable = {
+	#		which = ev_fleet_ship_count_mult
+	#		value = 0.40
+	#	} 
+	#	
+	#}
+
+	#给buff
+	if = {
+		limit = {
+			has_ascension_perk = ev_fleet_size_ships_buff
+		}
+		#multiply_variable = {
+		#	which = ev_fleet_ship_count
+		#	value = ev_fleet_ship_count_mult
+		#}
+		add_modifier = {
+			multiplier = ev_fleet_ship_count
+			modifier = ev_fleet_size_ship_modifier_var_ascension_perk
+			days = -1
+		}
+		
+	}
+	else = {
+		#multiply_variable = {
+		#	which = ev_fleet_ship_count
+		#	value = ev_fleet_ship_count_mult
+		#}
+		add_modifier = {
+			multiplier = ev_fleet_ship_count
+			modifier = ev_fleet_size_ship_modifier_var
+			days = -1
+		}
+	}
+
+}
+
+#测试生成太虚帝国-范围，
+ev_test_spwan_country = {
+	save_event_target_as = target_planet
+	create_country = {
+		name = random
+		type = default_ev
+		ignore_initial_colony_error = yes
+		civics = {
+			civic = civic_empty_vagrant
+			civic = civic_ev_criminal_ship
+		}
+		species = random
+		ethos = random
+		authority = random
+		origin = origin_ev_default
+		flag = random
+		effect = {
+			copy_ethos_and_authority = prev
+			set_variable = {
+				which = ev_maintenance_value
+				value = 0
+			}
+			add_resource = {
+				minerals = 300
+				energy = 300
+				food = 400
+				alloys = 400
+				consumer_goods = 150
+				influence = 75
+				#manpower = 100
+			}
+		}
+	}
+	create_fleet_from_naval_cap = 0.15
+	last_created_fleet = {
+		set_owner = last_created_country
+		set_name = {
+			key = "NAME_ev_test_spwan_country"
+			variable_string = "[last_created_country.GetName]"
+		}
+	}
+	last_created_fleet = {
+		set_location = event_target:target_planet
+		set_owner = last_created_country
+		save_event_target_as = ev_fleet_location
+	}
+}
+
+#找到自己创建的雇佣兵飞地-
+ev_find_merc_enclave_mine = {
+	every_country = {
+		limit = {
+			is_country_type = enclave_mercenary
+			has_country_flag = created_by@root
+		}
+		
+	}
+}
+
+
+# This = owner of fleet
+# From = fleet
+# FromFrom = planet (if any)
+ev_create_enclave_starbase = {
+	solar_system = {
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = event_target:constructor_fleet.owner
+				create_ship = {
+					name = random
+					design = "NAME_Mercenary_Enclave_Station"
+					graphical_culture = event_target:constructor_fleet.owner
+				}
+				set_location = {
+					target = event_target:constructor_fleet
+					distance = 35
+					angle = random
+				}
+				#save_event_target_as = mercenary_enclave_station
+			}
+		}
+	}
+	#create_fleet = {
+	#	settings = { spawn_debris = no }
+	#	effect = {
+	#		set_owner = prevprev
+	#		create_ship = {
+	#			name = random
+	#			design = "NAME_Mercenary_Enclave_Station"
+	#			graphical_culture = prevprev
+	#		}
+	#		set_location = {
+	#			target = this
+	#			distance = 25
+	#			angle = 120
+	#		}
+	#		#save_event_target_as = mercenary_enclave_station
+	#	}
+	#}
+	#prev = { destroy_ship = yes }
+}
+
+#根据研究的科技给加成~
+ev_give_buff_with_vanilla_tech = {
+
+}
+#生成AI的给的太虚效果
+ev_ai_spwan_effect = {
+	TEV_count_new_ecom_system = yes
+	#默认开启提示事件
+	set_country_flag = ev_show_meassage_flag
+	set_country_flag = trigger_maintenance_24_month
+	#set_country_type = default_ev
+	set_country_flag = use_default_ships
+	save_global_event_target_as = default_ev_country
+	set_country_flag = ev_ship_rebel_difficult_1X
+	#给所在恒星系上开采站
+	capital_scope = {
+		solar_system = {
+			every_system_planet = {
+				if = {
+					limit = { has_deposit_for = shipclass_mining_station }
+					create_mining_station = {
+						owner = event_target:default_ev_country
+					}
+				}
+				if = {
+					limit = { has_deposit_for = shipclass_research_station }
+					create_research_station = {
+						owner = event_target:default_ev_country
+					}
+				}
+				
+			}
+		}
+	}
+	country_event = {
+		id = ev_maintenance.2
+	} 
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		set_country_flag = can_build_homeless_in_ai
+		create_ship_design = {
+			design = "NAME_start_homeless_ship_ai_1"
+		}
+		add_ship_design = last_created_design
+	}
+	add_resource = {
+		alloys = 500
+		unity = 125
+	}
+	#设置资源获取倍数默认值
+	set_variable = {
+		which = base_steal_ev
+		value = 1
+	}
+	set_variable = { which = base_survey_resource_ev value = 1 }
+	set_variable = {
+		which = base_trade_fleet_ev
+		value = 1
+	}
+	if = {
+		limit = {
+			has_origin = origin_void_dwellers
+		}
+		give_technology = {
+			tech = tech_temporary_habitat
+		}
+	}
+	#思潮修正
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_spiritualist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_1
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_materialist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_2
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_militarist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_3
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_pacifist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_4
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_authoritarian
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_5
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_egalitarian
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_6
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_xenophile
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_7
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_xenophobe
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_8
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_authority = auth_machine_intelligence
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_9
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_authority = auth_hive_mind
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_10
+			days = -1
+		}
+	}
+	
+	set_variable = {
+		which = ev_maintenance_value_balance
+		value = 0
+	}
+	if = {
+		limit = {
+			NOT = { is_gestalt = YES }
+		}
+		#维持度系统
+		set_variable = {
+			which = ev_maintenance_value
+			value = 1
+		}
+		begin_event_chain = {
+			event_chain = "ev_maintenance_chain"
+			target = ROOT
+		}
+		maintenance_change_var_new = yes
+	}
+	else = {
+		set_variable = {
+			which = ev_maintenance_value
+			value = 0
+		}
+	}
+
+
+
+	#硬核模式的默认变动系数
+	set_variable = {
+		which = ev_hard_core_base_ratio
+		value = 1
+	}
+	#特质
+	#give_technology = { message = no tech = tech_ev_genetic_trait }
+	give_ev_traits_buff = yes
+	modify_species = {
+		species = this
+		add_trait = trait_vagrant
+	}
+	#资源
+	add_resource = {
+		minerals = 300
+		energy = 300
+		food = 400
+		alloys = 400
+		consumer_goods = 150
+		influence = 125
+		#manpower = 100
+	}
+	if = {
+		limit = {
+			has_authority = auth_machine_intelligence
+			NOT = {
+				local_human_species_class = LITHOID
+			}
+		}
+		add_resource = {
+			minerals = -150
+			energy = -150
+			food = -400
+			consumer_goods = -150
+			#manpower = -100
+		}
+	}
+	else_if = {
+		limit = {
+			has_authority = auth_hive_mind
+			NOT = {
+				local_human_species_class = LITHOID
+			}
+		}
+		add_resource = {
+			minerals = -150
+			energy = -150
+			food = -100
+			consumer_goods = -150
+			#manpower = -100
+		}
+	}
+	else_if = {
+		limit = {
+			local_human_species_class = LITHOID
+		}
+		add_resource = {
+			food = -400
+		}
+	}
+	else_if = {
+		limit = {
+			local_human_species_class = AQUATIC
+		}
+		add_resource = {
+			food = 200
+		}
+	}
+	else_if = {
+		limit = {
+			local_human_species_class = NECROID
+		}
+		add_resource = {
+			minerals = 100
+		}
+	}
+	if = {
+		limit = {
+			has_civic = civic_ev_temporary_habitat
+		}
+		add_resource = {
+			alloys = 400
+		}
+	}
+
+	#格式塔真麻烦
+	if = {
+		limit = { 
+			is_gestalt = yes
+		}
+		if = {
+			limit = {
+				has_paragon_dlc = yes
+			}
+			ruler = {
+				assign_gestalt_ruler_subclass_trait = yes
+			}
+		}
+		country_event = {
+			id = ev_leader.6000 days = 1
+		}
+		#country_event = {
+		#	id = game_start.70 # Create Gestalt Council.
+		#}
+		capital_scope = {
+			remove_all_buildings = yes
+			remove_all_districts = yes
+			generate_start_buildings_and_districts = yes
+		}
+		create_leader = {
+			class = commander
+		}
+		create_leader = {
+			class = scientist
+		}
+		create_leader = {
+			class = scientist
+		}
+		create_leader = {
+			class = commander
+		}
+	}
+}
+
+
+#开局初始化事件效果
+ev_gamestart_effect = {
+	#add_modifier = {
+	#	modifier = homeless_ship_produces_minerals_add
+	#}
+
+	#触发开局事件
+	country_event = { id = ev_ai.1 }
+	country_event = { id = ev_course.1 }
+	country_event = { id = ev_game_start.1998 }
+	country_event = { id = ev_game_start.1999 }
+	country_event = { id = ev_game_start.2000 }
+	country_event = { id = ev_resource.2000 }
+	country_event = { id = ev_maintenance.0 }
+
+	TEV_count_new_ecom_system = yes
+	#add_modifier = { modifier = ev_test_homeless_buff  }
+	#export_modifier_to_variable = {
+	#	modifier = homeless_ship_produces_minerals_add
+	#	variable = homeless_ship_produces_minerals_add_count
+	#}
+	#multiply_variable = { which = homeless_ship_produces_minerals_add_count value = 8.53 }
+	#change_variable = { which = homeless_ship_produces_minerals_add_count value = 6 }
+	#默认开启提示事件
+	set_country_flag = ev_show_meassage_flag
+	set_country_flag = trigger_maintenance_12_month
+	#set_country_type = default_ev
+	set_country_flag = use_default_ships
+	save_global_event_target_as = default_ev_country
+	#给所在恒星系上开采站
+	capital_scope = {
+		solar_system = {
+			every_system_planet = {
+				if = {
+					limit = { has_deposit_for = shipclass_mining_station }
+					create_mining_station = {
+						owner = event_target:default_ev_country
+					}
+				}
+				if = {
+					limit = { has_deposit_for = shipclass_research_station }
+					create_research_station = {
+						owner = event_target:default_ev_country
+					}
+				}
+				
+			}
+		}
+	}
+	country_event = {
+		id = ev_maintenance.2
+	} 
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		set_country_flag = can_build_homeless_in_ai
+		create_ship_design = {
+			design = "NAME_start_homeless_ship_ai_1"
+		}
+		add_ship_design = last_created_design
+	}
+	add_resource = {
+		alloys = 500
+		unity = 125
+	}
+	#设置资源获取倍数默认值
+	set_variable = {
+		which = base_steal_ev
+		value = 1
+	}
+	set_variable = { which = base_survey_resource_ev value = 1 }
+	set_variable = {
+		which = base_trade_fleet_ev
+		value = 1
+	}
+	if = {
+		limit = {
+			has_origin = origin_void_dwellers
+		}
+		give_technology = {
+			tech = tech_temporary_habitat
+		}
+	}
+	#思潮修正
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_spiritualist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_1
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_materialist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_2
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_militarist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_3
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_pacifist
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_4
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_authoritarian
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_5
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_egalitarian
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_6
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_xenophile
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_7
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_ethic = ethic_fanatic_xenophobe
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_8
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_authority = auth_machine_intelligence
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_9
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			has_authority = auth_hive_mind
+		}
+		add_modifier = {
+			modifier = ev_government_modifers_10
+			days = -1
+		}
+	}
+	#石头人补正
+	#if = {
+	#	limit = {
+	#		local_human_species_class = LITHOID
+	#		NOR = {
+	#			has_authority = auth_hive_mind
+	#		}
+	#	}
+	#	add_modifier = {
+	#		modifier = ev_government_modifers_lithoid
+	#		days = -1
+	#	}
+	#}
+	#else_if = {
+	#	limit = {
+	#		local_human_species_class = LITHOID
+	#		has_authority = auth_hive_mind
+	#	}
+	#	add_modifier = {
+	#		modifier = ev_government_modifers_lithoid_hive_mind
+	#		days = -1
+	#	}
+	#}
+	set_variable = {
+		which = ev_maintenance_value_balance
+		value = 0
+	}
+	if = {
+		limit = {
+			NOT = { is_gestalt = YES }
+		}
+		#维持度系统
+		set_variable = {
+			which = ev_maintenance_value
+			value = 1
+		}
+		begin_event_chain = {
+			event_chain = "ev_maintenance_chain"
+			target = ROOT
+		}
+		maintenance_change_var_new = yes
+	}
+	else = {
+		set_variable = {
+			which = ev_maintenance_value
+			value = 0
+		}
+	}
+
+
+
+	#硬核模式的默认变动系数
+	set_variable = {
+		which = ev_hard_core_base_ratio
+		value = 1
+	}
+	#特质
+	#give_technology = { message = no tech = tech_ev_genetic_trait }
+	give_ev_traits_buff = yes
+	modify_species = {
+		species = this
+		add_trait = trait_vagrant
+	}
+	#资源
+	add_resource = {
+		alloys = 400
+	}
+	#add_resource = {
+	#	minerals = 300
+	#	energy = 300
+	#	food = 400
+	#	alloys = 400
+	#	consumer_goods = 150
+	#	influence = 125
+	#	#manpower = 100
+	#}
+	#if = {
+	#	limit = {
+	#		has_authority = auth_machine_intelligence
+	#		NOT = {
+	#			local_human_species_class = LITHOID
+	#		}
+	#	}
+	#	add_resource = {
+	#		minerals = -150
+	#		energy = -150
+	#		food = -400
+	#		consumer_goods = -150
+	#		#manpower = -100
+	#	}
+	#}
+	#else_if = {
+	#	limit = {
+	#		has_authority = auth_hive_mind
+	#		NOT = {
+	#			local_human_species_class = LITHOID
+	#		}
+	#	}
+	#	add_resource = {
+	#		minerals = -150
+	#		energy = -150
+	#		food = -100
+	#		consumer_goods = -150
+	#		#manpower = -100
+	#	}
+	#}
+	#else_if = {
+	#	limit = {
+	#		local_human_species_class = LITHOID
+	#	}
+	#	add_resource = {
+	#		food = -400
+	#	}
+	#}
+	#else_if = {
+	#	limit = {
+	#		local_human_species_class = AQUATIC
+	#	}
+	#	add_resource = {
+	#		food = 200
+	#	}
+	#}
+	#else_if = {
+	#	limit = {
+	#		local_human_species_class = NECROID
+	#	}
+	#	add_resource = {
+	#		minerals = 100
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		has_civic = civic_ev_temporary_habitat
+	#	}
+	#	add_resource = {
+	#		alloys = 400
+	#	}
+	#}
+
+	#格式塔真麻烦
+	if = {
+		limit = { 
+			is_gestalt = yes
+		}
+		if = {
+			limit = {
+				has_paragon_dlc = yes
+			}
+			ruler = {
+				assign_gestalt_ruler_subclass_trait = yes
+			}
+		}
+		country_event = {
+			id = ev_leader.6000 days = 1
+		}
+		#country_event = {
+		#	id = game_start.70 # Create Gestalt Council.
+		#}
+		capital_scope = {
+			remove_all_buildings = yes
+			remove_all_districts = yes
+			generate_start_buildings_and_districts = yes
+		}
+		create_leader = {
+			class = commander
+		}
+		create_leader = {
+			class = scientist
+		}
+		create_leader = {
+			class = scientist
+		}
+		create_leader = {
+			class = commander
+		}
+	}
+}
+
+#转移国家
+ev_create_new_country_and_remove_old_country = {
+	
+
+
+}
+
+#生成太虚堕落帝国-事件
+ev_spawn_fallen_in_planet = { #planet范围
+	
+	create_species = {
+		name = "PRESCRIPTED_species_name_mitteren_6th"
+		class = random_non_machine
+		portrait = random
+		traits = {
+			trait = "trait_pc_habitat_preference"
+			trait = "trait_vagrant"
+			trait = "trait_ev_advanced_research"
+			trait = "trait_ev_skills_add"
+			trait = "trait_ev_investigation_add"
+		}
+		extra_trait_points = 3
+		allow_negative_traits = no
+		#save_event_target_as = ev_fallen_species
+	}
+	
+	create_country = {
+		#name = random
+		type = awakened_fallen_empire_event
+		ignore_initial_colony_error = yes
+		authority = auth_imperial
+		origin = origin_fallen_empire
+		auto_delete = no
+		civics = {
+			civic = civic_empty_vagrant
+			civic = civic_ev_lethargic_leadership
+			civic = civic_ev_empire_in_decline
+		}
+		species = last_created_species
+		ethos = {
+			ethic = ethic_materialist
+			ethic = ethic_fanatic_xenophile
+		}
+		flag = random
+		effect = {
+			set_name = "NAME_fallen_empire_ev_01"
+			set_country_flag = fallen_empire_ev_01
+			#维持度
+			set_variable = {
+				which = ev_maintenance_value
+				value = 100
+			}
+			begin_event_chain = {
+				event_chain = "ev_maintenance_chain"
+				target = ROOT
+			}
+			#特质修正
+			give_ev_traits_buff = yes
+			
+			add_resource = {
+				minerals = 100000
+				energy = 100000
+				food = 10000
+				influence = 5000
+				alloys = 30000
+				consumer_goods = 40000
+				exotic_gases = 2000
+				rare_crystals = 2000
+				volatile_motes = 2000
+			}
+			
+			# must initialize global designs here
+			add_global_ship_design = "NAME_Enforcer"
+			add_global_ship_design = "NAME_Savant"
+			add_global_ship_design = "NAME_Scholar"
+			add_global_ship_design = "NAME_Sage"
+			add_global_ship_design = "NAME_Cloaker"
+			add_global_ship_design = "NAME_Librarian"
+			add_global_ship_design = "NAME_Seeker"
+			add_global_ship_design = "NAME_FE_Starbase"
+
+			while = {
+				count = $VAR_WHILE|2$
+				create_fleet = {
+					effect = {
+						set_owner = prev 
+						while = {
+							count = $VAR_0|2$
+							create_ship = {
+								name = random
+								design = "NAME_start_homeless_ship_ai_5"
+							}
+							add_modifier = {
+								modifier = empty_vagrant_homeless_ship_ai_3 days = -1
+							}
+						}	
+						set_fleet_stance = passive  
+						set_location = root
+					}
+					settings = { 
+						can_upgrade = no 
+						can_disband = no
+						can_change_composition = no 
+						can_change_leader = no 
+						uses_naval_capacity = no
+					}
+				}
+				create_leader = {
+					class = official
+					species = owner_main_species
+					name = random
+					skill = 10
+					leader_age_min = 25
+					leader_age_max = 45
+				}
+				create_leader = {
+					class = commander
+					species = owner_main_species
+					name = random
+					skill = 10
+					leader_age_min = 25
+					leader_age_max = 45
+				}
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = {
+							count = $VAR_1|8$
+							create_ship = {
+								name = random
+								design = "NAME_Scholar"
+								graphical_culture = fallen_empire_02
+							}
+						}
+						while = {
+							count = $VAR_2|18$
+							create_ship = {
+								name = random
+								design = "NAME_Glory"
+								graphical_culture = fallen_empire_02
+							}
+						}
+						random_list = {
+							25 = {
+								set_location = {
+									target = root
+									distance = 30
+									angle = random
+								}
+							}
+							25 = {
+								set_location = {
+									target = root
+									distance = 45
+									angle = random
+								}
+							}
+							25 = {
+								set_location = {
+									target = root
+									distance = 60
+									angle = random
+								}
+							}
+							25 = {
+								set_location = {
+									target = root
+									distance = 75
+									angle = random
+								}
+							}
+						}
+						
+					}
+				}
+				last_created_fleet = { 
+					assign_leader = last_created_leader 
+				}
+			}
+			
+		}
+		
+	}
+}
+
+#根据国策给格式塔节点生产修正
+ev_give_councilor_gestalt_civic_buff = {
+	if = {
+		limit = { is_gestalt = yes }
+		remove_modifier = civic_ev_industrial_production_gestalt
+		remove_modifier = civic_ev_ship_research_gestalt
+		remove_modifier = civic_ev_exploration_of_space_gestalt
+		remove_modifier = civic_ev_maintenance_add_gestalt
+		remove_modifier = civic_ev_food_to_energy_gestalt
+		remove_modifier = civic_ev_space_miners_gestalt
+		remove_modifier = civic_ev_space_survey_gestalt
+		remove_modifier = civic_ev_rare_crystals_lithoid_gestalt
+		remove_modifier = civic_ev_volatile_motes_lithoid_gestalt
+		remove_modifier = civic_ev_exotic_gases_lithoid_gestalt
+		remove_modifier = civic_ev_mechanics_unity_gestalt
+		remove_modifier = civic_ev_god_elect_gestalt
+		remove_modifier = civic_ev_temporary_habitat_gestalt
+		remove_modifier = civic_ev_corvette_ship_gestalt
+		remove_modifier = civic_ev_titan_ship_gestalt
+		remove_modifier = civic_ev_web_economy_gestalt
+		remove_modifier = civic_ev_powerful_ship_gestalt
+		remove_modifier = civic_ev_defense_ship_gestalt
+		remove_modifier = civic_ev_planet_and_fleet_gestalt
+		remove_modifier = civic_ev_acting_like_ghost_gestalt
+		remove_modifier = civic_ev_boom_homeless_gestalt
+		remove_modifier = civic_ev_no_war_gestalt
+		remove_modifier = civic_ev_shadow_fleet_gestalt
+		if = {
+			limit = { has_civic =civic_ev_industrial_production }
+			add_modifier = {
+				modifier = civic_ev_industrial_production_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_ship_research }
+			add_modifier = {
+				modifier = civic_ev_ship_research_gestalt mult = value:ev_count_councilor_gestalt_cognitive_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_exploration_of_space }
+			add_modifier = {
+				modifier = civic_ev_exploration_of_space_gestalt mult = value:ev_count_councilor_gestalt_cognitive_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_maintenance_add }
+			add_modifier = {
+				modifier = civic_ev_maintenance_add_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_food_to_energy }
+			add_modifier = {
+				modifier = civic_ev_food_to_energy_gestalt mult = value:ev_count_councilor_gestalt_growth_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_space_miners }
+			add_modifier = {
+				modifier = civic_ev_space_miners_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_space_survey }
+			add_modifier = {
+				modifier = civic_ev_space_survey_gestalt mult = value:ev_count_ouncilor_gestalt_cognitive_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_rare_crystals_lithoid }
+			add_modifier = {
+				modifier = civic_ev_rare_crystals_lithoid_gestalt mult = value:ev_count_councilor_gestalt_growth_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_exotic_gases_lithoid }
+			add_modifier = {
+				modifier = civic_ev_exotic_gases_lithoid_gestalt mult = value:ev_count_councilor_gestalt_growth_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_volatile_motes_lithoid }
+			add_modifier = {
+				modifier = civic_ev_volatile_motes_lithoid_gestalt mult = value:ev_count_councilor_gestalt_growth_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_mechanics_unity }
+			add_modifier = {
+				modifier = civic_ev_mechanics_unity_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_god_elect }
+			add_modifier = {
+				modifier = civic_ev_god_elect_gestalt mult = value:ev_count_councilor_gestalt_cognitive_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_temporary_habitat }
+			add_modifier = {
+				modifier = civic_ev_temporary_habitat_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+
+		if = {
+			limit = { has_civic = civic_ev_corvette_ship }
+			add_modifier = {
+				modifier = civic_ev_corvette_ship_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+
+		if = {
+			limit = { has_civic = civic_ev_titan_ship }
+			add_modifier = {
+				modifier = civic_ev_titan_ship_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_web_economy }
+			add_modifier = {
+				modifier = civic_ev_web_economy_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_powerful_ship }
+			add_modifier = {
+				modifier = civic_ev_powerful_ship_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		
+		if = {
+			limit = { has_civic = civic_ev_defense_ship }
+			add_modifier = {
+				modifier = civic_ev_defense_ship_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_planet_and_fleet }
+			add_modifier = {
+				modifier = civic_ev_planet_and_fleet_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_acting_like_ghost }
+			add_modifier = {
+				modifier = civic_ev_acting_like_ghost_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_boom_homeless }
+			add_modifier = {
+				modifier = civic_ev_boom_homeless_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_no_war }
+			add_modifier = {
+				modifier = civic_ev_no_war_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_shadow_fleet }
+			add_modifier = {
+				modifier = civic_ev_shadow_fleet_gestalt mult = value:ev_count_councilor_gestalt_legion_level
+			}
+		}
+		if = {
+			limit = { has_civic = civic_ev_catalytic_processing }
+			add_modifier = {
+				modifier = civic_ev_catalytic_processing_gestalt mult = value:ev_count_councilor_gestalt_regulatory_level
+			}
+		}
+		
+	}
+}
+
+###根据已有的思潮修正锁定思潮
+ev_lock_fanatic_ethic_by_modifier = {
+	#思潮修正
+	if = {
+		limit = {
+			has_modifier = ev_government_modifers_1 
+		}
+		shift_ethic = ethic_fanatic_spiritualist
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_2 }
+		shift_ethic = ethic_fanatic_materialist
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_3 }
+		shift_ethic = ethic_fanatic_militarist
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_4 }
+		shift_ethic = ethic_fanatic_pacifist
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_5 }
+		shift_ethic = ethic_fanatic_authoritarian
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_6 }
+		shift_ethic = ethic_fanatic_egalitarian
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_7 }
+		shift_ethic = ethic_fanatic_xenophile
+	}
+	else_if = {
+		limit = { has_modifier = ev_government_modifers_8 }
+		shift_ethic = ethic_fanatic_xenophobe
+	}
+}

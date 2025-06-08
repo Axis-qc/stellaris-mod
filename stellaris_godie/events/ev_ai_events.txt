@@ -1,0 +1,1440 @@
+namespace = ev_ai
+#AI刷船
+event = {
+	id = ev_ai.1
+	# title = disasters.1.name
+	# desc = disasters.1.desc
+	# #diplomatic = yes
+	# diplomatic_title = "disasters.1.name"
+	# #custom_gui = "ev_event_diplomacy_shipyard_settings_window" #窗口
+	# #custom_gui_option = "ev_event_diplomacy_shipyard_settings_option" #选项
+	# picture_event_data = { room = ancient_databank_room } #图片只能用room
+	# show_sound = event_mystic_reveal_light
+	# location = root
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_country = {
+			limit = {
+				is_default_ev_country_type = yes
+				is_ai = yes
+				NOT = {
+					is_country_type = fallen_empire_ev
+				}
+				NOT = {
+					has_country_flag = has_ev_to_planets
+				}
+				is_at_war = no
+			}
+			#给设计
+			#if = {
+			#	limit = {
+			#		has_technology = tech_homeless_section_templates_2
+			#	}
+			#	create_ship_design = {
+			#		design = "NAME_start_homeless_ship_ai_2"
+			#	}
+			#	add_ship_design = last_created_design
+			#}
+			#if = {
+			#	limit = {
+			#		has_technology = tech_homeless_section_templates_2
+			#		has_technology = tech_homeless_production_resources_1
+			#	}
+			#	create_ship_design = {
+			#		design = "NAME_start_homeless_ship_ai_3"
+			#	}
+			#	add_ship_design = last_created_design
+			#}
+			#if = {
+			#	limit = {
+			#		has_technology = tech_homeless_section_templates_3
+			#	}
+			#	create_ship_design = {
+			#		design = "NAME_start_homeless_ship_ai_4"
+			#	}
+			#	add_ship_design = last_created_design
+			#}
+			#if = {
+			#	limit = {
+			#		has_technology = tech_homeless_section_templates_3
+			#		has_technology = tech_homeless_production_resources_2
+			#	}
+			#	create_ship_design = {
+			#		design = "NAME_start_homeless_ship_ai_4"
+			#	}
+			#	add_ship_design = last_created_design
+			#}
+			#if = {
+			#	limit = {
+			#		has_technology = tech_homeless_section_templates_4
+			#		has_technology = tech_homeless_production_resources_2
+			#	}
+			#	create_ship_design = {
+			#		design = "NAME_start_homeless_ship_ai_5"
+			#	}
+			#	add_ship_design = last_created_design
+			#}
+
+
+
+			#更新并省出舰队容量
+			#if = {
+			#	limit = {
+			#		count_owned_ship = {
+			#			limit = {
+			#				is_ship_size = homeless_ship
+			#			}
+			#			count > 5
+			#		}
+			#	}
+			#	random_controlled_ship = {
+			#		limit = {
+			#			OR = {
+			#				is_ship_size = homeless_ship
+			#			}
+			#		}
+			#		destroy_ship = this
+			#	}
+			#}
+			#if = {
+			#	limit = {
+			#		count_owned_ship = {
+			#			limit = {
+			#				is_ship_size = corvette
+			#			}
+			#			count > 45
+			#		}
+			#	}
+			#	while = {
+			#		count = 6
+			#		random_controlled_ship = {
+			#			limit = {
+			#				OR = {
+			#					is_ship_size = corvette
+			#				}
+			#			}
+			#			destroy_ship = this
+			#		}
+			#	}
+			#}
+			#else_if = {
+			#	limit = {
+			#		count_owned_ship = {
+			#			limit = {
+			#				is_ship_size = corvette
+			#			}
+			#			count > 105
+			#		}
+			#	}
+			#	while = {
+			#		count = 20
+			#		random_controlled_ship = {
+			#			limit = {
+			#				OR = {
+			#					is_ship_size = corvette
+			#				}
+			#			}
+			#			destroy_ship = this
+			#		}
+			#	}
+			#}
+			#else_if = {
+			#	limit = {
+			#		count_owned_ship = {
+			#			limit = {
+			#				is_ship_size = corvette
+			#			}
+			#			count > 300
+			#		}
+			#	}
+			#	while = {
+			#		count = 40
+			#		random_controlled_ship = {
+			#			limit = {
+			#				OR = {
+			#					is_ship_size = corvette
+			#				}
+			#			}
+			#			destroy_ship = this
+			#		}
+			#	}
+			#}
+			#random_controlled_fleet = {
+			#	limit = {
+			#		NOT = {
+			#			any_controlled_ship = {
+			#				OR = {
+			#					is_ship_class = shipclass_constructor
+			#					is_ship_class = shipclass_science_ship
+			#					is_ship_class = shipclass_colonizer
+			#				}
+			#			}
+			#			
+			#		}
+			#	}
+			#	save_event_target_as = ev_ai_onwer_amry_ship_location
+			#}
+			#random_controlled_fleet = {
+			#	limit = {
+			#		NOT = {
+			#		}
+			#	}
+			#	save_event_target_as = ev_ai_onwer_amry_ship_location
+			#}
+			#if = {
+			#	limit = {
+			#		count_owned_ship = {
+			#			limit = {
+			#				is_ship_size = homeless_ship_starbase
+			#			}
+			#			count < 1
+			#		}
+			#	}
+			#	create_fleet = {
+			#		effect = {
+			#			set_owner = prev
+			#			create_ship = {
+			#				name = random
+			#				design = NAME_start_homeless_ship_machine_starbase
+			#			}
+			#			set_location = {
+			#				target = event_target:ev_ai_onwer_amry_ship_location
+			#				distance = 20
+			#				angle = random
+			#			}
+			#		}
+			#	}
+			#}
+			#create_fleet = {
+			#	effect = {
+			#		set_owner = prev
+			#		random_list = {
+			#			1 = {
+			#				while = {
+			#					count = 3
+			#					create_army_transport = {
+			#						ship_name = random
+			#						graphical_culture = empty_vagrant_01
+			#						army_type = "ev_assault_army"
+			#					}
+			#				}
+			#			}
+			#			1 = {
+			#				while = {
+			#					count = 2
+			#					create_army_transport = {
+			#						ship_name = random
+			#						graphical_culture = empty_vagrant_01
+			#						army_type = "ev_assault_army"
+			#					}
+			#				}
+			#			}
+			#			1 = {
+			#				modifier = {
+			#					add = 2
+			#					mid_game_years_passed > 0
+			#				}
+			#				while = {
+			#					count = 5
+			#					create_army_transport = {
+			#						ship_name = random
+			#						graphical_culture = empty_vagrant_01
+			#						army_type = "ev_assault_army"
+			#					}
+			#				}
+			#			}
+			#			1 = {
+			#				modifier = {
+			#					add = 4
+			#					end_game_years_passed > 0
+			#				}
+			#				while = {
+			#					count = 8
+			#					create_army_transport = {
+			#						ship_name = random
+			#						graphical_culture = empty_vagrant_01
+			#						army_type = "ev_assault_army"
+			#					}
+			#				}
+			#			}
+			#		}
+			#		set_location = {
+			#			target = event_target:ev_ai_onwer_amry_ship_location
+			#			distance = 20
+			#			angle = random
+			#		}
+			#	}
+			#}
+
+
+
+			#random_list = {
+			#	1 = {
+			#		#刷船
+			#		give_ev_ai_bio_homeless_fleet = yes
+			#		give_ev_ai_machine_homeless_fleet = yes
+			#		give_ev_ai_hive_homeless_fleet = yes
+			#	}
+			#	1 = {
+			#		modifier = {
+			#			add = 1
+			#			mid_game_years_passed < 0
+			#		}
+			#		modifier = {
+			#			add = -1
+			#			end_game_years_passed > 10
+			#		}
+			#	}
+			#}
+
+			random_list = {
+				1 = {
+					modifier = {
+						factor = 0
+						prev = {
+							fleet_size < 50
+							fleet_size > 100
+						}
+					}
+					modifier = {
+						factor = 0
+						prev = {
+							count_owned_ship = {
+								limit = {
+									is_ship_size = homeless_ship_starbase
+								}
+								count > 5
+							}
+						}
+					}
+					give_ev_ai_homeless_fleet_new = { VAR = 1 }
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						prev = {
+							fleet_size < 100
+							fleet_size > 250
+						}
+					}
+					modifier = {
+						factor = 0
+						prev = {
+							count_owned_ship = {
+								limit = {
+									is_ship_size = homeless_ship_starbase
+								}
+								count > 10
+							}
+						}
+					}
+					give_ev_ai_homeless_fleet_new = { VAR = 2 }
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						prev = {
+							fleet_size < 250
+							fleet_size > 2500
+						}
+					}
+					modifier = {
+						factor = 0
+						prev = {
+							count_owned_ship = {
+								limit = {
+									is_ship_size = homeless_ship_starbase
+								}
+								count > 20
+							}
+						}
+					}
+					give_ev_ai_homeless_fleet_new = { VAR = 3 }
+				}
+			}
+		}
+	}
+}
+
+
+
+country_event = {
+	id = ev_ai.2
+	location = root
+	hide_window = yes
+	trigger = {
+		is_ai = yes
+		is_default_ev_country_type = yes
+		count_owned_ship = {
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+			count >= 1
+		}
+	}
+	mean_time_to_happen = {
+		years = 8
+	}
+	immediate = {
+		random_list = {
+			1 = {
+				modifier = {
+					factor = 0
+					prev = {
+						fleet_size < 50
+						fleet_size > 100
+					}
+				}
+				modifier = {
+					factor = 0
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count > 5
+						}
+					}
+				}
+				give_ev_ai_homeless_fleet_new = { VAR = 1 }
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					prev = {
+						fleet_size < 100
+						fleet_size > 250
+					}
+				}
+				modifier = {
+					factor = 0
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count > 10
+						}
+					}
+				}
+				give_ev_ai_homeless_fleet_new = { VAR = 2 }
+				random_list = {
+					3 = { give_ev_ai_fleet_size_fleet_new = { VAR = 2 } }
+					1 = { give_ev_ai_fleet_size_fleet_new = { VAR = 3 } }
+					1 = { give_ev_ai_fleet_size_fleet_new = { VAR = 4 } }
+					2 = {}
+				}
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					prev = {
+						fleet_size < 250
+						fleet_size > 2500
+					}
+				}
+				modifier = {
+					factor = 0
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count > 20
+						}
+					}
+				}
+				give_ev_ai_homeless_fleet_new = { VAR = 2 }
+				random_list = {
+					3 = { give_ev_ai_fleet_size_fleet_new = { VAR = 4 } }
+					1 = { give_ev_ai_fleet_size_fleet_new = { VAR = 6 } }
+					1 = { give_ev_ai_fleet_size_fleet_new = { VAR = 8 } }
+					2 = { }
+				}
+			}
+			1 = { }
+		}
+		#升级舰船
+		random_list = {
+			0 = {
+				modifier = {
+					add = 1
+					prev = {
+						AND = {
+							has_technology = tech_homeless_section_templates_4
+							has_technology = tech_homeless_production_rare_crystals_1
+							has_technology = tech_homeless_production_exotic_gases_1
+							has_technology = tech_homeless_production_volatile_motes_1
+						}
+					}
+				}
+				random_list = {
+					3 = { update_ev_ai_homeless_fleet_new_1 = { VAR = 1 } }
+					1 = { update_ev_ai_homeless_fleet_new_1 = { VAR = 2 } }
+				}
+			}
+			2 = { 
+				modifier = {
+					add = 2
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count < 10
+						}
+					}
+				}
+				modifier = {
+					add = 2
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count < 24
+						}
+					}
+				}
+				modifier = {
+					factor = 0
+					prev = {
+						count_owned_ship = {
+							limit = {
+								is_ship_size = homeless_ship_starbase
+							}
+							count > 40
+						}
+					}
+				}
+				
+			}
+		}
+
+		#给设计
+		#if = {
+		#	limit = {
+		#		has_technology = tech_homeless_section_templates_2
+		#	}
+		#	create_ship_design = {
+		#		design = "NAME_start_homeless_ship_ai_2"
+		#	}
+		#	add_ship_design = last_created_design
+		#}
+		#if = {
+		#	limit = {
+		#		has_technology = tech_homeless_section_templates_2
+		#		has_technology = tech_homeless_production_resources_1
+		#	}
+		#	create_ship_design = {
+		#		design = "NAME_start_homeless_ship_ai_3"
+		#	}
+		#	add_ship_design = last_created_design
+		#}
+		#if = {
+		#	limit = {
+		#		has_technology = tech_homeless_section_templates_3
+		#	}
+		#	create_ship_design = {
+		#		design = "NAME_start_homeless_ship_ai_4"
+		#	}
+		#	add_ship_design = last_created_design
+		#}
+		#if = {
+		#	limit = {
+		#		has_technology = tech_homeless_section_templates_3
+		#		has_technology = tech_homeless_production_resources_2
+		#	}
+		#	create_ship_design = {
+		#		design = "NAME_start_homeless_ship_ai_4"
+		#	}
+		#	add_ship_design = last_created_design
+		#}
+		#if = {
+		#	limit = {
+		#		has_technology = tech_homeless_section_templates_4
+		#		has_technology = tech_homeless_production_resources_2
+		#	}
+		#	create_ship_design = {
+		#		design = "NAME_start_homeless_ship_ai_5"
+		#	}
+		#	add_ship_design = last_created_design
+		#}
+		#更新并省出舰队容量
+		#if = {
+		#	limit = {
+		#		count_owned_ship = {
+		#			limit = {
+		#				is_ship_size = homeless_ship
+		#			}
+		#			count > 5
+		#		}
+		#	}
+		#	random_controlled_ship = {
+		#		limit = {
+		#			OR = {
+		#				is_ship_size = homeless_ship
+		#			}
+		#		}
+		#		destroy_ship = this
+		#	}
+		#}
+		#if = {
+		#	limit = {
+		#		count_owned_ship = {
+		#			limit = {
+		#				is_ship_size = corvette
+		#			}
+		#			count > 45
+		#		}
+		#	}
+		#	while = {
+		#		count = 6
+		#		random_controlled_ship = {
+		#			limit = {
+		#				OR = {
+		#					is_ship_size = corvette
+		#				}
+		#			}
+		#			destroy_ship = this
+		#		}
+		#	}
+		#}
+		#else_if = {
+		#	limit = {
+		#		count_owned_ship = {
+		#			limit = {
+		#				is_ship_size = corvette
+		#			}
+		#			count > 105
+		#		}
+		#	}
+		#	while = {
+		#		count = 20
+		#		random_controlled_ship = {
+		#			limit = {
+		#				OR = {
+		#					is_ship_size = corvette
+		#				}
+		#			}
+		#			destroy_ship = this
+		#		}
+		#	}
+		#}
+		#else_if = {
+		#	limit = {
+		#		count_owned_ship = {
+		#			limit = {
+		#				is_ship_size = corvette
+		#			}
+		#			count > 300
+		#		}
+		#	}
+		#	while = {
+		#		count = 40
+		#		random_controlled_ship = {
+		#			limit = {
+		#				OR = {
+		#					is_ship_size = corvette
+		#				}
+		#			}
+		#			destroy_ship = this
+		#		}
+		#	}
+		#}
+		#random_controlled_fleet = {
+		#	limit = {
+		#		NOT = {
+		#			any_controlled_ship = {
+		#				OR = {
+		#					is_ship_class = shipclass_constructor
+		#					is_ship_class = shipclass_science_ship
+		#					is_ship_class = shipclass_colonizer
+		#				}
+		#			}
+		#			
+		#		}
+		#	}
+		#	save_event_target_as = ev_ai_onwer_amry_ship_location
+		#}
+		#random_controlled_fleet = {
+		#	limit = {
+		#		NOT = {
+		#		}
+		#	}
+		#	save_event_target_as = ev_ai_onwer_amry_ship_location
+		#}
+		#if = {
+		#	limit = {
+		#		count_owned_ship = {
+		#			limit = {
+		#				is_ship_size = homeless_ship_starbase
+		#			}
+		#			count < 1
+		#		}
+		#	}
+		#	create_fleet = {
+		#		effect = {
+		#			set_owner = prev
+		#			create_ship = {
+		#				name = random
+		#				design = NAME_start_homeless_ship_machine_starbase
+		#			}
+		#			set_location = {
+		#				target = event_target:ev_ai_onwer_amry_ship_location
+		#				distance = 20
+		#				angle = random
+		#			}
+		#		}
+		#	}
+		#}
+		#create_fleet = {
+		#	effect = {
+		#		set_owner = prev
+		#		random_list = {
+		#			1 = {
+		#				while = {
+		#					count = 3
+		#					create_army_transport = {
+		#						ship_name = random
+		#						graphical_culture = empty_vagrant_01
+		#						army_type = "ev_assault_army"
+		#					}
+		#				}
+		#			}
+		#			1 = {
+		#				while = {
+		#					count = 2
+		#					create_army_transport = {
+		#						ship_name = random
+		#						graphical_culture = empty_vagrant_01
+		#						army_type = "ev_assault_army"
+		#					}
+		#				}
+		#			}
+		#			1 = {
+		#				modifier = {
+		#					add = 2
+		#					mid_game_years_passed > 0
+		#				}
+		#				while = {
+		#					count = 5
+		#					create_army_transport = {
+		#						ship_name = random
+		#						graphical_culture = empty_vagrant_01
+		#						army_type = "ev_assault_army"
+		#					}
+		#				}
+		#			}
+		#			1 = {
+		#				modifier = {
+		#					add = 4
+		#					end_game_years_passed > 0
+		#				}
+		#				while = {
+		#					count = 8
+		#					create_army_transport = {
+		#						ship_name = random
+		#						graphical_culture = empty_vagrant_01
+		#						army_type = "ev_assault_army"
+		#					}
+		#				}
+		#			}
+		#			1 = {}
+		#		}
+		#		set_location = {
+		#			target = event_target:ev_ai_onwer_amry_ship_location
+		#			distance = 0
+		#			angle = random
+		#		}
+		#	}
+		#}
+		#random_list = {
+		#	1 = {
+		#		#刷船
+		#		give_ev_ai_bio_homeless_fleet = yes
+		#		give_ev_ai_machine_homeless_fleet = yes
+		#		give_ev_ai_hive_homeless_fleet = yes
+		#	}
+		#	1 = {
+		#		modifier = {
+		#			add = 1
+		#			mid_game_years_passed < 0
+		#		}
+		#		modifier = {
+		#			add = -1
+		#			end_game_years_passed > 10
+		#		}
+		#	}
+		#}
+
+
+	}
+}
+#对犯罪舰队强制开边
+#event = {
+#	id = ev_ai.10
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		every_country = {
+#			limit = { has_civic = civic_ev_criminal_ship }
+#			save_event_target_as = default_ev_criminal_country
+#		}
+#		every_country = {
+#			limit = { 
+#				NOT = { has_civic = civic_ev_criminal_ship } 
+#			}
+#			set_closed_borders = {
+#				who = event_target:default_ev_criminal_country
+#				status = no
+#				forced = 20
+#			}
+#		}
+#	}
+#}
+#
+country_event = {
+	id = ev_ai.19
+	hide_window = yes
+	#is_triggered_only = yes
+	trigger = {
+		is_default_ev_country_type = yes
+		is_ai = yes
+		has_ascension_perk = ev_ask_the_void
+		NOT = {
+			has_country_flag = has_ap_ev_ask_the_void_again
+		}
+	}
+	mean_time_to_happen = {
+		months = 72
+	}
+	immediate = {
+		set_variable = {
+			which = ev_count_homeless
+			value = 1
+		}
+		set_timed_country_flag = {
+			flag = has_ap_ev_ask_the_void_again
+			days = 1200
+		}
+		ev_special_luck_draw_event = yes
+		while = {
+			count = 5
+			ev_luck_draw_event = yes
+		}
+	}
+}
+
+#AI访问虚空
+#event = {
+#	id = ev_ai.20
+#	hide_window = yes
+#	is_triggered_only = yes
+#	trigger = {
+#		mid_game_years_passed > 0
+#	}
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				is_ai = yes
+#				has_ascension_perk = ev_ask_the_void
+#				NOT = {
+#					has_country_flag = has_ap_ev_ask_the_void_again
+#				}
+#			}
+#			set_variable = {
+#				which = ev_count_homeless
+#				value = 1
+#			}
+#			set_timed_country_flag = {
+#				flag = has_ap_ev_ask_the_void_again
+#				days = 1200
+#			}
+#			ev_special_luck_draw_event = yes
+#			while = {
+#				count = 5
+#				ev_luck_draw_event = yes
+#			}
+#		}
+#	}
+#}
+
+#AI使用开采
+event = {
+	id = ev_ai.21
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_country = {
+			limit = {
+				is_default_ev_country_type = yes
+				has_civic = civic_ev_space_miners
+				is_ai = yes
+				NOT = {
+					has_country_flag = has_civic_ev_space_miners_ai
+				}
+			}
+			set_timed_country_flag = {
+				flag = has_civic_ev_space_miners_ai
+				days = 720
+			}
+			country_event = {
+				id = ev_resource.2050
+			}
+		}
+	}
+}
+
+#AI使用探索新恒星
+#event = {
+#	id = ev_ai.22
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_civic = civic_ev_space_survey
+#				is_ai = yes
+#				NOT = {
+#					has_country_flag = has_civic_ev_space_survey
+#				}
+#			}
+#			set_timed_country_flag = {
+#				flag = has_civic_ev_space_survey
+#				days = 1200
+#			}
+#			country_event = {
+#				id = ev_resource.2060
+#			}
+#		}
+#	}
+#}
+
+#AI使用探索2
+#event = {
+#	id = ev_ai.23
+#	hide_window = yes
+#	is_triggered_only = yes
+#	immediate = {
+#		every_country = {
+#			limit = {
+#				is_default_ev_country_type = yes
+#				has_ascension_perk = ev_knowledge_is_ours
+#				is_ai = yes
+#				NOT = {
+#					has_country_flag = has_ev_knowledge_is_ours
+#				}
+#			}
+#			set_timed_country_flag = {
+#				flag = has_ev_knowledge_is_ours
+#				days = 900
+#			}
+#			country_event = {
+#				id = ev_resource.2150
+#			}
+#		}
+#	}
+#}
+
+
+
+#信标不能被攻击！
+country_event = {
+	id = ev_ai.1000
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = {
+			has_fleet_flag = ev_beacon_fleet_@root
+		}
+	}
+	immediate = {
+		fromfrom = {
+			set_event_locked = yes
+			every_owned_ship = {
+				repair_ship = yes
+			}
+			fleet_event = {
+				id = ev_ai.1001 days = 30
+			}
+		}
+	}
+}
+
+fleet_event = {
+	id = ev_ai.1001
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+	immediate = {
+		set_event_locked = no
+	}
+}
+
+#清除没有家园舰的AI
+country_event = {
+	id = ev_ai.2000
+	hide_window = yes
+	#is_triggered_only = yes
+	mean_time_to_happen = {
+		months = 6
+	}
+	trigger = {
+		is_ai = yes
+		is_default_ev_country_type = yes
+		num_owned_planets < 1
+		num_ships <= 10
+		is_subject = no
+		count_owned_ship = {
+			count < 1
+			limit = {
+				is_any_type_homeless_ship = yes
+			}
+		}
+		
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				has_communications = root
+			}
+			country_event = {
+				id = ev_ai.2001
+			}
+		}
+		destroy_country = yes
+		
+	}
+}
+#清除没有家园舰的AI
+country_event = {
+	id = ev_ai.2001
+	title = ev_ai.2001.name
+	desc = ev_ai.2001.desc
+	picture = GFX_evt_alien_ruins
+	
+	location = from
+
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+	immediate = {
+		
+	}
+	option = {
+		name = OK
+	}
+}
+
+#全局AI给buff
+
+country_event = {
+	id = ev_ai.2010
+	hide_window = yes
+	#is_triggered_only = yes
+	trigger = {
+		OR = {
+			is_default_ev_country_type = yes
+			is_country_type = fallen_empire_ev
+			is_country_type = awakened_fallen_empire_ev
+		}
+		is_ai = yes
+	}
+	mean_time_to_happen = {
+		months = 1
+	}
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = global_event
+			}
+			root = {
+				set_variable = {
+					which = ev_ai_buff
+					value = prev.ev_ai_buff
+				}
+			}
+			
+		}
+		#remove_modifier = ev_ai_buff_mod
+		#add_modifier = {
+		#	modifier = ev_ai_buff_mod days = 120
+		#	multiplier = ev_ai_buff
+		#}
+		every_owned_fleet = {
+			limit = {
+				always = yes
+			}
+			set_variable = {
+				which = ev_ai_buff
+				value = owner.ev_ai_buff
+			}
+			remove_modifier = ev_ai_buff_mod
+			add_modifier = {
+				modifier = ev_ai_buff_mod days = 120
+				multiplier = ev_ai_buff
+			}
+		}
+	}
+}
+
+#如果是天灾势力
+country_event = {
+	id = ev_ai.2011
+	hide_window = yes
+	#is_triggered_only = yes
+	trigger = {
+		OR = {
+			is_country_type = ev_leviathans_crisis
+		}
+		is_ai = yes
+	}
+	mean_time_to_happen = {
+		months = 1
+	}
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = global_event
+			}
+			root = {
+				set_variable = {
+					which = ev_ai_buff
+					value = prev.ev_ai_buff
+				}
+				multiply_variable = {
+					which = ev_ai_buff
+					value = 10
+				}
+			}
+			
+		}
+		#remove_modifier = ev_ai_buff_mod
+		#add_modifier = {
+		#	modifier = ev_ai_buff_mod days = 120
+		#	multiplier = ev_ai_buff
+		#}
+		every_owned_fleet = {
+			limit = {
+				always = yes
+			}
+			set_variable = {
+				which = ev_ai_buff
+				value = owner.ev_ai_buff
+			}
+			
+			remove_modifier = ev_ai_buff_mod
+			add_modifier = {
+				modifier = ev_ai_buff_mod days = 120
+				multiplier = ev_ai_buff
+			}
+		}
+	}
+}
+
+##############测试
+
+#当完成一个pop增长
+planet_event = {
+	id = ev_ai.9999
+	title = disasters.22.name
+	desc = SME_test.22.desc
+	picture = GFX_evt_archaeological_dig
+	show_sound = event_mystic_reveal_light
+	location = root
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_planet_flag = ev_test_pop
+	}
+	immediate = {
+		
+		FromFrom = {
+			set_variable = {
+				which = SME_pop_num_copy
+				value = 1
+			}
+			#此为新的人口实际上增长，为1+星球总人口0.5%
+			planet = {
+				set_variable = {
+					which = SME_pop_num_copy
+					value = prev.SME_pop_num_copy
+				}
+				set_variable = {
+					which = SME_pop_num_all
+					value = SME_pop_num
+				}
+				divide_variable = {
+					which = SME_pop_num_copy 
+					value = SME_pop_num_all
+				}
+				
+				every_owned_pop_group = {
+					set_variable = {
+						which = SME_pop_num_copy 
+						value = prev.SME_pop_num_copy 
+					}
+					change_variable = {
+						which = SME_pop_num
+						value = SME_pop_num_copy 
+					}
+					#获取buff
+					set_variable = {
+						which = SME_pop_num_buff
+						value = SME_pop_num
+					}
+					subtract_variable = {
+						which = SME_pop_num_buff
+						value = 1
+					}
+					remove_modifier = ev_test_pop_buff 
+					add_modifier = {
+						modifier = ev_test_pop_buff 
+						multiplier = SME_pop_num_buff
+					}
+				}
+			}
+			
+			kill_all_pop = yes
+		}
+		
+	}
+	
+}
+
+country_event = {
+	id = ev_ai.8999
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = yes }
+	immediate = {
+		every_owned_fleet = {
+			limit = { any_owned_ship = { is_any_type_homeless_ship = yes } }
+			root = { change_variable = { which = tracking_caculation_homeless_fleet value = 1 } }
+		}
+		country_event = { id = ev_ai.9000 days = 1 }
+	}
+}
+
+country_event = {
+	id = ev_ai.9000
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = yes }
+	immediate = {
+		every_owned_fleet = {
+			limit = { 
+				any_owned_ship = { is_any_type_homeless_ship = yes } 
+				NOT = { has_fleet_flag = tracking_caculation_homeless_fleet }
+			}
+			save_fleet_homelsee_target = yes
+		}
+		clear_variable = tracking_caculation_homeless_fleet
+		country_event = { id = ev_ai.9003 days = 1 }
+	}
+}
+
+#每月解除附庸
+event = {
+	id = ev_ai.9899
+	title = disasters.22.name
+	desc = SME_test.22.desc
+	picture = GFX_evt_archaeological_dig
+	show_sound = event_mystic_reveal_light
+	location = root
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		always = no
+	}
+	immediate = {
+		#every_country = {
+		#	limit = {
+		#		is_default_ev_country_type = yes
+		#	}
+		#	set_subject_of = {
+		#		preset = preset_protectorate
+		#		who = none
+		#	}
+		#	every_subject = {
+		#		set_subject_of = {
+		#			preset = preset_protectorate
+		#			who = none
+		#		}
+		#	}
+		#}
+	}
+	
+}
+#殖民地被灭后保留舰队
+planet_event = {
+	id = ev_ai.2888
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		days_passed >= 30
+		#root = {
+		#	NOR = {
+		#		is_planet_class = pc_habitat
+		#	}
+		#}
+		fromfrom = {
+			is_default_ev_country_type = yes
+			num_owned_planets < 2
+			#AND = {
+			#	
+			#	#NOR = {
+			#	#	has_civic = civic_ev_planet_and_fleet
+			#	#	has_origin = origin_ev_both_choosen
+			#	#}
+			#	#is_default_fallen_ev_country_type = yes
+			#}
+		}
+	}
+
+	immediate = {
+		create_country = {
+			name = "你这斯德哥尔摩日山羊的蠢驴"
+			type = global_event #def
+			day_zero_contact = no
+			auto_delete = no
+			effect = {
+				save_global_event_target_as = event_country_1
+			}
+		}
+		#create_country = {
+		#	name = "你这斯德哥尔摩日山羊的蠢驴"
+		#	type = global_event #def
+		#	day_zero_contact = no
+		#	effect = {
+		#		save_event_target_as = event_country_2
+		#	}
+		#}
+		fromfrom = {
+			every_owned_fleet = {
+				limit = {
+					NOT = { is_ship_class = shipclass_starbase }
+				}
+				set_owner = event_target:event_country_1
+			}
+			every_owned_army = {
+				set_owner = event_target:event_country_1
+			}
+			federation = {
+				save_global_event_target_as = ev_from_federation
+			}
+			country_event = {
+				id = ev_ai.2889 days = 1
+			}
+		}
+		
+		#set_owner = event_target:event_country_2
+		#FromFrom = {
+		#	save_event_target_as = event_victim
+		#}
+		#save_event_target_as = event_planet
+		#set_variable = {
+		#	which = ark_planet_pop_convert_to_prosperity_num
+		#	value = this.trigger:num_pops
+		#}
+		#destroy_colony = yes
+		#event_target:event_country_1 = {
+		#	every_owned_fleet = {
+		#		set_owner = from
+		#	}
+		#	destroy_country = yes
+		#}
+		#event_target:event_country_2 = {
+		#	destroy_country = yes
+		#}
+		##from = {
+		##	#country_event = {
+		##	#	id = FBCIV_main_event.14
+		##	#}
+		##}
+		###################
+		#fromfrom = {
+		#	
+		#}
+	}
+
+	after = {
+		#every_owned_pop_group = {
+		#	kill_all_pop = yes
+		#}
+	}
+}
+
+country_event = {
+	id = ev_ai.2889
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = yes }
+	immediate = {
+		random_country = {
+			limit = {
+				federation = {
+					is_same_value = event_target:ev_from_federation
+				}
+			}
+			save_global_event_target_as = ev_from_federation_country
+		}
+		join_alliance = {
+			who = event_target:ev_from_federation_country
+			override_requirements = yes
+		}
+		alliance = {
+			add_federation_experience = 100
+		}
+		event_target:event_country_1 = {
+			every_owned_fleet = {
+				set_owner = root
+			}
+			every_owned_army = {
+				set_owner = root
+			}
+		}
+		clear_global_event_target = event_target:event_country_1
+		clear_global_event_target = ev_from_federation_country
+		clear_global_event_target = ev_from_federation
+	}
+}
+
+
+country_event = {
+	id = ev_ai.2999
+	title = 1
+	desc =  1
+	picture = GFX_evt_archaeological_dig
+	is_triggered_only = yes
+	trigger = { always = yes }
+	immediate = {
+		
+	}
+	option = {
+		name = x
+		random_list = {
+			1 = {
+				modifier = {
+					add = value:ev_cap_cost
+				}
+				add_resource = {
+					manpower = 1
+				}
+			}
+			1 = {
+				add_resource = {
+					food = 1
+				}
+			}
+		}
+	}
+}

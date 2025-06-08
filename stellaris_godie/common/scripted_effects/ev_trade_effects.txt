@@ -1,0 +1,1727 @@
+#舰队在星系的被动贸易效果（旧版）
+#序号为等级
+ev_trade_fleet_give_resources_1 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 168.75
+		}		#+125%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 150
+		}		#+100%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		add_resource = {
+			energy = 93.75
+		}		#+25%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		add_resource = {
+			energy = 75
+		}
+	}
+}
+
+ev_trade_fleet_give_resources_2 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 225
+		}		#+125%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 200
+		}		#+100%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		add_resource = {
+			energy = 125
+		}		#+25%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		add_resource = {
+			energy = 100
+		}
+	}
+}
+
+ev_trade_fleet_give_resources_3 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 270
+		}		#+125%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 240
+		}		#+100%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		add_resource = {
+			energy = 150
+		}		#+25%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		add_resource = {
+			energy = 120
+		}
+	}
+}
+
+ev_trade_fleet_give_resources_4 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 315
+		}		#+125%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		add_resource = {
+			energy = 280
+		}		#+100%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		add_resource = {
+			energy = 175
+		}		#+25%
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		add_resource = {
+			energy = 140
+		}
+	}
+}
+
+#舰队在星系的被动贸易效果（以人口计算）-新版
+#在政策下固定
+#总的贸易
+ev_trade_fleet_give_resources_a = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_energy
+			}
+		}
+		ev_trade_fleet_give_resources_a_energy = yes
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_food
+			}
+		}
+		ev_trade_fleet_give_resources_a_food = yes
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_minerals
+			}
+		}
+		ev_trade_fleet_give_resources_a_minerals = yes
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_research
+			}
+		}
+		ev_trade_fleet_give_resources_a_research = yes
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_consumer_goods
+			}
+		}
+		ev_trade_fleet_give_resources_a_consumer_goods = yes
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_policy_flag = trade_fleet_for_unity
+			}
+		}
+		ev_trade_fleet_give_resources_a_unity = yes
+	}
+}
+
+#仅电
+ev_trade_fleet_give_resources_a_energy = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 6.75
+					}					#+125%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 6
+					}					#+100%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.75
+					}					#+25%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+					}					#+0%
+				}
+			}
+		}
+	}
+}
+
+#食物贸易
+ev_trade_fleet_give_resources_a_food = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.38
+						food = 3.38
+					}					#+125%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+						food = 3
+					}					#+100%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.9
+						food = 1.9
+					}					#+25%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.5
+						food = 1.5
+					}					#+0%
+				}
+			}
+		}
+	}
+}
+
+#矿物贸易
+ev_trade_fleet_give_resources_a_minerals = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.38
+						minerals = 3.38
+					}					#+125%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+						minerals = 3
+					}					#+100%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.9
+						minerals = 1.9
+					}					#+25%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.5
+						minerals = 1.5
+					}					#+0%
+				}
+			}
+		}
+	}
+}
+
+#研究贸易
+ev_trade_fleet_give_resources_a_research = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.38
+					}					#+125%
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = 1
+						max = 2
+					}
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = 1
+						max = 2
+					}
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = 1
+						max = 2
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+					}					#+100%
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = 1
+						max = 2
+					}
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = 1
+						max = 2
+					}
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = 1
+						max = 2
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.9
+						physics_research = 0.38
+						society_research = 0.38
+						engineering_research = 0.38
+					}					#+25%
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = 1
+						max = 1
+					}
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = 1
+						max = 1
+					}
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = 1
+						max = 1
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.5
+					}					#+0%
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = 1
+						max = 1
+					}
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = 1
+						max = 1
+					}
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = 1
+						max = 1
+					}
+				}
+			}
+		}
+	}
+}
+
+#消费贸易
+ev_trade_fleet_give_resources_a_consumer_goods = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.38
+						consumer_goods = 1.69
+					}					#+125%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+						consumer_goods = 1.5
+					}					#+100%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.9
+						consumer_goods = 0.94
+					}					#+25%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.5
+						consumer_goods = 0.75
+					}					#+0%
+				}
+			}
+		}
+	}
+}
+
+#凝聚贸易
+ev_trade_fleet_give_resources_a_unity = {
+	if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3.38
+						unity = 1.01
+					}					#+125%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+				has_ascension_perk = ev_more_trade_fleet
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 3
+						unity = 0.9
+					}					#+100%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.9
+						unity = 0.56
+					}					#+25%
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:tev_welcome_fleet_country = {
+				NOT = {
+					has_ascension_perk = ev_more_trade_fleet
+				}
+				NOT = {
+					has_government = gov_empty_vagrant_civic_ev_all_friendship
+				}
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				while = {
+					count = base_trade_fleet_ev
+					add_resource = {
+						energy = 1.5
+						unity = 0.45
+					}					#+0%
+				}
+			}
+		}
+	}
+}
+
+#以人口计（废弃）
+ev_trade_fleet_give_resources_a2 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 7.9
+				}				#+125%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 7
+				}				#+100%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 4.4
+				}				#+25%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 3.5
+				}				#+0%
+			}
+		}
+	}
+}
+
+ev_trade_fleet_give_resources_a3 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 9
+				}				#+125%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 8
+				}				#+100%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 5
+				}				#+25%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 4
+				}				#+0%
+			}
+		}
+	}
+}
+
+ev_trade_fleet_give_resources_a4 = {
+	if = {
+		limit = {
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 9
+				}				#+125%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			has_ascension_perk = ev_more_trade_fleet
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 8
+				}				#+100%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			has_government = gov_empty_vagrant_civic_ev_all_friendship
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 5
+				}				#+25%
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_ascension_perk = ev_more_trade_fleet
+			}
+			NOT = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				is_robot_pop_group = no
+			}
+			event_target:tev_welcome_fleet_country = {
+				add_resource = {
+					energy = 4
+				}				#+0%
+			}
+		}
+	}
+}
+
+#舰队在星系的被动贸易效果（以人口计算）旧版
+ev_trade_fleet_give_resources_pop_sum = {
+	if = {
+		limit = {
+			num_pops > 300
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+				min = 300
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 200
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 5
+				min = 200
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 100
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 4
+				min = 100
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 80
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 3.5
+				min = 100
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 60
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 3
+				min = 100
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 50
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 2.5
+				min = 100
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 40
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 2.2
+				min = 80
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 30
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 2
+				min = 70
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 25
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 1.8
+				min = 60
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 20
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 1.6
+				min = 50
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 15
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 1.4
+				min = 40
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			num_pops > 10
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 1.2
+				min = 30
+			}
+		}
+	}
+	else = {
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 1
+				min = 20
+			}
+		}
+	}
+}
+
+#舰队在星系的被动贸易效果（以人口计算）-新版
+ev_trade_fleet_give_resources_pop_sum_2 = {
+	every_owned_pop_group = {
+		limit = {
+			is_robot_pop_group = no
+		}
+		event_target:tev_welcome_fleet_country = {
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 0.01
+				min = 1
+				max = 100
+			}
+		}
+	}
+}
+#3.0更新
+#舰队在星系的被动贸易效果（以人口计算）-3.0新版
+#在政策下固定
+
+#移除修正
+ev_remove_ev_buff_homeless_trade_produces_add_buff = {
+	remove_modifier = ev_buff_homeless_trade_produces_energy_add
+	remove_modifier = ev_buff_homeless_trade_produces_food_add
+	remove_modifier = ev_buff_homeless_trade_produces_minerals_add
+	remove_modifier = ev_buff_homeless_trade_produces_physics_research_add
+	remove_modifier = ev_buff_homeless_trade_produces_society_research_add
+	remove_modifier = ev_buff_homeless_trade_produces_engineering_research_add
+	remove_modifier = ev_buff_homeless_trade_produces_consumer_goods_add
+	remove_modifier = ev_buff_homeless_trade_produces_unity_add
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_energy_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_food_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_minerals_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_physics_research_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_society_research_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_engineering_research_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_consumer_goods_all
+		value = 0
+	}
+	set_variable = {
+		which = ev_trade_fleet_homeless_real_unity_all
+		value = 0
+	}
+}
+#添加修正
+ev_give_ev_buff_homeless_trade_produces_add_buff = {
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_energy_add mult = ev_trade_fleet_homeless_real_energy_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_food_add mult = ev_trade_fleet_homeless_real_food_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_minerals_add mult = ev_trade_fleet_homeless_real_minerals_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_physics_research_add mult = ev_trade_fleet_homeless_real_physics_research_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_society_research_add mult = ev_trade_fleet_homeless_real_society_research_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_engineering_research_add mult = ev_trade_fleet_homeless_real_engineering_research_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_consumer_goods_add mult = ev_trade_fleet_homeless_real_consumer_goods_all }
+	add_modifier = { modifier = ev_buff_homeless_trade_produces_unity_add mult = ev_trade_fleet_homeless_real_unity_all }
+
+	clear_global_event_target = tev_welcome_fleet_country
+}
+#总的贸易
+ev_trade_fleet_give_resources_all_var = {
+	#这是舰队作用域-每一个舰队
+	orbit = {
+		if = {
+			limit = { 
+				is_colony = yes
+				exists = owner
+				NOT = {
+					has_planet_flag = trade_ev_planet
+				}
+				owner = {
+					is_gestalt = no
+					is_country_type = default
+					NOT = { is_same_empire = prevprev.owner }
+				}
+			}
+			set_timed_planet_flag = {
+				flag = trade_ev_planet days = 30 #防止一个星球被无数个舰队贸易
+			}
+			#舰队所有者范围
+			prevprev.owner = {
+				save_global_event_target_as = tev_welcome_fleet_country
+				if = {
+					limit = { 
+						NOT = {
+							has_ascension_perk = ev_galaxy_free_trader
+						}
+					}
+		
+					switch = {
+						trigger = has_policy_flag
+						trade_fleet_for_energy = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 3 
+								}
+							}
+							
+						}
+			
+						trade_fleet_for_food = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 1.5
+									RESOURCES1 = food VAR1 = 1.5
+								}
+							}
+						}
+			
+						trade_fleet_for_minerals = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 1.5
+									RESOURCES1 = minerals VAR1 = 1.5
+								}
+							}
+						}
+			
+						trade_fleet_for_research = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 1.5
+									RESOURCES1 = physics_research RESOURCES2 = society_research RESOURCES3 = engineering_research 
+									VAR1 = 0.3 VAR2 = 0.3 VAR3 = 0.3
+								}
+							}
+						}
+			
+						trade_fleet_for_consumer_goods = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 1.5
+									RESOURCES1 = consumer_goods VAR1 = 0.75
+								}
+							}
+						}
+			
+						trade_fleet_for_unity = {
+							prev = {
+								ev_trade_fleet_give_any_resources_var = {
+									RESOURCES0 = energy VAR0 = 1.5
+									RESOURCES1 = unity VAR1 = 0.45
+								}
+							}
+						}
+					}
+				}
+				else = {
+					prev = {
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 3 
+						}
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 1.5
+							RESOURCES1 = food VAR1 = 1.5
+						}
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 1.5
+							RESOURCES1 = minerals VAR1 = 1.5
+						}
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 1.5
+							RESOURCES1 = physics_research RESOURCES2 = society_research RESOURCES3 = engineering_research 
+							VAR1 = 0.3 VAR2 = 0.3 VAR3 = 0.3
+						}
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 1.5
+							RESOURCES1 = consumer_goods VAR1 = 0.75
+						}
+						ev_trade_fleet_give_any_resources_var = {
+							RESOURCES0 = energy VAR0 = 1.5
+							RESOURCES1 = unity VAR1 = 0.45
+						}
+					}
+				}
+
+				
+				#随机贸易事件
+				if = {
+					limit = { NOT = { has_civic = civic_ev_criminal_ship } }
+					random_list = {
+						1 = { country_event = { id = ev_trade_event.1200 } }
+						1 = { country_event = { id = ev_trade_event.1201 } }
+						25 = { }
+					}
+				}
+				else = {
+					random_list = {
+						1 = { country_event = { id = ev_trade_event.1210 } }
+						1 = { country_event = { id = ev_trade_event.1211 } }
+						25 = { }
+					}
+				}
+			}
+		}
+	}
+
+	#event_target:tev_welcome_fleet_country = {
+	#	ev_remove_ev_buff_homeless_trade_produces_add_buff =  yes
+	#	
+	#	}
+#
+#
+	#}
+
+
+
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_energy
+	#		}
+	#	}
+	#	
+	#}
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_food
+	#		}
+	#	}
+	#	ev_trade_fleet_give_any_resources_var = {
+	#		RESOURCES1 = food  VAR = 1.5 VAR1 = 1.5
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_minerals
+	#		}
+	#	}
+	#	ev_trade_fleet_give_any_resources_var = {
+	#		RESOURCES1 = minerals  VAR = 1.5 VAR1 = 1.5
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_research
+	#		}
+	#	}
+	#	ev_trade_fleet_give_any_resources_var = {
+	#		RESOURCES1 = physics_research RESOURCES2 = society_research RESOURCES3 = engineering_research VAR = 1.5 VAR1 = 0.3 VAR2 = 0.3 VAR3 = 0.3
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_consumer_goods
+	#		}
+	#	}
+	#	ev_trade_fleet_give_any_resources_var = {
+	#		RESOURCES1 = consumer_goods  VAR = 1.5 VAR1 = 0.75
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		event_target:tev_welcome_fleet_country = {
+	#			has_policy_flag = trade_fleet_for_unity
+	#		}
+	#	}
+	#	ev_trade_fleet_give_any_resources_var = {
+	#		RESOURCES1 = unity  VAR = 1.5 VAR1 = 0.45
+	#	}
+	#}
+	#event_target:tev_welcome_fleet_country = {
+	#	#if = {
+	#	#	limit = { has_country_flag = ev_show_meassage_flag }
+	#	#	country_event = {
+	#	#		id = ev_trade_event.1000 #提示事件
+	#	#	}
+	#	#	
+	#	#}
+#
+	#	
+	#	
+	#}
+}
+#
+#单个-是用于被贸易的殖民地-planet
+ev_trade_fleet_give_any_resources_var = {
+	set_variable = {
+		which = ev_trade_fleet_homeless
+		value = value:ev_count_planet_trade_value 
+	}
+	remove_modifier = planet_in_other_homeless_ship_var
+	add_modifier = {
+		modifier = planet_in_other_homeless_ship_var
+		multiplier = ev_trade_fleet_homeless
+		days = 180
+	}
+	#set_variable = {
+	#	which = homeless_other_homeless_trade
+	#	value = 0
+	#}
+	export_modifier_to_variable = {
+		modifier = homeless_other_homeless_trade
+		variable = ev_trade_fleet_homeless_real
+	}
+	
+	event_target:tev_welcome_fleet_country = {
+		set_variable = {
+			which = mult_trade_fleet_ev
+			value = 1
+		}
+		#计算加成
+		if = {
+			limit = {
+				has_government = gov_empty_vagrant_civic_ev_all_friendship
+			}
+			change_variable = {
+				which = mult_trade_fleet_ev
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				has_ascension_perk = ev_galaxy_free_trader
+			}
+			change_variable = {
+				which = mult_trade_fleet_ev
+				value = 1.0
+			}
+		}
+		#加成*开局倍率
+		set_variable = {
+			which = fin_trade_fleet
+			value = mult_trade_fleet_ev
+		}
+		#multiply_variable = {
+		#	which = fin_trade_fleet
+		#	value = ev_trade_fleet_homeless
+		#}
+		multiply_variable = {
+			which = fin_trade_fleet
+			value = base_trade_fleet_ev
+		}
+		multiply_variable = {
+			which = fin_trade_fleet
+			value = prev.ev_trade_fleet_homeless_real
+		}
+		#赋值
+		set_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES0$
+			value = fin_trade_fleet
+		}
+		set_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES1$
+			value = fin_trade_fleet
+		}
+		set_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES2$
+			value = fin_trade_fleet
+		}
+		set_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES3$
+			value = fin_trade_fleet
+		}
+
+
+		multiply_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES0$
+			value = $VAR0|0$
+		}
+		multiply_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES1$
+			value = $VAR1|0$
+		}
+		multiply_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES2$
+			value = $VAR2|0$
+		}
+		multiply_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES3$
+			value = $VAR3|0$
+		}
+
+		change_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES0$_all
+			value = ev_trade_fleet_homeless_real_$RESOURCES0$
+		}
+		change_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES1$_all
+			value = ev_trade_fleet_homeless_real_$RESOURCES1$
+		}
+		change_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES2$_all
+			value = ev_trade_fleet_homeless_real_$RESOURCES2$
+		}
+		change_variable = {
+			which = ev_trade_fleet_homeless_real_$RESOURCES3$_all
+			value = ev_trade_fleet_homeless_real_$RESOURCES3$
+		}
+		#remove_modifier = ev_buff_homeless_trade_produces_$RESOURCES0$_add
+		#remove_modifier = ev_buff_homeless_trade_produces_$RESOURCES1$_add 
+		#remove_modifier = ev_buff_homeless_trade_produces_$RESOURCES2$_add 
+		#remove_modifier = ev_buff_homeless_trade_produces_$RESOURCES3$_add
+
+		
+		#add_resource = {
+		#	energy = $VAR|1.5$
+		#	$RESOURCES1$ = $VAR1|0$
+		#	$RESOURCES2$ = $VAR2|0$
+		#	$RESOURCES3$ = $VAR3|0$
+		#	mult = fin_trade_fleet
+		#}
+	}
+}
+
+
+
+#3.4更新，可视化的动态buff加成
+#单个
+ev_trade_fleet_give_any_resources_var_show = {
+	tooltip = {
+		event_target:tev_welcome_fleet_country = {
+			add_resource = {
+				[[VAR] energy = $VAR$ ]
+				[[VAR1] $RESOURCES1$ = $VAR1$ ]
+				[[VAR2] $RESOURCES2$ = $VAR2$ ]
+				[[VAR3] $RESOURCES3$ = $VAR3$ ]
+				mult = fin_trade_fleet
+			}
+		}
+	}
+	
+}
+

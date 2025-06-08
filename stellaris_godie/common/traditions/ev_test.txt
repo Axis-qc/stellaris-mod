@@ -1,0 +1,998 @@
+#####################
+#虚空
+tr_ev_void_adopt = {
+	unlocks_agenda = agenda_tr_ev_void
+	modifier = {
+		country_naval_cap_mult = 0.05
+	}
+}
+
+tr_ev_void_finish = {
+	modifier = {
+		ascension_perks_add = 1
+		country_naval_cap_add = 50
+	}
+
+	#tradition_swap = {
+	#	name = tr_ev_void_void_finish
+	#	inherit_icon = yes
+	#	inherit_name = yes
+	#	trigger = {
+	#		has_origin = origin_void_dwellers
+	#	}
+	#	modifier = {
+	#		ascension_perks_add = 1
+	#	}
+	#	weight = {
+	#		factor = 1
+	#	}
+	#}
+}
+
+
+tr_ev_void_1 = {
+	modifier = {
+		ship_homeless_ev_upkeep_mult = -0.05
+	}
+
+	ai_weight = {
+		factor = 10000
+	}
+}
+
+tr_ev_void_2 = {
+	possible = {
+		has_tradition = tr_ev_void_1
+	}
+
+	modifier = {
+		ship_homeless_ev_energy_produces_mult = 0.1
+		ship_homeless_ev_minerals_produces_mult = 0.1
+		ship_homeless_ev_food_produces_mult = 0.1
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_void_3 = {
+	modifier = {
+		planets_produces_mult = -0.15
+		ship_homeless_ev_produces_mult = 0.1
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_void_4 = {
+	possible = {
+		has_tradition = tr_ev_void_3
+	}
+	
+	modifier = {
+		#planet_max_buildings_add = -1
+		ev_ships_cost_mult = -0.05
+	}
+
+	#tradition_swap = {
+	#	name = tr_ev_void_4_gestalt
+	#	inherit_icon = yes
+	#	inherit_name = yes
+	#	trigger = {
+	#		root = {
+	#			is_gestalt = yes
+	#		}
+	#	}
+	#	modifier = {
+	#		planet_max_buildings_add = -1
+	#		starbase_shipyard_build_cost_mult = -0.1
+	#	}
+	#	weight = {
+	#		factor = 1
+	#	}
+	#}
+
+	ai_weight = {
+		factor = 6000
+	}
+}
+
+tr_ev_void_5 = {
+	possible = {
+		has_tradition = tr_ev_void_3
+	}
+
+	modifier = {
+		ship_components_unity_ev_unity_produces_add = 1
+		#ship_components_manpower_ev_upkeep_mult = -0.1
+		#维持度上限+5
+		ev_maintenance_value_balance_add = 5
+	}
+
+	#tradition_swap = {
+	#	name = tr_ev_void_5_gestalt
+	#	inherit_icon = yes
+	#	inherit_name = no
+	#	trigger = {
+	#		root = {
+	#			is_gestalt = yes
+	#		}
+	#	}
+	#	modifier = {
+	#		ship_components_energy_ev_energy_produces_mult = 0.15
+	#		#ship_components_energy_ev_produces_mult = 0.15
+	#	}
+	#	weight = {
+	#		factor = 1
+	#	}
+	#}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+
+
+
+###############################
+#求知
+
+tr_ev_seek_knowledge_adopt = {
+	unlocks_agenda = agenda_tr_ev_seek_knowledge
+	modifier = {
+		ship_components_research_ev_cost_mult = -0.2
+	}
+}
+
+tr_ev_seek_knowledge_finish = {
+	modifier = {
+		all_technology_research_speed = 0.1
+		ascension_perks_add = 1
+	}
+}
+
+tr_ev_seek_knowledge_1 = {
+	modifier = {
+		ship_components_research_ev_produces_mult = 0.1
+	}
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_seek_knowledge_2 = {
+	modifier = {
+		species_leader_exp_gain = 0.25
+		science_ship_survey_speed = 0.35
+		country_scientist_cap_add = 1
+	}
+
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_seek_knowledge_3 = {
+	possible = {
+		has_tradition = tr_ev_seek_knowledge_1
+	}
+
+	modifier = {
+		ship_anomaly_research_speed_mult = 0.5
+		ship_anomaly_generation_chance_mult = 0.25
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_seek_knowledge_4 = {
+	possible = {
+		has_tradition = tr_ev_seek_knowledge_1
+	}
+
+	# implementation done in districts file
+
+	modifier = {
+		ship_components_research_ev_upkeep_mult = -0.1
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_seek_knowledge_5 = {
+	possible = {
+		has_tradition = tr_ev_seek_knowledge_2
+	}
+
+	modifier = {
+		ship_archaeological_site_clues_add = 1
+		ship_homeless_ev_unity_produces_mult = 0.1
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+
+
+###############################
+#自给
+tr_ev_self_sufficient_adopt = {
+	unlocks_agenda = agenda_tr_ev_self_sufficient
+	modifier = {
+		ship_homeless_ev_cost_mult = -0.1
+	}
+}
+
+tr_ev_self_sufficient_finish = {
+	modifier = {
+		ship_homeless_ev_energy_produces_add = 3
+		ascension_perks_add = 1
+	}
+}
+
+tr_ev_self_sufficient_1 = {
+	modifier = {
+		ship_components_alloys_ev_produces_mult = 0.1
+	}
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_self_sufficient_2 = {
+	possible = {
+		has_tradition = tr_ev_self_sufficient_1
+	}
+	modifier = {
+		ship_homeless_ev_minerals_upkeep_mult = -0.1
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_self_sufficient_3 = {
+	possible = {
+		has_tradition = tr_ev_self_sufficient_2
+	}
+
+	modifier = {
+		empire_size_add = -20
+		#ship_homeless_ev_manpower_upkeep_mult = -0.1
+	}
+
+	tradition_swap = {
+		name = tr_ev_self_sufficient_3_gestalt
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			root = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			ship_homeless_ev_produces_mult = 0.05
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_self_sufficient_4 = {
+	#possible = {
+	#	has_tradition = tr_ev_self_sufficient_1
+	#}
+
+	# implementation done in districts file
+
+	modifier = {
+		shipsize_homeless_ship_build_speed_mult = 0.15
+		shipsize_homeless_ship_starbase_build_speed_mult = 0.15
+		shipsize_private_homeless_ship_build_speed_mult = 0.15
+		shipsize_private_homeless_ship_starbase_build_speed_mult = 0.15
+		shipsize_mini_homeless_ship_build_speed_mult = 0.15
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_self_sufficient_5 = {
+	possible = {
+		has_tradition = tr_ev_self_sufficient_4
+	}
+
+	modifier = {
+		ev_ships_unity_cost_mult = -0.05
+		ship_homeless_ev_consumer_goods_upkeep_mult = -0.1
+	}
+
+	tradition_swap = {
+		name = tr_ev_self_sufficient_5_gestalt
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			root = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			ev_ships_unity_cost_mult = -0.1
+			#ship_components_alloys_ev_upkeep_mult = -0.1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+#####################
+#护航
+tr_ev_escort_adopt = {
+	unlocks_agenda = agenda_tr_ev_escort
+	modifier = {
+		ship_weapon_damage = 0.05
+		ship_cloaking_detection_add = 2
+	}
+}
+
+tr_ev_escort_finish = {
+	modifier = {
+		
+		country_naval_cap_mult = 0.1
+		ship_weapon_range_mult = 0.10
+		ship_evasion_add = 5
+		ascension_perks_add = 1
+		
+	}
+
+	#tradition_swap = {
+	#	name = tr_ev_escort_escort_finish
+	#	inherit_icon = yes
+	#	inherit_name = yes
+	#	trigger = {
+	#		has_origin = origin_escort_dwellers
+	#	}
+	#	modifier = {
+	#		ascension_perks_add = 1
+	#	}
+	#	weight = {
+	#		factor = 1
+	#	}
+	#}
+}
+
+
+tr_ev_escort_1 = {
+	modifier = {
+		shipsize_corvette_build_speed_mult = 0.25
+		ship_speed_mult = 0.1
+	}
+
+	ai_weight = {
+		factor = 10000
+	}
+}
+
+tr_ev_escort_2 = {
+	possible = {
+		has_tradition = tr_ev_escort_1
+	}
+	custom_tooltip = tr_ev_escort_2_desc
+	modifier = {
+		#补给船效果+10%
+		ship_cloaking_detection_add = 0.5
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_escort_3 = {
+	modifier = {
+		ship_fire_rate_mult = 0.125
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_escort_4 = {
+	possible = {
+		has_tradition = tr_ev_escort_3
+	}
+
+	modifier = {
+		ev_maintenance_value_balance_add = 5
+		#维持度平衡增加5
+	}
+	#custom_tooltip = tr_ev_escort_4_desc
+	tradition_swap = {
+		name = tr_ev_escort_4_gestalt
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			root = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			ship_disengage_chance_mult = 0.25
+			ship_emergency_ftl_mult = -0.15
+			ship_emergency_ftl_min_days_mult = -0.5
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_escort_5 = {
+	possible = {
+		has_tradition = tr_ev_escort_3
+	}
+
+	modifier = {
+		#ships_upkeep_mult = -0.10
+		command_limit_add = 20
+		command_limit_mult = 0.25
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+
+###############################
+#维持
+tr_ev_maintain_adopt = {
+	unlocks_agenda = agenda_ev_maintain
+	modifier = {
+		ship_homeless_ev_influence_upkeep_mult = -0.15
+	}
+}
+
+tr_ev_maintain_finish = {
+	modifier = {
+		#starbase_shipyard_capacity_add = 1
+		starbase_shipyard_build_speed_mult = 0.33
+		ev_ships_cost_mult = -0.1
+		ascension_perks_add = 1
+	}
+}
+
+tr_ev_maintain_1 = {
+	modifier = {
+		ship_hull_mult = 0.15
+	}
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_maintain_2 = {
+	possible = {
+		has_tradition = tr_ev_maintain_1
+	}
+	modifier = {
+		starbase_shipyard_build_cost_mult = -0.1
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_maintain_3 = {
+	possible = {
+		has_tradition = tr_ev_maintain_2
+	}
+
+	modifier = {
+		country_base_influence_produces_add = 1
+		country_influence_produces_mult = 0.15
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_maintain_4 = {
+	#possible = {
+	#	has_tradition = tr_ev_maintain_1
+	#}
+
+	# implementation done in districts file
+
+	modifier = {
+		#维持度平衡+5
+		ev_maintenance_value_balance_add = 5
+	}
+	#custom_tooltip = tr_ev_maintain_4_desc
+
+	tradition_swap = {
+		name = tr_ev_maintain_4_gestalt
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			root = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			defensive_war_influence_gain_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_ev_maintain_5 = {
+	possible = {
+		has_tradition = tr_ev_maintain_4
+	}
+
+	modifier = {
+		envoys_add = 1
+		starbase_shipyard_build_speed_mult = 0.15
+		#ship_homeless_ev_unity_produces_mult = 0.05
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+
+#####################
+#汲取
+tr_ev_learn_adopt = {
+	unlocks_agenda = agenda_tr_ev_learn
+	modifier = {
+		councilor_skill_add = 1
+	}
+}
+
+tr_ev_learn_finish = {
+	modifier = {
+		ascension_perks_add = 1
+		country_government_civic_points_add = 1
+	}
+
+	#tradition_swap = {
+	#	name = tr_ev_learn_learn_finish
+	#	inherit_icon = yes
+	#	inherit_name = yes
+	#	trigger = {
+	#		has_origin = origin_learn_dwellers
+	#	}
+	#	modifier = {
+	#		ascension_perks_add = 1
+	#	}
+	#	weight = {
+	#		factor = 1
+	#	}
+	#}
+}
+
+
+tr_ev_learn_1 = {
+	modifier = {
+		leader_skill_levels = 1
+		species_leader_exp_gain = 0.20
+		leader_upkeep_empire_size_mult = -0.1
+	}
+
+	ai_weight = {
+		factor = 10000
+	}
+}
+
+tr_ev_learn_2 = {
+	possible = {
+		has_tradition = tr_ev_learn_1
+	}
+
+	modifier = {
+		#破坏性开采等级+1
+		ev_destructive_mining_level = 1
+		ev_maintenance_value_balance_mult = 0.05
+	}
+
+	#custom_tooltip = tr_ev_learn_2_desc
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_learn_3 = {
+	modifier = {
+		#scavenge_debris_mult = 0.33
+		#解锁功能，击败敌方舰队获得矿物
+	}
+
+	custom_tooltip = tr_ev_learn_3_desc
+
+	ai_weight = {
+		factor = 5000
+	}
+	
+}
+
+tr_ev_learn_4 = {
+	possible = {
+		has_tradition = tr_ev_learn_3
+	}
+
+	modifier = {
+		country_base_minerals_produces_add = 50
+		ship_components_minerals_ev_minerals_produces_add = 0.5
+	}
+
+	ai_weight = {
+		factor = 6000
+	}
+}
+
+tr_ev_learn_5 = {
+	possible = {
+		has_tradition = tr_ev_learn_3
+	}
+
+	modifier = {
+		ship_hull_regen_add_static = 20
+		ship_armor_regen_add_static = 20
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+######################
+#虚空之母
+
+tr_ev_mother_adopt = {
+	unlocks_agenda = agenda_tr_ev_mother
+	modifier = {
+		
+	}
+	possible = {
+		#has_tradition = tr_ev_void_finish
+		has_ascension_perk = ev_ask_the_void
+		
+	}
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.300 days = 20 random = 100
+			}
+			
+		}
+		#访问虚空不再会有空收益
+	}
+}
+
+tr_ev_mother_finish = {
+	modifier = {
+		ascension_perks_add = 1
+	}
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.306 days = 200 random = 200
+			}
+		}
+		#虚空会主动给予馈赠
+	}
+}
+
+
+tr_ev_mother_1 = {
+	modifier = {
+		
+	}
+
+	custom_tooltip = tr_ev_mother_1_desc
+	ai_weight = {
+		factor = 10000
+	}
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.301 days = 20 random = 100
+			}
+		}
+		#访问虚空更有可能获得强力加成
+	}
+}
+
+tr_ev_mother_2 = {
+	possible = {
+		
+	}
+
+	modifier = {
+		
+	}
+	custom_tooltip = tr_ev_mother_1_desc		
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.302 days = 20 random = 100
+			}
+		}
+		#访问虚空不再需要维持度，维持度平衡+5
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_ev_mother_3 = {
+	modifier = {
+		
+	}
+	custom_tooltip = tr_ev_mother_1_desc	
+	ai_weight = {
+		factor = 5000
+	}
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.303 days = 20 random = 100
+			}
+		}
+		#访问虚空可以获得小规模舰队；与敌人交战时在对方任意领土生成50%舰队容量舰队
+	}
+}
+
+tr_ev_mother_4 = {
+	possible = {
+		AND = {
+			has_tradition = tr_ev_mother_1
+			has_tradition = tr_ev_mother_2
+			has_tradition = tr_ev_mother_3
+			num_ascension_perks >= 5
+		}
+		
+	}
+	custom_tooltip = tr_ev_mother_1_desc
+	modifier = {
+		
+	}
+
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.304 days = 20 random = 100
+			}
+		}
+		#无需船坞建造家园舰（船坞型）
+	}
+
+	ai_weight = {
+		factor = 6000
+	}
+}
+
+tr_ev_mother_5 = {
+	possible = {
+		AND = {
+			has_tradition = tr_ev_mother_4
+		}
+		
+	}
+	custom_tooltip = tr_ev_mother_1_desc
+	modifier = {
+		
+	}
+
+	on_enabled = {
+		hidden_effect = {
+			country_event = {
+				id = ev_resource.305 days = 20 random = 100
+			}
+		}
+		#可以获得专属家园舰能源(A槽)
+	}
+
+	ai_weight = {
+		factor = 7000
+	}
+}
+###############################
+#萌化
+#tr_ev_mumu_adopt = {
+#	modifier = {
+#		country_base_unity_produces_mult = 0.1
+#	}
+#}
+#
+#tr_ev_mumu_finish = {
+#	modifier = {
+#		country_base_influence_produces_mult = 0.2
+#		ascension_perks_add = 1
+#	}
+#}
+#
+#tr_ev_mumu_1 = {
+#	modifier = {
+#		planet_immigration_pull_mult = 1
+#	}
+#	ai_weight = {
+#		factor = 1000
+#	}
+#}
+#
+#tr_ev_mumu_2 = {
+#	possible = {
+#		has_tradition = tr_ev_mumu_1
+#	}
+#	modifier = {
+#		diplo_weight_economy_mult = 0.2
+#		trade_value_mult = 0.2
+#	}
+#
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
+#
+#tr_ev_mumu_3 = {
+#	possible = {
+#		has_tradition = tr_ev_mumu_2
+#	}
+#
+#	modifier = {
+#		all_technology_research_speed = 0.1
+#		empire_size_pops_mult = -0.15
+#	}
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
+#
+#tr_ev_mumu_4 = {
+#
+#	modifier = {
+#		pop_citizen_happiness = 0.20
+#	}
+#	
+#	ai_weight = {
+#		factor = 1000
+#	}
+#}
+#
+#tr_ev_mumu_5 = {
+#	possible = {
+#		has_tradition = tr_ev_mumu_4
+#	}
+#
+#	modifier = {
+#		planet_jobs_produces_mult = 0.1
+#	}
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
+
+
+
+###############################
+#jojo
+#tr_ev_jojo_adopt = {
+#	modifier = {
+#		country_produces_mult = 0.1
+#	}
+#}
+#
+#tr_ev_jojo_finish = {
+#	modifier = {
+#		ascension_perks_add = 2
+#	}
+#}
+#
+#tr_ev_jojo_1 = {
+#	modifier = {
+#		ship_fire_rate_mult = 0.5
+#	}
+#	ai_weight = {
+#		factor = 1000
+#	}
+#}
+#
+#tr_ev_jojo_2 = {
+#	possible = {
+#		has_tradition = tr_ev_jojo_1
+#	}
+#	modifier = {
+#		all_technology_research_speed = 0.2
+#	}
+#
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
+#
+#tr_ev_jojo_3 = {
+#	possible = {
+#		has_tradition = tr_ev_jojo_2
+#	}
+#
+#	modifier = {
+#		country_naval_cap_mult = 0.25
+#		ship_weapon_range_mult = 0.25
+#	}
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
+#
+#tr_ev_jojo_4 = {
+#
+#	modifier = {
+#		leader_age = 99999
+#	}
+#	
+#	ai_weight = {
+#		factor = 1000
+#	}
+#}
+#
+#tr_ev_jojo_5 = {
+#	possible = {
+#		has_tradition = tr_ev_jojo_4
+#	}
+#
+#	modifier = {
+#		planet_amenities_add = 10
+#		planet_amenities_mult = 0.2
+#	}
+#
+#	ai_weight = {
+#		factor = 5000
+#	}
+#}
