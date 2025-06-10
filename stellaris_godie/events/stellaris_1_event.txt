@@ -1,0 +1,66 @@
+namespace = stellaris
+
+country_event = {
+    id = stellaris.100
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        not = {
+            has_global_flag = The_first_lap
+        }
+    }
+    immediate = {
+        set_global_flag = The_first_lap
+        random_system = {
+            set_star_flag = The_first_lap
+            star = {
+                add_deposit = d_alloys_25
+            }
+            every_neighbor_system_euclidean = {
+                limit = {
+                    distance = {
+                        source = root  # 起点，可以是ROOT、PREV等
+                        min_distance = 1  # 最小距离
+                        max_distance = 11  # 最大距离
+                        type = hyperlane  # 距离计算方式，可以是euclidean（欧几里得距离）或hyperspace（超空间距离）
+                        use_bypasses = yes  # 是否使用跳跃点
+                        # bypass_empire = archaeological_site # 如果使用跳跃点，指定允许使用的帝国
+                        min_jumps = 10  # 最小跳跃次数
+                        max_jumps = 10  # 最大跳跃次数
+                        same_solar_system = no  # 是否必须在同一个星系内
+                    }
+                }
+                set_star_flag = The_first_lap
+                star = {
+                    add_deposit = d_alloys_10
+                }
+            }
+            # every_neighbor_system = {}
+            # closest_system = {}
+            # every_bypass_in_system = {}
+            # every_neighbor_system_euclidean = {}
+            # every_country_neighbor_to_system = {}
+            # ordered_bypass_in_system = {}
+            # ordered_country_neighbor_to_system = {}
+            # ordered_rim_system = {}
+            # random_bypass_in_system = {}
+            # random_neighbor_system = {}
+            # random_rim_system = {}
+            # random_neighbor_system_euclidean = {}
+            # random_bypass = {}
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

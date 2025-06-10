@@ -75,10 +75,11 @@ ftpt_starbase_habitation = {
 }
 fypt_shipyard = {
     icon = "GFX_starbase_shipyard"
-    #section = "fypy_citadel_2"
+    # section = "SHIPYARD_ORBITAL_RING_SECTION"
     construction_days = @modules_time
-    #initial = yes
     starbase_type = orbital_ring
+    # initial = yes#初始，不知道
+
     potential = {
         or = {
             has_starbase_size = fypt_produce_ship_1
@@ -89,8 +90,19 @@ fypt_shipyard = {
         }
     }
 
+    possible = {
+
+    }
+
+    abort_construction_trigger = {
+        OR = {
+            has_starbase_module = orbital_ring_hatchery
+            has_starbase_module = orbital_ring_beastport
+        }
+    }
+
     resources = {
-        category = starbase_fypt_modules
+        category = starbase_modules
         cost = {
             alloys = 200
         }
@@ -103,52 +115,34 @@ fypt_shipyard = {
     station_modifier = {
         starbase_shipyard_capacity_add = 2
     }
+
     triggered_station_modifier = {
         potential = { has_starbase_building = irassian_naval_yards }
         starbase_shipyard_capacity_add = 2
     }
 
+    on_finished = {
+        set_ship_construction_type = starbase_shipyard  # 当模块建设完成时，设置船坞类型为星基船坞
+    }
+
+    on_destroyed = {
+        if = {
+            limit = {
+                NOT = { has_starbase_module = fypt_shipyard }  # 如果星基没有轨道环船坞模块
+            }
+            set_ship_construction_type = none  # 设置船坞类型为无
+        }
+    }
+
     ai_weight = {
-        weight = 50  #use same weight here - ai weighting is done in starbase_types.txt
+        inline_script = {
+            script = starbase_modules/ship_construction_ai_weight
+            MODULE = fypt_shipyard
+        }
         modifier = {
-            factor = 100
+            factor = 0
             owner = {
-                OR = {
-                    count_owned_starbase = {
-                        count = 0
-                        limit = { has_starbase_module = shipyard }
-                    }
-                    AND = {
-                        controlled_systems > 30
-                        count_owned_starbase = {
-                            count < 2
-                            limit = { has_starbase_module = shipyard }
-                        }
-                    }
-                    AND = {
-                        controlled_systems > 60
-                        count_owned_starbase = {
-                            count < 3
-                            limit = { has_starbase_module = shipyard }
-                        }
-                    }
-                }
-            }
-        }
-        modifier = {
-            factor = 3
-            has_starbase_module = shipyard
-            count_starbase_modules = {
-                count < 2
-                type = shipyard
-            }
-        }
-        modifier = {
-            factor = 3
-            has_starbase_module = shipyard
-            count_starbase_modules = {
-                count < 4
-                type = shipyard
+                uses_standard_ship_sizes = no
             }
         }
     }
