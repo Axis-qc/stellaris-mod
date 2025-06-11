@@ -1,0 +1,93 @@
+#风暴类型定义
+nexus_storm = {
+    # 内联脚本配置风暴物理参数
+    inline_script = {
+        script = "cosmic_storms/StormConfig"  # 引用风暴配置脚本
+        MIN_RADIUS = 55  # 最小半径（星系单位）
+        MAX_RADIUS = 70  # 最大半径（星系单位）
+        MIN_RANGE = 1  # 最小影响范围（引用全局值）
+        MAX_RANGE = 1  # 最大影响范围（引用全局值）
+        STORM_SPEED = 0  # 风暴移动速度（单位：星系坐标/天）
+        ACTIVATION_PERIOD_IN_MONTHS = 120  # 激活周期（12个月/年）
+        MONTHLY_ADDED_DEVASTATION = no# 每月荒芜度增加值
+    }
+
+    # 再生系统影响
+    affect_hp_regen = yes    # 影响舰船船体再生
+    affect_armor_regen = yes # 影响装甲再生
+    affect_shield_regen = yes # 影响护盾再生
+
+    # 生成权重系统
+    spawn_weight = {
+        base = 0.05  # 基础生成概率（5%）
+        modifier = {
+            factor = 0  # 禁用条件
+            mid_game_years_passed < 1  # 游戏开始1年内不会生成
+        }
+    }
+    description = nexus_storm_lore_description  # 风暴背景描述文本
+
+    # 舰队修正效果
+    triggered_fleet_modifier = {
+        potential = { always = yes }  # 对所有舰队生效
+        nexus_storm_modifier = 1  # 应用枢纽风暴修正器
+        custom_tooltip = nexus_storm_fleet_tt  # 自定义提示文本
+        show_only_custom_tooltip = no  # 显示完整修正信息
+    }
+
+    # === 事件系统 ===
+    # 风暴开始时效果
+    on_start = {
+        every_system_within_storm = {
+            # 对风暴范围内所有星系
+            added_to_storm_base_effect = yes  # 应用基础风暴效果
+            nexus_storm_add = yes  # 应用专属风暴效果
+        }
+    }
+
+    # 风暴结束时效果
+    on_finished = {
+        every_system_within_storm = {
+            removed_from_storm_base_effect = yes  # 移除基础效果
+            nexus_storm_remove = yes  # 移除专属效果
+        }
+    }
+
+    # 风暴移动时效果
+    on_moved = {
+        # 新进入风暴范围的星系
+        every_system_added_to_storm = {
+            added_to_storm_base_effect = yes
+            nexus_storm_add = yes
+        }
+
+        # 离开风暴范围的星系
+        every_system_removed_from_storm = {
+            removed_from_storm_base_effect = yes
+            nexus_storm_remove = yes
+        }
+    }
+
+    # === 视觉效果系统 ===
+    cosmic_storm_texture_path = "gfx/map/storms/NebulaOpacity.dds"  # 基础纹理
+    cosmic_storm_texture_color_path = "gfx/map/storms/nexus_storm_color.dds"  # 风暴颜色贴图
+    cosmic_storm_event_sprite = "GFX_nexus_storm"  # 事件图标
+    icon = GFX_planetview_storm_nexus_modifier_frame  # 行星视图图标
+
+    # 闪电特效纹理
+    cosmic_storm_texture_lightning_paths = {
+        "gfx/map/storms/lightning/lightning_big_storm_01.dds"
+        "gfx/map/storms/lightning/lightning_big_storm_02.dds"
+        "gfx/map/storms/lightning/lightning_mid_storm_01.dds"
+        "gfx/map/storms/lightning/lightning_mid_storm_02.dds"
+    }
+
+    # 银河视图特效
+    cosmic_storm_galaxy_lightning_time = 5.0  # 闪电间隔时间（秒）
+    cosmic_storm_galaxy_max_opacity = 0.4  # 最大不透明度（40%）
+
+    # 通知系统
+    show_notification = {
+        NOT = { has_country_flag = is_nexus_spawner }  # 非风暴生成者才显示通知
+    }
+}

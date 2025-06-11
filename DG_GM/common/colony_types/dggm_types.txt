@@ -1,0 +1,65 @@
+# 研究型殖民地定义
+admin_add_type = {
+    # 使用研究型殖民地的图标
+    icon = GFX_dggm_admin_add
+
+    # 殖民地成立条件
+    potential = {
+        exists = space_owner  # 必须有空间所有者
+        # NOR = {
+        #     # 不能是以下类型的世界
+        #     uses_district_set = city_world
+        #     uses_district_set = ring_world
+        #     uses_district_set = habitat
+        #     uses_district_set = cosmogenesis_world
+        # }
+        is_special_colony_type = no  # 不能是特殊殖民地类型
+        is_capital = no  # 不能是首都
+        # space_owner = { is_wilderness_empire = no }  # 空间所有者不能是荒野帝国
+        # NOT = { is_planet_class = pc_nanotech }  # 不能是纳米科技行星
+    }
+
+    # 行星修正效果
+    planet_modifier = {
+        planet_admin_add_building_build_speed_mult = 0.25#建造速度增加25%
+        # job_gm_admin_max_workforce_add = 1
+        # job_gm_admin_max_workforce_mult = 0.2
+        # pop_gm_admin_bonus_workforce_add = 1
+        pop_gm_admin_bonus_workforce_mult = 0.2
+        # pop_gm_admin_workforce_add = 1不生效的
+        # pop_gm_admin_workforce_mult = 0.2
+    }
+
+    # 触发式行星修正效果
+    triggered_planet_modifier = {
+        potential = {
+            exists = space_owner  # 必须有空间所有者
+            space_owner = { has_tradition = tr_adaptability_finish }  # 空间所有者必须拥有适应性传统
+        }
+        modifier = {
+            pop_gm_admin_bonus_workforce_mult = 0.05
+        }
+    }
+
+    # 权重修正
+    weight_modifier = {
+        modifier = {
+            add = @stickiness  # 添加粘性修正
+            has_designation = admin_add_type  # 已经是研究型殖民地
+        }
+        modifier = {
+            # 如果满足以下任一条件
+            num_zones = {
+                type = zone_admin_add  # 研究区域数量
+                value > 0
+            }
+            add = @zone_urban  # 添加城市区域权重
+        }
+        # inline_script = {
+        #     script = colony_types/shared_weights_research  # 调用研究权重共享脚本
+        # }
+        # inline_script = {
+        #     script = colony_types/shared_weights_urban  # 调用城市权重共享脚本
+        # }
+    }
+}
