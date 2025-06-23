@@ -1,0 +1,127 @@
+key = ship_HEALING_GUN_$TIER$  # 武器唯一标识符（$TIER$变量表示等级）
+
+# 视觉效果
+icon = GFX_ship_part_bio_healing_$TIER$  # 不同等级使用不同图标
+icon_frame = 1  # 图标边框类型（1=标准）
+type = missile  # 导弹类武器（有飞行轨迹）
+
+# 武器特性
+size = large  # 武器尺寸
+hide_damage_values_from_tooltip = yes  # 在UI中隐藏伤害值（因为是治疗武器）
+
+# 解锁条件
+potential = {
+    # shipbattle_uses_weaver_components = yes  # 需要组件科技
+    # 需启用生物舰船
+}
+
+# 科技显示条件
+show_tech_unlock_if = {
+    # has_technology = tech_ship_armor_1
+    # uses_ship_category = default_ship
+}
+
+# 目标选择
+use_ship_main_target = no  # 不攻击主要目标
+target_type = target_allies  # 只瞄准友军（治疗专用）
+target_focus = spread  # 分散治疗多个目标
+
+# 命中效果
+on_hit = {
+    hidden_effect = {
+        # 实际效果不在UI显示
+        if = {
+            limit = {
+                exists = this  # 目标存在
+                has_hp_percentage < 0.99  # 目标生命值低于99%
+            }
+            repair_amount = @bio_healing_t$TIER$  # 修复船体
+        }
+        else = {
+            # 如果船体健康
+            repair_armor_amount = @bio_healing_t$TIER$  # 修复装甲
+        }
+    }
+    custom_tooltip = "bio_healing_$TIER$_tt"  # 显示定制提示
+}
+# injected_modifier = {
+# 附加持续效果
+# modifier = bio_healing_$TIER$  # 治疗增强修正
+# days = 10  # 持续10天
+# }
+
+# 目标优先级系统（治疗智能选择）
+target_weights = {
+    # 按受损程度分级（数值越高优先级越高）：
+    mauler_stage_1 = 12   # 严重受损战舰（最高优先级）
+    mauler_stage_2 = 11
+    mauler_stage_3 = 10
+    harbinger_stage_1 = 9 # 中等受损战舰
+    harbinger_stage_2 = 8
+    harbinger_stage_3 = 7
+    stinger_stage_1 = 6   # 轻微受损战舰
+    stinger_stage_2 = 5
+    stinger_stage_3 = 4
+    # 编织者舰船（治疗者自身）最低优先级：
+    weaver_stage_1 = 3
+    weaver_stage_2 = 2
+    weaver_stage_3 = 1
+}
+
+# 资源消耗
+resources = {
+    category = ship_components  # 资源分类
+
+    # 制造消耗
+    cost = {
+        alloys = @s_t$TIER$_cost  # 合金消耗（随等级变化）
+        mult = 2  # 合金消耗比例系数
+    }
+    cost = {
+        food = @s_t$TIER$_cost  # 食物消耗（与合金同基础值）
+        mult = 0  # 食物消耗比例系数
+    }
+    cost = {
+        exotic_gases = $EXOTIC_GASES$  # 异星天然气消耗（由外部传入）
+        sr_dark_matter = $DARK_MATTER$  # 暗物质消耗（由外部传入）
+    }
+
+    # 维护消耗
+    upkeep = {
+        energy = @s_t$TIER$_upkeep_energy  # 维护
+        alloys = @s_t$TIER$_upkeep_alloys  # 合金维护
+    }
+}
+
+# AI行为
+ai_tags = {
+    buffer_role  # 增益型武器角色
+    buffer_role_stealth  # 隐形增益特化
+}
+
+# 组件集合
+component_set = BIO_ship_HEALING_GUN_$TIER$  # 生物治疗枪组件组
+
+# 解锁前提
+prerequisites = {
+    # tech_weaver_bio_healing_$TIER$  # 对应等级的治疗武器科技
+}
+
+# 武器标签
+tags = {
+    weapon_type_kinetic  # 动能武器类型（尽管实际是治疗）
+    buffer_role  # 增益角色
+}
+
+power = -30 #能源
+range = 100 #射程
+windup = { min = 2 max = 5 }    # 准备时间1-10秒
+total_fire_time = 1           # 总攻击时间100秒
+accuracy = 0.9                  # 准确度90%
+tracking = 0.5                  # 追踪能力90%
+missile_armor = 5          # 导弹装甲值
+missile_evasion = 5        # 导弹规避值
+missile_health = 5         # 导弹生命值
+missile_retarget_range = 50  # 重新锁定范围50单位
+missile_shield = 5         # 导弹护盾值
+missile_speed = 10         # 导弹速度

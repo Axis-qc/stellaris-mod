@@ -42,6 +42,7 @@ country_event = {
         }
     }
 }
+#第一圈
 country_event = {
     id = stellaris.101
     hide_window = yes  # 隐藏窗口
@@ -60,53 +61,53 @@ country_event = {
             #     }
             #
             # }
-            every_neighbor_system = {
-                limit = {
-                    nor = {
-                        has_star_flag = The_first_lap
-                        has_star_flag = The_first_lap_1
-                    }
-                }
-                save_global_event_target_as = safe_one
-                set_star_flag = The_first_lap_1
-                set_name = {
-                    key = blue_1
-                }
-            }
-            # every_neighbor_system_euclidean = {
+            # every_neighbor_system = {
             #     limit = {
-            #         distance = {
-            #             source = event_target:safe_one  # 起点，可以是ROOT、PREV等
-            #             min_distance = 1  # 最小距离
-            #             max_distance = 100  # 最大距离
-            #             type = hyperlane  # 距离计算方式，可以是euclidean（欧几里得距离）或hyperspace（超空间距离）
-            #             use_bypasses = no  # 是否使用跳跃点
-            #             # bypass_empire = archaeological_site # 如果使用跳跃点，指定允许使用的帝国
-            #             min_jumps = 1  # 最小跳跃次数
-            #             max_jumps = 5  # 最大跳跃次数
-            #             same_solar_system = no  # 是否必须在同一个星系内
+            #         nor = {
+            #             has_star_flag = The_first_lap
+            #             has_star_flag = The_first_lap_1
             #         }
             #     }
+            #     save_global_event_target_as = safe_one
             #     set_star_flag = The_first_lap_1
-            #     star = {
-            #         add_deposit = d_alloys_10
-            #         create_ambient_object = {
-            #             type = nexus_storm
-            #             location = this
-            #         }
-            #         last_created_ambient_object = {
-            #             set_ambient_object_flag = space_storm_object
-            #             set_location = {
-            #                 target = prev
-            #                 distance = 0
-            #                 angle = random
-            #             }
-            #         }
-            #     }
             #     set_name = {
             #         key = blue_1
             #     }
             # }
+            every_neighbor_system_euclidean = {
+                limit = {
+                    distance = {
+                        source = event_target:safe_one  # 起点，可以是ROOT、PREV等
+                        min_distance >= 1  # 最小距离
+                        max_distance <= 500  # 最大距离
+                        type = euclidean  # 距离计算方式，可以是euclidean（欧几里得距离）或hyperlane（超空间距离）
+                        use_bypasses = no  # 是否使用跳跃点
+                        # bypass_empire = archaeological_site # 如果使用跳跃点，指定允许使用的帝国
+                        min_jumps = 1  # 最小跳跃次数
+                        max_jumps = 10  # 最大跳跃次数
+                        same_solar_system = no  # 是否必须在同一个星系内
+                    }
+                }
+                set_star_flag = The_first_lap_1
+                star = {
+                    add_deposit = d_alloys_10
+                    create_ambient_object = {
+                        type = nexus_storm
+                        location = this
+                    }
+                    last_created_ambient_object = {
+                        set_ambient_object_flag = space_storm_object
+                        set_location = {
+                            target = prev
+                            distance = 0
+                            angle = random
+                        }
+                    }
+                }
+                set_name = {
+                    key = blue_1
+                }
+            }
         }
         # every_neighbor_system = {}
         # closest_system = {}

@@ -1,0 +1,67 @@
+wx_no_every = {
+    length = -1
+    icon = "GFX_diplomacy_improve_relation"
+    #启动条件
+    allow = {
+        not = { has_edict = wx_no_every_a }
+    }
+    #显示条件
+    potential = {
+        has_ascension_perk = ap_cosmogenesis
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    effect = {
+        set_global_flag = no_wx_kj
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+wx_no_every_a = {
+    length = -1
+    icon = "GFX_diplomacy_harm_relation"
+
+    allow = {
+        not = { has_edict = wx_no_every }
+    }
+    potential = {
+        has_ascension_perk = ap_cosmogenesis
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    effect = {
+        remove_global_flag = no_wx_kj
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
