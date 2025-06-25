@@ -1,0 +1,108 @@
+namespace = lxleader
+country_event = {
+    id = lxleader.100  # 事件ID
+    title = lxleader100.title  # 事件标题
+    desc = {
+        text = "lxleader100.desc"
+    }
+    picture = GFX_evt_throne_room  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        is_ai = no
+        nor = {
+            has_country_flag = yes_two_traits
+            has_country_flag = no_two_traits
+        }
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量
+    }
+
+    option = {
+        name = lxleader100.1
+        hidden_effect = {
+            set_country_flag = yes_two_traits
+        }
+    }
+    option = {
+        name = lxleader100.2
+        hidden_effect = {
+            set_country_flag = no_two_traits
+        }
+    }
+}
+country_event = {
+    id = lxleader.101  # 事件ID
+    title = lxleader.title  # 事件标题
+    desc = {
+        text = "lxleader.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_throne_room  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        is_ai = no
+
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量
+    }
+
+    option = {
+        name = lxleader.1
+        hidden_effect = {
+        }
+    }
+
+    option = {
+        name = lxleader.2
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = lxleader.3  # 选项名称
+        custom_tooltip = lxleader.3.1
+        trigger = {
+            has_global_flag = open_one_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_one_power
+            set_global_flag = no_1_power
+            country_event = { id = lxleader.101 }
+        }
+    }
+    option = {
+        name = lxleader.4  # 选项名称
+        custom_tooltip = lxleader.4.1
+        trigger = {
+            has_global_flag = no_1_power
+        }
+        hidden_effect = {
+            remove_global_flag = no_1_power
+            set_global_flag = open_one_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.5  # 选项名称
+        custom_tooltip = yesTZone.5.1
+        trigger = {
+            has_global_flag = open_two_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_two_power
+            set_global_flag = no_2_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+}
