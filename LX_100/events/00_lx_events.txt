@@ -33,11 +33,50 @@ country_event = {
         }
     }
 }
+#选择保存领袖
 country_event = {
-    id = lxleader.101  # 事件ID
-    title = lxleader.title  # 事件标题
+    id = lxleader.101
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        is_ai = no
+        has_country_flag = yes_two_traits
+    }
+    immediate = {
+        #查找符合条件的领袖
+        random_owned_leader = {
+            limit = {
+                # 基础技能>4
+                has_base_skill > 4
+                # 没有特殊标记
+                NOT = { has_leader_flag = has_two_traits }
+                # 拥有特定特质组合
+                # OR = {
+                #     AND = {
+                #         has_trait = leader_trait_brilliant_shipwright
+                #         has_trait = leader_trait_engineer
+                #     }
+                #     AND = {
+                #         has_trait = leader_trait_exceptional
+                #         has_trait = leader_trait_archaeologist
+                #     }
+                # }
+            }
+            #保存找到的领袖
+            save_event_target_as = has_two_traits_leader
+        }
+        country_event = {
+            days = 30
+            id = lxleader.102
+        }
+        # assign_leader = event_target:a#分配领袖
+    }
+}
+country_event = {
+    id = lxleader.102  # 事件ID
+    title = lxleader102.title  # 事件标题
     desc = {
-        text = "lxleader.desc"
+        text = "lxleader102.desc"
         trigger = {
             #check_variable = {
             #    which = yesTZszxy
@@ -51,7 +90,10 @@ country_event = {
     fire_only_once = no
     trigger = {
         is_ai = no
-
+        has_country_flag = yes_two_traits
+        event_target:has_two_traits_leader = {
+            exists = leader
+        }
     }
     immediate = {
         # 可以在事件触发时初始化变量
@@ -59,50 +101,44 @@ country_event = {
 
     option = {
         name = lxleader.1
-        hidden_effect = {
+        event_target:has_two_traits_leader = {
+            add_trait = {
+                trait = leader_trait_brilliant_shipwright
+                consume_selection = no
+                show_message = no
+            }
+            hidden_effect = {
+                set_leader_flag = has_two_traits
+            }
         }
     }
 
     option = {
         name = lxleader.2
-        hidden_effect = {
-            country_event = { id = yesTZ.102 }
+        event_target:has_two_traits_leader = {
+            add_trait = {
+                trait = leader_trait_robotist
+                consume_selection = no
+                show_message = no
+            }
+            hidden_effect = {
+                set_leader_flag = has_two_traits
+            }
         }
     }
     option = {
         name = lxleader.3  # 选项名称
         custom_tooltip = lxleader.3.1
-        trigger = {
-            has_global_flag = open_one_power
-        }
-        hidden_effect = {
-            remove_global_flag = open_one_power
-            set_global_flag = no_1_power
-            country_event = { id = lxleader.101 }
-        }
-    }
-    option = {
-        name = lxleader.4  # 选项名称
-        custom_tooltip = lxleader.4.1
-        trigger = {
-            has_global_flag = no_1_power
-        }
-        hidden_effect = {
-            remove_global_flag = no_1_power
-            set_global_flag = open_one_power
-            country_event = { id = yesTZ.101 }
+        event_target:has_two_traits_leader = {
+            add_trait = {
+                trait = leader_trait_tactical_algorithms
+                consume_selection = no
+                show_message = no
+            }
+            hidden_effect = {
+                set_leader_flag = has_two_traits
+            }
         }
     }
-    option = {
-        name = yesTZone.5  # 选项名称
-        custom_tooltip = yesTZone.5.1
-        trigger = {
-            has_global_flag = open_two_power
-        }
-        hidden_effect = {
-            remove_global_flag = open_two_power
-            set_global_flag = no_2_power
-            country_event = { id = yesTZ.101 }
-        }
-    }
+
 }

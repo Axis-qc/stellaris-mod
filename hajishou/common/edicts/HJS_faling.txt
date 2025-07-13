@@ -1,0 +1,98 @@
+HJS_add = {
+    length = 10
+    icon = "GFX_icon_leader"
+    #启动条件
+    allow = {
+        always = no
+    }
+    #显示条件
+    potential = {
+        always = no
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            influence = 1
+        }
+    }
+
+    modifier = {
+
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+    effect = {
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    is_ship_size = behemoth_03
+                    is_ship_size = behemoth_04
+                }
+            }
+            add_modifier = {
+                modifier = HJS_add
+                mult = HJS_planet
+            }
+        }
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+HJS_add_1 = {
+    length = 10
+    icon = "GFX_icon_leader"
+    #启动条件
+    allow = {
+        always = yes
+    }
+    #显示条件
+    potential = {
+        always = no
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            influence = 1
+        }
+    }
+
+    modifier = {
+
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+    }
+    effect = {
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    is_ship_size = behemoth_03
+                    is_ship_size = behemoth_04
+                }
+            }
+            add_modifier = {
+                modifier = HJS_add
+                mult = value:HJS_planet_add
+            }
+        }
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}

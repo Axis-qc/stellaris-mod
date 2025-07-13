@@ -1,0 +1,56 @@
+namespace = HJSevent
+country_event = {
+    id = HJSevent.10
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = yes
+    trigger = {
+        # not = {
+        #     has_country_flag = has_HJS
+        # }
+    }
+    immediate = {
+        set_country_flag = has_HJS
+        save_global_event_target_as = player_country
+        set_variable = { which = HJS_planet value = 1 }
+    }
+}
+#吃球触发事件
+planet_event = {
+    id = HJSevent.100
+    is_triggered_only = yes
+    hide_window = yes
+
+    immediate = {
+        from.owner = {
+            country_event = { id = HJSevent.105 }
+        }
+    }
+}
+#给哈基兽上加成
+country_event = {
+    id = HJSevent.105
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+
+    }
+    immediate = {
+        change_variable = { which = HJS_planet value = 1 }
+        every_owned_ship = {
+            limit = {
+                OR = {
+                    is_ship_size = behemoth_01
+                    is_ship_size = behemoth_02
+                    is_ship_size = behemoth_03
+                    is_ship_size = behemoth_04
+                }
+            }
+            add_modifier = {
+                modifier = HJS_add
+                mult = value:HJS_planet_add
+                days = -1
+            }
+        }
+    }
+}
