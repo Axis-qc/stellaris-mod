@@ -64,30 +64,79 @@ country_event = {
             }
             #保存找到的领袖
             save_event_target_as = has_two_traits_leader
+            if = {
+                limit = {
+                    event_target:has_two_traits_leader = {
+                        exists = planet
+                    }
+                }
+                planet = {
+                    save_event_target_as = has_two_traits_leade_planet
+                }
+            }
         }
-        country_event = {
-            days = 30
-            id = lxleader.102
+        #指挥官
+        if = {
+            limit = {
+                event_target:has_two_traits_leader = {
+                    leader_class = commander
+                }
+            }
+            country_event = {
+                days = 30
+                id = lxleader.103
+            }
+        }
+        #行政官
+        if = {
+            limit = {
+                event_target:has_two_traits_leader = {
+                    leader_class = official
+                }
+            }
+            country_event = {
+                days = 30
+                id = lxleader.103
+            }
+        }
+        #科学官
+        if = {
+            limit = {
+                event_target:has_two_traits_leader = {
+                    leader_class = scientist
+                }
+            }
+            country_event = {
+                days = 30
+                id = lxleader.103
+            }
         }
         # assign_leader = event_target:a#分配领袖
     }
 }
+#指挥官选择
 country_event = {
-    id = lxleader.102  # 事件ID
-    title = lxleader102.title  # 事件标题
+    id = lxleader.103
+    title = "lxleader102.title"
     desc = {
+        trigger = {}
         text = "lxleader102.desc"
-        trigger = {
-            #check_variable = {
-            #    which = yesTZszxy
-            #    value = 10
-            #}
-        }
+        show_sound = par_event_keides
     }
-    picture = GFX_evt_throne_room  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
+    # desc = "lxleader102.desc"
+    diplomatic = yes
     fire_only_once = no
+    is_triggered_only = yes
+    show_sound = par_event_keides
+
+    picture = GFX_leader_recruitment_bg_legendary_keides
+    event_window_type = leader_recruit
+
+    picture_event_data = {
+        portrait = event_target:has_two_traits_leader
+        room = galactic_custodian_room
+    }
+
     trigger = {
         is_ai = no
         has_country_flag = yes_two_traits
@@ -95,31 +144,89 @@ country_event = {
             exists = leader
         }
     }
-    immediate = {
-        # 可以在事件触发时初始化变量
+
+    # option = {
+    #     name = HIRE
+    #     tag = hire_leader
+    #     sound = "par_keides_hire"
+    #
+    #     #隐藏
+    #     trigger = { always = no }
+    #
+    #     hidden_effect = {
+    #         clone_leader = {
+    #             target = event_target:has_two_traits_leader
+    #         }
+    #     }
+    #
+    #     create_message = {
+    #         type = MESSAGE_RECRUITED_LEADER
+    #         localization = MESSAGE_RECRUITED_LEADER_DESC
+    #         days = @toast_message_days
+    #         target = event_target:legendary_lost_leader
+    #         variable = {
+    #             type = name
+    #             localization = LEADER
+    #             scope = event_target:legendary_lost_leader
+    #         }
+    #         variable = {
+    #             key = "border"
+    #             value = "GFX_border_legendary"
+    #         }
+    #     }
+    # }
+
+    option = {
+        name = DISMISS
+        # Special tag to mark this as the dismiss option
+        tag = dismiss_leader
+        sound = "par_keides_dismiss"
+
+        hidden_effect = {
+
+        }
     }
 
     option = {
+        name = lxleader102.1
+        response_text = lxleader102.2
+        is_dialog_only = yes
+    }
+    option = {
         name = lxleader.1
+        trigger = {
+            event_target:has_two_traits_leader = {
+                leader_class = scientist
+            }
+        }
         event_target:has_two_traits_leader = {
             add_trait = {
                 trait = leader_trait_brilliant_shipwright
                 consume_selection = no
-                show_message = no
+                show_message = yes
+            }
+            add_trait = {
+                trait = leader_trait_add_1
+                consume_selection = no
+                show_message = yes
             }
             hidden_effect = {
                 set_leader_flag = has_two_traits
             }
         }
     }
-
     option = {
         name = lxleader.2
+        trigger = {
+            event_target:has_two_traits_leader = {
+                leader_class = official
+            }
+        }
         event_target:has_two_traits_leader = {
             add_trait = {
-                trait = leader_trait_robotist
+                trait = leader_trait_add_1
                 consume_selection = no
-                show_message = no
+                show_message = yes
             }
             hidden_effect = {
                 set_leader_flag = has_two_traits
@@ -128,17 +235,26 @@ country_event = {
     }
     option = {
         name = lxleader.3  # 选项名称
+        trigger = {
+            event_target:has_two_traits_leader = {
+                leader_class = commander
+            }
+        }
         custom_tooltip = lxleader.3.1
         event_target:has_two_traits_leader = {
             add_trait = {
-                trait = leader_trait_tactical_algorithms
+                trait = leader_trait_master_gunner
                 consume_selection = no
-                show_message = no
+                show_message = yes
+            }
+            add_trait = {
+                trait = leader_trait_add_1
+                consume_selection = no
+                show_message = yes
             }
             hidden_effect = {
                 set_leader_flag = has_two_traits
             }
         }
     }
-
 }

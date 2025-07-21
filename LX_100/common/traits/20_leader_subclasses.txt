@@ -182,9 +182,6 @@ subclass_commander_governor = {
         COUNCIL = no
     }
     custom_tooltip_with_modifiers = governor_subclass_tt
-    leader_potential_add = {
-        trait_is_crisis_faction_check = no
-    }
     planet_modifier = {
         job_soldier_stability_add = 1
     }
@@ -221,6 +218,9 @@ subclass_commander_governor = {
             NOT = { exists = planet }
             factor = @ai_selection_low
         }
+    }
+    leader_potential_add = {
+        trait_is_crisis_faction_check = no
     }
     leader_class = { commander }
     background_icon = "GFX_leader_subclass_commander_governor_background"
@@ -483,7 +483,7 @@ subclass_official_economy_councilor = {
             owner = { is_gestalt = no }
         }
         planet_pops_upkeep_mult = -0.01
-        trade_value_mult = 0.05
+        planet_jobs_trade_produces_mult = 0.01
         mult = trigger:has_total_skill
     }
     triggered_self_modifier = {

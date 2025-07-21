@@ -117,3 +117,79 @@
 #    background_icon = "GFX_leader_subclass_official_economy_councilor_background"
 #}
 #
+
+leader_trait_add_1 = {
+    leader_trait_type = destiny                # 定义该特质为命运特质类型
+    ethic_destiny_trait = yes                  # 标记为命定特质，可能与特定伦理或飞升相关
+
+    inline_script = {
+        # 内联脚本，用于定义特质的基础属性
+        script = trait/icon                    # 使用 trait/icon 脚本模板
+        CLASS = leader                         # 指定为领袖特质
+        ICON = "GFX_leader_trait_robotist"     # 特质图标
+        RARITY = paragon                       # 特质稀有度为典范级（最高稀有度）
+        COUNCIL = no                           # 不可通过议会获得
+        TIER = none                            # 无等级划分
+    }
+
+    on_gained_effect = {
+        # 获得该特质时触发的效果
+        # owner = {
+        #     country_event = { id = timeline.50 } # 触发时间线事件：第一个拥有命运特质的领袖
+        # }
+    }
+
+    leader_potential_add = {
+        # 可获得该特质的前置条件
+        # has_paragon_dlc = yes                  # 需要安装典范扩展包
+        # OR = {
+        #     # 满足以下任一条件：
+        #     has_trait = subclass_scientist_governor  # 拥有科学家总督子类型
+        #     has_trait = subclass_official_governor   # 拥有官员总督子类型
+        #     has_trait = subclass_commander_governor  # 拥有指挥官总督子类型
+        # }
+        exists = owner                         # 领袖必须有所属国家
+    }
+
+    triggered_system_modifier = {
+
+        ship_armor_add = 1000
+        mult = trigger:has_total_skill
+    }
+    triggered_councilor_modifier = {
+        country_admin_cap_add = 100
+    }
+    triggered_self_modifier = {
+        leader_commanders_influence_produces_add = 1
+        leader_officials_influence_produces_add = 1
+        leader_scientists_influence_produces_add = 1
+        country_admin_cap_add = 100
+    }
+    triggered_modifier = {
+    }
+
+    planet_modifier = {
+        # 对星球的修正效果
+        robotic_pop_bonus_workforce_mult = 0.2  # 机器人人口工作效率+20%
+        planet_pops_robotics_upkeep_mult = -0.2  # 机器人人口维护费用-20%
+        cyborg_pop_bonus_workforce_mult = 0.2   # 半机械人人口工作效率+20%
+        planet_pops_cyborgs_upkeep_mult = -0.2  # 半机械人人口维护费用-20%
+    }
+
+    sector_modifier = {
+        # 对星域的修正效果（范围更广）
+        robotic_pop_bonus_workforce_mult = 0.1  # 机器人人口工作效率+10%
+        planet_pops_robotics_upkeep_mult = -0.1  # 机器人人口维护费用-10%
+        cyborg_pop_bonus_workforce_mult = 0.1   # 半机械人人口工作效率+10%
+        planet_pops_cyborgs_upkeep_mult = -0.1  # 半机械人人口维护费用-10%
+    }
+
+    leader_class = { official scientist commander }  # 可获得该特质的领袖类型：官员、科学家、指挥官
+
+    selectable_weight = {
+        # 特质的选择权重（影响随机获得的概率）
+        weight = 0        # 基础权重
+    }
+
+    background_icon = "GFX_leader_background_destiny_1"  # 领袖背景图标，用于命运特质领袖
+}
