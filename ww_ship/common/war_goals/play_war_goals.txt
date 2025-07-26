@@ -1,0 +1,168 @@
+play_stop_eaten_star = {
+    casus_belli = play_1_eaten_star
+    hide_if_no_cb = yes
+    total_war = no
+    set_defender_wargoal = play_start_eaten_star
+
+    galactic_empire_joins_defender = {
+        from = { is_galactic_emperor = yes }
+        imperial_authority >= 100
+    }
+
+    allowed_peace_offers = {
+        status_quo  # 维持现状
+        surrender  # 投降
+        demand_surrender  # 要求投降
+    }
+
+    surrender_acceptance = -100
+
+    potential = {
+        # 设置可见的条件
+        #NAND = {
+        #    is_galactic_emperor = yes
+        #    from = { is_galactic_community_member = yes }
+        #}
+        from = {
+            # 目标国家必须拥有以下条件
+            any_controlled_fleet = {
+                # 控制的舰队中必须有
+                is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+                any_controlled_ship = {
+                    OR = {
+                        is_ship_size = star_eater
+                        is_ship_size = play_star_eater
+                    }
+                }
+            }
+        }
+    }
+    possible = {
+        # 设置可用的条件，满足其才可见
+        from = {
+            # 目标国家必须拥有以下条件
+            any_controlled_fleet = {
+                # 控制的舰队中必须有
+                is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+                any_controlled_ship = {
+                    OR = {
+                        is_ship_size = star_eater
+                        is_ship_size = play_star_eater
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = cannot_use_against_emperor
+            OR = {
+                from = { is_galactic_emperor = no }
+                is_galactic_community_member = no
+            }
+        }
+        custom_tooltip = {
+            fail_text = pax_galactica_active
+            NAND = {
+                is_active_resolution = resolution_emperor_pax_galactica
+                is_galactic_community_member = yes
+                from = { is_galactic_community_member = yes }
+            }
+        }
+    }
+    # on_status_quo = {}    # 如果战争以“维持现状”结束后，生效的语句
+    on_accept = {
+        from = {
+            every_owned_fleet = {
+                limit = {
+                    OR = {
+                        is_ship_size = star_eater
+                        is_ship_size = play_star_eater
+                    }
+                }
+                save_event_target_as = winship
+            }
+        }
+        add_resource = { energy = 1000 }
+        event_target:winship = {
+            set_owner = root
+        }
+    }     # 如果战争以胜利结束后，生效的语句
+    ai_weight = {
+        weight = 100
+    }
+}
+
+play_start_eaten_star = {
+    # 定义一个战争目标，用于报复被吞噬的恒星
+    casus_belli = play_eaten_star  # 使用的战争借口（casus belli）
+    hide_if_no_cb = yes  # 如果没有有效的战争借口，则隐藏这个战争目标
+    total_war = yes  # 这是一个全面战争目标，意味着战争将一直持续到一方被完全击败
+    set_defender_wargoal = play_stop_eaten_star  # 防御方的战争目标，用于报复
+
+    galactic_empire_joins_defender = {
+        # 银河帝国加入防御方的条件
+        from = { is_galactic_emperor = yes }  # 如果攻击方是银河帝国的皇帝
+        imperial_authority >= 100  # 并且帝国权威至少为100
+    }
+
+    allowed_peace_offers = {
+        # 允许的和平提议
+        status_quo  # 维持现状
+        surrender  # 投降
+        demand_surrender  # 要求投降
+    }
+
+    surrender_acceptance = -100  # 投降接受度
+
+    potential = {
+        # 定义哪些国家可以拥有这个战争目标
+        any_controlled_fleet = {
+            # 控制的舰队中必须有
+            is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+            any_controlled_ship = {
+                OR = {
+                    is_ship_size = star_eater
+                    is_ship_size = play_star_eater
+                }
+
+            }
+        }
+        #NAND = {
+        # NAND逻辑，以下两个条件不能同时为真
+        #is_galactic_emperor = yes  # 不能是银河帝国的皇帝
+        #from = { is_galactic_community_member = yes }  # 且攻击方必须是银河共同体的成员
+        #}
+    }
+    possible = {
+        any_controlled_fleet = {
+            # 控制的舰队中必须有
+            is_ship_class = shipclass_military_special  # 特殊军事类别的飞船
+            any_controlled_ship = {
+                OR = {
+                    is_ship_size = star_eater
+                    is_ship_size = play_star_eater
+                }
+
+            }
+        }
+        custom_tooltip = {
+            fail_text = cannot_use_against_emperor
+            OR = {
+                from = { is_galactic_emperor = no }
+                is_galactic_community_member = no
+            }
+        }
+        custom_tooltip = {
+            fail_text = pax_galactica_active
+            NAND = {
+                is_active_resolution = resolution_emperor_pax_galactica
+                is_galactic_community_member = yes
+                from = { is_galactic_community_member = yes }
+            }
+        }
+    }
+    # on_status_quo = {}    # 如果战争以“维持现状”结束后，生效的语句
+    # on_accept = {}        # 如果战争以“胜利”结束后，生效的语句
+    ai_weight = {
+        weight = 100
+    }
+}
