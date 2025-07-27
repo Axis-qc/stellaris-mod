@@ -1,12 +1,13 @@
 ww_ship_destroyed_01 = {
     # 残骸
-    entity = "npf_01_broken_npc_warship_01_hull_entity"    #模型
-    construction_entity = "npf_01_broken_npc_warship_01_hull_entity"    #建设模型
+    entity = "ww_ship_npf_01_broken_npc_warship_01_hull_entity"    #模型
+    construction_entity = "ww_ship_npf_01_broken_npc_warship_01_hull_entity"    #建设模型
     portrait = "GFX_megastructure_construction_background"    #图像
     place_entity_on_planet_plane = no    # 是否将实体放置在行星平面上
     entity_offset = {
         x = 0        # x轴偏移量
         y = 0        # y轴偏移量
+
     }
     potential = {
         always = no        #在工程船显示
@@ -15,7 +16,7 @@ ww_ship_destroyed_01 = {
 # 修复
 ww_ship_destroyed_02 = {
     entity = ""    # 巨构的实体
-    construction_entity = ""    # 巨构的建造实体
+    construction_entity = "ww_ship_npf_01_npc_warship_01_hull_entity"    # 巨构的建造实体
     portrait = "GFX_megastructure_construction_background"    # 巨构的背景图像
     place_entity_on_planet_plane = no    # 是否将实体放置在行星平面上
     build_time = 600    # 建造时间，单位是天
@@ -23,7 +24,7 @@ ww_ship_destroyed_02 = {
         # 建造所需的资源
         category = megastructures
         cost = {
-            alloys = 3000            # 需要3000合金
+            alloys = 10000            # 需要合金
         }
     }
     upgrade_from = {
@@ -31,7 +32,7 @@ ww_ship_destroyed_02 = {
         ww_ship_destroyed_01
     }
     prerequisites = {
-        #"ftsb_ship"
+        tech_titans
     }
     # 建造前的必要条件，例如需要先研究特定的科技
     on_build_complete = {
@@ -50,8 +51,8 @@ ww_ship_destroyed_02 = {
                         create_ship = {
                             name = random
                             design = "NAME_Type_ww_ship" # Psi Jump Dreadnought
-                            graphical_culture = "npf_01"
-                            upgradable = no
+                            # graphical_culture = "npf_01"
+                            upgradable = yes
                         }
                         set_location = {
                             target = prev

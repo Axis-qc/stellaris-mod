@@ -1,0 +1,47 @@
+special_project = {
+    key = "ww_ship_DISABLED_DREADNOUGHT_PROJECT"
+    cost = 50000
+    # days_to_research = 360
+    tech_department = engineering_technology
+    picture = GFX_evt_automated_dreadnought
+
+    event_scope = ship_event
+
+    requirements = {
+        shipclass_constructor = 1
+    }
+
+    abort_trigger = {
+    }
+
+    on_success = {
+        # ship_event = { id = leviathans.3103 }
+        fromfrom = {
+            destroy_ambient_object = this
+        }
+        from = {
+            destroy_ambient_object = this
+        }
+        destroy_ambient_object = this
+        create_fleet = {
+            name = "NAME_Type_ww_ship"
+            effect = {
+                set_owner = root
+                create_ship = {
+                    name = random
+                    design = "NAME_Type_ww_ship" # Psi Jump Dreadnought
+                    # graphical_culture = "npf_01"
+                    upgradable = yes
+                }
+                set_location = {
+                    target = prev
+                    distance = 0
+                    angle = random
+                }
+            }
+        }
+    }
+
+    on_fail = {
+    }
+}

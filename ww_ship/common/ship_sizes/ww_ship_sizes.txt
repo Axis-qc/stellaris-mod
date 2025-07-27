@@ -1,20 +1,30 @@
 ww_ship_sizes = {
-    graphical_culture = { "npf_01" "npf_01_dirty" }
+    entity = "ww_ship_npc_warship_01_entity"
+    # graphical_culture = { "npf_01" "npf_01_dirty" }
     is_space_object = yes
-    graphical_culture = yes
+    # graphical_culture = yes
     max_speed = 100
     acceleration = 0.15
     rotation_speed = 0.1
     collision_radius = 7
     modifier = {
-        ship_evasion_add = 0.5
-        # ships_upkeep_mult = -1
+
+    }
+    ship_modifier = {
+        ship_armor_hardening_add = 0.5
+        ship_shield_hardening_add = 0.5
+        ship_evasion_add = 1
+        ship_accuracy_add = 20
+        ship_tracking_add = 20
+        ships_upkeep_mult = -0.5
+        ship_damage_reduction_mult = 0.5
         # ship_weapon_damage = 2
-        ship_shield_mult = 1
-        ship_armor_add = 5000
+        # ship_shield_mult = 1
+        # ship_armor_add = 10000
+        # ship_shield_add = 10000
     }
     max_hitpoints = 20000
-    combat_size_multiplier = 50
+    combat_size_multiplier = 16
     size_multiplier = 16
     fleet_slot_size = 8
     section_slots = { "mid" = { locator = "part1" } }
@@ -24,17 +34,22 @@ ww_ship_sizes = {
 
     # 建造属性
     construction_type = starbase_shipyard  # 在星基地船坞建造
-    base_buildtime = 6000     # 基础建造时间（极长，100个月）
+    base_buildtime = 1000     # 基础建造时间
     can_have_federation_design = no  # 不可有联邦设计
-    components_add_to_cost = no  # 组件不影响建造成本
-    enable_default_design = yes  # 启用默认设计
+    components_add_to_cost = yes  # 组件影响建造成本
+    enable_default_design = no  # 启用默认设计
     enable_3dview_in_ship_browser = yes  # 在舰船浏览器显示3D模型
 
     use_shipnames_from = titan
 
     # 建造权限
     potential_country = {
-        # has_technology = ftsb_ship
+        any_owned_ship = {
+            or = {
+                is_ship_size = npc_warship_01
+                is_ship_size = ww_ship_sizes
+            }
+        }
     }
 
     # 建造位置限制
@@ -90,16 +105,16 @@ ww_ship_sizes = {
     }
 
     class = shipclass_military
-    is_designable = yes
 
     required_component_set = "power_core"        # 能源核心
     required_component_set = "ftl_components"     # FTL引擎
     required_component_set = "thruster_components"# 推进器
     required_component_set = "sensor_components"  # 传感器
     required_component_set = "combat_computers"   # 作战电脑
-    required_component_set = "play_ys_components" # 光环
-    required_component_set = "ship_aura_components"
-    
+    required_component_set = "ww_ship_gh_components" # 光环
+    required_component_set = "ww_ship_gh_components"
+    required_component_set = "ww_ship_gh_components"
+
     resources = {
         category = ships
         cost = {
@@ -111,4 +126,5 @@ ww_ship_sizes = {
         min = 1  # 最少建造1艘
         max = 2  # 最多建造2艘
     }
+    available_to_everyone = yes    # 全势力可用
 }

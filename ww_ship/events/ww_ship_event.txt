@@ -6,7 +6,7 @@ country_event = {
     trigger = {
         FROMFROM = {
             or = {
-                is_ship_size = npc_warship_01
+                # is_ship_size = npc_warship_01
                 is_ship_size = ww_ship_sizes
             }
         }
@@ -16,28 +16,30 @@ country_event = {
             if = {
                 limit = {
                     or = {
-                        is_ship_size = npc_warship_01
+                        # is_ship_size = npc_warship_01
                         is_ship_size = ww_ship_sizes
                     }
                 }
-                # create_ambient_object = {
-                #     type = "dreadnought_object"
-                #     location = THIS
-                # }
-                # enable_special_project = {
-                #     name = "DISABLED_DREADNOUGHT_PROJECT"
-                #     location = THIS
-                #     owner = ROOT
-                # }
-                this.solar_system = {
-                    spawn_megastructure = {
-                        type = ww_ship_destroyed_01
-                        coords_from = prev
-                        init_effect = {
-                            save_event_target_as = ww_ship
+                create_ambient_object = {
+                    type = "ww_ship_dreadnought_object"
+                    location = THIS
+                    effect = {
+                        enable_special_project = {
+                            name = "ww_ship_DISABLED_DREADNOUGHT_PROJECT"
+                            location = THIS
+                            owner = ROOT
                         }
                     }
                 }
+                # this.solar_system = {
+                #     spawn_megastructure = {
+                #         type = ww_ship_destroyed_01
+                #         coords_from = prev
+                #         init_effect = {
+                #             save_event_target_as = ww_ship
+                #         }
+                #     }
+                # }
             }
         }
     }
