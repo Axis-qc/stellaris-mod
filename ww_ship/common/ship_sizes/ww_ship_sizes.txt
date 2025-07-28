@@ -37,19 +37,21 @@ ww_ship_sizes = {
     base_buildtime = 1000     # 基础建造时间
     can_have_federation_design = no  # 不可有联邦设计
     components_add_to_cost = yes  # 组件影响建造成本
-    enable_default_design = no  # 启用默认设计
+    enable_default_design = yes  # 启用默认设计
     enable_3dview_in_ship_browser = yes  # 在舰船浏览器显示3D模型
 
     use_shipnames_from = titan
 
-    # 建造权限
+    # 建造要求
     potential_country = {
-        any_owned_ship = {
-            or = {
-                is_ship_size = npc_warship_01
-                is_ship_size = ww_ship_sizes
-            }
-        }
+        # any_owned_ship = {
+        #     or = {
+        #         is_ship_size = npc_warship_01
+        #         is_ship_size = ww_ship_sizes
+        #     }
+        # }
+        # has_country_flag = yes_ww_ship
+        has_technology = tech_ww_ship
     }
 
     # 建造位置限制
