@@ -1,0 +1,1141 @@
+#buff光环
+particle = {
+    name = "ww_ship_buff_effect"
+    # subsystem = {
+    #     name = "flare"
+    #     max_amount = 20
+    #     slave_particles = 0
+    #     sort = "depth"
+    #     emitter_type = "point"
+    #     invert = no
+    #     trail = no
+    #     local_space = yes
+    #     billboard = no
+    #     hide = no
+    #     texture = {
+    #         file = "gfx/particles/glow.dds"
+    #         x = 1
+    #         y = 1
+    #         shader = "ParticleAdditive"
+    #     }
+    #     color = {
+    #         x = 100.000
+    #         y = 255.000
+    #         z = 150.000
+    #         alpha = 50.000,flash_fade
+    #     }
+    #     position = {
+    #         x = 0.000
+    #         y = -5.000
+    #         z = 0.000
+    #     }
+    #     duration = -1.000
+    #     emitter_yaw = { 0.000 0.000 }
+    #     emitter_pitch = { 0.000 0.000 }
+    #     life = 3.000
+    #     emission = 10.000
+    #     size = 8.000
+    #     particle_pitch = 90.000
+    #     rotation = 0.000
+    #     rotation_speed = 50.000
+    # }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/hexagon.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 100.000
+            y = 255.000
+            z = 150.000
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 12.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -50.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/hexagon.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 100.000
+            y = 255.000
+            z = 150.000
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 16.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 50.000
+    }
+    animation = {
+        name = "flash_fade"
+        start = 0.000
+        duration = 1.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000 0.356 0.320 0.529 1.000 0.794 0.289 1.000 0.000
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "pulse"
+        start = 0.000
+        duration = 1.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 1.000 0.482 0.688 1.000 1.000
+        }
+        op = "MUL"
+        time = "life"
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0.000
+        division = 16
+        amount = 5.000
+    }
+}
+
+#debuff光环
+particle = {
+    name = "ww_ship_debuff_effect"
+
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/target_arrows.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000
+            y = 0.000
+            z = 0.000
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 8.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -50.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/target_arrows.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000
+            y = 0.000
+            z = 0.000
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 15.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 50.000
+    }
+    animation = {
+        name = "pulse"
+        start = 0.000
+        duration = 1.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 1.000 0.482 0.688 1.000 1.000
+        }
+        op = "MUL"
+        time = "life"
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0.000
+        division = 16
+        amount = 5.000
+    }
+}
+
+#跃迁buff光环
+particle = {
+    name = "ww_ship_jumpbuff_effect"
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000 #俯仰角
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 6.000
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 20.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = -5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = 30.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 30.00
+        emission = 10.000
+        size = 10.000
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -20.000
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0.000
+        division = 16
+        amount = 5.000
+    }
+}
+
+#蔚蓝档案光环
+particle = {
+    name = "ww_ship_self_effect"
+    #1环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 40.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+        #这个子光环出不来，神秘
+        childsystem = {
+            name = "icon" # 子系统名称，用于标识该子系统的用途或类型
+            max_amount = 1 # 最大粒子数量，限制该子系统可同时存在的粒子总数
+            slave_particles = 1  # 从属粒子数量，设置与主粒子关联的附加粒子数量
+            emitter_type = "point" # 发射器类型，如"point"(点发射器)、"sphere"(球形发射器)、"box"(盒形发射器)等
+            invert = no  # 是否反转粒子效果，布尔值(yes/no)，通常用于反向运动或渲染
+            trail = no # 是否启用粒子拖尾效果，布尔值(yes/no)，生成粒子运动轨迹
+            local_space = yes # 是否使用局部坐标系，布尔值(yes/no)，决定粒子是否随父物体移动
+            billboard = no # 是否启用公告板模式，布尔值(yes/no)，使粒子始终面向相机
+            hide = no # 是否隐藏该子系统，布尔值(yes/no)，用于临时关闭或条件显示
+            texture = {
+                file = "gfx/particles/sunsystem_rings.dds"
+                x = 1
+                y = 1
+                shader = "ParticleAdditive"
+            } # 粒子纹理配置，包含纹理文件路径、帧数等信息
+            position = {
+                x = 50.000
+                y = 5.000
+                z = 50.000
+            } # 发射器位置偏移，相对于父坐标系的XYZ坐标
+            duration = -1 # 子系统持续时间(秒)，-1表示无限持续
+            life = 90 # 单个粒子的生命周期(秒)，决定粒子从生成到消失的时间
+            size = 10 # 粒子大小，可配合动画曲线实现动态缩放
+            rotation = 0 # 粒子初始旋转角度(度)，影响粒子初始朝向
+            sort = "depth" # 粒子排序方式，如"depth"(按深度)、"none"(不排序)等
+            rotation_speed = 20 # 粒子基础旋转速度(度/秒)，通常指绕Y轴的旋转
+
+            start = 0 # 子系统启动延迟时间(秒)，延迟多久后开始发射粒子
+            velocity = 0 # 粒子初始速度大小，决定粒子移动的快慢
+            velocity_pitch = 90 # 粒子速度方向的Pitch角(度)，控制垂直方向发射角度
+            velocity_yaw = 0 # 粒子速度方向的Yaw角(度)，控制水平方向发射角度
+            emitter_pitch = { 0.000 0.000 } # 发射器自身的Pitch角范围，影响粒子发射的基础俯仰角度
+            emitter_yaw = { 0.000 0.000 } # 发射器自身的Yaw角范围，影响粒子发射的基础偏航角度
+
+            particle_pitch = 90 # 粒子自身的Pitch角(度)，固定粒子的俯仰朝向
+        }
+    }
+    #2环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 100.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 120.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    #小环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 100.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 40.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+        force = xuanzhuan
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 100.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 50.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+        force = xuanzhuan
+    }
+    #三环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 300.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 350.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    #四环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 500.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 700.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -5.000
+    }
+    #小环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 250.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 80.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+        force = xuanzhuan1
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 250.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 120.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+        force = xuanzhuan1
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 250.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 180.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -10.000
+        force = xuanzhuan1
+    }
+    #五环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 1
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 900.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 10.000
+    }
+    #小环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/orbit_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 50.000   # 少量红色
+            y = 150.000  # 中等绿色
+            z = 255.000  # 全蓝
+            alpha = 200.000
+        }
+        position = {
+            x = 0.000
+            y = 5.000
+            z = 450.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 900.00
+        emission = 10.000
+        size = 200.000,pulse1
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -10.000
+        force = xuanzhuan2
+    }
+    #变大动画
+    animation = {
+        name = "pulse"
+        start = 0.000
+        duration = 5.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000
+            0.250 0.500
+            1.000 1.000
+        }
+        op = "MUL"
+        time = system
+    }
+    #小环慢一点
+    animation = {
+        name = "pulse1"
+        start = 0.000
+        duration = 20.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000
+            0.250 0.000
+            0.500 0.500
+            1.000 1.000
+        }
+        op = "MUL"
+        time = system
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0.000
+        division = 16
+        amount = 5.000
+    }
+    #内环旋转
+    force = {
+        name = xuanzhuan
+        type = spin
+        # spin
+        # point
+        # vortex
+        # turbulence
+        # friction
+        # planar
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0
+        division = 20
+        amount = 0.1
+    }
+    #外环
+    force = {
+        name = xuanzhuan1
+        type = spin
+        # spin
+        # point
+        # vortex
+        # turbulence
+        # friction
+        # planar
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 -1.000 0.000
+        }
+        local_force = yes
+        yaw = 0
+        division = 20
+        amount = 0.05
+    }
+    #最外环
+    force = {
+        name = xuanzhuan2
+        type = spin
+        # spin
+        # point
+        # vortex
+        # turbulence
+        # friction
+        # planar
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0
+        division = 20
+        amount = 0.05
+    }
+}

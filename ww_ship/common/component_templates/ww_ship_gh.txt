@@ -1,4 +1,5 @@
 #光环
+#小飞机
 utility_component_template = {
     key = "ww_shipAURA_STRIKE_CRAFT"
     size = medium
@@ -28,8 +29,12 @@ utility_component_template = {
                 entity = "circle_area_entity"
                 dynamic_scale = yes
             }
+            # ship_effect = {
+            #     entity = "ship_aura_negative_entity"
+            #     dynamic_scale = yes
+            # }
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = "ww_ship_buff_entity"
                 dynamic_scale = yes
             }
         }
@@ -45,7 +50,7 @@ utility_component_template = {
     }
 }
 
-# Weapon Range
+# 射程
 utility_component_template = {
     key = "ww_shipAURA_RANGE"
     size = medium
@@ -78,7 +83,7 @@ utility_component_template = {
                 dynamic_scale = yes
             }
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = "ww_ship_buff_entity"
                 dynamic_scale = yes
             }
         }
@@ -94,7 +99,7 @@ utility_component_template = {
     }
 }
 
-# Hyperlane
+# 跃迁
 utility_component_template = {
     key = "ww_shipAURA_HYPERLANE"
     size = medium
@@ -119,6 +124,7 @@ utility_component_template = {
             ship_windup_mult = -0.9
             ship_winddown_mult = -0.9
             ship_jumpdrive_cooldown_mult = -0.9
+            ship_ftl_jumpdrive_range_mult = 0.5
         }
 
         graphics = {
@@ -127,7 +133,7 @@ utility_component_template = {
                 dynamic_scale = yes
             }
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = "ww_ship_jumpbuff_effect"
                 dynamic_scale = yes
             }
         }
@@ -143,7 +149,7 @@ utility_component_template = {
     }
 }
 
-# PD Penetration
+# 防逃跑
 utility_component_template = {
     key = "ww_shipAURA_PD_PENETRATION"
     size = medium
@@ -169,8 +175,8 @@ utility_component_template = {
             # weapon_type_point_defense_weapon_fire_rate_mult = -0.5
             ship_disengage_chance_mult = -0.8
             ship_disengage_chance_reduction = 0.8
-            ship_disengage_opportunities_add = -10
-            ship_speed_reduction = 0.5
+            ship_disengage_opportunities_add = -5
+            # ship_speed_reduction = 0.5
         }
 
         graphics = {
@@ -179,7 +185,7 @@ utility_component_template = {
                 dynamic_scale = yes
             }
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = "ww_ship_debuff_entity"
                 dynamic_scale = yes
             }
         }
@@ -195,7 +201,7 @@ utility_component_template = {
     }
 }
 
-# Bombardment
+# 轰炸
 utility_component_template = {
     key = "ww_shipAURA_BOMBARDMENT"
     size = medium
@@ -226,12 +232,88 @@ utility_component_template = {
                 dynamic_scale = yes
             }
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = "ww_ship_buff_entity"
                 dynamic_scale = yes
             }
         }
     }
 
+    ai_weight = {
+        weight = 10
+        modifier = {
+            factor = 2
+            is_ai = yes
+            is_preferred_weapons = weapon_type_energy
+        }
+    }
+}
+
+#装甲增幅
+utility_component_template = {
+    key = "ww_ship_self"
+    size = medium
+    icon = "GFX_ship_part_aura_electromagnetic_disruptor"
+    icon_frame = 1
+    power = 0
+
+    size_restriction = { ww_ship_sizes }
+    component_set = "ww_ship_gh_components"
+
+    triggered_ship_modifier = {
+        potential = {
+            is_ship_size = ww_ship_sizes
+        }  # 触发条件，满足该条件时修改器才会生效
+        key = ww_ship_hull_self_buff # 修改器的唯一标识键
+        # show_if_not_potential = no  # 布尔值（yes/no），控制不满足条件时是否显示该修改器（灰显）
+        # not_potential_override_text_key =  # 不满足条件时替换默认描述的文本键
+        modifier = {
+            ship_armor_hardening_add = 0.5
+            ship_shield_hardening_add = 0.5
+            ship_hull_add = 50000
+            ship_armor_add = 50000
+            ship_shield_add = 50000
+            ship_damage_reduction_add = 100
+        } # 具体的属性修改规则，定义对舰船的加成/减益效果
+        # description = ww_ship_self_buff_desc # 描述文本键（关联本地化文本），解释修改器的作用
+        # description_parameters = { } # 描述文本的动态参数，用于填充description中的变量
+        show_only_custom_tooltip = no  # 布尔值（yes/no），是否只显示自定义提示而非默认描述
+        # custom_tooltip = ww_ship_self_buff_desc # 自定义提示配置，用于显示更详细的提示文本
+        mult = 1 # 倍率系数，对modifier中的效果进行二次缩放
+        multiplier = 0 # 倍率计算参数（通常与mult取乘积，优先级取决于引擎）
+    }
+    friendly_aura = {
+        name = ww_ship_self_buff
+        limit = {
+        }
+        system_wide = no
+        radius = 100 #神秘的范围，但是又没什么用
+        apply_on = fleets
+        stack_info = {
+            id = ww_ship_self_buff
+            priority = 1
+        }
+        modifier = {
+            ship_armor_hardening_add = 0.5
+            ship_shield_hardening_add = 0.5
+        }
+        graphics = {
+            area_effect = {
+                entity = "circle_area_entity"
+                dynamic_scale = yes
+            }
+            # ship_effect = {
+            #     entity = "ww_ship_self_effect"
+            #     dynamic_scale = yes
+            # }
+            ship_effect = {
+                entity = "ww_ship_buff_entity"
+                dynamic_scale = yes
+            }
+        }
+    }
+    custom_tooltip = {
+        text = ww_ship_self_buff_desc
+    }
     ai_weight = {
         weight = 10
         modifier = {

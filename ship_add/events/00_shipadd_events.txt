@@ -1,13 +1,76 @@
 namespace = shipadd
+
+country_event = {
+    id = shipadd.10  # 事件ID
+    title = shipadd.title  # 事件标题
+    desc = shipadd.desc  # 事件描述
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = yes
+    trigger = {
+        is_ai = no
+    }
+    option = {
+        name = shipadd.1  # 选项名称
+        trigger = {
+        }
+        set_global_flag = no_ship_all_add
+    }
+    option = {
+        name = shipadd.2  # 选项名称
+        every_country = {
+            add_modifier = { modifier = ship_all_add_1 }
+        }
+        set_global_flag = yes_ship_all_add_1
+    }
+    option = {
+        name = shipadd.3  # 选项名称
+        trigger = {
+        }
+        every_country = {
+            add_modifier = { modifier = ship_all_add_2 }
+        }
+        set_global_flag = yes_ship_all_add_2
+    }
+}
+#提质少量一级
 event = {
-    id = shipadd.10
+    id = shipadd.11
     hide_window = yes
 
     is_triggered_only = yes
+    trigger = {
+        has_global_flag = yes_ship_all_add_1
+    }
 
     immediate = {
         every_country = {
-            add_modifier = { modifier = ship_all_add }
+            add_modifier = { modifier = ship_all_add_1 }
+            if = {
+                limit = { has_modifier = ship_all_add_2 }
+                remove_modifier = ship_all_add_2
+            }
+        }
+    }
+}
+#提质少量2级
+event = {
+    id = shipadd.12
+    hide_window = yes
+
+    is_triggered_only = yes
+    trigger = {
+        has_global_flag = yes_ship_all_add_2
+    }
+
+    immediate = {
+        every_country = {
+            add_modifier = { modifier = ship_all_add_2 }
+            if = {
+                limit = { has_modifier = ship_all_add_1 }
+                remove_modifier = ship_all_add_1
+            }
         }
     }
 }
