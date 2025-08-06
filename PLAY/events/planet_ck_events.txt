@@ -1,0 +1,22 @@
+namespace = planet_ck
+
+event = {
+    id = planet_ck.11
+    hide_window = yes
+
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+    }
+
+    immediate = {
+        every_owned_planet = {
+            limit = {
+                not = {
+                    has_deposit = planet_ck_10k
+                }
+            }
+            add_deposit = planet_ck_10k
+        }
+    }
+}
