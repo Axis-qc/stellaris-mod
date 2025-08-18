@@ -1,0 +1,424 @@
+namespace = value_xg
+#舰队压缩数值
+country_event = {
+    id = value_xg.100
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        not = {
+            has_country_flag = yes_xg
+        }
+    }
+    immediate = {
+        random_country = {
+            limit = {
+                not = {
+                    has_country_flag = 30_day_cd
+                }
+            }
+            random_owned_fleet = {
+                limit = {
+                    is_ship_class = shipclass_military
+                    not = {
+                        has_fleet_flag = ship_value_del
+                    }
+                }
+                set_timed_fleet_flag = {
+                    days = 120
+                    flag = ship_value_del
+                }
+                save_event_target_as = root_power
+            }
+            set_timed_country_flag = { flag = 30_day_cd days = 30 }
+            country_event = { id = value_xg.3000 days = 1 }
+            country_event = { id = value_xg.101 days = 1 }
+        }
+        
+    }
+
+}
+country_event = {
+    id = value_xg.101  # 事件ID
+    title = value_xg.title  # 事件标题
+    desc = {
+        text = "value_xg.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        is_ai = no
+        exists = event_target:root_power
+        not = {
+            has_country_flag = cs_flag
+        }
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+        set_timed_country_flag = { flag = cs_flag days = 10 }
+    }
+
+    option = {
+        name = value_xg.1
+        event_target:root_power = {
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country
+                days = -1
+            }
+        }
+    }
+}
+#射速转伤害(单舰队
+country_event = {
+    id = value_xg.3000
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+    }
+    immediate = {
+        #数值同步
+        event_target:root_power = {
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country
+                days = -1
+            }
+        }
+    }
+}
+
+
+#打架时修正射速,不可行，只能处理两方对打
+country_event = {
+    id = value_xg.3001
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        # OR = {
+        #     this = {
+        #         is_ai = no
+        #     }
+        #     from = {
+        #         is_ai = no
+        #     }
+        # }
+    }
+    immediate = {
+        #压数值
+        FromFrom = {
+            save_global_event_target_as = ship_one
+            set_timed_fleet_flag = { flag = fleet_one days = 100 }
+            set_timed_fleet_flag = { flag = 60day_cd days = 60 }
+        }
+        this = {
+            country_event = {
+                id = value_xg.3002
+                days = 1
+            }
+            country_event = {
+                id = value_xg.3010
+                days = 1
+            }
+            country_event = {
+                id = value_xg.3011
+                days = 1
+            }
+        }
+        fromfromfrom = {
+            save_global_event_target_as = ship_two
+            set_timed_fleet_flag = { flag = fleet_two days = 100 }
+            set_timed_fleet_flag = { flag = 60day_cd days = 60 }
+        }
+        from = {
+            country_event = {
+                id = value_xg.3003
+                days = 1
+            }
+            country_event = {
+                id = value_xg.3010
+                days = 1
+            }
+            country_event = {
+                id = value_xg.3011
+                days = 1
+            }
+        }
+    }
+}
+
+country_event = {
+    id = value_xg.3002
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        event_target:ship_one = {
+            NOT = {
+                has_fleet_flag = ship_value_del
+            }
+        }
+    }
+    immediate = {
+        random_owned_fleet = {
+            limit = {
+                has_fleet_flag = fleet_one
+            }
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country_ship_one
+                days = -1
+            }
+            set_timed_fleet_flag = {
+                days = 120
+                flag = ship_value_del
+            }
+        }
+    }
+}
+
+country_event = {
+    id = value_xg.3003
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        #     nor = {
+        #         is_ship_size = science
+        #         is_ship_size = constructor
+        #         is_ship_size = colonizer
+        #         is_ship_size = sponsored_colonizer
+        #         is_ship_size = lithoid_colonizer
+        #         is_ship_size = guided_sapience_colonizer
+        #         is_ship_size = transport
+        #     }
+        event_target:ship_two = {
+            NOT = {
+                has_fleet_flag = ship_value_del
+            }
+        }
+    }
+    immediate = {
+        random_owned_fleet = {
+            limit = {
+                has_fleet_flag = fleet_two
+            }
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country_ship_two
+                days = -1
+            }
+            set_timed_fleet_flag = {
+                days = 120
+                flag = ship_value_del
+            }
+        }
+    }
+}
+
+country_event = {
+    id = value_xg.3010  # 事件ID
+    title = value_xg3010.title  # 事件标题
+    desc = {
+        text = "value_xg3010.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        not = {
+            has_country_flag = cs_flag_1
+        }
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量
+        set_timed_country_flag = { flag = cs_flag_1 days = 10 }
+    }
+
+    option = {
+        name = value_xg.1
+        event_target:ship_one = {
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft_ship_one
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country_ship_one
+                days = -1
+            }
+        }
+    }
+    option = {
+        name = value_xg.1
+    }
+}
+
+country_event = {
+    id = value_xg.3011  # 事件ID
+    title = value_xg3011.title  # 事件标题
+    desc = {
+        text = "value_xg3011.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        not = {
+            has_country_flag = cs_flag_2
+        }
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量
+        set_timed_country_flag = { flag = cs_flag_2 days = 10 }
+    }
+
+    option = {
+        name = value_xg.1
+        event_target:ship_two = {
+            add_modifier = {
+                modifier = value_xg_energy
+                mult = value:value_xg_energy_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_explosive
+                mult = value:value_xg_explosive_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_kinetic
+                mult = value:value_xg_kinetic_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_strike_craft
+                mult = value:value_xg_strike_craft_ship_two
+                days = -1
+            }
+            add_modifier = {
+                modifier = value_xg_country
+                mult = value:value_xg_country_ship_two
+                days = -1
+            }
+        }
+    }
+    option = {
+        name = value_xg.1
+    }
+}

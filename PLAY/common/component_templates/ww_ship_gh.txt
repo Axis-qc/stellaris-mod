@@ -248,7 +248,7 @@ utility_component_template = {
     }
 }
 
-#自身光环
+#装甲增幅
 utility_component_template = {
     key = "ww_ship_self"
     size = medium
@@ -259,22 +259,19 @@ utility_component_template = {
     size_restriction = { ww_ship_sizes }
     component_set = "ww_ship_gh_components"
 
-    ship_modifier = {
-
-    }
     triggered_ship_modifier = {
         potential = {
             is_ship_size = ww_ship_sizes
         }  # 触发条件，满足该条件时修改器才会生效
-        key = ww_ship_self_buff # 修改器的唯一标识键
-        # show_if_not_potential = no  # 布尔值（yes/no），控制不满足条件时是否显示该修改器（灰显）
+        key = ww_ship_self_buff_1 # 修改器的唯一标识键
+        show_if_not_potential = yes  # 布尔值（yes/no），控制不满足条件时是否显示该修改器（灰显）
         # not_potential_override_text_key =  # 不满足条件时替换默认描述的文本键
         modifier = {
             ship_armor_hardening_add = 0.5
             ship_shield_hardening_add = 0.5
-            ship_hull_add = 50000
-            ship_armor_add = 50000
-            ship_shield_add = 50000
+            ship_hull_add = 10000
+            ship_armor_add = 10000
+            ship_shield_add = 10000
             ship_damage_reduction_add = 100
         } # 具体的属性修改规则，定义对舰船的加成/减益效果
         # description = ww_ship_self_buff_desc # 描述文本键（关联本地化文本），解释修改器的作用
@@ -282,16 +279,15 @@ utility_component_template = {
         show_only_custom_tooltip = no  # 布尔值（yes/no），是否只显示自定义提示而非默认描述
         # custom_tooltip = ww_ship_self_buff_desc # 自定义提示配置，用于显示更详细的提示文本
         mult = 1 # 倍率系数，对modifier中的效果进行二次缩放
-        multiplier = 0 # 倍率计算参数（通常与mult取乘积，优先级取决于引擎）
+        multiplier = 1 # 倍率计算参数（通常与mult取乘积，优先级取决于引擎）
     }
     friendly_aura = {
         name = ww_ship_self_buff
         limit = {
-            # is_ship_size = ww_ship_sizes
-            # is_owned_by = root
+
         }
         system_wide = yes
-        radius = 100 #神秘的范围，但是又没什么用
+        radius = 300 #神秘的范围，不知道什么用
         apply_on = fleets
         stack_info = {
             id = ww_ship_self_buff
@@ -307,7 +303,7 @@ utility_component_template = {
                 dynamic_scale = yes
             }
             # ship_effect = {
-            #     entity = "ww_ship_self_effect"
+            #     entity = "ww_ship_fazhen_effect"
             #     dynamic_scale = yes
             # }
             ship_effect = {

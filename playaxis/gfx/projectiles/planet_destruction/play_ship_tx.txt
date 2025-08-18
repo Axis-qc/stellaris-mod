@@ -1,0 +1,97 @@
+play_ship_destroyer_effect_gfx = {
+
+    # 基础纹理路径（DDS格式）
+    texture = "gfx/models/combat_items/star_eater_beam_diffuse.dds"
+
+    # RGBA基础颜色值（含亮度增强）
+    color = { 1.0 1.0 1.0 4.0 }  # R,G,B,增强型Alpha(4.0表示超亮白色)
+
+    # 行星溶解效果的颜色倍增值（蓝绿色调增强）
+    planet_dissolve_color_mult = { 0.8 1.2 1.5 }  # R_mult, G_mult, B_mult
+
+    # 预发射阶段实体对象
+    windup_entity = "play_ship_muzzle_windup_entity"
+
+    # 舰船开火时触发的实体效果
+    ship_fire_entity = "play_ship_chargeup_entity"
+
+    # 不同目标的命中效果实体（均使用同一基础实体）
+    planet_hit_entity = "star_eater_hit_entity"
+    star_hit_entity = "star_eater_hit_entity"
+    megastructure_hit_entity = "star_eater_hit_entity"
+
+    # 命中效果的位置定位方式（使用实体中心点）
+    hit_entity_positioning = entity_center
+
+    # 预发射阶段配置（无延迟直接开始）
+    windup = {
+        duration = 0.0  # 持续0秒（立即结束）
+    }
+
+    # 起始阶段配置（持续1秒）
+    start = {
+        duration = 1.0
+        width = {
+            # 光束宽度变化曲线（时间比例 -> 宽度值）
+            0.0 10.0  # 初始宽度10单位
+            1.0 80.0  # 结束宽度80单位
+        }
+        texture_scroll_speed = {
+            # 纹理滚动速度曲线
+            0.0 0.2  # 全程保持0.2速度
+        }
+        texture_tiling = 2.5  # 纹理平铺密度（值越大重复次数越多）
+        alpha = {
+            # 透明度变化曲线（从完全透明到完全不透明）
+            0.0 0.0  # 初始完全透明
+            1.0 1.0  # 结束完全不透明
+        }
+    }
+
+    # 持续阶段配置（持续1秒）
+    in_progress = {
+        duration = 1.0
+        width = {
+            # 脉动式宽度变化
+            0.0 80.0  # 起始宽度80
+            0.5 90.0  # 中期宽度90（达到峰值）
+            1.0 80.0  # 结束回落到80
+        }
+        texture_scroll_speed = {
+            0.0 0.3  # 纹理滚动速度提升至0.3
+        }
+        texture_tiling = {
+            # 纹理密度变化
+            0.0 2.5  # 保持初始密度
+        }
+        alpha = {
+            # 透明度脉动效果
+            0.0 0.5   # 起始半透明
+            0.5 0.70  # 中期最亮（70%不透明）
+            1.0 0.5   # 结束回落到半透明
+        }
+    }
+
+    # 结束阶段配置（持续1秒）
+    end = {
+        duration = 1.0
+        width = {
+            # 光束收缩效果
+            0.0 80.0  # 从80单位开始
+            1.0 10.0  # 收缩到10单位
+        }
+        texture_scroll_speed = 0.2  # 滚动速度回落到0.2（固定值）
+        texture_tiling = 2.5       # 纹理密度恢复初始值
+        alpha = {
+            # 淡出效果（含过度曝光）
+            0.0 1.1  # 初始轻微过曝（Alpha>1.0）
+            1.0 0.0  # 完全淡出
+        }
+    }
+
+    # 全局渐变控制（影响整个效果生命周期）
+    fade = {
+        fade_in = { 0.0 50.0 }   # 起始淡入强度/范围参数
+        fade_out = { 1.0 50.0 }  # 结束淡出强度/范围参数
+    }
+}

@@ -1,0 +1,1295 @@
+particle = {
+    name = "play_ship_muzzle_windup_effect"
+    subsystem = {
+        name = "chromatic_halo"
+        max_amount = 30
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/chromatic_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 200
+            y = 200
+            z = 220
+            alpha = 40,fade_alpha
+        }
+        position = {
+        }
+        duration = -1
+        life = { 1 0 }
+        emission = 3
+        size = { 70,shrink 5 }
+        rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "start_flare"
+        max_amount = 10
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/polar_swirl_3.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 200 10 }
+            y = { 240 10 }
+            z = { 255 10 }
+            alpha = 255,start_flare_alpha
+        }
+        position = {
+        }
+        duration = -1
+        life = 1.5
+        emission = 7
+        size = { 45,start_flare_size 5 }
+        particle_yaw = 0
+        particle_pitch = 0
+        rotation = { 0 180 }
+        rotation_speed = 50
+    }
+    subsystem = {
+        name = "flare"
+        max_amount = 15
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/glow.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 200
+            y = 220
+            z = 255
+            alpha = 100,fade_alpha
+        }
+        position = {
+        }
+        duration = -1
+        life = 0.7
+        emission = 7
+        size = 40,grow
+        particle_yaw = 90
+        particle_pitch = 90
+        rotation = { 90 0 }
+    }
+    subsystem = {
+        name = "smoke"
+        max_amount = 10
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = yes
+        texture = {
+            file = "gfx/particles/cloud_3.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 120
+            y = 180
+            z = 255
+            alpha = 50,fade_alpha
+        }
+        position = {
+        }
+        duration = -1
+        life = 1
+        emission = 7
+        size = 40,shrink
+        rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "rays"
+        max_amount = 10
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/blast.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 200 20 }
+            y = { 240 10 }
+            z = { 255 10 }
+            alpha = 255,fade_alpha
+        }
+        position = {
+        }
+        duration = -1
+        life = { 2 1 }
+        emission = 2
+        size = 80,shrink
+        rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "flares"
+        max_amount = 30
+        slave_particles = 0
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/sun_flare.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 200 25 }
+            y = 200
+            z = 220
+            alpha = { 255,fade_alpha 10 }
+        }
+        position = {
+        }
+        duration = -1
+        life = { 1.2 0 }
+        emission = 3
+        size = { 100,shrink 5 }
+        rotation = { 0 180 }
+    }
+    animation = {
+        name = "fade_alpha"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0 0.52941 1 1 0
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "grow"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0.188 0.45588 0.77344 1 1
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "start_flare_alpha"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0.023 0.138 1 0.379 1 0.765 0.164 1 0
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "start_flare_size"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 1 1 0.109
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "shrink"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 1 1 0.25
+        }
+        op = "MUL"
+        time = "life"
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0 0 0
+        }
+        direction = {
+            0 1 0
+        }
+        local_force = yes
+        yaw = 0
+        division = 16
+        amount = 5
+    }
+
+    #法阵
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes  #和船一起动
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/fazhen1.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = 0.000
+            y = -50.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000  #持续时间 -1无限
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 140.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = -5.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/fazhen1.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = 0.000
+            y = -100.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 180.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 5.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/fazhen1.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = 0.000
+            y = -150.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 320.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 5.000
+    }
+    #圆环
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = 0.000
+            y = -150.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 340.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 5.000
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = 0.000
+            y = -150.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 90.000
+        velocity_yaw = 0.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 360.000,pulse
+        particle_pitch = 90.000
+        rotation = 0.000
+        rotation_speed = 5.000
+    }
+
+    subsystem = {
+        name = "icon"             # 子系统名称标识符（在脚本中引用）
+        max_amount = 1            # 最大粒子数量（同时只存在1个粒子）
+        slave_particles = 0       # 从属粒子数量（0表示无次级粒子）
+        sort = "depth"            # 渲染排序方式（按深度缓冲排序）
+        emitter_type = "point"    # 发射器类型（单点发射）
+        invert = no               # 不反转粒子法线方向
+        trail = no                # 非拖尾型粒子
+        local_space = yes         # 使用局部坐标系（随父物体移动）
+        billboard = no            # 禁用始终面向相机（使用固定方向）
+        hide = no                # 初始可见（不隐藏）
+        # 纹理配置
+        texture = {
+            file = "gfx/particles/EX_bong/fazhen2.dds"  # 粒子贴图路径
+            x = 1                 # UV坐标X轴平铺次数
+            y = 1                 # UV坐标Y轴平铺次数
+            shader = "ParticleAdditive"  # 渲染着色器（叠加混合模式）
+        }
+        # 粒子颜色配置
+        color = {
+            x = 255.000, color_r1  # 红色通道（绑定到动画变量color_r1）
+            y = 255.000, color_g1  # 绿色通道（绑定到动画变量color_g1）
+            z = 255.000, color_b1  # 蓝色通道（绑定到动画变量color_b1）
+            alpha = 200.000        # 固定透明度（200/255≈78%不透明）
+        }
+        # 发射器位置偏移（局部坐标系）
+        position = {
+            x = 100.000             # X轴偏移量
+            y = -250.000          # Y轴偏移量（向下150单位）
+            z = 0.000             # Z轴偏移量
+        }
+        start = 0.000             # 起始时间（0秒立即开始）
+        duration = -1.000         # 持续时间（-1表示永久持续）
+        emitter_yaw = { 0.000 0.000 }   # 发射器偏航角范围（固定0°）
+        emitter_pitch = { 0.000 0.000 } # 发射器俯仰角范围（固定0°）
+        velocity_pitch = 45.000   # 粒子初始俯仰角（90°=垂直向下）
+        velocity_yaw = 0.000      # 粒子初始偏航角（0°=正前方向）
+        velocity = 0.000          # 粒子初始速度（0=静止）
+        life = 90.00              # 粒子生命周期（90秒）
+        emission = 10.000         # 发射间隔（每10秒发射1个粒子）
+        size = 200.000, pulse     # 基础尺寸340单位，启用脉动效果（尺寸变化）
+        particle_pitch = 0.000   # 粒子初始旋转俯仰角（90°=水平放置）
+        rotation = 0.000          # 初始旋转角度（0°）
+        rotation_speed = 5.000    # 旋转速度（5度/秒）
+    }
+    subsystem = {
+        name = "icon"
+        max_amount = 1
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/EX_bong/yuan2048.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+            y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+            z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+            alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+        }
+        position = {
+            x = -100.000
+            y = -150.000
+            z = -0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = 45.000
+        velocity_yaw = 45.000
+        velocity = 0.000
+        life = 90.00
+        emission = 10.000
+        size = 200.000,pulse
+        particle_pitch = 0.000
+        rotation = 0.000
+        rotation_speed = 5.000
+    }
+
+
+    animation = {
+        name = "pulse"
+        start = 0.000
+        duration = 3.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000
+            0.500 0.900
+            1.000 1.000
+        }
+        op = "MUL"
+        time = "system"
+    }
+    # 彩虹渐变
+    animation = {
+        name = "color_r1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 1.000   # 0秒：红（纯红）
+            0.1667 1.000   # 5秒：橙（保持红）
+            0.3333 1.000   # 10秒：黄（保持红）
+            0.5000 0.000   # 15秒：绿（红降零）
+            0.6667 0.000   # 20秒：蓝（保持零）
+            0.8333 1.000   # 25秒：紫（红升满）
+            1.0000 1.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+    animation = {
+        name = "color_g1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000   # 0秒：红（无绿）
+            0.1667 0.647   # 5秒：橙（精确橙色值）
+            0.3333 1.000   # 10秒：黄（绿升满）
+            0.5000 1.000   # 15秒：绿（保持满）
+            0.6667 0.000   # 20秒：蓝（绿降零）
+            0.8333 0.000   # 25秒：紫（无绿）
+            1.0000 0.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+    animation = {
+        name = "color_b1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000   # 0秒：红（无蓝）
+            0.1667 0.000   # 5秒：橙（无蓝）
+            0.3333 0.000   # 10秒：黄（无蓝）
+            0.5000 0.000   # 15秒：绿（无蓝）
+            0.6667 1.000   # 20秒：蓝（蓝升满）
+            0.8333 1.000   # 25秒：紫（蓝保持满）
+            1.0000 0.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+}
+
+particle = {
+    name = "play_ship_muzzle_chargeup_file"
+    subsystem = {
+        name = "muzzle_flash"
+        max_amount = 20
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = no
+        hide = no
+        texture = {
+            file = "gfx/particles/thin_muzzle_flash_2.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 255 20 }
+            y = { 220 20 }
+            z = { 220 20 }
+            alpha = { 70,slow_fade 10 }
+        }
+        position = {
+            y = -20
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = 0
+        life = { 0.8 0.2 }
+        emission = 15
+        size = { 220,grow 20 }
+        particle_yaw = { 0 90 }
+        particle_pitch = { 0 0 }
+        rotation = { -90 0 }
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "flare_big"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/chromatic_halo.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 240
+            y = 240
+            z = 220
+            alpha = { 80,alpha_fade 20 }
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 4
+        size = 100,grow
+        rotation = { 0 0 }
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "cloud"
+        max_amount = 30
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = yes
+        texture = {
+            file = "gfx/particles/cloud.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 230 30 }
+            y = { 220 30 }
+            z = { 220 30 }
+            alpha = 255,alpha_fade
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 50 1 }
+        life = 1.5
+        emission = 10
+        size = { 30,shrink 0 }
+        rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "fire"
+        max_amount = 12
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = yes
+        texture = {
+            file = "gfx/particles/fire_08.dds"
+            x = 2
+            y = 2
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 255
+            y = 150
+            z = 150
+            alpha = 255,alpha_fade
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 10 1 }
+        life = { 1 0.2 }
+        emission = 10
+        size = { 15,grow 5 }
+        rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "rays"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/blast.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = { 200 20 }
+            y = { 240 20 }
+            z = { 255 20 }
+            alpha = { 255,alpha_fade 20 }
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 4
+        size = { 120,grow 10 }
+        rotation = { 0 180 }
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "core"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/glow.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 240
+            y = 180
+            z = 100
+            alpha = 100,alpha_fade
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 4
+        size = 90,grow
+        rotation = { 0 0 }
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "flare_2"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/sun_flare.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 240
+            y = 240
+            z = 220
+            alpha = { 255,alpha_fade 20 }
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = -1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 4
+        size = 120,grow
+        rotation = { 0 180 }
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "flash"
+        max_amount = 4
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/flare_wide_thin.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 240
+            y = 240
+            z = 220
+            alpha = { 255,alpha_fade 20 }
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = 0.1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 1000
+        size = 600,grow
+        rotation = 0
+        rotation_speed = { 0 0 }
+    }
+    subsystem = {
+        name = "flash_2"
+        max_amount = 2
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/flare.dds"
+            x = 1
+            y = 1
+            shader = "ParticlePreAlphaBlend"
+        }
+        color = {
+            x = 240,fade
+            y = 240,fade
+            z = 220,fade
+            alpha = { 255,fade 20 }
+        }
+        position = {
+            x = -0.15
+            y = 0
+            z = 0
+        }
+        start = 0
+        duration = 0.1
+        emitter_yaw = { 0 0 }
+        emitter_pitch = { 0 0 }
+        velocity_pitch = { -90 5 }
+        velocity_yaw = { 0 5 }
+        velocity = { 0.4 0.1 }
+        life = 1
+        emission = 4
+        size = 200,grow
+        rotation = 0
+        rotation_speed = { 0 0 }
+    }
+
+    # subsystem = {
+    #     name = "icon"
+    #     max_amount = 1
+    #     slave_particles = 0
+    #     sort = "depth"
+    #     emitter_type = "point"
+    #     invert = no
+    #     trail = no
+    #     local_space = yes  #和船一起动
+    #     billboard = no
+    #     hide = no
+    #     texture = {
+    #         file = "gfx/particles/EX_bong/fazhen1.dds"
+    #         x = 1
+    #         y = 1
+    #         shader = "ParticleAdditive"
+    #     }
+    #     color = {
+    #         x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+    #         y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+    #         z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+    #         alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+    #     }
+    #     position = {
+    #         x = 0.000
+    #         y = -50.000
+    #         z = 0.000
+    #     }
+    #     start = 0.000
+    #     duration = -1.000  #持续时间 -1无限
+    #     emitter_yaw = { 0.000 0.000 }
+    #     emitter_pitch = { 0.000 0.000 }
+    #     velocity_pitch = 90.000
+    #     velocity_yaw = 0.000
+    #     velocity = 0.000
+    #     life = 90.00
+    #     emission = 10.000
+    #     size = 320.000,pulse
+    #     particle_pitch = 90.000
+    #     rotation = 0.000
+    #     rotation_speed = -5.000
+    # }
+    # subsystem = {
+    #     name = "icon"
+    #     max_amount = 1
+    #     slave_particles = 0
+    #     sort = "depth"
+    #     emitter_type = "point"
+    #     invert = no
+    #     trail = no
+    #     local_space = yes
+    #     billboard = no
+    #     hide = no
+    #     texture = {
+    #         file = "gfx/particles/EX_bong/fazhen1.dds"
+    #         x = 1
+    #         y = 1
+    #         shader = "ParticleAdditive"
+    #     }
+    #     color = {
+    #         x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+    #         y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+    #         z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+    #         alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+    #     }
+    #     position = {
+    #         x = 0.000
+    #         y = -100.000
+    #         z = 0.000
+    #     }
+    #     start = 0.000
+    #     duration = -1.000
+    #     emitter_yaw = { 0.000 0.000 }
+    #     emitter_pitch = { 0.000 0.000 }
+    #     velocity_pitch = 90.000
+    #     velocity_yaw = 0.000
+    #     velocity = 0.000
+    #     life = 90.00
+    #     emission = 10.000
+    #     size = 160.000,pulse
+    #     particle_pitch = 90.000
+    #     rotation = 0.000
+    #     rotation_speed = 5.000
+    # }
+    # subsystem = {
+    #     name = "icon"
+    #     max_amount = 1
+    #     slave_particles = 0
+    #     sort = "depth"
+    #     emitter_type = "point"
+    #     invert = no
+    #     trail = no
+    #     local_space = yes
+    #     billboard = no
+    #     hide = no
+    #     texture = {
+    #         file = "gfx/particles/EX_bong/fazhen1.dds"
+    #         x = 1
+    #         y = 1
+    #         shader = "ParticleAdditive"
+    #     }
+    #     color = {
+    #         x = 255.000, color_r1  # 红色通道（主色），绑定到动画变量color_r1
+    #         y = 255.000, color_g1  # 绿色通道（辅助色），绑定到动画变量color_g1
+    #         z = 255.000, color_b1  # 蓝色通道（辅助色），绑定到动画变量color_b1
+    #         alpha = 200.000  # 固定透明度（200/255≈78%不透明）
+    #     }
+    #     position = {
+    #         x = 0.000
+    #         y = -150.000
+    #         z = 0.000
+    #     }
+    #     start = 0.000
+    #     duration = -1.000
+    #     emitter_yaw = { 0.000 0.000 }
+    #     emitter_pitch = { 0.000 0.000 }
+    #     velocity_pitch = 90.000
+    #     velocity_yaw = 0.000
+    #     velocity = 0.000
+    #     life = 90.00
+    #     emission = 10.000
+    #     size = 320.000,pulse
+    #     particle_pitch = 90.000
+    #     rotation = 0.000
+    #     rotation_speed = 5.000
+    # }
+    animation = {
+        name = "pulse"
+        start = 0.000
+        duration = 3.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000
+            0.500 0.900
+            1.000 1.000
+        }
+        op = "MUL"
+        time = "system"
+    }
+    # 彩虹渐变
+    animation = {
+        name = "color_r1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 1.000   # 0秒：红（纯红）
+            0.1667 1.000   # 5秒：橙（保持红）
+            0.3333 1.000   # 10秒：黄（保持红）
+            0.5000 0.000   # 15秒：绿（红降零）
+            0.6667 0.000   # 20秒：蓝（保持零）
+            0.8333 1.000   # 25秒：紫（红升满）
+            1.0000 1.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+    animation = {
+        name = "color_g1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000   # 0秒：红（无绿）
+            0.1667 0.647   # 5秒：橙（精确橙色值）
+            0.3333 1.000   # 10秒：黄（绿升满）
+            0.5000 1.000   # 15秒：绿（保持满）
+            0.6667 0.000   # 20秒：蓝（绿降零）
+            0.8333 0.000   # 25秒：紫（无绿）
+            1.0000 0.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+    animation = {
+        name = "color_b1"
+        start = 0.000
+        duration = 30.000  # 总时长30秒
+        repeat = yes
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000   # 0秒：红（无蓝）
+            0.1667 0.000   # 5秒：橙（无蓝）
+            0.3333 0.000   # 10秒：黄（无蓝）
+            0.5000 0.000   # 15秒：绿（无蓝）
+            0.6667 1.000   # 20秒：蓝（蓝升满）
+            0.8333 1.000   # 25秒：紫（蓝保持满）
+            1.0000 0.000   # 30秒：回到红
+        }
+        op = "MUL"
+        time = "system"
+    }
+
+    animation = {
+        name = "alpha_fade"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0 0.28235 0.98438 0.756 0.258 1 0
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "grow"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0.32813 1 1
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "slow_fade"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0 0.48529 0.96094 1 0
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "shrink"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 1 1 0.71875
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "fade"
+        start = 0
+        duration = 1
+        repeat = no
+        minValue = 0
+        maxValue = 1
+        curve = {
+            0 0 0.1 1 1 0
+        }
+        op = "MUL"
+        time = "life"
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0 0 0
+        }
+        direction = {
+            0 1 0
+        }
+        local_force = yes
+        yaw = 0
+        division = 16
+        amount = 5
+    }
+}
+

@@ -1,0 +1,28 @@
+entity = {
+    name = "play_ship_muzzle_windup_entity"
+    locator = { name = "part1" position = { 0 0 0 } }
+    default_state = "idle"
+    state = {
+        name = "idle" state_time = 7.0 looping = yes
+        event = { time = 0 node = "part1" particle = "play_ship_muzzle_windup_effect" keep_particle = yes trigger_once = yes }
+        start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_muzzle_hum_low" } }
+        start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_muzzle_hum_high" } }
+    }
+}
+
+entity = {
+    name = "play_ship_chargeup_entity"
+    locator = { name = "part1" position = { 0 0 0 } }
+    default_state = "explode"
+    state = {
+        name = "explode" state_time = 5 looping = yes
+
+        event = { time = 0.0 node = "part1" particle = "play_ship_muzzle_chargeup_effect" keep_particle = yes trigger_once = yes }
+        start_event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_weapon_windup_starting" } }
+        start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_weapon_windup_low_pulse" } }
+        start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_weapon_windup_distortion" } }
+
+    }
+
+    scale = 1
+}
