@@ -48,9 +48,19 @@ zone_admin_add = {
         zone_building_slots_add = 3
     }
 
-    inline_script = {
-        script = zones/shared_city_non_urban_zone_modifiers
+    triggered_district_planet_modifier = {
+        potential = {
+            owner = {
+                not = {
+                    has_origin = origin_wilderness
+                }
+            }
+        }
+        planet_housing_add = -200
     }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
 
     triggered_desc = {
         trigger = {
