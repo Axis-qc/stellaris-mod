@@ -1,0 +1,174 @@
+# example_beam = {
+#
+# 	texture = "gfx/models/combat_items/laser_diffuse2.dds"
+#
+# 	color = { 1.0 1.0 1.0 1.0 }
+#
+#	windup_entity = "colossus_shatter_planet_windup_entity"
+#
+# 	ship_fire_entity = "colossus_shatter_planet_muzzle_entity"
+#
+# 	planet_hit_entity = "colossus_shatter_planet_hit_entity"
+#
+# 	megastructure_hit_entity = "colossus_shatter_megastructure_hit_entity"
+#
+# 	# Has the same options as the other beam states
+#	windup = {
+#		duration = 10.0
+#	}
+# 	start = {
+# 		# If the ship's entity has a state called "kill_planet" 
+# 		# and that state has an event with id "beam_start" then
+# 		# the game will delay this state until that event has
+# 		# fired. This allows the entities to set their own timing
+# 		# and allows more freedom in the animations.
+# 		
+# 		duration = 1.0
+# 		
+# 		#width, texture_scroll_speed, texture_tiling, and alpha all support animation curves and constant assignment
+# 		# for example, width = 1.0 will give the beam a constant width of 1.0
+# 		# width = { 0.0 1.0 	1.0 2.0 } will make the beam start with a width of 1.0 and interpolate to a width of 2.0 after one second has passed
+# 		# width = { timestamp value		timestamp value 	timestamp value }
+# 		# timestamp values are scaled so that 1.0 matches duration
+# 		width = { 	
+# 			0.0 01.0
+# 			1.0 10.0 
+# 		}
+# 		texture_scroll_speed = {
+# 			0.0 -0.1
+# 			0.95 -0.1
+# 			1.0 5.0
+# 		}
+# 		texture_tiling = 5.0
+# 		alpha = { 	
+# 			0.0 0.0
+# 			0.9 1.0
+# 			1.0 5.0
+# 		}
+# 	}
+# 	in_progress = {
+# 		duration = 10.0
+# 		width = { 	
+# 			0.0 10.0	
+# 			0.5 15.0 
+# 			1.0 10.0 
+# 		}
+# 		texture_scroll_speed = {
+# 			0.0 1.5 
+# 		}
+# 		texture_tiling = {
+# 			0.0 	5.0 
+# 		}
+# 		alpha = {
+# 			0.0 3.0 
+# 			0.5 2.0
+# 			1.0 3.0
+# 		}
+# 	}
+# 	end = {
+# 		duration = 1.0
+# 		width = { 	
+# 			0.0 10.0
+# 			1.0 0.0 
+# 		}					
+# 		texture_scroll_speed = 5.0
+# 		texture_tiling = 5.0
+# 		alpha = { 
+# 			0.0 5.0 	
+# 			1.0 0.0 
+# 		}
+# 	}
+#
+#	fade = {
+#		# { <Fade-in/out start/end percentage> <Width in world units> }
+#		fade_in = { 0.0 50.0 }
+#		fade_out = { 1.0 50.0 }
+#	}
+#}
+
+# example_beam = {  # 光束效果配置示例
+#
+# 	texture = "gfx/models/combat_items/laser_diffuse2.dds"  # 光束使用的纹理文件
+#
+# 	color = { 1.0 1.0 1.0 1.0 }  # 光束颜色（RGBA，此处为纯白色）
+#
+#	windup_entity = "colossus_shatter_planet_windup_entity"  # 蓄力阶段使用的实体
+#
+# 	ship_fire_entity = "colossus_shatter_planet_muzzle_entity"  # 舰船开火时使用的实体（炮口效果）
+#
+# 	planet_hit_entity = "colossus_shatter_planet_hit_entity"  # 命中行星时使用的实体
+#
+# 	megastructure_hit_entity = "colossus_shatter_megastructure_hit_entity"  # 命中巨型结构时使用的实体
+#
+# 	# 具有与其他光束状态相同的选项
+#	windup = {  # 蓄力阶段配置
+#		duration = 10.0  # 蓄力阶段持续时间（10秒）
+#	}
+# 	start = {  # 开始阶段配置
+# 		# 如果舰船的实体有一个名为"kill_planet"的状态，
+# 		# 并且该状态有一个id为"beam_start"的事件，
+# 		# 游戏将延迟此阶段，直到该事件触发。
+# 		# 这允许实体设置自己的时序，并在动画中提供更多自由度。
+#
+# 		duration = 1.0  # 开始阶段持续时间（1秒）
+#
+# 		# 宽度(width)、纹理滚动速度(texture_scroll_speed)、纹理平铺(texture_tiling)和透明度(alpha)都支持动画曲线和常量赋值
+# 		# 例如，width = 1.0 将给光束一个恒定的1.0宽度
+# 		# width = { 0.0 1.0 	1.0 2.0 } 将使光束以1.0的宽度开始，并在1秒后插值到2.0的宽度
+# 		# width = { 时间戳 值		时间戳 值 	时间戳 值 }
+# 		# 时间戳值被缩放，使得1.0匹配持续时间
+# 		width = { 	# 宽度动画曲线
+# 			0.0 01.0  # 在时间点0.0（开始），宽度为1.0
+# 			1.0 10.0  # 在时间点1.0（结束），宽度为10.0
+# 		}
+# 		texture_scroll_speed = {  # 纹理滚动速度动画曲线
+# 			0.0 -0.1  # 在时间点0.0，滚动速度为-0.1
+# 			0.95 -0.1  # 在时间点0.95，滚动速度仍为-0.1
+# 			1.0 5.0  # 在时间点1.0，滚动速度变为5.0
+# 		}
+# 		texture_tiling = 5.0  # 纹理平铺值（常量5.0）
+# 		alpha = { 	# 透明度动画曲线
+# 			0.0 0.0  # 在时间点0.0，完全透明
+# 			0.9 1.0  # 在时间点0.9，完全不透明
+# 			1.0 5.0  # 在时间点1.0，透明度为5.0（可能用于过曝效果）
+# 		}
+# 	}
+# 	in_progress = {  # 持续阶段配置
+# 		duration = 10.0  # 持续阶段持续时间（10秒）
+# 		width = { 	# 宽度动画曲线
+# 			0.0 10.0	# 在时间点0.0，宽度为10.0
+# 			0.5 15.0  # 在时间点0.5（中间），宽度为15.0
+# 			1.0 10.0  # 在时间点1.0（结束），宽度回到10.0
+# 		}
+# 		texture_scroll_speed = {  # 纹理滚动速度动画曲线
+# 			0.0 1.5  # 在时间点0.0，滚动速度为1.5
+# 		}
+# 		texture_tiling = {  # 纹理平铺动画曲线
+# 			0.0 	5.0  # 在时间点0.0，平铺值为5.0
+# 		}
+# 		alpha = {  # 透明度动画曲线
+# 			0.0 3.0  # 在时间点0.0，透明度为3.0
+# 			0.5 2.0  # 在时间点0.5，透明度为2.0
+# 			1.0 3.0  # 在时间点1.0，透明度回到3.0
+# 		}
+# 	}
+# 	end = {  # 结束阶段配置
+# 		duration = 1.0  # 结束阶段持续时间（1秒）
+# 		width = { 	# 宽度动画曲线
+# 			0.0 10.0  # 在时间点0.0，宽度为10.0
+# 			1.0 0.0  # 在时间点1.0，宽度变为0.0（光束消失）
+# 		}
+# 		texture_scroll_speed = 5.0  # 纹理滚动速度（常量5.0）
+# 		texture_tiling = 5.0  # 纹理平铺值（常量5.0）
+# 		alpha = {  # 透明度动画曲线
+# 			0.0 5.0 	# 在时间点0.0，透明度为5.0
+# 			1.0 0.0  # 在时间点1.0，完全透明
+# 		}
+# 	}
+#
+#	fade = {  # 淡入淡出配置
+#		# { <淡入/淡出开始/结束百分比> <世界单位中的宽度> }
+#		fade_in = { 0.0 50.0 }  # 淡入：从0%位置开始，宽度50世界单位
+#		fade_out = { 1.0 50.0 }  # 淡出：到100%位置结束，宽度50世界单位
+#	}
+#}

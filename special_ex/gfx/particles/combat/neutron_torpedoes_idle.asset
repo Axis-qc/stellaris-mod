@@ -1,0 +1,170 @@
+#中子发射器
+particle = {
+    name = "neutron_torpedoes_idle_file"
+    subsystem = {
+        name = "flare_pulse"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = no
+        texture = {
+            file = "gfx/particles/flare.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 20.000
+            y = 140.000
+            z = 255.000
+            alpha = 150.000,flash_fade
+        }
+        position = {
+            x = 0.000
+            y = 0.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = { 20.000 0.000 }
+        velocity_yaw = { 0.000 180.000 }
+        velocity = { 0.000 0.000 }
+        life = { 0.400 0.000 }
+        emission = 100.000
+        size = { 10.000,grow 0.000 }
+        rotation = { 0.000 180.000 }
+    }
+    subsystem = {
+        name = "trails"
+        max_amount = 10
+        slave_particles = 0
+        sort = "depth"
+        emitter_type = "point"
+        invert = no
+        trail = no
+        local_space = yes
+        billboard = yes
+        hide = yes
+        texture = {
+            file = "gfx/particles/flare.dds"
+            x = 1
+            y = 1
+            shader = "ParticleAdditive"
+        }
+        color = {
+            x = 20.000
+            y = 140.000
+            z = 255.000
+            alpha = 255.000,flash_fade
+        }
+        position = {
+            x = 0.000
+            y = 0.000
+            z = 0.000
+        }
+        start = 0.000
+        duration = -1.000
+        emitter_yaw = { 0.000 0.000 }
+        emitter_pitch = { 0.000 0.000 }
+        velocity_pitch = { 0.000 0.000 }
+        velocity_yaw = { 0.000 0.000 }
+        velocity = { 0.000 0.000 }
+        life = { 1.000 0.000 }
+        emission = 10.000
+        size = { 5.000 0.000 }
+    }
+    subsystem = {
+        name = "flare_spikes"  # 子系统名称
+        max_amount = 1  # 此发射器可同时存在的最大粒子数量
+        slave_particles = 0  # 是否从现有粒子身上发射新的粒子（0表示否）
+        sort = "depth"  # 粒子渲染的排序方式："depth"表示按深度排序
+        emitter_type = "point"  # 发射器类型："point"表示点发射器
+        invert = no  # 是否反转某些效果，这里为否
+        trail = no  # 是否为轨迹/拖尾效果，这里为否
+        local_space = yes  # 粒子是否定义在本地空间（相对于父级对象），yes表示粒子会随父级对象移动
+        billboard = yes  # 粒子是否始终面向摄像机，yes表示粒子总是面向摄像机
+        hide = no  # 是否隐藏该子系统，这里为否
+        texture = {
+            # file = "gfx/particles/flare_wide.dds"  # 被注释掉的纹理文件
+            file = "gfx/particles/sparkle_glow2.dds"  # 实际使用的纹理文件（闪光辉光纹理）
+            x = 1  # 纹理在X方向上的平铺次数
+            y = 1  # 纹理在Y方向上的平铺次数
+            shader = "ParticleAdditive"  # 着色器类型："ParticleAdditive"使粒子亮度叠加，产生发光效果
+        }
+        color = {
+            x = 20.000  # RGB红色分量：20（低值）
+            y = 140.000  # RGB绿色分量：140（中等值）
+            z = 255.000  # RGB蓝色分量：255（最大值）-> 组合为深蓝色偏蓝
+            alpha = 255.000  # Alpha（透明度）值为255（完全不透明）
+        }
+        position = {
+            x = 0.000  # 水平偏移量：0（无水平偏移）
+            y = 0.000  # 垂直偏移量：0（无垂直偏移）
+            z = 0.000  # 深度偏移量：0（无前后偏移，位于父对象原点）
+        }
+        start = 0.000  # 发射器开始发射的时间（0.0表示立即开始）
+        duration = -1.000  # 发射器持续发射的时间。-1.000表示无限持续
+        emitter_yaw = { 0.000 0.000 }  # 发射器的偏航角（Y轴旋转）范围，固定为0度
+        emitter_pitch = { 0.000 0.000 }  # 发射器的俯仰角（X轴旋转）范围，固定为0度
+        velocity_pitch = { 0.000 0.000 }  # 粒子初始速度的俯仰角范围，粒子会以20度俯仰角向上发射（无随机变化）
+        velocity_yaw = { 0.000 180.000 }  # 粒子初始速度的偏航角范围，粒子会随机在0到180度之间水平发射
+        velocity = { 0.000 0.000 }  # 粒子初始的直线速度大小范围，这里为0，意味着粒子发射后基本停留在发射点附近
+        life = { 0.500 0.000 }  # 每个粒子的生命周期范围（单位秒），这里所有粒子都存活50.5秒（极长生命周期）
+        emission = 1.000  # 每秒发射的粒子数量（低发射率）
+        size = { 5.000 0.000 }  # 粒子出生时的大小和死亡时的大小，这里大小固定为5.0，不会变化
+        rotation = 45.000 # 粒子的初始旋转角度范围，粒子会随机在0到180度之间旋转
+        rotation_speed = 0.000  # 统一旋转速度（所有轴都以30度/秒的速度旋转）
+        rotation_speed_pitch = 0  # 绕X轴旋转速度（30度/秒）
+        rotation_speed_yaw = 0  # 绕Y轴旋转速度（30度/秒）
+        # rotation_speed_roll = { 0 0 }  # 绕Z轴旋转速度范围（固定为10度/秒）
+    }
+    animation = {
+        name = "flash_fade"
+        start = 0.000
+        duration = 1.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 1.000
+            0.600 1.000
+            1.000 0.500
+        }
+        op = "MUL"
+        time = "life"
+    }
+    animation = {
+        name = "grow"
+        start = 0.000
+        duration = 1.000
+        repeat = no
+        minValue = 0.000
+        maxValue = 1.000
+        curve = {
+            0.000 0.000 1.000 1.000
+        }
+        op = "MUL"
+        time = "life"
+    }
+    force = {
+        type = "planar"
+        name = "force0"
+        position = {
+            0.000 0.000 0.000
+        }
+        direction = {
+            0.000 1.000 0.000
+        }
+        local_force = yes
+        yaw = 0.000
+        division = 16
+        amount = 5.000
+    }
+}

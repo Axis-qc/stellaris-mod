@@ -20,7 +20,7 @@ NGraphics = {
     STRIKE_CRAFT_HEIGHT_OFFSET = 80.0                        # 舰载机飞行高度基础偏移（默认50）
     STRIKE_CRAFT_HEIGHT_RANDOM = 80.0                    # 舰载机飞行高度随机波动（默认60）
 
-    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 10.0                # 未命中弹道武器存活时间（单位秒，默认15.0）
+    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 15.0                # 未命中弹道武器存活时间（单位秒，默认15.0）
 
     MISSILE_HEIGHT_OFFSET = 10.0                            # 导弹飞行高度偏移，控制导弹离舰表的高度
 
@@ -37,7 +37,7 @@ NShip = {
     FLEET_FORMATION_CIRCLE_SHIPS_PER_LAYER_MULT = 10    #防御平台最里圈的数量
     FLEET_FORMATION_CIRCLE_RADIUS_PER_LAYER_MULT = 1    #防御平台的距离
 
-    FLEET_MOVE_MAX_DIST_SHIPS = 30                        # 队形内最大舰船间距
+    FLEET_MOVE_MAX_DIST_SHIPS = 50                        # 队形内最大舰船间距
     FLEET_BASE_FORMATION_SCALE = 6                        # 队形缩放基础值
     FLEET_BASE_FORMATION_DIV = 20                            # 队形缩放分母参数
 
@@ -48,15 +48,15 @@ NShip = {
     MISSILE_HIGH_CONTROL_INTERPOLATION_RANGE = 5.0        # 导弹从平滑飞行过渡到完全控制的范围
     MISSILE_BASE_ROTATION_SPEED = 0.001                    # 导弹基础旋转速度（每tick的弧度）
     MISSILE_RETARGET_CHANCE_START = 100                    # 导弹首次丢失目标时重新锁定新目标的概率（百分比）
-    MISSILE_RETARGET_CHANCE_REDUCTION = 35                # 每次重新锁定目标后概率减少的数值
+    MISSILE_RETARGET_CHANCE_REDUCTION = 25                # 每次重新锁定目标后概率减少的数值
 }
 
 NCombat = {
     COMBAT_BACK_OFF_RATE = 0.24                            # 撤退速率参数
-    SHIP_SMOOTH_ROTATION_THRESHOLD = 7.2                # 判定舰船平滑转向的角速度阈值
-    COMBAT_TARGET_STICKYNESS_FACTOR = 0.2                    # 攻击目标“粘性”系数
+    SHIP_SMOOTH_ROTATION_THRESHOLD = 3.2                # 判定舰船平滑转向的角速度阈值
+    COMBAT_TARGET_STICKYNESS_FACTOR = 0.1                    # 攻击目标“粘性”系数
 
-    RANDOM_TARGETING_WEIGHT = 30.0                            # 随机选定目标权重
+    RANDOM_TARGETING_WEIGHT = 100.0                            # 随机选定目标权重
 
     COMBAT_DETECT_RANGE_MULT = 1.05                        # 战斗中探测距离倍率（默认1.05）
     COMBAT_DETECT_RANGE_MIN = 30                            # 战斗探测距离最小值
