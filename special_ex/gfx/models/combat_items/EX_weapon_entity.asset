@@ -21,3 +21,17 @@ entity = {
     # }
     scale = 6
 }
+
+#电弧特效
+entity = {
+    name = "focused_arc_emitter_entity"
+    pdxmesh = ""
+
+    default_state = idle
+    state = {
+        name = "idle" #animation = "idle"
+        event = { time = 0 node = exhaust particle = "focused_arc_emitter_effect" keep_particle = yes }
+    }
+
+    scale = 1
+}
