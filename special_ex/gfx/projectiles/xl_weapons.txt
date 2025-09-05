@@ -13,36 +13,9 @@ projectile_gfx_ballistic = {
         extra_large_turret = "arc_emitter_turret_windup_entity"    # X槽炮塔武器使用的蓄力特效
     }
 
-    #beam specific data
-    width = 15
-    texture_scroll_speed = 2
-    stretch_to_fit = yes
-    texture_tiling = 5000
-    hit = {
-        alpha_curve = {
-            0.0 80.0
-            0.2 30.0
-            0.4 20.0
-            0.6 15.0
-            0.8 5.0
-            1.0 0.0
-        }
-        duration = 5
-
-    }
-    miss = {
-        alpha_curve = {
-            0.0 80.0
-            0.2 30.0
-            0.4 20.0
-            0.6 15.0
-            0.8 5.0
-            1.0 0.0
-        }
-        duration = 5
-
-    }
-    texture = "gfx/models/combat_items/arc_emitter_diffuse.dds"
+    entity = "focused_arc_emitter_entity"
+    speed = 800.0            #preferred speed of the projectile
+    max_duration = 30.0        #Speed of projectile might be scaled up in order to guarantee reaching the target within <max_duration> seconds
 
     shield_impact = {
         size = large
@@ -64,9 +37,8 @@ projectile_gfx_ballistic = {
     }
 
     entity = "focused_arc_emitter_entity"
-    speed = 1000.0            #preferred speed of the projectile
-    max_duration = 30.0        #Speed of projectile might be scaled up in order to guarantee reaching the target within <max_duration> seconds
-
+    speed = 800.0            #速度
+    max_duration = 30.0
 
     shield_impact = {
         size = large

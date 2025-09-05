@@ -1,0 +1,96 @@
+play_starbase_up = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    edict_cap_usage = 0
+    resources = {
+        category = country
+        cost = {
+            energy = 100
+        }
+    }
+    effect = {
+        country_event = { id = starbaseup.1 }
+    }
+    potential = {
+        is_ai = no
+    }
+}
+
+PLAY_crisis_control_menu = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    edict_cap_usage = 0
+    resources = {
+        category = edicts
+    }
+    effect = {
+        country_event = {
+            id = play_crisis_control_menu.1
+        }
+        set_timed_global_flag = {
+            flag = open_menu_ing
+            days = 30
+        }
+    }
+    allow = {
+        not = {
+            has_global_flag = open_menu_ing
+        }
+    }
+    potential = {
+        is_ai = no
+        # or = {
+        #     is_part_of_galactic_council = yes
+        #     and = {
+        #         any_country = {
+        #             is_crisis_faction = yes
+        #         }
+        #         is_multiplayer = no
+        #     }
+        # }
+    }
+}
+
+laopo = {
+    length = 10
+    icon = "GFX_envoy_action_first_contact"
+    #启动条件
+    allow = {
+
+    }
+    #显示条件
+    potential = {
+        not = {
+            has_country_flag = huifeng_flag
+        }
+        has_technology = tech_lgate_activation
+        count_country = {
+            limit = { is_ai = no }
+            count < 2
+        }
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    effect = {
+        country_event = { id = graygoo.401 }
+        set_country_flag = huifeng_flag
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+

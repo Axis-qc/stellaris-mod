@@ -1,0 +1,52 @@
+decision_mastery_of_nature = {
+    # owned_planets_only = yes
+
+    enactment_time = 360
+    resources = {
+        category = decisions
+        cost = {
+            influence = 100
+            energy = 2000
+        }
+    }
+
+    potential = {
+        # is_artificial = no #不是人工星球
+        owner = {
+            has_ascension_perk = ap_mastery_of_nature
+        }
+        # NOT = { has_modifier = mastery_of_nature }
+        # NOT = { has_designation = col_nanotech_world }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_modifier = mastery_of_nature
+            }
+            change_variable = { which = planet_qh_add_value value = 2 }
+            add_modifier = {
+                modifier = planet_qh_add
+                mult = planet_qh_add_value
+                # multiplier =
+                # time_multiplier =
+                # clear_on_owner_change = yes
+                days = -1
+            }
+        }
+        else = {
+            add_modifier = {
+                modifier = mastery_of_nature
+                days = -1
+            }
+        }
+    }
+    ai_weight = {
+        weight = 5
+        modifier = {
+            factor = 0
+            free_district_slots > 0
+            pop_amount < 5000 #carrying capacity bonus always good at that stage
+        }
+    }
+}

@@ -1,0 +1,95 @@
+namespace = starbaseup
+#星港升级
+country_event = {
+    id = starbaseup.1
+    hide_window = yes
+
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+    }
+
+    immediate = {
+        every_owned_starbase = {
+            limit = {
+                or = {
+                    has_starbase_size = starbase_starport
+                    has_starbase_size = starbase_starhold
+                    has_starbase_size = starbase_starfortress
+                }
+                # not = { has_starbase_module = shipyard }
+                # not = { has_starbase_module = beastport }
+                # not = { has_starbase_module = hatchery }
+                # not = { has_starbase_module = anchorage }
+            }
+            if = {
+                limit = {
+                    root = {
+                        has_technology = tech_starbase_3
+                    }
+                }
+                set_starbase_size = starbase_starhold
+                change_variable = { which = play_starbase_up_influence value = 1 }
+                change_variable = { which = play_starbase_up_alloy value = 200 }
+            }
+            if = {
+                limit = {
+                    root = {
+                        has_technology = tech_starbase_4
+                    }
+                }
+                set_starbase_size = starbase_starfortress
+                change_variable = { which = play_starbase_up_influence value = 1 }
+                change_variable = { which = play_starbase_up_alloy value = 500 }
+            }
+            if = {
+                limit = {
+                    root = {
+                        has_technology = tech_starbase_5
+                    }
+                }
+                set_starbase_size = starbase_citadel
+                change_variable = { which = play_starbase_up_influence value = 1 }
+                change_variable = { which = play_starbase_up_alloy value = 1500 }
+            }
+        }
+        add_resource = {
+            influence = -1
+            mult = play_starbase_up_influence
+        }
+        add_resource = {
+            alloys = -1
+            mult = play_starbase_up_alloy
+        }
+        clear_variable = play_starbase_up_influence
+        clear_variable = play_starbase_up_alloy
+    }
+}
+
+#星环基地+1建造
+country_event = {
+    id = starbaseup.100
+    hide_window = yes
+
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        any_owned_planet = {
+            NOT = {
+                has_modifier = play_orbital_ring
+            }
+        }
+    }
+
+    immediate = {
+        every_owned_planet = {
+            limit = {
+                exists = orbital_defence
+            }
+            add_modifier = {
+                modifier = play_orbital_ring
+                days = -1
+            }
+        }
+    }
+}

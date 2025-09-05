@@ -1,0 +1,528 @@
+namespace = play_crisis_control_menu
+
+country_event = {
+    id = play_crisis_control_menu.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_ai = no
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                not = { has_country_flag = play_only_once }
+            }
+
+            # 读取危机强度
+            get_galaxy_setup_value = { which = setup_value_crisis_strength_scale setting = crisis_strength_scale }
+
+            # 读取中期时间
+            get_galaxy_setup_value = { which = setup_value_mid_game_year setting = mid_game_year }
+            change_variable = { which = setup_value_mid_game_year value = 2200 }
+
+            # 读取后期时间
+            get_galaxy_setup_value = { which = setup_value_end_game_year setting = end_game_year }
+            change_variable = { which = setup_value_end_game_year value = 2200 }
+
+            # 读取胜利时间
+            get_galaxy_setup_value = { which = setup_value_victory_year setting = victory_year }
+            change_variable = { which = setup_value_victory_year value = 2200 }
+
+            set_country_flag = play_only_once
+        }
+        country_event = {
+            id = play_crisis_control_menu.2
+        }
+    }
+}
+
+country_event = {
+    id = play_crisis_control_menu.2
+    is_triggered_only = yes
+    picture = GFX_evt_crisis_defeated
+    hide_window = no
+    title = play_crisis_control_menu.2.title
+    desc = play_crisis_control_menu.2.desc
+    # option = {
+    #     name = play_crisis_control_menu.2.a
+    #     hidden_effect = {
+    #         change_variable = {
+    #             which = crisis_plus_strength_value_add
+    #             value = 10
+    #         }
+    #         country_event = {
+    #             id = play_crisis_control_menu.99
+    #         }
+    #     }
+    #     country_event = {
+    #         id = play_crisis_control_menu.2
+    #     }
+    # }
+    # option = {
+    #     name = play_crisis_control_menu.2.b
+    #     hidden_effect = {
+    #         change_variable = {
+    #             which = crisis_plus_strength_value_add
+    #             value = -10
+    #         }
+    #         country_event = {
+    #             id = play_crisis_control_menu.99
+    #         }
+    #     }
+    #     country_event = {
+    #         id = play_crisis_control_menu.2
+    #     }
+    # }
+    option = {
+        name = play_crisis_control_menu.2.d
+        country_event = { id = play_crisis_control_menu.100 }
+    }
+    option = {
+        name = play_crisis_control_menu.1000
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+    option = {
+        name = play_crisis_control_menu.2.C
+        country_event = { id = play_crisis_control_menu.3 }
+    }
+    option = {
+        name = play_crisis_control_menu.2.z
+        default_hide_option = yes
+        remove_global_flag = open_menu_ing
+    }
+}
+
+country_event = {
+    id = play_crisis_control_menu.3
+    is_triggered_only = yes
+    picture = GFX_evt_crisis_defeated
+    hide_window = no
+    title = play_crisis_control_menu.3.title
+    desc = play_crisis_control_menu.3.desc
+    option = {
+        name = play_crisis_control_menu.3.a
+        hidden_effect = { multiply_crisis_strength = 2 }
+        country_event = { id = play_crisis_control_menu.3 }
+    }
+    option = {
+        name = play_crisis_control_menu.3.b
+        hidden_effect = { multiply_crisis_strength = 0.5 }
+        country_event = { id = play_crisis_control_menu.3 }
+    }
+    option = {
+        name = play_crisis_control_menu.3.C
+        country_event = { id = play_crisis_control_menu.2 }
+    }
+    option = {
+        name = play_crisis_control_menu.1000
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+    option = {
+        name = play_crisis_control_menu.3.z
+        default_hide_option = yes
+        remove_global_flag = open_menu_ing
+    }
+}
+
+country_event = {
+    hide_window = yes
+    id = play_crisis_control_menu.98
+    is_triggered_only = yes
+
+    trigger = {
+        is_country_type = global_event
+    }
+    immediate = {
+        country_event = {
+            id = play_crisis_control_menu.99 days = 1
+            id = play_crisis_control_menu.99 days = 91
+            id = play_crisis_control_menu.99 days = 181
+            id = play_crisis_control_menu.99 days = 271
+        }
+    }
+}
+#给天灾上buff
+country_event = {
+    hide_window = yes
+    id = play_crisis_control_menu.99
+    is_triggered_only = yes
+    trigger = {
+        any_country = {
+            is_crisis_faction = yes
+        }
+    }
+    immediate = {
+        every_country = {
+            limit = {
+                is_crisis_faction = yes
+            }
+            add_modifier = {
+                modifier = play_crisis_damage mult = value:play_crisis_damage_value days = 30000
+            }
+            add_modifier = {
+                modifier = play_crisis_hull mult = value:play_crisis_hull_value days = 30000
+            }
+            add_modifier = {
+                modifier = play_crisis_armor mult = value:play_crisis_armor_value days = 30000
+            }
+            add_modifier = {
+                modifier = play_crisis_shield mult = value:play_crisis_shield_value days = 30000
+            }
+
+        }
+    }
+}
+
+country_event = {
+    hide_window = yes
+    id = play_crisis_control_menu.101
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    immediate = {
+        set_global_flag = play_damage_yes
+        set_global_flag = play_hull_yes
+        set_global_flag = play_armor_yes
+        set_global_flag = play_shield_yes
+        set_variable = { which = play_crisis_damage value = 0 }
+        set_variable = { which = play_crisis_hull value = 0 }
+        set_variable = { which = play_crisis_armor value = 0 }
+        set_variable = { which = play_crisis_shield value = 0 }
+    }
+}
+
+country_event = {
+    id = play_crisis_control_menu.100  # 事件ID
+    title = yesTZ05.title  # 事件标题
+    desc = {
+        text = "yesTZ05.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value > 10
+            #}
+        }
+    }
+    picture = GFX_evt_crisis_defeated  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+    }
+    immediate = {
+        #在事件触发时
+    }
+
+    option = {
+        name = yesTZ05.1
+        country_event = { id = play_crisis_control_menu.2 }
+    }
+    #伤害加成
+    option = {
+        name = yesTZ05.1.1
+        trigger = {
+            has_global_flag = play_damage_yes
+        }
+        hidden_effect = {
+            remove_global_flag = play_damage_yes
+            set_global_flag = play_damage_no
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.1.2
+        trigger = {
+            has_global_flag = play_damage_no
+        }
+        hidden_effect = {
+            remove_global_flag = play_damage_no
+            set_global_flag = play_damage_yes
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    #船体加成
+    option = {
+        name = yesTZ05.1.3
+        trigger = {
+            has_global_flag = play_hull_yes
+        }
+        hidden_effect = {
+            remove_global_flag = play_hull_yes
+            set_global_flag = play_hull_no
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.1.4
+        trigger = {
+            has_global_flag = play_hull_no
+        }
+        hidden_effect = {
+            remove_global_flag = play_hull_no
+            set_global_flag = play_hull_yes
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    #装甲加成
+    option = {
+        name = yesTZ05.1.5
+        trigger = {
+            has_global_flag = play_armor_yes
+        }
+        hidden_effect = {
+            remove_global_flag = play_armor_yes
+            set_global_flag = play_armor_no
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.1.6
+        trigger = {
+            has_global_flag = play_armor_no
+        }
+        hidden_effect = {
+            remove_global_flag = play_armor_no
+            set_global_flag = play_armor_yes
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    #护盾加成
+    option = {
+        name = yesTZ05.1.7
+        trigger = {
+            has_global_flag = play_shield_yes
+        }
+        hidden_effect = {
+            remove_global_flag = play_shield_yes
+            set_global_flag = play_shield_no
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.1.8
+        trigger = {
+            has_global_flag = play_shield_no
+        }
+        hidden_effect = {
+            remove_global_flag = play_shield_no
+            set_global_flag = play_shield_yes
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+
+    #数值调整
+    option = {
+        name = yesTZ05.2
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            multiply_variable = { which = play_crisis_damage value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            multiply_variable = { which = play_crisis_hull value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            multiply_variable = { which = play_crisis_armor value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            multiply_variable = { which = play_crisis_shield value = 2 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.3  # 选项名称
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            change_variable = { which = play_crisis_damage value = 5 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            change_variable = { which = play_crisis_hull value = 5 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            change_variable = { which = play_crisis_armor value = 5 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            change_variable = { which = play_crisis_shield value = 5 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.4  # 选项名称
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            change_variable = { which = play_crisis_damage value = 1 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            change_variable = { which = play_crisis_hull value = 1 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            change_variable = { which = play_crisis_armor value = 1 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            change_variable = { which = play_crisis_shield value = 1 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.5  # 选项名称
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            change_variable = { which = play_crisis_damage value = -1 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            change_variable = { which = play_crisis_hull value = -1 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            change_variable = { which = play_crisis_armor value = -1 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            change_variable = { which = play_crisis_shield value = -1 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.6  # 选项名称
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            change_variable = { which = play_crisis_damage value = -5 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            change_variable = { which = play_crisis_hull value = -5 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            change_variable = { which = play_crisis_armor value = -5 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            change_variable = { which = play_crisis_shield value = -5 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.7  # 选项名称
+        if = {
+            limit = { has_global_flag = play_damage_yes }
+            divide_variable = { which = play_crisis_damage value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_hull_yes }
+            divide_variable = { which = play_crisis_hull value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_armor_yes }
+            divide_variable = { which = play_crisis_armor value = 2 }
+        }
+        if = {
+            limit = { has_global_flag = play_shield_yes }
+            divide_variable = { which = play_crisis_shield value = 2 }
+        }
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+    option = {
+        name = yesTZ05.8  # 选项名称
+        set_variable = { which = play_crisis_damage value = 0 }
+        set_variable = { which = play_crisis_hull value = 0 }
+        set_variable = { which = play_crisis_armor value = 0 }
+        set_variable = { which = play_crisis_shield value = 0 }
+
+        save_global_event_target_as = play_crisis_event_value
+        hidden_effect = {
+            country_event = { id = play_crisis_control_menu.100 }
+        }
+    }
+}
+
+country_event = {
+    id = play_crisis_control_menu.1000  # 事件ID
+    title = play_crisis_control_menu1000.title  # 事件标题
+    desc = {
+        text = "play_crisis_control_menu1000.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        is_ai = no
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+    }
+    option = {
+        name = play_crisis.0  # 选项名称
+        country_event = { id = play_crisis_control_menu.2 }
+    }
+    option = {
+        name = play_crisis.1
+        country_event = { id = crisis.12 }
+        set_global_flag = galactic_crisis_happened
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+
+    option = {
+        name = play_crisis.2
+        country_event = { id = crisis.1000 }
+        set_global_flag = galactic_crisis_happened
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+    option = {
+        name = play_crisis.3  # 选项名称
+        country_event = { id = crisis.2005 }
+        set_global_flag = galactic_crisis_happened
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+    option = {
+        name = play_crisis.4  # 选项名称
+        country_event = { id = crisis.8005 }
+        set_global_flag = galactic_crisis_happened
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+    option = {
+        name = play_crisis.5  # 选项名称
+        country_event = { id = crisis.12 }
+        country_event = { id = crisis.1000 }
+        country_event = { id = crisis.2005 }
+        country_event = { id = crisis.8005 }
+        set_global_flag = galactic_crisis_happened
+        country_event = { id = play_crisis_control_menu.1000 }
+    }
+}

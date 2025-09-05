@@ -351,9 +351,9 @@ country_event = {
         trigger = {
             AND = {
                 any_owned_fleet = {
-                    has_fleet_flag = go_ship_1@root
+                    has_fleet_flag = go_ship_1
                 }
-                event_target:go_ship_1@root = {
+                event_target:go_ship_1 = {
                     is_owned_by = root
                 }
             }
@@ -372,10 +372,10 @@ country_event = {
                 mult = value:go_ship_money_1  # 乘以战斗力
             }
             custom_tooltip = money_1
-            event_target:go_ship_1@root = {
+            event_target:go_ship_1 = {
                 fleet = {
                     set_owner = event_target:play_axis_country
-                    save_global_event_target_as = money_ship_1@root
+                    save_global_event_target_as = money_ship_1
                 }
             }
             set_country_flag = no_go_ship_1

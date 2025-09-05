@@ -2,6 +2,18 @@ hcnw_war = {
     length = 30
     icon = "GFX_diplomacy_status_war"
 
+    #显示条件
+    potential = {
+        any_country = {
+            or = {
+                is_country_type = synth_queen
+                is_country_type = awakened_synth_queen
+                is_country_type = synth_queen_convoys
+                is_country_type = synth_queen_outposts
+                is_country_type = synth_queen_storm
+            }
+        }
+    }
     resources = {
         category = edicts
 
