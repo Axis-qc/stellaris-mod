@@ -1,6 +1,6 @@
 play_starbase_up = {
     icon = "GFX_edict_type_policy"
-    length = 1
+    length = 10
     edict_cap_usage = 0
     resources = {
         category = country
@@ -9,10 +9,30 @@ play_starbase_up = {
         }
     }
     effect = {
-        country_event = { id = starbaseup.1 }
+        country_event = { id = starbaseup.1 days = 2 }
     }
     potential = {
         is_ai = no
+        # always = no
+        # has_policy_flag = play_starbase_up_1
+    }
+}
+play_starbase_module_up = {
+    icon = "GFX_edict_type_policy"
+    length = 10
+    edict_cap_usage = 0
+    resources = {
+        category = country
+        cost = {
+            energy = 100
+        }
+    }
+    effect = {
+        country_event = { id = starbaseup.2 days = 2 }
+    }
+    potential = {
+        is_ai = no
+        # always = no
     }
 }
 
@@ -63,7 +83,10 @@ laopo = {
         not = {
             has_country_flag = huifeng_flag
         }
-        has_technology = tech_lgate_activation
+        or = {
+            has_technology = tech_lgate_activation
+            lgate_enabled = yes
+        }
         count_country = {
             limit = { is_ai = no }
             count < 2

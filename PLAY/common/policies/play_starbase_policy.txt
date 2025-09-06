@@ -1,0 +1,54 @@
+play_starbase_up_policy = {
+    potential = {
+        is_ai = no
+    }
+    allow = {
+        is_ai = no
+    }
+    # option = {  # 定义一个可选项（用于政策、法令、决议等游戏内可选择项）
+    # 	name =  # 选项的本地化名称键（显示给玩家的文本）
+    # 	icon =  # 选项的图标路径或图标定义
+    # 	in_breach_of =  # 违反哪些规则或协议（通常用于外交或道德系统）
+    # 	policy_flags =  # 政策标志位，用于标记此选项相关的政策类型
+    # 	on_enabled =  # 当选项被启用/选择时执行的效果（效果块）
+    # 	on_disabled =  # 当选项被禁用/取消选择时执行的效果（效果块）
+    # 	potential =  # 选项可用的前提条件（条件块，决定是否显示此选项）
+    # 	valid =  # 选项有效的条件（条件块，决定是否可选择此选项）
+    # 	modifier =  # 选项激活时提供的修正效果（修正器块）
+    # 	prerequisites =  # 先决条件（需要先满足的其他选项或条件）
+    # 	AI_weight =  # AI选择此选项的权重（AI决策参数）
+    # }
+    option = {
+        name = "starbase_up_1"
+        ai_weight = {
+            weight = 1000
+        }
+        valid = {}
+        policy_flags = { play_no_starbase_up }
+        on_enabled = {
+        }
+    }
+    option = {
+        name = "starbase_up_2"
+        modifier = {
+        }
+        policy_flags = { play_starbase_up_1 }
+        on_enabled = {
+
+        }
+        ai_weight = {
+            weight = 0
+        }
+    }
+    option = {
+        name = "starbase_up_3"
+        modifier = {
+        }
+        policy_flags = { play_starbase_up_2 }
+        on_enabled = {
+        }
+        ai_weight = {
+            weight = 0
+        }
+    }
+}

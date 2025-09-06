@@ -1,5 +1,5 @@
 namespace = starbaseup
-#星港升级
+#星港自动升级
 country_event = {
     id = starbaseup.1
     hide_window = yes
@@ -7,16 +7,23 @@ country_event = {
     is_triggered_only = yes
     trigger = {
         is_ai = no
+        or = {
+            has_policy_flag = play_starbase_up_1
+            has_policy_flag = play_starbase_up_2
+            has_edict = play_starbase_up
+        }
+
     }
 
     immediate = {
-        every_owned_starbase = {
+        random_owned_starbase = {
             limit = {
                 or = {
                     has_starbase_size = starbase_starport
                     has_starbase_size = starbase_starhold
                     has_starbase_size = starbase_starfortress
                 }
+
                 # not = { has_starbase_module = shipyard }
                 # not = { has_starbase_module = beastport }
                 # not = { has_starbase_module = hatchery }
@@ -26,46 +33,445 @@ country_event = {
                 limit = {
                     root = {
                         has_technology = tech_starbase_3
+                        resource_stockpile_compare = {
+                            resource = alloys
+                            value >= 200
+                        }
+                        resource_stockpile_compare = {
+                            resource = influence
+                            value >= 10
+                        }
                     }
                 }
                 set_starbase_size = starbase_starhold
-                change_variable = { which = play_starbase_up_influence value = 1 }
-                change_variable = { which = play_starbase_up_alloy value = 200 }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -200
+                    }
+                }
             }
             if = {
                 limit = {
                     root = {
                         has_technology = tech_starbase_4
+                        resource_stockpile_compare = {
+                            resource = alloys
+                            value >= 500
+                        }
+                        resource_stockpile_compare = {
+                            resource = influence
+                            value >= 10
+                        }
                     }
                 }
                 set_starbase_size = starbase_starfortress
-                change_variable = { which = play_starbase_up_influence value = 1 }
-                change_variable = { which = play_starbase_up_alloy value = 500 }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -500
+                    }
+                }
             }
             if = {
                 limit = {
                     root = {
                         has_technology = tech_starbase_5
+                        resource_stockpile_compare = {
+                            resource = alloys
+                            value >= 1500
+                        }
+                        resource_stockpile_compare = {
+                            resource = influence
+                            value >= 10
+                        }
                     }
                 }
                 set_starbase_size = starbase_citadel
-                change_variable = { which = play_starbase_up_influence value = 1 }
-                change_variable = { which = play_starbase_up_alloy value = 1500 }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -1500
+                    }
+                }
+                # change_variable = { which = play_starbase_up_influence value = 1 }
+                # change_variable = { which = play_starbase_up_alloy value = 1500 }
             }
         }
-        add_resource = {
-            influence = -1
-            mult = play_starbase_up_influence
-        }
-        add_resource = {
-            alloys = -1
-            mult = play_starbase_up_alloy
-        }
-        clear_variable = play_starbase_up_influence
-        clear_variable = play_starbase_up_alloy
+        # add_resource = {
+        #     influence = -1
+        #     mult = play_starbase_up_influence
+        # }
+        # add_resource = {
+        #     alloys = -1
+        #     mult = play_starbase_up_alloy
+        # }
+        # clear_variable = play_starbase_up_influence
+        # clear_variable = play_starbase_up_alloy
     }
 }
+country_event = {
+    id = starbaseup.2
+    hide_window = yes
 
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        or = {
+            has_policy_flag = play_starbase_up_2
+            has_edict = play_starbase_module_up
+        }
+
+    }
+
+    immediate = {
+        random_owned_starbase = {
+            limit = {
+                or = {
+                    has_starbase_size = starbase_starport
+                    has_starbase_size = starbase_starhold
+                    has_starbase_size = starbase_starfortress
+                    has_starbase_size = starbase_citadel
+                }
+            }
+            #锚地
+            if = {
+                limit = {
+                    starbase = {
+                        has_starbase_module = anchorage
+                        nor = {
+                            has_starbase_module = shipyard
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                            has_starbase_building = naval_logistics_office
+                        }
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = anchorage
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = anchorage
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = anchorage
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = anchorage
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = anchorage
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = anchorage
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = naval_logistics_office
+                }
+                set_starbase_building = {
+                    slot = 2
+                    building = resource_silo
+                }
+                set_starbase_building = {
+                    slot = 3
+                    building = hydroponics_bay
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -1000
+                    }
+                }
+            }
+            #全船坞
+            if = {
+                limit = {
+                    starbase = {
+                        has_starbase_module = shipyard
+                    }
+                    nor = {
+                        has_starbase_module = anchorage
+                        has_starbase_module = beastport
+                        has_starbase_module = hatchery
+                        has_starbase_building = fleet_academy
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = shipyard
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = shipyard
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = shipyard
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = shipyard
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = shipyard
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = shipyard
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = fleet_academy
+                }
+                set_starbase_building = {
+                    slot = 2
+                    building = resource_silo
+                }
+                if = {
+                    limit = {
+                        root = {
+                            has_technology = tech_titans
+                        }
+                    }
+                    set_starbase_building = {
+                        slot = 3
+                        building = titan_yards
+                    }
+                }
+                if = {
+                    limit = {
+                        root = {
+                            or = {
+                                has_technology = tech_juggernaut
+                                has_technology = tech_colossus
+                            }
+                        }
+                    }
+                    set_starbase_building = {
+                        slot = 4
+                        building = colossus_yards
+                    }
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -1000
+                    }
+                }
+            }
+            #动能炮
+            if = {
+                limit = {
+                    starbase = {
+                        has_starbase_module = gun_battery
+                    }
+                    nor = {
+                        has_starbase_module = anchorage
+                        has_starbase_module = shipyard
+                        has_starbase_module = beastport
+                        has_starbase_module = hatchery
+                        has_starbase_building = target_uplink_computer
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = gun_battery
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = gun_battery
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = gun_battery
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = gun_battery
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = gun_battery
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = gun_battery
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = target_uplink_computer
+                }
+                set_starbase_building = {
+                    slot = 2
+                    building = resource_silo
+                }
+                if = {
+                    limit = {
+                        root = {
+                            has_technology = tech_titans
+                        }
+                    }
+                    set_starbase_building = {
+                        slot = 3
+                        building = titan_yards
+                    }
+                }
+                if = {
+                    limit = {
+                        root = {
+                            or = {
+                                has_technology = tech_juggernaut
+                                has_technology = tech_colossus
+                            }
+                        }
+                    }
+                    set_starbase_building = {
+                        slot = 4
+                        building = colossus_yards
+                    }
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -1000
+                    }
+                }
+            }
+            #机库
+            if = {
+                limit = {
+                    starbase = {
+                        has_starbase_module = hangar_bay
+                    }
+                    nor = {
+                        has_starbase_module = gun_battery
+                        has_starbase_module = anchorage
+                        has_starbase_module = shipyard
+                        has_starbase_module = beastport
+                        has_starbase_module = hatchery
+                        has_starbase_building = target_uplink_computer
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = hangar_bay
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = hangar_bay
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = hangar_bay
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = hangar_bay
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = hangar_bay
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = hangar_bay
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = target_uplink_computer
+                }
+                set_starbase_building = {
+                    slot = 2
+                    building = resource_silo
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -1000
+                    }
+                }
+            }
+            #远古
+            if = {
+                limit = {
+                    starbase = {
+                        has_starbase_module = archaeo_rampart
+                    }
+                    nor = {
+                        has_starbase_module = hangar_bay
+                        has_starbase_module = gun_battery
+                        has_starbase_module = anchorage
+                        has_starbase_module = shipyard
+                        has_starbase_module = beastport
+                        has_starbase_module = hatchery
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = archaeo_rampart
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = archaeo_rampart
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = archaeo_rampart
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = archaeo_rampart
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = archaeo_rampart
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = archaeo_rampart
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = target_uplink_computer
+                }
+                set_starbase_building = {
+                    slot = 2
+                    building = resource_silo
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -2000
+                    }
+                }
+            }
+        }
+    }
+}
 #星环基地+1建造
 country_event = {
     id = starbaseup.100
