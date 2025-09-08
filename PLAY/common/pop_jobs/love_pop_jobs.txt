@@ -1,7 +1,7 @@
 #岗位
 love_organic_battery = {
     category = worker                # 岗位类别
-
+    first_come_first_served = yes  # 先到先得分配方式（不按优先级，按人口可用性分配）
     is_capped_by_modifier = no       # 岗位数量不受修正限制（如建筑/区划/成就修正）
 
     tags = { energy }                # 岗位标记为"energy"
@@ -15,7 +15,10 @@ love_organic_battery = {
 
     # 实际岗位分配时的具体条件
     possible = {
-        has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
+        OR = {
+            has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
+            has_citizenship_type = { type = citizenship_slavery country = owner }
+        }
         has_slavery_type = { type = love_slavery_matrix }                      # 必须为“love_slavery_matrix”类型的奴役（自定义或特殊奴役类型）
     }
 
@@ -28,7 +31,7 @@ love_organic_battery = {
         upkeep = {
             trigger = {
                 not = {
-                    
+
                 }
             }
         }
@@ -41,7 +44,7 @@ love_organic_battery = {
 }
 love_livestock = {
     category = worker                        # 岗位类别
-
+    first_come_first_served = yes
     is_capped_by_modifier = no               # 岗位数目不受建筑、区划等修正项限制
 
     tags = { food }                         # 岗位带有“food”标签
@@ -65,6 +68,7 @@ love_livestock = {
                 type = citizenship_exploited_drone  # 拥有“受剥削子个体”公民权（格式塔等可用）
                 country = owner                     # 拥有者为本帝国
             }
+            has_citizenship_type = { type = citizenship_slavery country = owner }
         }
         has_slavery_type = { type = love_slavery_livestock }  # 必须是love_slavery_livestock这种奴役类型
         is_lithoid = no                                      # 不能是硅基生物
@@ -96,7 +100,7 @@ love_livestock = {
 
 love_trait_mechanical_xp = {
     category = worker                # 岗位类别
-
+    first_come_first_served = yes
     is_capped_by_modifier = no       # 岗位数量不受修正限制（如建筑/区划/成就修正）
 
     tags = { research }                # 岗位标记
@@ -109,8 +113,11 @@ love_trait_mechanical_xp = {
 
     # 实际岗位分配时的具体条件
     possible = {
-        has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
-        has_slavery_type = { type = love_trait_mechanical }                      # 必须为类型的奴役
+        or = {
+            has_citizenship_type = { type = love_citizenship_slavery country = owner }  # 本帝国（owner）对此POP是“奴隶”公民类型
+            has_citizenship_type = { type = citizenship_slavery country = owner }
+        }
+        has_slavery_type = { type = love_trait_mechanical }  # 必须为类型的奴役
     }
 
     # 岗位产生的资源定义

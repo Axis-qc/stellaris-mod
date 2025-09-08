@@ -102,3 +102,39 @@ play_orbital_ring = {
         weight = 0
     }
 }
+
+play_pop_to_root = {
+    # owned_planets_only = yes
+    sound = event_administrative_work
+    #icon =
+
+    enactment_time = 30
+    resources = {
+        category = decisions
+        cost = {
+        }
+    }
+    potential = {
+        always = yes
+    }
+    ai_weight = {
+        weight = 0
+    }
+    effect = {
+        hidden_effect = {
+            every_owned_pop_group = {
+                limit = {
+                    NOT = {
+                        is_same_species = root
+                    }
+                    or = {
+                        has_citizenship_type = { type = citizenship_full }
+                        has_citizenship_type = { type = citizenship_full_machine }
+                    }
+                    # has_slavery_type = { type = slavery_livestock }
+                }
+                change_species = root
+            }
+        }
+    }
+}

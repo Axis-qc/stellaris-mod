@@ -14,6 +14,7 @@ love_citizenship_slavery = {
 
     # 判定此奴役公民权是否对某个pop“候选可用”
     potential = {
+        always = no
         exists = from
         NAND = {
             # 非下列情况才能使用
@@ -33,7 +34,7 @@ love_citizenship_slavery = {
                 # has_trait = trait_mechanical              # pop本身为机械体
             }
         }
-        is_disconnected_drone_pop = no    # 不允许脱离蜂巢状态的子个体
+        # is_disconnected_drone_pop = no    # 不允许脱离蜂巢状态的子个体
     }
 
     # 进一步判定pop是否可以分配该奴役权，包括各类禁止条件和出错提示

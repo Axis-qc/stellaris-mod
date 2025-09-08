@@ -1,6 +1,6 @@
-# 研究型殖民地定义
+#殖民地定义
 admin_add_type = {
-    # 使用研究型殖民地的图标
+    # 殖民地的图标
     icon = GFX_dggm_admin_add
 
     # 殖民地成立条件
@@ -34,7 +34,7 @@ admin_add_type = {
     triggered_planet_modifier = {
         potential = {
             exists = space_owner  # 必须有空间所有者
-            space_owner = { has_tradition = tr_adaptability_finish }  # 空间所有者必须拥有适应性传统
+            space_owner = { has_tradition = tr_adaptability_finish }  #拥有适应性传统
         }
         modifier = {
             pop_gm_admin_bonus_workforce_mult = 0.05
@@ -44,7 +44,7 @@ admin_add_type = {
     # 权重修正
     weight_modifier = {
         modifier = {
-            add = @stickiness  # 添加粘性修正
+            add = 100  # 添加粘性修正
             has_designation = admin_add_type  # 已经是研究型殖民地
         }
         modifier = {
@@ -53,7 +53,7 @@ admin_add_type = {
                 type = zone_admin_add  # 研究区域数量
                 value > 0
             }
-            add = @zone_urban  # 添加城市区域权重
+            add = 100  # 添加城市区域权重
         }
         # inline_script = {
         #     script = colony_types/shared_weights_research  # 调用研究权重共享脚本

@@ -43,7 +43,6 @@ love_slavery_livestock = {
     pop_status_frame = 6
 
     potential = {
-        host_has_dlc = "Utopia"
         OR = {
             from = { is_machine_empire = no }
             AND = {
@@ -75,24 +74,6 @@ love_slavery_livestock = {
     }
     ai_will_do = {
         factor = 0
-        modifier = {
-            factor = 0
-            NOR = {
-                has_trait = trait_delicious
-                from = { is_hive_empire = yes }
-            }
-        }
-        modifier = {
-            factor = 0
-            from = {
-                is_galactic_community_member = yes
-            }
-            OR = {
-                is_active_resolution = "resolution_greatergood_greater_than_ourselves"
-                is_active_resolution = "resolution_greatergood_balance_in_the_middle"
-                is_active_resolution = "resolution_greatergood_universal_prosperity_mandate"
-            }
-        }
     }
 }
 
@@ -125,20 +106,5 @@ love_trait_mechanical = {
     }
     ai_will_do = {
         factor = 0
-        modifier = {
-            factor = 0
-            has_trait = trait_mechanical
-        }
-        modifier = {
-            factor = 0
-            from = {
-                is_galactic_community_member = yes
-            }
-            OR = {
-                is_active_resolution = "resolution_greatergood_greater_than_ourselves"
-                is_active_resolution = "resolution_greatergood_balance_in_the_middle"
-                is_active_resolution = "resolution_greatergood_universal_prosperity_mandate"
-            }
-        }
     }
 }

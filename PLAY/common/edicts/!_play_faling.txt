@@ -117,3 +117,38 @@ laopo = {
     }
 }
 
+ww_ship_bug = {
+    length = 10
+    icon = "GFX_edict_type_policy"
+    #启动条件
+    allow = {
+        always = no
+    }
+    #显示条件
+    potential = {
+        has_country_flag = yes_ww_ship_1
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    effect = {
+        add_tech_progress = { tech = tech_ww_ship progress = 0.5 }
+    }
+    modifier = {
+
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+

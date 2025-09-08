@@ -1,9 +1,44 @@
 NGameplay = {
+    POLICY_YEARS = 5        # 10，政策冷却
+    SPECIES_POLICY_YEARS = 5        # 10，物种权利冷却
 
     MIN_TRADE_DEAL_LENGTH_YEARS = 10    # 贸易最小年限
     MAX_TRADE_DEAL_LENGTH_YEARS = 50    # 贸易最大年限
 
-    ASCENSION_PERKS_SLOTS = 9 # 升华特权插槽的数量 8
-    TRADITION_CATEGORIES_MAX = 8    # 传统类别的最大数量 7
-    
+    ASCENSION_PERKS_SLOTS = 9 # 飞升槽的数量 8
+    TRADITION_CATEGORIES_MAX = 8    # 传统数量 7
+
+    RESOLUTION_VOTE_TIMER = 720                    # 决议在参议院投票持续的天数（从提出到通过/失败）
+    RESOLUTION_VOTE_PREMATURE_TIMER = 360            # 监管人/皇帝可以提前结束参议院会议所需的天数
+    SENATE_RECESS_TIMER = 360                        # 当前投票结束后，下一个提议决议提交参议院前的休会天数
+    COUNCIL_DIPLOMACY_WEIGHT_MODIFIER = 2.0            # 理事会成员国家在投票时外交权重的增加倍数
+    CHANGE_VOTE_COOLDOWN = 30                        # 投票后可以更改投票选择所需等待的天数
+
+    DEFAULT_COUNCIL_SIZE = 0                        # 默认的共同体理事会成员数量（将被修改）
+    DEFAULT_COUNCIL_VETO = no                        # 理事会默认是否可以否决决议？
+    DEFAULT_COUNCIL_EMERGENCY_MEASURES = yes        # 理事会默认是否可以提出紧急措施？
+    CATEGORY_VOTE_COOLDOWN = 1200                    # 同一类别决议再次被提议前需要等待的时间
+    TYPE_VOTE_COOLDOWN = 2500                        # 同类型公民投票再次被提议前需要等待的时间
+    VETO_COOLDOWN = 360                            # 一个国家可以再次行使否决权前需要等待的时间
+    EMERGENCY_MEASURES_COOLDOWN = 720                # 一个国家可以再次提出紧急措施前需要等待的时间
+    DEFAULT_VETO_COST_MULT = 3                        # 提议决议成本乘以这个值来确定否决该决议的成本
+    JOIN_COMMUNITY_INFLUENCE_COST = 100                # 共同体形成后手动加入所需的影响力成本
+    LEAVE_COMMUNITY_MIN_INFLUENCE_COST = 100        # 离开银河共同体的最小影响力成本
+    LEAVE_COMMUNITY_MAX_INFLUENCE_COST = 500        # 离开银河共同体的最大影响力成本
+    LEAVE_COMMUNITY_INFLUENCE_COST_FACTOR = 0.5        # 决定离开共同体实际成本的因素，与帝国规模相乘
+    LEFT_COMMUNITY_MODIFIER_TIMER = 720            # 离开共同体修饰符影响离开国家的天数
+    COUNCIL_ELECTION_TIMER = 720                    # 银河理事会选举之间的时间间隔
+    COUNCIL_ELECTION_SOON_CUTOFF = 180                # 距离下次理事会选举剩余天数少于此时显示警报
+    COMMUNITY_FREEZE_RESOLUTION_MONTHS = 48            # 监管人/皇帝冻结决议的时间长度（月）
+    # CUSTODIAN_TERM_LIMIT_DAYS = 10800                # 监管人保持职位的任期限制天数
+    # CUSTODIAN_TERM_LIMIT_EXPIRATION_MESSAGE_DAYS = 1800 # 任期结束前多少天应向监管人发送任期即将到期的通知
+
+    # ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_GROWTH = 2    # 指派特使加强帝国权威时每月关系增长值
+    # ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_DECAY = -1    # 指派特使加强帝国权威时每月关系衰减值
+    # ENVOY_STRENGTHEN_IMPERIAL_AUTHORITY_RELATION_MAX = 200        # 上述增长可达到的最高值
+    # ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_GROWTH = -2    # 指派特使削弱帝国权威时每月关系"增长"值
+    # ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_DECAY = 1        # 指派特使削弱帝国权威时每月关系"衰减"值
+    # ENVOY_UNDERMINE_IMPERIAL_AUTHORITY_RELATION_MIN = -200        # 上述"增长"可达到的最低值
+    #
+    # FEDERATION_LOW_COHESION_CUTOFF = 0.1            # 当凝聚力比率低于此值且凝聚力增长为负时显示警报
 }
