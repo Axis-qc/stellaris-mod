@@ -47,3 +47,35 @@ planet_ck_10k = {
         weight = 0
     }
 }
+
+play_add_xiyou = {
+    icon = "unused/d_wormhole"
+    resources = {
+        category = orbital_research_deposits
+        produces = {
+            sr_dark_matter = 1
+            sr_living_metal = 1
+            sr_zro = 1
+            nanites = 1
+        }
+    }
+
+    habitat_modifier = {
+        district_hab_science_max_add = 5
+    }
+
+    station = shipclass_research_station
+    is_for_colonizable = no
+
+    drop_weight = {
+        weight = 0
+        modifier = {
+            weight = 0
+            is_planet_class = pc_black_hole
+        }
+        modifier = {
+            factor = 0
+            is_inside_nebula = no
+        }
+    }
+}

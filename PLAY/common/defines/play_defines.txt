@@ -1,4 +1,11 @@
 NGameplay = {
+    # 行星飞升等级上限计算公式：
+    #     Max( (已解锁的飞升特权槽位数 - 2), 行星飞升最小等级 ) +
+    #     ( (已解锁的飞升特权槽位 == 总飞升特权槽位数) ? 行星飞升完成奖励 : 0 )
+    PLANET_ASCENSION_STARTING_POINT = 3 # 解锁行星飞升功能所需的最少已使用飞升特权槽位数
+    PLANET_ASCENSION_MIN = 10 # 行星飞升的最低等级（基础等级）
+    PLANET_ASCENSION_COMPLETION_BONUS = 0 # 当所有飞升特权槽位都解锁时，行星飞升等级上限的固定奖励加成
+
     POLICY_YEARS = 5        # 10，政策冷却
     SPECIES_POLICY_YEARS = 5        # 10，物种权利冷却
 

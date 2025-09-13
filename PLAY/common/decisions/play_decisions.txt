@@ -262,8 +262,31 @@ play_move_pop_to_this = {
         }
     }
     effect = {
-        from = {
-            country_event = { id = play_move_pop.100 }
+        if = {
+            limit = {
+                from = {
+                    any_owned_planet = {
+                        has_modifier = play_move_pop_to_planet
+                    }
+                }
+            }
+            from = {
+                country_event = { id = play_move_pop.100 }
+            }
+        }
+        if = {
+            limit = {
+                from = {
+                    any_owned_planet = {
+                        NOT = {
+                            has_modifier = play_move_pop_to_planet
+                        }
+                    }
+                }
+            }
+            from = {
+                country_event = { id = play_move_pop.101 }
+            }
         }
         this = {
             #保存迁入星球
