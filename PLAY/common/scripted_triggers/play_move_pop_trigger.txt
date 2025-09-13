@@ -1,0 +1,242 @@
+can_resettle_pop_group_trigger = {
+    # Self-modified Pops won't leave
+    custom_tooltip = {
+        fail_text = "self_modified_refuse"
+        NOT = { has_trait = trait_self_modified }
+    }
+    # Pathogenic Pops Can't Resettle
+    custom_tooltip = {
+        fail_text = "pathogenic_genes_warning"
+        NOT = { has_trait = trait_pathogenic_genes }
+    }
+    custom_tooltip = {
+        fail_text = "origin_egalitarian_refuse"
+        NAND = {
+            has_ethic = ethic_egalitarian
+            is_enslaved = no
+            planet = { has_modifier = paragon_origin_reformists }
+        }
+    }
+    custom_tooltip = {
+        fail_text = "no_resettling_apps"
+        if = {
+            limit = {
+                has_virtual_species_trait = yes
+            }
+            exists = owner
+            owner = {
+                is_fallen_empire = no
+                NOT = {
+                    has_active_tradition = tr_virtuality_adopt
+                }
+            }
+        }
+    }
+    if = {
+        #Done as an IF/ELSE so the tooltip isn't hideous and unreadable
+        limit = { is_shackled_robot = yes }
+        always = yes
+    }
+    else_if = {
+        limit = {
+            planet = {
+                is_doomsday_planet = yes
+            }
+        }
+        always = yes
+    }
+    else_if = {
+        limit = {
+            planet = {
+                has_modifier = planet_culture_shock
+            }
+        }
+        OR = {
+            is_same_species = planet.owner
+            planet = {
+                NOT = { has_modifier = planet_culture_shock }
+            }
+        }
+    }
+    else_if = {
+        limit = {
+            planet = {
+                is_capital = yes
+                pop_amount < 200
+            }
+            NOT = {
+                owner = {
+                    any_owned_planet = {
+                        is_capital = no
+                        NOT = {
+                            is_planet_class = pc_cosmogenesis_world
+                        }
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = "no_abandon_capital_for_unviable_planet"
+            always = no
+        }
+    }
+    else_if = {
+        limit = {
+            planet = {
+                is_planet_class = pc_cosmogenesis_world
+                owner = {
+                    has_ascension_perk = ap_cosmogenesis
+                }
+                pop_amount < 200
+            }
+        }
+        custom_tooltip = {
+            fail_text = "no_unfueled_lathe"
+            always = no
+        }
+    }
+    else_if = {
+        limit = {
+            planet = {
+                has_deposit = d_genesis_preserve
+                sapient_pop_amount < 200
+            }
+            owner = {
+                is_guided_sapience_empire = yes
+            }
+        }
+        custom_tooltip = {
+            fail_text = "no_abandon_genesis_preserve"
+            always = no
+        }
+    }
+    else_if = {
+        limit = {
+            owner = {
+                has_ascension_perk = ap_cosmogenesis
+            }
+        }
+        always = yes
+    }
+    else_if = {
+        limit = {
+            owner = {
+                is_gestalt = yes
+            }
+        }
+        always = yes
+    }
+    else = {
+        custom_tooltip = {
+            fail_text = RESETTLEMENT_POLICY_FAIL
+            owner = {
+                has_policy_flag = resettlement_allowed
+            }
+        }
+    }
+}
+
+auto_resettle_can_resettle_pop_category_trigger = {
+    optimize_memory
+    OR = {
+        is_pop_category = ruler
+        is_pop_category = specialist
+        is_pop_category = dystopian_specialist
+        is_pop_category = worker
+        is_pop_category = civilian
+        is_pop_category = ruler_unemployment
+        is_pop_category = specialist_unemployment
+        is_pop_category = worker_unemployment
+        is_pop_category = slave
+        is_pop_category = robot_servant
+        is_pop_category = complex_drone
+        is_pop_category = simple_drone
+        is_pop_category = maintenance_drone
+        is_pop_category = bio_trophy
+        is_pop_category = bio_trophy_unemployment
+        is_pop_category = wilderness_heart_strata
+        is_pop_category = purge
+        is_pop_category = assimilation
+        is_pop_category = precursor
+        is_pop_category = chip_slave
+    }
+}
+
+species_can_live_on_planet_trigger = {
+    hidden_trigger = {
+        exists = $PLANET$ #somehow this appeared in the error log. No idea how!
+        NAND = {
+            $PLANET$ = { is_planet_class = pc_machine }
+            NOR = {
+                has_trait = trait_machine_unit
+                has_trait = trait_mechanical
+                AND = {
+                    has_trait = trait_cybernetic
+                    exists = $PLANET$.owner
+                    $PLANET$.owner = {
+                        is_machine_empire = yes
+                        OR = {
+                            has_civic = civic_machine_assimilator # Assimilator empire
+                            has_ascension_perk = ap_mechromancy
+                        }
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                $PLANET$ = { is_planet_class = pc_hive }
+            }
+            OR = {
+                has_trait = trait_hive_mind
+                AND = {
+                    #Necrophage Hive Mind can have Necrophytes
+                    exists = $PLANET$.owner
+                    $PLANET$.owner = {
+                        is_hive_empire = yes
+                        has_origin = origin_necrophage
+                        prev = { species_can_be_necrophaged = yes }
+                    }
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            exists = $PLANET$.owner
+            $PLANET$.owner = {
+                has_origin = origin_clone_army
+            }
+            OR = {
+                has_trait = trait_clone_soldier_infertile
+                has_trait = trait_clone_soldier_infertile_full_potential
+            }
+        }
+        custom_tooltip = {
+            fail_text = CLONE_ARMY_FORCE_DECLINE
+            $PLANET$ = {
+                check_variable = { which = clone_pops_missing value >= 0 }
+            }
+        }
+    }
+    custom_tooltip = {
+        fail_text = WILDERNESS_NATURAL_WORLDS_DECLINE
+        if = {
+            limit = {
+                has_trait = trait_wilderness
+            }
+            $PLANET$ = { is_habitable_for_wilderness = yes }
+        }
+    }
+
+    custom_tooltip = {
+        fail_text = WILDERNESS_DEAD_WORLD
+        if = {
+            limit = {
+                has_trait = trait_wilderness
+                exists = $PLANET$.owner
+            }
+            $PLANET$.owner = { is_wilderness_empire = yes }
+        }
+    }
+}

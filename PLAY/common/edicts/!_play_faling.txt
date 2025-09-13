@@ -127,6 +127,7 @@ ww_ship_bug = {
     #显示条件
     potential = {
         has_country_flag = yes_ww_ship_1
+        always = no
     }
     resources = {
         category = edicts
@@ -146,6 +147,59 @@ ww_ship_bug = {
     modifier = {
 
     }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+play_pop_to_root = {
+    length = 10
+    icon = "GFX_edict_type_policy"
+    #启动条件
+    allow = {
+        always = yes
+    }
+    #显示条件
+    potential = {
+        any_owned_pop_group = {
+            NOT = {
+                is_same_species = root
+            }
+            or = {
+                has_citizenship_type = { type = citizenship_full }
+                has_citizenship_type = { type = citizenship_full_machine }
+            }
+        }
+    }
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 1
+        }
+
+        upkeep = {
+            energy = 1
+        }
+    }
+
+    effect = {
+        every_owned_pop_group = {
+            limit = {
+                NOT = {
+                    is_same_species = root
+                }
+                or = {
+                    has_citizenship_type = { type = citizenship_full }
+                    has_citizenship_type = { type = citizenship_full_machine }
+                }
+                # has_slavery_type = { type = slavery_livestock }
+            }
+            change_species = root
+        }
+    }
+
 
     ai_weight = {
         weight = 0

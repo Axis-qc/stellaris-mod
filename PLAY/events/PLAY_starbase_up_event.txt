@@ -12,25 +12,80 @@ country_event = {
             has_policy_flag = play_starbase_up_2
             has_edict = play_starbase_up
         }
-
     }
 
     immediate = {
+        #升级深空堡
+        # #读档会退回等级，只能手动升级，抽象
+        # random_owned_design = {
+        #     limit = {
+        #         is_ship_size = starbase_deep_space_citadel_2
+        #     }
+        #     save_event_target_as = starbase_deep_space_citadel_2
+        # }
+        # random_owned_design = {
+        #     limit = {
+        #         is_ship_size = starbase_deep_space_citadel_3
+        #     }
+        #     save_event_target_as = starbase_deep_space_citadel_3
+        # }
+        # #修改深空擎天堡
+        # every_owned_nonprimary_starbase = {
+        #     limit = {
+        #         has_starbase_size = starbase_deep_space_citadel_1
+        #     }
+        #     set_starbase_size = starbase_deep_space_citadel_2
+        #     this.fleet = {
+        #         every_owned_ship = {
+        #             limit = {
+        #                 is_ship_size = starbase_deep_space_citadel_1
+        #             }
+        #             set_ship_design = {
+        #                 design = event_target:starbase_deep_space_citadel_2
+        #             }
+        #         }
+        #     }
+        # }
+        # every_owned_nonprimary_starbase = {
+        #     limit = {
+        #         has_starbase_size = starbase_deep_space_citadel_2
+        #     }
+        #     set_starbase_size = starbase_deep_space_citadel_3
+        #     add_modifier = {
+        #         modifier = starbase_build_buff
+        #     }
+        #     this.fleet = {
+        #         every_owned_ship = {
+        #             limit = {
+        #                 OR = {
+        #                     is_ship_size = starbase_deep_space_citadel_1
+        #                     is_ship_size = starbase_deep_space_citadel_2
+        #                     is_ship_size = starbase_deep_space_citadel_3
+        #                 }
+        #             }
+        #             set_ship_design = {
+        #                 design = event_target:starbase_deep_space_citadel_3
+        #             }
+        #         }
+        #     }
+        # }
+
         random_owned_starbase = {
             limit = {
-                or = {
-                    has_starbase_size = starbase_starport
-                    has_starbase_size = starbase_starhold
-                    has_starbase_size = starbase_starfortress
+                this = {
+                    OR = {
+                        has_starbase_size = starbase_starport
+                        has_starbase_size = starbase_starhold
+                        has_starbase_size = starbase_starfortress
+                    }
                 }
-
-                # not = { has_starbase_module = shipyard }
-                # not = { has_starbase_module = beastport }
-                # not = { has_starbase_module = hatchery }
-                # not = { has_starbase_module = anchorage }
             }
+            #恒星基地
             if = {
                 limit = {
+                    this = {
+                        has_starbase_size = starbase_starport
+                    }
                     root = {
                         has_technology = tech_starbase_3
                         resource_stockpile_compare = {
@@ -55,6 +110,10 @@ country_event = {
             }
             if = {
                 limit = {
+                    this = {
+                        has_starbase_size = starbase_starhold
+                    }
+
                     root = {
                         has_technology = tech_starbase_4
                         resource_stockpile_compare = {
@@ -79,6 +138,9 @@ country_event = {
             }
             if = {
                 limit = {
+                    this = {
+                        has_starbase_size = starbase_starfortress
+                    }
                     root = {
                         has_technology = tech_starbase_5
                         resource_stockpile_compare = {
@@ -104,6 +166,72 @@ country_event = {
                 # change_variable = { which = play_starbase_up_alloy value = 1500 }
             }
         }
+        random_owned_nonprimary_starbase = {
+            limit = {
+                this = {
+                    OR = {
+                        has_starbase_size = orbital_ring_tier_1
+                        has_starbase_size = orbital_ring_tier_2
+                        # has_starbase_size = orbital_ring_tier_3
+                    }
+                }
+            }
+            #星环基地
+            if = {
+                limit = {
+                    this = {
+                        has_starbase_size = orbital_ring_tier_1
+                    }
+                    root = {
+                        has_technology = tech_starbase_4
+                        resource_stockpile_compare = {
+                            resource = alloys
+                            value >= 1500
+                        }
+                        resource_stockpile_compare = {
+                            resource = influence
+                            value >= 100
+                        }
+                    }
+                }
+                set_starbase_size = orbital_ring_tier_2
+                root = {
+                    add_resource = {
+                        influence = -100
+                    }
+                    add_resource = {
+                        alloys = -1500
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    this = {
+                        has_starbase_size = orbital_ring_tier_2
+                    }
+                    root = {
+                        has_technology = tech_starbase_5
+                        resource_stockpile_compare = {
+                            resource = alloys
+                            value >= 2000
+                        }
+                        resource_stockpile_compare = {
+                            resource = influence
+                            value >= 150
+                        }
+                    }
+                }
+                set_starbase_size = orbital_ring_tier_3
+                root = {
+                    add_resource = {
+                        influence = -150
+                    }
+                    add_resource = {
+                        alloys = -2000
+                    }
+                }
+            }
+        }
         # add_resource = {
         #     influence = -1
         #     mult = play_starbase_up_influence
@@ -116,6 +244,7 @@ country_event = {
         # clear_variable = play_starbase_up_alloy
     }
 }
+#自动造模块
 country_event = {
     id = starbaseup.2
     hide_window = yes
@@ -129,21 +258,22 @@ country_event = {
         }
 
     }
-
     immediate = {
         random_owned_starbase = {
             limit = {
-                or = {
-                    has_starbase_size = starbase_starport
-                    has_starbase_size = starbase_starhold
-                    has_starbase_size = starbase_starfortress
-                    has_starbase_size = starbase_citadel
+                this = {
+                    or = {
+                        has_starbase_size = starbase_starport
+                        has_starbase_size = starbase_starhold
+                        has_starbase_size = starbase_starfortress
+                        has_starbase_size = starbase_citadel
+                    }
                 }
             }
             #锚地
             if = {
                 limit = {
-                    starbase = {
+                    this = {
                         has_starbase_module = anchorage
                         nor = {
                             has_starbase_module = shipyard
@@ -201,15 +331,16 @@ country_event = {
             #全船坞
             if = {
                 limit = {
-                    starbase = {
+                    this = {
                         has_starbase_module = shipyard
+                        nor = {
+                            has_starbase_module = anchorage
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                            has_starbase_building = fleet_academy
+                        }
                     }
-                    nor = {
-                        has_starbase_module = anchorage
-                        has_starbase_module = beastport
-                        has_starbase_module = hatchery
-                        has_starbase_building = fleet_academy
-                    }
+
                 }
                 set_starbase_module = {
                     slot = 1
@@ -280,15 +411,15 @@ country_event = {
             #动能炮
             if = {
                 limit = {
-                    starbase = {
+                    this = {
                         has_starbase_module = gun_battery
-                    }
-                    nor = {
-                        has_starbase_module = anchorage
-                        has_starbase_module = shipyard
-                        has_starbase_module = beastport
-                        has_starbase_module = hatchery
-                        has_starbase_building = target_uplink_computer
+                        nor = {
+                            has_starbase_module = anchorage
+                            has_starbase_module = shipyard
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                            has_starbase_building = target_uplink_computer
+                        }
                     }
                 }
                 set_starbase_module = {
@@ -360,17 +491,18 @@ country_event = {
             #机库
             if = {
                 limit = {
-                    starbase = {
+                    this = {
                         has_starbase_module = hangar_bay
+                        nor = {
+                            has_starbase_module = gun_battery
+                            has_starbase_module = anchorage
+                            has_starbase_module = shipyard
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                            has_starbase_building = target_uplink_computer
+                        }
                     }
-                    nor = {
-                        has_starbase_module = gun_battery
-                        has_starbase_module = anchorage
-                        has_starbase_module = shipyard
-                        has_starbase_module = beastport
-                        has_starbase_module = hatchery
-                        has_starbase_building = target_uplink_computer
-                    }
+
                 }
                 set_starbase_module = {
                     slot = 1
@@ -416,16 +548,16 @@ country_event = {
             #远古
             if = {
                 limit = {
-                    starbase = {
+                    this = {
                         has_starbase_module = archaeo_rampart
-                    }
-                    nor = {
-                        has_starbase_module = hangar_bay
-                        has_starbase_module = gun_battery
-                        has_starbase_module = anchorage
-                        has_starbase_module = shipyard
-                        has_starbase_module = beastport
-                        has_starbase_module = hatchery
+                        nor = {
+                            has_starbase_module = hangar_bay
+                            has_starbase_module = gun_battery
+                            has_starbase_module = anchorage
+                            has_starbase_module = shipyard
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                        }
                     }
                 }
                 set_starbase_module = {

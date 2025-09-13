@@ -1,0 +1,345 @@
+#迁移人口脚本
+
+#将指定数量或百分比的人口转移到目标行星
+play_move_pop_effect = {
+    root = {
+        every_owned_planet = {
+            limit = {
+                not = { is_planet_class = pc_cosmogenesis_world }
+                has_modifier = play_move_pop_to_planet
+            }
+            every_owned_pop_group = {
+                limit = {
+                    OR = {
+                        is_pop_category = civilian
+                        is_pop_category = maintenance_drone
+                    }
+                    not = { has_trait = trait_robot_digital_2 }
+                }
+                save_global_event_target_as = play_source_pop_group  # 将源人口组保存为事件目标，便于后续引用
+            }
+        }
+    }
+    $PLANET$ = {
+        # 目标行星参数（需要替换为实际值）
+        create_pop_group = {
+            # 在目标行星创建新人口组
+            pop_group = event_target:play_source_pop_group  # 使用源人口组定义
+            size = 0  # 初始大小为0
+            effect = {
+                # 创建后执行的效果
+                transfer_pop_amount = {
+                    # 转移人口操作
+                    source = event_target:play_source_pop_group  # 源人口组
+                    target = this  # 目标为当前行星
+                    [[AMOUNT]  # 按数量转移模式
+                        amount = $AMOUNT$  # 转移的具体数量
+                    ]
+                    [[PERCENTAGE]  # 按百分比转移模式
+                        percentage = $PERCENTAGE$  # 转移的百分比
+                    ]
+                }
+                save_event_target_as = play_resettled_pop_group  # 保存迁移后的人口组
+            }
+        }
+    }
+}
+#所有星球迁移
+play_move_pop_all_effect = {
+    root = {
+        every_owned_planet = {
+            limit = {
+                NOR = {
+                    is_planet_class = pc_cosmogenesis_world
+                    has_modifier = play_move_pop_to_this_planet
+                }
+            }
+            every_owned_pop_group = {
+                limit = {
+                    OR = {
+                        is_pop_category = civilian
+                        is_pop_category = maintenance_drone
+                    }
+                    not = { has_trait = trait_robot_digital_2 }
+                }
+                save_global_event_target_as = play_source_pop_group_all  # 将源人口组保存为事件目标，便于后续引用
+            }
+        }
+    }
+    $PLANET$ = {
+        create_pop_group = {
+            # 在目标行星创建新人口组
+            pop_group = event_target:play_source_pop_group_all  # 使用源人口组定义
+            size = 0  # 初始大小为0
+            effect = {
+                # 创建后执行的效果
+                transfer_pop_amount = {
+                    # 转移人口操作
+                    source = event_target:play_source_pop_group_all  # 源人口组
+                    target = this  # 目标为当前行星
+                    [[AMOUNT]  # 按数量转移模式
+                        amount = $AMOUNT$  # 转移的具体数量
+                    ]
+                    [[PERCENTAGE]  # 按百分比转移模式
+                        percentage = $PERCENTAGE$  # 转移的百分比
+                    ]
+                }
+                save_event_target_as = play_resettled_pop_group_all  # 保存迁移后的人口组
+            }
+        }
+    }
+}
+
+# 带成本的人口迁移函数
+# 参数：PLANET - 目标行星，AMOUNT - 迁移数量（可选）
+auto_resettle_resettle_pop_with_cost = {
+    if = {
+        limit = {
+            # 检查条件
+            owner = {
+                # 检查所有者资源是否足够
+                resource_stockpile_compare = {
+                    # 检查能源资源
+                    resource = energy
+                    value >= 1
+                    [[!AMOUNT]  # 不使用AMOUNT参数时的计算方式
+                        mult = prev.value:auto_resettle_pop_resettle_cost_energy  # 使用预设的能源成本乘数
+                    ]
+                    [[AMOUNT]  # 使用AMOUNT参数时的计算方式
+                        mult = prev.value:auto_resettle_pop_resettle_cost_energy|AMOUNT|$AMOUNT$|  # 根据数量计算能源成本
+                    ]
+                }
+                resource_stockpile_compare = {
+                    # 检查凝聚力资源
+                    resource = unity
+                    value >= 1
+                    [[!AMOUNT]  # 不使用AMOUNT参数时的计算方式
+                        mult = prev.value:auto_resettle_pop_resettle_cost_unity  # 使用预设的凝聚力成本乘数
+                    ]
+                    [[AMOUNT]  # 使用AMOUNT参数时的计算方式
+                        mult = prev.value:auto_resettle_pop_resettle_cost_unity|AMOUNT|$AMOUNT$|  # 根据数量计算凝聚力成本
+                    ]
+                }
+            }
+        }
+        # 如果资源足够，执行迁移
+        owner = {
+            # 扣除资源成本
+            add_resource = {
+                # 扣除能源
+                energy = -1
+                [[!AMOUNT]  # 不使用AMOUNT参数时的扣除方式
+                    mult = prev.value:auto_resettle_pop_resettle_cost_energy  # 使用预设的能源成本乘数
+                ]
+                [[AMOUNT]  # 使用AMOUNT参数时的扣除方式
+                    mult = prev.value:auto_resettle_pop_resettle_cost_energy|AMOUNT|$AMOUNT$|  # 根据数量扣除能源
+                ]
+            }
+            add_resource = {
+                # 扣除凝聚力
+                unity = -1
+                [[!AMOUNT]  # 不使用AMOUNT参数时的扣除方式
+                    mult = prev.value:auto_resettle_pop_resettle_cost_unity  # 使用预设的凝聚力成本乘数
+                ]
+                [[AMOUNT]  # 使用AMOUNT参数时的扣除方式
+                    mult = prev.value:auto_resettle_pop_resettle_cost_unity|AMOUNT|$AMOUNT$|  # 根据数量扣除凝聚力
+                ]
+            }
+        }
+        save_event_target_as = source_pop_group  # 保存源人口组
+        resettle_pop_group = {
+            # 调用人口迁移函数
+            POP_GROUP = this  # 当前人口组作为源
+            PLANET = $PLANET$  # 目标行星
+            [[!AMOUNT]  # 不使用AMOUNT参数时迁移全部人口
+                PERCENTAGE = 1  # 迁移100%
+            ]
+            [[AMOUNT]  # 使用AMOUNT参数时迁移指定数量
+                AMOUNT = event_target:source_pop_group.$AMOUNT$  # 从事件目标获取迁移数量
+            ]
+        }
+    }
+}
+
+# 自动迁移所有符合条件的人口
+# 作用域：国家
+# 参数：TARGET - 目标行星
+# 其他参数用于自定义条件判断和效果
+auto_resettle_resettle_all_pops = {
+    optimize_memory  # 内存优化指令
+    if = {
+        limit = {
+            owner = {
+                # 检查国家是否可以迁移人口
+                OR = {
+                    has_policy_flag = resettlement_allowed
+                    is_gestalt = yes
+                    has_ascension_perk = ap_cosmogenesis
+                    custom_tooltip = {
+                        text = owns_non_sapient_robots
+                        country_has_shackled_robots = yes
+                    }
+                    hidden_trigger = {
+                        #don't need to show this as tooltip only shown when all game rule fails, and this is a special case
+                        any_owned_planet = {
+                            is_doomsday_planet = yes
+                        }
+                    }
+                }
+            }
+        }
+        every_owned_planet = {
+            # 遍历所有拥有的行星
+            limit = {
+                # 行星筛选条件
+                $PLANET_RESETTLE_TRIGGER$ = yes  # 行星迁移条件
+                root = {
+                    is_controlled_by = owner
+                    has_ground_combat = no
+                    has_orbital_bombardment = no
+                    custom_tooltip = {
+                        text = "RESETTLE_PLANET_UNDER_COLONIZATION"
+                        exists = this
+                        is_under_colonization = no
+                    } # 行星可迁移条件
+                }
+                NOT = {
+                    # 不能是目标行星本身
+                    is_same_value = $TARGET$
+                }
+            }
+            [[ON_PLANET_VISITED_1]  # 行星访问回调1
+                $ON_PLANET_VISITED_1$ = yes
+            ]
+            [[ON_PLANET_VISITED_2]  # 行星访问回调2
+                $ON_PLANET_VISITED_2$ = yes
+            ]
+            every_owned_pop_group = {
+                # 遍历行星上所有人口组
+                limit = {
+                    # 人口组筛选条件
+                    is_sapient = yes  # 必须是有智慧的
+                    $POP_RESETTLE_PRETRIGGER$ = yes  # 人口组迁移预条件
+                    can_resettle_pop_group_trigger = yes  # 人口组可迁移条件
+                    auto_resettle_can_resettle_pop_category_trigger = yes  # 自动迁移类别条件
+                    species = {
+                        # 物种必须能在目标行星生存
+                        species_can_live_on_planet_trigger = {
+                            PLANET = $TARGET$
+                        }
+                    }
+                }
+                if = {
+                    limit = {
+                        $CONTINUE_TRIGGER|always$ = no  # 如果不满足继续条件
+                    }
+                    [[ON_PLANET_LEFT]  # 离开行星回调
+                        $ON_PLANET_LEFT$ = yes
+                    ]
+                    break = yes  # 中断循环
+                }
+                [[ON_POP_VISITED_1]  # 人口访问回调
+                    $ON_POP_VISITED_1$ = yes
+                ]
+                if = {
+                    limit = {
+                        $POP_RESETTLE_TRIGGER|always$ = yes  # 人口迁移触发条件
+                    }
+                    clear_variable = local_auto_resettle_pop_amount  # 清空本地变量
+                    [[AMOUNT_EFFECT_1]  # 数量计算效果1
+                        $AMOUNT_EFFECT_1$ = yes
+                    ]
+                    [[AMOUNT_EFFECT_2]  # 数量计算效果2
+                        $AMOUNT_EFFECT_2$ = yes
+                    ]
+                    [[AMOUNT_EFFECT_3]  # 数量计算效果3
+                        $AMOUNT_EFFECT_3$ = yes
+                    ]
+                    if = {
+                        limit = {
+                            NOT = {
+                                is_variable_set = local_auto_resettle_pop_amount  # 如果变量未设置
+                            }
+                        }
+                        set_variable = {
+                            # 设置变量为人口组大小
+                            which = local_auto_resettle_pop_amount
+                            value = trigger:pop_group_size
+                        }
+                    }
+                    [[AMOUNT_VALUE]  # 自定义数量值
+                        set_variable = {
+                            which = local_auto_resettle_pop_amount
+                            value = $AMOUNT_VALUE$
+                        }
+                    ]
+                    # 计算可迁移数量
+                    set_variable = {
+                        which = local_auto_resettle_pop_amount
+                        value = value:auto_resettle_resettlable_amount|VALUE|local_auto_resettle_pop_amount|
+                    }
+                    # 计算可负担的迁移数量
+                    set_variable = {
+                        which = local_auto_resettle_pop_amount
+                        value = value:auto_resettle_affordable_resettle_amount|VALUE|local_auto_resettle_pop_amount|
+                    }
+                    # 计算手动可迁移数量
+                    set_variable = {
+                        which = local_auto_resettle_pop_amount
+                        value = value:auto_resettle_manually_resettlable_amount|VALUE|local_auto_resettle_pop_amount|
+                    }
+                    # 根据计算出的数量执行迁移
+                    if = {
+                        limit = {
+                            pop_group_size <= local_auto_resettle_pop_amount  # 如果人口组大小小于等于可迁移数量
+                        }
+                        set_variable = {
+                            which = local_auto_resettle_pop_amount
+                            value = trigger:pop_group_size  # 迁移全部人口
+                        }
+                        auto_resettle_resettle_pop_with_cost = {
+                            # 执行迁移
+                            PLANET = $TARGET$
+                        }
+                        [[ON_PLANET_RESETTLED_TO_1]  # 迁移到目标行星回调1
+                            $TARGET$ = {
+                                $ON_PLANET_RESETTLED_TO_1$ = yes
+                            }
+                        ]
+                        [[ON_PLANET_RESETTLED_TO_2]  # 迁移到目标行星回调2
+                            $TARGET$ = {
+                                $ON_PLANET_RESETTLED_TO_1$ = yes
+                            }
+                        ]
+                    }
+                    else_if = {
+                        limit = {
+                            check_variable = {
+                                which = local_auto_resettle_pop_amount
+                                value > 0  # 如果可迁移数量大于0
+                            }
+                        }
+                        auto_resettle_resettle_pop_with_cost = {
+                            # 执行部分迁移
+                            PLANET = $TARGET$
+                            AMOUNT = local_auto_resettle_pop_amount
+                        }
+                        [[ON_PLANET_RESETTLED_TO_1]  # 迁移到目标行星回调1
+                            $TARGET$ = {
+                                $ON_PLANET_RESETTLED_TO_1$ = yes
+                            }
+                        ]
+                        [[ON_PLANET_RESETTLED_TO_2]  # 迁移到目标行星回调2
+                            $TARGET$ = {
+                                $ON_PLANET_RESETTLED_TO_1$ = yes
+                            }
+                        ]
+                    }
+                }
+            }
+            [[ON_PLANET_LEFT]  # 离开行星回调
+                $ON_PLANET_LEFT$ = yes
+            ]
+        }
+    }
+}
