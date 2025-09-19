@@ -302,6 +302,9 @@ play_move_pop_to_this = {
             save_global_event_target_as = move_pop_planet
             save_global_event_target_as = play_move_pop_to_this_planet
         }
+        event_target:move_pop_planet = {
+            set_variable = { which = move_pop_planet_variable value = trigger:count_owned_pop_amount }
+        }
         add_modifier = {
             modifier = play_move_pop_to_this_planet
             days = 10
@@ -312,8 +315,8 @@ play_move_pop_to_this = {
     }
 }
 
-#自动把失业人口移动到突触
-ATR_plant_decision_3 = {
+#把平民人口移动到突触
+play_plant_decision_3 = {
     owned_planets_only = yes
     sound = event_administrative_work
     icon = decision_expel_population
@@ -363,8 +366,8 @@ ATR_plant_decision_3 = {
     }
 }
 
-#自动把失业人口移动到毒圣居住站
-ATR_plant_decision_4 = {
+#把平民人口移动到毒圣居住站
+play_plant_decision_4 = {
     owned_planets_only = yes
     sound = event_administrative_work
     icon = decision_expel_population
@@ -408,6 +411,56 @@ ATR_plant_decision_4 = {
                 }
             }
         }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+#迁移少量人口
+play_plant_decision_pop = {
+    owned_planets_only = yes
+    sound = event_administrative_work
+    icon = decision_expel_population
+    resources = {
+        category = decisions
+        cost = {
+            # unity = 10
+            energy = 2000
+        }
+    }
+    effect = {
+        this = { save_event_target_as = move_2k_pop }
+        event_target:move_2k_pop = {
+            play_move_pop_all_effect = {
+                PLANET = this
+                AMOUNT = 2000
+            }
+        }
+        # hidden_effect = {
+        #     this = { save_event_target_as = move_2k_pop }
+        #     owner = {
+        #         every_owned_planet = {
+        #             limit = {
+        #                 not = { is_planet_class = pc_cosmogenesis_world }
+        #             }
+        #             every_owned_pop_group = {
+        #                 limit = {
+        #                     OR = {
+        #                         is_pop_category = civilian
+        #                         is_pop_category = maintenance_drone
+        #                     }
+        #                     not = { has_trait = trait_robot_digital_2 }
+        #                 }
+        #                 resettle_pop_group = {
+        #                     POP_GROUP = this
+        #                     PLANET = event_target:move_2k_pop
+        #                     AMOUNT = 2000
+        #                     # PERCENTAGE = 1
+        #                 }
+        #             }
+        #         }
+        #     }
+        # }
     }
     ai_weight = {
         weight = 0

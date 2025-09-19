@@ -1,0 +1,273 @@
+#研究速度加成
+country_research_speed = {
+    base = 0
+    add = modifier:all_technology_research_speed
+    # add = event_target:play_technology_country.modifier:all_technology_research_speed
+    add = 1
+}
+#超出的帝国规模
+country_empire_sprawl_over_cap = {
+    base = 0
+    add = trigger:empire_sprawl_over_cap
+    divide = 5
+    divide = 100
+    min = 1
+}
+#科技需求
+#基础55000，循环一次+5000
+#能量武器伤害
+play_technology_physics_research_1 = {
+    base = 55000
+    add = value:play_technology_physics_research_1_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_physics_research_1_need = {
+    add = play_technology_physics_research_1
+    mult = 5000
+}
+#能量武器射速
+play_technology_physics_research_2 = {
+    base = 55000 #基础需求
+    add = value:play_technology_physics_research_2_need #每次研究增加的点数需求
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_physics_research_2_need = {
+    add = play_technology_physics_research_2
+    mult = 5000
+}
+#能量币产出
+play_technology_physics_research_3 = {
+    base = 55000
+    add = value:play_technology_physics_research_3_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_physics_research_3_need = {
+    add = play_technology_physics_research_3
+    mult = 5000
+}
+#护盾承受值
+play_technology_physics_research_4 = {
+    base = 55000
+    add = value:play_technology_physics_research_4_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_physics_research_4_need = {
+    add = play_technology_physics_research_4
+    mult = 5000
+}
+#建筑花费减免 废弃
+play_technology_physics_research_5 = {
+    base = 55000
+    add = value:play_technology_physics_research_5_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_physics_research_5_need = {
+    add = play_technology_physics_research_5
+    mult = 5000
+}
+
+#社会学循环
+#舰载机伤害
+play_technology_society_research_1 = {
+    base = 55000
+    add = value:play_technology_society_research_1_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_1_need = {
+    add = play_technology_society_research_1
+    mult = 5000
+}
+#舰载机射速
+play_technology_society_research_2 = {
+    base = 55000
+    add = value:play_technology_society_research_2_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_2_need = {
+    add = play_technology_society_research_2
+    mult = 5000
+}
+#食物产出
+play_technology_society_research_3 = {
+    base = 55000
+    add = value:play_technology_society_research_3_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_3_need = {
+    add = play_technology_society_research_3
+    mult = 5000
+}
+#陆军伤害
+play_technology_society_research_4 = {
+    base = 55000
+    add = value:play_technology_society_research_4_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_4_need = {
+    add = play_technology_society_research_4
+    mult = 5000
+}
+#陆军生命
+play_technology_society_research_5 = {
+    base = 55000
+    add = value:play_technology_society_research_5_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_5_need = {
+    add = play_technology_society_research_5
+    mult = 5000
+}
+#领袖寿命
+play_technology_society_research_6 = {
+    base = 55000
+    add = value:play_technology_society_research_6_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_6_need = {
+    add = play_technology_society_research_6
+    mult = 5000
+}
+#每月凝聚力
+play_technology_society_research_7 = {
+    base = 55000
+    add = value:play_technology_society_research_7_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_society_research_7_need = {
+    add = play_technology_society_research_7
+    mult = 5000
+}
+
+#工程学循环
+#动能武器伤害
+play_technology_engineering_research_1 = {
+    base = 55000
+    add = value:play_technology_engineering_research_1_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_1_need = {
+    add = play_technology_engineering_research_1
+    mult = 5000
+}
+#动能武器射速
+play_technology_engineering_research_2 = {
+    base = 55000
+    add = value:play_technology_engineering_research_2_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_2_need = {
+    add = play_technology_engineering_research_2
+    mult = 5000
+}
+#爆炸武器伤害
+play_technology_engineering_research_3 = {
+    base = 55000
+    add = value:play_technology_engineering_research_3_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_3_need = {
+    add = play_technology_engineering_research_3
+    mult = 5000
+}
+#爆炸武器射速
+play_technology_engineering_research_4 = {
+    base = 55000
+    add = value:play_technology_engineering_research_4_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_4_need = {
+    add = play_technology_engineering_research_4
+    mult = 5000
+}
+#装甲值
+play_technology_engineering_research_5 = {
+    base = 55000
+    add = value:play_technology_engineering_research_5_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_5_need = {
+    add = play_technology_engineering_research_5
+    mult = 5000
+}
+#船体值
+play_technology_engineering_research_6 = {
+    base = 55000
+    add = value:play_technology_engineering_research_6_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_6_need = {
+    add = play_technology_engineering_research_6
+    mult = 5000
+}
+#矿物产出
+play_technology_engineering_research_7 = {
+    base = 55000
+    add = value:play_technology_engineering_research_7_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_7_need = {
+    add = play_technology_engineering_research_7
+    mult = 5000
+}
+#防御平台船体值
+play_technology_engineering_research_8 = {
+    base = 55000
+    add = value:play_technology_engineering_research_8_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_8_need = {
+    add = play_technology_engineering_research_8
+    mult = 5000
+}
+#防御平台伤害
+play_technology_engineering_research_9 = {
+    base = 55000
+    add = value:play_technology_engineering_research_9_need
+    divide = value:country_research_speed
+    mult = value:country_empire_sprawl_over_cap
+    round = yes
+}
+play_technology_engineering_research_9_need = {
+    add = play_technology_engineering_research_9
+    mult = 5000
+}

@@ -1,0 +1,34 @@
+play_technology_edicts = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    edict_cap_usage = 0
+    resources = {
+        category = edicts
+    }
+    effect = {
+        country_event = {
+            id = play_technology.100
+        }
+        set_timed_global_flag = {
+            flag = open_menu_ing
+            days = 10
+        }
+    }
+    allow = {
+        not = {
+            has_global_flag = open_menu_ing
+        }
+    }
+    potential = {
+        is_ai = no
+        # or = {
+        #     is_part_of_galactic_council = yes
+        #     and = {
+        #         any_country = {
+        #             is_crisis_faction = yes
+        #         }
+        #         is_multiplayer = no
+        #     }
+        # }
+    }
+}

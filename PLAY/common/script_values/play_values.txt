@@ -1,0 +1,15 @@
+#被选中星球人口数量,pop_group_size只能读到一个人口组
+#读取到了全国人口
+play_source_pop_group_all_value = {
+    # add = event_target:play_source_pop_group_all.trigger:pop_group_size
+    add = event_target:play_source_pop_group_all.pop_group.trigger:count_owned_pop_amount
+}
+#迁入人口数量
+play_move_pop_shuliang = {
+    #迁入后数量
+    add = event_target:move_pop_planet.trigger:count_owned_pop_amount
+    # add = event_target:play_resettled_pop_group_all.play_resettled_pop_group_all
+    #原有数量
+    # subtract = event_target:move_pop_planet.trigger:count_owned_pop_amount
+    subtract = event_target:move_pop_planet.move_pop_planet_variable
+}
