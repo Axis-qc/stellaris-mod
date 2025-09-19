@@ -43,6 +43,14 @@ PLAY_crisis_control_menu = {
     resources = {
         category = edicts
     }
+    #显示条件
+    potential = {
+        is_ai = no
+        or = {
+            has_technology = tech_titans
+            has_technology = tech_starbase_5
+        }
+    }
     effect = {
         country_event = {
             id = play_crisis_control_menu.1
@@ -56,18 +64,6 @@ PLAY_crisis_control_menu = {
         not = {
             has_global_flag = open_menu_ing
         }
-    }
-    potential = {
-        is_ai = no
-        # or = {
-        #     is_part_of_galactic_council = yes
-        #     and = {
-        #         any_country = {
-        #             is_crisis_faction = yes
-        #         }
-        #         is_multiplayer = no
-        #     }
-        # }
     }
 }
 
