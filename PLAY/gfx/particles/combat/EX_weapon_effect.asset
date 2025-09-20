@@ -988,132 +988,11 @@ particle = {
 }
 
 #测试实体激光
-#不靠谱
 particle = {
     name = "ex_jiguang_weapon"
     subsystem = {
-        name = "jiguang"           # 子系统名称
-        max_amount = 10            # 最大粒子数量：300个
-        slave_particles = 0         # 从属粒子数量：0
-        sort = "depth"              # 排序方式：深度排序（根据距离相机远近排序）
-        emitter_type = "point"      # 发射器类型：点发射器（从单个点发射粒子）
-        invert = no                 # 不反转发射方向
-        trail = no                  # 不生成轨迹
-        local_space = yes            # 不使用本地空间坐标系（使用世界坐标系）
-        billboard = no              # 粒子不始终面向摄像机（保持自身方向）
-        hide = no                   # 不隐藏此子系统
-        texture = {
-            file = "gfx/models/combat_items/EX_laser_diffuse2.dds"  # 纹理文件：激光扩散效果
-            x = 1                   # 纹理X轴分割数：1（不分割）
-            y = 1                   # 纹理Y轴分割数：1（不分割）
-            # shader = ParticleAlphaBlend
-            shader = "ParticleAdditive"  # 着色器：粒子Alpha混合（支持透明效果）
-        }
-        color = {
-            x = 200.000  # 红色分量：200（偏紫色调）
-            y = 180.000  # 绿色分量：180（偏紫色调）
-            z = 255.000  # 蓝色分量：255（偏紫色调）
-            alpha = 255.000,alpha  # 不透明度：255（完全不透明），使用alpha动画控制
-        }
-        position = {
-            x = 0.000               # 位置X坐标：1.0（相对于父级位置）
-            y = 0.000               # 位置Y坐标：0.0
-            z = 0.000               # 位置Z坐标：0.0
-        }
-        start = 0.000               # 开始时间：0秒（立即开始）
-        duration = -1.000           # 持续时间：-1（无限持续）
-        emitter_yaw = { 0.000 0.000 }  # 发射器偏航角：0度（无随机变化）
-        emitter_pitch = { 0.000 0.000 } # 发射器俯仰角：0度（无随机变化）
-        velocity_pitch = { 0.000 5.000 }  # 速度俯仰角范围：0到5度（轻微随机变化）
-        velocity_yaw = { 0.000 5.000 }    # 速度偏航角范围：0到5度（轻微随机变化）
-        velocity = { 0.000 0.000 }  # 速度大小：0（粒子不移动）
-        life = { 3.000 0.00 }       # 粒子生命周期：1秒（无随机变化）
-        emission = 1.000          # 发射率：200粒子/秒
-        size = 5.000,size           # 粒子大小：1.0，使用size动画控制
-        particle_yaw = { 90.0 0.0 }  # 粒子偏航角范围：90到180度（控制粒子朝向）
-        particle_pitch = { 0.000 0.000 } # 粒子俯仰角范围：90到10度（控制水平倾斜角度）
-        rotation_speed = { 0.000 0.000 }  # 旋转速度：0（粒子不旋转）
-    }
-    subsystem = {
-        name = "jiguang1"
-        max_amount = 10
-        slave_particles = 0
-        sort = "depth"
-        emitter_type = "point"
-        invert = no
-        trail = no
-        local_space = yes
-        billboard = no
-        hide = no
-        texture = {
-            file = "gfx/models/combat_items/EX_laser_diffuse2.dds"
-            x = 1
-            y = 1
-            shader = "ParticleAdditive"
-        }
-        color = {
-            x = 200.000  # 红色分量
-            y = 180.000  # 绿色分量
-            z = 255.000  # 蓝色分量
-            alpha = 255.000,alpha  # 不透明度(255为完全不透明)
-        }
-        position = {
-            x = 0.000
-            y = 0.000
-            z = 0.000
-        }
-        start = 0.000
-        duration = -1.000
-        emitter_yaw = { 0.000 0.000 }
-        emitter_pitch = { 0.000 0.000 }
-        velocity_pitch = { 0.000 5.000 }
-        velocity_yaw = { 0.000 5.000 }
-        velocity = { 0.000 0.000 }
-        life = { 3.00 0.00 }
-        emission = 1.000
-        size = 5.000,size
-        particle_yaw = { 90.0 0.0 }
-        particle_pitch = { 90.000 0.000 }
-        rotation_speed = { 0.000 0.000 }
-    }
-
-    animation = {
-        name = "size"
-        start = 0.000
-        duration = 0.010
-        repeat = no
-        minValue = 0.000
-        maxValue = 1.000
-        curve = {
-            0.000 0.000
-            0.500 0.500
-            1.000 1.000
-        }
-        op = "MUL"
-        time = "life"
-    }
-    animation = {
-        name = "alpha"
-        start = 0.000
-        duration = 1.000
-        repeat = no
-        minValue = 0.000
-        maxValue = 1.000
-        curve = {
-            0.000 0.000
-            0.100 1.000
-            0.600 1.000
-            0.800 0.000
-        }
-        op = "MUL"
-        time = "life"
-    }
-}
-particle = {
-    name = "ex_jiguang_weapon_1"
-    subsystem = {
-        name = "jiguang"           # 子系统名称
-        max_amount = 100            # 最大粒子数量：300个
+        name = "jiguang"           # 子系统名称：闪电效果
+        max_amount = 300            # 最大粒子数量：300个
         slave_particles = 0         # 从属粒子数量：0
         sort = "depth"              # 排序方式：深度排序（根据距离相机远近排序）
         emitter_type = "point"      # 发射器类型：点发射器（从单个点发射粒子）
@@ -1126,8 +1005,8 @@ particle = {
             file = "gfx/models/combat_items/EX_laser_diffuse2.dds"  # 纹理文件：激光扩散效果
             x = 1                   # 纹理X轴分割数：1（不分割）
             y = 1                   # 纹理Y轴分割数：1（不分割）
-            # shader = ParticleAlphaBlend
-            shader = "ParticleAdditive"  # 着色器：粒子Alpha混合（支持透明效果）
+            shader = ParticleAlphaBlend
+            # shader = "ParticleAdditive"  # 着色器：粒子Alpha混合（支持透明效果）
         }
         color = {
             x = 200.000  # 红色分量：200（偏紫色调）
@@ -1148,15 +1027,15 @@ particle = {
         velocity_yaw = { 0.000 5.000 }    # 速度偏航角范围：0到5度（轻微随机变化）
         velocity = { 0.000 0.000 }  # 速度大小：0（粒子不移动）
         life = { 3.000 0.00 }       # 粒子生命周期：1秒（无随机变化）
-        emission = 5.000          # 发射率：200粒子/秒
-        size = 5.000,size           # 粒子大小：1.0，使用size动画控制
+        emission = 200.000          # 发射率：200粒子/秒
+        size = 1.000,size           # 粒子大小：1.0，使用size动画控制
         particle_yaw = { 0.0 0.0 }  # 粒子偏航角范围：90到180度（控制粒子朝向）
         particle_pitch = { 0.000 0.000 } # 粒子俯仰角范围：90到10度（控制水平倾斜角度）
         rotation_speed = { 0.000 0.000 }  # 旋转速度：0（粒子不旋转）
     }
     subsystem = {
         name = "jiguang1"
-        max_amount = 100
+        max_amount = 300
         slave_particles = 0
         sort = "depth"
         emitter_type = "point"
@@ -1169,7 +1048,7 @@ particle = {
             file = "gfx/models/combat_items/EX_laser_diffuse2.dds"
             x = 1
             y = 1
-            shader = "ParticleAdditive"
+            shader = "ParticleAlphaBlend"
         }
         color = {
             x = 200.000  # 红色分量
@@ -1190,10 +1069,10 @@ particle = {
         velocity_yaw = { 0.000 5.000 }
         velocity = { 0.000 0.000 }
         life = { 3.00 0.00 }
-        emission = 5.000
-        size = 5.000,size
-        particle_yaw = { 0.0 0.0 }
-        particle_pitch = { 90.000 0.000 }
+        emission = 200.000
+        size = 1.000,size
+        particle_yaw = { 90.0 0.0 }
+        particle_pitch = { 0.000 0.000 }
         rotation_speed = { 0.000 0.000 }
     }
 
