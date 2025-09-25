@@ -10,6 +10,10 @@ country_event = {
                 is_ship_size = ww_ship_sizes
             }
         }
+        has_global_flag = yes_ww_ship_canhai
+        not = {
+            has_global_flag = no_ww_ship_canhai
+        }
     }
     immediate = {
         fromfrom = {
@@ -142,5 +146,28 @@ country_event = {
         }
         every_country = {
         }
+    }
+}
+
+country_event = {
+    id = ww_ship.11  # 事件ID
+    title = ww_ship11.title  # 事件标题
+    desc = ww_ship11.desc  # 事件描述
+    picture = GFX_evt_automated_dreadnought  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = yes
+    trigger = {
+        is_ai = no
+    }
+    option = {
+        name = ww_ship11.1  # 选项名称
+        set_global_flag = yes_ww_ship_canhai
+        trigger = {
+        }
+    }
+    option = {
+        name = ww_ship11.2  # 选项名称
+        set_global_flag = no_ww_ship_canhai
     }
 }

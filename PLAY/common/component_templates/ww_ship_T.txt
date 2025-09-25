@@ -1,0 +1,51 @@
+weapon_component_template = {
+    key = "ww_ship_T_components"
+    size = titanic
+    type = instant
+    prio_projectile = yes
+
+    icon = "GFX_ship_part_perdition_beam"
+    icon_frame = 1
+
+    firing_arc = 60.0
+    # use_ship_kill_target = no
+    damage = { min = 6000 max = 8000 } # 伤害范围
+    windup = { min = 1 max = 10 }       # 预热时间：1-10天
+    total_fire_time = 300               # 总射击时间
+    range = 250.0                       # 射程：250单位
+    accuracy = 0.8                      # 命中率
+    tracking = 0.1                      # 追踪
+
+    shield_damage = 2.0                 #护盾伤害
+    armor_damage = 2.0                  # 对装甲伤害：100%
+    hull_damage = 2.0                   # 对船体伤害：100%
+
+    power = -5000                       # 电力消耗：-5000
+
+    tags = { weapon_type_energy weapon_role_artillery t_slot }
+
+    #prerequisites = { "tech_titans" } #前置
+    component_set = "ww_ship_T_components"
+    projectile_gfx = "perdition_beam"
+    size_restriction = { ww_ship_sizes }
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = 500
+            rare_crystals = 7
+        }
+        upkeep = {
+            energy = 5
+            alloys = 1
+        }
+    }
+
+    target_weights = {
+        titan = 3
+        battleship = 2
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
