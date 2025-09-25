@@ -23,21 +23,75 @@ country_event = {
     id = planet_ck.101
     hide_window = yes
     is_triggered_only = yes
-    fire_only_once = yes
+    # fire_only_once = yes
     trigger = {
         is_ai = no
+        not = {
+            has_country_flag = xiyou_add
+        }
     }
     immediate = {
         random_system = {
             limit = {
                 is_owned_by = root
             }
-            random_system_planet = {
-                limit = {
-                    is_star = no
-                    is_colony = no
+            #选隔壁
+            random_neighbor_system = {
+                random_system_planet = {
+                    limit = {
+                        is_star = no
+                        is_colony = no
+                    }
+                    add_deposit = play_add_xiyou
                 }
-                add_deposit = play_add_xiyou
+            }
+        }
+        set_country_flag = xiyou_add
+    }
+}
+
+country_event = {
+    id = planet_ck.102
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+    }
+
+    immediate = {
+        #根据住房提供人口增速加成或减成
+        every_owned_planet = {
+            #获取可用住房
+            set_variable = {
+                which = planet_house
+                value = trigger:free_housing
+            }
+            #除100，一百住房增加0.02增长
+            divide_variable = {
+                which = planet_house
+                value = 100
+            }
+            #住房小于0时减少人口
+            if = {
+                limit = { check_variable = { which = planet_house value < 0 } }
+                multiply_variable = { which = planet_house value = 30 }
+                add_modifier = {
+                    modifier = planet_pop_speed_die
+                    mult = planet_house
+                    days = -1
+                }
+            }
+            if = {
+                limit = { check_variable = { which = planet_house value > 0 } }
+                remove_modifier = planet_pop_speed_die
+            }
+            add_modifier = {
+                modifier = planet_pop_speed_add
+                mult = planet_house
+                # multiplier =
+                # time_multiplier =
+                # clear_on_owner_change = yes
+                days = -1
             }
         }
     }
