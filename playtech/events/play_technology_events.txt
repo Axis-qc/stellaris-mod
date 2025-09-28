@@ -1,0 +1,818 @@
+namespace = play_technology
+#初始化
+country_event = {
+    id = play_technology.1
+    hide_window = yes
+    # fire_only_once = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        not = {
+            has_country_flag = ready_play_technology
+        }
+    }
+    immediate = {
+        # 物理学循环初始化
+        set_country_flag = play_technology_physics_research_1_no
+        set_country_flag = play_technology_physics_research_2_no
+        set_country_flag = play_technology_physics_research_3_no
+        set_country_flag = play_technology_physics_research_4_no
+        set_country_flag = play_technology_physics_research_5_no
+        # 社会学循环初始化
+        set_country_flag = play_technology_society_research_1_no
+        set_country_flag = play_technology_society_research_2_no
+        set_country_flag = play_technology_society_research_3_no
+        set_country_flag = play_technology_society_research_4_no
+        set_country_flag = play_technology_society_research_5_no
+        set_country_flag = play_technology_society_research_6_no
+        set_country_flag = play_technology_society_research_7_no
+        # 工程学循环初始化
+        set_country_flag = play_technology_engineering_research_1_no
+        set_country_flag = play_technology_engineering_research_2_no
+        set_country_flag = play_technology_engineering_research_3_no
+        set_country_flag = play_technology_engineering_research_4_no
+        set_country_flag = play_technology_engineering_research_5_no
+        set_country_flag = play_technology_engineering_research_6_no
+        set_country_flag = play_technology_engineering_research_7_no
+        set_country_flag = play_technology_engineering_research_8_no
+        set_country_flag = play_technology_engineering_research_9_no
+
+        add_relic = play_technology_relics
+        # save_global_event_target_as = play_technology_country
+        set_country_flag = ready_play_technology
+    }
+}
+#主界面
+country_event = {
+    id = play_technology.100
+    is_triggered_only = yes
+    picture = GFX_evt_rare_tech_cache
+    hide_window = no
+    title = play_technology.100.title
+    desc = play_technology.100.desc
+
+    option = {
+        name = no_xunhuan
+        default_hide_option = yes
+        remove_global_flag = open_menu_ing
+    }
+    option = {
+        name = policy_play_technology_physics_research
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        name = policy_play_technology_society_research
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        name = policy_play_technology_engineering_research
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        name = fixbug
+        remove_country_flag = ready_play_technology
+        country_event = { id = play_technology.100 }
+        country_event = { id = play_technology.1 }
+    }
+}
+#物理学
+country_event = {
+    id = play_technology.101
+    is_triggered_only = yes
+    picture = GFX_evt_rare_tech_cache
+    hide_window = no
+    title = policy_play_technology_physics_research
+    desc = policy_play_technology_physics_research_desc
+    option = {
+        name = back_technology
+        country_event = { id = play_technology.100 }
+    }
+    #能量伤害
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_1_no }
+        name = play_technology_physics_research_1_no
+        remove_country_flag = play_technology_physics_research_1_no
+        set_country_flag = play_technology_physics_research_1
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_1 }
+        name = play_technology_physics_research_1
+        custom_tooltip = play_technology_physics_research_1_desc
+        remove_country_flag = play_technology_physics_research_1
+        set_country_flag = play_technology_physics_research_1_no
+        country_event = { id = play_technology.101 }
+    }
+    #能量射速
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_2_no }
+        name = play_technology_physics_research_2_no
+        remove_country_flag = play_technology_physics_research_2_no
+        set_country_flag = play_technology_physics_research_2
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_2 }
+        name = play_technology_physics_research_2
+        custom_tooltip = play_technology_physics_research_2_desc
+        remove_country_flag = play_technology_physics_research_2
+        set_country_flag = play_technology_physics_research_2_no
+        country_event = { id = play_technology.101 }
+    }
+    #能量币
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_3_no }
+        name = play_technology_physics_research_3_no
+        remove_country_flag = play_technology_physics_research_3_no
+        set_country_flag = play_technology_physics_research_3
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_3 }
+        name = play_technology_physics_research_3
+        custom_tooltip = play_technology_physics_research_3_desc
+        remove_country_flag = play_technology_physics_research_3
+        set_country_flag = play_technology_physics_research_3_no
+        country_event = { id = play_technology.101 }
+    }
+    #护盾
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_4_no }
+        name = play_technology_physics_research_4_no
+        remove_country_flag = play_technology_physics_research_4_no
+        set_country_flag = play_technology_physics_research_4
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_physics_research_4 }
+        name = play_technology_physics_research_4
+        custom_tooltip = play_technology_physics_research_4_desc
+        remove_country_flag = play_technology_physics_research_4
+        set_country_flag = play_technology_physics_research_4_no
+        country_event = { id = play_technology.101 }
+    }
+    #建筑花费 好像不需要，后期又不差这点资源
+    option = {
+        trigger = {
+            always = no
+            has_country_flag = play_technology_physics_research_5_no
+        }
+        name = play_technology_physics_research_5_no
+        remove_country_flag = play_technology_physics_research_5_no
+        set_country_flag = play_technology_physics_research_5
+        country_event = { id = play_technology.101 }
+    }
+    option = {
+        trigger = {
+            always = no
+            has_country_flag = play_technology_physics_research_5
+        }
+        name = play_technology_physics_research_5
+        custom_tooltip = play_technology_physics_research_5_desc
+        remove_country_flag = play_technology_physics_research_5
+        set_country_flag = play_technology_physics_research_5_no
+        country_event = { id = play_technology.101 }
+    }
+}
+#社会学
+country_event = {
+    id = play_technology.102
+    is_triggered_only = yes
+    picture = GFX_evt_rare_tech_cache
+    hide_window = no
+    title = policy_play_technology_society_research
+    desc = policy_play_technology_society_research_desc
+    option = {
+        name = back_technology
+        country_event = { id = play_technology.100 }
+    }
+    #舰载机伤害
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_1_no }
+        name = play_technology_society_research_1_no
+        remove_country_flag = play_technology_society_research_1_no
+        set_country_flag = play_technology_society_research_1
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_1 }
+        name = play_technology_society_research_1
+        custom_tooltip = play_technology_society_research_1_desc
+        remove_country_flag = play_technology_society_research_1
+        set_country_flag = play_technology_society_research_1_no
+        country_event = { id = play_technology.102 }
+    }
+    #舰载机射速
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_2_no }
+        name = play_technology_society_research_2_no
+        remove_country_flag = play_technology_society_research_2_no
+        set_country_flag = play_technology_society_research_2
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_2 }
+        name = play_technology_society_research_2
+        custom_tooltip = play_technology_society_research_2_desc
+        remove_country_flag = play_technology_society_research_2
+        set_country_flag = play_technology_society_research_2_no
+        country_event = { id = play_technology.102 }
+    }
+    #食物产出
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_3_no }
+        name = play_technology_society_research_3_no
+        remove_country_flag = play_technology_society_research_3_no
+        set_country_flag = play_technology_society_research_3
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_3 }
+        name = play_technology_society_research_3
+        custom_tooltip = play_technology_society_research_3_desc
+        remove_country_flag = play_technology_society_research_3
+        set_country_flag = play_technology_society_research_3_no
+        country_event = { id = play_technology.102 }
+    }
+    #陆军伤害
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_4_no }
+        name = play_technology_society_research_4_no
+        remove_country_flag = play_technology_society_research_4_no
+        set_country_flag = play_technology_society_research_4
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_4 }
+        name = play_technology_society_research_4
+        custom_tooltip = play_technology_society_research_4_desc
+        remove_country_flag = play_technology_society_research_4
+        set_country_flag = play_technology_society_research_4_no
+        country_event = { id = play_technology.102 }
+    }
+    #陆军生命
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_5_no }
+        name = play_technology_society_research_5_no
+        remove_country_flag = play_technology_society_research_5_no
+        set_country_flag = play_technology_society_research_5
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_5 }
+        name = play_technology_society_research_5
+        custom_tooltip = play_technology_society_research_5_desc
+        remove_country_flag = play_technology_society_research_5
+        set_country_flag = play_technology_society_research_5_no
+        country_event = { id = play_technology.102 }
+    }
+    #领袖寿命
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_6_no }
+        name = play_technology_society_research_6_no
+        remove_country_flag = play_technology_society_research_6_no
+        set_country_flag = play_technology_society_research_6
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_6 }
+        name = play_technology_society_research_6
+        custom_tooltip = play_technology_society_research_6_desc
+        remove_country_flag = play_technology_society_research_6
+        set_country_flag = play_technology_society_research_6_no
+        country_event = { id = play_technology.102 }
+    }
+    #每月凝聚力
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_7_no }
+        name = play_technology_society_research_7_no
+        remove_country_flag = play_technology_society_research_7_no
+        set_country_flag = play_technology_society_research_7
+        country_event = { id = play_technology.102 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_society_research_7 }
+        name = play_technology_society_research_7
+        custom_tooltip = play_technology_society_research_7_desc
+        remove_country_flag = play_technology_society_research_7
+        set_country_flag = play_technology_society_research_7_no
+        country_event = { id = play_technology.102 }
+    }
+}
+#工程学
+country_event = {
+    id = play_technology.103
+    is_triggered_only = yes
+    picture = GFX_evt_rare_tech_cache
+    hide_window = no
+    title = policy_play_technology_engineering_research
+    desc = policy_play_technology_engineering_research_desc
+    option = {
+        name = back_technology
+        country_event = { id = play_technology.100 }
+    }
+    #动能武器伤害
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_1_no }
+        name = play_technology_engineering_research_1_no
+        remove_country_flag = play_technology_engineering_research_1_no
+        set_country_flag = play_technology_engineering_research_1
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_1 }
+        name = play_technology_engineering_research_1
+        custom_tooltip = play_technology_engineering_research_1_desc
+        remove_country_flag = play_technology_engineering_research_1
+        set_country_flag = play_technology_engineering_research_1_no
+        country_event = { id = play_technology.103 }
+    }
+    #动能武器射速
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_2_no }
+        name = play_technology_engineering_research_2_no
+        remove_country_flag = play_technology_engineering_research_2_no
+        set_country_flag = play_technology_engineering_research_2
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_2 }
+        name = play_technology_engineering_research_2
+        custom_tooltip = play_technology_engineering_research_2_desc
+        remove_country_flag = play_technology_engineering_research_2
+        set_country_flag = play_technology_engineering_research_2_no
+        country_event = { id = play_technology.103 }
+    }
+    #爆炸武器伤害
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_3_no }
+        name = play_technology_engineering_research_3_no
+        remove_country_flag = play_technology_engineering_research_3_no
+        set_country_flag = play_technology_engineering_research_3
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_3 }
+        name = play_technology_engineering_research_3
+        custom_tooltip = play_technology_engineering_research_3_desc
+        remove_country_flag = play_technology_engineering_research_3
+        set_country_flag = play_technology_engineering_research_3_no
+        country_event = { id = play_technology.103 }
+    }
+    #爆炸武器射速
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_4_no }
+        name = play_technology_engineering_research_4_no
+        remove_country_flag = play_technology_engineering_research_4_no
+        set_country_flag = play_technology_engineering_research_4
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_4 }
+        name = play_technology_engineering_research_4
+        custom_tooltip = play_technology_engineering_research_4_desc
+        remove_country_flag = play_technology_engineering_research_4
+        set_country_flag = play_technology_engineering_research_4_no
+        country_event = { id = play_technology.103 }
+    }
+    #装甲值
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_5_no }
+        name = play_technology_engineering_research_5_no
+        remove_country_flag = play_technology_engineering_research_5_no
+        set_country_flag = play_technology_engineering_research_5
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_5 }
+        name = play_technology_engineering_research_5
+        custom_tooltip = play_technology_engineering_research_5_desc
+        remove_country_flag = play_technology_engineering_research_5
+        set_country_flag = play_technology_engineering_research_5_no
+        country_event = { id = play_technology.103 }
+    }
+    #船体值
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_6_no }
+        name = play_technology_engineering_research_6_no
+        remove_country_flag = play_technology_engineering_research_6_no
+        set_country_flag = play_technology_engineering_research_6
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_6 }
+        name = play_technology_engineering_research_6
+        custom_tooltip = play_technology_engineering_research_6_desc
+        remove_country_flag = play_technology_engineering_research_6
+        set_country_flag = play_technology_engineering_research_6_no
+        country_event = { id = play_technology.103 }
+    }
+    #矿物产出
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_7_no }
+        name = play_technology_engineering_research_7_no
+        remove_country_flag = play_technology_engineering_research_7_no
+        set_country_flag = play_technology_engineering_research_7
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_7 }
+        name = play_technology_engineering_research_7
+        custom_tooltip = play_technology_engineering_research_7_desc
+        remove_country_flag = play_technology_engineering_research_7
+        set_country_flag = play_technology_engineering_research_7_no
+        country_event = { id = play_technology.103 }
+    }
+    #防御平台船体值
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_8_no }
+        name = play_technology_engineering_research_8_no
+        remove_country_flag = play_technology_engineering_research_8_no
+        set_country_flag = play_technology_engineering_research_8
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_8 }
+        name = play_technology_engineering_research_8
+        custom_tooltip = play_technology_engineering_research_8_desc
+        remove_country_flag = play_technology_engineering_research_8
+        set_country_flag = play_technology_engineering_research_8_no
+        country_event = { id = play_technology.103 }
+    }
+    #防御平台伤害
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_9_no }
+        name = play_technology_engineering_research_9_no
+        remove_country_flag = play_technology_engineering_research_9_no
+        set_country_flag = play_technology_engineering_research_9
+        country_event = { id = play_technology.103 }
+    }
+    option = {
+        trigger = { has_country_flag = play_technology_engineering_research_9 }
+        name = play_technology_engineering_research_9
+        custom_tooltip = play_technology_engineering_research_9_desc
+        remove_country_flag = play_technology_engineering_research_9
+        set_country_flag = play_technology_engineering_research_9_no
+        country_event = { id = play_technology.103 }
+    }
+}
+#循环本体
+country_event = {
+    id = play_technology.1000
+    hide_window = yes
+
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        or = {
+            has_country_flag = play_technology_physics_research_1
+            has_country_flag = play_technology_physics_research_2
+            has_country_flag = play_technology_physics_research_3
+            has_country_flag = play_technology_physics_research_4
+            # 社会学标志
+            has_country_flag = play_technology_society_research_1
+            has_country_flag = play_technology_society_research_2
+            has_country_flag = play_technology_society_research_3
+            has_country_flag = play_technology_society_research_4
+            has_country_flag = play_technology_society_research_5
+            has_country_flag = play_technology_society_research_6
+            has_country_flag = play_technology_society_research_7
+            # 工程学标志
+            has_country_flag = play_technology_engineering_research_1
+            has_country_flag = play_technology_engineering_research_2
+            has_country_flag = play_technology_engineering_research_3
+            has_country_flag = play_technology_engineering_research_4
+            has_country_flag = play_technology_engineering_research_5
+            has_country_flag = play_technology_engineering_research_6
+            has_country_flag = play_technology_engineering_research_7
+            has_country_flag = play_technology_engineering_research_8
+            has_country_flag = play_technology_engineering_research_9
+        }
+    }
+
+    immediate = {
+        #物理学
+        #能量武器伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_physics_research_1
+                resource_stockpile_compare = {
+                    resource = physics_research
+                    value >= value:play_technology_physics_research_1
+                }
+            }
+            #循环加一
+            change_variable = { which = play_technology_physics_research_1 value = 1 }
+            add_resource = {
+                physics_research = -1
+                mult = value:play_technology_physics_research_1
+            }
+        }
+        #能量武器射速
+        if = {
+            limit = {
+                has_country_flag = play_technology_physics_research_2
+                resource_stockpile_compare = {
+                    resource = physics_research
+                    value >= value:play_technology_physics_research_2
+                }
+            }
+            #循环加一
+            change_variable = { which = play_technology_physics_research_2 value = 1 }
+            add_resource = {
+                physics_research = -1
+                mult = value:play_technology_physics_research_2
+            }
+        }
+        #能量币
+        if = {
+            limit = {
+                has_country_flag = play_technology_physics_research_3
+                resource_stockpile_compare = {
+                    resource = physics_research
+                    value >= value:play_technology_physics_research_3
+                }
+            }
+            #循环加一
+            change_variable = { which = play_technology_physics_research_3 value = 1 }
+            add_resource = {
+                physics_research = -1
+                mult = value:play_technology_physics_research_3
+            }
+        }
+        #护盾承受值
+        if = {
+            limit = {
+                has_country_flag = play_technology_physics_research_4
+                resource_stockpile_compare = {
+                    resource = physics_research
+                    value >= value:play_technology_physics_research_4
+                }
+            }
+            #循环加一
+            change_variable = { which = play_technology_physics_research_4 value = 1 }
+            add_resource = {
+                physics_research = -1
+                mult = value:play_technology_physics_research_4
+            }
+        }
+        #建筑花费 废弃
+        if = {
+            limit = {
+                has_country_flag = play_technology_physics_research_5
+                resource_stockpile_compare = {
+                    resource = physics_research
+                    value >= value:play_technology_physics_research_5
+                }
+            }
+            #循环加一
+            change_variable = { which = play_technology_physics_research_5 value = 1 }
+            add_resource = {
+                physics_research = -1
+                mult = value:play_technology_physics_research_5
+            }
+        }
+        #社会学
+        #舰载机伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_1
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_1
+                }
+            }
+            change_variable = { which = play_technology_society_research_1 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_1
+            }
+        }
+        #舰载机射速
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_2
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_2
+                }
+            }
+            change_variable = { which = play_technology_society_research_2 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_2
+            }
+        }
+        #食物产出
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_3
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_3
+                }
+            }
+            change_variable = { which = play_technology_society_research_3 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_3
+            }
+        }
+        #陆军伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_4
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_4
+                }
+            }
+            change_variable = { which = play_technology_society_research_4 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_4
+            }
+        }
+        #陆军生命
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_5
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_5
+                }
+            }
+            change_variable = { which = play_technology_society_research_5 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_5
+            }
+        }
+        #领袖寿命
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_6
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_6
+                }
+            }
+            change_variable = { which = play_technology_society_research_6 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_6
+            }
+        }
+        #每月凝聚力
+        if = {
+            limit = {
+                has_country_flag = play_technology_society_research_7
+                resource_stockpile_compare = {
+                    resource = society_research
+                    value >= value:play_technology_society_research_7
+                }
+            }
+            change_variable = { which = play_technology_society_research_7 value = 1 }
+            add_resource = {
+                society_research = -1
+                mult = value:play_technology_society_research_7
+            }
+        }
+        #工程学
+        #动能武器伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_1
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_1
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_1 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_1
+            }
+        }
+        #动能武器射速
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_2
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_2
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_2 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_2
+            }
+        }
+        #爆炸武器伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_3
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_3
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_3 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_3
+            }
+        }
+        #爆炸武器射速
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_4
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_4
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_4 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_4
+            }
+        }
+        #装甲值
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_5
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_5
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_5 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_5
+            }
+        }
+        #船体值
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_6
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_6
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_6 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_6
+            }
+        }
+        #矿物产出
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_7
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_7
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_7 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_7
+            }
+        }
+        #防御平台船体值
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_8
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_8
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_8 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_8
+            }
+        }
+        #防御平台伤害
+        if = {
+            limit = {
+                has_country_flag = play_technology_engineering_research_9
+                resource_stockpile_compare = {
+                    resource = engineering_research
+                    value >= value:play_technology_engineering_research_9
+                }
+            }
+            change_variable = { which = play_technology_engineering_research_9 value = 1 }
+            add_resource = {
+                engineering_research = -1
+                mult = value:play_technology_engineering_research_9
+            }
+        }
+    }
+}
