@@ -10,9 +10,9 @@ weapon_component_template = {
     firing_arc = 60.0
     # use_ship_kill_target = no
     damage = { min = 6000 max = 8000 } # 伤害范围
-    windup = { min = 1 max = 10 }       # 预热时间：1-10天
-    total_fire_time = 300               # 总射击时间
-    range = 250.0                       # 射程：250单位
+    windup = { min = 245 max = 345 }       #(windup.min + windup.max) / 20 + total_fire_time / 10 = 实际开火时间，单位为天
+    total_fire_time = 5               # 总射击时间
+    range = 200.0                       # 射程：250单位
     accuracy = 0.8                      # 命中率
     tracking = 0.1                      # 追踪
 
