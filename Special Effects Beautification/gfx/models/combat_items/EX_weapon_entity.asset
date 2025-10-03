@@ -66,3 +66,24 @@ entity = {
     }
     scale = 1
 }
+
+#实弹点防御
+entity = {
+    name = "flak_pd_3_entity"
+    pdxmesh = "no_weapon_entity"
+
+    default_state = idle
+    state = {
+        name = "idle"
+        state_time = 10 looping = no
+        event = { time = 0 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.1 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.2 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.3 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.4 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.5 particle = "flak_pd_3_effect" keep_particle = yes }
+        event = { time = 0.6 particle = "flak_pd_3_effect" keep_particle = yes }
+    }
+
+    scale = 1
+}
