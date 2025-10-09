@@ -215,3 +215,61 @@ country_event = {
         set_global_flag = play_open_planet_pop
     }
 }
+
+country_event = {
+    id = planet_ck.104  # 事件ID
+    title = planet_ck104.title  # 事件标题
+    desc = planet_ck104.desc  # 事件描述
+    picture = GFX_evt_big_landing_ship  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = yes
+    trigger = {
+        is_ai = no
+    }
+    immediate = {
+        every_country = {
+            limit = {
+                has_origin = origin_hegemon
+            }
+            destroy_country = yes
+        }
+    }
+    option = {
+        name = planet_ck104.1  # 选项名称
+        set_timed_global_flag = { flag = yes_wgz years = 50 }
+    }
+    option = {
+        name = planet_ck104.2  # 选项名称
+        # set_global_flag = no_wgz
+    }
+}
+
+country_event = {
+    id = planet_ck.105  # 事件ID
+    title = planet_ck105.title  # 事件标题
+    desc = planet_ck105.desc  # 事件描述
+    picture = GFX_evt_big_landing_ship  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    # fire_only_once = yes
+    trigger = {
+        is_ai = no
+    }
+    option = {
+        name = planet_ck105.1  # 选项名称
+        event_target:war_2 = {
+            set_subject_of = {
+                who = event_target:war_1
+                preset = preset_tributary
+            }
+        }
+    }
+    option = {
+        name = planet_ck105.2  # 选项名称
+        event_target:war_2 = {
+            # kill_all_pop = yes
+            destroy_country = yes
+        }
+    }
+}

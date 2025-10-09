@@ -202,3 +202,55 @@ play_pop_to_root = {
     }
 }
 
+play_war = {
+    length = 10
+    icon = "GFX_edict_type_policy"
+    #启动条件
+    allow = {
+        always = yes
+    }
+    #显示条件
+    potential = {
+        has_global_flag = yes_wgz
+        this = {
+            is_at_war = yes
+        }
+    }
+    resources = {
+        category = edicts
+        #
+        # cost = {
+        #     energy = 1
+        # }
+    }
+
+    effect = {
+        random_war = {
+            # limit = {
+            #     from = { is_ai = no }
+            # }
+            # every_war_participant = {
+            #     prev = {
+            #         # 从当前战争中移除该参与者
+            #         remove_war_participant = prev
+            #     }
+            # }
+            #我方
+            random_defender = {
+                limit = { is_ai = no }
+                save_global_event_target_as = war_1
+            }
+            #对方
+            random_attacker = {
+                limit = { is_country_type = default }
+                save_global_event_target_as = war_2
+            }
+            remove_war_participant = event_target:cs_1
+        }
+        # country_event = { id = planet_ck.105 }
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
