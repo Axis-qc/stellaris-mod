@@ -53,6 +53,7 @@ country_event = {
     }
 }
 
+#星球承载力
 country_event = {
     id = planet_ck.102
     hide_window = yes
@@ -228,16 +229,16 @@ country_event = {
         is_ai = no
     }
     immediate = {
-        every_country = {
-            limit = {
-                has_origin = origin_hegemon
-            }
-            destroy_country = yes
-        }
     }
     option = {
         name = planet_ck104.1  # 选项名称
-        set_timed_global_flag = { flag = yes_wgz years = 50 }
+        set_timed_global_flag = { flag = yes_wgz years = 40 }
+        every_country = {
+            limit = {
+                has_origin = origin_hegemon_npc
+            }
+            destroy_country = yes
+        }
     }
     option = {
         name = planet_ck104.2  # 选项名称
