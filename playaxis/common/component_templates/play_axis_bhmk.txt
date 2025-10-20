@@ -27,8 +27,41 @@ utility_component_template = {
 
         graphics = {
             ship_effect = {
-                entity = "ship_aura_negative_entity"
+                entity = ""
                 dynamic_scale = no
+            }
+        }
+    }
+    friendly_aura = {
+        name = FY_ship_self_buff
+        limit = {
+            is_ship_size = play_axis_starbase_01
+        }
+        system_wide = yes
+        radius = 300 #神秘的范围，不知道什么用
+        apply_on = fleets
+        stack_info = {
+            id = ww_ship_self_buff
+            priority = 1
+        }
+        modifier = {
+            ship_armor_hardening_add = 1
+            ship_shield_hardening_add = 1
+            ship_damage_reduction_add = 100
+            ship_damage_reduction_mult = 1
+        }
+        graphics = {
+            area_effect = {
+                entity = "circle_area_entity"
+                dynamic_scale = yes
+            }
+            # ship_effect = {
+            #     entity = "ww_ship_fazhen_effect"
+            #     dynamic_scale = yes
+            # }
+            ship_effect = {
+                entity = "EX_ship_rainbow_effect"
+                dynamic_scale = yes
             }
         }
     }

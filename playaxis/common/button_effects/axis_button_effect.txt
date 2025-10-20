@@ -1,0 +1,274 @@
+# 作用域类型根据选择的对象而变化
+# This = 选中的对象（如果是星球、舰船、舰队、星系、环境对象、巨型结构、联邦、间谍行动、考古遗址或第一次接触）或玩家国家
+# From = 玩家国家
+# 注意：建议在allow触发器中检查is_scope_type = planet/或其他类型，因为如果同时打开多个界面，可能会混淆作用域
+
+# 在.gui文件中的使用示例：
+#	effectbuttonType = {
+#		name = button_effect_test                    # 按钮名称
+#		quadTextureSprite = GFX_fleetview_destroy_fleet  # 按钮纹理图片
+#		position = { x = 283 y = 0 }                # 按钮位置坐标
+#		scale = 1                                   # 缩放比例
+#		orientation = UPPER_LEFT                    # 对齐方向：左上
+#		effect = example_button_effect              # 按钮点击时执行的效果
+#	}
+
+axis_button_effect = {
+    potential = {
+        always = no
+    }
+    allow = {
+        always = no
+    }
+
+    effect = {
+        add_monthly_resource_mult = {
+            resource = minerals
+            value = 5
+            min = 5
+            max = 500
+        }
+    }
+}
+axis_button_back_effect = {
+    potential = {
+        always = no
+    }
+    allow = {
+        always = no
+    }
+
+    effect = {
+        hidden_effect = {
+            country_event = { id = ammunition.100 }
+            event_target:play_axis_country = {
+                every_owned_fleet = {
+                    remove_fleet_flag = come_ship_1
+                    remove_fleet_flag = come_ship_2
+                    remove_fleet_flag = come_ship_3
+                    remove_fleet_flag = come_ship_4
+                    remove_fleet_flag = come_ship_5
+                    remove_fleet_flag = come_ship_6
+                }
+            }
+            #clear_global_event_target = come_ship_1
+            #clear_global_event_target = come_ship_2
+            #clear_global_event_target = come_ship_3
+            #clear_global_event_target = come_ship_4
+            #clear_global_event_target = come_ship_5
+            #clear_global_event_target = come_ship_6
+        }
+    }
+}
+
+show_fleet_effect = {
+    allow = {
+        hidden_trigger = {
+            always = yes
+        }
+    }
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    effect = {
+    }
+}
+#查看详情
+axis_fleet_effect_1 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        event_target:caozuo_fleet_ing = {
+            give_fleet = {
+                controller = root
+                days = 10
+            }
+            set_timed_fleet_flag = {
+                flag = fleet_on_loan_1
+                days = 10
+            }
+        }
+    }
+}
+#提供舰船
+axis_fleet_effect_2 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        if = {
+            limit = {
+                has_country_flag = axis_fleet_1
+            }
+            NOT = { has_global_flag = has_axis_fleet_1 }
+        }
+        this = {
+            is_scope_type = fleet
+            NOR = {
+                has_fleet_flag = axis_fleet_1
+                has_fleet_flag = axis_fleet_2
+                has_fleet_flag = axis_fleet_3
+                has_fleet_flag = axis_fleet_4
+                has_fleet_flag = axis_fleet_5
+                has_fleet_flag = axis_fleet_6
+            }
+        }
+        from = {
+            OR = {
+                has_country_flag = axis_fleet_1
+                has_country_flag = axis_fleet_2
+                has_country_flag = axis_fleet_3
+                has_country_flag = axis_fleet_4
+                has_country_flag = axis_fleet_5
+                has_country_flag = axis_fleet_6
+            }
+        }
+        #忘了这个是干什么的了
+        # NOT = {
+        #     has_global_flag = go_ship_1
+        # }
+    }
+    effect = {
+        this = {
+            if = {
+                limit = {
+                    from = {
+                        has_country_flag = axis_fleet_1
+                    }
+                }
+                save_global_event_target_as = axis_fleet_1
+                set_fleet_flag = axis_fleet_1
+                #标记位置已经被占用
+                from = {
+                    set_global_flag = has_axis_fleet_1
+                }
+            }
+            if = {
+                limit = {
+                    from = {
+                        has_country_flag = axis_fleet_2
+                    }
+                }
+                save_global_event_target_as = axis_fleet_2
+                set_fleet_flag = axis_fleet_2
+                #标记位置已经被占用
+                from = {
+                    set_global_flag = has_axis_fleet_2
+                }
+            }
+        }
+        from = {
+
+        }
+        root = {
+        }
+    }
+}
+#清理位置
+axis_fleet_effect_3 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        from = {
+            if = {
+                limit = { has_country_flag = axis_fleet_1 }
+                event_target:axis_fleet_1 = {
+                    remove_fleet_flag = axis_fleet_1
+                }
+                clear_global_event_target = axis_fleet_1
+                remove_global_flag = has_axis_fleet_1
+            }
+            if = {
+                limit = { has_country_flag = axis_fleet_2 }
+                event_target:axis_fleet_2 = {
+                    remove_fleet_flag = axis_fleet_2
+                }
+                clear_global_event_target = axis_fleet_2
+                remove_global_flag = has_axis_fleet_2
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+}
+#租用舰队
+axis_fleet_effect_4 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        event_target:caozuo_fleet_ing = {
+            # not = {
+            #     has_fleet_flag = fleet_on_loan_1
+            # }
+            not = {
+                is_owned_by = root
+            }
+        }
+    }
+    effect = {
+        event_target:caozuo_fleet_ing = {
+            give_fleet = {
+                controller = root
+                days = 3600
+            }
+            #用不上
+            # set_timed_fleet_flag = {
+            #     flag = fleet_on_loan_1
+            #     days = 3600
+            # }
+        }
+        root = {
+            add_resource = {
+                # 添加资源
+                energy = -1
+                # mult = value:come_ship_money_1  # 乘以战斗力
+                mult = 100
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+}
+#购买舰队
+axis_fleet_effect_5 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        event_target:caozuo_fleet_ing = {
+            # not = {
+            #     has_fleet_flag = fleet_on_loan_1
+            # }
+            not = {
+                is_owned_by = root
+            }
+        }
+    }
+    effect = {
+        event_target:caozuo_fleet_ing = {
+            set_owner = root
+        }
+        root = {
+            add_resource = {
+                # 添加资源
+                energy = -1
+                # mult = value:come_ship_money_1  # 乘以战斗力
+                mult = 100
+            }
+            country_event = { id = ammunition.103 }
+        }
+    }
+}

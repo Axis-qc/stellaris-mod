@@ -1,0 +1,595 @@
+guiTypes = {
+    containerWindowType = {
+        # 定义一个容器窗口类型，用于显示特定选项的界面元素
+        name = "play_axis_option"
+        position = { x = 0 y = 0 }  # 容器窗口在父容器中的位置，这里设置为(0,0)，即左上角
+        size = { width = 480 height = 33 }  # 容器窗口的尺寸，宽度为388，高度为30
+        moveable = no  # 设置容器窗口是否可移动，这里设置为不可移动
+
+        buttonType = {
+            # 定义一个按钮类型，用于选项按钮
+            name = "option_button"
+            quadTextureSprite = "GFX_event_button_452_caravaneer"  # 按钮的纹理图片
+            position = { x = 0 y = 8 }  # 按钮在容器窗口中的位置，y坐标8表示向下偏移8个单位
+            font = "play_16b"  # 按钮上文字的字体
+            text = "OPTION_TEXT"  # 按钮上显示的文字
+        }
+
+        OverlappingElementsBoxType = {
+            # 定义一个重叠元素框类型，用于触发器图标
+            name = "trigger_icons"
+            position = { x = 0 y = 10 }  # 重叠元素框在容器窗口中的位置，y坐标10表示向下偏移10个单位
+            size = { x = 65 y = 28 }  # 重叠元素框的尺寸，宽度为65，高度为28
+        }
+
+        OverlappingElementsBoxType = {
+            # 定义另一个重叠元素框类型，用于效果图标
+            name = "effect_icons"
+            position = { x = 370 y = 8 }  # 重叠元素框在容器窗口中的位置，x坐标370表示向右偏移370个单位
+            size = { x = 72 y = 28 }  # 重叠元素框的尺寸，宽度为72，高度为28
+            format = right  # 设置元素框的格式，这里设置为右对齐
+        }
+    }
+    #废弃
+    containerWindowType = {
+        # 定义一个容器窗口类型，用于显示特定选项的界面元素
+        name = "nnnnnno_play_axis_option_1"
+        position = { x = 0 y = 5 }  # 容器窗口在父容器中的位置，这里设置为(0,0)，即左上角
+        size = { width = 480 height = 33 }  # 容器窗口的尺寸，宽度为388，高度为30
+        moveable = no  # 设置容器窗口是否可移动，这里设置为不可移动
+        #下拉菜单的配置
+        dropDownBoxType = {
+            name = "nnnnnno_play_axis_fleet_menu"
+            position = { x = 0 y = 0 } # 位置坐标
+            size = { width = 200 height = 50 } #宽度和高度
+
+            # 下拉菜单的背景配置
+            # background = {
+            #     name = "grp_dropdown_menu_2_bg" # 下拉菜单背景的名称标识
+            #     spriteType = "GFX_button_34_34_expand" # 背景使用的精灵资源
+            # }
+            # 下拉菜单的展开按钮配置
+            expandButton = {
+                name = "nnnnnno_play_axis_fleet_button" # 展开按钮的名称标识
+                spriteType = "GFX_event_button_452_caravaneer" # 按钮使用的精灵资源
+                position = { x = 0 y = 0 } # 按钮在菜单内的位置
+                # buttonText = "grp_dan_button.2" # 按钮上显示的文本引用
+                # buttonFont = large_title_font_17 # 按钮文本使用的字体
+                clicksound = increment_click # 点击按钮时的音效
+                oversound = mouse_over # 鼠标悬停时的音效
+            }
+
+            # 下拉菜单展开后的窗口配置
+            expandedwindow = {
+                name = "nnnnnno_play_axis_fleet_window" # 展开窗口的名称标识
+                hide_position = { x = -520 y = -25 } # 窗口隐藏时的位置
+                show_position = { x = -520 y = -25 } # 窗口显示时的位置
+                size = { width = 520 height = 240 } # 展开窗口的尺寸
+                show_animation_type = linear # 显示时的动画类型
+                hide_animation_type = linear # 隐藏时的动画类型
+                animation_time = 550 # 动画持续时间(毫秒)
+
+                # 展开窗口的背景配置
+                background = {
+                    name = "nnnnnno_play_axis_fleet_bg" # 展开窗口背景的名称标识
+                    spriteType = "GFX_rune_background_bar" # 背景使用的精灵资源
+                }
+                # 展开窗口中的容器配置
+                containerWindowType = {
+                    name = "nnnnnno_play_axis_fleet_container" # 容器的名称标识
+                    position = { x = 10 y = 10 } # 容器在窗口内的位置
+                    size = { width = 500 height = 220 } # 容器的尺寸
+                    margin = { top = 5 bottom = 5 left = 5 right = 5 } # 容器内部边距
+                    smooth_scrolling = yes
+                    # 容器的背景配置
+                    background = {
+                        name = "nnnnnno_play_axis_fleet_menu_2_container_bg" # 容器背景的名称标识
+                        spriteType = "GFX_tiles_dark_area_cut_8" # 背景使用的精灵资源
+                        alwaysTransparent = yes # 背景始终保持透明
+                    }
+                    # listBoxType = {
+                    #     name = play_axis_fleet_option_list       # 列表框的名称标识符，用于在脚本中引用该列表框
+                    #     # priority = 1      # 渲染优先级，数值越高越晚渲染（显示在更上层）
+                    #     spacing = 10     # 列表项之间的间距（像素）
+                    #     autohide_scrollbar = yes # 是否自动隐藏滚动条（当不需要滚动时）
+                    #     alwaystransparent = no # 是否始终透明（不影响背景显示）
+                    #     scrollbartype = standardlistbox_slider      # 滚动条类型，如"standardlistbox_slider"
+                    #     size = { x = 460 y = 240 }
+                    # }
+                    # listboxType = {
+                    #     name = "play_axis_fleet_option_list"
+                    #     position = { x = 520 y = 50 }
+                    #     backGround = ""
+                    #     size = { x = 460 y = 240 }
+                    #     spacing = 1
+                    #     scrollbartype = "standardlistbox_slider"
+                    #     borderSize = { x = 0 y = 0 }
+                    #     Orientation = "UPPER_LEFT"
+                    # }
+                    ##容器中按钮配置
+                    #只能显示一个按钮，神秘
+                    containerWindowType = {
+                        name = "nnnnnno_play_axis_option_2"
+                        position = { x = 0 y = 0 }
+                        size = { width = 480 height = 33 }
+                        moveable = no
+                        buttonType = {
+                            name = "option_button"
+                            quadTextureSprite = "GFX_event_button_452_caravaneer"
+                            position = { x = 0 y = 10 }
+                            font = "play_16b"
+                            text = "OPTION_TEXT3"
+                        }
+                        OverlappingElementsBoxType = {
+                            name = "trigger_icons"
+                            position = { x = 0 y = 10 }
+                            size = { x = 65 y = 28 }
+                        }
+                        OverlappingElementsBoxType = {
+                            name = "effect_icons"
+                            position = { x = 370 y = 8 }
+                            size = { x = 72 y = 28 }
+                            format = right
+                        }
+                    }
+                }
+
+                # 展开窗口中的即时文本框配置
+                instantTextBoxType = {
+                    name = "play_axis_fleet_textbox" # 文本框的名称标识
+                    font = "cg_16b" # 文本框使用的字体
+                    text = "fleet_text_gui" # 文本框显示的内容(初始为空)
+                    position = { x = 10 y = 120 } # 文本框在窗口内的位置
+                    maxWidth = 500 # 文本框的最大宽度
+                    maxHeight = 100 # 文本框的最大高度
+                    fixedSize = yes # 文本框尺寸是否固定
+                    format = center # 文本水平对齐方式(居中)
+                    vertical_alignment = center # 文本垂直对齐方式(居中)
+                    borderSize = { x = 5 y = 0 } # 文本框边框大小
+                }
+
+            }
+        }
+    }
+    #窗口
+    containerWindowType = {
+        name = "play_axis_window_fleet"
+        orientation = center
+        origo = center
+        moveable = yes
+        size = { width = 1000 height = 680 }
+
+        background = {
+            name = "background"
+            quadTextureSprite = "GFX_tile_large_bg_caravaneer"
+        }
+
+        iconType = {
+            name = "hex_bg"
+            spriteType = "GFX_hex_bg_caravaneer"
+            position = { x = -10 y = -14 }
+            alwaysTransparent = yes
+        }
+
+        iconType = {
+            name = "empire_header_line"
+            quadTextureSprite = "GFX_line_long_caravaneer"
+            position = { x = 6 y = 25 }
+            alwaysTransparent = yes
+        }
+
+        buttonType = {
+            name = "focus_button"
+            position = { x = -80 y = 16 }
+            orientation = "UPPER_RIGHT"
+            spriteType = "GFX_fleetview_focus_caravaneer"
+            buttonFont = "cg_16b"
+            shortcut = "q"
+        }
+
+        #buttonType = {
+        #    name = "tts_button"
+        #    position = { x = 466 y = 639 }
+        #    spriteType = "GFX_button_tts_start"
+        #    buttonFont = "cg_16b"
+        #    shortCut = "t"
+        #}
+        #x键，但是似乎不是正常关闭
+        # buttonType = {
+        #     name = "close"
+        #     quadTextureSprite = "GFX_main_close_button_caravaneer"
+        #     position = { x = -45 y = 16 }
+        #     Orientation = "UPPER_RIGHT"
+        #     clicksound = "back_click"
+        #     shortcut = "ESCAPE"
+        # }
+
+        instantTextBoxType = {
+            name = "heading"
+            font = "malgun_goth_24"
+            text = "DIPLOMACY"
+            position = { x = 20 y = 5 }
+            maxWidth = 543
+            maxHeight = 22
+            fixedSize = yes
+            alwaysTransparent = yes
+        }
+
+        buttonType = {
+            name = "alien_message_background"
+            size = { x = 485 y = 240 }
+            position = { x = 18 y = 429 }
+            spriteType = "GFX_tiles_dark_area_cut_8"
+            alwaysTransparent = yes
+        }
+
+        buttonType = {
+            name = "confirm_button"
+            quadTextureSprite = "GFX_standard_button_142_34_button"
+            position = { x = -175 y = 564 }
+            Orientation = "UPPER_RIGHT"
+            font = "cg_16b"
+            text = "MESSAGE_OK"
+            clicksound = "confirmation"
+        }
+
+        ### PORTRAIT ###
+
+        containerWindowType = {
+            name = "portrait_background"
+            position = { x = 20 y = 50 }
+            size = { width = 964 height = 350 }
+            clipping = yes
+
+            iconType = {
+                name = "event_picture"
+                spriteType = "GFX_diplomacy_portrait_frame"
+                position = { x = -6 y = -5 }
+            }
+
+            iconType = {
+                name = "portrait"
+                position = { x = 250 y = 0 }
+                spriteType = "GFX_portrait_character"
+            }
+        }
+
+        #背景
+        containerWindowType = {
+            name = "portrait"
+            position = { x = 20 y = 55 }
+            size = { width = 964 height = 350 }
+            clipping = yes
+
+            iconType = {
+                name = "portrait"
+                spriteType = "GFX_portrait_gamesetup_mask"
+                alwaysTransparent = yes
+            }
+
+            iconType = {
+                name = "black_frame"
+                spriteType = "GFX_diplomacy_portrait_shadow_frame"
+                position = { x = -4 y = -5 }
+                alwaysTransparent = yes
+            }
+
+            iconType = {
+                name = "stripes_1"
+                spriteType = "GFX_diplomacy_stripes_2"
+                alwaysTransparent = yes
+            }
+
+            iconType = {
+                name = "city_frame"
+                spriteType = "GFX_diplomacy_portrait_frame_caravaneer"
+                position = { x = -6 y = -5 }
+                alwaysTransparent = yes
+            }
+        }
+
+        ### EMPIRE INFO ###
+
+        iconType = {
+            name = "empire_info_bg"
+            spriteType = "GFX_diplomacy_dark_fade_bg"
+            position = { x = 33 y = 69 }
+            alwaysTransparent = yes
+        }
+
+        instantTextBoxType = {
+            name = "empire_name"
+            font = "malgun_goth_24"
+            text = "Kammarian Galactic Concordat"
+            position = { x = 45 y = 75 }
+            maxWidth = 450
+            maxHeight = 16
+            format = LEFT
+            text_color_code = "E"
+            fixedsize = yes
+        }
+
+        instantTextBoxType = {
+            name = "empire_government_type"
+            font = "cg_16b"
+            text = "Autocracy"
+            position = { x = 45 y = 100 }
+            maxWidth = 250
+            maxHeight = 16
+            format = LEFT
+            fixedsize = yes
+            text_color_code = "Y"
+        }
+
+        instantTextBoxType = {
+            name = "empire_personality_type"
+            font = "cg_16b"
+            text = "Despicable Neutrals"
+            position = { x = 45 y = 117 }
+            maxWidth = 250
+            maxHeight = 16
+            format = LEFT
+            fixedsize = yes
+        }
+
+        OverlappingElementsBoxType = {
+            name = "empire_ethics_icons"
+            position = { x = 45 y = 143 }
+            size = { x = 240 y = 30 }
+            spacing = 2.0
+            format = left
+        }
+
+        buttonType = {
+            name = "empire_flag"
+            quadTextureSprite = "GFX_empire_flag_128_trader"
+            position = { x = 25 y = 240 }
+            orientation = UPPER_LEFT
+        }
+        #左上角国家
+        containerWindowType = {
+            name = "leader_details"
+            position = { x = 25 y = 75 }
+
+            containerWindowType = {
+                name = "empire_traits_box"
+                position = { x = 0 y = -5 }
+                size = { width = 180 height = 95 }
+
+                background = {
+                    name = "ethics_bg"
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                }
+            }
+
+            instantTextBoxType = {
+                name = "empire_traits_label"
+                position = { x = 214 y = 37 }
+                font = "cg_16b"
+                maxWidth = 230
+                maxHeight = 20
+                fixedSize = yes
+                format = left
+                #text_color_code = "E"
+                text = "RULER_TRAITS"
+                alwaysTransparent = yes
+            }
+
+            overlappingElementsBoxType = {
+                name = "leader_traits"
+                position = { x = 215 y = 55 }
+                size = { x = 125 y = 330 }
+            }
+            #领袖名字
+            instantTextBoxType = {
+                name = "leader_name"
+                position = { x = 10 y = 0 }
+                font = "play_18b"
+                maxWidth = 330
+                maxHeight = 20
+                fixedSize = yes
+                format = left
+                text = "Leader Name"
+                text_color_code = "E"
+            }
+            #国名
+            instantTextBoxType = {
+                name = "leader_species"
+                position = { x = 10 y = 25 }
+                font = "play_16b"
+                maxWidth = 330
+                maxHeight = 20
+                fixedSize = yes
+                text = "Leader Species"
+                format = left
+            }
+        }
+
+        ###好感
+        containerWindowType = {
+            name = "opinion_window"
+            position = { x = 27 y = 130 }
+            size = { width = 94 height = 30 }
+
+            # Use this for tooltip area, picture comes from somewhere else
+            background = {
+                name = "opinion_bg"
+                spriteType = "GFX_tiled_window_transparent"
+            }
+
+            iconType = {
+                name = "their_opinion_icon"
+                spriteType = "GFX_diplomacy_opinion"
+                position = { x = 7 y = 4 }
+                alwaysTransparent = yes
+            }
+
+            instantTextBoxType = {
+                name = "their_opinion"
+                font = "cg_16b"
+                maxWidth = 40
+                position = { x = 40 y = 7 }
+                format = left
+                text = "100"
+                alwaysTransparent = yes
+            }
+        }
+
+        ### 信息栏
+        containerWindowType = {
+            name = "EVENT_DIPLO"
+            position = { x = 0 y = 400 }
+            size = { width = 563 height = 280 }
+            moveable = no
+
+            instantTextBoxType = {
+                name = "action_title"
+                font = "large_title_font_28"
+                position = { x = 20 y = 0 }
+                maxWidth = 450
+                alwaysTransparent = yes
+            }
+
+            instantTextBoxType = {
+                name = "action_desc"
+                font = "malgun_goth_24"
+                position = { x = 490 y = 0 }
+                maxWidth = 500
+                maxHeight = 180
+                Orientation = "UPPER_LEFT"
+                format = center
+                alwaysTransparent = yes
+                text_color_code = "H"
+            }
+
+            listboxType = {
+                name = "option_list"
+                position = { x = 520 y = 20 }
+                backGround = ""
+                size = { x = 460 y = 240 }
+                spacing = 1
+                scrollbartype = "standardlistbox_slider"
+                borderSize = { x = 0 y = 0 }
+                Orientation = "UPPER_LEFT"
+            }
+        }
+
+        #信息框
+        instantTextBoxType = {
+            name = "alien_message"
+            #font = "cg_16b"
+            #font = "large_title_font_28"#标题字号
+            font = "play_16b"
+            position = { x = 30 y = 500 }
+            size = { x = 100 y = 100 }
+            maxWidth = 465
+            maxHeight = 220
+            format = left
+            scrollbartype = "standardtext_slider"
+        }
+        #舰船管理
+        containerWindowType = {
+            name = play_axis_fleet_Store_ui
+            origo = center
+            clipping = no
+            size = { width = 600 height = 400 }
+            position = { x = 0 y = 400 }
+            containerWindowType = {
+                name = play_axis_fleet_Store_containerWindowType
+                size = { width = 480 height = 240 }
+                position = { x = 560 y = 350 }
+                origo = center
+                verticalScrollbar = "right_horizontal_slider"
+                smooth_scrolling = no
+                clipping = yes
+                #删了直接闪退
+                background = {
+                    name = "background"
+                    # quadTextureSprite = "GFX_rune_background_bar"
+                    quadTextureSprite = "GFX_no_bg"
+                    alwaysTransparent = no
+                }
+
+                #舰船交易
+                containerWindowType = {
+                    name = play_axis_fleet_Store_ui_1
+                    position = { x = 0 y = 65 }
+                    size = { x = 300 y = 200 }
+                    #舰船数据
+                    effectButtonType = {
+                        name = play_axis_fleet_message_tittle
+                        position = { x = 40 y = 15 }
+                        size = { x = 200 y = 100 }
+                        quadTextureSprite = GFX_no_bg
+                        format = top
+                        buttonText = "play_axis_fleet_desc"
+                        buttonFont = play_18b
+                        alwaysTransparent = yes
+
+                        effect = show_fleet_effect
+                    }
+                    #查看舰队详情
+                    effectButtonType = {
+                        name = play_axis_fleet_button_1  # 按钮的唯一标识名称
+                        position = { x = 10 y = -50 }      # 按钮在父容器中的位置坐标
+                        spriteType = GFX_fleetview_inspect_ship  # 按钮使用的精灵图片（舰队检视图标）
+                        scale = 1                        # 按钮的缩放比例（1=原始大小）
+                        format = top                     # 文本格式化方向：顶部对齐
+                        orientation = top                # 按钮的对齐方向：顶部对齐
+                        tooltipText = play_axis_button_1  # 悬浮提示文本
+
+                        effect = axis_fleet_effect_1  # 按钮点击时执行的游戏脚本效果
+                    }
+                    #提供舰船
+                    effectButtonType = {
+                        name = play_axis_fleet_button_2
+                        position = { x = 60 y = -50 }
+                        spriteType = GFX_fleet_action_button_new
+                        scale = 1
+                        format = top
+                        orientation = top
+                        tooltipText = play_axis_button_2
+
+                        effect = axis_fleet_effect_2
+                    }
+                    #清理位置
+                    effectButtonType = {
+                        name = play_axis_fleet_button_3
+                        position = { x = 110 y = -50 }
+                        spriteType = GFX_fleetview_destroy_fleet
+                        scale = 1
+                        format = top
+                        orientation = top
+                        tooltipText = play_axis_button_3
+
+                        effect = axis_fleet_effect_3
+                    }
+                    #租用舰队
+                    effectButtonType = {
+                        name = play_axis_fleet_button_4
+                        position = { x = 160 y = -50 }
+                        spriteType = GFX_fleet_action_button_turn_into_merc
+                        scale = 1
+                        format = top
+                        orientation = top
+                        #tooltipText = CeleTb_celestial_generator_gui_resource_deposit_settings_button_tooltip_3
+
+                        effect = axis_fleet_effect_4
+                    }
+                    #购买舰队
+                    effectButtonType = {
+                        name = play_axis_fleet_button_5
+                        position = { x = 210 y = -50 }
+                        spriteType = GFX_fleet_manager_button
+                        scale = 1
+                        format = top
+                        orientation = top
+                        #tooltipText = CeleTb_celestial_generator_gui_resource_deposit_settings_button_tooltip_3
+
+                        effect = axis_fleet_effect_5
+                    }
+                }
+            }
+        }
+    }
+}
