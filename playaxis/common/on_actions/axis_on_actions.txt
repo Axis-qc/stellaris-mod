@@ -11,7 +11,8 @@ on_fleet_detected = {
 on_monthly_pulse_country = {
     events = {
         play.00
-        axis.100
+        play.1
+        # axis.100
     }
 }
 #用于在联络菜单中，点击country_type中 custom_diplomacy = yes 的国家图标后触发事件
@@ -23,14 +24,33 @@ on_custom_diplomacy = {
         play.101
     }
 }
-#在飞地被摧毁时触发事件
+#飞地复活（还没做
 # This = owner of fleet 1 (combatant)	#攻击舰队的所有者
 # From = owner of fleet 2 (destroyed)	#遇害舰队的所有者
 # FromFrom = fleet 1	#攻击舰队
 # FromFromFrom = fleet 2	#遇害舰队
+# 当舰队作为攻击方（主动作战方）被摧毁时触发
 on_fleet_destroyed_perp = {
     events = {
 
+    }
+}
+# 当舰队作为防御方/受害者被摧毁时触发
+# This = owner of fleet 1 (destroyed)
+# From = owner of fleet 2 (combatant)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_fleet_destroyed_victim = {
+    events = {
+        axis.101
+    }
+}
+# 当舰队被玩家或AI主动解散时触发
+# This = owner of fleet 舰队的拥有者（国家）
+# From = disbanded fleet 被解散舰队
+on_fleet_disbanded = {
+    events = {
+        axis.101
     }
 }
 on_ship_destroyed_victim = {

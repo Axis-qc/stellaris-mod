@@ -198,7 +198,7 @@ country_event = {
         }
     }
 }
-#租出去没办法获取原主，没办法触发
+#展位舰队被摧毁事件
 country_event = {
     id = axis.101  # 事件ID
     title = axis.11.title  # 事件标题
@@ -208,30 +208,167 @@ country_event = {
     is_triggered_only = yes  # 仅在触发条件满足时触发
     fire_only_once = no
     trigger = {
-        root = {
-
-        }
         OR = {
-            has_country_flag = no_go_ship_1
-            has_country_flag = no_go_ship_2
-            has_country_flag = no_go_ship_3
-            has_country_flag = no_go_ship_4
-            has_country_flag = no_go_ship_5
-            has_country_flag = no_go_ship_6
+            fromfrom = {
+                or = {
+                    has_fleet_flag = axis_fleet_1
+                    has_fleet_flag = axis_fleet_2
+                    has_fleet_flag = axis_fleet_3
+                    has_fleet_flag = axis_fleet_4
+                    has_fleet_flag = axis_fleet_5
+                    has_fleet_flag = axis_fleet_6
+                }
+            }
+            from = {
+                or = {
+                    has_fleet_flag = axis_fleet_1
+                    has_fleet_flag = axis_fleet_2
+                    has_fleet_flag = axis_fleet_3
+                    has_fleet_flag = axis_fleet_4
+                    has_fleet_flag = axis_fleet_5
+                    has_fleet_flag = axis_fleet_6
+                }
+            }
         }
     }
     immediate = {
-        event_target:money_ship_1@root = {
-            save_event_target_as = die_ship
+        if = {
+            limit = {
+                fromfrom = {
+                    or = {
+                        has_fleet_flag = axis_fleet_1
+                        has_fleet_flag = axis_fleet_2
+                        has_fleet_flag = axis_fleet_3
+                        has_fleet_flag = axis_fleet_4
+                        has_fleet_flag = axis_fleet_5
+                        has_fleet_flag = axis_fleet_6
+                    }
+                }
+            }
+            fromfrom = {
+                save_global_event_target_as = die_axis_fleet
+            }
+        }
+        if = {
+            limit = {
+                from = {
+                    or = {
+                        has_fleet_flag = axis_fleet_1
+                        has_fleet_flag = axis_fleet_2
+                        has_fleet_flag = axis_fleet_3
+                        has_fleet_flag = axis_fleet_4
+                        has_fleet_flag = axis_fleet_5
+                        has_fleet_flag = axis_fleet_6
+                    }
+                }
+            }
+            from = {
+                save_global_event_target_as = die_axis_fleet
+            }
         }
     }
     option = {
         name = axis.11.1  # 选项名称
+        #删除丢失舰队
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_1
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_1
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_1
+        }
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_2
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_2
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_2
+        }
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_3
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_3
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_3
+        }
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_4
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_4
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_4
+        }
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_5
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_5
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_5
+        }
+        if = {
+            limit = {
+                OR = {
+                    fromfrom = {
+                        has_fleet_flag = axis_fleet_6
+                    }
+                    from = {
+                        has_fleet_flag = axis_fleet_6
+                    }
+                }
+            }
+            remove_global_flag = has_axis_fleet_6
+        }
+    }
+}
+#用不上
+fleet_event = {
+    id = axis.102
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+
+    }
+    immediate = {
+        owner = {
+            country_event = { id = axis.101 }
+        }
+        this = {
+        }
     }
 }
 #领袖回溯装置，废弃
 country_event = {
-    id = axis.102
+    id = axis.100002
 
     title = leader_die.title
 

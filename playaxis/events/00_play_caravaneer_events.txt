@@ -18,6 +18,8 @@ country_event = {
             has_country_flag = play_country_yes  # 没有该国家flag
         }
     }
+    immediate = {
+    }
     option = {
         name = play.00.1  # 选项名称
         establish_communications_no_message = event_target:play_axis_country
@@ -25,6 +27,32 @@ country_event = {
             set_country_flag = play_country_yes
         }
         #country_event = { id = play.10 }
+    }
+}
+#创建星系
+country_event = {
+    id = play.1
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        not = {
+            has_global_flag = has_axis_system
+        }
+    }
+    immediate = {
+        set_global_flag = has_axis_system
+        random_system = {
+            limit = {
+                is_owned_by = root
+            }
+            spawn_system = {
+                min_distance = 50  # 最小生成距离（相对于地图中心或参考点）
+                max_distance = 100  # 最大生成距离（相对于地图中心或参考点）
+                initializer = "play_system_01"  # 系统初始化脚本，定义恒星、行星、资源等
+                hyperlane = yes  # 是否自动生成超空间航道连接到其他系统
+                is_discovered = no  # 系统是否一开始就被所有帝国发现
+            }
+        }
     }
 }
 
@@ -43,23 +71,27 @@ country_event = {
     is_triggered_only = yes    #在舰队被探测到的*触发器*触发
     trigger = {
         from = {
-            this.solar_system = {
-                has_star_flag = play_axis_system_home
+            # this.solar_system = {
+            #     has_star_flag = play_axis_system_home
+            # }
+            owner = {
+                NOT = {
+                    has_country_flag = has_axis_communications
+                    has_communications = event_target:play_axis_country    #尚未和我方建立联系
+                }
             }
         }
-        NOT = {
-            has_communications = event_target:play_axis_country    #尚未和我方建立联系
-        }
+        play_axis_ui = no  #防止重复
     }
     immediate = {
-        establish_communications_no_message = from    #与探测到的舰队所有者建交
+        establish_communications_no_message = event_target:play_axis_country    #与探测到的舰队所有者建交
     }
-
     option = {
         name = play.10.a
         country_event = {
             id = play.101
         }
+        set_country_flag = has_axis_communications
     }
 }
 #主界面 play.101
@@ -93,9 +125,9 @@ country_event = {
     trigger = {
         # 定义触发条件
         exists = event_target:play_axis_country  # 必须存在目标国家
-        event_target:play_axis_country = {
-            NOT = { is_hostile = root }  # 目标国家不能对根目标敌对
-        }
+        # event_target:play_axis_country = {
+        #     NOT = { is_hostile = root }  # 目标国家不能对根目标敌对
+        # }
         OR = {
             # 满足以下任一条件
             AND = {
