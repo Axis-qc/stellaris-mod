@@ -60,6 +60,7 @@ go_ship_money_6 = {
     max = 800000000
 }
 
+#旧的
 come_ship_money_1 = {
     base = 0
     add = event_target:come_ship_1.fleet.trigger:fleet_power
@@ -158,4 +159,16 @@ leader_mult_value = {
         }
         mode = add
     }
+}
+
+axis_fleet_concontroller = {
+    base = 0
+    complex_trigger_modifier = {
+        trigger_scope = event_target:caozuo_fleet_ing
+        trigger = fleet_power
+        mode = add
+    }
+    mult = 0.5
+    round = yes
+    max = 800000000
 }

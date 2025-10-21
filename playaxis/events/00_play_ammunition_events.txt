@@ -47,13 +47,13 @@ country_event = {
         name = play_100_1
         hidden_effect = { country_event = { id = ammunition.101 } }
     }
-    option = {
-        custom_gui = "play_axis_option"
-        name = play_100_2
-        hidden_effect = {
-            country_event = { id = ammunition.102 }
-        }
-    }
+    # option = {
+    #     custom_gui = "play_axis_option"
+    #     name = play_100_2
+    #     hidden_effect = {
+    #         country_event = { id = ammunition.102 }
+    #     }
+    # }
 
     option = {
         custom_gui = "play_axis_option"
@@ -291,7 +291,7 @@ country_event = {
         }
     }
 }
-#舰队回收部 废弃
+#舰队回收部 老版本的已废弃
 country_event = {
     id = ammunition.102
     title = ammunition.102.title
@@ -1312,6 +1312,30 @@ country_event = {
             has_country_flag = axis_fleet_2
         }
     }
+    desc = {
+        text = "newplay_103_desc_3"
+        trigger = {
+            has_country_flag = axis_fleet_3
+        }
+    }
+    desc = {
+        text = "newplay_103_desc_4"
+        trigger = {
+            has_country_flag = axis_fleet_4
+        }
+    }
+    desc = {
+        text = "newplay_103_desc_5"
+        trigger = {
+            has_country_flag = axis_fleet_5
+        }
+    }
+    desc = {
+        text = "newplay_103_desc_6"
+        trigger = {
+            has_country_flag = axis_fleet_6
+        }
+    }
 
     diplomatic = yes
     is_triggered_only = yes
@@ -1323,7 +1347,7 @@ country_event = {
     location = event_target:play_axis_system
 
     trigger = {
-        play_axis_ui = no  # 没有打开的窗口
+        play_axis_ui = no  #防止重复界面
     }
     immediate = {
         # 定义立即执行的效果
@@ -1342,7 +1366,7 @@ country_event = {
             remove_country_flag = axis_fleet_6
         }
         ai_chance = {
-            base = 10
+            base = 10000
         }
     }
     #1号位
@@ -1429,6 +1453,169 @@ country_event = {
             }
         }
     }
+    #3号位
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_1
+        trigger = {
+            not = {
+                has_global_flag = has_axis_fleet_3
+            }
+        }
+        hidden_effect = {
+            country_event = { id = ammunition.103 }
+            set_country_flag = axis_fleet_3
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_5
+            remove_country_flag = axis_fleet_6
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_3_1
+        trigger = {
+            has_global_flag = has_axis_fleet_3
+        }
+        hidden_effect = {
+            set_country_flag = axis_fleet_3
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_5
+            remove_country_flag = axis_fleet_6
+            country_event = { id = ammunition.103 }
+            event_target:axis_fleet_3 = {
+                save_global_event_target_as = caozuo_fleet_ing
+            }
+        }
+    }
+
+    #4号位
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_1
+        trigger = {
+            not = {
+                has_global_flag = has_axis_fleet_4
+            }
+        }
+        hidden_effect = {
+            country_event = { id = ammunition.103 }
+            set_country_flag = axis_fleet_4
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_5
+            remove_country_flag = axis_fleet_6
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_4_1
+        trigger = {
+            has_global_flag = has_axis_fleet_4
+        }
+        hidden_effect = {
+            set_country_flag = axis_fleet_4
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_5
+            remove_country_flag = axis_fleet_6
+            country_event = { id = ammunition.103 }
+            event_target:axis_fleet_4 = {
+                save_global_event_target_as = caozuo_fleet_ing
+            }
+        }
+    }
+
+    #5号位
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_1
+        trigger = {
+            not = {
+                has_global_flag = has_axis_fleet_5
+            }
+        }
+        hidden_effect = {
+            country_event = { id = ammunition.103 }
+            set_country_flag = axis_fleet_5
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_6
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_5_1
+        trigger = {
+            has_global_flag = has_axis_fleet_5
+        }
+        hidden_effect = {
+            set_country_flag = axis_fleet_5
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_6
+            country_event = { id = ammunition.103 }
+            event_target:axis_fleet_5 = {
+                save_global_event_target_as = caozuo_fleet_ing
+            }
+        }
+    }
+
+    #6号位
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_1
+        trigger = {
+            not = {
+                has_global_flag = has_axis_fleet_6
+            }
+        }
+        hidden_effect = {
+            country_event = { id = ammunition.103 }
+            set_country_flag = axis_fleet_6
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_5
+        }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = newplay_103_6_1
+        trigger = {
+            has_global_flag = has_axis_fleet_6
+        }
+        hidden_effect = {
+            set_country_flag = axis_fleet_6
+
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_5
+            country_event = { id = ammunition.103 }
+            event_target:axis_fleet_6 = {
+                save_global_event_target_as = caozuo_fleet_ing
+            }
+        }
+    }
 
     #刷新
     option = {
@@ -1437,6 +1624,12 @@ country_event = {
         trigger = {
         }
         hidden_effect = {
+            remove_country_flag = axis_fleet_1
+            remove_country_flag = axis_fleet_2
+            remove_country_flag = axis_fleet_3
+            remove_country_flag = axis_fleet_4
+            remove_country_flag = axis_fleet_5
+            remove_country_flag = axis_fleet_6
             country_event = { id = ammunition.103 }
         }
     }
