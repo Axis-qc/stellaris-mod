@@ -224,6 +224,20 @@ country_event = {
     option = {
         custom_gui = "play_axis_option"
         name = play_101_4
+        allow = {
+            resource_stockpile_compare = {
+                resource = sr_dark_matter
+                value >= 10000
+            }
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = {
+            sr_dark_matter = -10000
+            energy = -10000
+        }
         hidden_effect = {
             event_target:play_axis_starbase = {
                 starbase = {
@@ -251,6 +265,18 @@ country_event = {
                 }
                 fail_text = play_axis_world_yes
             }
+            resource_stockpile_compare = {
+                resource = sr_dark_matter
+                value >= 10000
+            }
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        add_resource = {
+            sr_dark_matter = -10000
+            energy = -10000
         }
         hidden_effect = {
             this.solar_system = {
@@ -1351,6 +1377,7 @@ country_event = {
     }
     immediate = {
         # 定义立即执行的效果
+        if_fleet_die_clear = yes
     }
 
     option = {
@@ -1630,6 +1657,7 @@ country_event = {
         trigger = {
         }
         hidden_effect = {
+            if_fleet_die_clear = yes
             remove_country_flag = axis_fleet_1
             remove_country_flag = axis_fleet_2
             remove_country_flag = axis_fleet_3

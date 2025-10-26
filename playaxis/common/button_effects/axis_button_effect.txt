@@ -274,7 +274,7 @@ axis_fleet_effect_3 = {
         event_target:caozuo_fleet_ing = {
             is_owned_by = from
         }
-        
+
         from = {
             OR = {
                 has_country_flag = axis_fleet_1
@@ -539,6 +539,55 @@ axis_fleet_effect_6 = {
                 mult = value:axis_fleet_concontroller  # 乘以50%战斗力
             }
             country_event = { id = ammunition.103 }
+        }
+    }
+}
+#直接出售
+axis_fleet_effect_7 = {
+    #显示条件
+    potential = {
+        show_axis_fleet = yes
+    }
+    allow = {
+        event_target:caozuo_fleet_ing = {
+            not = {
+                has_fleet_flag = fleet_is_concontroller
+            }
+            not = {
+                is_owned_by = root
+            }
+            is_owned_by = from
+        }
+        from = {
+            OR = {
+                has_country_flag = axis_fleet_1
+                has_country_flag = axis_fleet_2
+                has_country_flag = axis_fleet_3
+                has_country_flag = axis_fleet_4
+                has_country_flag = axis_fleet_5
+                has_country_flag = axis_fleet_6
+            }
+        }
+    }
+    effect = {
+        event_target:caozuo_fleet_ing = {
+            set_owner = root
+        }
+        root = {
+            add_resource = {
+                # 添加资源
+                energy = -1
+                mult = value:axis_fleet_concontroller  # 乘以50%战斗力
+            }
+        }
+        from = {
+            add_resource = {
+                # 添加资源
+                energy = 1
+                mult = value:axis_fleet_concontroller  # 乘以50%战斗力
+            }
+            #清除当前位置
+            clear_axis_fleet = yes
         }
     }
 }

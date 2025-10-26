@@ -57,6 +57,10 @@ country_event = {
 }
 
 #建立联系 play.10
+#舰队被探测到时
+#用于飞地和国家建立联络
+# This = Country
+# From = Fleet
 country_event = {
     id = play.10
     title = play.10.title    #事件标题
@@ -76,14 +80,32 @@ country_event = {
             # }
             owner = {
                 NOT = {
-                    has_country_flag = has_axis_communications
                     has_communications = event_target:play_axis_country    #尚未和我方建立联系
                 }
             }
         }
+        this = {
+            not = {
+                has_country_flag = has_axis_communications
+            }
+        }
+        # from = {
+        #     owner = {
+        #         has_country_flag = has_axis_communications
+        #     }
+        # }
         play_axis_ui = no  #防止重复
     }
     immediate = {
+        from = {
+            save_global_event_target_as = cs1
+            owner = {
+                save_global_event_target_as = cs2
+            }
+        }
+        this = {
+            save_global_event_target_as = cs3
+        }
         establish_communications_no_message = event_target:play_axis_country    #与探测到的舰队所有者建交
     }
     option = {
@@ -91,7 +113,9 @@ country_event = {
         country_event = {
             id = play.101
         }
-        set_country_flag = has_axis_communications
+        this = {
+            set_country_flag = has_axis_communications
+        }
     }
 }
 #主界面 play.101
@@ -128,44 +152,11 @@ country_event = {
         # event_target:play_axis_country = {
         #     NOT = { is_hostile = root }  # 目标国家不能对根目标敌对
         # }
-        OR = {
-            # 满足以下任一条件
-            AND = {
-                # 满足以下所有条件
-                is_ai = no  # 不是AI
-                OR = {
-                    # 满足以下任一条件
-                    # 防止外交重复
-                    play_axis_ui = no  # 没有打开的窗口
-                    from = { is_same_value = root }  # 从打开的子菜单返回
-                }
-                OR = {
-                    # 满足以下任一条件
-                    AND = {
-                        # 满足以下所有条件
-                        # 从基地或舰队打开新的外交
-                        from = {
-                            OR = {
-                                # 来自以下任一类型的国家
-                                is_country_type = play_axis
-                            }
-                        }
-                    }
-                    AND = {
-                        # 满足以下所有条件
-                        # 从菜单返回
-                        from = { is_same_value = root }
-                    }
-                }
-            }
-            AND = {
-                # 满足以下所有条件
-                is_ai = yes  # 是AI
-                is_country_type = default  # 是默认类型的国家
-                from = {
-                    is_country_type = play_axis  # 来自 caravaneer_home 类型的国家
-                }
-            }
+        # 防止外交重复
+        play_axis_ui = no  # 没有打开的窗口
+        from = {
+            # 来自以下任一类型的国家
+            is_country_type = play_axis
         }
     }
 
@@ -182,12 +173,26 @@ country_event = {
     option = {
         custom_gui = "play_axis_option"
         name = play_a
+        allow = {
+            not = {
+                from = {
+                    is_hostile = event_target:play_axis_country
+                }
+            }
+        }
         hidden_effect = { country_event = { id = play.111 } }
     }
 
     option = {
         custom_gui = "play_axis_option"
         name = play_b
+        allow = {
+            not = {
+                from = {
+                    is_hostile = event_target:play_axis_country
+                }
+            }
+        }
         #allow = {
         #    custom_tooltip = {
         #        fail_text = too_recently_lootboxed
@@ -202,13 +207,57 @@ country_event = {
     option = {
         custom_gui = "play_axis_option"
         name = play_c
+        allow = {
+            not = {
+                from = {
+                    is_hostile = event_target:play_axis_country
+                }
+            }
+        }
         hidden_effect = { country_event = { id = playC.100 } }
     }
 
     option = {
         custom_gui = "play_axis_option"
+        allow = {
+            not = {
+                from = {
+                    is_hostile = event_target:play_axis_country
+                }
+            }
+        }
         name = play_other
         hidden_effect = { country_event = { id = playother.100 } }
+    }
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_d
+        # custom_tooltip = playotheroption_100_2.1
+        trigger = {
+            from = {
+                is_hostile = event_target:play_axis_country
+            }
+        }
+        allow = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= 10000
+            }
+        }
+        hidden_effect = {
+            event_target:play_axis_country = {
+                set_faction_hostility = {
+                    target = from
+                    set_hostile = no
+                    set_neutral = no
+                    set_friendly = yes
+                }
+            }
+            country_event = { id = play.101 }
+        }
+        add_resource = {
+            energy = -10000
+        }
     }
 
     option = {
@@ -1816,7 +1865,7 @@ country_event = {
                 remove_trait = subclass_official_governor
                 remove_trait = subclass_official_diplomacy_councilor
                 remove_trait = subclass_official_economy_councilor
-                remove_trait = subclass_official_dgds
+                # remove_trait = subclass_official_dgds
             }
             country_event = { id = play.123 }
         }
@@ -1847,7 +1896,7 @@ country_event = {
                 remove_trait = subclass_official_governor
                 remove_trait = subclass_official_diplomacy_councilor
                 remove_trait = subclass_official_economy_councilor
-                remove_trait = subclass_official_dgds
+                # remove_trait = subclass_official_dgds
             }
             country_event = { id = play.123 }
         }
@@ -1878,7 +1927,7 @@ country_event = {
                 remove_trait = subclass_official_governor
                 remove_trait = subclass_official_diplomacy_councilor
                 remove_trait = subclass_official_economy_councilor
-                remove_trait = subclass_official_dgds
+                # remove_trait = subclass_official_dgds
             }
             country_event = { id = play.123 }
         }
@@ -1914,7 +1963,7 @@ country_event = {
                 remove_trait = subclass_official_governor
                 remove_trait = subclass_official_diplomacy_councilor
                 remove_trait = subclass_official_economy_councilor
-                remove_trait = subclass_official_dgds
+                # remove_trait = subclass_official_dgds
             }
             country_event = { id = play.123 }
         }
@@ -1928,6 +1977,7 @@ country_event = {
     option = {
         custom_gui = "play_axis_option"
         name = play_123_5
+        trigger = { always = no }
         allow = {
             resource_stockpile_compare = {
                 resource = energy
@@ -1949,7 +1999,7 @@ country_event = {
                 remove_trait = subclass_official_governor
                 remove_trait = subclass_official_diplomacy_councilor
                 remove_trait = subclass_official_economy_councilor
-                remove_trait = subclass_official_dgds
+                # remove_trait = subclass_official_dgds
             }
             country_event = { id = play.123 }
         }
@@ -1957,7 +2007,7 @@ country_event = {
             limit = {
                 has_leader_flag = play_official_operate
             }
-            add_trait = { trait = subclass_official_dgds }
+            # add_trait = { trait = subclass_official_dgds }
         }
     }
 
@@ -2867,7 +2917,7 @@ country_event = {
                 remove_trait = subclass_commander_general
                 remove_trait = subclass_commander_governor
                 remove_trait = subclass_commander_councilor
-                remove_trait = subclass_commander_fyds
+                # remove_trait = subclass_commander_fyds
             }
             country_event = { id = play.133 }
         }
@@ -2898,7 +2948,7 @@ country_event = {
                 remove_trait = subclass_commander_general
                 remove_trait = subclass_commander_governor
                 remove_trait = subclass_commander_councilor
-                remove_trait = subclass_commander_fyds
+                # remove_trait = subclass_commander_fyds
             }
             country_event = { id = play.133 }
         }
@@ -2929,7 +2979,7 @@ country_event = {
                 remove_trait = subclass_commander_general
                 remove_trait = subclass_commander_governor
                 remove_trait = subclass_commander_councilor
-                remove_trait = subclass_commander_fyds
+                # remove_trait = subclass_commander_fyds
             }
             country_event = { id = play.133 }
         }
@@ -2965,7 +3015,7 @@ country_event = {
                 remove_trait = subclass_commander_general
                 remove_trait = subclass_commander_governor
                 remove_trait = subclass_commander_councilor
-                remove_trait = subclass_commander_fyds
+                # remove_trait = subclass_commander_fyds
             }
             country_event = { id = play.133 }
         }
@@ -2979,6 +3029,7 @@ country_event = {
     option = {
         custom_gui = "play_axis_option"
         name = play_133_5
+        trigger = { always = no }
         allow = {
             resource_stockpile_compare = {
                 resource = energy
@@ -3000,7 +3051,7 @@ country_event = {
                 remove_trait = subclass_commander_general
                 remove_trait = subclass_commander_governor
                 remove_trait = subclass_commander_councilor
-                remove_trait = subclass_commander_fyds
+                # remove_trait = subclass_commander_fyds
             }
             country_event = { id = play.133 }
         }
@@ -3008,7 +3059,7 @@ country_event = {
             limit = {
                 has_leader_flag = play_commander_operate
             }
-            add_trait = { trait = subclass_commander_fyds }
+            # add_trait = { trait = subclass_commander_fyds }
         }
     }
 

@@ -89,3 +89,159 @@ create_backup_clone = {
         }
     }
 }
+
+clear_axis_fleet = {
+    optimize_memory
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_1
+        }
+        event_target:axis_fleet_1 = {
+            remove_fleet_flag = axis_fleet_1
+        }
+        clear_global_event_target = axis_fleet_1
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_1
+    }
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_2
+        }
+        event_target:axis_fleet_2 = {
+            remove_fleet_flag = axis_fleet_2
+        }
+        clear_global_event_target = axis_fleet_2
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_2
+    }
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_3
+        }
+        event_target:axis_fleet_3 = {
+            remove_fleet_flag = axis_fleet_3
+        }
+        clear_global_event_target = axis_fleet_3
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_3
+    }
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_4
+        }
+        event_target:axis_fleet_4 = {
+            remove_fleet_flag = axis_fleet_4
+        }
+        clear_global_event_target = axis_fleet_4
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_4
+    }
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_5
+        }
+        event_target:axis_fleet_5 = {
+            remove_fleet_flag = axis_fleet_5
+        }
+        clear_global_event_target = axis_fleet_5
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_5
+    }
+    if = {
+        limit = {
+            event_target:caozuo_fleet_ing = {
+                not = {
+                    has_fleet_flag = fleet_is_concontroller
+                }
+            }
+            has_country_flag = axis_fleet_6
+        }
+        event_target:axis_fleet_6 = {
+            remove_fleet_flag = axis_fleet_6
+        }
+        clear_global_event_target = axis_fleet_6
+        clear_global_event_target = caozuo_fleet_ing
+        remove_global_flag = has_axis_fleet_6
+    }
+}
+if_fleet_die_clear = {
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_1
+            }
+        }
+        clear_global_event_target = axis_fleet_1
+        remove_global_flag = has_axis_fleet_1
+    }
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_2
+            }
+        }
+        clear_global_event_target = axis_fleet_2
+        remove_global_flag = has_axis_fleet_2
+    }
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_3
+            }
+        }
+        clear_global_event_target = axis_fleet_3
+        remove_global_flag = has_axis_fleet_3
+    }
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_4
+            }
+        }
+        clear_global_event_target = axis_fleet_4
+        remove_global_flag = has_axis_fleet_4
+    }
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_5
+            }
+        }
+        clear_global_event_target = axis_fleet_5
+        remove_global_flag = has_axis_fleet_5
+    }
+    if = {
+        limit = {
+            not = {
+                exists = event_target:axis_fleet_6
+            }
+        }
+        clear_global_event_target = axis_fleet_6
+        remove_global_flag = has_axis_fleet_6
+    }
+}
