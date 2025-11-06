@@ -164,11 +164,14 @@ play_move_pop_to = {
         }
     }
     effect = {
+        from = {
+            every_owned_planet = {
+                remove_modifier = play_move_pop_to_planet
+            }
+        }
         add_modifier = {
             modifier = play_move_pop_to_planet
-
         }
-
     }
     ai_weight = {
         weight = 0

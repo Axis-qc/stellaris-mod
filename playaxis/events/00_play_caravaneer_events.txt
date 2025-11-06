@@ -295,6 +295,12 @@ country_event = {
     }
     location = event_target:play_axis_system
 
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = { country_event = { id = play.101 } }
+    }
+
     immediate = {
         # 定义立即执行的效果
     }
@@ -321,8 +327,8 @@ country_event = {
 
     option = {
         custom_gui = "play_axis_option"
-        name = back_home
-        hidden_effect = { country_event = { id = play.101 } }
+        name = play_leader_four
+        hidden_effect = { country_event = { id = play.141 } }
     }
 }
 
@@ -3466,6 +3472,120 @@ country_event = {
         name = back_home
         hidden_effect = {
             country_event = { id = play.132 }
+        }
+    }
+}
+
+#手动选择器
+country_event = {
+    id = play.141
+    title = play.141.title
+    custom_gui = "play_axis_window_leader"
+
+    desc = {
+        text = "play_141"
+        trigger = {
+            from = { is_country_type = play_axis }
+        }
+    }
+
+    diplomatic = yes
+    is_triggered_only = yes
+
+    picture_event_data = {
+        portrait = event_target:play_axis_country
+        room = play_galactic_custodian_room
+    }
+    location = event_target:play_axis_system
+
+    immediate = {
+        # 定义立即执行的效果
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_1
+            save_event_target_as = play_commander_name_1
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_2
+            save_event_target_as = play_commander_name_2
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_3
+            save_event_target_as = play_commander_name_3
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_4
+            save_event_target_as = play_commander_name_4
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_5
+            save_event_target_as = play_commander_name_5
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_6
+            save_event_target_as = play_commander_name_6
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                play_commander_leader_flag = no
+            }
+            set_leader_flag = play_commander_7
+            save_event_target_as = play_commander_name_7
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = back_home
+        hidden_effect = {
+            country_event = { id = play.111 }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_141_1
+        hidden_effect = {
+            if = {
+                limit = {
+                    event_target:axis_leader_ing = {
+                        leader_class = scientist
+                    }
+                }
+                country_event = { id = play.113 }
+            }
+        }
+    }
+
+    option = {
+        custom_gui = "play_axis_option"
+        name = play_141_sx
+        hidden_effect = {
+            country_event = { id = play.141 }
         }
     }
 }

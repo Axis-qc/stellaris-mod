@@ -1,0 +1,19 @@
+lx_leader_two_traits_effect = {
+    if = {
+        limit = {
+            owner = {
+                is_gestalt = yes
+            }
+            has_leader_flag = has_two_traits
+        }
+        set_leader_flag = lx_gestalt_two_traits
+    }
+    if = {
+        limit = {
+            not = {
+                has_leader_flag = has_two_traits
+            }
+        }
+        set_leader_flag = has_two_traits
+    }
+}

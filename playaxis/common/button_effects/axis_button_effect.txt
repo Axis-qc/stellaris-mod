@@ -591,3 +591,29 @@ axis_fleet_effect_7 = {
         }
     }
 }
+
+axis_leader_effect_1 = {
+    #显示条件
+    potential = {
+        always = yes
+    }
+    allow = {
+        this = {
+            leader = {
+                is_scope_type = leader
+            }
+            is_owned_by = from
+        }
+        from = {
+        }
+        #忘了这个是干什么的了
+        # NOT = {
+        #     has_global_flag = go_ship_1
+        # }
+    }
+    effect = {
+        this.leader = {
+            save_global_event_target_as = axis_leader_ing
+        }
+    }
+}

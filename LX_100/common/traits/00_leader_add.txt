@@ -152,12 +152,11 @@ leader_trait_add_1 = {
     }
 
     triggered_system_modifier = {
-
         ship_armor_add = 1000
         mult = trigger:has_total_skill
     }
     triggered_councilor_modifier = {
-        country_admin_cap_add = 100
+        # country_admin_cap_add = 100
     }
     triggered_self_modifier = {
         leader_commanders_influence_produces_add = 1
@@ -192,4 +191,44 @@ leader_trait_add_1 = {
     }
 
     background_icon = "GFX_leader_background_destiny_1"  # 领袖背景图标，用于命运特质领袖
+}
+
+exleader_leader_trait_shroudshaper = {
+    immortal_leaders = yes
+    inline_script = {
+        script = trait/icon_psionic
+        CLASS = leader
+        ICON = "GFX_leader_trait_shroudshaper"
+        RARITY = common
+        COUNCIL = triggered
+        TIER = none
+    }
+
+    leader_potential_add = {
+
+    }
+    triggered_planet_modifier = {
+        potential = {
+            is_ruler = no
+            trait_is_gestalt_check = no
+        }
+        # job_telepath_add = 20
+        job_telepath_per_pop = 0.02  #0.5是2人口 0.05是20
+        # mult = trigger:has_total_skill
+    }
+    triggered_planet_modifier = {
+        potential = {
+            is_ruler = no
+            trait_is_gestalt_check = yes
+        }
+        # job_telepath_drone_add = 20
+        job_telepath_drone_per_pop = 0.02
+        # mult = trigger:has_total_skill
+    }
+    planet_modifier = {
+
+    }
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
 }
