@@ -16,7 +16,10 @@ play_kjyj = {
     }
 
     modifier = {
-        all_technology_research_speed = 0.20
+        # all_technology_research_speed = 0.20
+        planet_physicists_physics_research_produces_add = 1
+        planet_biologists_society_research_produces_add = 1
+        planet_engineers_engineering_research_produces_add = 1
         #planet_researchers_upkeep_mult = 0.20 维护费
         num_tech_alternatives_add = 1
     }
@@ -46,7 +49,10 @@ play_kjyj_1 = {
     }
 
     modifier = {
-        all_technology_research_speed = 0.40
+        # all_technology_research_speed = 0.40
+        planet_physicists_physics_research_produces_add = 2
+        planet_biologists_society_research_produces_add = 2
+        planet_engineers_engineering_research_produces_add = 2
         #planet_researchers_upkeep_mult = 0.20 维护费
         #num_tech_alternatives_add = 1
         num_tech_alternatives_add = 1
@@ -78,6 +84,9 @@ play_kjyj_2 = {
 
     modifier = {
         all_technology_research_speed = 0.60
+        planet_physicists_physics_research_produces_add = 3
+        planet_biologists_society_research_produces_add = 3
+        planet_engineers_engineering_research_produces_add = 3
         #planet_researchers_upkeep_mult = 0.20 维护费
         num_tech_alternatives_add = 1
     }
@@ -99,16 +108,16 @@ play_leader_tz = {
         category = edicts
 
         cost = {
-            influence = 30
+            influence = 10
         }
 
         upkeep = {
-            influence = 0.5
+            influence = 0.1
         }
     }
 
     modifier = {
-        leader_trait_selection_options_add = 2
+        leader_trait_selection_options_add = 4
     }
 
     potential = {
@@ -300,6 +309,38 @@ jieshu_tingzhan_every = {
     }
     modifier = {
 
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+leader_leves = {
+    length = -1
+    icon = "GFX_edict_type_time"
+
+    resources = {
+        category = edicts
+
+        cost = {
+            influence = 100
+        }
+
+        #upkeep = {
+        #    influence = 0
+        #}
+    }
+
+    modifier = {
+        leader_skill_levels = 100
+    }
+
+    potential = {
+        #has_technology = tech_ascension_theory
+        count_country = {
+            limit = { is_ai = no }
+            count < 2
+        }
     }
 
     ai_weight = {

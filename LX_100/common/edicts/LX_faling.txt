@@ -6,7 +6,7 @@ play_kjyj = {
         category = edicts
 
         cost = {
-            influence = 200
+            influence = 100
             #multiplier = value:edict_size_effect_fl
         }
 
@@ -16,7 +16,10 @@ play_kjyj = {
     }
 
     modifier = {
-        all_technology_research_speed = 0.20
+        # all_technology_research_speed = 0.20
+        planet_physicists_physics_research_produces_add = 1
+        planet_biologists_society_research_produces_add = 1
+        planet_engineers_engineering_research_produces_add = 1
         #planet_researchers_upkeep_mult = 0.20 维护费
         num_tech_alternatives_add = 1
     }
@@ -46,8 +49,12 @@ play_kjyj_1 = {
     }
 
     modifier = {
-        all_technology_research_speed = 0.40
+        # all_technology_research_speed = 0.40
+        planet_physicists_physics_research_produces_add = 2
+        planet_biologists_society_research_produces_add = 2
+        planet_engineers_engineering_research_produces_add = 2
         #planet_researchers_upkeep_mult = 0.20 维护费
+        #num_tech_alternatives_add = 1
         num_tech_alternatives_add = 1
     }
 
@@ -77,6 +84,9 @@ play_kjyj_2 = {
 
     modifier = {
         all_technology_research_speed = 0.60
+        planet_physicists_physics_research_produces_add = 3
+        planet_biologists_society_research_produces_add = 3
+        planet_engineers_engineering_research_produces_add = 3
         #planet_researchers_upkeep_mult = 0.20 维护费
         num_tech_alternatives_add = 1
     }
@@ -263,10 +273,8 @@ jieshu_tingzhan = {
                 end_truce = root
             }
         }
-        hidden_effect = {
-            every_country = {
-                end_truce = root
-            }
+        every_country = {
+            end_truce = root
         }
     }
     modifier = {
@@ -295,10 +303,8 @@ jieshu_tingzhan_every = {
 
     effect = {
         custom_tooltip = tingzhan_quxiao_every
-        hidden_effect = {
-            every_country = {
-                end_truce = root
-            }
+        every_country = {
+            end_truce = root
         }
     }
     modifier = {
@@ -331,6 +337,10 @@ leader_leves = {
 
     potential = {
         #has_technology = tech_ascension_theory
+        # count_country = {
+        #     limit = { is_ai = no }
+        #     count < 2
+        # }
     }
 
     ai_weight = {
