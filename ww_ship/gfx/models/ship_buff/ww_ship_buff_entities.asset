@@ -1,0 +1,109 @@
+entity = {
+    name = "ww_ship_buff_entity"
+
+    default_state = "idle"
+    state = {
+        name = "idle"
+        start_event = {
+            particle = "ww_ship_buff_effect"
+        }
+    }
+    scale = 4
+    #缩放
+    # state = {
+    #     // 状态唯一标识符（必需）
+    #     // 用于在脚本中引用此状态
+    #     name = "active"
+    #
+    #     // 状态持续时间（秒）
+    #     // 0表示永久状态，>0表示临时状态
+    #     state_time = 5.0
+    #
+    #     // 是否循环播放状态动画
+    #     // yes: 循环播放 no: 只播放一次
+    #     looping = yes
+    #
+    #     // 状态结束后自动切换的下一个状态
+    #     // 留空表示不自动切换
+    #     next_state = "idle"
+    #
+    #     // 是否将状态传递给子实体
+    #     // yes: 子实体继承此状态 no: 仅限当前实体
+    #     propagate_state = no
+    #
+    #     // 状态触发的概率（0.0-1.0）
+    #     // 1.0=100%触发，0.5=50%概率
+    #     chance = 1.0
+    #
+    #     // 是否从父实体继承状态
+    #     // yes: 使用父实体状态 no: 独立状态
+    #     get_state_from_parent = no
+    #
+    #     // 状态关联的动画名称
+    #     // 指向在animations文件夹中定义的动画
+    #     animation = "ww_ship_activate_anim"
+    #
+    #     // 动画播放速度（1.0=正常速度）
+    #     // <1.0=慢放，>1.0=快放
+    #     animation_speed = 1.2
+    #
+    #     // 状态切换时的动画混合时间（秒）
+    #     // 平滑过渡到新状态
+    #     animation_blend_time = 0.3
+    #
+    #     // 动画时间偏移（秒）
+    #     // 延迟播放动画
+    #     time_offset = 0.0
+    #
+    #     // 定位器名称（用于附着点）
+    #     // 指定实体上的附着点
+    #     locator = "hull_center"
+    #
+    #     // 游戏数据关联（任意字符串）
+    #     // 用于存储状态相关数据
+    #     game_data = "buff_level_3"
+    #
+    #     // 状态持续期间定期触发的事件
+    #     // 每X秒触发一次（需定义interval）
+    #     event = {
+    #         interval = 2.0
+    #         particle = "ww_ship_pulse_effect"
+    #     }
+    #
+    #     // 状态开始时触发的事件
+    #     // 进入状态时立即触发
+    #     start_event = {
+    #         particle = "ww_ship_activate_effect"
+    #         sound = "sound/effects/activate.ogg"
+    #     }
+    # }
+
+}
+
+entity = {
+    name = "ww_ship_debuff_entity"
+
+    default_state = "idle"
+    state = {
+        name = "idle"
+        start_event = {
+            particle = "ww_ship_debuff_effect"
+        }
+    }
+    scale = 4
+    #缩放
+}
+
+entity = {
+    name = "ww_ship_jumpbuff_effect"
+
+    default_state = "idle"
+    state = {
+        name = "idle"
+        start_event = {
+            particle = "ww_ship_jumpbuff_effect"
+        }
+    }
+    scale = 4
+    #缩放
+}
