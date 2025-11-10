@@ -3,53 +3,58 @@ country_event = {
     id = yesTZcz.1000
     hide_window = yes
     is_triggered_only = yes
-    fire_only_once = yes
+    # fire_only_once = yes
     trigger = {
         any_country = {
             is_country_type = swarm
         }
+        not = {
+            has_global_flag = yesTZ_cz_syetem
+        }
+        # is_country_type = swarm
     }
 
     immediate = {
+        set_global_flag = yesTZ_cz_syetem
         random_rim_system = {
             limit = {
                 no_cz_flag = yes
             }
             set_star_flag = yesTZ_cz_1
-            save_event_target_as = pyesTZ_cz_1_system
+            save_event_target_as = yesTZ_cz_1_system
+            # set_name = cs_name
         }
         random_rim_system = {
             limit = {
                 no_cz_flag = yes
             }
             set_star_flag = yesTZ_cz_2
-            save_event_target_as = pyesTZ_cz_2_system
+            save_event_target_as = yesTZ_cz_2_system
         }
         random_rim_system = {
             limit = {
                 no_cz_flag = yes
             }
             set_star_flag = yesTZ_cz_3
-            save_event_target_as = pyesTZ_cz_3_system
+            save_event_target_as = yesTZ_cz_3_system
         }
         random_rim_system = {
             limit = {
                 no_cz_flag = yes
             }
             set_star_flag = yesTZ_cz_4
-            save_event_target_as = pyesTZ_cz_4_system
+            save_event_target_as = yesTZ_cz_4_system
         }
-        random_rim_system = {
+        random_country = {
             limit = {
-                no_cz_flag = yes
+                is_country_type = swarm  # 限制条件：必须是虫群国家
             }
-            set_star_flag = yesTZ_cz_5
-            save_event_target_as = pyesTZ_cz_5_system
+            save_event_target_as = chongzi
+            country_event = { id = yesTZcz.1002 days = 360 }
         }
-        country_event = { id = yesTZcz.1001 days = 10 }
     }
 }
-
+#废弃
 country_event = {
     id = yesTZcz.1001
     title = "yesTZcz.1001.name"
@@ -96,6 +101,7 @@ country_event = {
                 save_event_target_as = yesTZ_cz_2_2
             }
         }
+        #下面的不用了
         #第三个
         random_rim_system = {
             limit = { has_star_flag = yesTZ_cz_3 }
@@ -150,16 +156,22 @@ country_event = {
                 save_event_target_as = yesTZ_cz_5_2
             }
         }
+
+        random_country = {
+            limit = {
+                is_country_type = swarm  # 限制条件：必须是虫群国家
+            }
+            save_event_target_as = chongzi
+        }
     }
 
     option = {
-        name = crisis.13.a
+        name = yesTZcz.1001.a
         hidden_effect = {
         }
     }
 }
-
-#抵达
+#第二入侵点刷船
 country_event = {
     id = yesTZcz.1002
     hide_window = yes      # 隐藏事件窗口（后台静默触发）
@@ -176,51 +188,68 @@ country_event = {
         any_country = {
             is_country_type = swarm#场上有虫子
         }
+        is_country_type = swarm
+        not = {
+            has_global_flag = yesTZ_cz_two_syetem
+        }
     }
 
     immediate = {
+        if = {
+            limit = { not = { exists = event_target:prethoryn_species } }
+            create_species = {
+                name = "NAME_Prethoryn"
+                class = SWARM
+                namelist = Prethoryn
+                portrait = random
+                traits = random
+                immortal = yes
+
+                effect = { save_event_target_as = prethoryn_species }
+            }
+        }
+        set_global_flag = yesTZ_cz_two_syetem
         # 危机环境配置
         set_crisis_sound = swarm_crisis_ambient_stage_1  # 激活虫群危机第一阶段环境音效
-
-        observer_event = { id = observer.29 }            # 触发观察者特殊事件（宇宙事件链）
-
-        # 全星区广播警报
+        observer_event = { id = observer.29 }            # 触发观察者特殊事件
         every_country = {
-            limit = { is_country_type = default }        # 筛选所有常规帝国
-            country_event = { id = crisis.18 }           # 触发警报事件（crisis.18显示通知）
+            limit = {
+                # is_country_type = default
+                is_ai = no #给玩家发通知
+            }
+            country_event = { id = yesTZcz.1003 }           # 触发事件
         }
-
-        # 虫群初始入侵点生成
+        # 虫群入侵点
         random_rim_system = {
-            limit = { has_star_flag = swarm_invasion_target_1 }  # 选择预设的初始入侵目标星系
+            limit = { has_star_flag = yesTZ_cz_1 }  # 选择预设的初始入侵目标星系
             random_system_planet = {
                 # 星系改造逻辑
                 solar_system = {
-                    # 清理现有防御设施
-                    if = {
-                        limit = {
-                            any_fleet_in_system = {
-                                is_ship_class = shipclass_starbase  # 检测所有太空基地
-                            }
-                        }
-                        random_fleet_in_system = {
-                            limit = {
-                                any_controlled_ship = {
-                                    is_ship_class = shipclass_starbase  # 定位玩家/AI的星基
-                                }
-                            }
-                            destroy_fleet = this  # 立即摧毁目标星基（不留残骸）
-                        }
-                    }
-                    # 创建虫群星基
-                    create_starbase = {
-                        size = starbase_swarm             # 使用虫群专用星基模板（common/starbases）
-                        owner = event_target:prethoryn_vgrd  # 归属先锋国家
-                    }
+                    #     # 清理现有防御设施
+                    #     if = {
+                    #         limit = {
+                    #             any_fleet_in_system = {
+                    #                 is_ship_class = shipclass_starbase  # 检测所有太空基地
+                    #             }
+                    #         }
+                    #         random_fleet_in_system = {
+                    #             limit = {
+                    #                 any_controlled_ship = {
+                    #                     is_ship_class = shipclass_starbase  # 定位玩家/AI的星基
+                    #                 }
+                    #             }
+                    #             destroy_fleet = this  # 立即摧毁目标星基（不留残骸）
+                    #         }
+                    #     }
+                    #     # 创建虫群星基
+                    #     create_starbase = {
+                    #         size = starbase_swarm
+                    #         owner = event_target:chongzi  # 归属
+                    #     }
                     # 星系视觉效果
                     star = {
                         create_ambient_object = {
-                            type = "swarm_1"              # 虫群入侵特效（gfx/ambient_objects）
+                            type = "swarm_1"              # 虫群入侵特效
                             location = this               # 绑定到恒星实体
                         }
                         last_created_ambient_object = {
@@ -233,36 +262,35 @@ country_event = {
                         }
                     }
                 }
-
+                save_event_target_as = spawn_location
                 # 初始星系舰队部署
-                event_target:prethoryn = {
-                    swarm_vanguard = yes  # 生成先锋舰队（每执行一次生成1支舰队）
-                    swarm_vanguard = yes  # 共生成3支先锋舰队（每支含10-15艘战舰）
-                    swarm_vanguard = yes
-                    # 工程舰队部署
-                    create_fleet = {
-                        name = "NAME_Prethoryn_Constructor"  # 本地化名称"普雷索林工程舰"
-                        effect = {
-                            set_owner = PREV  # 归属虫群国家
-                            # 舰船生成参数
-                            create_ship = {
-                                name = random                    # 随机名称（name_lists/Prethoryn）
-                                design = "NAME_Swarm_Constructor"# 使用预设工程舰设计
-                                graphical_culture = "swarm_01"   # 虫群视觉风格（gfx/ships）
-                            }
-                            # 舰队部署坐标
-                            set_location = {
-                                target = PREVPREV  # 上上层作用域（星系实体）
-                                distance = 10      # 距离星系中心10单位（游戏单位）
-                                angle = random     # 随机圆周角度（0-360度）
-                            }
+                event_target:chongzi = {
+                    chongzi_fleet = yes
+                    chongzi_fleet = yes
+                    chongzi_fleet = yes
+                }
+                # 工程舰队部署
+                create_fleet = {
+                    name = "NAME_Prethoryn_Constructor"  # 本地化名称"普雷索林工程舰"
+                    effect = {
+                        set_owner = event_target:chongzi  # 归属虫群国家
+                        # 舰船生成参数
+                        create_ship = {
+                            name = random                    # 随机名称（name_lists/Prethoryn）
+                            design = "NAME_Swarm_Constructor"# 使用预设工程舰设计
+                            graphical_culture = "swarm_01"   # 虫群视觉风格（gfx/ships）
+                        }
+                        # 舰队部署坐标
+                        set_location = {
+                            target = PREVPREV  # 上上层作用域（星系实体）
+                            distance = 10      # 距离星系中心10单位（游戏单位）
+                            angle = random     # 随机圆周角度（0-360度）
                         }
                     }
                 }
             }
-            
 
-            ### 第二入侵系统（完整注释）
+            ### 第二入侵系统
             random_system = {
                 limit = {
                     distance = {
@@ -271,31 +299,10 @@ country_event = {
                         min_distance >= 5             # 最小5星系单位（避免重叠）
                     }
                 }
-                set_star_flag = swarm_invasion_target_2  # 设置次级入侵标记
+                set_star_flag = yesTZ_cz_1_2  # 设置次级入侵标记
                 random_system_planet = {
-                    event_target:prethoryn = {
-                        # 生成3支先锋舰队
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        # 工程舰队部署（与初始系统相同配置）
-                        create_fleet = {
-                            name = "NAME_Prethoryn_Constructor"
-                            effect = {
-                                set_owner = PREV
-                                create_ship = {
-                                    name = random
-                                    design = "NAME_Swarm_Constructor"
-                                    graphical_culture = "swarm_01"
-                                }
-                                set_location = {
-                                    target = PREVPREV
-                                    distance = 10
-                                    angle = random
-                                }
-                            }
-                        }
-                    }
+                    save_event_target_as = spawn_location
+                    chongzi_fleet = yes
                 }
             }
 
@@ -308,34 +315,14 @@ country_event = {
                         min_distance >= 5
                     }
                     NOR = {
-                        has_star_flag = swarm_invasion_target_1  # 排除初始标记
-                        has_star_flag = swarm_invasion_target_2  # 排除次级标记
+                        has_star_flag = yesTZ_cz_1  # 排除初始标记
+                        has_star_flag = yesTZ_cz_1_2  # 排除次级标记
                     }
                 }
-                set_star_flag = swarm_invasion_target_3  # 设置三级入侵标记
+                set_star_flag = yesTZ_cz_1_3  # 设置三级入侵标记
                 random_system_planet = {
-                    event_target:prethoryn = {
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        create_fleet = {
-                            # 完整保留工程舰配置
-                            name = "NAME_Prethoryn_Constructor"
-                            effect = {
-                                set_owner = PREV
-                                create_ship = {
-                                    name = random
-                                    design = "NAME_Swarm_Constructor"
-                                    graphical_culture = "swarm_01"
-                                }
-                                set_location = {
-                                    target = PREVPREV
-                                    distance = 10
-                                    angle = random
-                                }
-                            }
-                        }
-                    }
+                    save_event_target_as = spawn_location
+                    chongzi_fleet = yes
                 }
             }
 
@@ -348,49 +335,180 @@ country_event = {
                         min_distance >= 5
                     }
                     NOR = {
-                        has_star_flag = swarm_invasion_target_1  # 全排除列表
-                        has_star_flag = swarm_invasion_target_2
-                        has_star_flag = swarm_invasion_target_3
+                        has_star_flag = yesTZ_cz_1  # 全排除列表
+                        has_star_flag = yesTZ_cz_1_2
+                        has_star_flag = yesTZ_cz_1_3
                     }
                 }
-                set_star_flag = swarm_invasion_target_4  # 设置四级入侵标记
+                set_star_flag = yesTZ_cz_1_4  # 设置四级入侵标记
                 random_system_planet = {
-                    event_target:prethoryn = {
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        swarm_vanguard = yes
-                        create_fleet = {
-                            # 完整保留相同配置
-                            name = "NAME_Prethoryn_Constructor"
-                            effect = {
-                                set_owner = PREV
-                                create_ship = {
-                                    name = random
-                                    design = "NAME_Swarm_Constructor"
-                                    graphical_culture = "swarm_01"
-                                }
-                                set_location = {
-                                    target = PREVPREV
-                                    distance = 10
-                                    angle = random
-                                }
-                            }
-                        }
-                    }
+                    save_event_target_as = spawn_location
+                    chongzi_fleet = yes
                 }
             }
         }
 
         # 后续危机阶段触发
+        # random_country = {
+        #     limit = {
+        #         is_country_type = global_event  # 筛选全局事件国家（如危机管理者）
+        #     }
+        #     country_event = {
+        #         id = crisis.19          # 下一阶段事件ID（虫群主力抵达）
+        #         days = 400              # 基础400天
+        #         random = 200            # ±200天随机浮动
+        #     }
+        # }
+    }
+}
+#第二入侵位置
+country_event = {
+    id = yesTZcz.1003
+    title = "yesTZcz.1003.name"
+    desc = {
+        trigger = {
+        }
+        text = "yesTZcz.1003.desc"
+    }
+    picture = GFX_evt_physics_research
+    show_sound = event_alien_nature
+    location = event_target:yesTZ_cz_1_system
+
+    is_triggered_only = yes
+
+    immediate = {
+    }
+
+    option = {
+        name = yesTZcz.1003.a
+        trigger = {
+        }
+    }
+}
+#给虫子触发出船
+event = {
+    id = yesTZcz.1010
+    hide_window = yes
+
+    is_triggered_only = yes  # 该事件只能通过触发器触发
+
+    trigger = {
+        any_country = {
+            is_country_type = swarm
+        }
+        not = {
+            has_global_flag = chongzi_year_cd
+        }
+    }
+    immediate = {
         random_country = {
             limit = {
-                is_country_type = global_event  # 筛选全局事件国家（如危机管理者）
+                is_country_type = swarm  # 限制条件：必须是虫群国家
             }
-            country_event = {
-                id = crisis.19          # 下一阶段事件ID（虫群主力抵达）
-                days = 400              # 基础400天
-                random = 200            # ±200天随机浮动
+            country_event = { id = yesTZcz.1011 }
+        }
+        set_timed_global_flag = { flag = chongzi_year_cd days = 300 }
+    }
+}
+#星球刷虫子
+#原版两年一次 每次-2星球规模，扣完摧毁星球 没有就啃普通球
+country_event = {
+    # 国家事件
+    id = yesTZcz.1011
+    hide_window = yes
+
+    is_triggered_only = yes
+
+    trigger = {
+        is_country_type = swarm  #是虫子
+        num_ships < 5000        # 船只数量
+        any_system_within_border = { exists = starbase }  # 边境内有星基存在
+    }
+    immediate = {
+        save_event_target_as = chongzi  # 将当前国家保存为普雷索林事件目标
+        owner_species = { save_event_target_as = prethoryn_species }  # 将所有者物种保存为普雷索林物种事件目标
+        every_planet_within_border = {
+            limit = { is_planet_class = pc_infested }
+            set_owner = event_target:chongzi
+        }
+        if = {
+            limit = {
+                num_owned_planets > 0    # 拥有至少一个行星
             }
+            #从孵化星球补
+            random_owned_planet = {
+                limit = {
+                    is_planet_class = pc_infested
+                    solar_system = {
+                        exists = starbase
+                    }
+                }
+                save_event_target_as = spawn_location
+                planet_event = {
+                    id = yesTZcz.1020
+                }
+                chongzi_fleet = yes  # 生成虫群繁殖舰队
+            }
+        }
+        #没有孵化就啃普通球
+        if = {
+            limit = {
+                # galaxy_percentage > 0.40  # 控制星系占全星系比例超过40%
+                num_owned_planets = 0
+            }
+            random_owned_planet = {
+                limit = {
+                    or = {
+                        is_planet_class = pc_gas_giant
+                        is_planet_class = pc_molten
+                        is_planet_class = pc_barren
+                        is_planet_class = pc_barren_cold
+                        is_planet_class = pc_toxic
+                        is_planet_class = pc_frozen
+                    }
+                }
+                save_event_target_as = spawn_location
+                chongzi_fleet = yes  # 生成虫群繁殖舰队
+                change_pc = pc_broken
+            }
+        }
+    }
+}
+#拆星球
+planet_event = {
+    id = yesTZcz.1020
+    hide_window = yes
+
+    is_triggered_only = yes  # 该事件只能通过触发器触发
+
+    immediate = {
+        if = {
+            limit = {
+                not = {
+                    has_planet_flag = has_chongz_planet
+                }
+            }
+            set_variable = { which = yesTZcz value = trigger:planet_size }
+
+            set_planet_flag = has_chongz_planet
+        }
+        if = {
+            limit = {
+                has_planet_flag = has_chongz_planet
+            }
+            change_variable = {
+                which = yesTZcz
+                value = -2
+            }
+        }
+        if = {
+            limit = {
+                check_variable = {
+                    which = yesTZcz
+                    value <= 0
+                }
+            }
+            change_pc = pc_broken
         }
     }
 }

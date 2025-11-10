@@ -1,0 +1,69 @@
+chongzi_fleet = {
+    random_list = {
+        75 = {
+            create_leader = {
+                class = commander
+                species = event_target:prethoryn_species
+                name = random
+                skill = 3
+                set_age = 1125
+            }
+        }
+        25 = {
+            create_leader = {
+                class = commander
+                species = event_target:prethoryn_species
+                name = random
+                skill = 3
+                set_age = 1125
+                traits = {
+                    trait = leader_trait_hive_affinity
+                }
+            }
+        }
+    }
+    create_fleet = {
+        name = "NAME_Prethoryn_Star_Brood"
+        effect = {
+            set_owner = event_target:chongzi
+            while = {
+                count = 20
+                create_ship = {
+                    name = random
+                    design = "NAME_Swarm_Queen"
+                    graphical_culture = "swarm_01"
+                }
+            }
+            assign_leader = last_created_leader
+            while = {
+                count = 30
+                create_ship = {
+                    name = random
+                    design = "NAME_Swarm_Large"
+                    graphical_culture = "swarm_01"
+                }
+            }
+            while = {
+                count = 30
+                create_ship = {
+                    name = random
+                    design = "NAME_Swarm_Carrier"
+                    graphical_culture = "swarm_01"
+                }
+            }
+            while = {
+                count = 40
+                create_ship = {
+                    name = random
+                    design = "NAME_Swarm_Small"
+                    graphical_culture = "swarm_01"
+                }
+            }
+            set_location = event_target:spawn_location
+            set_fleet_stance = aggressive
+            set_aggro_range = 500
+            set_aggro_range_measure_from = self
+            set_fleet_bombardment_stance = armageddon
+        }
+    }
+}
