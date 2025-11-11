@@ -1,0 +1,33 @@
+#同步数值
+yesTZszxy = {
+    add = event_target:szxy_two_power.modifier:ship_weapon_damage
+    add = event_target:szxy_two_power.modifier:ship_hull_mult
+    add = event_target:szxy_two_power.modifier:ship_armor_mult
+    add = event_target:szxy_two_power.modifier:ship_shield_mult
+    min = 1
+    max = 50000
+}
+#增加的加成
+open_two_power = {
+    #add = value:yesTZszxy
+    #add = target.szxy_three_power_add
+    add = this.szxy_three_power_add
+    min = 0
+    max = 500000
+}
+open_three_power = {
+    base = 0
+    add = event_target:szxy_two_power.modifier:ship_weapon_range_mult
+    add = event_target:szxy_three_power.modifier:ship_weapon_range_mult
+    min = 1
+    max = 4
+}
+szxy_country_hull = {
+    add = event_target:AI_crisis.modifier:ship_hull_mult
+}
+szxy_country_armor = {
+    add = event_target:AI_crisis.modifier:ship_armor_mult
+}
+szxy_country_shield = {
+    add = event_target:AI_crisis.modifier:ship_shield_mult
+}

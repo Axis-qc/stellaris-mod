@@ -1,7 +1,382 @@
 namespace = yesTZ
+
+country_event = {
+    id = yesTZ.100
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+    }
+    immediate = {
+        set_variable = { which = yesTZszxy value = 10 }
+        set_variable = { which = yesTZszxy_1 value = 0 }
+        set_variable = { which = yesTZszxy_2 value = 0 }
+        set_variable = { which = szxy_two_power_add_1 value = 0 }
+        country_event = { id = yesTZ.101 days = 30 random = 10 }
+        set_global_flag = no_1_power
+        set_global_flag = no_2_power
+        set_global_flag = no_3_power
+    }
+}
+country_event = {
+    id = yesTZ.101  # 事件ID
+    title = yesTZone.title  # 事件标题
+    desc = {
+        text = "yesTZone.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value = 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+        is_ai = no
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+    }
+
+    option = {
+        name = yesTZone.1
+        hidden_effect = {
+        }
+    }
+
+    option = {
+        name = yesTZone.2
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZone.3  # 选项名称
+        custom_tooltip = yesTZone.3.1
+        trigger = {
+            has_global_flag = open_one_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_one_power
+            set_global_flag = no_1_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.4  # 选项名称
+        custom_tooltip = yesTZone.4.1
+        trigger = {
+            has_global_flag = no_1_power
+        }
+        hidden_effect = {
+            remove_global_flag = no_1_power
+            set_global_flag = open_one_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.5  # 选项名称
+        custom_tooltip = yesTZone.5.1
+        trigger = {
+            has_global_flag = open_two_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_two_power
+            set_global_flag = no_2_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.6  # 选项名称
+        custom_tooltip = yesTZone.6.1
+        trigger = {
+            has_global_flag = no_2_power
+        }
+        hidden_effect = {
+            remove_global_flag = no_2_power
+            set_global_flag = open_two_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.7  # 选项名称
+        custom_tooltip = yesTZone.7.1
+        trigger = {
+            has_global_flag = open_three_power
+        }
+        hidden_effect = {
+            remove_global_flag = open_three_power
+            set_global_flag = no_3_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+    option = {
+        name = yesTZone.8  # 选项名称
+        custom_tooltip = yesTZone.8.1
+        trigger = {
+            has_global_flag = no_3_power
+        }
+        hidden_effect = {
+            remove_global_flag = no_3_power
+            set_global_flag = open_three_power
+            country_event = { id = yesTZ.101 }
+        }
+    }
+}
+country_event = {
+    id = yesTZ.102  # 事件ID
+    title = yesTZ01.title  # 事件标题
+    desc = {
+        text = "yesTZ01.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value > 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+    }
+
+    option = {
+        name = yesTZ01.1
+        hidden_effect = {
+            #set_variable = { which = yesTZszxy value = value:yesTZszxy }
+            country_event = { id = yesTZ.101 }
+        }
+    }
+
+    option = {
+        name = yesTZ01.2
+        change_variable = { which = yesTZszxy value = 10 }
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.3  # 选项名称
+        change_variable = { which = yesTZszxy value = 5 }
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.4  # 选项名称
+        change_variable = { which = yesTZszxy value = 1 }
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.5  # 选项名称
+        change_variable = { which = yesTZszxy value = -1 }
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.6  # 选项名称
+        change_variable = { which = yesTZszxy value = -5 }  # 将yesTZ变量减少5
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.7  # 选项名称
+        change_variable = { which = yesTZszxy value = -10 }
+        yesTZ_szxy_effect = yes
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+    option = {
+        name = yesTZ01.8  # 选项名称
+        set_variable = { which = yesTZszxy value = 10 }
+        hidden_effect = {
+            country_event = { id = yesTZ.102 }
+        }
+    }
+}
+#强度控制
+country_event = {
+    id = yesTZ.104  # 事件ID
+    title = yesTZ04.title  # 事件标题
+    desc = {
+        text = "yesTZ04.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value > 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+    }
+
+    option = {
+        name = yesTZ04.1
+        hidden_effect = {
+            #set_variable = { which = yesTZszxy value = value:yesTZszxy }
+            country_event = { id = yesTZ.101 }
+        }
+    }
+
+    option = {
+        name = yesTZ04.2
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ04.3  # 选项名称
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+    option = {
+        name = yesTZ04.4  # 选项名称
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+    option = {
+        name = yesTZ04.5  # 选项名称
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+    option = {
+        name = yesTZ04.6  # 选项名称
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+    option = {
+        name = yesTZ04.7  # 选项名称
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+    option = {
+        name = yesTZ01.8  # 选项名称
+        set_variable = { which = yesTZszxy value = 10 }
+        hidden_effect = {
+            country_event = { id = yesTZ.104 }
+        }
+    }
+}
+#船体
+country_event = {
+    id = yesTZ.105  # 事件ID
+    title = yesTZ05.title  # 事件标题
+    desc = {
+        text = "yesTZ05.desc"
+        trigger = {
+            #check_variable = {
+            #    which = yesTZszxy
+            #    value > 10
+            #}
+        }
+    }
+    picture = GFX_evt_space_station  # 事件图片
+    show_sound = event_space_cloud  # 事件音效
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    fire_only_once = no
+    trigger = {
+    }
+    immediate = {
+        # 可以在事件触发时初始化变量（可选）
+    }
+
+    option = {
+        name = yesTZ05.1
+    }
+
+    option = {
+        name = yesTZ05.2
+        multiply_variable = { which = cs_power value = 2 }
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.3  # 选项名称
+        change_variable = {
+            which = cs_power
+            value = 5
+        }
+
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.4  # 选项名称
+        change_variable = { which = cs_power value = 1 }
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.5  # 选项名称
+        change_variable = { which = cs_power value = -1 }
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.6  # 选项名称
+        change_variable = { which = cs_power value = -5 }  # 将yesTZ变量减少5
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.7  # 选项名称
+        divide_variable = { which = cs_power value = 2 }
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+    option = {
+        name = yesTZ05.8  # 选项名称
+        set_variable = { which = cs_power value = 0 }
+        save_event_target_as = cs_power_event
+        hidden_effect = {
+            country_event = { id = yesTZ.105 }
+        }
+    }
+}
 #选择星球
 event = {
-    id = yesTZ.1000
+    id = yesTZ.103
     hide_window = yes  # 隐藏窗口
     is_triggered_only = yes  # 仅在触发条件满足时触发
     trigger = {
@@ -14,8 +389,12 @@ event = {
             }
             set_star_flag = szxy_star_5
             random_system_planet = {
-                set_planet_flag = szxy_planet_5
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_5
+                save_global_event_target_as = szxy_cs_5
             }
         }
         random_system = {
@@ -24,8 +403,11 @@ event = {
             }
             set_star_flag = szxy_star_6
             random_system_planet = {
-                set_planet_flag = szxy_planet_6
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_6
             }
         }
         random_system = {
@@ -34,8 +416,11 @@ event = {
             }
             set_star_flag = szxy_star_7
             random_system_planet = {
-                set_planet_flag = szxy_planet_7
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_7
             }
         }
         random_system = {
@@ -44,8 +429,11 @@ event = {
             }
             set_star_flag = szxy_star_8
             random_system_planet = {
-                set_planet_flag = szxy_planet_8
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_8
             }
         }
         random_system = {
@@ -54,8 +442,11 @@ event = {
             }
             set_star_flag = szxy_star_9
             random_system_planet = {
-                set_planet_flag = szxy_planet_9
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_9
             }
         }
         random_system = {
@@ -64,8 +455,11 @@ event = {
             }
             set_star_flag = szxy_star_10
             random_system_planet = {
-                set_planet_flag = szxy_planet_10
+                limit = {
+                    no_in_star_planet = yes
+                }
                 add_deposit = yesTZ_alloys_10
+                set_planet_flag = szxy_planet_10
             }
         }
         random_system = {
@@ -74,6 +468,10 @@ event = {
             }
             set_star_flag = szxy_star_11
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_11
             }
         }
@@ -83,6 +481,10 @@ event = {
             }
             set_star_flag = szxy_star_12
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_12
             }
         }
@@ -92,6 +494,10 @@ event = {
             }
             set_star_flag = szxy_star_13
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_13
             }
         }
@@ -101,6 +507,10 @@ event = {
             }
             set_star_flag = szxy_star_14
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_14
             }
         }
@@ -110,6 +520,10 @@ event = {
             }
             set_star_flag = szxy_star_15
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_15
             }
         }
@@ -119,6 +533,10 @@ event = {
             }
             set_star_flag = szxy_star_16
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_16
             }
         }
@@ -128,6 +546,10 @@ event = {
             }
             set_star_flag = szxy_star_17
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_17
             }
         }
@@ -137,6 +559,10 @@ event = {
             }
             set_star_flag = szxy_star_18
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_18
             }
         }
@@ -146,6 +572,10 @@ event = {
             }
             set_star_flag = szxy_star_19
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_19
             }
         }
@@ -155,6 +585,10 @@ event = {
             }
             set_star_flag = szxy_star_20
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_20
             }
         }
@@ -164,6 +598,10 @@ event = {
             }
             set_star_flag = szxy_star_21
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_21
             }
         }
@@ -173,6 +611,10 @@ event = {
             }
             set_star_flag = szxy_star_22
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_22
             }
         }
@@ -182,6 +624,10 @@ event = {
             }
             set_star_flag = szxy_star_23
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_23
             }
         }
@@ -191,6 +637,10 @@ event = {
             }
             set_star_flag = szxy_star_24
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_24
             }
         }
@@ -200,6 +650,10 @@ event = {
             }
             set_star_flag = szxy_star_25
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_25
             }
         }
@@ -209,6 +663,10 @@ event = {
             }
             set_star_flag = szxy_star_26
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_26
             }
         }
@@ -218,6 +676,10 @@ event = {
             }
             set_star_flag = szxy_star_27
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_27
             }
         }
@@ -227,6 +689,10 @@ event = {
             }
             set_star_flag = szxy_star_28
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_28
             }
         }
@@ -236,6 +702,10 @@ event = {
             }
             set_star_flag = szxy_star_29
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_29
             }
         }
@@ -245,6 +715,10 @@ event = {
             }
             set_star_flag = szxy_star_30
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_30
             }
         }
@@ -254,6 +728,10 @@ event = {
             }
             set_star_flag = szxy_star_31
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_31
             }
         }
@@ -263,6 +741,10 @@ event = {
             }
             set_star_flag = szxy_star_32
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_32
             }
         }
@@ -272,6 +754,10 @@ event = {
             }
             set_star_flag = szxy_star_33
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_33
             }
         }
@@ -281,6 +767,10 @@ event = {
             }
             set_star_flag = szxy_star_34
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_34
             }
         }
@@ -290,6 +780,10 @@ event = {
             }
             set_star_flag = szxy_star_35
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_35
             }
         }
@@ -299,6 +793,10 @@ event = {
             }
             set_star_flag = szxy_star_36
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_36
             }
         }
@@ -308,6 +806,10 @@ event = {
             }
             set_star_flag = szxy_star_37
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_37
             }
         }
@@ -317,6 +819,10 @@ event = {
             }
             set_star_flag = szxy_star_38
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_38
             }
         }
@@ -326,6 +832,10 @@ event = {
             }
             set_star_flag = szxy_star_39
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_39
             }
         }
@@ -335,6 +845,10 @@ event = {
             }
             set_star_flag = szxy_star_40
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_40
             }
         }
@@ -344,6 +858,10 @@ event = {
             }
             set_star_flag = szxy_star_41
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_41
             }
         }
@@ -353,6 +871,10 @@ event = {
             }
             set_star_flag = szxy_star_42
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_42
             }
         }
@@ -362,6 +884,10 @@ event = {
             }
             set_star_flag = szxy_star_43
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_43
             }
         }
@@ -371,6 +897,10 @@ event = {
             }
             set_star_flag = szxy_star_44
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_44
             }
         }
@@ -380,6 +910,10 @@ event = {
             }
             set_star_flag = szxy_star_45
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_45
             }
         }
@@ -389,6 +923,10 @@ event = {
             }
             set_star_flag = szxy_star_46
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_46
             }
         }
@@ -398,6 +936,10 @@ event = {
             }
             set_star_flag = szxy_star_47
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_47
             }
         }
@@ -407,6 +949,10 @@ event = {
             }
             set_star_flag = szxy_star_48
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_48
             }
         }
@@ -416,6 +962,10 @@ event = {
             }
             set_star_flag = szxy_star_49
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_49
             }
         }
@@ -425,6 +975,10 @@ event = {
             }
             set_star_flag = szxy_star_50
             random_system_planet = {
+                limit = {
+                    no_in_star_planet = yes
+                }
+                add_deposit = yesTZ_alloys_10
                 set_planet_flag = szxy_planet_50
             }
         }
@@ -432,7 +986,7 @@ event = {
 }
 #当肃正到来触发
 country_event = {
-    id = yesTZ.1001
+    id = yesTZ.1050
     hide_window = yes  # 隐藏窗口
     is_triggered_only = yes  # 仅在触发条件满足时触发
     fire_only_once = yes
@@ -440,203 +994,346 @@ country_event = {
         any_country = {
             is_country_type = ai_empire
         }
+        check_variable = { which = yesTZszxy value > 4 }
     }
     immediate = {
+        # 保存肃正为目标
         random_country = {
-            limit = {
-                is_country_type = "ai_empire"
-            }
+            limit = { is_country_type = "ai_empire" }
             save_global_event_target_as = AI_crisis
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_5 }
-            planet_event = { id = yesTZ.1005 days = 180 random = 10 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 5 } }
+            random_galaxy_planet = {
+                limit = {
+                    has_planet_flag = szxy_planet_5
+                    #check_variable = { which = yesTZszxy value >= 5 }里面不能触发
+                }
+                planet_event = { id = yesTZ.2033 days = 200 random = 10 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_6 }
-            planet_event = { id = yesTZ.1006 days = 360 random = 10 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 6 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_6 }
+                planet_event = { id = yesTZ.2034 days = 300 random = 10 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_7 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 7 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_7 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_8 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 8 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_8 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_9 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 9 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_9 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_10 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 10 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_10 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_11 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 11 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_11 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_12 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 12 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_12 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_13 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 13 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_13 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_14 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 14 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_14 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_15 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 15 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_15 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_16 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 16 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_16 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_17 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 17 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_17 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_18 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 18 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_18 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_19 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 19 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_19 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_20 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 20 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_20 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_21 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 21 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_21 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_22 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 22 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_22 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_23 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 23 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_23 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_24 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 24 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_24 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_25 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 25 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_25 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_26 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 26 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_26 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_27 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 27 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_27 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_28 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 28 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_28 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_29 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 29 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_29 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_30 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 30 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_30 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_31 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 31 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_31 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_32 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 32 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_32 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_33 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 33 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_33 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_34 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 34 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_34 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_35 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 35 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_35 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_36 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 36 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_36 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_37 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 37 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_37 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_38 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 38 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_38 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_39 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 39 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_39 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_40 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 40 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_40 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_41 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 41 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_41 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_42 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 42 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_42 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_43 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 43 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_43 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_44 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 44 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_44 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_45 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 45 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_45 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_46 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 46 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_46 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_47 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 47 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_47 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_48 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 48 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_48 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_49 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 49 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_49 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
-        random_galaxy_planet = {
-            limit = { has_planet_flag = szxy_planet_50 }
-            planet_event = { id = yesTZ.1011 days = 1000 random = 100 }
+
+        # 50级触发
+        if = {
+            limit = { check_variable = { which = yesTZszxy value >= 50 } }
+            random_galaxy_planet = {
+                limit = { has_planet_flag = szxy_planet_50 }
+                planet_event = { id = yesTZ.2035 days = 1000 random = 100 }
+            }
         }
     }
 }
 #创建舰队
 planet_event = {
-    id = yesTZ.2051
+    id = yesTZ.1051
     hide_window = yes
 
     is_triggered_only = yes
@@ -651,9 +1348,44 @@ planet_event = {
         owner = { save_event_target_as = AI_crisis }
         create_ai_fleet = yes
         #create_ai_constructors = yes
-        planet_event = { id = yesTZ.2051 days = 1500 random = 200 }
+        planet_event = { id = yesTZ.1051 days = 300 random = 100 }
     }
 }
+#planet_event = {
+#    id = yesTZ.1052
+#    hide_window = yes
+#
+#    is_triggered_only = yes
+#
+#    trigger = {
+#        is_planet_class = pc_ai
+#        NOT = { has_planet_flag = machine_lair }
+#        owner = { is_country_type = "ai_empire" }
+#    }
+#
+#    immediate = {
+#        from = {
+#            create_fleet_from_naval_cap = 0.7
+#            last_created_fleet = {
+#                set_owner = root
+#                set_location = root.capital_scope
+#                every_controlled_ship = {
+#                    switch = {
+#                        trigger = is_ship_size
+#                        corvette = { set_ship_design = { random_existing_design = corvette } }
+#                        frigate = { set_ship_design = { random_existing_design = frigate } }
+#                        destroyer = { set_ship_design = { random_existing_design = destroyer } }
+#                        cruiser = { set_ship_design = { random_existing_design = cruiser } }
+#                        battleship = { set_ship_design = { random_existing_design = battleship } }
+#                        titan = { set_ship_design = { random_existing_design = titan } }
+#                        juggernaut = { set_ship_design = { random_existing_design = juggernaut } }
+#                    }
+#                }
+#            }
+#        }
+#        #planet_event = { id = yesTZ.1052 days = 1500 random = 200 }
+#    }
+#}
 
 country_event = {
     id = yesTZ.2031
@@ -699,7 +1431,7 @@ country_event = {
 }
 #第五个机械球
 planet_event = {
-    id = yesTZ.1005  # 事件的唯一标识符
+    id = yesTZ.2033  # 事件的唯一标识符
     hide_window = yes  # 触发事件时不显示事件窗口
 
     is_triggered_only = yes  # 该事件仅在满足触发条件时触发
@@ -715,13 +1447,13 @@ planet_event = {
         set_owner = event_target:AI_crisis  # 设置行星的所有者为事件目标 "AI_crisis"
         set_controller = event_target:AI_crisis  # 设置行星的控制者为事件目标 "AI_crisis"
         create_ai_planet_defense = yes  # 创建 AI 行星防御
-        create_ai_fleet = yes  # 创建 AI 舰队（重复两次，可能为了增加舰队数量）
+        create_ai_fleet = yes  # 创建 AI 舰队
         every_country = {
             # 针对每个国家执行以下操作
             limit = { is_ai = no }  # 仅针对非 AI 国家
             country_event = { id = yesTZ.2031 }  # 触发国家事件，ID 为 crisis.2031
         }
-        planet_event = { id = yesTZ.2051 }  # 触发行星事件，ID 为 crisis.2050（开始舰队增援周期）
+        planet_event = { id = yesTZ.1051 }  # 触发行星事件，ID 为 crisis.2050（开始舰队增援周期）
         every_country = {
             # 针对每个国家执行以下操作
             limit = { has_event_chain = "ai_crisis_chain" }  # 仅针对具有 "ai_crisis_chain" 事件链的国家
@@ -806,7 +1538,7 @@ planet_event = {
 }
 #6
 planet_event = {
-    id = yesTZ.1006
+    id = yesTZ.2034
     hide_window = yes
 
     is_triggered_only = yes
@@ -828,7 +1560,7 @@ planet_event = {
             limit = { is_ai = no }
             country_event = { id = yesTZ.2032 }
         }
-        planet_event = { id = yesTZ.2051 }
+        planet_event = { id = yesTZ.1051 }
         every_country = {
 
             limit = { has_event_chain = "ai_crisis_chain" }
@@ -902,7 +1634,7 @@ planet_event = {
 #太多了不写了
 #通用
 planet_event = {
-    id = yesTZ.1011
+    id = yesTZ.2035
     hide_window = yes
 
     is_triggered_only = yes
@@ -919,7 +1651,7 @@ planet_event = {
         set_controller = event_target:AI_crisis
         #create_ai_planet_defense = yes
         create_ai_fleet = yes
-        #planet_event = { id = yesTZ.2051 }
+        #planet_event = { id = yesTZ.1051 }
         every_country = {
             limit = { has_event_chain = "ai_crisis_chain" }
             add_event_chain_counter = {
@@ -983,6 +1715,98 @@ planet_event = {
                         distance = 0
                         angle = random
                     }
+                }
+            }
+        }
+    }
+}
+
+#动修
+country_event = {
+    id = yesTZ.3000
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        this = {
+            is_country_type = ai_empire
+        }
+        not = {
+            has_global_flag = 60daycd
+        }
+    }
+    immediate = {
+        if = {
+            limit = {
+                has_global_flag = open_one_power
+            }
+            random_list = {
+                25 = {
+                    FromFromFrom.fleet = {
+                        random_controlled_ship = {
+                            #下版本混沌攻击
+                            #set_owner = event_target:AI_crisis
+                        }
+                        set_owner = event_target:AI_crisis
+                    }
+                    this = {
+                        set_timed_global_flag = {
+                            flag = 60daycd
+                            days = 60
+                        }
+                    }
+                }
+                75 = {
+
+                }
+            }
+        }
+        #数值同步
+        if = {
+            limit = {
+                has_global_flag = open_two_power
+            }
+            FromFromFrom = {
+                save_global_event_target_as = szxy_two_power
+                export_modifier_to_variable = {
+                    modifier = ship_weapon_damage
+                    variable = szxy_two_power_add
+                }
+            }
+            this = {
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_one
+                    mult = value:yesTZszxy
+                    days = -1
+                }
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_three
+                    mult = value:open_three_power
+                    days = -1
+                }
+            }
+        }
+        #增长的数值
+        if = {
+            limit = {
+                has_global_flag = open_three_power
+            }
+            change_variable = {
+                which = szxy_three_power_add
+                value = 1
+            }
+            FromFromFrom = {
+                save_global_event_target_as = szxy_three_power
+            }
+            this = {
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_two
+                    mult = value:open_two_power
+                    days = -1
+                }
+                add_modifier = {
+                    modifier = yesTZ_szxy_power_three
+                    mult = value:open_three_power
+                    days = -1
                 }
             }
         }

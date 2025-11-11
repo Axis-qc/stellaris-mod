@@ -1,0 +1,71 @@
+play_kill_ai = {
+    length = 10
+    icon = "GFX_edict_type_policy"
+    #启动条件
+    allow = {
+        always = yes
+    }
+    #显示条件
+    potential = {
+        any_country = {
+            is_ai = yes
+            is_country_type = default
+        }
+        count_country = {
+            limit = { is_ai = no }
+            count > 1
+        }
+    }
+    resources = {
+        category = edicts
+        #
+        # cost = {
+        #     energy = 1
+        # }
+    }
+
+    effect = {
+        every_country = {
+            limit = {
+                is_ai = yes
+                is_country_type = default
+            }
+            destroy_country = yes
+        }
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}
+
+play_kill_player = {
+    length = 10
+    icon = "GFX_edict_type_policy"
+    #启动条件
+    allow = {
+        always = yes
+    }
+    #显示条件
+    potential = {
+        count_country = {
+            limit = { is_ai = no }
+            count > 1
+        }
+    }
+    resources = {
+        category = edicts
+        #
+        # cost = {
+        #     energy = 1
+        # }
+    }
+
+    effect = {
+        destroy_country = yes
+    }
+
+    ai_weight = {
+        weight = 0
+    }
+}

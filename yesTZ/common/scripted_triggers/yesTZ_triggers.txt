@@ -1,4 +1,8 @@
 no_star_flag = {
+    #防止刷同一个上
+    not = {
+        exists = starbase
+    }
     NOR = {
         has_star_flag = szxy_star_5
         has_star_flag = szxy_star_6
@@ -46,6 +50,26 @@ no_star_flag = {
         has_star_flag = szxy_star_48
         has_star_flag = szxy_star_49
         has_star_flag = szxy_star_50
+        has_star_flag = ring_world_built
+    }
+}
+no_in_star_planet = {
+    #防止刷特殊球上
+    NOR = {
+        is_star = yes
+        is_planet_class = pc_cybrex
+        is_planet_class = pc_ringworld_habitable
+        is_planet_class = pc_ringworld_habitable_damaged
+        is_planet_class = pc_ringworld_tech
+        is_planet_class = pc_ringworld_tech_damaged
+        is_planet_class = pc_ringworld_seam
+        is_planet_class = pc_ringworld_seam_damaged
+        is_planet_class = pc_shattered_ring_habitable
+        is_planet_class = pc_habitat
+        is_planet_class = pc_cosmogenesis_world
+        #is_planet_class = pc_asteroid
+        #is_planet_class = pc_ice_asteroid
+        #is_planet_class = pc_rare_crystal_asteroid
     }
 }
 no_cz_flag = {

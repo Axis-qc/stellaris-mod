@@ -1,0 +1,30 @@
+yesTZ_szxy_effect = {
+    # 检查变量是否超过最大值
+    if = {
+        limit = {
+            check_variable = {
+                which = yesTZszxy  # 要检查的变量名
+                value > 50        # 检查是否大于
+            }
+        }
+        # 修改变量值为上限值
+        set_variable = {
+            which = yesTZszxy  # 目标变量
+            value = 50       # 强制设为
+        }
+    }
+    # 检查变量是否小于最小值
+    if = {
+        limit = {
+            check_variable = {
+                which = yesTZszxy  # 要检查的变量名
+                value < 4          # 检查是否小于
+            }
+        }
+        # 修改变量值为下限值
+        set_variable = {
+            which = yesTZszxy  # 目标变量
+            value = 4          # 强制设为
+        }
+    }
+}
