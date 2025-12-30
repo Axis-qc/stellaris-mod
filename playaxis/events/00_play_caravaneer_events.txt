@@ -652,6 +652,16 @@ country_event = {
     location = event_target:play_axis_system
 
     immediate = {
+        every_owned_leader = {
+            #遍历拥有的领袖
+            limit = {
+                has_leader_flag = play_scientist_operate#限定条件，有play_scientist_operate这个flag
+            }
+            set_variable = {
+                which = leader_skill
+                value = trigger:has_base_skill
+            }
+        }
     }
 
     option = {
@@ -770,7 +780,10 @@ country_event = {
                     has_leader_flag = play_scientist_operate#限定条件，有play_scientist_operate这个flag
                 }
                 remove_all_traits = yes#删特质
-                set_skill = 1#等级设定一级
+                set_skill = 0#等级设定
+                remove_leader_flag = has_two_traits
+                remove_leader_flag = lx_gestalt_two_traits
+                add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.113 }
         }
@@ -1670,6 +1683,15 @@ country_event = {
     location = event_target:play_axis_system
 
     immediate = {
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_official_operate#限定条件，有play_scientist_operate这个flag
+            }
+            set_variable = {
+                which = leader_skill
+                value = trigger:has_base_skill
+            }
+        }
     }
 
     option = {
@@ -1788,7 +1810,10 @@ country_event = {
                     has_leader_flag = play_official_operate#限定条件，有play_scientist_operate这个flag
                 }
                 remove_all_traits = yes
-                set_skill = 1
+                set_skill = 0#等级设定
+                remove_leader_flag = has_two_traits
+                remove_leader_flag = lx_gestalt_two_traits
+                add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.122 }
         }
@@ -2722,6 +2747,15 @@ country_event = {
     location = event_target:play_axis_system
 
     immediate = {
+        every_owned_leader = {
+            limit = {
+                has_leader_flag = play_commander_operate#限定条件，有play_scientist_operate这个flag
+            }
+            set_variable = {
+                which = leader_skill
+                value = trigger:has_base_skill
+            }
+        }
     }
 
     option = {
@@ -2840,7 +2874,10 @@ country_event = {
                     has_leader_flag = play_commander_operate#限定条件，有play_scientist_operate这个flag
                 }
                 remove_all_traits = yes
-                set_skill = 1
+                set_skill = 0#等级设定
+                remove_leader_flag = has_two_traits
+                remove_leader_flag = lx_gestalt_two_traits
+                add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.132 }
         }
@@ -3500,62 +3537,6 @@ country_event = {
 
     immediate = {
         # 定义立即执行的效果
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_1
-            save_event_target_as = play_commander_name_1
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_2
-            save_event_target_as = play_commander_name_2
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_3
-            save_event_target_as = play_commander_name_3
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_4
-            save_event_target_as = play_commander_name_4
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_5
-            save_event_target_as = play_commander_name_5
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_6
-            save_event_target_as = play_commander_name_6
-        }
-        random_owned_leader = {
-            limit = {
-                leader_class = commander
-                play_commander_leader_flag = no
-            }
-            set_leader_flag = play_commander_7
-            save_event_target_as = play_commander_name_7
-        }
     }
 
     option = {
@@ -3576,7 +3557,35 @@ country_event = {
                         leader_class = scientist
                     }
                 }
+                event_target:axis_leader_ing = {
+                    set_leader_flag = play_scientist_operate
+                    save_event_target_as = play_scientist_operate_name
+                }
                 country_event = { id = play.113 }
+            }
+            if = {
+                limit = {
+                    event_target:axis_leader_ing = {
+                        leader_class = official
+                    }
+                }
+                event_target:axis_leader_ing = {
+                    set_leader_flag = play_official_operate
+                    save_event_target_as = play_official_operate_name
+                }
+                country_event = { id = play.122 }
+            }
+            if = {
+                limit = {
+                    event_target:axis_leader_ing = {
+                        leader_class = commander
+                    }
+                }
+                event_target:axis_leader_ing = {
+                    set_leader_flag = play_commander_operate
+                    save_event_target_as = play_commander_operate_name
+                }
+                country_event = { id = play.132 }
             }
         }
     }

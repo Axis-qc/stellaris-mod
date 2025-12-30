@@ -612,6 +612,58 @@ country_event = {
                     }
                 }
             }
+            #贸易
+            if = {
+                limit = {
+                    this = {
+                        has_starbase_module = trading_hub
+                        nor = {
+                            has_starbase_module = hangar_bay
+                            has_starbase_module = gun_battery
+                            has_starbase_module = anchorage
+                            has_starbase_module = shipyard
+                            has_starbase_module = beastport
+                            has_starbase_module = hatchery
+                        }
+                    }
+                }
+                set_starbase_module = {
+                    slot = 1
+                    module = trading_hub
+                }
+                set_starbase_module = {
+                    slot = 2
+                    module = trading_hub
+                }
+                set_starbase_module = {
+                    slot = 3
+                    module = trading_hub
+                }
+                set_starbase_module = {
+                    slot = 4
+                    module = trading_hub
+                }
+                set_starbase_module = {
+                    slot = 5
+                    module = trading_hub
+                }
+                set_starbase_module = {
+                    slot = 6
+                    module = trading_hub
+                }
+                set_starbase_building = {
+                    slot = 1
+                    building = resource_silo
+                }
+                root = {
+                    add_resource = {
+                        influence = -10
+                    }
+                    add_resource = {
+                        alloys = -500
+                    }
+                }
+            }
         }
     }
 }
