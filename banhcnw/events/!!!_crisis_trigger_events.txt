@@ -1,0 +1,321 @@
+######################################
+#
+# 终末危机触发事件
+#
+######################################
+
+namespace = crisis_trigger
+
+event = {
+    id = crisis_trigger.1
+    hide_window = yes
+
+    is_triggered_only = yes
+
+    trigger = {
+        is_crises_allowed = yes
+        OR = {
+            AND = {
+                # 超级早期启动前提条件
+                end_game_years_passed >= 0
+                OR = {
+                    has_global_flag = endgame_crisis_early_start # 来自Ultima Vigilis
+                    AND = {
+                        # 两个危机召唤决议均激活
+                        is_active_resolution = resolution_galacticstudies_extradimensional_experimentation
+                        is_active_resolution = resolution_galactic_threats_committee
+                    }
+                }
+            }
+            AND = {
+                # 早期启动
+                end_game_years_passed >= 25
+                OR = {
+                    default_endgame_early_start_triggers = yes
+                    any_country = {
+                        is_country_type = default
+                        OR = {
+                            has_technology = tech_jump_drive_1
+                            has_technology = tech_psi_jump_drive_1
+                        }
+                    }
+                    is_active_resolution = resolution_galacticstudies_extradimensional_experimentation
+                    is_active_resolution = resolution_galactic_threats_committee
+                }
+            }
+            end_game_years_passed >= 50 # 常规启动
+        }
+        OR = {
+            NOT = { has_global_flag = galactic_crisis_happened }
+            AND = {
+                allowed_crisis_type = all
+                NOT = { has_global_flag = galactic_crisis_recently_fired }# 因为某些危机可能需要一段时间才到达，我们不希望同时出现两个
+            }
+        }
+    }
+
+    immediate = {
+        random_country = {
+            limit = { is_country_type = global_event } # global_event 国家始终存在
+            random_list = {
+                ### 普雷索林虫群（虫子）
+                100 = {
+                    modifier = {
+                        factor = 0
+                        has_country_flag = only_unbidden_this_time
+                    }
+                    modifier = {
+                        factor = 3
+                        allowed_crisis_type = prethoryn
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = contingency
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 35
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 50
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 70
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 85
+                    }
+                    modifier = {
+                        factor = 4
+                        end_game_years_passed >= 100
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = prethoryn_invasion_happened
+                    }
+                    country_event = { id = crisis.10 days = 200 random = 800 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_1
+                        years = 5
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_2
+                        years = 10
+                    }
+                }
+
+                ### 异次元入侵（恶魔）
+                80 = {
+                    modifier = {
+                        factor = 3.75
+                        allowed_crisis_type = unbidden
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = contingency
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 0.5
+                        end_game_years_passed < 20
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 35
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 50
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 70
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 85
+                    }
+                    modifier = {
+                        factor = 4
+                        end_game_years_passed >= 100
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = extradimensional_invasion_happened
+                    }
+                    country_event = { id = crisis.1000 days = 200 random = 800 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_1
+                        years = 5
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_2
+                        years = 10
+                    }
+                }
+
+                ### 肃正协议（AI）
+                100 = {
+                    modifier = {
+                        factor = 0
+                        has_country_flag = only_unbidden_this_time
+                    }
+                    modifier = {
+                        factor = 3
+                        allowed_crisis_type = contingency
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = synth_queen
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 35
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 50
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 70
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 85
+                    }
+                    modifier = {
+                        factor = 4
+                        end_game_years_passed >= 100
+                    }
+                    modifier = {
+                        factor = 0
+                        has_global_flag = ai_invasion_happened
+                    }
+                    country_event = { id = crisis.2005 days = 200 random = 800 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_1
+                        years = 5
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_2
+                        years = 10
+                    }
+                }
+
+                ### 合成女皇
+                100 = {
+                    modifier = {
+                        factor = 0
+                        has_country_flag = only_unbidden_this_time
+                    }
+                    modifier = {
+                        # 激励塞塔娜最后出现，否则她可能会杀死所有其他危机
+                        factor = 0.5
+                        any_country = {
+                            is_crisis_faction = yes
+                        }
+                    }
+                    modifier = {
+                        factor = 3
+                        allowed_crisis_type = synth_queen
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            allowed_crisis_type = prethoryn
+                            allowed_crisis_type = unbidden
+                            allowed_crisis_type = contingency
+                            allowed_crisis_type = all #全天灾不出女王
+                        }
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 35
+                    }
+                    modifier = {
+                        factor = 2
+                        end_game_years_passed >= 50
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 70
+                    }
+                    modifier = {
+                        factor = 3
+                        end_game_years_passed >= 85
+                    }
+                    modifier = {
+                        factor = 4
+                        end_game_years_passed >= 100
+                    }
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            has_global_flag = synth_queen_happened
+                            has_machine_age_dlc = no
+                        }
+                    }
+                    country_event = { id = crisis.8005 days = 200 random = 800 }
+                    set_global_flag = galactic_crisis_happened
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_recently_fired
+                        years = 7
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_1
+                        years = 5
+                    }
+                    set_timed_global_flag = {
+                        flag = galactic_crisis_early_defeat_tracker_2
+                        years = 10
+                    }
+                }
+
+                ### 无事发生
+                12 = {
+                    # modifier = {
+                    #     # 如果已有其他危机激活，则无事发生的几率增加
+                    #     factor = 1.25
+                    #     any_country = {
+                    #         is_crisis_faction = yes
+                    #     }
+                    # }
+                    modifier = {
+                        subtract = 119
+                        has_global_flag = endgame_crisis_early_start
+                    }
+                }
+            }
+        }
+    }
+}
