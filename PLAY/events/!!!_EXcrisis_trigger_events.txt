@@ -4,52 +4,22 @@
 #
 ######################################
 
-namespace = crisis_trigger
+namespace = EXcrisis_trigger
 
 event = {
-    id = crisis_trigger.1
+    id = EXcrisis_trigger.1
     hide_window = yes
 
     is_triggered_only = yes
 
     trigger = {
         is_crises_allowed = yes
+        # end_game_years_passed >= 0 #进入末期时间
         OR = {
-            AND = {
-                # 超级早期启动前提条件
-                end_game_years_passed >= 0
-                OR = {
-                    has_global_flag = endgame_crisis_early_start # 来自Ultima Vigilis
-                    AND = {
-                        # 两个危机召唤决议均激活
-                        is_active_resolution = resolution_galacticstudies_extradimensional_experimentation
-                        is_active_resolution = resolution_galactic_threats_committee
-                    }
-                }
-            }
-            AND = {
-                # 早期启动
-                end_game_years_passed >= 25
-                OR = {
-                    default_endgame_early_start_triggers = yes
-                    any_country = {
-                        is_country_type = default
-                        OR = {
-                            has_technology = tech_jump_drive_1
-                            has_technology = tech_psi_jump_drive_1
-                        }
-                    }
-                    is_active_resolution = resolution_galacticstudies_extradimensional_experimentation
-                    is_active_resolution = resolution_galactic_threats_committee
-                }
-            }
-            end_game_years_passed >= 50 # 常规启动
-        }
-        OR = {
-            NOT = { has_global_flag = galactic_crisis_happened }
+            NOT = { has_global_flag = galactic_crisis_happened } #随机天灾只来一个
             AND = {
                 allowed_crisis_type = all
-                NOT = { has_global_flag = galactic_crisis_recently_fired }# 因为某些危机可能需要一段时间才到达，我们不希望同时出现两个
+                NOT = { has_global_flag = EXgalactic_crisis_recently_fired }#7年触发CD，五年触发一次，触发一次后下次在十年后触发
             }
         }
     }
@@ -106,6 +76,11 @@ event = {
                         flag = galactic_crisis_recently_fired
                         years = 7
                     }
+                    set_timed_global_flag = {
+                        flag = EXgalactic_crisis_recently_fired
+                        years = 7
+                    }
+
                     set_timed_global_flag = {
                         flag = galactic_crisis_early_defeat_tracker_1
                         years = 5
@@ -165,6 +140,11 @@ event = {
                         years = 7
                     }
                     set_timed_global_flag = {
+                        flag = EXgalactic_crisis_recently_fired
+                        years = 7
+                    }
+
+                    set_timed_global_flag = {
                         flag = galactic_crisis_early_defeat_tracker_1
                         years = 5
                     }
@@ -223,6 +203,11 @@ event = {
                         years = 7
                     }
                     set_timed_global_flag = {
+                        flag = EXgalactic_crisis_recently_fired
+                        years = 7
+                    }
+
+                    set_timed_global_flag = {
                         flag = galactic_crisis_early_defeat_tracker_1
                         years = 5
                     }
@@ -255,7 +240,7 @@ event = {
                             allowed_crisis_type = prethoryn
                             allowed_crisis_type = unbidden
                             allowed_crisis_type = contingency
-                            # allowed_crisis_type = all #全天灾不出女王
+                            allowed_crisis_type = all #全天灾不出女王
                         }
                     }
                     modifier = {
@@ -292,6 +277,11 @@ event = {
                         years = 7
                     }
                     set_timed_global_flag = {
+                        flag = EXgalactic_crisis_recently_fired
+                        years = 7
+                    }
+
+                    set_timed_global_flag = {
                         flag = galactic_crisis_early_defeat_tracker_1
                         years = 5
                     }
@@ -317,5 +307,17 @@ event = {
                 }
             }
         }
+    }
+}
+
+country_event = {
+    id = EXcrisis_trigger.2
+    hide_window = yes  # 隐藏窗口
+    is_triggered_only = yes  # 仅在触发条件满足时触发
+    trigger = {
+        allowed_crisis_type = all #全天灾不出女王
+    }
+    immediate = {
+        set_global_flag = synth_queen_happened
     }
 }
