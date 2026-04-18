@@ -11,7 +11,10 @@ tech_ww_ship = {
     icon = tech_ww_ship
 
     potential = {
-        has_country_flag = yes_ww_ship_1
+        OR = {
+            has_country_flag = yes_ww_ship_1
+            any_country = { has_technology = tech_ww_ship }
+        }
     }
 
     weight_modifier = {
@@ -27,16 +30,15 @@ tech_ww_ship = {
             root = {
                 has_country_flag = yes_ww_ship_1
             }
-
+        }
+        MODIFIER = {
+            factor = 100
+            any_country = { has_technology = tech_ww_ship }
         }
     }
-    #modifier = {
-    #    #shipsize_abandoned_ship_hull_add = 100
-    #    shipsize_HY_huanyv_ship_hull_mult = 0.1  #10%船体
-    #    shipsize_HY_huanyv_ship_armor_mult = 0.1
-    #    shipsize_HY_huanyv_ship_shield_mult = 0.1
-    #
-    #}
+    # modifier = {
+    #     shipsize_ww_ship_sizes_armor_add = 100
+    # }
 
     prereqfor_desc = {
         #提示文本
@@ -48,6 +50,6 @@ tech_ww_ship = {
     }
 
     ai_weight = {
-        weight = 100
+        weight = 10
     }
 }
