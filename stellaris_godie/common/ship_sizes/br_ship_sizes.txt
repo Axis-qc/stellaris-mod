@@ -1,0 +1,56 @@
+br_dominator = {
+    formation_priority = @colossus_formation_priority
+    max_speed = @speed_very_slow
+    acceleration = 0.2
+    rotation_speed = 0.15
+    collision_radius = @colossus_collision_radius
+    max_hitpoints = @colossus_hp
+    modifier = {
+        ship_evasion_add = @colossus_evasion
+        starbase_shipyard_capacity_add = 6
+    }
+    size_multiplier = 100
+    map_counter_icon = ship_counter_128
+    icon = ship_size_military_64
+    fleet_slot_size = 32
+    section_slots = { "ship" = { locator = "frame_ship" } }
+    num_target_locators = 4
+    is_space_station = no
+    base_buildtime = @colossus_build_time
+    can_have_federation_design = no
+    enable_default_design = no
+    enable_3dview_in_ship_browser = yes
+    can_disable = no
+    default_behavior = colossus
+    ship_roles = { artillery carrier }
+
+    class = shipclass_starbase
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "thruster_components"
+    required_component_set = "combat_computers"
+    required_component_set = "sensor_components"
+    construction_type = starbase_shipyard
+
+    resources = {
+        category = ships
+        cost = {
+            alloys = 10000
+        }
+        upkeep = {
+            energy = -30
+            alloys = -10
+        }
+    }
+
+    min_upgrade_cost = {
+        alloys = 10
+    }
+
+    ai_ship_data = {
+        min = 1
+        max = 1
+    }
+
+    available_to_everyone = no
+}

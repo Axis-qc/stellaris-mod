@@ -8,9 +8,68 @@ country_event = {
 	trigger = {
 		is_ai = no
 		NOT = { is_country_type = br_player }
+		NOT = { has_country_flag = br_player_replacement_scheduled }
 	}
 
 	immediate = {
+		set_country_flag = br_player_replacement_scheduled
+		country_event = { id = br.502 days = 30 }
+	}
+}
+
+country_event = {
+	id = br.502
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_ai = no
+		NOT = { is_country_type = br_player }
+	}
+
+	immediate = {
+		create_country = {
+			name = random
+			type = br_player
+			species = owner_main_species
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			flag = random
+			effect = {
+				save_event_target_as = br_new_player_country
+				set_country_flag = br_player_country
+			}
+		}
+
+		event_target:br_new_player_country = {
+			create_fleet = {
+				name = "BR_STARTING_FLEET"
+				effect = {
+					set_owner = event_target:br_new_player_country
+					create_ship = {
+						name = "NAME_BR_Dominator"
+						design = "NAME_BR_Dominator"
+						prefix = no
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Dagger
+						}
+					}
+					set_location = {
+						target = root.capital_star
+						distance = 50
+						angle = random
+					}
+				}
+			}
+
+			set_player = root
+			country_event = { id = br.100 }
+		}
+
 		if = {
 			limit = {
 				NOT = { has_global_flag = br_start_map_cleaned }
@@ -61,43 +120,6 @@ country_event = {
 				}
 
 				destroy_country = yes
-			}
-		}
-
-		create_country = {
-			name = random
-			type = br_player
-			species = owner_main_species
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			flag = random
-			effect = {
-				save_event_target_as = br_new_player_country
-				set_country_flag = br_player_country
-			}
-		}
-
-		event_target:br_new_player_country = {
-			set_player = root
-			country_event = { id = br.100 }
-
-			create_fleet = {
-				name = "BR_STARTING_FLEET"
-				effect = {
-					set_owner = event_target:br_new_player_country
-					while = {
-						count = 3
-						create_ship = {
-							name = random
-							design = NAME_Dagger
-						}
-					}
-					set_location = {
-						target = event_target:battle_royale_center.star
-						distance = 50
-						angle = random
-					}
-				}
 			}
 		}
 
