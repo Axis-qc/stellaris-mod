@@ -1,0 +1,36 @@
+namespace = br
+
+country_event = {
+    id = br.500
+    title = br_settings_title
+    desc = br_settings_desc
+    picture = GFX_evt_signing
+    is_triggered_only = yes
+
+    option = {
+        name = br_speed_fast_name
+        set_global_flag = br_speed_fast
+        remove_global_flag = br_speed_normal
+        remove_global_flag = br_speed_slow
+        country_event = { id = br.300 days = 1080 }
+        country_event = { id = br.600 days = 1080 }
+    }
+
+    option = {
+        name = br_speed_normal_name
+        remove_global_flag = br_speed_fast
+        set_global_flag = br_speed_normal
+        remove_global_flag = br_speed_slow
+        country_event = { id = br.300 days = 1080 }
+        country_event = { id = br.600 days = 1080 }
+    }
+
+    option = {
+        name = br_speed_slow_name
+        remove_global_flag = br_speed_fast
+        remove_global_flag = br_speed_normal
+        set_global_flag = br_speed_slow
+        country_event = { id = br.300 days = 1080 }
+        country_event = { id = br.600 days = 1080 }
+    }
+}

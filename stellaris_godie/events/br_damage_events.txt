@@ -1,0 +1,282 @@
+namespace = br
+
+# 把所有没有进入任何圈层的孤立星系补成危险区
+country_event = {
+    id = br.600
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_system = {
+            limit = {
+                NOR = {
+                    has_star_flag = br_ring_1
+                    has_star_flag = br_ring_2
+                    has_star_flag = br_ring_3
+                    has_star_flag = br_ring_4
+                    has_star_flag = br_ring_5
+                    has_star_flag = br_ring_6
+                    has_star_flag = br_ring_7
+                    has_star_flag = br_ring_8
+                    has_star_flag = br_ring_9
+                    has_star_flag = br_ring_10
+                    has_star_flag = br_ring_11
+                    has_star_flag = br_ring_12
+                    has_star_flag = br_ring_13
+                    has_star_flag = br_ring_14
+                    has_star_flag = br_ring_15
+                    has_star_flag = br_ring_16
+                    has_star_flag = br_ring_17
+                    has_star_flag = br_ring_18
+                    has_star_flag = br_ring_19
+                    has_star_flag = br_ring_20
+                    has_star_flag = br_ring_21
+                    has_star_flag = br_ring_22
+                    has_star_flag = br_ring_23
+                    has_star_flag = br_ring_24
+                    has_star_flag = br_ring_25
+                    has_star_flag = br_ring_26
+                    has_star_flag = br_ring_27
+                    has_star_flag = br_ring_28
+                    has_star_flag = br_ring_29
+                    has_star_flag = br_ring_30
+                    has_star_flag = br_ring_31
+                    has_star_flag = br_ring_32
+                    has_star_flag = br_ring_33
+                    has_star_flag = br_ring_34
+                    has_star_flag = br_ring_35
+                    has_star_flag = br_ring_36
+                    has_star_flag = br_ring_37
+                    has_star_flag = br_ring_38
+                    has_star_flag = br_ring_39
+                    has_star_flag = br_ring_40
+                    has_star_flag = br_ring_41
+                    has_star_flag = br_ring_42
+                    has_star_flag = br_ring_43
+                    has_star_flag = br_ring_44
+                    has_star_flag = br_ring_45
+                    has_star_flag = br_ring_46
+                    has_star_flag = br_ring_47
+                    has_star_flag = br_ring_48
+                    has_star_flag = br_ring_49
+                    has_star_flag = br_ring_50
+                    has_star_flag = br_ring_51
+                    has_star_flag = br_ring_52
+                    has_star_flag = br_ring_53
+                    has_star_flag = br_ring_54
+                    has_star_flag = br_ring_55
+                    has_star_flag = br_ring_56
+                    has_star_flag = br_ring_57
+                    has_star_flag = br_ring_58
+                    has_star_flag = br_ring_59
+                    has_star_flag = br_ring_60
+                    has_star_flag = br_ring_61
+                    has_star_flag = br_ring_62
+                    has_star_flag = br_ring_63
+                    has_star_flag = br_ring_64
+                    has_star_flag = br_ring_65
+                    has_star_flag = br_ring_66
+                    has_star_flag = br_ring_67
+                    has_star_flag = br_ring_68
+                    has_star_flag = br_ring_69
+                    has_star_flag = br_ring_70
+                    has_star_flag = br_ring_71
+                    has_star_flag = br_ring_72
+                    has_star_flag = br_ring_73
+                    has_star_flag = br_ring_74
+                    has_star_flag = br_ring_75
+                    has_star_flag = br_ring_76
+                    has_star_flag = br_ring_77
+                    has_star_flag = br_ring_78
+                    has_star_flag = br_ring_79
+                    has_star_flag = br_ring_80
+                    has_star_flag = br_ring_81
+                    has_star_flag = br_ring_82
+                    has_star_flag = br_ring_83
+                    has_star_flag = br_ring_84
+                    has_star_flag = br_ring_85
+                    has_star_flag = br_ring_86
+                    has_star_flag = br_ring_87
+                    has_star_flag = br_ring_88
+                    has_star_flag = br_ring_89
+                    has_star_flag = br_ring_90
+                    has_star_flag = br_ring_91
+                    has_star_flag = br_ring_92
+                    has_star_flag = br_ring_93
+                    has_star_flag = br_ring_94
+                    has_star_flag = br_ring_95
+                    has_star_flag = br_ring_96
+                    has_star_flag = br_ring_97
+                    has_star_flag = br_ring_98
+                    has_star_flag = br_ring_99
+                    has_star_flag = br_ring_100
+                }
+            }
+            set_star_flag = br_danger
+            set_name = { key = br_danger_outer }
+        }
+
+        if = {
+            limit = { NOT = { has_global_flag = br_damage_started } }
+            set_global_flag = br_damage_started
+            country_event = { id = br.601 }
+        }
+    }
+}
+
+# 对所有危险区里的舰船造成持续伤害
+country_event = {
+    id = br.601
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_system = {
+            limit = { has_star_flag = br_danger }
+
+            every_ship_in_system = {
+                limit = {
+                    exists = controller
+                }
+
+                # 基础毒伤：前期给玩家撤离时间，后期不能靠回复硬抗。
+                damage_ship = 50
+
+                # 每缩 5 圈提高一档伤害，后期快速压过舰船回复。
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 5
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 50
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 10
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 100
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 15
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 200
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 20
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 400
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 25
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 800
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 30
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 1200
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 35
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 1600
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 40
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 2200
+                }
+                if = {
+                    limit = {
+                        root = {
+                            NOT = {
+                                check_variable = {
+                                    which = br_shrink_count
+                                    value < 45
+                                }
+                            }
+                        }
+                    }
+                    damage_ship = 3000
+                }
+            }
+        }
+
+        if = {
+            limit = { has_global_flag = br_speed_fast }
+            country_event = { id = br.601 days = 5 }
+        }
+        else_if = {
+            limit = { has_global_flag = br_speed_normal }
+            country_event = { id = br.601 days = 10 }
+        }
+        else_if = {
+            limit = { has_global_flag = br_speed_slow }
+            country_event = { id = br.601 days = 15 }
+        }
+        else = {
+            country_event = { id = br.601 days = 10 }
+        }
+    }
+}
