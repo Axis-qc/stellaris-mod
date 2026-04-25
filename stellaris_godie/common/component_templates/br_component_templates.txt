@@ -1,116 +1,118 @@
 weapon_component_template = {
-	key = "BR_PLANET_KILLER_HARVESTER"
-	size = planet_killer
-	type = planet_killer
-	use_ship_main_target = no
+    key = "BR_PLANET_KILLER_HARVESTER"
+    size = planet_killer
+    type = planet_killer
+    use_ship_main_target = no
+    windup = { min = 30 max = 30 }
+    total_fire_time = 30
 
-	icon = GFX_ship_part_world_cracker
-	icon_frame = 1
+    icon = GFX_ship_part_world_cracker
+    icon_frame = 1
 
-	potential = {
-		is_ship_size = br_dominator
-	}
-	component_set = "BR_PLANET_KILLER_HARVESTER"
+    potential = {
+        is_ship_size = br_dominator
+    }
+    component_set = "BR_PLANET_KILLER_HARVESTER"
 
-	planet_destruction_gfx = "shatter_planet_gfx"
+    planet_destruction_gfx = "shatter_planet_gfx"
 
-	ai_weight = {
-		factor = 0
-	}
+    ai_weight = {
+        factor = 0
+    }
 }
 
 utility_component_template = {
-	key = "BR_DOMINATOR_REACTOR"
-	size = small
-	icon = "GFX_ship_part_reactor_5"
-	icon_frame = 1
-	power = @colossus_power
+    key = "BR_DOMINATOR_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = @colossus_power
 
-	component_set = "power_core"
-	potential = {
-		is_ship_size = br_dominator
-	}
+    component_set = "power_core"
+    potential = {
+        is_ship_size = br_dominator
+    }
 
-	ai_weight = {
-		weight = 0
-	}
+    ai_weight = {
+        weight = 0
+    }
 }
 
 utility_component_template = {
-	key = "BR_DOMINATOR_THRUSTER"
-	size = small
-	icon = "GFX_ship_part_thruster_5"
-	icon_frame = 1
-	power = @colossus_power_5
-	modifier = {
-		ship_base_speed_mult = 1.25
-	}
+    key = "BR_DOMINATOR_THRUSTER"
+    size = small
+    icon = "GFX_ship_part_thruster_5"
+    icon_frame = 1
+    power = -500
+    modifier = {
+        ship_base_speed_mult = 1.25
+    }
 
-	component_set = "thruster_components"
-	potential = {
-		is_ship_size = br_dominator
-	}
+    component_set = "thruster_components"
+    potential = {
+        is_ship_size = br_dominator
+    }
 
-	ai_weight = {
-		weight = 0
-	}
+    ai_weight = {
+        weight = 0
+    }
 }
 
 utility_component_template = {
-	key = "BR_DOMINATOR_COMBAT_COMPUTER"
-	size = small
-	icon = "GFX_ship_part_computer_default"
-	icon_frame = 1
-	power = @power0
-	ship_behavior = "colossus"
+    key = "BR_DOMINATOR_COMBAT_COMPUTER"
+    size = small
+    icon = "GFX_ship_part_computer_default"
+    icon_frame = 1
+    power = -50
+    ship_behavior = "colossus"
 
-	component_set = "combat_computers"
-	potential = {
-		is_ship_size = br_dominator
-	}
+    component_set = "combat_computers"
+    potential = {
+        is_ship_size = br_dominator
+    }
 
-	ai_weight = {
-		weight = 0
-	}
+    ai_weight = {
+        weight = 0
+    }
 }
 
 utility_component_template = {
-	key = "BR_DOMINATOR_SENSOR"
-	size = medium
-	icon = "GFX_ship_part_sensor_2"
-	icon_frame = 1
-	power = @power2
-	sensor_range = @sensor2
-	hyperlane_range = @hyperlane2
+    key = "BR_DOMINATOR_SENSOR"
+    size = medium
+    icon = "GFX_ship_part_sensor_2"
+    icon_frame = 1
+    power = -500
+    sensor_range = 2
+    hyperlane_range = 2
 
-	component_set = "sensor_components"
-	potential = {
-		is_ship_size = br_dominator
-	}
+    component_set = "sensor_components"
+    potential = {
+        is_ship_size = br_dominator
+    }
 
-	ai_weight = {
-		weight = 0
-	}
+    ai_weight = {
+        weight = 0
+    }
 }
 
 utility_component_template = {
-	key = "BR_DOMINATOR_HYPER_DRIVE"
-	size = small
-	icon = "GFX_ship_part_hyper_drive_2"
-	icon_frame = 1
-	power = @power2
-	ftl = yes
-	ship_modifier = {
-		ship_disengage_opportunities_add = 1
-		ship_windup_mult = -0.25
-	}
+    key = "BR_DOMINATOR_HYPER_DRIVE"
+    size = small
+    icon = "GFX_ship_part_hyper_drive_2"
+    icon_frame = 1
+    power = -500
+    ftl = yes
+    ship_modifier = {
+        ship_disengage_opportunities_add = 1
+        ship_windup_mult = -0.25
+    }
 
-	component_set = "ftl_components"
-	potential = {
-		is_ship_size = br_dominator
-	}
+    component_set = "ftl_components"
+    potential = {
+        is_ship_size = br_dominator
+    }
 
-	ai_weight = {
-		weight = 0
-	}
+    ai_weight = {
+        weight = 0
+    }
 }

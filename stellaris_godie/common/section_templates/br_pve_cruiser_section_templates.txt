@@ -1,0 +1,353 @@
+# ============================================================
+# PVE巡洋舰区段模板
+# 流派：炮击、近战、鱼雷、航母
+# 巡洋舰由 bow（舰首） + mid（中段） + stern（舰尾）组成
+# 航母中段定义在本文件下方
+# ============================================================
+
+# ==================== 炮击型 ====================
+# 舰首：L1，单巨炮远程
+ship_section_template = {
+    key = "BR_PVE_CRUISER_BOW_ARTILLERY"
+    ship_size = cruiser
+    fits_on_slot = bow
+    should_draw_components = yes
+    entity = "cruiser_bow_L1_entity"
+    icon = "GFX_ship_part_core_bow"
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "large_turret"
+        locatorname = "large_gun_01"
+    }
+
+    medium_utility_slots = 2
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 中段：L1M1，大槽 + 中槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_MID_ARTILLERY"
+    ship_size = cruiser
+    fits_on_slot = mid
+    should_draw_components = yes
+    entity = "cruiser_mid_L1M1_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "large_turret"
+        locatorname = "large_gun_01"
+    }
+
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 舰尾：M1，中槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_STERN_ARTILLERY"
+    ship_size = cruiser
+    fits_on_slot = stern
+    should_draw_components = yes
+    entity = "cruiser_stern_M1_entity"
+    icon = "GFX_ship_part_core_stern"
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    aux_utility_slots = 2
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# ==================== 近战型 ====================
+# 舰首：M2，双中槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_BOW_BRAWLER"
+    ship_size = cruiser
+    fits_on_slot = bow
+    should_draw_components = yes
+    entity = "cruiser_bow_M2_entity"
+    icon = "GFX_ship_part_core_bow"
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    component_slot = {
+        name = "MEDIUM_GUN_02"
+        template = "medium_turret"
+        locatorname = "medium_gun_02"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 中段：M3，三中槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_MID_BRAWLER"
+    ship_size = cruiser
+    fits_on_slot = mid
+    should_draw_components = yes
+    entity = "cruiser_mid_M3_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    component_slot = {
+        name = "MEDIUM_GUN_02"
+        template = "medium_turret"
+        locatorname = "medium_gun_02"
+    }
+
+    component_slot = {
+        name = "MEDIUM_GUN_03"
+        template = "medium_turret"
+        locatorname = "medium_gun_03"
+    }
+
+    medium_utility_slots = 3
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 舰尾：S2，双小槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_STERN_BRAWLER"
+    ship_size = cruiser
+    fits_on_slot = stern
+    should_draw_components = yes
+    entity = "cruiser_stern_S2_entity"
+    icon = "GFX_ship_part_core_stern"
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    aux_utility_slots = 2
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# ==================== 鱼雷型 ====================
+# 舰首：G1S2，G槽鱼雷 + 双小槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_BOW_TORPEDO"
+    ship_size = cruiser
+    fits_on_slot = bow
+    should_draw_components = yes
+    entity = "cruiser_bow_M1S2_entity"
+    icon = "GFX_ship_part_core_bow"
+    component_slot = {
+        name = "TORPEDO_01"
+        template = "medium_missile_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 中段：G2S2，双G槽鱼雷 + 双小槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_MID_TORPEDO"
+    ship_size = cruiser
+    fits_on_slot = mid
+    should_draw_components = yes
+    entity = "cruiser_mid_M2S2_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = {
+        name = "TORPEDO_01"
+        template = "medium_missile_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    component_slot = {
+        name = "TORPEDO_02"
+        template = "medium_missile_turret"
+        locatorname = "medium_gun_02"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 舰尾：M1，G槽鱼雷
+ship_section_template = {
+    key = "BR_PVE_CRUISER_STERN_TORPEDO"
+    ship_size = cruiser
+    fits_on_slot = stern
+    should_draw_components = yes
+    entity = "cruiser_stern_M1_entity"
+    icon = "GFX_ship_part_core_stern"
+    component_slot = {
+        name = "TORPEDO_01"
+        template = "medium_missile_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    aux_utility_slots = 2
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# ==================== 航母型 ====================
+# 舰首：M1S2，中槽 + 双小槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_BOW_CARRIER"
+    ship_size = cruiser
+    fits_on_slot = bow
+    should_draw_components = yes
+    entity = "cruiser_bow_M1S2_entity"
+    icon = "GFX_ship_part_core_bow"
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "medium_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 中段：S2H1，双小槽 + 机库
+ship_section_template = {
+    key = "BR_PVE_CRUISER_MID_S2HB"
+    ship_size = cruiser
+    fits_on_slot = mid
+    should_draw_components = yes
+    entity = "cruiser_mid_S2HB_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    component_slot = {
+        name = "STRIKE_CRAFT_01"
+        template = "large_strike_craft"
+        rotation = 90
+        locatorname = "strike_craft_locator_01"
+    }
+
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
+
+# 舰尾：S2，双小槽
+ship_section_template = {
+    key = "BR_PVE_CRUISER_STERN_CARRIER"
+    ship_size = cruiser
+    fits_on_slot = stern
+    should_draw_components = yes
+    entity = "cruiser_stern_S2_entity"
+    icon = "GFX_ship_part_core_stern"
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    aux_utility_slots = 2
+
+    resources = {
+        category = ship_sections
+    }
+}

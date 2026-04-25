@@ -1,6 +1,6 @@
 namespace = br
 
-# 把所有没有进入任何圈层的孤立星系补成危险区
+# br.600：把所有没有进入任何圈层的孤立星系补成危险区喵
 country_event = {
     id = br.600
     hide_window = yes
@@ -124,7 +124,7 @@ country_event = {
     }
 }
 
-# 对所有危险区里的舰船造成持续伤害
+# br.601：对所有危险区里的舰船造成持续伤害，并按缩圈阶段提高伤害喵
 country_event = {
     id = br.601
     hide_window = yes
@@ -139,123 +139,134 @@ country_event = {
                     exists = controller
                 }
 
-                # 基础毒伤：前期给玩家撤离时间，后期不能靠回复硬抗。
+                # 基础毒伤：前期给玩家撤离时间，后期不能靠回复硬抗喵
                 damage_ship = 50
 
-                # 每缩 5 圈提高一档伤害，后期快速压过舰船回复。
+                # 大图按缩圈次数推进，小图额外按剩余安全圈数兜底，避免伤害永远到不了终盘喵
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 5
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 10
+                                    }
                                 }
                             }
-                        }
-                    }
-                    damage_ship = 50
-                }
-                if = {
-                    limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 10
-                                }
-                            }
+                            br_safe_ring_at_most_15 = yes
                         }
                     }
                     damage_ship = 100
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 15
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 15
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_10 = yes
                         }
                     }
                     damage_ship = 200
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 20
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 20
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_8 = yes
                         }
                     }
                     damage_ship = 400
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 25
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 25
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_6 = yes
                         }
                     }
                     damage_ship = 800
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 30
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 30
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_5 = yes
                         }
                     }
                     damage_ship = 1200
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 35
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 35
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_4 = yes
                         }
                     }
                     damage_ship = 1600
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 40
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 40
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_3 = yes
                         }
                     }
                     damage_ship = 2200
                 }
                 if = {
                     limit = {
-                        root = {
-                            NOT = {
-                                check_variable = {
-                                    which = br_shrink_count
-                                    value < 45
+                        OR = {
+                            root = {
+                                NOT = {
+                                    check_variable = {
+                                        which = br_shrink_count
+                                        value < 45
+                                    }
                                 }
                             }
+                            br_safe_ring_at_most_2 = yes
                         }
                     }
                     damage_ship = 3000

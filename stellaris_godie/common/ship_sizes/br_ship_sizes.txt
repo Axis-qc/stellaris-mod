@@ -1,4 +1,5 @@
 br_dominator = {
+    entity = "empty_section_entity"
     formation_priority = @colossus_formation_priority
     max_speed = @speed_very_slow
     acceleration = 0.2
@@ -8,6 +9,7 @@ br_dominator = {
     modifier = {
         ship_evasion_add = @colossus_evasion
         starbase_shipyard_capacity_add = 6
+        ship_sensor_range_add = 1
     }
     size_multiplier = 100
     map_counter_icon = ship_counter_128
@@ -18,7 +20,8 @@ br_dominator = {
     is_space_station = no
     base_buildtime = @colossus_build_time
     can_have_federation_design = no
-    enable_default_design = no
+    is_designable = yes
+    enable_default_design = yes
     enable_3dview_in_ship_browser = yes
     can_disable = no
     default_behavior = colossus
@@ -52,5 +55,5 @@ br_dominator = {
         max = 1
     }
 
-    available_to_everyone = no
+    available_to_everyone = yes
 }

@@ -1,0 +1,247 @@
+namespace = br
+
+# ============================================================
+# br.530：PVE玩家创建前从当前最外圈随机选择一个边缘出生点喵
+# 功能：扩圈完成后读取实际最大圈层，并把玩家标准舰队直接创建到边缘星系喵
+# ============================================================
+country_event = {
+    id = br.530
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        # 从最大已扩展圈层向内回退，保证小地图也能拿到有效出生点喵
+        if = { limit = { has_global_flag = br_reached_100 } random_system = { limit = { has_star_flag = br_ring_100 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_99 } random_system = { limit = { has_star_flag = br_ring_99 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_98 } random_system = { limit = { has_star_flag = br_ring_98 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_97 } random_system = { limit = { has_star_flag = br_ring_97 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_96 } random_system = { limit = { has_star_flag = br_ring_96 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_95 } random_system = { limit = { has_star_flag = br_ring_95 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_94 } random_system = { limit = { has_star_flag = br_ring_94 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_93 } random_system = { limit = { has_star_flag = br_ring_93 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_92 } random_system = { limit = { has_star_flag = br_ring_92 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_91 } random_system = { limit = { has_star_flag = br_ring_91 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_90 } random_system = { limit = { has_star_flag = br_ring_90 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_89 } random_system = { limit = { has_star_flag = br_ring_89 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_88 } random_system = { limit = { has_star_flag = br_ring_88 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_87 } random_system = { limit = { has_star_flag = br_ring_87 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_86 } random_system = { limit = { has_star_flag = br_ring_86 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_85 } random_system = { limit = { has_star_flag = br_ring_85 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_84 } random_system = { limit = { has_star_flag = br_ring_84 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_83 } random_system = { limit = { has_star_flag = br_ring_83 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_82 } random_system = { limit = { has_star_flag = br_ring_82 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_81 } random_system = { limit = { has_star_flag = br_ring_81 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_80 } random_system = { limit = { has_star_flag = br_ring_80 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_79 } random_system = { limit = { has_star_flag = br_ring_79 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_78 } random_system = { limit = { has_star_flag = br_ring_78 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_77 } random_system = { limit = { has_star_flag = br_ring_77 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_76 } random_system = { limit = { has_star_flag = br_ring_76 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_75 } random_system = { limit = { has_star_flag = br_ring_75 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_74 } random_system = { limit = { has_star_flag = br_ring_74 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_73 } random_system = { limit = { has_star_flag = br_ring_73 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_72 } random_system = { limit = { has_star_flag = br_ring_72 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_71 } random_system = { limit = { has_star_flag = br_ring_71 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_70 } random_system = { limit = { has_star_flag = br_ring_70 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_69 } random_system = { limit = { has_star_flag = br_ring_69 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_68 } random_system = { limit = { has_star_flag = br_ring_68 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_67 } random_system = { limit = { has_star_flag = br_ring_67 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_66 } random_system = { limit = { has_star_flag = br_ring_66 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_65 } random_system = { limit = { has_star_flag = br_ring_65 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_64 } random_system = { limit = { has_star_flag = br_ring_64 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_63 } random_system = { limit = { has_star_flag = br_ring_63 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_62 } random_system = { limit = { has_star_flag = br_ring_62 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_61 } random_system = { limit = { has_star_flag = br_ring_61 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_60 } random_system = { limit = { has_star_flag = br_ring_60 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_59 } random_system = { limit = { has_star_flag = br_ring_59 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_58 } random_system = { limit = { has_star_flag = br_ring_58 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_57 } random_system = { limit = { has_star_flag = br_ring_57 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_56 } random_system = { limit = { has_star_flag = br_ring_56 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_55 } random_system = { limit = { has_star_flag = br_ring_55 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_54 } random_system = { limit = { has_star_flag = br_ring_54 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_53 } random_system = { limit = { has_star_flag = br_ring_53 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_52 } random_system = { limit = { has_star_flag = br_ring_52 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_51 } random_system = { limit = { has_star_flag = br_ring_51 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_50 } random_system = { limit = { has_star_flag = br_ring_50 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_49 } random_system = { limit = { has_star_flag = br_ring_49 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_48 } random_system = { limit = { has_star_flag = br_ring_48 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_47 } random_system = { limit = { has_star_flag = br_ring_47 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_46 } random_system = { limit = { has_star_flag = br_ring_46 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_45 } random_system = { limit = { has_star_flag = br_ring_45 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_44 } random_system = { limit = { has_star_flag = br_ring_44 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_43 } random_system = { limit = { has_star_flag = br_ring_43 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_42 } random_system = { limit = { has_star_flag = br_ring_42 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_41 } random_system = { limit = { has_star_flag = br_ring_41 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_40 } random_system = { limit = { has_star_flag = br_ring_40 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_39 } random_system = { limit = { has_star_flag = br_ring_39 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_38 } random_system = { limit = { has_star_flag = br_ring_38 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_37 } random_system = { limit = { has_star_flag = br_ring_37 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_36 } random_system = { limit = { has_star_flag = br_ring_36 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_35 } random_system = { limit = { has_star_flag = br_ring_35 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_34 } random_system = { limit = { has_star_flag = br_ring_34 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_33 } random_system = { limit = { has_star_flag = br_ring_33 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_32 } random_system = { limit = { has_star_flag = br_ring_32 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_31 } random_system = { limit = { has_star_flag = br_ring_31 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_30 } random_system = { limit = { has_star_flag = br_ring_30 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_29 } random_system = { limit = { has_star_flag = br_ring_29 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_28 } random_system = { limit = { has_star_flag = br_ring_28 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_27 } random_system = { limit = { has_star_flag = br_ring_27 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_26 } random_system = { limit = { has_star_flag = br_ring_26 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_25 } random_system = { limit = { has_star_flag = br_ring_25 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_24 } random_system = { limit = { has_star_flag = br_ring_24 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_23 } random_system = { limit = { has_star_flag = br_ring_23 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_22 } random_system = { limit = { has_star_flag = br_ring_22 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_21 } random_system = { limit = { has_star_flag = br_ring_21 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_20 } random_system = { limit = { has_star_flag = br_ring_20 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_19 } random_system = { limit = { has_star_flag = br_ring_19 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_18 } random_system = { limit = { has_star_flag = br_ring_18 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_17 } random_system = { limit = { has_star_flag = br_ring_17 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_16 } random_system = { limit = { has_star_flag = br_ring_16 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_15 } random_system = { limit = { has_star_flag = br_ring_15 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_14 } random_system = { limit = { has_star_flag = br_ring_14 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_13 } random_system = { limit = { has_star_flag = br_ring_13 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_12 } random_system = { limit = { has_star_flag = br_ring_12 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_11 } random_system = { limit = { has_star_flag = br_ring_11 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_10 } random_system = { limit = { has_star_flag = br_ring_10 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_9 } random_system = { limit = { has_star_flag = br_ring_9 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_8 } random_system = { limit = { has_star_flag = br_ring_8 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_7 } random_system = { limit = { has_star_flag = br_ring_7 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_6 } random_system = { limit = { has_star_flag = br_ring_6 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_5 } random_system = { limit = { has_star_flag = br_ring_5 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_4 } random_system = { limit = { has_star_flag = br_ring_4 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_3 } random_system = { limit = { has_star_flag = br_ring_3 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_2 } random_system = { limit = { has_star_flag = br_ring_2 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+        else_if = { limit = { has_global_flag = br_reached_1 } random_system = { limit = { has_star_flag = br_ring_1 } save_event_target_as = br_player_spawn_system star = { save_event_target_as = br_player_spawn_star } } }
+    }
+}
+
+# ============================================================
+# br.531：PVE普通敌方舰队初始化喵
+# 在br.510创建PVE敌对国家后触发喵
+# 功能：玩家边缘出生点分配完成后，一次性生成所有层级普通敌对舰队喵
+# ============================================================
+country_event = {
+    id = br.531
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        NOT = { has_global_flag = br_pve_initialized }
+        exists = event_target:br_pve_enemy_country
+    }
+
+    immediate = {
+        # ─── 生成敌对势力初始舰队 ───喵
+        # 按圈层遍历每个星系，越靠近中心刷得越密喵
+
+        # 核心层 ring_1：每个星系5支主力舰队喵
+        every_system = {
+            limit = { has_star_flag = br_ring_1 }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_ELITE_CRUISER" } create_ship = { name = random design = "BR_PVE_ELITE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_BATTLESHIP" } create_ship = { name = random design = "BR_PVE_BATTLESHIP" } set_location = { target = event_target:br_spawn_tmp distance = 35 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_BATTLESHIP" } create_ship = { name = random design = "BR_PVE_ELITE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 55 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_CRUISER" } create_ship = { name = random design = "BR_PVE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 75 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_DESTROYER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 95 angle = random } } }
+            }
+        }
+
+        # 内核层 ring_2~ring_3：每个星系4支舰队喵
+        every_system = {
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_2
+                    has_star_flag = br_ring_3
+                }
+            }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_BATTLESHIP" } create_ship = { name = random design = "BR_PVE_ELITE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_BATTLESHIP" } create_ship = { name = random design = "BR_PVE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 40 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_CRUISER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 70 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_DESTROYER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random } } }
+            }
+        }
+
+        # 内层 ring_4~ring_7：每个星系3支舰队喵
+        every_system = {
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_4
+                    has_star_flag = br_ring_5
+                    has_star_flag = br_ring_6
+                    has_star_flag = br_ring_7
+                }
+            }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_BATTLESHIP" } create_ship = { name = random design = "BR_PVE_CRUISER" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_CRUISER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_DESTROYER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 85 angle = random } } }
+            }
+        }
+
+        # 中层 ring_8~ring_12：每个星系2支舰队喵
+        every_system = {
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_8
+                    has_star_flag = br_ring_9
+                    has_star_flag = br_ring_10
+                    has_star_flag = br_ring_11
+                    has_star_flag = br_ring_12
+                }
+            }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_CRUISER" } create_ship = { name = random design = "BR_PVE_DESTROYER" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_DESTROYER" } create_ship = { name = random design = "BR_PVE_CORVETTE" } set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random } } }
+            }
+        }
+
+        # 外层 ring_13~ring_18：每个星系1支巡逻舰队喵
+        every_system = {
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_13
+                    has_star_flag = br_ring_14
+                    has_star_flag = br_ring_15
+                    has_star_flag = br_ring_16
+                    has_star_flag = br_ring_17
+                    has_star_flag = br_ring_18
+                }
+            }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_DESTROYER" } create_ship = { name = random design = "BR_PVE_CORVETTE" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+            }
+        }
+
+        # 边缘巡逻层 ring_19~ring_25：每个星系1支轻型舰队喵
+        every_system = {
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_19
+                    has_star_flag = br_ring_20
+                    has_star_flag = br_ring_21
+                    has_star_flag = br_ring_22
+                    has_star_flag = br_ring_23
+                    has_star_flag = br_ring_24
+                    has_star_flag = br_ring_25
+                }
+            }
+            star = { save_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = {
+                create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country create_ship = { name = random design = "BR_PVE_CORVETTE" } create_ship = { name = random design = "BR_PVE_CORVETTE" } set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+            }
+        }
+
+        # 保存PVE初始化标记喵
+        set_global_flag = br_pve_initialized
+    }
+}

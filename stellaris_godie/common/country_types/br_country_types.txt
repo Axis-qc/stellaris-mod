@@ -1,238 +1,171 @@
-default = {
-	has_difficulty_bonuses = yes
-	counts_for_victory = yes
-	pop_growth = yes
-	playable = yes
-	has_pulse_events = yes
-	has_deficits = yes
-	piracy_risk = yes
-	randomize_ethos = yes
-	shuffle_pop_ethos = yes
-	needs_survey = yes
-	diplomatic_wars = yes
-	ship_disengagement = yes
-	army_disengagement = yes
-	relations = yes
-	observable = yes
-	has_capital = no
-	can_own_empty_planets = yes
-	can_use_invalid_technology = no
-	can_receive_envoys = yes
-	ownership_limits = default
-	do_critters_age = yes
+br_player = {
+    counts_for_victory = yes
+    playable = yes
+    has_pulse_events = yes
+    has_deficits = yes
+    piracy_risk = yes
+    needs_survey = yes
+    diplomatic_wars = yes
+    ship_disengagement = yes
+    army_disengagement = yes
+    relations = yes
+    observable = yes
+    has_capital = no
+    can_own_empty_planets = yes
+    can_use_invalid_technology = yes
+    can_receive_envoys = yes
+    ownership_limits = default
 
-	faction = {
-		hostile = no
-		needs_border_access = yes
-		generate_borders = yes
-		needs_colony = no
-		auto_delete = no
-	}
+    faction = {
+        hostile = no
+        needs_border_access = yes
+        generate_borders = yes
+        needs_colony = no
+        auto_delete = no
+    }
 
-	ai = {
-		enabled = yes
-		declare_war = yes
-		min_navy_for_wars = 0.5
-		min_assault_armies_for_wars = @armies_for_declaring_war
-		colonizer = yes
-		internal_policies = yes
-		modification = yes
-		government = yes
-		traditions = yes
-		ascension_perks = yes
-		construction = yes
-		follow = yes
-		can_use_market = yes
-		modules = {
-			military_minister_module
-			foreign_minister_module
-			interior_minister_module
-			mercenary_buyer_minister_module
-			enclave_founder_minister_module
-		}
-	}
+    ai = {
+        enabled = no
+    }
 
-	trade_routes_available = {
-		is_gestalt = no
-	}
+    modules = {
+        standard_event_module = { }
+        standard_economy_module = { }
+        standard_leader_module = { }
+        standard_diplomacy_module = { contact_rule = does_first_contact_sites }
+        standard_technology_module = { }
+        standard_species_rights_module = { }
+    }
 
-	modules = {
-		standard_event_module = {}
-		standard_economy_module = {}
-		standard_leader_module = {}
-		standard_diplomacy_module = { contact_rule = does_first_contact_sites }
-		standard_technology_module = {}
-		standard_pop_factions_module = {}
-		standard_expansion_module = {}
-		standard_species_rights_module = {}
-		standard_grand_archive_module = {}
-		standard_shroud_module = {}
-	}
-
-	resources = {
-		category = country_base
-		produces = {
-			energy = 20
-			minerals = 20
-			physics_research = 10
-			society_research = 10
-			engineering_research = 10
-			influence = 3
-			unity = 10
-			alloys = 5
-		}
-		produces = {
-			trigger = {
-				OR = {
-					is_gestalt = no
-					has_valid_civic = civic_machine_servitor
-				}
-			}
-			consumer_goods = 15
-		}
-		produces = {
-			trigger = {
-				OR = {
-					AND = {
-						is_individual_machine = no
-						is_lithoid_empire = no
-						is_infernal_empire = no
-						OR = {
-							is_regular_empire = yes
-							is_hive_empire = yes
-						}
-					}
-					AND = {
-						is_lithoid_empire = yes
-						has_country_flag = non_lithoid_subspecies
-					}
-					AND = {
-						has_country_flag = non_lithoid_subspecies
-						is_machine_empire = yes
-					}
-					AND = {
-						is_individual_machine = yes
-						has_country_flag = non_lithoid_subspecies
-					}
-					country_uses_bio_ships = yes
-				}
-			}
-			food = 20
-		}
-		produces = {
-			trigger = {
-				OR = {
-					AND = {
-						is_lithoid_empire = yes
-						OR = {
-							is_regular_empire = yes
-							is_hive_empire = yes
-						}
-					}
-					AND = {
-						has_country_flag = lithoid_subspecies
-						is_machine_empire = yes
-					}
-					AND = {
-						is_machine_empire = yes
-						NOR = {
-							has_country_flag = lithoid_subspecies
-							has_country_flag = non_lithoid_subspecies
-						}
-					}
-				}
-			}
-			minerals = 20
-		}
-		produces = {
-			trigger = {
-				is_machine_empire = yes
-			}
-			energy = 20
-		}
-		produces = {
-			trigger = {
-				is_lithoid_empire = yes
-				has_valid_civic = civic_hive_cordyceptic_drones
-			}
-			food = 10
-			minerals = -10
-		}
-		produces = {
-			trigger = {
-				OR = {
-					is_infernal_empire = yes
-					AND = {
-						has_country_flag = infernal_subspecies
-						is_machine_empire = yes
-					}
-				}
-			}
-			alloys = 10
-		}
-	}
-
-	branch_office_resources = {
-		category = planet_branch_offices
-		cost = {
-			trade = 1000
-			influence = 75
-		}
-	}
+    resources = {
+        category = country_base
+        produces = {
+            energy = 20
+            minerals = 20
+            food = 20
+            trade = 20
+            physics_research = 10
+            society_research = 10
+            engineering_research = 10
+            influence = 3
+            unity = 20
+            alloys = 10
+            consumer_goods = 10
+        }
+    }
 }
 
-br_player = {
-	counts_for_victory = yes
-	playable = yes
-	has_pulse_events = yes
-	has_deficits = yes
-	piracy_risk = yes
-	needs_survey = yes
-	diplomatic_wars = yes
-	ship_disengagement = yes
-	army_disengagement = yes
-	relations = yes
-	observable = yes
-	has_capital = no
-	can_own_empty_planets = yes
-	can_use_invalid_technology = no
-	can_receive_envoys = yes
-	ownership_limits = default
+br_player_pvp = {
+    counts_for_victory = yes
+    playable = yes
+    has_pulse_events = yes
+    has_deficits = yes
+    piracy_risk = yes
+    needs_survey = yes
+    diplomatic_wars = no
+    ship_disengagement = yes
+    army_disengagement = yes
+    relations = no
+    observable = yes
+    has_capital = no
+    can_own_empty_planets = yes
+    can_use_invalid_technology = yes
+    can_receive_envoys = no
+    ownership_limits = default
+    custom_diplomacy = yes
 
-	faction = {
-		hostile = no
-		needs_border_access = yes
-		generate_borders = yes
-		needs_colony = no
-		auto_delete = no
-	}
+    faction = {
+        hostile = yes
+        needs_border_access = no
+        generate_borders = yes
+        needs_colony = no
+        auto_delete = no
+    }
 
-	ai = {
-		enabled = no
-	}
+    ai = {
+        enabled = no
+    }
 
-	modules = {
-		standard_event_module = {}
-		standard_economy_module = {}
-		standard_leader_module = {}
-		standard_diplomacy_module = { contact_rule = does_first_contact_sites }
-		standard_technology_module = {}
-		standard_species_rights_module = {}
-	}
+    modules = {
+        standard_event_module = { }
+        standard_economy_module = { }
+        standard_leader_module = { }
+        exclusive_diplomacy_module = { contact_rule = always }
+        standard_technology_module = { }
+        standard_species_rights_module = { }
+    }
 
-	resources = {
-		category = country_base
-		produces = {
-			energy = 20
-			minerals = 20
-			physics_research = 10
-			society_research = 10
-			engineering_research = 10
-			influence = 3
-			unity = 10
-			alloys = 5
-			consumer_goods = 15
-			food = 20
-		}
-	}
+    resources = {
+        category = country_base
+        produces = {
+            energy = 20
+            minerals = 20
+            food = 20
+            trade = 20
+            physics_research = 10
+            society_research = 10
+            engineering_research = 10
+            influence = 3
+            unity = 20
+            alloys = 10
+            consumer_goods = 10
+        }
+    }
+}
+
+br_player_pve = {
+    counts_for_victory = yes
+    playable = yes
+    has_pulse_events = yes
+    has_deficits = yes
+    piracy_risk = yes
+    needs_survey = yes
+    diplomatic_wars = yes
+    ship_disengagement = yes
+    army_disengagement = yes
+    relations = yes
+    observable = yes
+    has_capital = no
+    can_own_empty_planets = yes
+    can_use_invalid_technology = yes
+    can_receive_envoys = yes
+    ownership_limits = default
+
+    faction = {
+        hostile = no
+        needs_border_access = yes
+        generate_borders = yes
+        needs_colony = no
+        auto_delete = no
+    }
+
+    ai = {
+        enabled = no
+    }
+
+    modules = {
+        standard_event_module = { }
+        standard_economy_module = { }
+        standard_leader_module = { }
+        standard_diplomacy_module = { contact_rule = always }
+        standard_technology_module = { }
+        standard_species_rights_module = { }
+    }
+
+    resources = {
+        category = country_base
+        produces = {
+            energy = 20
+            minerals = 20
+            food = 20
+            trade = 20
+            physics_research = 10
+            society_research = 10
+            engineering_research = 10
+            influence = 3
+            unity = 20
+            alloys = 10
+            consumer_goods = 10
+        }
+    }
 }

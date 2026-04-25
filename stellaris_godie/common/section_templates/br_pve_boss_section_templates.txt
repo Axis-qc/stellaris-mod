@@ -1,0 +1,50 @@
+# ============================================================
+# PVE Boss区段模板
+# Boss专用单区段：XL + 4L
+# ============================================================
+
+# ==================== Boss型 ====================
+# 舰体：XL + 4L，超规格火力
+ship_section_template = {
+    key = "BR_BOSS_SECTION"
+    ship_size = br_pve_boss
+    fits_on_slot = "ship"
+    entity = "br_pve_boss_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = {
+        name = "XL_ENERGY_01"
+        template = "invisible_extra_large_fixed"
+        locatorname = "spinal_mount_medium_01"
+    }
+
+    component_slot = {
+        name = "LARGE_ENERGY_01"
+        template = "large_turret"
+        locatorname = "turret_l_m_01"
+    }
+
+    component_slot = {
+        name = "LARGE_ENERGY_02"
+        template = "large_turret"
+        locatorname = "turret_l_m_02"
+    }
+
+    component_slot = {
+        name = "LARGE_KINETIC_01"
+        template = "large_turret"
+        locatorname = "turret_l_m_03"
+    }
+
+    component_slot = {
+        name = "LARGE_KINETIC_02"
+        template = "large_turret"
+        locatorname = "turret_l_m_04"
+    }
+
+    large_utility_slots = 8
+    medium_utility_slots = 4
+
+    resources = {
+        category = ship_sections
+    }
+}
