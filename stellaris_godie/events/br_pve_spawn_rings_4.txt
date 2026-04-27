@@ -1,0 +1,303 @@
+namespace = br
+
+# ============================================================
+# br.805：ring_2-3，N=8，精英设计
+# ============================================================
+country_event = {
+    id = br.805
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } exists = event_target:br_pve_enemy_country }
+    immediate = {
+        if = {
+            limit = { NOT = { has_global_flag = br_pve_spawn_ring_2_3_done } }
+            every_system = {
+                limit = { OR = { has_star_flag = br_ring_2 has_star_flag = br_ring_3 } }
+                star = { save_global_event_target_as = br_spawn_tmp }
+                event_target:br_pve_enemy_country = {
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_BATTLESHIP" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_BATTLESHIP" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 30 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 20 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 40 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 25 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 45 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 65 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 85 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 8 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 105 angle = random } } }
+                }
+            }
+            set_global_flag = br_pve_spawn_ring_2_3_done
+        }
+        country_event = { id = br.806 days = 3 }
+    }
+}
+
+# ============================================================
+# br.806：ring_1，N=10，精英设计，完成后设置 br_pve_initialized
+# ============================================================
+country_event = {
+    id = br.806
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } exists = event_target:br_pve_enemy_country }
+    immediate = {
+        if = {
+            limit = { NOT = { has_global_flag = br_pve_spawn_ring_1_done } }
+            every_system = {
+                limit = { has_star_flag = br_ring_1 }
+                star = { save_global_event_target_as = br_spawn_tmp }
+                event_target:br_pve_enemy_country = {
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_BATTLESHIP" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_BATTLESHIP" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 0 } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 30 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_DESTROYER" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 20 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 40 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 25 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 45 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 65 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 85 angle = random } } }
+                    create_fleet = { name = random effect = { set_owner = event_target:br_pve_enemy_country
+                        if = { limit = { has_global_flag = br_pve_template_artillery } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else_if = { limit = { has_global_flag = br_pve_template_brawler } set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } change_variable = { which = br_spawn_counter value = 1 } } }
+                        else = { set_variable = { which = br_spawn_counter value = 0 }
+                            while = { limit = { check_variable = { which = br_spawn_counter value < 10 } } random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE" } } } change_variable = { which = br_spawn_counter value = 1 } } }
+                        set_location = { target = event_target:br_spawn_tmp distance = 105 angle = random } } }
+                }
+            }
+            set_global_flag = br_pve_spawn_ring_1_done
+        }
+        set_global_flag = br_pve_initialized
+    }
+}

@@ -1,0 +1,271 @@
+namespace = br
+
+# 高级特殊奖励池，ID 6800-6899。
+# 只由升级特殊池分流触发，用资源换舰船、强科技和强BUFF。
+country_event = {
+    id = br.6800
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        random_list = {
+            34 = {
+                if = {
+                    limit = {
+                        any_owned_fleet = { }
+                        resource_stockpile_compare = { resource = alloys value >= 4500 }
+                    }
+                    country_event = { id = br.6810 }
+                }
+                else = {
+                    country_event = { id = br.6140 }
+                }
+            }
+            33 = {
+                if = {
+                    limit = {
+                        OR = {
+                            resource_stockpile_compare = { resource = physics_research value >= 8000 }
+                            resource_stockpile_compare = { resource = engineering_research value >= 8000 }
+                        }
+                    }
+                    country_event = { id = br.6820 }
+                }
+                else = {
+                    country_event = { id = br.6160 }
+                }
+            }
+            33 = {
+                if = {
+                    limit = {
+                        resource_stockpile_compare = { resource = alloys value >= 3000 }
+                        resource_stockpile_compare = { resource = volatile_motes value >= 100 }
+                    }
+                    country_event = { id = br.6830 }
+                }
+                else = {
+                    country_event = { id = br.6150 }
+                }
+            }
+        }
+    }
+}
+
+country_event = {
+    id = br.6810
+    is_triggered_only = yes
+    title = BR_REWARD_ADVANCED_SHIP_TITLE
+    desc = BR_REWARD_ADVANCED_SHIP_DESC
+    picture = GFX_evt_ship_in_orbit
+
+    option = {
+        name = BR_REWARD_ADVANCED_SHIP_ESCORT
+        trigger = {
+            any_owned_fleet = { }
+            resource_stockpile_compare = { resource = alloys value >= 4500 }
+            resource_stockpile_compare = { resource = energy value >= 2500 }
+        }
+        add_resource = { alloys = -4500 energy = -2500 }
+        random_owned_fleet = { save_event_target_as = br_reward_spawn_fleet }
+        create_fleet = {
+            name = random
+            effect = {
+                set_owner = root
+                if = { limit = { has_global_flag = br_pve_template_artillery }
+                    create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
+                    create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
+                    create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
+                }
+                else_if = { limit = { has_global_flag = br_pve_template_brawler }
+                    create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
+                    create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
+                    create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
+                }
+                else = {
+                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } }
+                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } }
+                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } }
+                }
+                set_location = { target = event_target:br_reward_spawn_fleet distance = 35 angle = random }
+            }
+        }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_SHIP_CAPITAL
+        trigger = {
+            any_owned_fleet = { }
+            check_variable = { which = br_power_level value >= 5 }
+            resource_stockpile_compare = { resource = alloys value >= 9000 }
+            resource_stockpile_compare = { resource = rare_crystals value >= 250 }
+        }
+        add_resource = { alloys = -9000 rare_crystals = -250 }
+        random_owned_fleet = { save_event_target_as = br_reward_spawn_fleet }
+        create_fleet = {
+            name = random
+            effect = {
+                set_owner = root
+                if = { limit = { has_global_flag = br_pve_template_artillery }
+                    create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" }
+                    create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" }
+                }
+                else_if = { limit = { has_global_flag = br_pve_template_brawler }
+                    create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" }
+                    create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" }
+                }
+                else = {
+                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" } } }
+                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CRUISER" } } }
+                }
+                set_location = { target = event_target:br_reward_spawn_fleet distance = 45 angle = random }
+            }
+        }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_SHIP_DOMINATOR
+        trigger = {
+            any_owned_fleet = { }
+            check_variable = { which = br_power_level value >= 7 }
+            has_technology = tech_br_dominator
+            resource_stockpile_compare = { resource = alloys value >= 18000 }
+            resource_stockpile_compare = { resource = exotic_gases value >= 500 }
+            resource_stockpile_compare = { resource = volatile_motes value >= 500 }
+        }
+        add_resource = { alloys = -18000 exotic_gases = -500 volatile_motes = -500 }
+        random_owned_fleet = { save_event_target_as = br_reward_spawn_fleet }
+        create_fleet = {
+            name = "BR_MOTHERSHIP_FLEET"
+            effect = {
+                set_owner = root
+                create_ship = { name = "NAME_BR_Dominator" design = "NAME_BR_Dominator" prefix = no }
+                set_location = { target = event_target:br_reward_spawn_fleet distance = 55 angle = random }
+            }
+        }
+    }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 2500 energy = 2500 } }
+}
+
+country_event = {
+    id = br.6820
+    is_triggered_only = yes
+    title = BR_REWARD_ADVANCED_TECH_TITLE
+    desc = BR_REWARD_ADVANCED_TECH_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_ADVANCED_TECH_REACTOR
+        trigger = {
+            NOT = { has_technology = tech_zero_point_power }
+            resource_stockpile_compare = { resource = physics_research value >= 8000 }
+            resource_stockpile_compare = { resource = exotic_gases value >= 200 }
+        }
+        add_resource = { physics_research = -8000 exotic_gases = -200 }
+        give_technology = { tech = tech_zero_point_power message = yes }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_TECH_COMPUTER
+        trigger = {
+            NOT = { OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } }
+            resource_stockpile_compare = { resource = physics_research value >= 8000 }
+            resource_stockpile_compare = { resource = rare_crystals value >= 200 }
+        }
+        add_resource = { physics_research = -8000 rare_crystals = -200 }
+        give_technology = { tech = tech_combat_computers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_TECH_WEAPON
+        trigger = {
+            check_variable = { which = br_power_level value >= 5 }
+            resource_stockpile_compare = { resource = engineering_research value >= 8000 }
+            resource_stockpile_compare = { resource = volatile_motes value >= 200 }
+        }
+        add_resource = { engineering_research = -8000 volatile_motes = -200 }
+        random_list = {
+            20 = {
+                if = {
+                    limit = { NOT = { has_technology = tech_lasers_5 } }
+                    give_technology = { tech = tech_lasers_5 message = yes }
+                }
+                else = {
+                    add_resource = { physics_research = 4000 }
+                }
+            }
+            20 = {
+                if = {
+                    limit = { NOT = { has_technology = tech_mass_drivers_5 } }
+                    give_technology = { tech = tech_mass_drivers_5 message = yes }
+                }
+                else = {
+                    add_resource = { engineering_research = 4000 }
+                }
+            }
+            20 = {
+                if = {
+                    limit = { NOT = { has_technology = tech_missiles_5 } }
+                    give_technology = { tech = tech_missiles_5 message = yes }
+                }
+                else = {
+                    add_resource = { engineering_research = 4000 }
+                }
+            }
+            20 = {
+                if = {
+                    limit = { NOT = { has_technology = tech_strike_craft_3 } }
+                    give_technology = { tech = tech_strike_craft_3 message = yes }
+                }
+                else = {
+                    add_resource = { engineering_research = 4000 }
+                }
+            }
+            20 = {
+                if = {
+                    limit = { NOT = { has_technology = tech_energy_lance_1 } }
+                    give_technology = { tech = tech_energy_lance_1 message = yes }
+                }
+                else = {
+                    add_resource = { physics_research = 4000 }
+                }
+            }
+        }
+    }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { physics_research = 2500 engineering_research = 2500 } }
+}
+
+country_event = {
+    id = br.6830
+    is_triggered_only = yes
+    title = BR_REWARD_ADVANCED_BUFF_TITLE
+    desc = BR_REWARD_ADVANCED_BUFF_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_ADVANCED_BUFF_ASSAULT
+        trigger = {
+            resource_stockpile_compare = { resource = alloys value >= 3000 }
+            resource_stockpile_compare = { resource = volatile_motes value >= 100 }
+        }
+        add_resource = { alloys = -3000 volatile_motes = -100 }
+        custom_tooltip = BR_REWARD_ADVANCED_BUFF_ASSAULT_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_fire_rate value = 1 } }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_BUFF_FORTRESS
+        trigger = {
+            resource_stockpile_compare = { resource = alloys value >= 3000 }
+            resource_stockpile_compare = { resource = rare_crystals value >= 100 }
+        }
+        add_resource = { alloys = -3000 rare_crystals = -100 }
+        custom_tooltip = BR_REWARD_ADVANCED_BUFF_FORTRESS_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_survival value = 1 } }
+    }
+    option = {
+        name = BR_REWARD_ADVANCED_BUFF_CORE
+        trigger = {
+            resource_stockpile_compare = { resource = energy value >= 6000 }
+            resource_stockpile_compare = { resource = exotic_gases value >= 100 }
+        }
+        add_resource = { energy = -6000 exotic_gases = -100 }
+        custom_tooltip = BR_REWARD_ADVANCED_BUFF_CORE_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_core value = 1 } }
+    }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 1500 energy = 3000 } }
+}

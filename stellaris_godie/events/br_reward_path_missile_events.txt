@@ -1,0 +1,51 @@
+namespace = br
+
+# 导弹流派奖励池。ID 6400-6499，后续新增事件按顺序向后加。
+country_event = {
+    id = br.6400
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = { random_list = { 34 = { country_event = { id = br.6410 } } 33 = { country_event = { id = br.6420 } } 33 = { country_event = { id = br.6430 } } } }
+}
+
+country_event = {
+    id = br.6410
+    is_triggered_only = yes
+    title = BR_REWARD_MISSILE_DAMAGE_TITLE
+    desc = BR_REWARD_MISSILE_DAMAGE_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_MISSILE_DAMAGE_BUFF hidden_effect = { change_variable = { which = br_reward_missile_damage value = 1 } } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_missiles_3 has_technology = tech_missiles_4 has_technology = tech_missiles_5 } } } give_technology = { tech = tech_missiles_3 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_missiles_4 has_technology = tech_missiles_5 } } } give_technology = { tech = tech_missiles_4 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_missiles_5 } } give_technology = { tech = tech_missiles_5 message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 1000 volatile_motes = 150 } }
+}
+
+country_event = {
+    id = br.6420
+    is_triggered_only = yes
+    title = BR_REWARD_MISSILE_RATE_TITLE
+    desc = BR_REWARD_MISSILE_RATE_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_MISSILE_RATE_BUFF hidden_effect = { change_variable = { which = br_reward_missile_fire_rate value = 1 } } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_missiles_3 has_technology = tech_missiles_4 has_technology = tech_missiles_5 } } } give_technology = { tech = tech_missiles_3 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_missiles_4 has_technology = tech_missiles_5 } } } give_technology = { tech = tech_missiles_4 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_missiles_5 } } give_technology = { tech = tech_missiles_5 message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 1500 volatile_motes = 100 } }
+}
+
+country_event = {
+    id = br.6430
+    is_triggered_only = yes
+    title = BR_REWARD_MISSILE_COMPUTER_TITLE
+    desc = BR_REWARD_MISSILE_COMPUTER_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_MISSILE_COMPUTER_BUFF hidden_effect = { change_variable = { which = br_reward_computer_tracking value = 1 } } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_combat_computers_2 has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_2 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } NOT = { OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_3 message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { engineering_research = 2500 volatile_motes = 100 } }
+}

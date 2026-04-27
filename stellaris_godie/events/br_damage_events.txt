@@ -1,8 +1,9 @@
 namespace = br
 
-# br.600：把所有没有进入任何圈层的孤立星系补成危险区喵
+# 事件ID区间：1000-1099。新增或修改事件ID不得超出此区间喵
+# br.1000：把所有没有进入任何圈层的孤立星系补成危险区喵
 country_event = {
-    id = br.600
+    id = br.1000
     hide_window = yes
     is_triggered_only = yes
 
@@ -119,14 +120,14 @@ country_event = {
         if = {
             limit = { NOT = { has_global_flag = br_damage_started } }
             set_global_flag = br_damage_started
-            country_event = { id = br.601 }
+            country_event = { id = br.1001 }
         }
     }
 }
 
-# br.601：对所有危险区里的舰船造成持续伤害，并按缩圈阶段提高伤害喵
+# br.1001：对所有危险区里的舰船造成持续伤害，并按缩圈阶段提高伤害喵
 country_event = {
-    id = br.601
+    id = br.1001
     hide_window = yes
     is_triggered_only = yes
 
@@ -276,18 +277,18 @@ country_event = {
 
         if = {
             limit = { has_global_flag = br_speed_fast }
-            country_event = { id = br.601 days = 5 }
+            country_event = { id = br.1001 days = 5 }
         }
         else_if = {
             limit = { has_global_flag = br_speed_normal }
-            country_event = { id = br.601 days = 10 }
+            country_event = { id = br.1001 days = 10 }
         }
         else_if = {
             limit = { has_global_flag = br_speed_slow }
-            country_event = { id = br.601 days = 15 }
+            country_event = { id = br.1001 days = 15 }
         }
         else = {
-            country_event = { id = br.601 days = 10 }
+            country_event = { id = br.1001 days = 10 }
         }
     }
 }

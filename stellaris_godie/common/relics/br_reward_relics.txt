@@ -1,0 +1,59 @@
+br_reward_relics = {
+    portrait = "GFX_the_pattern_maker"
+    sound = "relic_activation_pattern_maker"
+
+    resources = {
+        category = relics
+        cost = {
+        }
+    }
+
+    ai_weight = { weight = 0 }
+
+    # 通用BUFF变量承载。
+    triggered_country_modifier = { potential = { always = yes } ship_weapon_damage = 0.03 mult = br_reward_weapon_damage }
+    triggered_country_modifier = { potential = { always = yes } ship_speed_mult = 0.03 mult = br_reward_ship_speed }
+    triggered_country_modifier = { potential = { always = yes } ship_weapon_damage = 0.02 mult = br_reward_reactor_output }
+    triggered_country_modifier = { potential = { always = yes } ship_evasion_mult = 0.03 mult = br_reward_thruster_evasion }
+    triggered_country_modifier = { potential = { always = yes } ship_tracking_add = 2 mult = br_reward_computer_tracking }
+    triggered_country_modifier = { potential = { always = yes } ship_accuracy_add = 2 mult = br_reward_computer_accuracy }
+    triggered_country_modifier = { potential = { always = yes } ship_weapon_range_mult = 0.03 mult = br_reward_computer_range }
+    triggered_country_modifier = { potential = { always = yes } ship_hull_mult = 0.03 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } ship_fire_rate_mult = 0.04 mult = br_reward_advanced_fire_rate }
+    triggered_country_modifier = { potential = { always = yes } ship_hull_mult = 0.05 mult = br_reward_advanced_survival }
+    triggered_country_modifier = { potential = { always = yes } ship_weapon_damage = 0.04 mult = br_reward_advanced_core }
+
+    # 流派BUFF变量承载。变量挂在玩家国家，所以PVE不会共享流派成长。
+    triggered_country_modifier = { potential = { always = yes } weapon_type_strike_craft_weapon_damage_mult = 0.05 mult = br_reward_strike_damage }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_strike_craft_weapon_fire_rate_mult = 0.05 mult = br_reward_strike_fire_rate }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_explosive_weapon_damage_mult = 0.05 mult = br_reward_missile_damage }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_explosive_weapon_fire_rate_mult = 0.05 mult = br_reward_missile_fire_rate }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_energy_weapon_damage_mult = 0.05 mult = br_reward_laser_damage }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_energy_weapon_fire_rate_mult = 0.05 mult = br_reward_laser_fire_rate }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_kinetic_weapon_damage_mult = 0.05 mult = br_reward_kinetic_damage }
+    triggered_country_modifier = { potential = { always = yes } weapon_type_kinetic_weapon_fire_rate_mult = 0.05 mult = br_reward_kinetic_fire_rate }
+    triggered_country_modifier = { potential = { always = yes } ship_shield_mult = 0.05 mult = br_reward_shield }
+    triggered_country_modifier = { potential = { always = yes } ship_armor_mult = 0.05 mult = br_reward_armor }
+
+    # 舰船维护费-100%，免除经济负担喵
+    triggered_country_modifier = { potential = { always = yes } modifier = { ships_upkeep_mult = -1 } }
+    # 等级加成：基础资源产出，随等级成长，防止战损消耗无法补充喵
+    triggered_country_modifier = { potential = { always = yes } country_base_energy_produces_add = 50 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } country_base_minerals_produces_add = 30 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } country_base_alloys_produces_add = 20 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } country_base_food_produces_add = 30 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } country_base_unity_produces_add = 20 mult = br_reward_level_core }
+
+    # 等级加成：海军容量和指挥上限，随等级成长喵
+    triggered_country_modifier = { potential = { always = yes } country_naval_cap_add = 300 mult = br_reward_level_core }
+    triggered_country_modifier = { potential = { always = yes } command_limit_add = 50 mult = br_reward_level_core }
+
+    score = 0
+    possible = {
+        custom_tooltip = {
+            fail_text = BR_REWARD_RELIC_CANT_ACTIVATE
+            always = no
+        }
+    }
+    active_effect = { hidden_effect = { } }
+}

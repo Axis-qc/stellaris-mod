@@ -1,0 +1,267 @@
+namespace = br
+
+# 事件ID区间：600-699。新增或修改事件ID不得超出此区间喵
+# br.600：PVP模式初始化入口，创建玩家国家并生成初始舰队喵
+country_event = {
+    id = br.600
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_ai = no
+        NOR = {
+            is_country_type = br_player
+            is_country_type = br_player_pvp
+            is_country_type = br_player_pve
+        }
+    }
+
+    immediate = {
+        capital_star = {
+            save_event_target_as = br_player_spawn_star
+            solar_system = {
+                save_event_target_as = br_player_spawn_system
+            }
+        }
+
+        # PVP模式：直接使用原国家首都作为出生点喵
+
+        # 创建PVP玩家国家喵
+        create_country = {
+            name = "BR_PLAYER_PVP_COUNTRY_NAME"
+            type = br_player_pvp
+            species = random
+            authority = auth_democratic
+            ethos = {
+                ethic = ethic_egalitarian
+                ethic = ethic_xenophile
+                ethic = ethic_materialist
+            }
+            civics = {
+                civic = civic_beacon_of_liberty
+                civic = civic_idealistic_foundation
+            }
+            origin = origin_default
+            ignore_initial_colony_error = yes
+            day_zero_contact = no
+            flag = {
+                icon = {
+                    category = "ornate"
+                    file = "flag_ornate_8.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "red"
+                    "black"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_event_target_as = br_new_player_country
+                set_country_flag = br_player_country
+            }
+        }
+
+        # 在出生点创建初始舰队喵
+        event_target:br_new_player_country = {
+            create_fleet = {
+                name = "BR_MOTHERSHIP_FLEET"
+                effect = {
+                    set_owner = event_target:br_new_player_country
+                    create_ship = {
+                        name = "NAME_BR_Dominator"
+                        design = "NAME_BR_Dominator"
+                        prefix = no
+                    }
+                    set_location = {
+                        target = event_target:br_player_spawn_star
+                        distance = 50
+                        angle = random
+                    }
+                }
+            }
+
+            create_leader = {
+                class = commander
+                species = owner_main_species
+                name = "BR_ESCORT_COMMANDER"
+                skill = 3
+            }
+
+            create_fleet = {
+                name = "BR_ESCORT_FLEET"
+                effect = {
+                    set_owner = event_target:br_new_player_country
+                    while = {
+                        count = 3
+                        create_ship = {
+                            name = random
+                            design = NAME_Dagger
+                        }
+                    }
+                    assign_leader = last_created_leader
+                    set_location = {
+                        target = event_target:br_player_spawn_star
+                        distance = 80
+                        angle = random
+                    }
+                }
+            }
+
+            set_player = root
+
+            # 排程PVP通信初始化喵
+            country_event = { id = br.507 days = 1 }
+
+        }
+
+        # 创建PVP测试国家（仅首位玩家执行一次，避免重复创建）喵
+        if = {
+            limit = {
+                NOT = { has_global_flag = br_test_country_created }
+            }
+            set_global_flag = br_test_country_created
+            country_event = { id = br.602 }
+        }
+
+        destroy_country = yes
+    }
+}
+
+# br.601：PVP模式初始化，建立玩家间通信喵
+country_event = {
+    id = br.601
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { is_country_type = br_player_pvp }
+            every_country = {
+                limit = {
+                    NOT = { is_same_value = root }
+                    OR = {
+                        is_country_type = br_player_pvp
+                        is_country_type = br_player_pve
+                        is_country_type = br_player
+                    }
+                }
+                establish_communications_no_message = root
+            }
+        }
+    }
+}
+
+# br.602：PVP测试国家与测试舰队喵
+country_event = {
+    id = br.602
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        event_target:br_player_spawn_system = {
+            save_event_target_as = br_test_spawn_system
+            star = { save_event_target_as = br_test_spawn_star }
+            random_neighbor_system = {
+                limit = {
+                    NOT = { has_star_flag = br_test_spawn_system_used }
+                }
+                save_event_target_as = br_test_spawn_system
+                set_star_flag = br_test_spawn_system_used
+                star = { save_event_target_as = br_test_spawn_star }
+            }
+        }
+
+        create_country = {
+            name = "BR_TEST_PVP_COUNTRY_NAME"
+            type = br_player_pvp
+            species = random
+            authority = auth_democratic
+            ethos = {
+                ethic = ethic_egalitarian
+                ethic = ethic_xenophile
+                ethic = ethic_materialist
+            }
+            civics = {
+                civic = civic_beacon_of_liberty
+                civic = civic_idealistic_foundation
+            }
+            origin = origin_default
+            ignore_initial_colony_error = yes
+            day_zero_contact = no
+            flag = {
+                icon = {
+                    category = "ornate"
+                    file = "flag_ornate_8.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "red"
+                    "black"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_event_target_as = br_test_country
+                set_country_flag = br_player_country
+                set_country_flag = br_test_country
+            }
+        }
+
+        event_target:br_test_country = {
+            create_fleet = {
+                name = "BR_TEST_MOTHERSHIP_FLEET"
+                effect = {
+                    set_owner = event_target:br_test_country
+                    create_ship = {
+                        name = "NAME_BR_Dominator"
+                        design = "NAME_BR_Dominator"
+                        prefix = no
+                    }
+                    set_location = {
+                        target = event_target:br_test_spawn_star
+                        distance = 50
+                        angle = random
+                    }
+                }
+            }
+
+            create_leader = {
+                class = commander
+                species = owner_main_species
+                name = "BR_TEST_ESCORT_COMMANDER"
+                skill = 3
+            }
+
+            create_fleet = {
+                name = "BR_TEST_ESCORT_FLEET"
+                effect = {
+                    set_owner = event_target:br_test_country
+                    while = {
+                        count = 3
+                        create_ship = {
+                            name = random
+                            design = NAME_Dagger
+                        }
+                    }
+                    assign_leader = last_created_leader
+                    set_location = {
+                        target = event_target:br_test_spawn_star
+                        distance = 80
+                        angle = random
+                    }
+                }
+            }
+
+            country_event = { id = br.507 days = 1 }
+        }
+    }
+}

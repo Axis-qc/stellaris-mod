@@ -1,0 +1,134 @@
+namespace = br
+
+# 升级特殊奖励池，ID 6130-6199。
+# 普通爆星和战斗奖励不走这里，只在升级时由 br_level_events.txt 调用。
+country_event = {
+    id = br.6130
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = br.6101 }
+        country_event = { id = br.6135 }
+
+        if = {
+            limit = {
+                NOT = { has_country_flag = br_reward_path_selected }
+                OR = {
+                    check_variable = { which = br_power_level value >= 2 }
+                    AND = {
+                        exists = event_target:br_pve_alliance_leader
+                        event_target:br_pve_alliance_leader = { check_variable = { which = br_power_level value >= 2 } }
+                    }
+                }
+            }
+            country_event = { id = br.6120 }
+        }
+        else = {
+            if = {
+                limit = { check_variable = { which = br_power_level value >= 5 } }
+                random_list = {
+                    25 = { country_event = { id = br.6800 } }
+                    25 = { country_event = { id = br.6140 } }
+                    25 = { country_event = { id = br.6150 } }
+                    25 = { country_event = { id = br.6160 } }
+                }
+            }
+            else = {
+                random_list = {
+                    35 = { country_event = { id = br.6140 } }
+                    35 = { country_event = { id = br.6150 } }
+                    30 = { country_event = { id = br.6160 } }
+                }
+            }
+        }
+    }
+}
+
+# 固定舰船科技推进。升级时必定检查一次，避免随机池太快把科技路线抽空。
+country_event = {
+    id = br.6135
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        give_technology = { tech = tech_corvettes message = no }
+
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 2 } NOT = { has_technology = tech_torpedoes_1 } }
+            give_technology = { tech = tech_torpedoes_1 message = yes }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 3 } NOT = { has_technology = tech_destroyers } }
+            give_technology = { tech = tech_destroyers message = yes }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 4 } NOT = { has_technology = tech_cruisers } }
+            give_technology = { tech = tech_cruisers message = yes }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 5 } NOT = { has_technology = tech_battleships } }
+            give_technology = { tech = tech_battleships message = yes }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 6 } NOT = { has_technology = tech_titans } }
+            give_technology = { tech = tech_titans message = yes }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_br_dominator } }
+            give_technology = { tech = tech_br_dominator message = yes }
+            set_country_flag = br_reward_unlock_dominator
+        }
+    }
+}
+
+country_event = {
+    id = br.6140
+    is_triggered_only = yes
+    title = BR_REWARD_LEVEL_RESEARCH_TITLE
+    desc = BR_REWARD_LEVEL_RESEARCH_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_OPTION_BUFF
+        custom_tooltip = BR_REWARD_LEVEL_RESEARCH_BUFF
+        random_list = {
+            33 = { add_resource = { physics_research = 5000 } }
+            33 = { add_resource = { society_research = 5000 } }
+            34 = { add_resource = { engineering_research = 5000 } }
+        }
+    }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 3 } NOT = { OR = { has_technology = tech_combat_computers_1 has_technology = tech_combat_computers_2 has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_1 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 3 } check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_combat_computers_2 has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_2 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } NOT = { OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_3 message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 2500 volatile_motes = 150 rare_crystals = 150 exotic_gases = 150 } }
+}
+
+country_event = {
+    id = br.6150
+    is_triggered_only = yes
+    title = BR_REWARD_LEVEL_CORE_TITLE
+    desc = BR_REWARD_LEVEL_CORE_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_LEVEL_CORE_BUFF hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 3 } NOT = { OR = { has_technology = tech_fusion_power has_technology = tech_cold_fusion_power has_technology = tech_antimatter_power has_technology = tech_zero_point_power } } } give_technology = { tech = tech_fusion_power message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 3 } check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_cold_fusion_power has_technology = tech_antimatter_power has_technology = tech_zero_point_power } } } give_technology = { tech = tech_cold_fusion_power message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_antimatter_power has_technology = tech_zero_point_power } } } give_technology = { tech = tech_antimatter_power message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_zero_point_power } } give_technology = { tech = tech_zero_point_power message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { alloys = 2000 energy = 4000 } }
+}
+
+country_event = {
+    id = br.6160
+    is_triggered_only = yes
+    title = BR_REWARD_LEVEL_TACTICS_TITLE
+    desc = BR_REWARD_LEVEL_TACTICS_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_LEVEL_TACTICS_BUFF hidden_effect = { change_variable = { which = br_reward_computer_accuracy value = 1 } } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_combat_computers_2 has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_2 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_3 message = yes } }
+    option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_combat_computers_autonomous } } give_technology = { tech = tech_combat_computers_autonomous message = yes } }
+    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { physics_research = 3000 engineering_research = 3000 } }
+}

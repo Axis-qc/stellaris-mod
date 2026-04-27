@@ -5,16 +5,24 @@ br_pve_enemy = {
     has_deficits = no
     piracy_risk = no
     needs_survey = no
+    has_complete_sensor = yes
     diplomatic_wars = no
     ship_disengagement = yes
     army_disengagement = yes
     relations = no
-    observable = no
+    observable = yes
     has_capital = no
     can_own_empty_planets = no
-    can_use_invalid_technology = yes
     can_receive_envoys = no
     ownership_limits = none
+    enforces_borders = no
+    share_survey_data = no
+    show_in_contacts_list = yes
+    custom_diplomacy = yes
+    government = no
+    attack_unarmed_orbital_stations = yes
+    destroys_starbases = yes
+    scaled_difficulty_bonuses = 1.5
 
     faction = {
         hostile = yes
@@ -29,6 +37,10 @@ br_pve_enemy = {
     }
 
     modules = {
-        standard_diplomacy_module = { contact_rule = always }
+        exclusive_diplomacy_module = {
+            contact_rule = always
+        }
+        all_technology_module = {}
+        standard_event_module = {}
     }
 }

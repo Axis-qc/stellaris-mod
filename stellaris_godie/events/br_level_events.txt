@@ -1,8 +1,9 @@
 namespace = br
 
-# br.770：初始化PVE玩家个人经验和等级变量喵
+# 事件ID区间：1100-1199。新增或修改事件ID不得超出此区间喵
+# br.1100：初始化PVE玩家个人经验和等级变量喵
 country_event = {
-    id = br.770
+    id = br.1100
     hide_window = yes
     is_triggered_only = yes
 
@@ -22,20 +23,24 @@ country_event = {
             which = br_power_level
             value = 1
         }
+        give_technology = { tech = tech_corvettes message = no }
+        set_variable = { which = br_level_month_counter value = 0 }
 
         # Boss倾向变量只挂在PVE房主国家上，后续最终Boss选择也必须从这个作用域读取喵
         if = {
             limit = { exists = event_target:br_pve_alliance_leader }
             event_target:br_pve_alliance_leader = {
-                country_event = { id = br.774 }
+                country_event = { id = br.1101 }
             }
         }
+
+        country_event = { id = br.1105 }
     }
 }
 
-# br.774：初始化PVE房主国家上的Boss倾向变量喵
+# br.1101：初始化PVE房主国家上的Boss倾向变量。
 country_event = {
-    id = br.774
+    id = br.1101
     hide_window = yes
     is_triggered_only = yes
 
@@ -70,9 +75,9 @@ country_event = {
     }
 }
 
-# br.771：摧毁PVE敌方舰船时给击杀者经验，并给房主累计征服倾向喵
+# br.1102：摧毁PVE敌方舰船时给击杀者经验，并给房主累计征服倾向喵
 country_event = {
-    id = br.771
+    id = br.1102
     hide_window = yes
     is_triggered_only = yes
 
@@ -83,7 +88,7 @@ country_event = {
     }
 
     immediate = {
-        country_event = { id = br.770 }
+        country_event = { id = br.1100 }
 
         if = {
             limit = { fromfromfrom = { is_ship_size = br_pve_boss } }
@@ -94,7 +99,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 20
@@ -111,7 +116,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 5
@@ -128,7 +133,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 3
@@ -145,7 +150,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 2
@@ -162,7 +167,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 1
@@ -178,7 +183,7 @@ country_event = {
             if = {
                 limit = { exists = event_target:br_pve_alliance_leader }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_conquest
                         value = 1
@@ -187,23 +192,24 @@ country_event = {
             }
         }
 
-        country_event = { id = br.773 }
+        country_event = { id = br.1104 }
     }
 }
 
-# br.772：使用母舰爆星采掘时给玩家经验，并给房主累计湮灭倾向喵
+# br.1103：使用母舰爆星采掘时给玩家经验，并给房主累计湮灭倾向喵
 country_event = {
-    id = br.772
+    id = br.1103
     hide_window = yes
     is_triggered_only = yes
 
     trigger = {
         has_global_flag = br_mode_pve
         is_country_type = br_player_pve
+        has_country_flag = br_level_initialized
     }
 
     immediate = {
-        country_event = { id = br.770 }
+        country_event = { id = br.1100 }
         change_variable = {
             which = br_combat_score
             value = 50
@@ -211,20 +217,21 @@ country_event = {
         if = {
             limit = { exists = event_target:br_pve_alliance_leader }
             event_target:br_pve_alliance_leader = {
-                country_event = { id = br.774 }
+                country_event = { id = br.1101 }
                 change_variable = {
                     which = br_void_oblivion
                     value = 2
                 }
             }
         }
-        country_event = { id = br.773 }
+        set_country_flag = br_reward_force_regular_reward
+        country_event = { id = br.1104 }
     }
 }
 
-# br.773：根据累计经验重算玩家等级，并在首次升级时给房主累计进化倾向喵
+# br.1104：根据累计经验重算玩家等级，并在首次升级时给房主累计进化倾向喵
 country_event = {
-    id = br.773
+    id = br.1104
     hide_window = yes
     is_triggered_only = yes
 
@@ -235,6 +242,39 @@ country_event = {
 
     immediate = {
         if = {
+            limit = {
+                check_variable = {
+                    which = br_combat_score
+                    value >= 5000
+                }
+            }
+            if = {
+                limit = {
+                    check_variable = {
+                        which = br_power_level
+                        value < 7
+                    }
+                    exists = event_target:br_pve_alliance_leader
+                }
+                event_target:br_pve_alliance_leader = {
+                    country_event = { id = br.1101 }
+                    change_variable = {
+                        which = br_void_evolution
+                        value = 1
+                    }
+                }
+                set_country_flag = br_reward_level_up_now
+            }
+            set_variable = {
+                which = br_power_level
+                value = 7
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 7 }
+            }
+        }
+        else_if = {
             limit = {
                 check_variable = {
                     which = br_combat_score
@@ -250,16 +290,21 @@ country_event = {
                     exists = event_target:br_pve_alliance_leader
                 }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_evolution
                         value = 1
                     }
                 }
+                set_country_flag = br_reward_level_up_now
             }
             set_variable = {
                 which = br_power_level
                 value = 6
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 6 }
             }
         }
         else_if = {
@@ -278,16 +323,21 @@ country_event = {
                     exists = event_target:br_pve_alliance_leader
                 }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_evolution
                         value = 1
                     }
                 }
+                set_country_flag = br_reward_level_up_now
             }
             set_variable = {
                 which = br_power_level
                 value = 5
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 5 }
             }
         }
         else_if = {
@@ -306,16 +356,21 @@ country_event = {
                     exists = event_target:br_pve_alliance_leader
                 }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_evolution
                         value = 1
                     }
                 }
+                set_country_flag = br_reward_level_up_now
             }
             set_variable = {
                 which = br_power_level
                 value = 4
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 4 }
             }
         }
         else_if = {
@@ -334,16 +389,21 @@ country_event = {
                     exists = event_target:br_pve_alliance_leader
                 }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_evolution
                         value = 1
                     }
                 }
+                set_country_flag = br_reward_level_up_now
             }
             set_variable = {
                 which = br_power_level
                 value = 3
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 3 }
             }
         }
         else_if = {
@@ -362,16 +422,21 @@ country_event = {
                     exists = event_target:br_pve_alliance_leader
                 }
                 event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.774 }
+                    country_event = { id = br.1101 }
                     change_variable = {
                         which = br_void_evolution
                         value = 1
                     }
                 }
+                set_country_flag = br_reward_level_up_now
             }
             set_variable = {
                 which = br_power_level
                 value = 2
+            }
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                set_variable = { which = br_power_level value = 2 }
             }
         }
         else = {
@@ -380,5 +445,134 @@ country_event = {
                 value = 1
             }
         }
+
+        country_event = { id = br.1105 }
+
+        # 爆星/战斗普通奖励仍然走普通掉落池；升级奖励已在上方单独触发 br.6130。
+        if = {
+            limit = { has_country_flag = br_reward_level_up_now }
+            remove_country_flag = br_reward_level_up_now
+            every_country = {
+                limit = { is_country_type = br_player_pve }
+                country_event = { id = br.6130 }
+            }
+        }
+        country_event = { id = br.6100 }
     }
+}
+
+# br.1105：on_monthly_pulse_country 每月触发，累计12个月后播报年度等级状态喵
+country_event = {
+    id = br.1105
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        is_country_type = br_player_pve
+        has_country_flag = br_level_initialized
+    }
+
+    immediate = {
+        change_variable = { which = br_level_month_counter value = 1 }
+        if = {
+            limit = { check_variable = { which = br_level_month_counter value >= 12 } }
+            set_variable = { which = br_level_month_counter value = 0 }
+            country_event = { id = br.1111 }
+        }
+    }
+}
+
+# br.1111: 年度等级窗口分流入口。由 br.1105 每年调用一次。
+country_event = {
+    id = br.1111
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        is_country_type = br_player_pve
+    }
+
+    immediate = {
+        if = { limit = { check_variable = { which = br_power_level value >= 7 } } country_event = { id = br.1118 } }
+        else_if = { limit = { check_variable = { which = br_power_level value >= 6 } } country_event = { id = br.1117 } }
+        else_if = { limit = { check_variable = { which = br_power_level value >= 5 } } country_event = { id = br.1116 } }
+        else_if = { limit = { check_variable = { which = br_power_level value >= 4 } } country_event = { id = br.1115 } }
+        else_if = { limit = { check_variable = { which = br_power_level value >= 3 } } country_event = { id = br.1114 } }
+        else_if = { limit = { check_variable = { which = br_power_level value >= 2 } } country_event = { id = br.1113 } }
+        else = { country_event = { id = br.1112 } }
+    }
+}
+
+# ─── 等级状态窗口 1-7 ───
+# desc 末尾的 ['concept_br_level_rules_X'] 是原版概念悬停提示，鼠标放上去会弹窗解释该级规则喵
+country_event = {
+    id = br.1112
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_1_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1113
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_2_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1114
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_3_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1115
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_4_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1116
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_5_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1117
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_6_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
+}
+
+country_event = {
+    id = br.1118
+    is_triggered_only = yes
+    title = BR_LEVEL_STATUS_TITLE
+    desc = BR_LEVEL_STATUS_7_DESC
+    picture = GFX_evt_fleet_neutral
+
+    option = { name = BR_LEVEL_STATUS_OK }
 }

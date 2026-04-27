@@ -1,0 +1,158 @@
+namespace = br
+
+# 奖励系统核心分流。
+# br.6100 只处理爆星/战斗触发的普通奖励，不处理升级奖励。
+# PVE 共享等级，但流派和BUFF变量都挂在当前玩家国家。
+# PVP 预留为当前玩家国家自己的等级、经验、流派。
+country_event = {
+    id = br.6100
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        OR = {
+            is_country_type = br_player_pve
+            is_country_type = br_player_pvp
+        }
+    }
+
+    immediate = {
+        country_event = { id = br.6101 }
+
+        if = {
+            limit = { has_country_flag = br_reward_force_regular_reward }
+            remove_country_flag = br_reward_force_regular_reward
+            country_event = { id = br.6110 }
+        }
+        else = {
+            random = {
+                chance = 15
+                country_event = { id = br.6110 }
+            }
+        }
+    }
+}
+
+# 初始化当前玩家自己的奖励状态。PVE 也只初始化玩家国家，不写入共享工具国家。
+country_event = {
+    id = br.6101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { NOT = { has_country_flag = br_reward_initialized } }
+            set_country_flag = br_reward_initialized
+            add_relic = br_reward_relics
+        }
+    }
+}
+
+# 爆星/战斗普通奖励池。
+# 2级前只进通用池；2级后，如果玩家已选择流派，就在通用池和个人流派池之间半随机。
+country_event = {
+    id = br.6110
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {
+                OR = {
+                    check_variable = { which = br_power_level value < 2 }
+                    NOT = { has_country_flag = br_reward_path_selected }
+                }
+            }
+            country_event = { id = br.6200 }
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    check_variable = { which = br_power_level value >= 2 }
+                    AND = {
+                        exists = event_target:br_pve_alliance_leader
+                        event_target:br_pve_alliance_leader = { check_variable = { which = br_power_level value >= 2 } }
+                    }
+                }
+            }
+            random_list = {
+                45 = { country_event = { id = br.6200 } }
+                55 = {
+                    if = {
+                        limit = { has_country_flag = br_reward_path_strike_craft }
+                        country_event = { id = br.6300 }
+                    }
+                    else_if = {
+                        limit = { has_country_flag = br_reward_path_missile }
+                        country_event = { id = br.6400 }
+                    }
+                    else_if = {
+                        limit = { has_country_flag = br_reward_path_laser }
+                        country_event = { id = br.6500 }
+                    }
+                    else_if = {
+                        limit = { has_country_flag = br_reward_path_kinetic }
+                        country_event = { id = br.6600 }
+                    }
+                    else_if = {
+                        limit = { has_country_flag = br_reward_path_defense }
+                        country_event = { id = br.6700 }
+                    }
+                    else = {
+                        country_event = { id = br.6200 }
+                    }
+                }
+            }
+        }
+        else = {
+            country_event = { id = br.6200 }
+        }
+    }
+}
+
+# 2级流派选择。只由升级特殊池调用。
+# 注意：PVE 不共享流派，这些 flag 都写在当前玩家国家。
+country_event = {
+    id = br.6120
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_TITLE
+    desc = BR_REWARD_PATH_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_STRIKE_CRAFT
+        set_country_flag = br_reward_path_selected
+        set_country_flag = br_reward_path_strike_craft
+        give_technology = { tech = tech_strike_craft_2 message = yes }
+        country_event = { id = br.6300 }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE
+        set_country_flag = br_reward_path_selected
+        set_country_flag = br_reward_path_missile
+        give_technology = { tech = tech_missiles_2 message = yes }
+        country_event = { id = br.6400 }
+    }
+    option = {
+        name = BR_REWARD_PATH_LASER
+        set_country_flag = br_reward_path_selected
+        set_country_flag = br_reward_path_laser
+        give_technology = { tech = tech_lasers_2 message = yes }
+        country_event = { id = br.6500 }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC
+        set_country_flag = br_reward_path_selected
+        set_country_flag = br_reward_path_kinetic
+        give_technology = { tech = tech_mass_drivers_2 message = yes }
+        country_event = { id = br.6600 }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE
+        set_country_flag = br_reward_path_selected
+        set_country_flag = br_reward_path_defense
+        give_technology = { tech = tech_shields_2 message = yes }
+        give_technology = { tech = tech_ship_armor_2 message = yes }
+        country_event = { id = br.6700 }
+    }
+}

@@ -1,5 +1,6 @@
 namespace = br
-#缩圈机制
+# 事件ID区间：300-399。新增或修改事件ID不得超出此区间喵
+# br.300：按当前缩圈设置收缩安全区，并安排下一轮缩圈喵
 country_event = {
     id = br.300
     hide_window = yes
@@ -10,6 +11,12 @@ country_event = {
         change_variable = {
             which = br_shrink_count
             value = 1
+        }
+
+        # 缩圈时给所有PVE玩家弹一次等级状态窗口，顶栏资源显示不可用。
+        every_country = {
+            limit = { is_country_type = br_player_pve }
+            country_event = { id = br.1111 }
         }
 
         if = {
@@ -1104,6 +1111,9 @@ country_event = {
             event_target:battle_royale_center = {
                 set_name = { key = br_final_circle }
             }
+
+            # 最终圈出现后再交给Boss事件处理终局生成喵
+            country_event = { id = br.900 }
         }
 
         if = {

@@ -1,5 +1,6 @@
 namespace = br
 
+# 事件ID区间：6000-6099。新增或修改事件ID不得超出此区间喵
 # br.6000：母舰采掘光束爆星后分流奖励事件，并把目标星球变成破碎星球喵
 planet_event = {
     id = br.6000
@@ -18,70 +19,12 @@ planet_event = {
                     minerals = 300
                 }
                 save_event_target_as = br_harvester_owner
-                country_event = { id = br.772 }
+                country_event = { id = br.1103 }
             }
         }
 
-        if = {
-            limit = {
-                OR = {
-                    is_planet_class = pc_continental
-                    is_planet_class = pc_ocean
-                    is_planet_class = pc_tropical
-                    is_planet_class = pc_gaia
-                }
-            }
-            random_list = {
-                70 = { event_target:br_harvester_owner = { country_event = { id = br.6010 } } }
-                30 = { event_target:br_harvester_owner = { country_event = { id = br.6014 } } }
-            }
-        }
-        else_if = {
-            limit = {
-                OR = {
-                    is_planet_class = pc_desert
-                    is_planet_class = pc_arid
-                    is_planet_class = pc_savannah
-                    is_planet_class = pc_nuked
-                }
-            }
-            random_list = {
-                70 = { event_target:br_harvester_owner = { country_event = { id = br.6011 } } }
-                30 = { event_target:br_harvester_owner = { country_event = { id = br.6014 } } }
-            }
-        }
-        else_if = {
-            limit = {
-                OR = {
-                    is_planet_class = pc_arctic
-                    is_planet_class = pc_alpine
-                    is_planet_class = pc_tundra
-                }
-            }
-            random_list = {
-                70 = { event_target:br_harvester_owner = { country_event = { id = br.6012 } } }
-                30 = { event_target:br_harvester_owner = { country_event = { id = br.6014 } } }
-            }
-        }
-        else_if = {
-            limit = {
-                OR = {
-                    is_planet_class = pc_city
-                    is_planet_class = pc_relic
-                    is_planet_class = pc_hive
-                    is_planet_class = pc_machine
-                    is_planet_class = pc_habitat
-                    is_ringworld = yes
-                }
-            }
-            random_list = {
-                70 = { event_target:br_harvester_owner = { country_event = { id = br.6013 } } }
-                30 = { event_target:br_harvester_owner = { country_event = { id = br.6014 } } }
-            }
-        }
-        else = {
-            event_target:br_harvester_owner = { country_event = { id = br.6014 } }
-        }
+        # 具体奖励统一由 br.1103 -> br.1104 -> br.6100 分流。
+        # 爆星事件只负责基础资源、经验入口和星球处理。
 
         if = {
             limit = {
