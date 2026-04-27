@@ -235,13 +235,18 @@ country_event = {
     }
 
     immediate = {
-        # 清理地图上的原版国家和舰队（全局仅执行一次）喵
+        # 清理地图上的原版国家和舰队（每局首次执行时清理）喵
         if = {
             limit = {
-                NOT = { has_global_flag = br_start_map_cleaned }
+                exists = event_target:br_void_country
+                event_target:br_void_country = {
+                    has_country_flag = br_start_init
+                }
             }
 
-            set_global_flag = br_start_map_cleaned
+            event_target:br_void_country = {
+                remove_country_flag = br_start_init
+            }
 
             every_system = {
                 limit = {
