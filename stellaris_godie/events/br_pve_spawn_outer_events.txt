@@ -1,0 +1,107 @@
+namespace = br
+
+# ============================================================
+# 外圈杂兵一次性刷敌：br.820
+# 内圈初始刷敌完成后触发一次，外圈（ring_26+）必刷
+# 舰队：护卫3-10 + 驱逐1-5（随机炮击/近战）
+# 数量越少概率越高，最低保底3护卫
+# 排除玩家初始出生星系
+# ============================================================
+country_event = {
+    id = br.820
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        has_global_flag = br_pve_initialized
+        exists = event_target:br_pve_enemy_country
+    }
+
+    immediate = {
+        every_system = {
+            limit = {
+                NOT = { has_star_flag = br_player_spawn_system }
+                OR = {
+                    has_star_flag = br_ring_26
+                    has_star_flag = br_ring_27
+                    has_star_flag = br_ring_28
+                    has_star_flag = br_ring_29
+                    has_star_flag = br_ring_30
+                    has_star_flag = br_ring_31
+                    has_star_flag = br_ring_32
+                    has_star_flag = br_ring_33
+                    has_star_flag = br_ring_34
+                    has_star_flag = br_ring_35
+                    has_star_flag = br_ring_36
+                    has_star_flag = br_ring_37
+                    has_star_flag = br_ring_38
+                    has_star_flag = br_ring_39
+                    has_star_flag = br_ring_40
+                    has_star_flag = br_ring_41
+                    has_star_flag = br_ring_42
+                    has_star_flag = br_ring_43
+                    has_star_flag = br_ring_44
+                    has_star_flag = br_ring_45
+                    has_star_flag = br_ring_46
+                    has_star_flag = br_ring_47
+                    has_star_flag = br_ring_48
+                    has_star_flag = br_ring_49
+                    has_star_flag = br_ring_50
+                    has_star_flag = br_ring_51
+                    has_star_flag = br_ring_52
+                    has_star_flag = br_ring_53
+                    has_star_flag = br_ring_54
+                    has_star_flag = br_ring_55
+                    has_star_flag = br_ring_56
+                    has_star_flag = br_ring_57
+                    has_star_flag = br_ring_58
+                    has_star_flag = br_ring_59
+                    has_star_flag = br_ring_60
+                    has_star_flag = br_ring_61
+                    has_star_flag = br_ring_62
+                    has_star_flag = br_ring_63
+                    has_star_flag = br_ring_64
+                    has_star_flag = br_ring_65
+                }
+            }
+            star = { save_global_event_target_as = br_spawn_tmp }
+
+            event_target:br_pve_enemy_country = {
+                create_fleet = {
+                    name = random
+                    effect = {
+                        set_owner = event_target:br_pve_enemy_country
+
+                        # 护卫舰 3-10，低数量高概率，高数量低概率
+                        random_list = {
+                            30 = { while = { count = 3  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                            25 = { while = { count = 4  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                            20 = { while = { count = 5  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                            15 = { while = { count = 6  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                            10 = { while = { count = 7  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                             7 = { while = { count = 8  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                             5 = { while = { count = 9  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                             3 = { while = { count = 10 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
+                        }
+
+                        # 驱逐舰 1-5，低数量高概率，高数量低概率
+                        random_list = {
+                            50 = { while = { count = 1 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
+                            35 = { while = { count = 2 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
+                            20 = { while = { count = 3 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
+                            10 = { while = { count = 4 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
+                             5 = { while = { count = 5 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
+                        }
+
+                        set_location = {
+                            target = event_target:br_spawn_tmp
+                            distance = 50
+                            angle = random
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

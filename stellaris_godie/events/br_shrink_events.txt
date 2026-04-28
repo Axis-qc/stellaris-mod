@@ -13,12 +13,6 @@ country_event = {
             value = 1
         }
 
-        # 缩圈时给所有PVE玩家弹一次等级状态窗口，顶栏资源显示不可用。
-        every_country = {
-            limit = { is_country_type = br_player_pve }
-            country_event = { id = br.1111 }
-        }
-
         if = {
             limit = { has_global_flag = br_safe_100 }
             remove_global_flag = br_safe_100
@@ -1111,9 +1105,6 @@ country_event = {
             event_target:battle_royale_center = {
                 set_name = { key = br_final_circle }
             }
-
-            # 最终圈出现后再交给Boss事件处理终局生成喵
-            country_event = { id = br.900 }
         }
 
         if = {

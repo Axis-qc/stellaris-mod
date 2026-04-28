@@ -1,0 +1,300 @@
+namespace = br
+
+# 普通奖励池。ID 6900-6949。
+# 提供通用科技奖励，涵盖武器、护盾、装甲、A槽辅助、反应堆、推进器、作战电脑。
+# 普通奖励最高比全局上限低一级（最高T4），流派专属T5武器不在此池。
+
+# ========================
+# 普通奖励池分流器
+# ========================
+country_event = {
+    id = br.6900
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { check_variable = { which = br_power_level value < 2 } }
+            country_event = { id = br.6901 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 3 } }
+            country_event = { id = br.6902 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 4 } }
+            country_event = { id = br.6903 }
+        }
+        else = {
+            country_event = { id = br.6904 }
+        }
+    }
+}
+
+# ========================
+# 1级普通奖励（T1科技）
+# ========================
+country_event = {
+    id = br.6901
+    is_triggered_only = yes
+    title = BR_REWARD_NORMAL_LEVEL1_TITLE
+    desc = BR_REWARD_NORMAL_LEVEL1_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_LASER1
+        trigger = { NOT = { has_technology = tech_lasers_1 } }
+        give_technology = { tech = tech_lasers_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_KINETIC1
+        trigger = { NOT = { has_technology = tech_mass_drivers_1 } }
+        give_technology = { tech = tech_mass_drivers_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_MISSILE1
+        trigger = { NOT = { has_technology = tech_missiles_1 } }
+        give_technology = { tech = tech_missiles_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_STRIKE1
+        trigger = { NOT = { has_technology = tech_strike_craft_1 } }
+        give_technology = { tech = tech_strike_craft_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_SHIELD1
+        trigger = { NOT = { has_technology = tech_shields_1 } }
+        give_technology = { tech = tech_shields_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_ARMOR1
+        trigger = { NOT = { has_technology = tech_ship_armor_1 } }
+        give_technology = { tech = tech_ship_armor_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_REACTOR1
+        trigger = { NOT = { has_technology = tech_fission_power } }
+        give_technology = { tech = tech_fission_power message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_THRUSTER1
+        trigger = { NOT = { has_technology = tech_thrusters_1 } }
+        give_technology = { tech = tech_thrusters_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_COMPUTER1
+        trigger = { NOT = { has_technology = tech_combat_computers_1 } }
+        give_technology = { tech = tech_combat_computers_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_AFTERBURNER1
+        trigger = { NOT = { has_technology = tech_afterburners_1 } }
+        give_technology = { tech = tech_afterburners_1 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 2级普通奖励（T2科技）
+# ========================
+country_event = {
+    id = br.6902
+    is_triggered_only = yes
+    title = BR_REWARD_NORMAL_LEVEL2_TITLE
+    desc = BR_REWARD_NORMAL_LEVEL2_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_LASER2
+        trigger = { NOT = { has_technology = tech_lasers_2 } }
+        give_technology = { tech = tech_lasers_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_KINETIC2
+        trigger = { NOT = { has_technology = tech_mass_drivers_2 } }
+        give_technology = { tech = tech_mass_drivers_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_MISSILE2
+        trigger = { NOT = { has_technology = tech_missiles_2 } }
+        give_technology = { tech = tech_missiles_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_STRIKE2
+        trigger = { NOT = { has_technology = tech_strike_craft_2 } }
+        give_technology = { tech = tech_strike_craft_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_SHIELD2
+        trigger = { NOT = { has_technology = tech_shields_2 } }
+        give_technology = { tech = tech_shields_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_ARMOR2
+        trigger = { NOT = { has_technology = tech_ship_armor_2 } }
+        give_technology = { tech = tech_ship_armor_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_REACTOR2
+        trigger = { NOT = { has_technology = tech_fusion_power } }
+        give_technology = { tech = tech_fusion_power message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_THRUSTER2
+        trigger = { NOT = { has_technology = tech_thrusters_2 } }
+        give_technology = { tech = tech_thrusters_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_COMPUTER2
+        trigger = { NOT = { has_technology = tech_combat_computers_2 } }
+        give_technology = { tech = tech_combat_computers_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_AFTERBURNER2
+        trigger = { NOT = { has_technology = tech_afterburners_2 } }
+        give_technology = { tech = tech_afterburners_2 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 3级普通奖励（T3科技）
+# ========================
+country_event = {
+    id = br.6903
+    is_triggered_only = yes
+    title = BR_REWARD_NORMAL_LEVEL3_TITLE
+    desc = BR_REWARD_NORMAL_LEVEL3_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_LASER3
+        trigger = { NOT = { has_technology = tech_lasers_3 } }
+        give_technology = { tech = tech_lasers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_KINETIC3
+        trigger = { NOT = { has_technology = tech_mass_drivers_3 } }
+        give_technology = { tech = tech_mass_drivers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_MISSILE3
+        trigger = { NOT = { has_technology = tech_missiles_3 } }
+        give_technology = { tech = tech_missiles_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_STRIKE3
+        trigger = { NOT = { has_technology = tech_strike_craft_3 } }
+        give_technology = { tech = tech_strike_craft_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_SHIELD3
+        trigger = { NOT = { has_technology = tech_shields_3 } }
+        give_technology = { tech = tech_shields_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_ARMOR3
+        trigger = { NOT = { has_technology = tech_ship_armor_3 } }
+        give_technology = { tech = tech_ship_armor_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_REACTOR3
+        trigger = { NOT = { has_technology = tech_cold_fusion_power } }
+        give_technology = { tech = tech_cold_fusion_power message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_THRUSTER3
+        trigger = { NOT = { has_technology = tech_thrusters_3 } }
+        give_technology = { tech = tech_thrusters_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_COMPUTER3
+        trigger = { NOT = { has_technology = tech_combat_computers_3 } }
+        give_technology = { tech = tech_combat_computers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_AFTERBURNER3
+        trigger = { NOT = { has_technology = tech_afterburners_3 } }
+        give_technology = { tech = tech_afterburners_3 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 4级普通奖励（T4科技，为普通奖励池最高等级）
+# ========================
+country_event = {
+    id = br.6904
+    is_triggered_only = yes
+    title = BR_REWARD_NORMAL_LEVEL4_TITLE
+    desc = BR_REWARD_NORMAL_LEVEL4_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_LASER4
+        trigger = { NOT = { has_technology = tech_lasers_4 } }
+        give_technology = { tech = tech_lasers_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_KINETIC4
+        trigger = { NOT = { has_technology = tech_mass_drivers_4 } }
+        give_technology = { tech = tech_mass_drivers_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_MISSILE4
+        trigger = { NOT = { has_technology = tech_missiles_4 } }
+        give_technology = { tech = tech_missiles_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_WEAPON_STRIKE4
+        trigger = { NOT = { has_technology = tech_strike_craft_4 } }
+        give_technology = { tech = tech_strike_craft_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_SHIELD4
+        trigger = { NOT = { has_technology = tech_shields_4 } }
+        give_technology = { tech = tech_shields_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_ARMOR4
+        trigger = { NOT = { has_technology = tech_ship_armor_4 } }
+        give_technology = { tech = tech_ship_armor_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_REACTOR4
+        trigger = { NOT = { has_technology = tech_antimatter_power } }
+        give_technology = { tech = tech_antimatter_power message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_THRUSTER4
+        trigger = { NOT = { has_technology = tech_thrusters_4 } }
+        give_technology = { tech = tech_thrusters_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_COMPUTER4
+        trigger = { NOT = { has_technology = tech_combat_computers_autonomous } }
+        give_technology = { tech = tech_combat_computers_autonomous message = yes }
+    }
+    option = {
+        name = BR_REWARD_NORMAL_AFTERBURNER4
+        trigger = { NOT = { has_technology = tech_afterburners_4 } }
+        give_technology = { tech = tech_afterburners_4 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}

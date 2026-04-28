@@ -18,17 +18,12 @@ country_event = {
 
     immediate = {
         country_event = { id = br.6101 }
-
+        # 击杀奖励已改为经验阈值触发（每100经验），不再走概率触发。
+        # force_regular_reward 仍保留作为其他事件的强制触发入口。
         if = {
             limit = { has_country_flag = br_reward_force_regular_reward }
             remove_country_flag = br_reward_force_regular_reward
             country_event = { id = br.6110 }
-        }
-        else = {
-            random = {
-                chance = 15
-                country_event = { id = br.6110 }
-            }
         }
     }
 }
@@ -41,7 +36,10 @@ country_event = {
 
     immediate = {
         if = {
-            limit = { NOT = { has_country_flag = br_reward_initialized } }
+            limit = {
+                is_ai = no
+                NOT = { has_country_flag = br_reward_initialized }
+            }
             set_country_flag = br_reward_initialized
             add_relic = br_reward_relics
         }
@@ -49,7 +47,8 @@ country_event = {
 }
 
 # 爆星/战斗普通奖励池。
-# 2级前只进通用池；2级后，如果玩家已选择流派，就在通用池和个人流派池之间半随机。
+# 2级前只进普通池；2级后，如果玩家已选择流派，就在普通池和流派池之间半随机。
+# 普通池：T1-T4通用科技；流派池：T1-T5流派专属武器。
 country_event = {
     id = br.6110
     hide_window = yes
@@ -63,7 +62,10 @@ country_event = {
                     NOT = { has_country_flag = br_reward_path_selected }
                 }
             }
-            country_event = { id = br.6200 }
+            random_list = {
+                85 = { country_event = { id = br.6900 } }
+                15 = { country_event = { id = br.6970 } }
+            }
         }
         else_if = {
             limit = {
@@ -76,36 +78,45 @@ country_event = {
                 }
             }
             random_list = {
-                45 = { country_event = { id = br.6200 } }
-                55 = {
-                    if = {
-                        limit = { has_country_flag = br_reward_path_strike_craft }
-                        country_event = { id = br.6300 }
-                    }
-                    else_if = {
-                        limit = { has_country_flag = br_reward_path_missile }
-                        country_event = { id = br.6400 }
-                    }
-                    else_if = {
-                        limit = { has_country_flag = br_reward_path_laser }
-                        country_event = { id = br.6500 }
-                    }
-                    else_if = {
-                        limit = { has_country_flag = br_reward_path_kinetic }
-                        country_event = { id = br.6600 }
-                    }
-                    else_if = {
-                        limit = { has_country_flag = br_reward_path_defense }
-                        country_event = { id = br.6700 }
-                    }
-                    else = {
-                        country_event = { id = br.6200 }
+                40 = { country_event = { id = br.6900 } }
+                10 = { country_event = { id = br.6970 } }
+                50 = {
+                    random_list = {
+                        50 = { country_event = { id = br.6950 } }
+                        50 = {
+                            if = {
+                                limit = { has_country_flag = br_reward_path_strike_craft }
+                                country_event = { id = br.6300 }
+                            }
+                            else_if = {
+                                limit = { has_country_flag = br_reward_path_missile }
+                                country_event = { id = br.6400 }
+                            }
+                            else_if = {
+                                limit = { has_country_flag = br_reward_path_laser }
+                                country_event = { id = br.6500 }
+                            }
+                            else_if = {
+                                limit = { has_country_flag = br_reward_path_kinetic }
+                                country_event = { id = br.6600 }
+                            }
+                            else_if = {
+                                limit = { has_country_flag = br_reward_path_defense }
+                                country_event = { id = br.6700 }
+                            }
+                            else = {
+                                country_event = { id = br.6900 }
+                            }
+                        }
                     }
                 }
             }
         }
         else = {
-            country_event = { id = br.6200 }
+            random_list = {
+                85 = { country_event = { id = br.6900 } }
+                15 = { country_event = { id = br.6970 } }
+            }
         }
     }
 }

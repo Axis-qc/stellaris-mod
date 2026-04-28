@@ -20,7 +20,11 @@ country_event = {
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_lasers_3 has_technology = tech_lasers_4 has_technology = tech_lasers_5 } } } give_technology = { tech = tech_lasers_3 message = yes } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_lasers_4 has_technology = tech_lasers_5 } } } give_technology = { tech = tech_lasers_4 message = yes } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_lasers_5 } } give_technology = { tech = tech_lasers_5 message = yes } }
-    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { energy = 2000 rare_crystals = 100 } }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
 }
 
 country_event = {
@@ -34,7 +38,11 @@ country_event = {
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_lasers_3 has_technology = tech_lasers_4 has_technology = tech_lasers_5 } } } give_technology = { tech = tech_lasers_3 message = yes } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } check_variable = { which = br_power_level value < 7 } NOT = { OR = { has_technology = tech_lasers_4 has_technology = tech_lasers_5 } } } give_technology = { tech = tech_lasers_4 message = yes } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_lasers_5 } } give_technology = { tech = tech_lasers_5 message = yes } }
-    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { energy = 3000 rare_crystals = 100 } }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
 }
 
 country_event = {
@@ -47,5 +55,9 @@ country_event = {
     option = { name = BR_REWARD_OPTION_BUFF custom_tooltip = BR_REWARD_LASER_COMPUTER_BUFF hidden_effect = { change_variable = { which = br_reward_computer_accuracy value = 1 } } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value < 5 } NOT = { OR = { has_technology = tech_combat_computers_2 has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_2 message = yes } }
     option = { name = BR_REWARD_OPTION_TECH trigger = { check_variable = { which = br_power_level value >= 5 } NOT = { OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } } } give_technology = { tech = tech_combat_computers_3 message = yes } }
-    option = { name = BR_REWARD_OPTION_RESOURCE add_resource = { physics_research = 2500 rare_crystals = 100 } }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
 }

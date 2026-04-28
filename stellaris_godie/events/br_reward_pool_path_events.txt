@@ -1,0 +1,251 @@
+namespace = br
+
+# 流派奖励池。ID 6950-6999。
+# 提供流派专属最高等级武器科技（可达T5），普通池仅到T4。
+# 各流派在对应等级获得该流派武器科技。
+
+# ========================
+# 流派奖励池分流器
+# ========================
+country_event = {
+    id = br.6950
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { check_variable = { which = br_power_level value < 2 } }
+            country_event = { id = br.6951 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 3 } }
+            country_event = { id = br.6952 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 4 } }
+            country_event = { id = br.6953 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 5 } }
+            country_event = { id = br.6954 }
+        }
+        else = {
+            country_event = { id = br.6955 }
+        }
+    }
+}
+
+# ========================
+# 1级流派奖励（T1流派武器）
+# ========================
+country_event = {
+    id = br.6951
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_WEAPON1_TITLE
+    desc = BR_REWARD_PATH_WEAPON1_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_LASER1
+        trigger = { has_country_flag = br_reward_path_laser NOT = { has_technology = tech_lasers_1 } }
+        give_technology = { tech = tech_lasers_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC1
+        trigger = { has_country_flag = br_reward_path_kinetic NOT = { has_technology = tech_mass_drivers_1 } }
+        give_technology = { tech = tech_mass_drivers_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE1
+        trigger = { has_country_flag = br_reward_path_missile NOT = { has_technology = tech_missiles_1 } }
+        give_technology = { tech = tech_missiles_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_STRIKE1
+        trigger = { has_country_flag = br_reward_path_strike_craft NOT = { has_technology = tech_strike_craft_1 } }
+        give_technology = { tech = tech_strike_craft_1 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE_SHIELD1
+        trigger = { has_country_flag = br_reward_path_defense NOT = { has_technology = tech_shields_1 } }
+        give_technology = { tech = tech_shields_1 message = yes }
+        give_technology = { tech = tech_ship_armor_1 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 2级流派奖励（T2流派武器）
+# ========================
+country_event = {
+    id = br.6952
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_WEAPON2_TITLE
+    desc = BR_REWARD_PATH_WEAPON2_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_LASER2
+        trigger = { has_country_flag = br_reward_path_laser NOT = { has_technology = tech_lasers_2 } }
+        give_technology = { tech = tech_lasers_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC2
+        trigger = { has_country_flag = br_reward_path_kinetic NOT = { has_technology = tech_mass_drivers_2 } }
+        give_technology = { tech = tech_mass_drivers_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE2
+        trigger = { has_country_flag = br_reward_path_missile NOT = { has_technology = tech_missiles_2 } }
+        give_technology = { tech = tech_missiles_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_STRIKE2
+        trigger = { has_country_flag = br_reward_path_strike_craft NOT = { has_technology = tech_strike_craft_2 } }
+        give_technology = { tech = tech_strike_craft_2 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE_SHIELD2
+        trigger = { has_country_flag = br_reward_path_defense NOT = { has_technology = tech_shields_2 } }
+        give_technology = { tech = tech_shields_2 message = yes }
+        give_technology = { tech = tech_ship_armor_2 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 3级流派奖励（T3流派武器）
+# ========================
+country_event = {
+    id = br.6953
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_WEAPON3_TITLE
+    desc = BR_REWARD_PATH_WEAPON3_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_LASER3
+        trigger = { has_country_flag = br_reward_path_laser NOT = { has_technology = tech_lasers_3 } }
+        give_technology = { tech = tech_lasers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC3
+        trigger = { has_country_flag = br_reward_path_kinetic NOT = { has_technology = tech_mass_drivers_3 } }
+        give_technology = { tech = tech_mass_drivers_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE3
+        trigger = { has_country_flag = br_reward_path_missile NOT = { has_technology = tech_missiles_3 } }
+        give_technology = { tech = tech_missiles_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_STRIKE3
+        trigger = { has_country_flag = br_reward_path_strike_craft NOT = { has_technology = tech_strike_craft_3 } }
+        give_technology = { tech = tech_strike_craft_3 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE_SHIELD3
+        trigger = { has_country_flag = br_reward_path_defense NOT = { has_technology = tech_shields_3 } }
+        give_technology = { tech = tech_shields_3 message = yes }
+        give_technology = { tech = tech_ship_armor_3 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 4级流派奖励（T4流派武器）
+# ========================
+country_event = {
+    id = br.6954
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_WEAPON4_TITLE
+    desc = BR_REWARD_PATH_WEAPON4_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_LASER4
+        trigger = { has_country_flag = br_reward_path_laser NOT = { has_technology = tech_lasers_4 } }
+        give_technology = { tech = tech_lasers_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC4
+        trigger = { has_country_flag = br_reward_path_kinetic NOT = { has_technology = tech_mass_drivers_4 } }
+        give_technology = { tech = tech_mass_drivers_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE4
+        trigger = { has_country_flag = br_reward_path_missile NOT = { has_technology = tech_missiles_4 } }
+        give_technology = { tech = tech_missiles_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_STRIKE4
+        trigger = { has_country_flag = br_reward_path_strike_craft NOT = { has_technology = tech_strike_craft_4 } }
+        give_technology = { tech = tech_strike_craft_4 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE_SHIELD4
+        trigger = { has_country_flag = br_reward_path_defense NOT = { has_technology = tech_shields_4 } }
+        give_technology = { tech = tech_shields_4 message = yes }
+        give_technology = { tech = tech_ship_armor_4 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# ========================
+# 5级及以上流派奖励（T5流派武器，最高等级）
+# ========================
+country_event = {
+    id = br.6955
+    is_triggered_only = yes
+    title = BR_REWARD_PATH_WEAPON5_TITLE
+    desc = BR_REWARD_PATH_WEAPON5_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_REWARD_PATH_LASER5
+        trigger = { has_country_flag = br_reward_path_laser NOT = { has_technology = tech_lasers_5 } }
+        give_technology = { tech = tech_lasers_5 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_KINETIC5
+        trigger = { has_country_flag = br_reward_path_kinetic NOT = { has_technology = tech_mass_drivers_5 } }
+        give_technology = { tech = tech_mass_drivers_5 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_MISSILE5
+        trigger = { has_country_flag = br_reward_path_missile NOT = { has_technology = tech_missiles_5 } }
+        give_technology = { tech = tech_missiles_5 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_STRIKE5
+        trigger = { has_country_flag = br_reward_path_strike_craft NOT = { has_technology = tech_strike_craft_5 } }
+        give_technology = { tech = tech_strike_craft_5 message = yes }
+    }
+    option = {
+        name = BR_REWARD_PATH_DEFENSE_SHIELD5
+        trigger = { has_country_flag = br_reward_path_defense NOT = { has_technology = tech_shields_5 } }
+        give_technology = { tech = tech_shields_5 message = yes }
+        give_technology = { tech = tech_ship_armor_5 message = yes }
+    }
+    option = { name = BR_REWARD_OPTION_ALLOY add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_ENERGY add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_MOTES add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_CRYSTALS add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = BR_REWARD_OPTION_GASES add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
