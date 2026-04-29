@@ -1,0 +1,31 @@
+namespace = reward
+
+# ========================
+# 特殊池 — reward.6001-6999
+# 不参与总触发器随机，仅限 Boss/隐藏事件显式调用。
+# 本轮只建空壳入口，不实现具体奖励内容。
+# ========================
+
+# 特殊池入口
+country_event = {
+    id = reward.6001
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = reward.6101 }
+    }
+}
+
+# 特殊池占位事件（后续替换为具体奖励）
+country_event = {
+    id = reward.6101
+    is_triggered_only = yes
+    title = REWARD_POOL_SPECIAL_TITLE
+    desc = REWARD_POOL_SPECIAL_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_SPECIAL_PLACEHOLDER
+    }
+}

@@ -224,7 +224,7 @@ country_event = {
                 }
             }
             change_variable = { which = br_kill_score value = -100 }
-            country_event = { id = br.6110 }
+            country_event = { id = reward.1 }
         }
 
         country_event = { id = br.1104 }
@@ -255,7 +255,7 @@ country_event = {
                 }
             }
 
-            country_event = { id = br.6110 }
+            country_event = { id = reward.1 }
         }
     }
 }
@@ -386,7 +386,7 @@ country_event = {
             set_variable = { which = br_power_level value = 1 }
         }
 
-        # 爆星/战斗普通奖励仍然走普通掉落池；升级奖励已在上方单独触发 br.6130。
+        # 爆星/战斗普通奖励已在经验入口直接触发 reward.1；升级奖励在这里单独触发 br.6130。
         if = {
             limit = { has_country_flag = br_reward_level_up_now }
             remove_country_flag = br_reward_level_up_now
@@ -395,7 +395,6 @@ country_event = {
                 country_event = { id = br.6130 }
             }
         }
-        country_event = { id = br.6100 }
     }
 }
 

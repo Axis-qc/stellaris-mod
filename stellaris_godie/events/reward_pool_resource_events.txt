@@ -1,0 +1,122 @@
+namespace = reward
+
+# ========================
+# 资源池 — reward.1001-1999
+# 只能由 reward.1 总触发器调用。
+# 五级制按 br_power_level 分流，具体奖励只展示纯资源选项。
+# ========================
+
+# 资源池入口：先迁移旧系统资源奖励
+country_event = {
+    id = reward.1001
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = reward.1101 }
+    }
+}
+
+# 资源池等级触发器
+country_event = {
+    id = reward.1101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { check_variable = { which = br_power_level value < 3 } }
+            country_event = { id = reward.1102 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 6 } }
+            country_event = { id = reward.1103 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 9 } }
+            country_event = { id = reward.1104 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 12 } }
+            country_event = { id = reward.1105 }
+        }
+        else = {
+            country_event = { id = reward.1106 }
+        }
+    }
+}
+
+# T1 资源 (Lv1-2)
+country_event = {
+    id = reward.1102
+    is_triggered_only = yes
+    title = REWARD_POOL_RESOURCE_T1_TITLE
+    desc = REWARD_POOL_RESOURCE_T1_DESC
+    picture = GFX_evt_mining_station
+
+    option = { name = REWARD_OPTION_ALLOY            add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
+    option = { name = REWARD_OPTION_ENERGY           add_resource = { energy = @reward_energy_base mult = br_power_level } }
+    option = { name = REWARD_OPTION_MOTES            add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
+    option = { name = REWARD_OPTION_CRYSTALS         add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
+    option = { name = REWARD_OPTION_GASES            add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+}
+
+# T2 资源 (Lv3-5)
+country_event = {
+    id = reward.1103
+    is_triggered_only = yes
+    title = REWARD_POOL_RESOURCE_T2_TITLE
+    desc = REWARD_POOL_RESOURCE_T2_DESC
+    picture = GFX_evt_mining_station
+
+    option = { name = REWARD_OPTION_ALLOY            add_resource = { alloys = 200 mult = br_power_level } }
+    option = { name = REWARD_OPTION_ENERGY           add_resource = { energy = 200 mult = br_power_level } }
+    option = { name = REWARD_OPTION_MOTES            add_resource = { volatile_motes = 20 mult = br_power_level } }
+    option = { name = REWARD_OPTION_CRYSTALS         add_resource = { rare_crystals = 20 mult = br_power_level } }
+    option = { name = REWARD_OPTION_GASES            add_resource = { exotic_gases = 20 mult = br_power_level } }
+}
+
+# T3 资源 (Lv6-8)
+country_event = {
+    id = reward.1104
+    is_triggered_only = yes
+    title = REWARD_POOL_RESOURCE_T3_TITLE
+    desc = REWARD_POOL_RESOURCE_T3_DESC
+    picture = GFX_evt_mining_station
+
+    option = { name = REWARD_OPTION_ALLOY            add_resource = { alloys = 300 mult = br_power_level } }
+    option = { name = REWARD_OPTION_ENERGY           add_resource = { energy = 300 mult = br_power_level } }
+    option = { name = REWARD_OPTION_MOTES            add_resource = { volatile_motes = 30 mult = br_power_level } }
+    option = { name = REWARD_OPTION_CRYSTALS         add_resource = { rare_crystals = 30 mult = br_power_level } }
+    option = { name = REWARD_OPTION_GASES            add_resource = { exotic_gases = 30 mult = br_power_level } }
+}
+
+# T4 资源 (Lv9-11)
+country_event = {
+    id = reward.1105
+    is_triggered_only = yes
+    title = REWARD_POOL_RESOURCE_T4_TITLE
+    desc = REWARD_POOL_RESOURCE_T4_DESC
+    picture = GFX_evt_mining_station
+
+    option = { name = REWARD_OPTION_ALLOY            add_resource = { alloys = 500 mult = br_power_level } }
+    option = { name = REWARD_OPTION_ENERGY           add_resource = { energy = 500 mult = br_power_level } }
+    option = { name = REWARD_OPTION_MOTES            add_resource = { volatile_motes = 50 mult = br_power_level } }
+    option = { name = REWARD_OPTION_CRYSTALS         add_resource = { rare_crystals = 50 mult = br_power_level } }
+    option = { name = REWARD_OPTION_GASES            add_resource = { exotic_gases = 50 mult = br_power_level } }
+}
+
+# T5 资源 (Lv12)
+country_event = {
+    id = reward.1106
+    is_triggered_only = yes
+    title = REWARD_POOL_RESOURCE_T5_TITLE
+    desc = REWARD_POOL_RESOURCE_T5_DESC
+    picture = GFX_evt_mining_station
+
+    option = { name = REWARD_OPTION_ALLOY            add_resource = { alloys = 700 mult = br_power_level } }
+    option = { name = REWARD_OPTION_ENERGY           add_resource = { energy = 700 mult = br_power_level } }
+    option = { name = REWARD_OPTION_MOTES            add_resource = { volatile_motes = 70 mult = br_power_level } }
+    option = { name = REWARD_OPTION_CRYSTALS         add_resource = { rare_crystals = 70 mult = br_power_level } }
+    option = { name = REWARD_OPTION_GASES            add_resource = { exotic_gases = 70 mult = br_power_level } }
+}

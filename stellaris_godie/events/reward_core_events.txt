@@ -1,0 +1,24 @@
+namespace = reward
+
+# ========================
+# 奖励系统核心 — 总触发器
+# reward.1 是全部普通奖励的唯一入口。
+# 只负责随机选五个普通奖励池中的一个，不做等级/流派检测，不发奖励。
+# 调用方：战斗击杀(br.1102)、爆星(br.1103)。
+# ========================
+
+country_event = {
+    id = reward.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        random_list = {
+            20 = { country_event = { id = reward.1001 } }   # 资源池
+            25 = { country_event = { id = reward.2001 } }   # 科技池
+            25 = { country_event = { id = reward.3001 } }   # BUFF池
+            15 = { country_event = { id = reward.4001 } }   # 舰船池
+            15 = { country_event = { id = reward.5001 } }   # 领袖池
+        }
+    }
+}

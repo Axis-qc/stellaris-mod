@@ -1,0 +1,285 @@
+namespace = reward
+
+# ========================
+# 科技池 — reward.2001-2999
+# 只能由 reward.1 总触发器调用。
+# 五级制分流，每级拆为武器/防护/辅助(A槽)三个子事件。
+# 具体奖励只做显示检测：已拥有科技不显示。
+# TODO: 科技池可能被抽空，后续在入口或总触发器增加可用科技计数/重抽/转池兜底。
+# ========================
+
+# 科技池入口
+country_event = {
+    id = reward.2001
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = reward.2101 }
+    }
+}
+
+# 科技池等级触发器
+country_event = {
+    id = reward.2101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { check_variable = { which = br_power_level value < 3 } }
+            random_list = {
+                34 = { country_event = { id = reward.2111 } }   # T1 武器
+                33 = { country_event = { id = reward.2121 } }   # T1 防护
+                33 = { country_event = { id = reward.2131 } }   # T1 辅助
+            }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 6 } }
+            random_list = {
+                34 = { country_event = { id = reward.2211 } }   # T2 武器
+                33 = { country_event = { id = reward.2221 } }   # T2 防护
+                33 = { country_event = { id = reward.2231 } }   # T2 辅助
+            }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 9 } }
+            random_list = {
+                34 = { country_event = { id = reward.2311 } }   # T3 武器
+                33 = { country_event = { id = reward.2321 } }   # T3 防护
+                33 = { country_event = { id = reward.2331 } }   # T3 辅助
+            }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 12 } }
+            random_list = {
+                34 = { country_event = { id = reward.2411 } }   # T4 武器
+                33 = { country_event = { id = reward.2421 } }   # T4 防护
+                33 = { country_event = { id = reward.2431 } }   # T4 辅助
+            }
+        }
+        else = {
+            random_list = {
+                34 = { country_event = { id = reward.2511 } }   # T5 武器
+                33 = { country_event = { id = reward.2521 } }   # T5 防护
+                33 = { country_event = { id = reward.2531 } }   # T5 辅助
+            }
+        }
+    }
+}
+
+# ========================
+# T1 科技 (Lv1-2)
+# ========================
+
+# T1 武器
+country_event = {
+    id = reward.2111
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_WEAPON_T1_TITLE
+    desc = REWARD_POOL_TECH_WEAPON_T1_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_LASER1      trigger = { NOT = { has_technology = tech_lasers_1 } }       give_technology = { tech = tech_lasers_1 message = yes } }
+    option = { name = REWARD_TECH_KINETIC1    trigger = { NOT = { has_technology = tech_mass_drivers_1 } } give_technology = { tech = tech_mass_drivers_1 message = yes } }
+    option = { name = REWARD_TECH_MISSILE1    trigger = { NOT = { has_technology = tech_missiles_1 } }     give_technology = { tech = tech_missiles_1 message = yes } }
+    option = { name = REWARD_TECH_STRIKE1     trigger = { NOT = { has_technology = tech_strike_craft_1 } } give_technology = { tech = tech_strike_craft_1 message = yes } }
+}
+
+# T1 防护
+country_event = {
+    id = reward.2121
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_DEFENSE_T1_TITLE
+    desc = REWARD_POOL_TECH_DEFENSE_T1_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_SHIELD1     trigger = { NOT = { has_technology = tech_shields_1 } }      give_technology = { tech = tech_shields_1 message = yes } }
+    option = { name = REWARD_TECH_ARMOR1      trigger = { NOT = { has_technology = tech_ship_armor_1 } }  give_technology = { tech = tech_ship_armor_1 message = yes } }
+    option = { name = REWARD_TECH_REACTOR1    trigger = { NOT = { has_technology = tech_fission_power } } give_technology = { tech = tech_fission_power message = yes } }
+}
+
+# T1 辅助 (A槽)
+country_event = {
+    id = reward.2131
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_UTILITY_T1_TITLE
+    desc = REWARD_POOL_TECH_UTILITY_T1_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_THRUSTER1   trigger = { NOT = { has_technology = tech_thrusters_1 } }            give_technology = { tech = tech_thrusters_1 message = yes } }
+    option = { name = REWARD_TECH_COMPUTER1   trigger = { NOT = { has_technology = tech_combat_computers_1 } }     give_technology = { tech = tech_combat_computers_1 message = yes } }
+    option = { name = REWARD_TECH_AFTERBURNER1 trigger = { NOT = { has_technology = tech_afterburners_1 } }        give_technology = { tech = tech_afterburners_1 message = yes } }
+}
+
+# ========================
+# T2 科技 (Lv3-5)
+# ========================
+
+# T2 武器
+country_event = {
+    id = reward.2211
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_WEAPON_T2_TITLE
+    desc = REWARD_POOL_TECH_WEAPON_T2_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_LASER2      trigger = { NOT = { has_technology = tech_lasers_2 } }       give_technology = { tech = tech_lasers_2 message = yes } }
+    option = { name = REWARD_TECH_KINETIC2    trigger = { NOT = { has_technology = tech_mass_drivers_2 } } give_technology = { tech = tech_mass_drivers_2 message = yes } }
+    option = { name = REWARD_TECH_MISSILE2    trigger = { NOT = { has_technology = tech_missiles_2 } }     give_technology = { tech = tech_missiles_2 message = yes } }
+    option = { name = REWARD_TECH_STRIKE2     trigger = { NOT = { has_technology = tech_strike_craft_2 } } give_technology = { tech = tech_strike_craft_2 message = yes } }
+}
+
+# T2 防护
+country_event = {
+    id = reward.2221
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_DEFENSE_T2_TITLE
+    desc = REWARD_POOL_TECH_DEFENSE_T2_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_SHIELD2     trigger = { NOT = { has_technology = tech_shields_2 } }      give_technology = { tech = tech_shields_2 message = yes } }
+    option = { name = REWARD_TECH_ARMOR2      trigger = { NOT = { has_technology = tech_ship_armor_2 } }  give_technology = { tech = tech_ship_armor_2 message = yes } }
+    option = { name = REWARD_TECH_REACTOR2    trigger = { NOT = { has_technology = tech_fusion_power } }  give_technology = { tech = tech_fusion_power message = yes } }
+}
+
+# T2 辅助 (A槽)
+country_event = {
+    id = reward.2231
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_UTILITY_T2_TITLE
+    desc = REWARD_POOL_TECH_UTILITY_T2_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_THRUSTER2   trigger = { NOT = { has_technology = tech_thrusters_2 } }            give_technology = { tech = tech_thrusters_2 message = yes } }
+    option = { name = REWARD_TECH_COMPUTER2   trigger = { NOT = { has_technology = tech_combat_computers_2 } }     give_technology = { tech = tech_combat_computers_2 message = yes } }
+    option = { name = REWARD_TECH_AFTERBURNER2 trigger = { NOT = { has_technology = tech_afterburners_2 } }        give_technology = { tech = tech_afterburners_2 message = yes } }
+}
+
+# ========================
+# T3 科技 (Lv6-8)
+# ========================
+
+# T3 武器
+country_event = {
+    id = reward.2311
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_WEAPON_T3_TITLE
+    desc = REWARD_POOL_TECH_WEAPON_T3_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_LASER3      trigger = { NOT = { has_technology = tech_lasers_3 } }       give_technology = { tech = tech_lasers_3 message = yes } }
+    option = { name = REWARD_TECH_KINETIC3    trigger = { NOT = { has_technology = tech_mass_drivers_3 } } give_technology = { tech = tech_mass_drivers_3 message = yes } }
+    option = { name = REWARD_TECH_MISSILE3    trigger = { NOT = { has_technology = tech_missiles_3 } }     give_technology = { tech = tech_missiles_3 message = yes } }
+    option = { name = REWARD_TECH_STRIKE3     trigger = { NOT = { has_technology = tech_strike_craft_3 } } give_technology = { tech = tech_strike_craft_3 message = yes } }
+}
+
+# T3 防护
+country_event = {
+    id = reward.2321
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_DEFENSE_T3_TITLE
+    desc = REWARD_POOL_TECH_DEFENSE_T3_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_SHIELD3     trigger = { NOT = { has_technology = tech_shields_3 } }         give_technology = { tech = tech_shields_3 message = yes } }
+    option = { name = REWARD_TECH_ARMOR3      trigger = { NOT = { has_technology = tech_ship_armor_3 } }     give_technology = { tech = tech_ship_armor_3 message = yes } }
+    option = { name = REWARD_TECH_REACTOR3    trigger = { NOT = { has_technology = tech_cold_fusion_power } } give_technology = { tech = tech_cold_fusion_power message = yes } }
+}
+
+# T3 辅助 (A槽)
+country_event = {
+    id = reward.2331
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_UTILITY_T3_TITLE
+    desc = REWARD_POOL_TECH_UTILITY_T3_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_THRUSTER3   trigger = { NOT = { has_technology = tech_thrusters_3 } }            give_technology = { tech = tech_thrusters_3 message = yes } }
+    option = { name = REWARD_TECH_COMPUTER3   trigger = { NOT = { has_technology = tech_combat_computers_3 } }     give_technology = { tech = tech_combat_computers_3 message = yes } }
+    option = { name = REWARD_TECH_AFTERBURNER3 trigger = { NOT = { has_technology = tech_afterburners_3 } }        give_technology = { tech = tech_afterburners_3 message = yes } }
+}
+
+# ========================
+# T4 科技 (Lv9-11)
+# ========================
+
+# T4 武器
+country_event = {
+    id = reward.2411
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_WEAPON_T4_TITLE
+    desc = REWARD_POOL_TECH_WEAPON_T4_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_LASER4      trigger = { NOT = { has_technology = tech_lasers_4 } }       give_technology = { tech = tech_lasers_4 message = yes } }
+    option = { name = REWARD_TECH_KINETIC4    trigger = { NOT = { has_technology = tech_mass_drivers_4 } } give_technology = { tech = tech_mass_drivers_4 message = yes } }
+    option = { name = REWARD_TECH_MISSILE4    trigger = { NOT = { has_technology = tech_missiles_4 } }     give_technology = { tech = tech_missiles_4 message = yes } }
+    option = { name = REWARD_TECH_STRIKE4     trigger = { NOT = { has_technology = tech_strike_craft_4 } } give_technology = { tech = tech_strike_craft_4 message = yes } }
+}
+
+# T4 防护
+country_event = {
+    id = reward.2421
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_DEFENSE_T4_TITLE
+    desc = REWARD_POOL_TECH_DEFENSE_T4_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_SHIELD4     trigger = { NOT = { has_technology = tech_shields_4 } }            give_technology = { tech = tech_shields_4 message = yes } }
+    option = { name = REWARD_TECH_ARMOR4      trigger = { NOT = { has_technology = tech_ship_armor_4 } }        give_technology = { tech = tech_ship_armor_4 message = yes } }
+    option = { name = REWARD_TECH_REACTOR4    trigger = { NOT = { has_technology = tech_antimatter_power } }    give_technology = { tech = tech_antimatter_power message = yes } }
+}
+
+# T4 辅助 (A槽)
+country_event = {
+    id = reward.2431
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_UTILITY_T4_TITLE
+    desc = REWARD_POOL_TECH_UTILITY_T4_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_THRUSTER4   trigger = { NOT = { has_technology = tech_thrusters_4 } }                give_technology = { tech = tech_thrusters_4 message = yes } }
+    option = { name = REWARD_TECH_COMPUTER4   trigger = { NOT = { has_technology = tech_combat_computers_autonomous } } give_technology = { tech = tech_combat_computers_autonomous message = yes } }
+    option = { name = REWARD_TECH_AFTERBURNER4 trigger = { NOT = { has_technology = tech_afterburners_4 } }            give_technology = { tech = tech_afterburners_4 message = yes } }
+}
+
+# ========================
+# T5 科技 (Lv12)
+# ========================
+
+# T5 武器
+country_event = {
+    id = reward.2511
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_WEAPON_T5_TITLE
+    desc = REWARD_POOL_TECH_WEAPON_T5_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_LASER5      trigger = { NOT = { has_technology = tech_lasers_5 } }       give_technology = { tech = tech_lasers_5 message = yes } }
+    option = { name = REWARD_TECH_KINETIC5    trigger = { NOT = { has_technology = tech_mass_drivers_5 } } give_technology = { tech = tech_mass_drivers_5 message = yes } }
+    option = { name = REWARD_TECH_MISSILE5    trigger = { NOT = { has_technology = tech_missiles_5 } }     give_technology = { tech = tech_missiles_5 message = yes } }
+    option = { name = REWARD_TECH_LANCE1      trigger = { NOT = { has_technology = tech_energy_lance_1 } } give_technology = { tech = tech_energy_lance_1 message = yes } }
+}
+
+# T5 防护
+country_event = {
+    id = reward.2521
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_DEFENSE_T5_TITLE
+    desc = REWARD_POOL_TECH_DEFENSE_T5_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_REACTOR5    trigger = { NOT = { has_technology = tech_zero_point_power } }   give_technology = { tech = tech_zero_point_power message = yes } }
+}
+
+# T5 辅助 (A槽)
+country_event = {
+    id = reward.2531
+    is_triggered_only = yes
+    title = REWARD_POOL_TECH_UTILITY_T5_TITLE
+    desc = REWARD_POOL_TECH_UTILITY_T5_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = { name = REWARD_TECH_COMPUTER4   trigger = { NOT = { has_technology = tech_combat_computers_autonomous } } give_technology = { tech = tech_combat_computers_autonomous message = yes } }
+}

@@ -1,0 +1,166 @@
+namespace = reward
+
+# ========================
+# BUFF池 — reward.3001-3999
+# 只能由 reward.1 总触发器调用。
+# BUFF不分等级；效果 = 基础值 × br_power_level 叠加。
+# 通用BUFF + 专精BUFF（后续实现）。
+# ========================
+
+# BUFF池入口
+country_event = {
+    id = reward.3001
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = reward.3101 }
+    }
+}
+
+# BUFF池等级触发器
+country_event = {
+    id = reward.3101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { check_variable = { which = br_power_level value < 6 } }
+            country_event = { id = reward.3102 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_power_level value < 12 } }
+            country_event = { id = reward.3103 }
+        }
+        else = {
+            country_event = { id = reward.3104 }
+        }
+    }
+}
+
+# ========================
+# 通用BUFF — 低等级 (Lv1-5)
+# ========================
+country_event = {
+    id = reward.3102
+    is_triggered_only = yes
+    title = REWARD_POOL_BUFF_TITLE
+    desc = REWARD_POOL_BUFF_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_BUFF_FIREPOWER
+        custom_tooltip = REWARD_BUFF_FIREPOWER_TT
+        hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_MOBILITY
+        custom_tooltip = REWARD_BUFF_MOBILITY_TT
+        hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_REACTOR
+        custom_tooltip = REWARD_BUFF_REACTOR_TT
+        hidden_effect = { change_variable = { which = br_reward_reactor_output value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_THRUSTER
+        custom_tooltip = REWARD_BUFF_THRUSTER_TT
+        hidden_effect = { change_variable = { which = br_reward_thruster_evasion value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_COMPUTER_TRACKING
+        custom_tooltip = REWARD_BUFF_COMPUTER_TRACKING_TT
+        hidden_effect = { change_variable = { which = br_reward_computer_tracking value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_LEVEL_CORE
+        custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
+        hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
+    }
+}
+
+# ========================
+# 通用BUFF — 中等级 (Lv6-11)
+# ========================
+country_event = {
+    id = reward.3103
+    is_triggered_only = yes
+    title = REWARD_POOL_BUFF_TITLE
+    desc = REWARD_POOL_BUFF_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_BUFF_FIREPOWER
+        custom_tooltip = REWARD_BUFF_FIREPOWER_TT
+        hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_MOBILITY
+        custom_tooltip = REWARD_BUFF_MOBILITY_TT
+        hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_REACTOR
+        custom_tooltip = REWARD_BUFF_REACTOR_TT
+        hidden_effect = { change_variable = { which = br_reward_reactor_output value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_THRUSTER
+        custom_tooltip = REWARD_BUFF_THRUSTER_TT
+        hidden_effect = { change_variable = { which = br_reward_thruster_evasion value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_COMPUTER_ACCURACY
+        custom_tooltip = REWARD_BUFF_COMPUTER_ACCURACY_TT
+        hidden_effect = { change_variable = { which = br_reward_computer_accuracy value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_LEVEL_CORE
+        custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
+        hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
+    }
+}
+
+# ========================
+# 通用BUFF — 高等级 (Lv12)
+# ========================
+country_event = {
+    id = reward.3104
+    is_triggered_only = yes
+    title = REWARD_POOL_BUFF_TITLE
+    desc = REWARD_POOL_BUFF_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_BUFF_FIREPOWER
+        custom_tooltip = REWARD_BUFF_FIREPOWER_TT
+        hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_MOBILITY
+        custom_tooltip = REWARD_BUFF_MOBILITY_TT
+        hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_ADVANCED_FIRE_RATE
+        custom_tooltip = REWARD_BUFF_ADVANCED_FIRE_RATE_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_fire_rate value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_ADVANCED_SURVIVAL
+        custom_tooltip = REWARD_BUFF_ADVANCED_SURVIVAL_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_survival value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_ADVANCED_CORE
+        custom_tooltip = REWARD_BUFF_ADVANCED_CORE_TT
+        hidden_effect = { change_variable = { which = br_reward_advanced_core value = 1 } }
+    }
+    option = {
+        name = REWARD_BUFF_LEVEL_CORE
+        custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
+        hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
+    }
+}
