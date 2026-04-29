@@ -8,11 +8,16 @@ country_event = {
     is_triggered_only = yes
 
     trigger = {
-        is_ai = no
-        NOR = {
-            is_country_type = br_player
-            is_country_type = br_player_pvp
-            is_country_type = br_player_pve
+        OR = {
+            is_country_type = br_void
+            AND = {
+                is_ai = no
+                NOR = {
+                    is_country_type = br_player
+                    is_country_type = br_player_pvp
+                    is_country_type = br_player_pve
+                }
+            }
         }
     }
 
@@ -466,9 +471,26 @@ country_event = {
             save_global_event_target_as = br_player_spawn_system_3
             set_star_flag = br_player_spawn_system
         }
+
+        if = {
+            limit = { NOT = { exists = event_target:br_player_spawn_system_1 } }
+            random_system = {
+                save_global_event_target_as = br_player_spawn_system_1
+                set_star_flag = br_player_spawn_system
+            }
+        }
         #给所有玩家国家触发转移
         every_country = {
-            limit = { is_ai = no }
+            limit = {
+                is_ai = no
+                has_country_flag = br_player_replacement_scheduled
+                NOT = { has_country_flag = br_player_replaced }
+                NOR = {
+                    is_country_type = br_player
+                    is_country_type = br_player_pvp
+                    is_country_type = br_player_pve
+                }
+            }
             country_event = { id = br.701 }
         }
     }
@@ -480,27 +502,25 @@ country_event = {
     hide_window = yes
     is_triggered_only = yes
 
+    trigger = {
+        is_ai = no
+        has_country_flag = br_player_replacement_scheduled
+        NOT = { has_country_flag = br_player_replaced }
+        NOR = {
+            is_country_type = br_player
+            is_country_type = br_player_pvp
+            is_country_type = br_player_pve
+        }
+    }
+
     immediate = {
+        set_country_flag = br_player_replaced
+
         # 随机选择一个出生点喵
-        random_list = {
-            33 = {
-                event_target:br_player_spawn_system_1 = {
-                    save_event_target_as = br_chosen_spawn_system
-                    star = { save_event_target_as = br_chosen_spawn_star }
-                }
-            }
-            33 = {
-                event_target:br_player_spawn_system_2 = {
-                    save_event_target_as = br_chosen_spawn_system
-                    star = { save_event_target_as = br_chosen_spawn_star }
-                }
-            }
-            33 = {
-                event_target:br_player_spawn_system_3 = {
-                    save_event_target_as = br_chosen_spawn_system
-                    star = { save_event_target_as = br_chosen_spawn_star }
-                }
-            }
+        random_system = {
+            limit = { has_star_flag = br_player_spawn_system }
+            save_event_target_as = br_chosen_spawn_system
+            star = { save_event_target_as = br_chosen_spawn_star }
         }
 
         # 创建PVE玩家国家（每个玩家独立创建，事件目标在各自immediate作用域内）
@@ -744,6 +764,13 @@ country_event = {
                     NOT = { has_global_flag = br_pve_initialized }
                     exists = event_target:br_pve_enemy_country
                 }
+                if = {
+                    limit = { exists = event_target:br_void_country }
+                    event_target:br_void_country = { country_event = { id = br.798 } }
+                }
+                else = {
+                    country_event = { id = br.798 }
+                }
                 country_event = { id = br.800 }
             }
         }
@@ -757,25 +784,10 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        random_list = {
-            33 = {
-                event_target:br_player_spawn_system_1 = {
-                    save_event_target_as = br_test_spawn_system
-                    star = { save_event_target_as = br_test_spawn_star }
-                }
-            }
-            33 = {
-                event_target:br_player_spawn_system_2 = {
-                    save_event_target_as = br_test_spawn_system
-                    star = { save_event_target_as = br_test_spawn_star }
-                }
-            }
-            33 = {
-                event_target:br_player_spawn_system_3 = {
-                    save_event_target_as = br_test_spawn_system
-                    star = { save_event_target_as = br_test_spawn_star }
-                }
-            }
+        random_system = {
+            limit = { has_star_flag = br_player_spawn_system }
+            save_event_target_as = br_test_spawn_system
+            star = { save_event_target_as = br_test_spawn_star }
         }
         event_target:br_test_spawn_system = {
             save_event_target_as = br_test_spawn_system
@@ -875,6 +887,71 @@ country_event = {
     }
 }
 
+# br.798: refresh PVE enemy defensive scaling from total player fleet power
+country_event = {
+    id = br.798
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        exists = event_target:br_pve_enemy_country
+        OR = {
+            is_country_type = br_void
+            AND = {
+                is_country_type = br_player_pve
+                exists = event_target:br_pve_alliance_leader
+                is_same_value = event_target:br_pve_alliance_leader
+            }
+        }
+    }
+
+    immediate = {
+        set_variable = { which = br_pve_total_player_fleet_power value = 0 }
+
+        every_country = {
+            limit = {
+                is_ai = no
+                is_country_type = br_player_pve
+            }
+            export_trigger_value_to_variable = {
+                trigger = fleet_power
+                variable = br_pve_tmp_player_fleet_power
+            }
+            root = {
+                change_variable = {
+                    which = br_pve_total_player_fleet_power
+                    value = prev.br_pve_tmp_player_fleet_power
+                }
+            }
+            clear_variable = br_pve_tmp_player_fleet_power
+        }
+
+        event_target:br_pve_enemy_country = {
+            set_variable = {
+                which = br_pve_total_player_fleet_power
+                value = root.br_pve_total_player_fleet_power
+            }
+            remove_modifier = br_pve_enemy_player_fleet_scaling
+            if = {
+                limit = {
+                    root = {
+                        check_variable = {
+                            which = br_pve_total_player_fleet_power
+                            value > 0
+                        }
+                    }
+                }
+                add_modifier = {
+                    modifier = br_pve_enemy_player_fleet_scaling
+                    days = -1
+                    multiplier = root.value:br_pve_enemy_scaling_multiplier
+                }
+            }
+        }
+    }
+}
+
 # br.799：确保PVE敌对势力存在，按天灾式可见敌对国家创建
 country_event = {
     id = br.799
@@ -928,6 +1005,13 @@ country_event = {
             limit = {
                 NOT = { has_global_flag = br_pve_initialized }
                 exists = event_target:br_pve_enemy_country
+            }
+            if = {
+                limit = { exists = event_target:br_void_country }
+                event_target:br_void_country = { country_event = { id = br.798 } }
+            }
+            else = {
+                country_event = { id = br.798 }
             }
             country_event = { id = br.800 }
         }

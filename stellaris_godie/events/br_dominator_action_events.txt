@@ -1,0 +1,179 @@
+namespace = br
+
+# Fired by on_br_dominator_repair_activated
+fleet_event = {
+    id = br.1200
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_dominator
+        }
+    }
+
+    immediate = {
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = controller
+                    controller = {
+                        NOT = { is_hostile = root.owner }
+                    }
+                }
+                repair_percentage = 0.25
+                repair_armor_percentage = 0.25
+                repair_shield_percentage = 0.25
+            }
+        }
+    }
+}
+
+# Fired by on_br_dominator_mode_targeting_activated
+fleet_event = {
+    id = br.1201
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_dominator
+        }
+    }
+
+    immediate = {
+        remove_fleet_flag = br_dominator_mode_artillery
+        remove_fleet_flag = br_dominator_mode_carrier
+        remove_fleet_flag = br_dominator_mode_targeting
+        remove_fleet_flag = br_dominator_mode_support
+        set_fleet_flag = br_dominator_mode_targeting
+
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = controller
+                    controller = {
+                        NOT = { is_hostile = root.owner }
+                    }
+                }
+                remove_modifier = br_dominator_mode_targeting
+                remove_modifier = br_dominator_mode_support
+                add_modifier = {
+                    modifier = br_dominator_mode_targeting
+                    days = 30
+                }
+            }
+        }
+    }
+}
+
+# Fired by on_br_dominator_mode_support_activated
+fleet_event = {
+    id = br.1202
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_dominator
+        }
+    }
+
+    immediate = {
+        remove_fleet_flag = br_dominator_mode_artillery
+        remove_fleet_flag = br_dominator_mode_carrier
+        remove_fleet_flag = br_dominator_mode_targeting
+        remove_fleet_flag = br_dominator_mode_support
+        set_fleet_flag = br_dominator_mode_support
+
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = controller
+                    controller = {
+                        NOT = { is_hostile = root.owner }
+                    }
+                }
+                remove_modifier = br_dominator_mode_targeting
+                remove_modifier = br_dominator_mode_support
+                add_modifier = {
+                    modifier = br_dominator_mode_support
+                    days = 30
+                }
+            }
+        }
+    }
+}
+
+# Refreshes temporary system-wide mothership mode modifiers.
+country_event = {
+    id = br.1204
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_fleet = {
+            any_owned_ship = {
+                is_ship_size = br_dominator
+            }
+            OR = {
+                has_fleet_flag = br_dominator_mode_targeting
+                has_fleet_flag = br_dominator_mode_support
+            }
+        }
+    }
+
+    immediate = {
+        every_owned_fleet = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = br_dominator
+                }
+                OR = {
+                    has_fleet_flag = br_dominator_mode_targeting
+                    has_fleet_flag = br_dominator_mode_support
+                }
+            }
+
+            if = {
+                limit = { has_fleet_flag = br_dominator_mode_targeting }
+                solar_system = {
+                    every_fleet_in_system = {
+                        limit = {
+                            exists = controller
+                            controller = {
+                                NOT = { is_hostile = root }
+                            }
+                        }
+                        remove_modifier = br_dominator_mode_targeting
+                        remove_modifier = br_dominator_mode_support
+                        add_modifier = {
+                            modifier = br_dominator_mode_targeting
+                            days = 30
+                        }
+                    }
+                }
+            }
+
+            if = {
+                limit = { has_fleet_flag = br_dominator_mode_support }
+                solar_system = {
+                    every_fleet_in_system = {
+                        limit = {
+                            exists = controller
+                            controller = {
+                                NOT = { is_hostile = root }
+                            }
+                        }
+                        remove_modifier = br_dominator_mode_targeting
+                        remove_modifier = br_dominator_mode_support
+                        add_modifier = {
+                            modifier = br_dominator_mode_support
+                            days = 30
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

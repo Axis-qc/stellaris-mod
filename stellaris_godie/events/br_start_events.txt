@@ -213,7 +213,19 @@ country_event = {
     immediate = {
         if = {
             limit = { has_global_flag = br_mode_pve }
-            country_event = { id = br.700 }
+            if = {
+                limit = { NOT = { has_global_flag = br_pve_player_transfer_started } }
+                set_global_flag = br_pve_player_transfer_started
+                if = {
+                    limit = { exists = event_target:br_void_country }
+                    event_target:br_void_country = {
+                        country_event = { id = br.700 }
+                    }
+                }
+                else = {
+                    country_event = { id = br.700 }
+                }
+            }
         }
         else = {
             country_event = { id = br.600 }

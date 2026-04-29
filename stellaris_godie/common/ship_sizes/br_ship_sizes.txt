@@ -30,6 +30,8 @@ br_dominator = {
     # prerequisites = { "tech_br_dominator" }
 
     class = shipclass_starbase
+    # 不要给母舰启用 is_hero_ship = yes。
+    # 母舰必须保留 shipclass_starbase 才能作为船坞建造舰船；英雄舰 UI 会和星基/船坞界面冲突，导致按钮叠到左上角。
     required_component_set = "power_core"
     required_component_set = "ftl_components"
     required_component_set = "thruster_components"
