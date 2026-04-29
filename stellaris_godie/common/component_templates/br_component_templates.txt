@@ -55,8 +55,8 @@ utility_component_template = {
 
         name = on_br_dominator_repair_activated
         tooltip = br_dominator_repair_ship_button
-        icon = GFX_fleet_action_button_repair
-        icon_selected = GFX_fleet_action_button_repair
+        icon = GFX_br_dominator_repair
+        icon_selected = GFX_br_dominator_repair
         activity_key = br_dominator_repair_activity_key
         context_menu_name = br_dominator_repair_menu_title
         progress_activity_key = br_dominator_repair_progress_activity_key
@@ -76,16 +76,6 @@ utility_component_template = {
             any_owned_ship = {
                 is_ship_size = br_dominator
             }
-            OR = {
-                AND = {
-                    has_fleet_flag = br_dominator_mode_support
-                    NOT = { has_fleet_flag = br_dominator_mode_targeting }
-                }
-                NOR = {
-                    has_fleet_flag = br_dominator_mode_targeting
-                    has_fleet_flag = br_dominator_mode_support
-                }
-            }
         }
 
         button_clickable = {
@@ -95,46 +85,13 @@ utility_component_template = {
             }
         }
 
-        name = on_br_dominator_mode_targeting_activated
-        tooltip = br_dominator_mode_targeting_ship_button
-        icon = GFX_ship_part_aura_targeting_grid
-        icon_selected = GFX_ship_part_aura_targeting_grid
-        activity_key = br_dominator_mode_targeting_activity_key
-        context_menu_name = br_dominator_mode_targeting_menu_title
-        progress_activity_key = br_dominator_mode_targeting_progress_activity_key
-        required_progress = 1
-        cooldown = 1
-        slot = 2
-    }
-
-    scripted_action = {
-        scope = self
-
-        possible = {
-            always = yes
-        }
-
-        button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_dominator
-            }
-            has_fleet_flag = br_dominator_mode_targeting
-        }
-
-        button_clickable = {
-            custom_tooltip = {
-                fail_text = br_dominator_mode_fail_tt
-                always = yes
-            }
-        }
-
-        name = on_br_dominator_mode_support_activated
-        tooltip = br_dominator_mode_support_ship_button
-        icon = GFX_ship_part_aura_battlefield_repairs
-        icon_selected = GFX_ship_part_aura_battlefield_repairs
-        activity_key = br_dominator_mode_support_activity_key
-        context_menu_name = br_dominator_mode_support_menu_title
-        progress_activity_key = br_dominator_mode_support_progress_activity_key
+        name = on_br_dominator_mode_toggle_activated
+        tooltip = br_dominator_mode_toggle_ship_button
+        icon = GFX_br_dominator_mode_repair_aura
+        icon_selected = GFX_br_dominator_mode_repair_aura
+        activity_key = br_dominator_mode_toggle_activity_key
+        context_menu_name = br_dominator_mode_toggle_menu_title
+        progress_activity_key = br_dominator_mode_toggle_progress_activity_key
         required_progress = 1
         cooldown = 1
         slot = 2
@@ -146,8 +103,8 @@ utility_component_template = {
 }
 
 # 不要用一个组件内多个 friendly_aura + 母舰 ship_flag 来切换母舰模式。
-# friendly_aura.limit 的作用域是受影响舰船，只会筛选谁能吃到光环，不能读取光环来源母舰的 flag。
-# 母舰模式光环改用事件周期刷新 fleet modifier 实现。
+# friendly_aura.limit 的作用域是受影响舰船，只会筛选谁能吃到光环，不能读取光环来源母舰的标记。
+# 母舰模式光环改用事件周期刷新舰队 modifier 实现。
 
 utility_component_template = {
     key = "BR_DOMINATOR_THRUSTER"

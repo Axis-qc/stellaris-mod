@@ -35,9 +35,6 @@ country_event = {
         name = br_mode_pvp_name
         set_global_flag = br_mode_pvp
         remove_global_flag = br_mode_pve
-        remove_global_flag = br_pve_template_artillery
-        remove_global_flag = br_pve_template_brawler
-        remove_global_flag = br_pve_template_mixed
         country_event = { id = br.503 }
     }
 
@@ -45,39 +42,18 @@ country_event = {
         name = br_mode_pve_name
         remove_global_flag = br_mode_pvp
         set_global_flag = br_mode_pve
-        country_event = { id = br.502 }
+        # PVE敌方模板不再开局手选，刷敌逻辑自行随机。
+        country_event = { id = br.503 }
     }
 }
 
-# br.502：PVE敌方模板设置，选择炮击、近战或混合模板喵
+# br.502：旧版PVE敌方模板设置入口，当前隐藏并直接进入缩圈设置。
 country_event = {
     id = br.502
-    title = br_pve_template_settings_title
-    desc = br_pve_template_settings_desc
-    picture = GFX_evt_fleet_neutral
+    hide_window = yes
     is_triggered_only = yes
 
-    option = {
-        name = br_pve_template_artillery_name
-        set_global_flag = br_pve_template_artillery
-        remove_global_flag = br_pve_template_brawler
-        remove_global_flag = br_pve_template_mixed
-        country_event = { id = br.503 }
-    }
-
-    option = {
-        name = br_pve_template_brawler_name
-        remove_global_flag = br_pve_template_artillery
-        set_global_flag = br_pve_template_brawler
-        remove_global_flag = br_pve_template_mixed
-        country_event = { id = br.503 }
-    }
-
-    option = {
-        name = br_pve_template_mixed_name
-        remove_global_flag = br_pve_template_artillery
-        remove_global_flag = br_pve_template_brawler
-        set_global_flag = br_pve_template_mixed
+    immediate = {
         country_event = { id = br.503 }
     }
 }

@@ -6,7 +6,7 @@ namespace = br
 # br.801-br.806：分批刷敌，N=1→10从外圈到内圈递增
 # 每星系16支舰队：1BB + 2CA + 3DD + 5护卫 + 5雷击
 # 内圈(ring_1~3)精英，外圈(ring_4~25)普通
-# 根据br_pve_template_artillery/brawler/mixed选择设计
+# 敌方舰队按舰种直接随机使用不同设计，避免开局固定模板。
 # ============================================================
 country_event = {
     id = br.800
@@ -65,20 +65,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 0 }
                         }
                     }
@@ -88,20 +80,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 30 angle = random }
                         }
                     }
@@ -109,20 +93,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
                         }
                     }
@@ -132,20 +108,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random }
                         }
                     }
@@ -153,20 +121,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random }
                         }
                     }
@@ -174,20 +134,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random }
                         }
                     }
@@ -197,20 +149,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 20 angle = random }
                         }
                     }
@@ -218,20 +162,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 40 angle = random }
                         }
                     }
@@ -239,20 +175,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 60 angle = random }
                         }
                     }
@@ -260,20 +188,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 80 angle = random }
                         }
                     }
@@ -281,20 +201,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 100 angle = random }
                         }
                     }
@@ -304,20 +216,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 25 angle = random }
                         }
                     }
@@ -325,20 +229,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 45 angle = random }
                         }
                     }
@@ -346,20 +242,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 65 angle = random }
                         }
                     }
@@ -367,20 +255,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 85 angle = random }
                         }
                     }
@@ -388,20 +268,12 @@ country_event = {
                         name = random
                         effect = {
                             set_owner = event_target:br_pve_enemy_country
-                            if = {
-                                limit = { has_global_flag = br_pve_template_artillery }
-                                create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" }
-                            }
-                            else_if = {
-                                limit = { has_global_flag = br_pve_template_brawler }
-                                create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" }
-                            }
-                            else = {
+
                                 random_list = {
                                     50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE" } }
                                     50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_TORPEDO_CORVETTE" } }
                                 }
-                            }
+
                             set_location = { target = event_target:br_spawn_tmp distance = 105 angle = random }
                         }
                     }

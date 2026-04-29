@@ -76,20 +76,10 @@ country_event = {
                 name = random
                 effect = {
                     set_owner = root
-                    if = {
-                        limit = { has_global_flag = br_pve_template_artillery }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" }
-                    }
-                    else_if = {
-                        limit = { has_global_flag = br_pve_template_brawler }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" }
-                    }
-                    else = {
+
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } }
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } }
-                    }
+
                     set_location = { target = event_target:br_reward_spawn_fleet distance = 35 angle = random }
                 }
             }
@@ -153,20 +143,10 @@ country_event = {
                 name = random
                 effect = {
                     set_owner = root
-                    if = {
-                        limit = { has_global_flag = br_pve_template_artillery }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" }
-                    }
-                    else_if = {
-                        limit = { has_global_flag = br_pve_template_brawler }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" }
-                    }
-                    else = {
+
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" } } }
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } }
-                    }
+
                     set_location = { target = event_target:br_reward_spawn_fleet distance = 40 angle = random }
                 }
             }
@@ -232,23 +212,11 @@ country_event = {
                 name = random
                 effect = {
                     set_owner = root
-                    if = {
-                        limit = { has_global_flag = br_pve_template_artillery }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" }
-                        create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" }
-                    }
-                    else_if = {
-                        limit = { has_global_flag = br_pve_template_brawler }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" }
-                        create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" }
-                    }
-                    else = {
+
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_BATTLESHIP" } } }
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" } } }
                         random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CRUISER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CRUISER" } } }
-                    }
+
                     set_location = { target = event_target:br_reward_spawn_fleet distance = 45 angle = random }
                 }
             }
