@@ -7,7 +7,13 @@ country_event = {
     id = br.805
     hide_window = yes
     is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } exists = event_target:br_pve_enemy_country }
+    trigger = {
+        has_global_flag = br_mode_pve
+        NOT = { has_global_flag = br_pve_initialized }
+        has_global_flag = br_pve_spawn_ring_4_7_done
+        NOT = { has_global_flag = br_pve_spawn_ring_2_3_done }
+        exists = event_target:br_pve_enemy_country
+    }
     immediate = {
         if = {
             limit = { NOT = { has_global_flag = br_pve_spawn_ring_2_3_done } }
@@ -190,7 +196,13 @@ country_event = {
     id = br.806
     hide_window = yes
     is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } exists = event_target:br_pve_enemy_country }
+    trigger = {
+        has_global_flag = br_mode_pve
+        NOT = { has_global_flag = br_pve_initialized }
+        has_global_flag = br_pve_spawn_ring_2_3_done
+        NOT = { has_global_flag = br_pve_spawn_ring_1_done }
+        exists = event_target:br_pve_enemy_country
+    }
     immediate = {
         if = {
             limit = { NOT = { has_global_flag = br_pve_spawn_ring_1_done } }
@@ -363,6 +375,5 @@ country_event = {
             set_global_flag = br_pve_spawn_ring_1_done
         }
         set_global_flag = br_pve_initialized
-        country_event = { id = br.820 days = 5 }
     }
 }

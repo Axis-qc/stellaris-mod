@@ -623,6 +623,23 @@ country_event = {
                 }
             }
 
+            create_fleet = {
+                name = "BR_TEST_HERO_FLEET"
+                effect = {
+                    set_owner = event_target:br_new_player_country
+                    create_ship = {
+                        name = "NAME_BR_Test_Hero_Ship"
+                        design = "NAME_BR_Test_Hero_Ship"
+                        prefix = no
+                    }
+                    set_location = {
+                        target = event_target:br_chosen_spawn_star
+                        distance = 120
+                        angle = random
+                    }
+                }
+            }
+
             set_player = root
 
             # 排程PVE后续初始化喵
@@ -870,6 +887,23 @@ country_event = {
                     set_location = {
                         target = event_target:br_test_spawn_star
                         distance = 80
+                        angle = random
+                    }
+                }
+            }
+
+            create_fleet = {
+                name = "BR_TEST_HERO_FLEET"
+                effect = {
+                    set_owner = event_target:br_test_country
+                    create_ship = {
+                        name = "NAME_BR_Test_Hero_Ship"
+                        design = "NAME_BR_Test_Hero_Ship"
+                        prefix = no
+                    }
+                    set_location = {
+                        target = event_target:br_test_spawn_star
+                        distance = 120
                         angle = random
                     }
                 }
