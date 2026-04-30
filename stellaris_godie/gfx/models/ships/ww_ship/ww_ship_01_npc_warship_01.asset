@@ -1,0 +1,295 @@
+##无畏本体
+#倒置炮塔
+entity = {
+    name = "ww_ship_fan_small_turret_entity" # 实体名称
+    pdxmesh = "ww_ship_fan_small_turret_mesh" # 使用的小型炮塔网格模型
+}
+
+entity = {
+    name = "ww_ship_fan_large_turret_entity"
+    pdxmesh = "ww_ship_fan_large_turret_mesh" # 使用的大型炮塔网格模型
+}
+# 小型通用炮塔实体
+entity = {
+    name = "ww_ship_npf_01_turret_small_entity" # 实体名称
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 使用的小型炮塔网格模型
+}
+
+# 大型通用炮塔实体
+entity = {
+    name = "ww_ship_npf_01_large_turret_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 使用的大型炮塔网格模型
+}
+
+# 能量鱼雷发射器实体
+entity = {
+    name = "ww_ship_npf_01_turret_energy_torpedo_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0 # 缩放比例
+}
+
+# 常规鱼雷发射器实体
+entity = {
+    name = "ww_ship_npf_01_turret_torpedo_entity"
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 复用小型炮塔模型
+    scale = 1.0
+}
+
+# 大型导弹发射器实体
+entity = {
+    name = "ww_ship_npf_01_turret_missile_large_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 中型导弹发射器实体
+entity = {
+    name = "ww_ship_npf_01_turret_missile_medium_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 小型导弹发射器实体
+entity = {
+    name = "ww_ship_npf_01_turret_missile_small_entity"
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 复用小型炮塔模型
+    scale = 1.0
+}
+
+# 大型动能炮实体
+entity = {
+    name = "ww_ship_npf_01_large_kinetic_gun_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 中型动能炮实体
+entity = {
+    name = "ww_ship_npf_01_medium_kinetic_gun_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 小型动能炮实体
+entity = {
+    name = "ww_ship_npf_01_small_kinetic_gun_entity"
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 复用小型炮塔模型
+    scale = 1.0
+}
+
+# 点防御炮塔实体
+entity = {
+    name = "ww_ship_npf_01_turret_point_defence_entity"
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 复用小型炮塔模型
+    scale = 1.0
+}
+
+# 大型激光炮实体
+entity = {
+    name = "ww_ship_npf_01_large_laser_gun_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 中型激光炮实体
+entity = {
+    name = "ww_ship_npf_01_medium_laser_gun_entity"
+    pdxmesh = "ww_ship_npf_01_large_turret_mesh" # 复用大型炮塔模型
+    scale = 1.0
+}
+
+# 小型激光炮实体
+entity = {
+    name = "ww_ship_npf_01_small_laser_gun_entity"
+    pdxmesh = "ww_ship_npf_01_turret_small_mesh" # 复用小型炮塔模型
+    scale = 1.0
+}
+
+# ================================================
+# 战舰框架实体 (FRAME)
+# ================================================
+entity = {
+    # 实体唯一标识符 (用于游戏引擎内部引用)
+    name = "ww_ship_npc_warship_01_entity"
+
+    # 基础定位器模型 (通常不可见，用于定义结构点)
+    pdxmesh = "locator_mesh"
+
+    # 部件定位点 (用于连接船体和其他部件)
+    locator = {
+        name = "part1"        # 主部件连接点名称
+        position = { 0 0 0 }  # 在本地坐标系中的位置(x,y,z)
+    }
+
+    # 爆炸特效定位点
+    locator = {
+        name = "explosion"         # 爆炸点名称
+        position = { 0 -15 -50 }   # 位于战舰下方的位置(向下15单位，向后50单位)
+    }
+
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+
+    # ===== 状态机配置 ===== #
+
+    # 默认状态 (当未指定状态时使用)
+    default_state = "idle"
+
+    # 空闲状态 (战舰静止时)
+    state = {
+        name = "idle"        # 状态名称
+        state_time = 5        # 状态持续时间(秒)
+    }
+
+    # 移动状态 (战舰航行时)
+    state = {
+        name = "moving"
+        state_time = 5
+    }
+
+    # 死亡状态 (战舰被摧毁)
+    state = {
+        name = "death"
+        state_time = 8.9      # 总状态持续时间
+        looping = no          # 不循环播放(执行一次后结束)
+
+        # 死亡动画事件 (在8.8秒时触发终极爆炸)
+        event = {
+            time = 8.8       # 事件触发时间(秒)
+            node = "explosion"  # 定位点名称
+            particle = "dreadnought_explosion_particle"  # 无畏舰级爆炸粒子特效
+            keep_particle = yes  # 保持粒子直到自然结束
+        }
+    }
+}
+
+### SHIP
+entity = {
+    # 实体名称 (用于其他系统引用)
+    name = "ww_ship_npf_01_npc_warship_01_hull_entity"
+
+    # 关联的3D模型资源
+    pdxmesh = "ww_ship_npf_01_npc_warship_01_mesh"
+
+    # 模型缩放比例
+    scale = 4
+
+    # 默认状态 (当未指定状态时使用)
+    default_state = "idle"
+
+    # ===== 空闲状态 (战舰静止时) =====
+    state = {
+        name = "idle"            # 状态名称
+        animation = "idle"       # 使用的动画名称
+
+        # 状态开始时触发的音效 (只触发一次)
+        start_event = {
+            trigger_once = yes
+            sound = { soundeffect = "dreadnaught_idle" }  # 无畏舰待机音效
+        }
+
+        # 灯光特效 (在时间0秒时触发)
+        event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+
+        # 引擎特效 (不同尺寸引擎使用不同粒子效果)
+        # 大型引擎1 - 75cm空闲粒子
+        event = { time = 0 node = "engine_large_01" particle = "generic_075_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        # 中型引擎1-6 - 35cm空闲粒子
+        event = { time = 0 node = "engine_medium_01" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_02" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_03" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_04" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_05" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_06" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+
+        # 中型引擎7 - 35cm空闲粒子
+        event = { time = 0 node = "engine_medium_07" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        # 小型引擎1-2 - 25cm空闲粒子
+        event = { time = 0 node = "engine_small_01" particle = "generic_025_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_small_02" particle = "generic_025_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+    }
+
+    # ===== 移动状态 (战舰航行时) =====
+    state = {
+        name = "moving"           # 状态名称
+        animation = "idle"        # 使用与空闲状态相同的动画
+
+        # 灯光特效 (与空闲状态相同)
+        event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+
+        # 引擎特效 (移动状态使用更强的粒子效果)
+        # 大型引擎1 - 150cm移动粒子
+        event = { time = 0 node = "engine_large_01" particle = "generic_1_5_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        # 中型引擎1-6 - 75cm移动粒子
+        event = { time = 0 node = "engine_medium_01" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_02" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_03" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_04" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_05" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_medium_06" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+
+        # 中型引擎7 - 75cm移动粒子
+        event = { time = 0 node = "engine_medium_07" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        # 小型引擎1-2 - 50cm移动粒子
+        event = { time = 0 node = "engine_small_01" particle = "generic_05_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+        event = { time = 0 node = "engine_small_02" particle = "generic_05_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+    }
+
+    # ===== 死亡状态 (战舰被摧毁) =====
+    state = {
+        name = "death"            # 状态名称
+        animation = "death"       # 死亡动画
+        looping = no              # 不循环播放(只执行一次)
+
+        # 序列爆炸特效 (在不同时间点触发不同位置的爆炸)
+        event = { time = 0.0 node = "explosion1" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 1.4 node = "explosion2" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 2.0 node = "explosion3" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 2.8 node = "explosion4" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 3.4 node = "explosion5" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 3.8 node = "explosion6" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 4.4 node = "explosion7" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 5.0 node = "explosion8" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 5.6 node = "explosion9" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+        event = { time = 6.0 node = "explosion10" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+    }
+
+}
+
+entity = {
+    name = "ww_ship_npf_01_npc_warship_01_hull_entity2"
+    #	pdxmesh = "stellarite_mesh"
+    pdxmesh = "ww_ship_npf_01_npc_warship_01_mesh"
+
+    default_state = "idle"
+    state = { name = "idle" animation = "idle" }
+    attach = { large_gun_01 = "npf_01_large_turret_entity" }
+    attach = { large_gun_02 = "npf_01_large_turret_entity" }
+    attach = { small_gun_01 = "npf_01_turret_small_entity" }
+    attach = { small_gun_02 = "npf_01_turret_small_entity" }
+    attach = { small_gun_03 = "npf_01_turret_small_entity" }
+    attach = { small_gun_04_l = "npf_01_turret_small_entity" }
+    attach = { small_gun_04_r = "npf_01_turret_small_entity" }
+    attach = { small_gun_05_l = "npf_01_turret_small_entity" }
+    attach = { small_gun_05_r = "npf_01_turret_small_entity" }
+    attach = { large_gun_03_l = "npf_01_large_turret_entity" }
+    attach = { large_gun_03_r = "npf_01_large_turret_entity" }
+    attach = { large_gun_04_l = "npf_01_large_turret_entity" }
+    attach = { large_gun_04_r = "npf_01_large_turret_entity" }
+    attach = { large_gun_05_l = "npf_01_large_turret_entity" }
+    attach = { large_gun_05_r = "npf_01_large_turret_entity" }
+    attach = { large_gun_06_l = "npf_01_large_turret_entity" }
+    attach = { large_gun_06_r = "npf_01_large_turret_entity" }
+    attach = { large_gun_07 = "npf_01_large_turret_entity" }
+    attach = { small_gun_08 = "npf_01_turret_small_entity" }
+    attach = { small_gun_09 = "npf_01_turret_small_entity" }
+    attach = { small_gun_10 = "npf_01_turret_small_entity" }
+
+
+    scale = 1
+
+}

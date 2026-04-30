@@ -33,6 +33,27 @@ fleet_event = {
     }
 }
 
+fleet_event = {
+    id = br.1210
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = ww_ship_sizes
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = ww_ship_sizes
+            }
+            repair_ship = yes
+        }
+    }
+}
+
 # 由 on_br_dominator_mode_toggle_activated 触发。
 fleet_event = {
     id = br.1201
