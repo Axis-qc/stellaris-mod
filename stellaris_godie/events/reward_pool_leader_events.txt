@@ -1,9 +1,10 @@
 namespace = reward
 
 # ========================
-# 领袖池 — reward.5001-5999
+# 领袖池 — reward.5001-5099
 # 只能由 reward.1 总触发器调用。
-# 五级制分流，具体奖励只展示指挥官/科学家自选。
+# 经验制：已有该类型领袖则注入经验，无则招募新领袖。
+# 经验值由 script_value br_leader_xp 动态计算（500×战力等级）。
 # ========================
 
 # 领袖池入口
@@ -13,274 +14,80 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
+        set_variable = { which = br_leader_xp value = 500 }
+        multiply_variable = { which = br_leader_xp value = br_power_level }
         country_event = { id = reward.5101 }
     }
 }
 
-# 领袖池等级触发器
+# 领袖奖励 — 三选一
 country_event = {
     id = reward.5101
-    hide_window = yes
     is_triggered_only = yes
-
-    immediate = {
-        if = {
-            limit = { check_variable = { which = br_power_level value < 3 } }
-            country_event = { id = reward.5102 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 6 } }
-            country_event = { id = reward.5103 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 9 } }
-            country_event = { id = reward.5104 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 12 } }
-            country_event = { id = reward.5105 }
-        }
-        else = {
-            country_event = { id = reward.5106 }
-        }
-    }
-}
-
-# T1 领袖 (Lv1-2) — 技能1
-country_event = {
-    id = reward.5102
-    is_triggered_only = yes
-    title = REWARD_POOL_LEADER_T1_TITLE
-    desc = REWARD_POOL_LEADER_T1_DESC
+    title = REWARD_POOL_LEADER_TITLE
+    desc = REWARD_POOL_LEADER_DESC
     picture = GFX_evt_ship_in_orbit
 
     option = {
-        name = REWARD_LEADER_COMMANDER_T1
-        custom_tooltip = REWARD_LEADER_COMMANDER_T1_TT
+        name = REWARD_LEADER_COMMANDER
+        custom_tooltip = REWARD_LEADER_COMMANDER_TT
         hidden_effect = {
-            create_leader = {
-                class = commander
-                species = owner_main_species
-                name = random
-                skill = 1
-                traits = { trait = leader_trait_aggressive }
+            if = {
+                limit = { any_owned_leader = { leader_class = commander } }
+                random_owned_leader = {
+                    limit = { leader_class = commander }
+                    add_experience = owner.value:br_leader_xp
+                }
+            }
+            else = {
+                create_leader = {
+                    class = commander
+                    species = owner_main_species
+                    name = random
+                    skill = 1
+                }
             }
         }
     }
     option = {
-        name = REWARD_LEADER_SCIENTIST_T1
-        custom_tooltip = REWARD_LEADER_SCIENTIST_T1_TT
+        name = REWARD_LEADER_SCIENTIST
+        custom_tooltip = REWARD_LEADER_SCIENTIST_TT
         hidden_effect = {
-            create_leader = {
-                class = scientist
-                species = owner_main_species
-                name = random
-                skill = 1
-                traits = { trait = leader_trait_roamer }
+            if = {
+                limit = { any_owned_leader = { leader_class = scientist } }
+                random_owned_leader = {
+                    limit = { leader_class = scientist }
+                    add_experience = owner.value:br_leader_xp
+                }
+            }
+            else = {
+                create_leader = {
+                    class = scientist
+                    species = owner_main_species
+                    name = random
+                    skill = 1
+                }
             }
         }
     }
     option = {
-        name = REWARD_LEADER_OFFICIAL_T1
-        custom_tooltip = REWARD_LEADER_OFFICIAL_T1_TT
+        name = REWARD_LEADER_OFFICIAL
+        custom_tooltip = REWARD_LEADER_OFFICIAL_TT
         hidden_effect = {
-            create_leader = {
-                class = official
-                species = owner_main_species
-                name = random
-                skill = 1
+            if = {
+                limit = { any_owned_leader = { leader_class = official } }
+                random_owned_leader = {
+                    limit = { leader_class = official }
+                    add_experience = owner.value:br_leader_xp
+                }
             }
-        }
-    }
-}
-
-# T2 领袖 (Lv3-5) — 技能2
-country_event = {
-    id = reward.5103
-    is_triggered_only = yes
-    title = REWARD_POOL_LEADER_T2_TITLE
-    desc = REWARD_POOL_LEADER_T2_DESC
-    picture = GFX_evt_ship_in_orbit
-
-    option = {
-        name = REWARD_LEADER_COMMANDER_T2
-        custom_tooltip = REWARD_LEADER_COMMANDER_T2_TT
-        hidden_effect = {
-            create_leader = {
-                class = commander
-                species = owner_main_species
-                name = random
-                skill = 2
-                traits = { trait = leader_trait_aggressive }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_SCIENTIST_T2
-        custom_tooltip = REWARD_LEADER_SCIENTIST_T2_TT
-        hidden_effect = {
-            create_leader = {
-                class = scientist
-                species = owner_main_species
-                name = random
-                skill = 2
-                traits = { trait = leader_trait_roamer }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_OFFICIAL_T2
-        custom_tooltip = REWARD_LEADER_OFFICIAL_T2_TT
-        hidden_effect = {
-            create_leader = {
-                class = official
-                species = owner_main_species
-                name = random
-                skill = 2
-            }
-        }
-    }
-}
-
-# T3 领袖 (Lv6-8) — 技能4
-country_event = {
-    id = reward.5104
-    is_triggered_only = yes
-    title = REWARD_POOL_LEADER_T3_TITLE
-    desc = REWARD_POOL_LEADER_T3_DESC
-    picture = GFX_evt_ship_in_orbit
-
-    option = {
-        name = REWARD_LEADER_COMMANDER_T3
-        custom_tooltip = REWARD_LEADER_COMMANDER_T3_TT
-        hidden_effect = {
-            create_leader = {
-                class = commander
-                species = owner_main_species
-                name = random
-                skill = 4
-                traits = { trait = leader_trait_aggressive trait = leader_trait_gale_speed }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_SCIENTIST_T3
-        custom_tooltip = REWARD_LEADER_SCIENTIST_T3_TT
-        hidden_effect = {
-            create_leader = {
-                class = scientist
-                species = owner_main_species
-                name = random
-                skill = 4
-                traits = { trait = leader_trait_spark_of_genius }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_OFFICIAL_T3
-        custom_tooltip = REWARD_LEADER_OFFICIAL_T3_TT
-        hidden_effect = {
-            create_leader = {
-                class = official
-                species = owner_main_species
-                name = random
-                skill = 4
-            }
-        }
-    }
-}
-
-# T4 领袖 (Lv9-11) — 技能6
-country_event = {
-    id = reward.5105
-    is_triggered_only = yes
-    title = REWARD_POOL_LEADER_T4_TITLE
-    desc = REWARD_POOL_LEADER_T4_DESC
-    picture = GFX_evt_ship_in_orbit
-
-    option = {
-        name = REWARD_LEADER_COMMANDER_T4
-        custom_tooltip = REWARD_LEADER_COMMANDER_T4_TT
-        hidden_effect = {
-            create_leader = {
-                class = commander
-                species = owner_main_species
-                name = random
-                skill = 6
-                traits = { trait = leader_trait_aggressive trait = leader_trait_gale_speed trait = leader_trait_trickster }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_SCIENTIST_T4
-        custom_tooltip = REWARD_LEADER_SCIENTIST_T4_TT
-        hidden_effect = {
-            create_leader = {
-                class = scientist
-                species = owner_main_species
-                name = random
-                skill = 6
-                traits = { trait = leader_trait_spark_of_genius trait = leader_trait_maniacal }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_OFFICIAL_T4
-        custom_tooltip = REWARD_LEADER_OFFICIAL_T4_TT
-        hidden_effect = {
-            create_leader = {
-                class = official
-                species = owner_main_species
-                name = random
-                skill = 6
-            }
-        }
-    }
-}
-
-# T5 领袖 (Lv12) — 技能8
-country_event = {
-    id = reward.5106
-    is_triggered_only = yes
-    title = REWARD_POOL_LEADER_T5_TITLE
-    desc = REWARD_POOL_LEADER_T5_DESC
-    picture = GFX_evt_ship_in_orbit
-
-    option = {
-        name = REWARD_LEADER_COMMANDER_T5
-        custom_tooltip = REWARD_LEADER_COMMANDER_T5_TT
-        hidden_effect = {
-            create_leader = {
-                class = commander
-                species = owner_main_species
-                name = random
-                skill = 8
-                traits = { trait = leader_trait_aggressive trait = leader_trait_gale_speed trait = leader_trait_trickster trait = leader_trait_cautious }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_SCIENTIST_T5
-        custom_tooltip = REWARD_LEADER_SCIENTIST_T5_TT
-        hidden_effect = {
-            create_leader = {
-                class = scientist
-                species = owner_main_species
-                name = random
-                skill = 8
-                traits = { trait = leader_trait_spark_of_genius trait = leader_trait_maniacal trait = leader_trait_carefree }
-            }
-        }
-    }
-    option = {
-        name = REWARD_LEADER_OFFICIAL_T5
-        custom_tooltip = REWARD_LEADER_OFFICIAL_T5_TT
-        hidden_effect = {
-            create_leader = {
-                class = official
-                species = owner_main_species
-                name = random
-                skill = 8
+            else = {
+                create_leader = {
+                    class = official
+                    species = owner_main_species
+                    name = random
+                    skill = 1
+                }
             }
         }
     }

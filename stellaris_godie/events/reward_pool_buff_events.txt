@@ -1,10 +1,10 @@
 namespace = reward
 
 # ========================
-# BUFF池 — reward.3001-3999
+# BUFF池 — reward.3001-3199
 # 只能由 reward.1 总触发器调用。
-# BUFF不分等级；效果 = 基础值 × br_power_level 叠加。
-# 通用BUFF + 专精BUFF（后续实现）。
+# 每次从10个通用BUFF中随机选3个展示，玩家三选一。
+# 扩展接口：其他系统可在3101之后、3102之前设置 br_buff_pick_4/5 变量以追加额外选项。
 # ========================
 
 # BUFF池入口
@@ -18,29 +18,74 @@ country_event = {
     }
 }
 
-# BUFF池等级触发器
+# 随机选3个BUFF选项（hide_window，不显示给玩家）
 country_event = {
     id = reward.3101
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
-        if = {
-            limit = { check_variable = { which = br_power_level value < 6 } }
-            country_event = { id = reward.3102 }
+        # 清除上轮的pick变量
+        set_variable = { which = br_buff_pick_1 value = 0 }
+        set_variable = { which = br_buff_pick_2 value = 0 }
+        set_variable = { which = br_buff_pick_3 value = 0 }
+        set_variable = { which = br_buff_pick_4 value = 0 }
+
+        # 第1轮：从10个BUFF中等权随机选1个
+        random_list = {
+            10 = { set_variable = { which = br_buff_pick_1 value = 1 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 2 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 3 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 4 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 5 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 6 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 7 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 8 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 9 } }
+            10 = { set_variable = { which = br_buff_pick_1 value = 10 } }
         }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 12 } }
-            country_event = { id = reward.3103 }
+
+        # 第2轮：排除pick_1已选的值
+        random_list = {
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 1 } } set_variable = { which = br_buff_pick_2 value = 1 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 2 } } set_variable = { which = br_buff_pick_2 value = 2 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 3 } } set_variable = { which = br_buff_pick_2 value = 3 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 4 } } set_variable = { which = br_buff_pick_2 value = 4 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 5 } } set_variable = { which = br_buff_pick_2 value = 5 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 6 } } set_variable = { which = br_buff_pick_2 value = 6 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 7 } } set_variable = { which = br_buff_pick_2 value = 7 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 8 } } set_variable = { which = br_buff_pick_2 value = 8 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 9 } } set_variable = { which = br_buff_pick_2 value = 9 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_buff_pick_1 value = 10 } } set_variable = { which = br_buff_pick_2 value = 10 } }
         }
-        else = {
-            country_event = { id = reward.3104 }
+
+        # 第3轮：排除pick_1和pick_2已选的值
+        random_list = {
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 1 } check_variable = { which = br_buff_pick_2 value = 1 } } } set_variable = { which = br_buff_pick_3 value = 1 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 2 } check_variable = { which = br_buff_pick_2 value = 2 } } } set_variable = { which = br_buff_pick_3 value = 2 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 3 } check_variable = { which = br_buff_pick_2 value = 3 } } } set_variable = { which = br_buff_pick_3 value = 3 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 4 } check_variable = { which = br_buff_pick_2 value = 4 } } } set_variable = { which = br_buff_pick_3 value = 4 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 5 } check_variable = { which = br_buff_pick_2 value = 5 } } } set_variable = { which = br_buff_pick_3 value = 5 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 6 } check_variable = { which = br_buff_pick_2 value = 6 } } } set_variable = { which = br_buff_pick_3 value = 6 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 7 } check_variable = { which = br_buff_pick_2 value = 7 } } } set_variable = { which = br_buff_pick_3 value = 7 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 8 } check_variable = { which = br_buff_pick_2 value = 8 } } } set_variable = { which = br_buff_pick_3 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 9 } check_variable = { which = br_buff_pick_2 value = 9 } } } set_variable = { which = br_buff_pick_3 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_buff_pick_1 value = 10 } check_variable = { which = br_buff_pick_2 value = 10 } } } set_variable = { which = br_buff_pick_3 value = 10 } }
         }
+
+        # 跳转统一展示事件
+        country_event = { id = reward.3102 }
     }
 }
 
 # ========================
-# 通用BUFF — 低等级 (Lv1-5)
+# 统一BUFF展示事件
+# 10个BUFF选项全写在这里，通过 br_buff_pick_1/2/3/4 变量控制仅显示被选中的3个。
+# 扩展接口：其他系统在本事件触发前设置 br_buff_pick_4/5 变量可追加额外选项。
+#
+# 选项编号对照表：
+#   1=武器伤害  2=航速    3=护盾    4=装甲    5=闪避
+#   6=追踪      7=命中    8=射程    9=船体    10=射速
 # ========================
 country_event = {
     id = reward.3102
@@ -49,118 +94,161 @@ country_event = {
     desc = REWARD_POOL_BUFF_DESC
     picture = GFX_evt_rare_tech_cache
 
+    # 1. 武器伤害 +3%
     option = {
         name = REWARD_BUFF_FIREPOWER
         custom_tooltip = REWARD_BUFF_FIREPOWER_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 1 }
+                check_variable = { which = br_buff_pick_2 value = 1 }
+                check_variable = { which = br_buff_pick_3 value = 1 }
+                check_variable = { which = br_buff_pick_4 value = 1 }
+            }
+        }
         hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
     }
+
+    # 2. 舰船航速 +3%
     option = {
         name = REWARD_BUFF_MOBILITY
         custom_tooltip = REWARD_BUFF_MOBILITY_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 2 }
+                check_variable = { which = br_buff_pick_2 value = 2 }
+                check_variable = { which = br_buff_pick_3 value = 2 }
+                check_variable = { which = br_buff_pick_4 value = 2 }
+            }
+        }
         hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
     }
+
+    # 3. 护盾 +3%
     option = {
         name = REWARD_BUFF_REACTOR
         custom_tooltip = REWARD_BUFF_REACTOR_TT
-        hidden_effect = { change_variable = { which = br_reward_reactor_output value = 1 } }
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 3 }
+                check_variable = { which = br_buff_pick_2 value = 3 }
+                check_variable = { which = br_buff_pick_3 value = 3 }
+                check_variable = { which = br_buff_pick_4 value = 3 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_ship_shield value = 1 } }
     }
-    option = {
-        name = REWARD_BUFF_THRUSTER
-        custom_tooltip = REWARD_BUFF_THRUSTER_TT
-        hidden_effect = { change_variable = { which = br_reward_thruster_evasion value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_COMPUTER_TRACKING
-        custom_tooltip = REWARD_BUFF_COMPUTER_TRACKING_TT
-        hidden_effect = { change_variable = { which = br_reward_computer_tracking value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_LEVEL_CORE
-        custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
-        hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
-    }
-}
 
-# ========================
-# 通用BUFF — 中等级 (Lv6-11)
-# ========================
-country_event = {
-    id = reward.3103
-    is_triggered_only = yes
-    title = REWARD_POOL_BUFF_TITLE
-    desc = REWARD_POOL_BUFF_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = {
-        name = REWARD_BUFF_FIREPOWER
-        custom_tooltip = REWARD_BUFF_FIREPOWER_TT
-        hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_MOBILITY
-        custom_tooltip = REWARD_BUFF_MOBILITY_TT
-        hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_REACTOR
-        custom_tooltip = REWARD_BUFF_REACTOR_TT
-        hidden_effect = { change_variable = { which = br_reward_reactor_output value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_THRUSTER
-        custom_tooltip = REWARD_BUFF_THRUSTER_TT
-        hidden_effect = { change_variable = { which = br_reward_thruster_evasion value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_COMPUTER_ACCURACY
-        custom_tooltip = REWARD_BUFF_COMPUTER_ACCURACY_TT
-        hidden_effect = { change_variable = { which = br_reward_computer_accuracy value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_LEVEL_CORE
-        custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
-        hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
-    }
-}
-
-# ========================
-# 通用BUFF — 高等级 (Lv12)
-# ========================
-country_event = {
-    id = reward.3104
-    is_triggered_only = yes
-    title = REWARD_POOL_BUFF_TITLE
-    desc = REWARD_POOL_BUFF_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = {
-        name = REWARD_BUFF_FIREPOWER
-        custom_tooltip = REWARD_BUFF_FIREPOWER_TT
-        hidden_effect = { change_variable = { which = br_reward_weapon_damage value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_MOBILITY
-        custom_tooltip = REWARD_BUFF_MOBILITY_TT
-        hidden_effect = { change_variable = { which = br_reward_ship_speed value = 1 } }
-    }
-    option = {
-        name = REWARD_BUFF_ADVANCED_FIRE_RATE
-        custom_tooltip = REWARD_BUFF_ADVANCED_FIRE_RATE_TT
-        hidden_effect = { change_variable = { which = br_reward_advanced_fire_rate value = 1 } }
-    }
+    # 4. 装甲 +3%
     option = {
         name = REWARD_BUFF_ADVANCED_SURVIVAL
         custom_tooltip = REWARD_BUFF_ADVANCED_SURVIVAL_TT
-        hidden_effect = { change_variable = { which = br_reward_advanced_survival value = 1 } }
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 4 }
+                check_variable = { which = br_buff_pick_2 value = 4 }
+                check_variable = { which = br_buff_pick_3 value = 4 }
+                check_variable = { which = br_buff_pick_4 value = 4 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_ship_armor value = 1 } }
     }
+
+    # 5. 闪避 +3%
+    option = {
+        name = REWARD_BUFF_THRUSTER
+        custom_tooltip = REWARD_BUFF_THRUSTER_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 5 }
+                check_variable = { which = br_buff_pick_2 value = 5 }
+                check_variable = { which = br_buff_pick_3 value = 5 }
+                check_variable = { which = br_buff_pick_4 value = 5 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_thruster_evasion value = 1 } }
+    }
+
+    # 6. 追踪 +2
+    option = {
+        name = REWARD_BUFF_COMPUTER_TRACKING
+        custom_tooltip = REWARD_BUFF_COMPUTER_TRACKING_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 6 }
+                check_variable = { which = br_buff_pick_2 value = 6 }
+                check_variable = { which = br_buff_pick_3 value = 6 }
+                check_variable = { which = br_buff_pick_4 value = 6 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_computer_tracking value = 1 } }
+    }
+
+    # 7. 命中 +2
+    option = {
+        name = REWARD_BUFF_COMPUTER_ACCURACY
+        custom_tooltip = REWARD_BUFF_COMPUTER_ACCURACY_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 7 }
+                check_variable = { which = br_buff_pick_2 value = 7 }
+                check_variable = { which = br_buff_pick_3 value = 7 }
+                check_variable = { which = br_buff_pick_4 value = 7 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_computer_accuracy value = 1 } }
+    }
+
+    # 8. 武器射程 +3%
     option = {
         name = REWARD_BUFF_ADVANCED_CORE
         custom_tooltip = REWARD_BUFF_ADVANCED_CORE_TT
-        hidden_effect = { change_variable = { which = br_reward_advanced_core value = 1 } }
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 8 }
+                check_variable = { which = br_buff_pick_2 value = 8 }
+                check_variable = { which = br_buff_pick_3 value = 8 }
+                check_variable = { which = br_buff_pick_4 value = 8 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_computer_range value = 1 } }
     }
+
+    # 9. 船体 +3%
     option = {
         name = REWARD_BUFF_LEVEL_CORE
         custom_tooltip = REWARD_BUFF_LEVEL_CORE_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 9 }
+                check_variable = { which = br_buff_pick_2 value = 9 }
+                check_variable = { which = br_buff_pick_3 value = 9 }
+                check_variable = { which = br_buff_pick_4 value = 9 }
+            }
+        }
         hidden_effect = { change_variable = { which = br_reward_level_core value = 1 } }
+    }
+
+    # 10. 射速 +3%
+    option = {
+        name = REWARD_BUFF_ADVANCED_FIRE_RATE
+        custom_tooltip = REWARD_BUFF_ADVANCED_FIRE_RATE_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_buff_pick_1 value = 10 }
+                check_variable = { which = br_buff_pick_2 value = 10 }
+                check_variable = { which = br_buff_pick_3 value = 10 }
+                check_variable = { which = br_buff_pick_4 value = 10 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_advanced_fire_rate value = 1 } }
+    }
+
+    # 选完后清理pick变量，避免残留影响下次触发
+    after = {
+        set_variable = { which = br_buff_pick_1 value = 0 }
+        set_variable = { which = br_buff_pick_2 value = 0 }
+        set_variable = { which = br_buff_pick_3 value = 0 }
+        set_variable = { which = br_buff_pick_4 value = 0 }
     }
 }
