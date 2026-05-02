@@ -22,3 +22,69 @@ country_event = {
         }
     }
 }
+
+# ========================
+# 英雄舰核心选择 — reward.6101-6199
+# 由 br_reward_level_events.txt 在达到 2 级时调用。
+# 玩家选择核心类型，设置国家 flag 解锁对应核心组件。
+# ========================
+
+country_event = {
+    id = reward.6101
+    is_triggered_only = yes
+    title = REWARD_HERO_CORE_TITLE
+    desc = REWARD_HERO_CORE_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_HERO_CORE_POWER
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_power
+        hidden_effect = { country_event = { id = reward.6102 } }
+    }
+    option = {
+        name = REWARD_HERO_CORE_DEFENSE
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_defense
+        hidden_effect = { country_event = { id = reward.6102 } }
+    }
+    option = {
+        name = REWARD_HERO_CORE_SUPPORT
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_support
+        hidden_effect = { country_event = { id = reward.6102 } }
+    }
+}
+
+# 英雄舰发放
+country_event = {
+    id = reward.6102
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { any_owned_fleet = { } }
+            random_owned_design = {
+                limit = { is_ship_size = br_vanguard }
+                save_event_target_as = br_reward_vanguard_design
+            }
+            if = {
+                limit = { exists = event_target:br_reward_vanguard_design }
+                random_owned_fleet = { save_event_target_as = br_reward_vanguard_spawn_fleet }
+                create_fleet = {
+                    name = random
+                    effect = {
+                        set_owner = root
+                        create_ship = {
+                            name = random
+                            design = event_target:br_reward_vanguard_design
+                            graphical_culture = root
+                        }
+                        set_location = { target = event_target:br_reward_vanguard_spawn_fleet distance = 35 angle = random }
+                    }
+                }
+            }
+        }
+    }
+}

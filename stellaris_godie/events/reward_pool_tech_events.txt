@@ -1,13 +1,14 @@
 namespace = reward
 
 # ========================
-# 科技池 — reward.2001-2999
+# 科技池 — reward.2001-2199
 # 只能由 reward.1 总触发器调用。
-# 五级制分流，每级拆为武器/防护/辅助(A槽)三个子事件。
-# 具体奖励只做显示检测：已拥有科技不显示。
-# TODO: 科技池可能被抽空，后续在入口或总触发器增加可用科技计数/重抽/转池兜底。
+# 随机三选一，从全部42个科技中等权随机选3个展示。
+# 科技必须逐级获取：拿到低级才能看到下一级。
+# 已移除开局起始科技。
+# 鱼雷T1由 br.6135 在2级时赠送，科技池仅含鱼雷T2/T3。
+# 作战电脑1并非start_tech，予以保留。
 # ========================
-
 # 科技池入口
 country_event = {
     id = reward.2001
@@ -19,267 +20,828 @@ country_event = {
     }
 }
 
-# 科技池等级触发器
+# 随机选3条可用科技线（hide_window）
+# br_tech_line_pick_1/2/3:
+#   1  = 激光
+#   2  = 动能
+#   3  = 导弹
+#   4  = 鱼雷
+#   5  = 舰载机
+#   6  = 护盾
+#   7  = 装甲
+#   8  = 反应堆
+#   9  = 推进器
+#   10 = 作战电脑
+#   11 = 加力燃烧室
+#   12 = 点防
+#   13 = 粒子光矛
 country_event = {
     id = reward.2101
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
+        set_variable = { which = br_tech_line_pick_1 value = 0 }
+        set_variable = { which = br_tech_line_pick_2 value = 0 }
+        set_variable = { which = br_tech_line_pick_3 value = 0 }
+        set_variable = { which = br_tech_available_count value = 0 }
+
+        # ========================
+        # 统计当前可用科技线数量
+        # ========================
+
+        # 激光 2-5
         if = {
-            limit = { check_variable = { which = br_power_level value < 3 } }
-            random_list = {
-                34 = { country_event = { id = reward.2111 } }   # T1 武器
-                33 = { country_event = { id = reward.2121 } }   # T1 防护
-                33 = { country_event = { id = reward.2131 } }   # T1 辅助
-            }
+            limit = { NOT = { has_technology = tech_lasers_5 } }
+            change_variable = { which = br_tech_available_count value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 6 } }
-            random_list = {
-                34 = { country_event = { id = reward.2211 } }   # T2 武器
-                33 = { country_event = { id = reward.2221 } }   # T2 防护
-                33 = { country_event = { id = reward.2231 } }   # T2 辅助
-            }
+
+        # 动能 2-5
+        if = {
+            limit = { NOT = { has_technology = tech_mass_drivers_5 } }
+            change_variable = { which = br_tech_available_count value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 9 } }
-            random_list = {
-                34 = { country_event = { id = reward.2311 } }   # T3 武器
-                33 = { country_event = { id = reward.2321 } }   # T3 防护
-                33 = { country_event = { id = reward.2331 } }   # T3 辅助
-            }
+
+        # 导弹 2-5
+        if = {
+            limit = { NOT = { has_technology = tech_missiles_5 } }
+            change_variable = { which = br_tech_available_count value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_power_level value < 12 } }
-            random_list = {
-                34 = { country_event = { id = reward.2411 } }   # T4 武器
-                33 = { country_event = { id = reward.2421 } }   # T4 防护
-                33 = { country_event = { id = reward.2431 } }   # T4 辅助
+
+        # 鱼雷 2-3：必须已有鱼雷T1，且未完成T3
+        if = {
+            limit = {
+                has_technology = tech_torpedoes_1
+                NOT = { has_technology = tech_torpedoes_3 }
             }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 舰载机 1-4
+        if = {
+            limit = { NOT = { has_technology = tech_strike_craft_4 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 护盾 2-4
+        if = {
+            limit = { NOT = { has_technology = tech_shields_4 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 装甲 2-4
+        if = {
+            limit = { NOT = { has_technology = tech_ship_armor_4 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 反应堆 2-5
+        if = {
+            limit = { NOT = { has_technology = tech_zero_point_power } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 推进器 2-4
+        if = {
+            limit = { NOT = { has_technology = tech_thrusters_4 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 作战电脑 1-4
+        if = {
+            limit = { NOT = { has_technology = tech_combat_computers_autonomous } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 加力燃烧室 1-4
+        if = {
+            limit = { NOT = { has_technology = tech_afterburners_4 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 点防 2-3
+        if = {
+            limit = { NOT = { has_technology = tech_pd_tracking_3 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # 粒子光矛 1
+        if = {
+            limit = { NOT = { has_technology = tech_energy_lance_1 } }
+            change_variable = { which = br_tech_available_count value = 1 }
+        }
+
+        # ========================
+        # 如果完全没有可用科技，走兜底奖励
+        # ========================
+
+        if = {
+            limit = { check_variable = { which = br_tech_available_count value = 0 } }
+            country_event = { id = reward.3001 }
         }
         else = {
+            # ========================
+            # 第1轮：从所有可用科技线中抽1条
+            # ========================
+
             random_list = {
-                34 = { country_event = { id = reward.2511 } }   # T5 武器
-                33 = { country_event = { id = reward.2521 } }   # T5 防护
-                33 = { country_event = { id = reward.2531 } }   # T5 辅助
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_lasers_5 }
+                    set_variable = { which = br_tech_line_pick_1 value = 1 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_mass_drivers_5 }
+                    set_variable = { which = br_tech_line_pick_1 value = 2 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_missiles_5 }
+                    set_variable = { which = br_tech_line_pick_1 value = 3 }
+                }
+                10 = {
+                    modifier = {
+                        factor = 0
+                        OR = {
+                            NOT = { has_technology = tech_torpedoes_1 }
+                            has_technology = tech_torpedoes_3
+                        }
+                    }
+                    set_variable = { which = br_tech_line_pick_1 value = 4 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_strike_craft_4 }
+                    set_variable = { which = br_tech_line_pick_1 value = 5 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_shields_4 }
+                    set_variable = { which = br_tech_line_pick_1 value = 6 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_ship_armor_4 }
+                    set_variable = { which = br_tech_line_pick_1 value = 7 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_zero_point_power }
+                    set_variable = { which = br_tech_line_pick_1 value = 8 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_thrusters_4 }
+                    set_variable = { which = br_tech_line_pick_1 value = 9 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_combat_computers_autonomous }
+                    set_variable = { which = br_tech_line_pick_1 value = 10 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_afterburners_4 }
+                    set_variable = { which = br_tech_line_pick_1 value = 11 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_pd_tracking_3 }
+                    set_variable = { which = br_tech_line_pick_1 value = 12 }
+                }
+                10 = {
+                    modifier = { factor = 0 has_technology = tech_energy_lance_1 }
+                    set_variable = { which = br_tech_line_pick_1 value = 13 }
+                }
             }
+
+            # ========================
+            # 第2轮：仅当可用科技线 >= 2 时抽
+            # ========================
+
+            if = {
+                limit = { check_variable = { which = br_tech_available_count value >= 2 } }
+
+                random_list = {
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_lasers_5
+                                check_variable = { which = br_tech_line_pick_1 value = 1 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 1 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_mass_drivers_5
+                                check_variable = { which = br_tech_line_pick_1 value = 2 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 2 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_missiles_5
+                                check_variable = { which = br_tech_line_pick_1 value = 3 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 3 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                NOT = { has_technology = tech_torpedoes_1 }
+                                has_technology = tech_torpedoes_3
+                                check_variable = { which = br_tech_line_pick_1 value = 4 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 4 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_strike_craft_4
+                                check_variable = { which = br_tech_line_pick_1 value = 5 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 5 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_shields_4
+                                check_variable = { which = br_tech_line_pick_1 value = 6 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 6 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_ship_armor_4
+                                check_variable = { which = br_tech_line_pick_1 value = 7 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 7 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_zero_point_power
+                                check_variable = { which = br_tech_line_pick_1 value = 8 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 8 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_thrusters_4
+                                check_variable = { which = br_tech_line_pick_1 value = 9 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 9 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_combat_computers_autonomous
+                                check_variable = { which = br_tech_line_pick_1 value = 10 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 10 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_afterburners_4
+                                check_variable = { which = br_tech_line_pick_1 value = 11 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 11 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_pd_tracking_3
+                                check_variable = { which = br_tech_line_pick_1 value = 12 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 12 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_energy_lance_1
+                                check_variable = { which = br_tech_line_pick_1 value = 13 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_2 value = 13 }
+                    }
+                }
+            }
+
+            # ========================
+            # 第3轮：仅当可用科技线 >= 3 时抽
+            # ========================
+
+            if = {
+                limit = { check_variable = { which = br_tech_available_count value >= 3 } }
+
+                random_list = {
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_lasers_5
+                                check_variable = { which = br_tech_line_pick_1 value = 1 }
+                                check_variable = { which = br_tech_line_pick_2 value = 1 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 1 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_mass_drivers_5
+                                check_variable = { which = br_tech_line_pick_1 value = 2 }
+                                check_variable = { which = br_tech_line_pick_2 value = 2 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 2 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_missiles_5
+                                check_variable = { which = br_tech_line_pick_1 value = 3 }
+                                check_variable = { which = br_tech_line_pick_2 value = 3 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 3 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                NOT = { has_technology = tech_torpedoes_1 }
+                                has_technology = tech_torpedoes_3
+                                check_variable = { which = br_tech_line_pick_1 value = 4 }
+                                check_variable = { which = br_tech_line_pick_2 value = 4 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 4 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_strike_craft_4
+                                check_variable = { which = br_tech_line_pick_1 value = 5 }
+                                check_variable = { which = br_tech_line_pick_2 value = 5 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 5 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_shields_4
+                                check_variable = { which = br_tech_line_pick_1 value = 6 }
+                                check_variable = { which = br_tech_line_pick_2 value = 6 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 6 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_ship_armor_4
+                                check_variable = { which = br_tech_line_pick_1 value = 7 }
+                                check_variable = { which = br_tech_line_pick_2 value = 7 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 7 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_zero_point_power
+                                check_variable = { which = br_tech_line_pick_1 value = 8 }
+                                check_variable = { which = br_tech_line_pick_2 value = 8 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 8 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_thrusters_4
+                                check_variable = { which = br_tech_line_pick_1 value = 9 }
+                                check_variable = { which = br_tech_line_pick_2 value = 9 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 9 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_combat_computers_autonomous
+                                check_variable = { which = br_tech_line_pick_1 value = 10 }
+                                check_variable = { which = br_tech_line_pick_2 value = 10 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 10 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_afterburners_4
+                                check_variable = { which = br_tech_line_pick_1 value = 11 }
+                                check_variable = { which = br_tech_line_pick_2 value = 11 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 11 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_pd_tracking_3
+                                check_variable = { which = br_tech_line_pick_1 value = 12 }
+                                check_variable = { which = br_tech_line_pick_2 value = 12 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 12 }
+                    }
+                    10 = {
+                        modifier = {
+                            factor = 0
+                            OR = {
+                                has_technology = tech_energy_lance_1
+                                check_variable = { which = br_tech_line_pick_1 value = 13 }
+                                check_variable = { which = br_tech_line_pick_2 value = 13 }
+                            }
+                        }
+                        set_variable = { which = br_tech_line_pick_3 value = 13 }
+                    }
+                }
+            }
+            country_event = { id = reward.2102 }
         }
     }
 }
 
-# ========================
-# T1 科技 (Lv1-2)
-# ========================
-
-# T1 武器
+# 统一科技展示事件
 country_event = {
-    id = reward.2111
+    id = reward.2102
     is_triggered_only = yes
-    title = REWARD_POOL_TECH_WEAPON_T1_TITLE
-    desc = REWARD_POOL_TECH_WEAPON_T1_DESC
+    title = REWARD_POOL_TECH_TITLE
+    desc = REWARD_POOL_TECH_DESC
     picture = GFX_evt_rare_tech_cache
 
-    option = { name = REWARD_TECH_LASER1      trigger = { NOT = { has_technology = tech_lasers_1 } }       give_technology = { tech = tech_lasers_1 message = yes } }
-    option = { name = REWARD_TECH_KINETIC1    trigger = { NOT = { has_technology = tech_mass_drivers_1 } } give_technology = { tech = tech_mass_drivers_1 message = yes } }
-    option = { name = REWARD_TECH_MISSILE1    trigger = { NOT = { has_technology = tech_missiles_1 } }     give_technology = { tech = tech_missiles_1 message = yes } }
-    option = { name = REWARD_TECH_STRIKE1     trigger = { NOT = { has_technology = tech_strike_craft_1 } } give_technology = { tech = tech_strike_craft_1 message = yes } }
-}
+    # ======================== 激光线 ========================
+    option = {
+        name = REWARD_TECH_LASER_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 1 }
+                check_variable = { which = br_tech_line_pick_2 value = 1 }
+                check_variable = { which = br_tech_line_pick_3 value = 1 }
+            }
+            NOT = { has_technology = tech_lasers_5 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_lasers_2 } }
+            give_technology = { tech = tech_lasers_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_lasers_3 } }
+            give_technology = { tech = tech_lasers_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_lasers_4 } }
+            give_technology = { tech = tech_lasers_4 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_lasers_5 } }
+            give_technology = { tech = tech_lasers_5 message = yes }
+        }
+    }
 
-# T1 防护
-country_event = {
-    id = reward.2121
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_DEFENSE_T1_TITLE
-    desc = REWARD_POOL_TECH_DEFENSE_T1_DESC
-    picture = GFX_evt_rare_tech_cache
+    # ======================== 动能线 ========================
+    option = {
+        name = REWARD_TECH_KINETIC_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 2 }
+                check_variable = { which = br_tech_line_pick_2 value = 2 }
+                check_variable = { which = br_tech_line_pick_3 value = 2 }
+            }
+            NOT = { has_technology = tech_mass_drivers_5 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_mass_drivers_2 } }
+            give_technology = { tech = tech_mass_drivers_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_mass_drivers_3 } }
+            give_technology = { tech = tech_mass_drivers_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_mass_drivers_4 } }
+            give_technology = { tech = tech_mass_drivers_4 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_mass_drivers_5 } }
+            give_technology = { tech = tech_mass_drivers_5 message = yes }
+        }
+    }
 
-    option = { name = REWARD_TECH_SHIELD1     trigger = { NOT = { has_technology = tech_shields_1 } }      give_technology = { tech = tech_shields_1 message = yes } }
-    option = { name = REWARD_TECH_ARMOR1      trigger = { NOT = { has_technology = tech_ship_armor_1 } }  give_technology = { tech = tech_ship_armor_1 message = yes } }
-    option = { name = REWARD_TECH_REACTOR1    trigger = { NOT = { has_technology = tech_fission_power } } give_technology = { tech = tech_fission_power message = yes } }
-}
-
-# T1 辅助 (A槽)
-country_event = {
-    id = reward.2131
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_UTILITY_T1_TITLE
-    desc = REWARD_POOL_TECH_UTILITY_T1_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_THRUSTER1   trigger = { NOT = { has_technology = tech_thrusters_1 } }            give_technology = { tech = tech_thrusters_1 message = yes } }
-    option = { name = REWARD_TECH_COMPUTER1   trigger = { NOT = { has_technology = tech_combat_computers_1 } }     give_technology = { tech = tech_combat_computers_1 message = yes } }
-    option = { name = REWARD_TECH_AFTERBURNER1 trigger = { NOT = { has_technology = tech_afterburners_1 } }        give_technology = { tech = tech_afterburners_1 message = yes } }
-}
-
-# ========================
-# T2 科技 (Lv3-5)
-# ========================
-
-# T2 武器
-country_event = {
-    id = reward.2211
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_WEAPON_T2_TITLE
-    desc = REWARD_POOL_TECH_WEAPON_T2_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_LASER2      trigger = { NOT = { has_technology = tech_lasers_2 } }       give_technology = { tech = tech_lasers_2 message = yes } }
-    option = { name = REWARD_TECH_KINETIC2    trigger = { NOT = { has_technology = tech_mass_drivers_2 } } give_technology = { tech = tech_mass_drivers_2 message = yes } }
-    option = { name = REWARD_TECH_MISSILE2    trigger = { NOT = { has_technology = tech_missiles_2 } }     give_technology = { tech = tech_missiles_2 message = yes } }
-    option = { name = REWARD_TECH_STRIKE2     trigger = { NOT = { has_technology = tech_strike_craft_2 } } give_technology = { tech = tech_strike_craft_2 message = yes } }
-}
-
-# T2 防护
-country_event = {
-    id = reward.2221
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_DEFENSE_T2_TITLE
-    desc = REWARD_POOL_TECH_DEFENSE_T2_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_SHIELD2     trigger = { NOT = { has_technology = tech_shields_2 } }      give_technology = { tech = tech_shields_2 message = yes } }
-    option = { name = REWARD_TECH_ARMOR2      trigger = { NOT = { has_technology = tech_ship_armor_2 } }  give_technology = { tech = tech_ship_armor_2 message = yes } }
-    option = { name = REWARD_TECH_REACTOR2    trigger = { NOT = { has_technology = tech_fusion_power } }  give_technology = { tech = tech_fusion_power message = yes } }
-}
-
-# T2 辅助 (A槽)
-country_event = {
-    id = reward.2231
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_UTILITY_T2_TITLE
-    desc = REWARD_POOL_TECH_UTILITY_T2_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_THRUSTER2   trigger = { NOT = { has_technology = tech_thrusters_2 } }            give_technology = { tech = tech_thrusters_2 message = yes } }
-    option = { name = REWARD_TECH_COMPUTER2   trigger = { NOT = { has_technology = tech_combat_computers_2 } }     give_technology = { tech = tech_combat_computers_2 message = yes } }
-    option = { name = REWARD_TECH_AFTERBURNER2 trigger = { NOT = { has_technology = tech_afterburners_2 } }        give_technology = { tech = tech_afterburners_2 message = yes } }
-}
-
-# ========================
-# T3 科技 (Lv6-8)
-# ========================
-
-# T3 武器
-country_event = {
-    id = reward.2311
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_WEAPON_T3_TITLE
-    desc = REWARD_POOL_TECH_WEAPON_T3_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_LASER3      trigger = { NOT = { has_technology = tech_lasers_3 } }       give_technology = { tech = tech_lasers_3 message = yes } }
-    option = { name = REWARD_TECH_KINETIC3    trigger = { NOT = { has_technology = tech_mass_drivers_3 } } give_technology = { tech = tech_mass_drivers_3 message = yes } }
-    option = { name = REWARD_TECH_MISSILE3    trigger = { NOT = { has_technology = tech_missiles_3 } }     give_technology = { tech = tech_missiles_3 message = yes } }
-    option = { name = REWARD_TECH_STRIKE3     trigger = { NOT = { has_technology = tech_strike_craft_3 } } give_technology = { tech = tech_strike_craft_3 message = yes } }
-}
-
-# T3 防护
-country_event = {
-    id = reward.2321
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_DEFENSE_T3_TITLE
-    desc = REWARD_POOL_TECH_DEFENSE_T3_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_SHIELD3     trigger = { NOT = { has_technology = tech_shields_3 } }         give_technology = { tech = tech_shields_3 message = yes } }
-    option = { name = REWARD_TECH_ARMOR3      trigger = { NOT = { has_technology = tech_ship_armor_3 } }     give_technology = { tech = tech_ship_armor_3 message = yes } }
-    option = { name = REWARD_TECH_REACTOR3    trigger = { NOT = { has_technology = tech_cold_fusion_power } } give_technology = { tech = tech_cold_fusion_power message = yes } }
-}
-
-# T3 辅助 (A槽)
-country_event = {
-    id = reward.2331
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_UTILITY_T3_TITLE
-    desc = REWARD_POOL_TECH_UTILITY_T3_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_THRUSTER3   trigger = { NOT = { has_technology = tech_thrusters_3 } }            give_technology = { tech = tech_thrusters_3 message = yes } }
-    option = { name = REWARD_TECH_COMPUTER3   trigger = { NOT = { has_technology = tech_combat_computers_3 } }     give_technology = { tech = tech_combat_computers_3 message = yes } }
-    option = { name = REWARD_TECH_AFTERBURNER3 trigger = { NOT = { has_technology = tech_afterburners_3 } }        give_technology = { tech = tech_afterburners_3 message = yes } }
-}
-
-# ========================
-# T4 科技 (Lv9-11)
-# ========================
-
-# T4 武器
-country_event = {
-    id = reward.2411
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_WEAPON_T4_TITLE
-    desc = REWARD_POOL_TECH_WEAPON_T4_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_LASER4      trigger = { NOT = { has_technology = tech_lasers_4 } }       give_technology = { tech = tech_lasers_4 message = yes } }
-    option = { name = REWARD_TECH_KINETIC4    trigger = { NOT = { has_technology = tech_mass_drivers_4 } } give_technology = { tech = tech_mass_drivers_4 message = yes } }
-    option = { name = REWARD_TECH_MISSILE4    trigger = { NOT = { has_technology = tech_missiles_4 } }     give_technology = { tech = tech_missiles_4 message = yes } }
-    option = { name = REWARD_TECH_STRIKE4     trigger = { NOT = { has_technology = tech_strike_craft_4 } } give_technology = { tech = tech_strike_craft_4 message = yes } }
-}
-
-# T4 防护
-country_event = {
-    id = reward.2421
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_DEFENSE_T4_TITLE
-    desc = REWARD_POOL_TECH_DEFENSE_T4_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_SHIELD4     trigger = { NOT = { has_technology = tech_shields_4 } }            give_technology = { tech = tech_shields_4 message = yes } }
-    option = { name = REWARD_TECH_ARMOR4      trigger = { NOT = { has_technology = tech_ship_armor_4 } }        give_technology = { tech = tech_ship_armor_4 message = yes } }
-    option = { name = REWARD_TECH_REACTOR4    trigger = { NOT = { has_technology = tech_antimatter_power } }    give_technology = { tech = tech_antimatter_power message = yes } }
-}
-
-# T4 辅助 (A槽)
-country_event = {
-    id = reward.2431
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_UTILITY_T4_TITLE
-    desc = REWARD_POOL_TECH_UTILITY_T4_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_THRUSTER4   trigger = { NOT = { has_technology = tech_thrusters_4 } }                give_technology = { tech = tech_thrusters_4 message = yes } }
-    option = { name = REWARD_TECH_COMPUTER4   trigger = { NOT = { has_technology = tech_combat_computers_autonomous } } give_technology = { tech = tech_combat_computers_autonomous message = yes } }
-    option = { name = REWARD_TECH_AFTERBURNER4 trigger = { NOT = { has_technology = tech_afterburners_4 } }            give_technology = { tech = tech_afterburners_4 message = yes } }
-}
-
-# ========================
-# T5 科技 (Lv12)
-# ========================
-
-# T5 武器
-country_event = {
-    id = reward.2511
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_WEAPON_T5_TITLE
-    desc = REWARD_POOL_TECH_WEAPON_T5_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_LASER5      trigger = { NOT = { has_technology = tech_lasers_5 } }       give_technology = { tech = tech_lasers_5 message = yes } }
-    option = { name = REWARD_TECH_KINETIC5    trigger = { NOT = { has_technology = tech_mass_drivers_5 } } give_technology = { tech = tech_mass_drivers_5 message = yes } }
-    option = { name = REWARD_TECH_MISSILE5    trigger = { NOT = { has_technology = tech_missiles_5 } }     give_technology = { tech = tech_missiles_5 message = yes } }
-    option = { name = REWARD_TECH_LANCE1      trigger = { NOT = { has_technology = tech_energy_lance_1 } } give_technology = { tech = tech_energy_lance_1 message = yes } }
-}
-
-# T5 防护
-country_event = {
-    id = reward.2521
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_DEFENSE_T5_TITLE
-    desc = REWARD_POOL_TECH_DEFENSE_T5_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_REACTOR5    trigger = { NOT = { has_technology = tech_zero_point_power } }   give_technology = { tech = tech_zero_point_power message = yes } }
-}
-
-# T5 辅助 (A槽)
-country_event = {
-    id = reward.2531
-    is_triggered_only = yes
-    title = REWARD_POOL_TECH_UTILITY_T5_TITLE
-    desc = REWARD_POOL_TECH_UTILITY_T5_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = { name = REWARD_TECH_COMPUTER4   trigger = { NOT = { has_technology = tech_combat_computers_autonomous } } give_technology = { tech = tech_combat_computers_autonomous message = yes } }
+    # ======================== 导弹线 ========================
+    option = {
+        name = REWARD_TECH_MISSILE_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 3 }
+                check_variable = { which = br_tech_line_pick_2 value = 3 }
+                check_variable = { which = br_tech_line_pick_3 value = 3 }
+            }
+            NOT = { has_technology = tech_missiles_5 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_missiles_2 } }
+            give_technology = { tech = tech_missiles_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_missiles_3 } }
+            give_technology = { tech = tech_missiles_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_missiles_4 } }
+            give_technology = { tech = tech_missiles_4 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_missiles_5 } }
+            give_technology = { tech = tech_missiles_5 message = yes }
+        }
+    }
+    # ======================== 鱼雷线 ========================
+    option = {
+        name = REWARD_TECH_TORPEDO_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 4 }
+                check_variable = { which = br_tech_line_pick_2 value = 4 }
+                check_variable = { which = br_tech_line_pick_3 value = 4 }
+            }
+            has_technology = tech_torpedoes_1
+            NOT = { has_technology = tech_torpedoes_3 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_torpedoes_2 } }
+            give_technology = { tech = tech_torpedoes_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_torpedoes_3 } }
+            give_technology = { tech = tech_torpedoes_3 message = yes }
+        }
+    }
+    # ======================== 舰载机线 ========================
+    option = {
+        name = REWARD_TECH_STRIKE_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 5 }
+                check_variable = { which = br_tech_line_pick_2 value = 5 }
+                check_variable = { which = br_tech_line_pick_3 value = 5 }
+            }
+            NOT = { has_technology = tech_strike_craft_4 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_strike_craft_1 } }
+            give_technology = { tech = tech_strike_craft_1 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_strike_craft_2 } }
+            give_technology = { tech = tech_strike_craft_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_strike_craft_3 } }
+            give_technology = { tech = tech_strike_craft_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_strike_craft_4 } }
+            give_technology = { tech = tech_strike_craft_4 message = yes }
+        }
+    }
+    # ======================== 护盾线 ========================
+    option = {
+        name = REWARD_TECH_SHIELD_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 6 }
+                check_variable = { which = br_tech_line_pick_2 value = 6 }
+                check_variable = { which = br_tech_line_pick_3 value = 6 }
+            }
+            NOT = { has_technology = tech_shields_4 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_shields_2 } }
+            give_technology = { tech = tech_shields_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_shields_3 } }
+            give_technology = { tech = tech_shields_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_shields_4 } }
+            give_technology = { tech = tech_shields_4 message = yes }
+        }
+    }
+    # ======================== 装甲线 ========================
+    option = {
+        name = REWARD_TECH_ARMOR_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 7 }
+                check_variable = { which = br_tech_line_pick_2 value = 7 }
+                check_variable = { which = br_tech_line_pick_3 value = 7 }
+            }
+            NOT = { has_technology = tech_ship_armor_4 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_ship_armor_2 } }
+            give_technology = { tech = tech_ship_armor_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_ship_armor_3 } }
+            give_technology = { tech = tech_ship_armor_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_ship_armor_4 } }
+            give_technology = { tech = tech_ship_armor_4 message = yes }
+        }
+    }
+    # ======================== 反应堆线 ========================
+    option = {
+        name = REWARD_TECH_REACTOR_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 8 }
+                check_variable = { which = br_tech_line_pick_2 value = 8 }
+                check_variable = { which = br_tech_line_pick_3 value = 8 }
+            }
+            NOT = { has_technology = tech_zero_point_power }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_fusion_power } }
+            give_technology = { tech = tech_fusion_power message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_cold_fusion_power } }
+            give_technology = { tech = tech_cold_fusion_power message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_antimatter_power } }
+            give_technology = { tech = tech_antimatter_power message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_zero_point_power } }
+            give_technology = { tech = tech_zero_point_power message = yes }
+        }
+    }
+    # ======================== 推进器线 ========================
+    option = {
+        name = REWARD_TECH_THRUSTER_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 9 }
+                check_variable = { which = br_tech_line_pick_2 value = 9 }
+                check_variable = { which = br_tech_line_pick_3 value = 9 }
+            }
+            NOT = { has_technology = tech_thrusters_4 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_thrusters_2 } }
+            give_technology = { tech = tech_thrusters_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_thrusters_3 } }
+            give_technology = { tech = tech_thrusters_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_thrusters_4 } }
+            give_technology = { tech = tech_thrusters_4 message = yes }
+        }
+    }
+    # ======================== 作战电脑线 ========================
+    option = {
+        name = REWARD_TECH_COMPUTER_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 10 }
+                check_variable = { which = br_tech_line_pick_2 value = 10 }
+                check_variable = { which = br_tech_line_pick_3 value = 10 }
+            }
+            NOT = { has_technology = tech_combat_computers_autonomous }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_combat_computers_1 } }
+            give_technology = { tech = tech_combat_computers_1 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_combat_computers_2 } }
+            give_technology = { tech = tech_combat_computers_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_combat_computers_3 } }
+            give_technology = { tech = tech_combat_computers_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_combat_computers_autonomous } }
+            give_technology = { tech = tech_combat_computers_autonomous message = yes }
+        }
+    }
+    # ======================== 加力燃烧室线 ========================
+    option = {
+        name = REWARD_TECH_AFTERBURNER_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 11 }
+                check_variable = { which = br_tech_line_pick_2 value = 11 }
+                check_variable = { which = br_tech_line_pick_3 value = 11 }
+            }
+            NOT = { has_technology = tech_afterburners_4 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_afterburners_1 } }
+            give_technology = { tech = tech_afterburners_1 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_afterburners_2 } }
+            give_technology = { tech = tech_afterburners_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_afterburners_3 } }
+            give_technology = { tech = tech_afterburners_3 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_afterburners_4 } }
+            give_technology = { tech = tech_afterburners_4 message = yes }
+        }
+    }
+    # ======================== 点防线 ========================
+    option = {
+        name = REWARD_TECH_PD_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 12 }
+                check_variable = { which = br_tech_line_pick_2 value = 12 }
+                check_variable = { which = br_tech_line_pick_3 value = 12 }
+            }
+            NOT = { has_technology = tech_pd_tracking_3 }
+        }
+        if = {
+            limit = { NOT = { has_technology = tech_pd_tracking_2 } }
+            give_technology = { tech = tech_pd_tracking_2 message = yes }
+        }
+        else_if = {
+            limit = { NOT = { has_technology = tech_pd_tracking_3 } }
+            give_technology = { tech = tech_pd_tracking_3 message = yes }
+        }
+    }
+    # ======================== 粒子光矛线 ========================
+    option = {
+        name = REWARD_TECH_LANCE_NEXT
+        trigger = {
+            OR = {
+                check_variable = { which = br_tech_line_pick_1 value = 13 }
+                check_variable = { which = br_tech_line_pick_2 value = 13 }
+                check_variable = { which = br_tech_line_pick_3 value = 13 }
+            }
+            NOT = { has_technology = tech_energy_lance_1 }
+        }
+        give_technology = { tech = tech_energy_lance_1 message = yes }
+    }
+    after = {
+        set_variable = { which = br_tech_line_pick_1 value = 0 }
+        set_variable = { which = br_tech_line_pick_2 value = 0 }
+        set_variable = { which = br_tech_line_pick_3 value = 0 }
+        set_variable = { which = br_tech_available_count value = 0 }
+    }
 }

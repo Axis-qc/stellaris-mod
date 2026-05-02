@@ -1,4 +1,21 @@
-# 先锋级英雄舰核心占位部件
+# 先锋级英雄舰核心部件
+
+# 空占位核心 — 始终可用，确保未选核心时舰船可生成
+utility_component_template = {
+    key = "BR_VANGUARD_CORE_EMPTY"
+    size = small
+    icon = "GFX_ship_part_empty_ftl_drive"
+    icon_frame = 1
+    power = 0
+
+    size_restriction = { br_vanguard }
+    component_set = "br_hero_ship_Core"
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
 utility_component_template = {
     key = "BR_VANGUARD_CORE_POWER"
     size = small
@@ -8,6 +25,9 @@ utility_component_template = {
 
     size_restriction = { br_vanguard }
     component_set = "br_hero_ship_Core"
+    potential = {
+        from = { has_country_flag = br_hero_core_power }
+    }
 
     scripted_action = {
         scope = self
@@ -88,6 +108,7 @@ utility_component_template = {
 
     size_restriction = { br_vanguard }
     component_set = "br_hero_ship_Core"
+    potential = { from = { has_country_flag = br_hero_core_defense } }
 
     scripted_action = {
         scope = self
@@ -135,6 +156,7 @@ utility_component_template = {
 
     size_restriction = { br_vanguard }
     component_set = "br_hero_ship_Core"
+    potential = { from = { has_country_flag = br_hero_core_support } }
 
     scripted_action = {
         scope = self

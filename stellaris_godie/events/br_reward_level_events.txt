@@ -2,6 +2,7 @@ namespace = br
 
 # 升级特殊奖励池，ID 6130-6199。
 # 普通爆星和战斗奖励不走这里，只在升级时由 br_level_events.txt 调用。
+# 英雄核心选择已迁移至 reward.6101（reward_core_events.txt）。
 country_event = {
     id = br.6130
     hide_window = yes
@@ -12,10 +13,10 @@ country_event = {
 
         if = {
             limit = {
-                NOT = { has_country_flag = br_reward_path_selected }
+                NOT = { has_country_flag = br_hero_core_selected }
                 check_variable = { which = br_power_level value >= 2 }
             }
-            country_event = { id = br.6120 }
+            country_event = { id = reward.6101 }
         }
     }
 }
@@ -52,7 +53,6 @@ country_event = {
         if = {
             limit = { check_variable = { which = br_power_level value >= 7 } NOT = { has_technology = tech_juggernaut } }
             give_technology = { tech = tech_juggernaut message = yes }
-            set_country_flag = br_reward_unlock_dominator
         }
     }
 }
