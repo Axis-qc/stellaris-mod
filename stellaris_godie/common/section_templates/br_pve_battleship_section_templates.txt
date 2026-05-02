@@ -1,12 +1,13 @@
 # ============================================================
 # PVE战列舰区段模板
-# 流派：炮击、近战、鱼雷、航母
+# 流派：近战、鱼雷、航母（炮击型使用原版即可）
 # 战列舰由 bow（舰首） + mid（中段） + stern（舰尾）组成
-# 航母舰首和中段定义在本文件下方
+# 造价基准：原版battleship=640合金，航母+50%=960
+# 设计原则：与原版区段明确区分，不再有完全相同的配置
 # ============================================================
 
 # ==================== 近战型 ====================
-# 舰首：M2S4，双中槽 + 四小槽
+# 舰首：M2+S4+P1，双中槽 + 四小槽 + 点防御
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_BOW_BRAWLER"
     ship_size = battleship
@@ -14,6 +15,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_bow_M2S4_entity"
     icon = "GFX_ship_part_core_bow"
+
     component_slot = {
         name = "MEDIUM_GUN_01"
         template = "medium_turret"
@@ -50,14 +52,24 @@ ship_section_template = {
         locatorname = "small_gun_04"
     }
 
+    # P槽点防御，共享小炮定位点
+    component_slot = {
+        name = "PD_01"
+        template = "point_defence_turret"
+        locatorname = "small_gun_04"
+    }
+
     large_utility_slots = 3
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 640
+        }
     }
 }
 
-# 舰尾：M2，双中槽
+# 舰尾：M1+P2，中槽 + 双点防御（区别于原版BATTLESHIP_STERN_M2的纯M2）
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_STERN_BRAWLER"
     ship_size = battleship
@@ -65,6 +77,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_stern_M2_entity"
     icon = "GFX_ship_part_core_stern"
+
     component_slot = {
         name = "MEDIUM_GUN_01"
         template = "medium_turret"
@@ -72,20 +85,29 @@ ship_section_template = {
     }
 
     component_slot = {
-        name = "MEDIUM_GUN_02"
-        template = "medium_turret"
+        name = "PD_01"
+        template = "point_defence_turret"
         locatorname = "medium_gun_02"
+    }
+
+    component_slot = {
+        name = "PD_02"
+        template = "point_defence_turret"
+        locatorname = "medium_gun_02"         # 双P共享定位点
     }
 
     aux_utility_slots = 2
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 640
+        }
     }
 }
 
 # ==================== 鱼雷型 ====================
-# 舰首：L1G1S2，大槽 + G槽鱼雷 + 双小槽
+# 舰首：L1+G1+S2+P1，大槽 + 鱼雷 + 双小槽 + 点防御
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_BOW_TORPEDO"
     ship_size = battleship
@@ -93,6 +115,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_bow_L1M1S2_entity"
     icon = "GFX_ship_part_core_bow"
+
     component_slot = {
         name = "LARGE_GUN_01"
         template = "large_turret"
@@ -117,14 +140,23 @@ ship_section_template = {
         locatorname = "small_gun_02"
     }
 
+    component_slot = {
+        name = "PD_01"
+        template = "point_defence_turret"
+        locatorname = "small_gun_02"          # 共享小炮定位点
+    }
+
     large_utility_slots = 3
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 640
+        }
     }
 }
 
-# 中段：L2G2，双大槽 + 双G槽鱼雷
+# 中段：L2+G2+P1，双大槽 + 双鱼雷 + 点防御
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_MID_TORPEDO"
     ship_size = battleship
@@ -132,6 +164,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_mid_L2M2_entity"
     icon = "GFX_ship_part_core_mid"
+
     component_slot = {
         name = "LARGE_GUN_01"
         template = "large_turret"
@@ -156,14 +189,23 @@ ship_section_template = {
         locatorname = "medium_gun_02"
     }
 
+    component_slot = {
+        name = "PD_01"
+        template = "point_defence_turret"
+        locatorname = "medium_gun_02"         # 共享中炮定位点
+    }
+
     large_utility_slots = 3
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 640
+        }
     }
 }
 
-# 舰尾：G2，双G槽鱼雷
+# 舰尾：G2+P1，双鱼雷 + 点防御
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_STERN_TORPEDO"
     ship_size = battleship
@@ -171,6 +213,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_stern_M2_entity"
     icon = "GFX_ship_part_core_stern"
+
     component_slot = {
         name = "TORPEDO_01"
         template = "medium_missile_turret"
@@ -183,15 +226,25 @@ ship_section_template = {
         locatorname = "medium_gun_02"
     }
 
+    component_slot = {
+        name = "PD_01"
+        template = "point_defence_turret"
+        locatorname = "medium_gun_02"         # 共享中炮定位点
+    }
+
     aux_utility_slots = 2
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 640
+        }
     }
 }
 
 # ==================== 航母型 ====================
-# 舰首：M1S2H1，中槽 + 双小槽 + 机库
+# 舰首：M1+S1+P1+H1，中槽 + 小槽 + 点防御 + 机库
+# （区别于原版BATTLESHIP_BOW_M1S2SHB的M1+P2+H1）
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_BOW_M1S2SHB"
     ship_size = battleship
@@ -199,6 +252,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_bow_M1S2SHB_entity"
     icon = "GFX_ship_part_core_bow"
+
     component_slot = {
         name = "MEDIUM_GUN_01"
         template = "medium_turret"
@@ -212,8 +266,8 @@ ship_section_template = {
     }
 
     component_slot = {
-        name = "SMALL_GUN_02"
-        template = "small_turret"
+        name = "PD_01"
+        template = "point_defence_turret"
         locatorname = "small_gun_02"
     }
 
@@ -228,10 +282,14 @@ ship_section_template = {
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 960     # 航母+50%
+        }
     }
 }
 
-# 中段：S4H2，四小槽 + 双机库
+# 中段：S3+P1+H2，三小槽 + 点防御 + 双机库
+# （区别于原版BATTLESHIP_MID_S4LHB的S2+P2+H2）
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_MID_S4LHB"
     ship_size = battleship
@@ -239,6 +297,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_mid_S4LHB_entity"
     icon = "GFX_ship_part_core_mid"
+
     component_slot = {
         name = "SMALL_GUN_01"
         template = "small_turret"
@@ -258,8 +317,8 @@ ship_section_template = {
     }
 
     component_slot = {
-        name = "SMALL_GUN_04"
-        template = "small_turret"
+        name = "PD_01"
+        template = "point_defence_turret"
         locatorname = "small_gun_04"
     }
 
@@ -281,10 +340,13 @@ ship_section_template = {
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 960     # 航母+50%
+        }
     }
 }
 
-# 舰尾：M2，双中槽
+# 舰尾：M1+P1，中槽 + 点防御（区别于原版BATTLESHIP_STERN_M2的纯M2）
 ship_section_template = {
     key = "BR_PVE_BATTLESHIP_STERN_CARRIER"
     ship_size = battleship
@@ -292,6 +354,7 @@ ship_section_template = {
     should_draw_components = yes
     entity = "battleship_stern_M2_entity"
     icon = "GFX_ship_part_core_stern"
+
     component_slot = {
         name = "MEDIUM_GUN_01"
         template = "medium_turret"
@@ -299,8 +362,8 @@ ship_section_template = {
     }
 
     component_slot = {
-        name = "MEDIUM_GUN_02"
-        template = "medium_turret"
+        name = "PD_01"
+        template = "point_defence_turret"
         locatorname = "medium_gun_02"
     }
 
@@ -308,5 +371,8 @@ ship_section_template = {
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 960     # 航母+50%
+        }
     }
 }

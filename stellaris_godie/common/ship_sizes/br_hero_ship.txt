@@ -1,15 +1,14 @@
 #不能使用巨像以外作战电脑，其他作战电脑无法在战斗中下指令放技能
 #is_hero_ship = yes英雄舰会导致舰船无法升级，无法设计
-#无畏舰炮塔模型死活不显示，排查中
 
-# 无畏战舰英雄舰模板
+# 无畏战舰英雄舰模板，废弃不使用，造出来炮塔莫名其妙不显示，但是设计界面显示，抽象
 ww_ship_sizes = {
     # 不按国家图形文化自动替换实体，固定使用下方 entity 指定的模型。
     graphical_culture = no
     # 舰船在战略地图/战斗中使用的根实体。具体船体模型通常由区段 entity 挂载。
-    entity = "ww_ship_npc_warship_01_entity"
+    entity = "empty_section_entity"
     # 允许玩家在界面中查看该舰船。
-    can_be_inspected = yes
+    can_be_inspected = no
     # 舰体显示缩放倍率。
     hull_scale = 1.75
     # 航速与机动参数。
@@ -76,16 +75,15 @@ ww_ship_sizes = {
     required_component_set = "thruster_components"
     required_component_set = "combat_computers"
     required_component_set = "sensor_components"
-    required_component_set = "ACTIONS"
 
     # 允许出现设计对象。是否可由玩家改装还取决于其他定义和生成方式。
-    is_designable = yes
+    is_designable = no
 
     # 英雄舰标签，启用英雄舰相关 UI/规则。
     is_hero_ship = no
 
     # 自定义状态本地化前缀；对应 BR_HERO_XP_STATE_title/value/tt。
-    custom_state_loc_prefix = "BR_HERO_XP_STATE"
+    # custom_state_loc_prefix = "BR_HERO_XP_STATE"
 
     # 英雄舰舰队界面背景图。
     # hero_ship_fleet_background = "GFX_fleet_view_main_precom_bg"
@@ -103,6 +101,7 @@ ww_ship_sizes = {
 
     # 建造位置限制
     potential_construction = {
+        always = no
         OR = {
             is_scope_type = starbase  # 可在普通星基地建造
             AND = {
@@ -117,13 +116,11 @@ ww_ship_sizes = {
 
     # 建造要求
     potential_country = {
-        # any_owned_ship = {
-        #     or = {
-        #         is_ship_size = npc_warship_01
-        #         is_ship_size = ww_ship_sizes
-        #     }
-        # }
-        # has_country_flag = yes_ww_ship
+        always = no
+        or = {
+            is_country_type = br_player_pve
+            is_country_type = br_player_pvp
+        }
     }
     # 实际建造条件（显示自定义提示）
     possible_construction = {
@@ -168,5 +165,99 @@ ww_ship_sizes = {
         alloys = 100
     }
     #所有人可用
+    available_to_everyone = yes
+}
+
+# ============================================================
+# 先锋级英雄舰（br_vanguard）
+# 基于原版泰坦模型，三段式区段（bow/mid/stern）
+#使用泰坦模型做假英雄舰，等DLC有没有新英雄舰机制用
+# 光环槽统一挂载技能，is_hero_ship=no 避免无法设计的限制
+# ============================================================
+br_vanguard = {
+    entity = "titan_entity"
+    # 可被玩家查看
+    can_be_inspected = yes
+    # 舰体缩放
+    hull_scale = 1.5
+    # 航速与机动
+    max_speed = 120
+    acceleration = 0.2
+    rotation_speed = 0.15
+    # 碰撞半径
+    collision_radius = 8.0
+    # 舰船自身加成
+    modifier = {
+    }
+    # 基础船体值
+    max_hitpoints = 5000
+    # 战斗体积和舰队规模
+    combat_size_multiplier = 120
+    size_multiplier = 100
+    # 大地图图标，原版路径interface/solar_system.gfx，但是被巨像骷髅头覆盖了，应该是给普通船用的
+    map_counter_icon = ship_counter_64
+    # 图标，原版路径interface/icons.gfx
+    icon = hero_ship
+    # 舰队容量占用
+    fleet_slot_size = 8
+    # 三段式区段，定位器与原版泰坦一致
+    section_slots = {
+        "bow" = { locator = "part1" }
+        "mid" = { locator = "part2" }
+        "stern" = { locator = "part3" }
+    }
+    num_target_locators = 4
+    # 英雄舰保护
+    never_lost = yes
+    never_mia = yes
+    is_space_station = no
+    on_click_sound = "ui_kaiju_select_fleet"
+    #图标原版路径interface/icons.gfx，GFX_ship_class_medium
+    ship_class_icon_frame = 61
+    class = shipclass_military_special
+    # 建造属性
+    base_buildtime = 60
+    can_have_federation_design = no
+    enable_default_design = yes
+    enable_3dview_in_ship_browser = yes
+    construction_type = starbase_shipyard
+    # 必需组件集 — 光环槽用于挂载技能
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "thruster_components"
+    required_component_set = "combat_computers"
+    required_component_set = "sensor_components"
+    required_component_set = "br_hero_ship_Core"
+    # 允许设计
+    is_designable = yes
+    is_hero_ship = no
+    # 组件计入成本
+    components_add_to_cost = no
+    # 建造成本,限制一艘，建造用来复活，防止被摧毁后就没了。
+    resources = {
+        category = ships
+        cost = { alloys = 1000 }
+    }
+    # 建造要求，没有船是英雄舰
+    potential_country = {
+        or = {
+            is_country_type = br_player_pve
+            is_country_type = br_player_pvp
+        }
+    }
+    # 建造位置
+    potential_construction = {
+        is_scope_type = starbase
+    }
+    # 建造条件
+    possible_construction = {
+        custom_tooltip = {
+            fail_text = not_has_br_vanguard_ship
+            NOT = {
+                any_owned_ship = { is_ship_size = br_vanguard }
+            }
+        }
+    }
+    min_upgrade_cost = { alloys = 100 }
     available_to_everyone = yes
 }

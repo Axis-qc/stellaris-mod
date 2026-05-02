@@ -1,11 +1,12 @@
 # ============================================================
 # PVE护卫舰区段模板
-# 流派：炮击、近战、鱼雷、航母
+# 流派：航母（S1+H1+P1）
 # 护卫舰由 mid（中段）组成
+# 造价基准：原版corvette=40合金，航母+50%=60
 # ============================================================
 
 # ==================== 航母型 ====================
-# 中段：S1H1，小槽 + 机库（机库共用小槽定位点，无可见机库模型）
+# 中段：S1+H1+P1，小槽 + 机库 + 点防御
 ship_section_template = {
     key = "BR_PVE_CORVETTE_CARRIER"
     ship_size = corvette
@@ -13,12 +14,21 @@ ship_section_template = {
     should_draw_components = yes
     entity = "corvette_S3_entity"
     icon = "GFX_ship_part_core_mid"
+
     component_slot = {
         name = "SMALL_GUN_01"
         template = "small_turret"
         locatorname = "small_gun_01"
     }
 
+    # 点防御槽位，共享小炮定位点
+    component_slot = {
+        name = "PD_01"
+        template = "point_defence_turret"
+        locatorname = "small_gun_02"
+    }
+
+    # 机库共享小炮定位点，无可见机库模型
     component_slot = {
         name = "STRIKE_CRAFT_01"
         template = "large_strike_craft"
@@ -31,5 +41,8 @@ ship_section_template = {
 
     resources = {
         category = ship_sections
+        cost = {
+            alloys = 60
+        }
     }
 }

@@ -40,17 +40,107 @@ fleet_event = {
 
     trigger = {
         any_owned_ship = {
-            is_ship_size = ww_ship_sizes
+            is_ship_size = br_vanguard
         }
     }
 
     immediate = {
         every_owned_ship = {
             limit = {
-                is_ship_size = ww_ship_sizes
+                is_ship_size = br_vanguard
             }
-            repair_ship = yes
+            repair_percentage = 1
+            repair_armor_percentage = 1
+            repair_shield_percentage = 1
         }
+    }
+}
+
+# 力量核心原型：接战后每日叠加伤害，脱战清空。
+fleet_event = {
+    id = br.1211
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_POWER
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                NOT = { has_fleet_flag = br_vanguard_power_combat_stack_active }
+            }
+            set_fleet_flag = br_vanguard_power_combat_stack_active
+            clear_variable = br_vanguard_power_combat_stack
+            fleet_event = { id = br.1212 days = 1 }
+        }
+    }
+}
+
+fleet_event = {
+    id = br.1212
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {
+                is_in_combat = yes
+                any_owned_ship = {
+                    is_ship_size = br_vanguard
+                    has_component = BR_VANGUARD_CORE_POWER
+                }
+            }
+
+            if = {
+                limit = {
+                    NOT = { is_variable_set = br_vanguard_power_combat_stack }
+                }
+                set_variable = { which = br_vanguard_power_combat_stack value = 0 }
+            }
+
+            if = {
+                limit = {
+                    check_variable = { which = br_vanguard_power_combat_stack value < 100 }
+                }
+                change_variable = { which = br_vanguard_power_combat_stack value = 1 }
+            }
+
+            remove_modifier = br_vanguard_power_combat_stack_damage
+            add_modifier = {
+                modifier = br_vanguard_power_combat_stack_damage
+                days = 2
+                mult = br_vanguard_power_combat_stack
+            }
+
+            fleet_event = { id = br.1212 days = 1 }
+        }
+
+        else = {
+            remove_modifier = br_vanguard_power_combat_stack_damage
+            clear_variable = br_vanguard_power_combat_stack
+            remove_fleet_flag = br_vanguard_power_combat_stack_active
+        }
+    }
+}
+
+fleet_event = {
+    id = br.1213
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_POWER
+        }
+    }
+
+    immediate = {
     }
 }
 

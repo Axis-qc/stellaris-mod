@@ -1,0 +1,111 @@
+# 先锋级推进器（5级）
+# 从 ww_ship_two.txt 转换，适配 br_vanguard 舰体
+@vanguard_thruster_power_1 = -200
+@vanguard_thruster_power_2 = -300
+@vanguard_thruster_power_3 = -400
+@vanguard_thruster_power_4 = -500
+@vanguard_thruster_power_5 = -600
+
+@vanguard_thruster_cost_1 = 60
+@vanguard_thruster_cost_2 = 120
+@vanguard_thruster_cost_3 = 180
+@vanguard_thruster_cost_4 = 240
+@vanguard_thruster_cost_5 = 300
+
+# 1级 — 化学推进器
+utility_component_template = {
+    key = "BR_VANGUARD_THRUSTER_1"
+    size = small
+    icon = "GFX_ship_part_thruster_1"
+    icon_frame = 1
+    power = @vanguard_thruster_power_1
+    resources = {
+        category = ship_components
+        cost = { alloys = @vanguard_thruster_cost_1 }
+    }
+    modifier = {}
+    prerequisites = { "tech_thrusters_1" }
+    component_set = "thruster_components"
+    size_restriction = { br_vanguard }
+    upgrades_to = "BR_VANGUARD_THRUSTER_2"
+    ai_weight = { weight = 1 }
+}
+
+# 2级 — 离子推进器
+utility_component_template = {
+    key = "BR_VANGUARD_THRUSTER_2"
+    size = small
+    icon = "GFX_ship_part_thruster_2"
+    icon_frame = 1
+    power = @vanguard_thruster_power_2
+    resources = {
+        category = ship_components
+        cost = { alloys = @vanguard_thruster_cost_2 }
+    }
+    modifier = { ship_base_speed_mult = 0.25 }
+    prerequisites = { "tech_thrusters_2" }
+    component_set = "thruster_components"
+    size_restriction = { br_vanguard }
+    upgrades_to = "BR_VANGUARD_THRUSTER_3"
+    ai_weight = { weight = 2 }
+}
+
+# 3级 — 等离子推进器
+utility_component_template = {
+    key = "BR_VANGUARD_THRUSTER_3"
+    size = small
+    icon = "GFX_ship_part_thruster_3"
+    icon_frame = 1
+    power = @vanguard_thruster_power_3
+    resources = {
+        category = ship_components
+        cost = { alloys = @vanguard_thruster_cost_3 }
+    }
+    modifier = { ship_base_speed_mult = 0.50 }
+    prerequisites = { "tech_thrusters_3" }
+    component_set = "thruster_components"
+    size_restriction = { br_vanguard }
+    upgrades_to = "BR_VANGUARD_THRUSTER_4"
+    ai_weight = { weight = 3 }
+}
+
+# 4级 — 脉冲推进器
+utility_component_template = {
+    key = "BR_VANGUARD_THRUSTER_4"
+    size = small
+    icon = "GFX_ship_part_thruster_4"
+    icon_frame = 1
+    power = @vanguard_thruster_power_4
+    resources = {
+        category = ship_components
+        cost = { alloys = @vanguard_thruster_cost_4 }
+    }
+    modifier = { ship_base_speed_mult = 0.75 }
+    prerequisites = { "tech_thrusters_4" }
+    component_set = "thruster_components"
+    size_restriction = { br_vanguard }
+    upgrades_to = "BR_VANGUARD_THRUSTER_5"
+    ai_weight = { weight = 4 }
+}
+
+# 5级 — 暗物质推进器
+utility_component_template = {
+    key = "BR_VANGUARD_THRUSTER_5"
+    size = small
+    icon = "GFX_ship_part_thruster_5"
+    icon_frame = 1
+    power = @vanguard_thruster_power_5
+    resources = {
+        category = ship_components
+        cost = { alloys = @vanguard_thruster_cost_5  sr_dark_matter = 32 }
+    }
+    modifier = { ship_base_speed_mult = 1.25 }
+    prerequisites = { "tech_dark_matter_propulsion" }
+    component_set = "thruster_components"
+    size_restriction = { br_vanguard }
+    ai_weight = {
+        weight = 5
+        modifier = { factor = 0.0  no_resource_for_component = { RESOURCE = sr_dark_matter } }
+        modifier = { factor = 0.0  is_ai = yes }
+    }
+}

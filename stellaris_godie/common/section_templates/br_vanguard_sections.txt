@@ -1,0 +1,98 @@
+# 先锋级区段模板
+# ==================== 舰首（Bow）====================
+# 巨炮槽
+ship_section_template = {
+    key = "BR_VANGUARD_BOW"
+    ship_size = br_vanguard
+    fits_on_slot = bow
+    should_draw_components = yes
+    entity = "titan_bow_entity"
+    icon = "GFX_ship_part_core_bow"
+
+    #T武器槽 — 泰坦主炮
+    component_slot = {
+        name = "TITANIC_01"
+        template = "invisible_titanic_fixed"
+        locatorname = "xl_gun_01"
+    }
+
+    large_utility_slots = 6
+
+    resources = {
+        category = ship_sections
+        cost = {
+            alloys = 1
+        }
+    }
+}
+
+# ==================== 中段（Mid）====================
+# 4个L炮槽 + 4个大槽
+ship_section_template = {
+    key = "BR_VANGUARD_MID"
+    ship_size = br_vanguard
+    fits_on_slot = mid
+    should_draw_components = yes
+    entity = "titan_mid_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "large_turret"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_02"
+        template = "large_turret"
+        locatorname = "large_gun_02"
+    }
+    component_slot = {
+        name = "LARGE_GUN_03"
+        template = "large_turret"
+        locatorname = "large_gun_03"
+    }
+    component_slot = {
+        name = "LARGE_GUN_04"
+        template = "large_turret"
+        locatorname = "large_gun_04"
+    }
+
+    large_utility_slots = 6
+
+    resources = {
+        category = ship_sections
+        cost = {
+            alloys = 1
+        }
+    }
+}
+
+# ==================== 舰尾（Stern）====================
+# 2个L炮槽 + 2个aux槽（光环+自修）+ 2个大槽
+ship_section_template = {
+    key = "BR_VANGUARD_STERN"
+    ship_size = br_vanguard
+    fits_on_slot = stern
+    should_draw_components = yes
+    entity = "titan_stern_entity"
+    icon = "GFX_ship_part_core_stern"
+
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "large_turret"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_02"
+        template = "large_turret"
+        locatorname = "large_gun_02"
+    }
+    aux_utility_slots = 3
+
+    resources = {
+        category = ship_sections
+        cost = {
+            alloys = 1
+        }
+    }
+}

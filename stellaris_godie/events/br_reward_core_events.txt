@@ -14,24 +14,28 @@ country_event = {
         set_country_flag = br_reward_path_selected
         set_country_flag = br_reward_path_strike_craft
         give_technology = { tech = tech_strike_craft_2 message = yes }
+        hidden_effect = { country_event = { id = br.6121 } }
     }
     option = {
         name = BR_REWARD_PATH_MISSILE
         set_country_flag = br_reward_path_selected
         set_country_flag = br_reward_path_missile
         give_technology = { tech = tech_missiles_2 message = yes }
+        hidden_effect = { country_event = { id = br.6121 } }
     }
     option = {
         name = BR_REWARD_PATH_LASER
         set_country_flag = br_reward_path_selected
         set_country_flag = br_reward_path_laser
         give_technology = { tech = tech_lasers_2 message = yes }
+        hidden_effect = { country_event = { id = br.6121 } }
     }
     option = {
         name = BR_REWARD_PATH_KINETIC
         set_country_flag = br_reward_path_selected
         set_country_flag = br_reward_path_kinetic
         give_technology = { tech = tech_mass_drivers_2 message = yes }
+        hidden_effect = { country_event = { id = br.6121 } }
     }
     option = {
         name = BR_REWARD_PATH_DEFENSE
@@ -39,5 +43,39 @@ country_event = {
         set_country_flag = br_reward_path_defense
         give_technology = { tech = tech_shields_2 message = yes }
         give_technology = { tech = tech_ship_armor_2 message = yes }
+        hidden_effect = { country_event = { id = br.6121 } }
+    }
+}
+
+# 二级流派选择后，按当前玩家帝国已有的先锋级设计直接发放一艘。
+country_event = {
+    id = br.6121
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { any_owned_fleet = { } }
+            random_owned_design = {
+                limit = { is_ship_size = br_vanguard }
+                save_event_target_as = br_reward_vanguard_design
+            }
+            if = {
+                limit = { exists = event_target:br_reward_vanguard_design }
+                random_owned_fleet = { save_event_target_as = br_reward_vanguard_spawn_fleet }
+                create_fleet = {
+                    name = random
+                    effect = {
+                        set_owner = root
+                        create_ship = {
+                            name = random
+                            design = event_target:br_reward_vanguard_design
+                            graphical_culture = root
+                        }
+                        set_location = { target = event_target:br_reward_vanguard_spawn_fleet distance = 35 angle = random }
+                    }
+                }
+            }
+        }
     }
 }

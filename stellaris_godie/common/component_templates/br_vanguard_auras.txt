@@ -1,0 +1,174 @@
+# 先锋级英雄舰核心占位部件
+utility_component_template = {
+    key = "BR_VANGUARD_CORE_POWER"
+    size = small
+    icon = "GFX_ship_part_aura_targeting_grid"
+    icon_frame = 1
+    power = 0
+
+    size_restriction = { br_vanguard }
+    component_set = "br_hero_ship_Core"
+
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_self_repair_fail_tt
+                always = yes
+            }
+        }
+
+        name = on_br_hero_self_repair_activated
+        tooltip = br_hero_self_repair_ship_button
+        icon = GFX_fleet_order_auto_construct
+        icon_selected = GFX_fleet_order_auto_construct
+        activity_key = br_hero_self_repair_activity_key
+        context_menu_name = br_hero_self_repair_menu_title
+        progress_activity_key = br_hero_self_repair_progress_activity_key
+        required_progress = 1
+        cooldown = 30
+        slot = 1
+    }
+
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_POWER
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_vanguard_power_combat_stack_fail_tt
+                always = yes
+            }
+        }
+
+        name = on_br_vanguard_power_combat_stack_activated
+        tooltip = br_vanguard_power_combat_stack_ship_button
+        icon = GFX_fleet_order_button_special_project
+        icon_selected = GFX_fleet_order_button_special_project
+        activity_key = br_vanguard_power_combat_stack_activity_key
+        context_menu_name = br_vanguard_power_combat_stack_menu_title
+        progress_activity_key = br_vanguard_power_combat_stack_progress_activity_key
+        required_progress = 1
+        cooldown = 1
+        slot = 2
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+utility_component_template = {
+    key = "BR_VANGUARD_CORE_DEFENSE"
+    size = small
+    icon = "GFX_ship_part_aura_shield_recharger"
+    icon_frame = 1
+    power = 0
+
+    size_restriction = { br_vanguard }
+    component_set = "br_hero_ship_Core"
+
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_self_repair_fail_tt
+                always = yes
+            }
+        }
+
+        name = on_br_hero_self_repair_activated
+        tooltip = br_hero_self_repair_ship_button
+        icon = GFX_fleet_order_auto_construct
+        icon_selected = GFX_fleet_order_auto_construct
+        activity_key = br_hero_self_repair_activity_key
+        context_menu_name = br_hero_self_repair_menu_title
+        progress_activity_key = br_hero_self_repair_progress_activity_key
+        required_progress = 1
+        cooldown = 30
+        slot = 1
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}
+
+utility_component_template = {
+    key = "BR_VANGUARD_CORE_SUPPORT"
+    size = small
+    icon = "GFX_ship_part_aura_minefield"
+    icon_frame = 1
+    power = 0
+
+    size_restriction = { br_vanguard }
+    component_set = "br_hero_ship_Core"
+
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_self_repair_fail_tt
+                always = yes
+            }
+        }
+
+        name = on_br_hero_self_repair_activated
+        tooltip = br_hero_self_repair_ship_button
+        icon = GFX_fleet_order_auto_construct
+        icon_selected = GFX_fleet_order_auto_construct
+        activity_key = br_hero_self_repair_activity_key
+        context_menu_name = br_hero_self_repair_menu_title
+        progress_activity_key = br_hero_self_repair_progress_activity_key
+        required_progress = 1
+        cooldown = 30
+        slot = 1
+    }
+
+    ai_weight = {
+        weight = 1
+    }
+}

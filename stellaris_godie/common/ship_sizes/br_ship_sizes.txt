@@ -1,5 +1,5 @@
 br_dominator = {
-    entity = "empty_section_entity"
+    entity = "colossus_entity"
     # 舰体显示缩放倍率。
     hull_scale = 1.75
     formation_priority = @colossus_formation_priority
@@ -49,6 +49,14 @@ br_dominator = {
         upkeep = {
             energy = -30
             alloys = -10
+        }
+    }
+
+    # 建造要求
+    potential_country = {
+        or = {
+            is_country_type = br_player_pve
+            is_country_type = br_player_pvp
         }
     }
 
