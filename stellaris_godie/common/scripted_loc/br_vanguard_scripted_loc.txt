@@ -1,0 +1,28 @@
+# 主动技能：检测 br_skill_self_repair_unlocked
+defined_text = {
+    name = GetBRVanguardSkillActive
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_repair
+        trigger = { owner = { has_country_flag = br_skill_self_repair_unlocked } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# 被动技能：检测 br_hero_core_power + br_skill_combat_stack_unlocked
+defined_text = {
+    name = GetBRVanguardSkillPassive
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_combat_stack
+        trigger = {
+            owner = {
+                has_country_flag = br_hero_core_power
+                has_country_flag = br_skill_combat_stack_unlocked
+            }
+        }
+    }
+    default = br_vanguard_skill_locked
+}

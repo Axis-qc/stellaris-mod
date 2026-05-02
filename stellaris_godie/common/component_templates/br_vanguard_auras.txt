@@ -50,7 +50,7 @@ utility_component_template = {
         }
 
         name = on_br_hero_self_repair_activated
-        tooltip = br_hero_self_repair_ship_button
+        tooltip = br_vanguard_core_ship_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_self_repair_activity_key
@@ -59,39 +59,6 @@ utility_component_template = {
         required_progress = 1
         cooldown = 30
         slot = 1
-    }
-
-    scripted_action = {
-        scope = self
-
-        possible = {
-            always = yes
-        }
-
-        button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_vanguard
-                has_component = BR_VANGUARD_CORE_POWER
-            }
-        }
-
-        button_clickable = {
-            custom_tooltip = {
-                fail_text = br_vanguard_power_combat_stack_fail_tt
-                always = yes
-            }
-        }
-
-        name = on_br_vanguard_power_combat_stack_activated
-        tooltip = br_vanguard_power_combat_stack_ship_button
-        icon = GFX_fleet_order_button_special_project
-        icon_selected = GFX_fleet_order_button_special_project
-        activity_key = br_vanguard_power_combat_stack_activity_key
-        context_menu_name = br_vanguard_power_combat_stack_menu_title
-        progress_activity_key = br_vanguard_power_combat_stack_progress_activity_key
-        required_progress = 1
-        cooldown = 1
-        slot = 2
     }
 
     ai_weight = {
@@ -131,7 +98,7 @@ utility_component_template = {
         }
 
         name = on_br_hero_self_repair_activated
-        tooltip = br_hero_self_repair_ship_button
+        tooltip = br_vanguard_core_ship_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_self_repair_activity_key
@@ -179,7 +146,7 @@ utility_component_template = {
         }
 
         name = on_br_hero_self_repair_activated
-        tooltip = br_hero_self_repair_ship_button
+        tooltip = br_vanguard_core_ship_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_self_repair_activity_key

@@ -1,0 +1,52 @@
+# 测试法令 — 直接切换英雄舰技能 flag
+# 激活即生效，length = 1 瞬间结束，可反复点击切换。
+
+br_test_toggle_self_repair = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { always = yes }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_self_repair_unlocked }
+            remove_country_flag = br_skill_self_repair_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_self_repair_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+br_test_toggle_combat_stack = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { always = yes }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_combat_stack_unlocked }
+            remove_country_flag = br_skill_combat_stack_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_combat_stack_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
