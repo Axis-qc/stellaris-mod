@@ -292,3 +292,33 @@ country_event = {
         }
     }
 }
+
+# br.1010：给所有br_danger星系添加星系内特效（无人区无法用尘云，改用ambient_object）喵
+country_event = {
+    id = br.1010
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_system = {
+            limit = {
+                has_star_flag = br_danger
+                NOT = { any_system_ambient_object = { has_ambient_object_flag = br_danger_cloud_object } }
+            }
+            star = {
+                create_ambient_object = {
+                    type = br_danger_cloud
+                    location = this
+                }
+                last_created_ambient_object = {
+                    set_ambient_object_flag = br_danger_cloud_object
+                    set_location = {
+                        target = prev
+                        distance = 0
+                        angle = random
+                    }
+                }
+            }
+        }
+    }
+}

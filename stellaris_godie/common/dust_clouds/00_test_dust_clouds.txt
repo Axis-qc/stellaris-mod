@@ -1,0 +1,40 @@
+# 测试尘云 - 引用风暴贴图，仅对br_danger星系生效
+# 【不可用】activate_fog_machine 作用域是 country，只在激活国国境内渲染。
+# br_danger 星系在无人区，不在任何国境内，尘云无法显示。
+# 如需对无人区星系加特效，用 create_ambient_object（星系内）方案。
+test_storm_cloud = {
+	textures = {
+		opacity_texture = "gfx/map/storms/NebulaOpacity.dds"
+		diffuse_texture = "gfx/map/storms/electric_storm_color.dds"
+		lightning_texture_atlas = "gfx/map/storms/lightning/lightning_big_storm_01.dds"
+		lightning_horisontal_tiles = 1
+		lightning_vertical_tiles = 1
+	}
+
+	parameters = {
+		min_size = 30.0
+		max_size = 40.0
+		size_change_speed = 0.3
+		rotation_speed = 0.1
+		counter_rotation_speed = 0.02
+		min_opacity = 0.7
+		max_opacity = 1.0
+		opacity_change_speed = 0.05
+		lightning_intencity_min = 0.5
+		lightning_intencity_max = 0.8
+		lightning_duration_min = 0.8
+		lightning_duration_max = 1.2
+		lightning_switch_interval_min = 0.5
+		lightning_switch_interval_max = 1.0
+		size_change_reversion = yes
+		opacity_change_reversion = yes
+	}
+
+	condition = { has_star_flag = br_danger }
+
+	on_system_added = {
+	}
+
+	on_system_removed = {
+	}
+}
