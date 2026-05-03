@@ -57,6 +57,116 @@ fleet_event = {
     }
 }
 
+# 能量超频激活
+fleet_event = {
+    id = br.1214
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_POWER
+        }
+        owner = { has_country_flag = br_skill_energy_overclock_unlocked }
+        NOT = { has_fleet_flag = br_overclock_active }
+    }
+
+    immediate = {
+        set_fleet_flag = br_overclock_active
+        set_variable = { which = br_overclock_timer value = 10 }
+
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_POWER
+            }
+            add_modifier = {
+                modifier = br_vanguard_power_energy_overclock
+                days = 11
+            }
+        }
+
+        fleet_event = { id = br.1215 days = 1 }
+    }
+}
+
+# 能量超频每日 tick
+fleet_event = {
+    id = br.1215
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {
+                check_variable = { which = br_overclock_timer value > 0 }
+            }
+            subtract_variable = { which = br_overclock_timer value = 1 }
+
+            every_owned_ship = {
+                limit = {
+                    is_ship_size = br_vanguard
+                    has_component = BR_VANGUARD_CORE_POWER
+                }
+                remove_modifier = br_vanguard_power_energy_overclock
+                add_modifier = {
+                    modifier = br_vanguard_power_energy_overclock
+                    days = 2
+                }
+            }
+
+            fleet_event = { id = br.1215 days = 1 }
+        }
+        else = {
+            remove_fleet_flag = br_overclock_active
+            every_owned_ship = {
+                limit = {
+                    is_ship_size = br_vanguard
+                    has_component = BR_VANGUARD_CORE_POWER
+                }
+                remove_modifier = br_vanguard_power_energy_overclock
+            }
+        }
+    }
+}
+
+# 越战越勇被动：每击杀 +1% 武器伤害，上限 50%
+country_event = {
+    id = br.1213
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_skill_kill_stack_unlocked
+        check_variable = { which = br_vanguard_kill_count value < 50 }
+    }
+
+    immediate = {
+        change_variable = { which = br_vanguard_kill_count value = 1 }
+
+        remove_modifier = br_vanguard_power_kill_stack_damage
+        if = {
+            limit = {
+                check_variable = { which = br_vanguard_kill_count value >= 50 }
+            }
+            set_variable = { which = br_vanguard_kill_count value = 50 }
+            add_modifier = {
+                modifier = br_vanguard_power_kill_stack_damage
+                days = -1
+                mult = 50
+            }
+        }
+        else = {
+            add_modifier = {
+                modifier = br_vanguard_power_kill_stack_damage
+                days = -1
+                mult = br_vanguard_kill_count
+            }
+        }
+    }
+}
+
 # 力量核心原型：接战后每日叠加伤害，脱战清空。
 fleet_event = {
     id = br.1211
@@ -129,7 +239,7 @@ fleet_event = {
         }
     }
 }
-
+#母舰光环效果
 # 由 on_br_dominator_mode_toggle_activated 触发。
 fleet_event = {
     id = br.1201

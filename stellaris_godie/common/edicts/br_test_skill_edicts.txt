@@ -50,3 +50,53 @@ br_test_toggle_combat_stack = {
 
     ai_weight = { weight = 0 }
 }
+
+br_test_toggle_energy_overclock = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { always = yes }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_energy_overclock_unlocked }
+            remove_country_flag = br_skill_energy_overclock_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_energy_overclock_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+br_test_toggle_kill_stack = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { always = yes }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_kill_stack_unlocked }
+            remove_country_flag = br_skill_kill_stack_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_kill_stack_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}

@@ -1,18 +1,29 @@
 # 主动技能：检测 br_skill_self_repair_unlocked
 defined_text = {
-    name = GetBRVanguardSkillActive
+    name = GetBRVanguardActive1
     random = no
 
     text = {
         localization_key = br_vanguard_skill_repair
         trigger = { owner = { has_country_flag = br_skill_self_repair_unlocked } }
     }
-    default = br_vanguard_skill_locked
+    default = ""
+}
+
+defined_text = {
+    name = GetBRVanguardActive2
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_overclock
+        trigger = { owner = { has_country_flag = br_skill_energy_overclock_unlocked } }
+    }
+    default = ""
 }
 
 # 被动技能：检测 br_hero_core_power + br_skill_combat_stack_unlocked
 defined_text = {
-    name = GetBRVanguardSkillPassive
+    name = GetBRVanguardPassive1
     random = no
 
     text = {
@@ -24,5 +35,85 @@ defined_text = {
             }
         }
     }
-    default = br_vanguard_skill_locked
+    default = ""
+}
+
+defined_text = {
+    name = GetBRVanguardPassive2
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_kill_stack
+        trigger = { owner = { has_country_flag = br_skill_kill_stack_unlocked } }
+    }
+    default = ""
+}
+
+# 主动技能全部未解锁时显示
+defined_text = {
+    name = GetBRVanguardActiveEmpty
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_self_repair_unlocked
+                    has_country_flag = br_skill_energy_overclock_unlocked
+                }
+            }
+        }
+    }
+    default = ""
+}
+
+# 被动技能全部未解锁时显示
+defined_text = {
+    name = GetBRVanguardPassiveEmpty
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_combat_stack_unlocked
+                    has_country_flag = br_skill_kill_stack_unlocked
+                }
+            }
+        }
+    }
+    default = ""
+}
+
+# 右键菜单动态文本 — 仅力量核心测试
+defined_text = {
+    name = GetBRVanguardContextMenu
+    random = no
+
+    text = {
+        localization_key = br_context_menu_overclock
+        trigger = { owner = { has_country_flag = br_skill_energy_overclock_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_repair
+        trigger = { owner = { has_country_flag = br_skill_self_repair_unlocked } }
+    }
+    default = br_hero_active_skill_menu_title
+}
+
+# 英雄舰等级/经验显示。作用域：舰船（Root），读取 owner 国家变量。
+defined_text = {
+    name = GetBRHeroXPState
+    random = no
+    text = {
+        localization_key = BR_HERO_XP_MAX
+        trigger = { owner = { check_variable = { which = br_hero_level value >= 12 } } }
+    }
+    text = {
+        localization_key = BR_HERO_XP_STATE_value
+        trigger = { owner = { has_country_flag = br_hero_level_initialized } }
+    }
+    default = BR_HERO_XP_NO_DATA
 }

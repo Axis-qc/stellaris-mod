@@ -2,8 +2,12 @@
  not_has_br_vanguard_ship: "§H已拥有先锋§!"
 
  BR_HERO_XP_STATE_title:0 "英雄舰状态："
- BR_HERO_XP_STATE_value:0 "等级：§Y3§!\n经验：§Y120 / 300§!"
  BR_HERO_XP_STATE_tt:0 "显示当前英雄舰等级与经验。"
+
+ # 英雄舰等级动态显示
+ BR_HERO_XP_NO_DATA:0 "等级：§Y？§!"
+ BR_HERO_XP_MAX:0 "等级：§Y12§!\n经验已达上限"
+ BR_HERO_XP_STATE_value:0 "等级：§Y[Root.owner.br_hero_level]§!\n经验：§Y[Root.owner.br_hero_xp]§! / [Root.owner.br_hero_xp_next]§!"
 
  BR_HERO_SKILL_LOCKED:0 "未解锁技能"
  BR_HERO_SKILL_LOCKED_DESC:0 "该英雄舰技能尚未解锁。"
@@ -19,24 +23,47 @@
  br_hero_self_repair_menu_title:0 "$br_hero_self_repair$"
  br_hero_self_repair_progress_activity_key:0 "$br_hero_self_repair_activity_key$（§Y$PROGRESS$%§!）"
  br_hero_self_repair_fail_tt:0 ""
+
+ br_hero_active_skill:0 "英雄舰技能"
+ br_hero_active_skill_activity_key:0 "释放[Root.GetBRVanguardContextMenu]"
+ br_hero_active_skill_menu_title:0 "释放[Root.GetBRVanguardContextMenu]"
+
+ br_context_menu_repair:0 "§H自动构造修复§!"
+ br_context_menu_overclock:0 "§H能量超频§!"
+ br_hero_active_skill_progress_activity_key:0 "$br_hero_active_skill_activity_key$（§Y$PROGRESS$%§!）"
+ br_hero_active_skill_fail_tt:0 ""
  BR_HERO_SELF_REPAIR_ACTIONS:0 "$br_hero_self_repair$"
  BR_HERO_SELF_REPAIR_ACTIONS_DESC:0 "为英雄舰挂载自动构造修复指令。"
  br_hero_self_repair_ship_button:0 "§H$br_hero_self_repair_menu_title$§!\n恢复自身§G100%§!船体、装甲和护盾。\n冷却：§Y30天§!"
 
  # 技能合并展示
  br_vanguard_skill_repair:0 "§G自动构造修复§!\n  恢复自身§G100%§!船体、装甲和护盾。冷却：§Y30天§!"
+ br_vanguard_skill_overclock:0 "§G能量超频§!\n  §G+40%§!射速，每日§R-1%§!船体，持续§Y10天§!"
  br_vanguard_skill_combat_stack:0 "§G战意过载§!\n  进入战斗后每日§G+1§!层，每层§G+2%§!武器伤害，最多§Y100§!层。脱战清空。"
+ br_vanguard_skill_kill_stack:0 "§G越战越勇§!\n  每击杀一艘敌舰永久§G+1%§!武器伤害，上限§Y50%§!。当前：§Y[Root.owner.br_vanguard_kill_count]§!层"
  br_vanguard_skill_locked:0 "§R未解锁§!"
- br_vanguard_core_ship_button:0 "§H英雄舰技能§!\n主动：[Root.GetBRVanguardSkillActive]\n被动：[Root.GetBRVanguardSkillPassive]"
+ br_vanguard_active_skill_button:0 "§H英雄舰技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActive2][Root.GetBRVanguardActiveEmpty]\n被动：[Root.GetBRVanguardPassive1][Root.GetBRVanguardPassive2][Root.GetBRVanguardPassiveEmpty]"
 
  br_vanguard_power_combat_stack_damage:0 "战意过载"
  br_vanguard_power_combat_stack_damage_desc:0 "该舰队正在积累战意过载层数。每层提供§G+2%§!武器伤害，脱离战斗后清空。"
+
+ br_vanguard_power_energy_overclock:0 "能量超频"
+ br_vanguard_power_energy_overclock_desc:0 "该舰船正在超频运转。§G+40%§!射速，每日§R-1%§!船体。"
+
+ br_vanguard_power_kill_stack_damage:0 "越战越勇"
+ br_vanguard_power_kill_stack_damage_desc:0 "每击杀一艘敌舰，永久§G+1%§!武器伤害，上限§Y50%§!。"
 
  # 测试法令
  edict_br_test_toggle_self_repair:0 "切换自修技能"
  edict_br_test_toggle_self_repair_desc:0 "测试用。激活后切换自修技能 flag。"
  edict_br_test_toggle_combat_stack:0 "切换战意过载技能"
  edict_br_test_toggle_combat_stack_desc:0 "测试用。激活后切换战意过载技能 flag。"
+
+ edict_br_test_toggle_energy_overclock:0 "切换能量超频技能"
+ edict_br_test_toggle_energy_overclock_desc:0 "测试用。激活后切换能量超频技能 flag。"
+
+ edict_br_test_toggle_kill_stack:0 "切换越战越勇技能"
+ edict_br_test_toggle_kill_stack_desc:0 "测试用。激活后切换越战越勇技能 flag。"
 
  tech_ww_ship:0 "无畏战舰"
  tech_ww_ship_desc:0 "来自远古的神秘战舰。"
