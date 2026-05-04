@@ -63,8 +63,13 @@ utility_component_template = {
 
         button_clickable = {
             custom_tooltip = {
-                fail_text = br_hero_active_skill_fail_tt
-                always = yes
+                fail_text = br_hero_no_skill_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_self_repair_unlocked
+                        has_country_flag = br_skill_energy_overclock_unlocked
+                    }
+                }
             }
         }
 
@@ -156,6 +161,7 @@ utility_component_template = {
         mult = owner.br_hero_level
     }
 
+    # 防御核心技能模组尚未实装
     scripted_action = {
         scope = self
 
@@ -171,8 +177,8 @@ utility_component_template = {
 
         button_clickable = {
             custom_tooltip = {
-                fail_text = br_hero_active_skill_fail_tt
-                always = yes
+                fail_text = br_hero_no_skill_unlocked_tt
+                always = no
             }
         }
 
@@ -244,6 +250,7 @@ utility_component_template = {
         mult = owner.br_hero_level
     }
 
+    # 支援核心技能模组尚未实装
     scripted_action = {
         scope = self
 
@@ -259,8 +266,8 @@ utility_component_template = {
 
         button_clickable = {
             custom_tooltip = {
-                fail_text = br_hero_active_skill_fail_tt
-                always = yes
+                fail_text = br_hero_no_skill_unlocked_tt
+                always = no
             }
         }
 
