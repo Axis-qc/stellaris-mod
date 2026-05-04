@@ -20,9 +20,7 @@ fleet_event = {
     }
 
     immediate = {
-        set_fleet_flag = br_overclock_active
-        set_variable = { which = br_overclock_timer value = 10 }
-
+        set_timed_fleet_flag = { flag = br_overclock_active days = 10 }
         every_owned_ship = {
             limit = {
                 is_ship_size = br_vanguard
@@ -30,55 +28,13 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_energy_overclock
-                days = 11
-            }
-        }
-
-        fleet_event = { id = heroship.1101 days = 1 }
-    }
-}
-
-# 能量超频每日 tick
-fleet_event = {
-    id = heroship.1101
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        if = {
-            limit = {
-                check_variable = { which = br_overclock_timer value > 0 }
-            }
-            subtract_variable = { which = br_overclock_timer value = 1 }
-
-            every_owned_ship = {
-                limit = {
-                    is_ship_size = br_vanguard
-                    has_component = BR_VANGUARD_CORE_POWER
-                }
-                remove_modifier = br_vanguard_power_energy_overclock
-                add_modifier = {
-                    modifier = br_vanguard_power_energy_overclock
-                    days = 2
-                }
-            }
-
-            fleet_event = { id = heroship.1101 days = 1 }
-        }
-        else = {
-            remove_fleet_flag = br_overclock_active
-            every_owned_ship = {
-                limit = {
-                    is_ship_size = br_vanguard
-                    has_component = BR_VANGUARD_CORE_POWER
-                }
-                remove_modifier = br_vanguard_power_energy_overclock
+                days = 10
             }
         }
     }
 }
 
-# 越战越勇被动：每击杀 +1% 武器伤害，上限 50%
+# 越战越勇被动：每击杀 +1% 武器伤害，上限 50%（仅先锋舰）
 country_event = {
     id = heroship.1102
     hide_window = yes
@@ -86,29 +42,30 @@ country_event = {
 
     trigger = {
         has_country_flag = br_skill_kill_stack_unlocked
-        check_variable = { which = br_vanguard_kill_count value < 50 }
+        check_variable = { which = br_vanguard_kill_count value < value:br_vanguard_kill_cap }
     }
 
     immediate = {
         change_variable = { which = br_vanguard_kill_count value = 1 }
-
-        remove_modifier = br_vanguard_power_kill_stack_damage
         if = {
             limit = {
-                check_variable = { which = br_vanguard_kill_count value >= 50 }
+                check_variable = { which = br_vanguard_kill_count value > value:br_vanguard_kill_cap }
             }
-            set_variable = { which = br_vanguard_kill_count value = 50 }
-            add_modifier = {
-                modifier = br_vanguard_power_kill_stack_damage
-                days = -1
-                mult = 50
-            }
+            set_variable = { which = br_vanguard_kill_count value = value:br_vanguard_kill_cap }
         }
-        else = {
-            add_modifier = {
-                modifier = br_vanguard_power_kill_stack_damage
-                days = -1
-                mult = br_vanguard_kill_count
+
+        every_owned_fleet = {
+            every_owned_ship = {
+                limit = {
+                    is_ship_size = br_vanguard
+                    has_component = BR_VANGUARD_CORE_POWER
+                }
+                remove_modifier = br_vanguard_power_kill_stack_damage
+                add_modifier = {
+                    modifier = br_vanguard_power_kill_stack_damage
+                    days = -1
+                    mult = owner.br_vanguard_kill_count
+                }
             }
         }
     }

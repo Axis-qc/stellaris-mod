@@ -146,14 +146,13 @@ country_event = {
         if = {
             limit = {
                 check_variable = { which = br_hero_level value > br_hero_level_prev }
-                has_country_flag = br_hero_core_selected
             }
             country_event = { id = heroship.4 }
         }
     }
 }
 
-# 升级路由：按等级 + 核心类型分发到对应选择事件
+# 升级路由：>= 防跳级，已有 flag 防重复
 country_event = {
     id = heroship.4
     hide_window = yes
@@ -162,54 +161,99 @@ country_event = {
     immediate = {
         # Lv2 → 核心选择
         if = {
-            limit = { check_variable = { which = br_hero_level value = 2 } }
+            limit = {
+                check_variable = { which = br_hero_level value >= 2 }
+                NOT = { has_country_flag = br_hero_core_selected }
+            }
             country_event = { id = heroship.5 }
         }
         # Lv3 → 主动技能选择
         else_if = {
-            limit = { check_variable = { which = br_hero_level value = 3 } }
+            limit = {
+                check_variable = { which = br_hero_level value >= 3 }
+                has_country_flag = br_hero_core_selected
+            }
             if = {
-                limit = { has_country_flag = br_hero_core_power }
+                limit = {
+                    has_country_flag = br_hero_core_power
+                    NOR = {
+                        has_country_flag = br_skill_energy_overclock_unlocked
+                        has_country_flag = br_skill_self_repair_unlocked
+                    }
+                }
                 country_event = { id = heroship.10 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_defense }
+                limit = {
+                    always = no # TODO: 防御核心 Lv3 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_defense
+                }
                 country_event = { id = heroship.20 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_support }
+                limit = {
+                    always = no # TODO: 支援核心 Lv3 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_support
+                }
                 country_event = { id = heroship.30 }
             }
         }
         # Lv5 → 被动技能选择
         else_if = {
-            limit = { check_variable = { which = br_hero_level value = 5 } }
+            limit = {
+                check_variable = { which = br_hero_level value >= 5 }
+                has_country_flag = br_hero_core_selected
+            }
             if = {
-                limit = { has_country_flag = br_hero_core_power }
+                limit = {
+                    has_country_flag = br_hero_core_power
+                    NOR = {
+                        has_country_flag = br_skill_combat_stack_unlocked
+                        has_country_flag = br_skill_kill_stack_unlocked
+                    }
+                }
                 country_event = { id = heroship.11 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_defense }
+                limit = {
+                    always = no # TODO: 防御核心 Lv5 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_defense
+                }
                 country_event = { id = heroship.21 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_support }
+                limit = {
+                    always = no # TODO: 支援核心 Lv5 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_support
+                }
                 country_event = { id = heroship.31 }
             }
         }
-        # Lv7 → 大招选择
+        # Lv7 → 大招选择（预留）
         else_if = {
-            limit = { check_variable = { which = br_hero_level value = 7 } }
+            limit = {
+                check_variable = { which = br_hero_level value >= 7 }
+                has_country_flag = br_hero_core_selected
+            }
             if = {
-                limit = { has_country_flag = br_hero_core_power }
+                limit = {
+                    always = no # TODO: 火力核心 Lv7 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_power
+                }
                 country_event = { id = heroship.12 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_defense }
+                limit = {
+                    always = no # TODO: 防御核心 Lv7 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_defense
+                }
                 country_event = { id = heroship.22 }
             }
             else_if = {
-                limit = { has_country_flag = br_hero_core_support }
+                limit = {
+                    always = no # TODO: 支援核心 Lv7 实装后替换为对应 flag 检查
+                    has_country_flag = br_hero_core_support
+                }
                 country_event = { id = heroship.32 }
             }
         }
