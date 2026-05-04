@@ -24,51 +24,24 @@ country_event = {
 }
 
 # ========================
-# 英雄舰核心选择 — reward.6101-6199
-# 由 br_reward_level_events.txt 在达到 2 级时调用。
-# 玩家选择核心类型，设置国家 flag 解锁对应核心组件。
+# 英雄舰发放 — reward.6101
+# 由 br_reward_level_events.txt 在玩家达到 2 级时调用。
+# 核心选择已迁移至 heroship_level_events.txt (heroship.5)，在英雄舰 Lv2 时触发。
+# 技能解锁由后续升级选择事件逐一处理。
 # ========================
 
 country_event = {
     id = reward.6101
-    is_triggered_only = yes
-    title = REWARD_HERO_CORE_TITLE
-    desc = REWARD_HERO_CORE_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = {
-        name = REWARD_HERO_CORE_POWER
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_power
-        set_country_flag = br_skill_self_repair_unlocked
-        set_country_flag = br_skill_combat_stack_unlocked
-        set_country_flag = br_skill_energy_overclock_unlocked
-        set_country_flag = br_skill_kill_stack_unlocked
-        hidden_effect = { country_event = { id = reward.6102 days = 30 } }
-    }
-    option = {
-        name = REWARD_HERO_CORE_DEFENSE
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_defense
-        set_country_flag = br_skill_self_repair_unlocked
-        hidden_effect = { country_event = { id = reward.6102 days = 30 } }
-    }
-    option = {
-        name = REWARD_HERO_CORE_SUPPORT
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_support
-        set_country_flag = br_skill_self_repair_unlocked
-        hidden_effect = { country_event = { id = reward.6102 days = 30 } }
-    }
-}
-
-# 英雄舰发放
-country_event = {
-    id = reward.6102
     hide_window = yes
     is_triggered_only = yes
 
+    trigger = {
+        NOT = { has_country_flag = br_hero_ship_received }
+    }
+
     immediate = {
+        set_country_flag = br_hero_ship_received
+
         if = {
             limit = { any_owned_fleet = { } }
             random_owned_design = {
@@ -102,143 +75,6 @@ country_event = {
 }
 
 # ========================
-# 英雄舰独立等级系统 — reward.6200-6299
-# reward.6200：后备初始化（主初始化在 reward.6102 发放英雄舰时）
-# reward.6201：杀敌经验（由 on_ship_destroyed_perp 直接调用）
-# reward.6202：等级检测与升级
+# 等级系统 & 核心选择 & 技能选择 → heroship_level_events.txt (heroship.1-999)
+# 技能执行 → heroship_skill_*.txt (heroship.1000-1999)
 # ========================
-
-country_event = {
-    id = reward.6200
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        is_country_type = br_player_pve
-        NOT = { has_country_flag = br_hero_level_initialized }
-    }
-
-    immediate = {
-        set_country_flag = br_hero_level_initialized
-        set_variable = { which = br_hero_level value = 1 }
-        set_variable = { which = br_hero_xp value = 0 }
-        set_variable = { which = br_hero_xp_next value = 10 }
-    }
-}
-
-# 英雄舰杀敌经验系统（由 on_ship_destroyed_perp 直接调用，fromfromfrom = 被击杀舰船）
-country_event = {
-    id = reward.6201
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        is_country_type = br_player_pve
-        from = { is_country_type = br_pve_enemy }
-        exists = fromfromfrom
-        any_owned_ship = {
-            is_ship_size = br_vanguard
-            solar_system = {
-                is_same_value = fromfrom.solar_system
-            }
-        }
-    }
-
-    immediate = {
-
-        if = {
-            limit = { fromfromfrom = { is_ship_size = br_pve_boss } }
-            change_variable = { which = br_hero_xp value = 500 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = battleship } }
-            change_variable = { which = br_hero_xp value = 40 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = cruiser } }
-            change_variable = { which = br_hero_xp value = 20 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = destroyer } }
-            change_variable = { which = br_hero_xp value = 10 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = corvette } }
-            change_variable = { which = br_hero_xp value = 5 }
-        }
-        else = {
-            change_variable = { which = br_hero_xp value = 3 }
-        }
-
-        country_event = { id = reward.6202 }
-    }
-}
-
-# 英雄舰等级检测升级
-country_event = {
-    id = reward.6202
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        if = {
-            limit = { check_variable = { which = br_hero_xp value >= 6830 } }
-            set_variable = { which = br_hero_level value = 12 }
-            set_variable = { which = br_hero_xp_next value = 0 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 4630 } }
-            set_variable = { which = br_hero_level value = 11 }
-            set_variable = { which = br_hero_xp_next value = 6830 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 3130 } }
-            set_variable = { which = br_hero_level value = 10 }
-            set_variable = { which = br_hero_xp_next value = 4630 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 2080 } }
-            set_variable = { which = br_hero_level value = 9 }
-            set_variable = { which = br_hero_xp_next value = 3130 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 1330 } }
-            set_variable = { which = br_hero_level value = 8 }
-            set_variable = { which = br_hero_xp_next value = 2080 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 810 } }
-            set_variable = { which = br_hero_level value = 7 }
-            set_variable = { which = br_hero_xp_next value = 1330 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 460 } }
-            set_variable = { which = br_hero_level value = 6 }
-            set_variable = { which = br_hero_xp_next value = 810 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 240 } }
-            set_variable = { which = br_hero_level value = 5 }
-            set_variable = { which = br_hero_xp_next value = 460 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 110 } }
-            set_variable = { which = br_hero_level value = 4 }
-            set_variable = { which = br_hero_xp_next value = 240 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 40 } }
-            set_variable = { which = br_hero_level value = 3 }
-            set_variable = { which = br_hero_xp_next value = 110 }
-        }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 10 } }
-            set_variable = { which = br_hero_level value = 2 }
-            set_variable = { which = br_hero_xp_next value = 40 }
-        }
-        else = {
-            set_variable = { which = br_hero_level value = 1 }
-            set_variable = { which = br_hero_xp_next value = 10 }
-        }
-    }
-}

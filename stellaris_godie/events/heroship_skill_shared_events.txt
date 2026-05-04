@@ -1,0 +1,71 @@
+namespace = heroship
+
+# ========================
+# 英雄舰共有技能 — heroship.1000-1099
+# 所有核心均可使用的通用技能
+# ========================
+
+# 自修复（由 on_br_hero_active_skill_activated 触发，slot=1）
+fleet_event = {
+    id = heroship.1000
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+        owner = { has_country_flag = br_skill_self_repair_unlocked }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+            }
+            add_modifier = {
+                modifier = br_vanguard_self_repair
+                days = 30
+            }
+        }
+    }
+}
+
+# 舰队集合到母舰位置（由 slot=2 action 触发）
+fleet_event = {
+    id = heroship.1001
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+
+    immediate = {
+        owner = {
+            random_owned_ship = {
+                limit = {
+                    is_ship_size = br_dominator
+                }
+                fleet = {
+                    save_event_target_as = br_mothership_fleet
+                }
+            }
+        }
+
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = controller
+                    controller = {
+                        is_same_value = root.owner
+                    }
+                    NOT = { is_same_value = root }
+                }
+                set_location = event_target:br_mothership_fleet
+            }
+        }
+    }
+}

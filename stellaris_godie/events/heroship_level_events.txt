@@ -1,0 +1,383 @@
+namespace = heroship
+
+# ========================
+# 英雄舰等级系统 — heroship.1-9
+# ========================
+
+# 后备初始化（主初始化在 reward.6101 发放英雄舰时）
+country_event = {
+    id = heroship.1
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_country_type = br_player_pve
+        NOT = { has_country_flag = br_hero_level_initialized }
+    }
+
+    immediate = {
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+    }
+}
+
+# 英雄舰杀敌经验（由 on_ship_destroyed_perp 直接调用，fromfromfrom = 被击杀舰船）
+country_event = {
+    id = heroship.2
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_country_type = br_player_pve
+        from = { is_country_type = br_pve_enemy }
+        exists = fromfromfrom
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            solar_system = {
+                is_same_value = fromfrom.solar_system
+            }
+        }
+    }
+
+    immediate = {
+
+        if = {
+            limit = { fromfromfrom = { is_ship_size = br_pve_boss } }
+            change_variable = { which = br_hero_xp value = 500 }
+        }
+        else_if = {
+            limit = { fromfromfrom = { is_ship_size = battleship } }
+            change_variable = { which = br_hero_xp value = 40 }
+        }
+        else_if = {
+            limit = { fromfromfrom = { is_ship_size = cruiser } }
+            change_variable = { which = br_hero_xp value = 20 }
+        }
+        else_if = {
+            limit = { fromfromfrom = { is_ship_size = destroyer } }
+            change_variable = { which = br_hero_xp value = 10 }
+        }
+        else_if = {
+            limit = { fromfromfrom = { is_ship_size = corvette } }
+            change_variable = { which = br_hero_xp value = 5 }
+        }
+        else = {
+            change_variable = { which = br_hero_xp value = 3 }
+        }
+
+        country_event = { id = heroship.3 }
+    }
+}
+
+# 等级检测 + 升级触发
+country_event = {
+    id = heroship.3
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # 保存旧等级用于比较
+        set_variable = { which = br_hero_level_prev value = br_hero_level }
+
+        # 根据经验计算当前等级
+        if = {
+            limit = { check_variable = { which = br_hero_xp value >= 6830 } }
+            set_variable = { which = br_hero_level value = 12 }
+            set_variable = { which = br_hero_xp_next value = 0 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 4630 } }
+            set_variable = { which = br_hero_level value = 11 }
+            set_variable = { which = br_hero_xp_next value = 6830 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 3130 } }
+            set_variable = { which = br_hero_level value = 10 }
+            set_variable = { which = br_hero_xp_next value = 4630 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 2080 } }
+            set_variable = { which = br_hero_level value = 9 }
+            set_variable = { which = br_hero_xp_next value = 3130 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 1330 } }
+            set_variable = { which = br_hero_level value = 8 }
+            set_variable = { which = br_hero_xp_next value = 2080 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 810 } }
+            set_variable = { which = br_hero_level value = 7 }
+            set_variable = { which = br_hero_xp_next value = 1330 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 460 } }
+            set_variable = { which = br_hero_level value = 6 }
+            set_variable = { which = br_hero_xp_next value = 810 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 240 } }
+            set_variable = { which = br_hero_level value = 5 }
+            set_variable = { which = br_hero_xp_next value = 460 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 110 } }
+            set_variable = { which = br_hero_level value = 4 }
+            set_variable = { which = br_hero_xp_next value = 240 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 40 } }
+            set_variable = { which = br_hero_level value = 3 }
+            set_variable = { which = br_hero_xp_next value = 110 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_xp value >= 10 } }
+            set_variable = { which = br_hero_level value = 2 }
+            set_variable = { which = br_hero_xp_next value = 40 }
+        }
+        else = {
+            set_variable = { which = br_hero_level value = 1 }
+            set_variable = { which = br_hero_xp_next value = 10 }
+        }
+
+        # 升级触发：当前等级 > 旧等级时弹出选择窗口
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value > br_hero_level_prev }
+                has_country_flag = br_hero_core_selected
+            }
+            country_event = { id = heroship.4 }
+        }
+    }
+}
+
+# 升级路由：按等级 + 核心类型分发到对应选择事件
+country_event = {
+    id = heroship.4
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # Lv2 → 核心选择
+        if = {
+            limit = { check_variable = { which = br_hero_level value = 2 } }
+            country_event = { id = heroship.5 }
+        }
+        # Lv3 → 主动技能选择
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 3 } }
+            if = {
+                limit = { has_country_flag = br_hero_core_power }
+                country_event = { id = heroship.10 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_defense }
+                country_event = { id = heroship.20 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_support }
+                country_event = { id = heroship.30 }
+            }
+        }
+        # Lv5 → 被动技能选择
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 5 } }
+            if = {
+                limit = { has_country_flag = br_hero_core_power }
+                country_event = { id = heroship.11 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_defense }
+                country_event = { id = heroship.21 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_support }
+                country_event = { id = heroship.31 }
+            }
+        }
+        # Lv7 → 大招选择
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 7 } }
+            if = {
+                limit = { has_country_flag = br_hero_core_power }
+                country_event = { id = heroship.12 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_defense }
+                country_event = { id = heroship.22 }
+            }
+            else_if = {
+                limit = { has_country_flag = br_hero_core_support }
+                country_event = { id = heroship.32 }
+            }
+        }
+    }
+}
+
+# ========================
+# 英雄舰 Lv2 核心选择
+# 仅设置核心 flag，不解锁技能（技能由后续升级选择逐一解锁）
+# ========================
+
+country_event = {
+    id = heroship.5
+    is_triggered_only = yes
+    title = REWARD_HERO_CORE_TITLE
+    desc = REWARD_HERO_CORE_DESC
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = REWARD_HERO_CORE_POWER
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_power
+    }
+    option = {
+        name = REWARD_HERO_CORE_DEFENSE
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_defense
+    }
+    option = {
+        name = REWARD_HERO_CORE_SUPPORT
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_support
+    }
+}
+
+# ========================
+# 火力核心技能选择 — heroship.10-19
+# ========================
+
+# Lv3 主动技能：自动构造修复 / 能量超频（二选一）
+country_event = {
+    id = heroship.10
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = br_hero_self_repair_menu_title
+        custom_tooltip = br_hero_self_repair_ship_button
+        set_country_flag = br_skill_self_repair_unlocked
+    }
+    option = {
+        name = br_context_menu_overclock
+        custom_tooltip = br_vanguard_skill_overclock
+        set_country_flag = br_skill_energy_overclock_unlocked
+    }
+}
+
+# Lv5 被动技能：战意过载 / 越战越勇（二选一）
+country_event = {
+    id = heroship.11
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = br_vanguard_power_combat_stack_damage
+        custom_tooltip = br_vanguard_skill_combat_stack
+        set_country_flag = br_skill_combat_stack_unlocked
+    }
+    option = {
+        name = br_vanguard_power_kill_stack_damage
+        custom_tooltip = br_vanguard_skill_kill_stack
+        set_country_flag = br_skill_kill_stack_unlocked
+    }
+}
+
+# Lv7 大招（预留）
+country_event = {
+    id = heroship.12
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+# ========================
+# 防御核心技能选择 — heroship.20-29
+# ========================
+
+country_event = {
+    id = heroship.20
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+country_event = {
+    id = heroship.21
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+country_event = {
+    id = heroship.22
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+# ========================
+# 支援核心技能选择 — heroship.30-39
+# ========================
+
+country_event = {
+    id = heroship.30
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+country_event = {
+    id = heroship.31
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
+
+country_event = {
+    id = heroship.32
+    is_triggered_only = yes
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+
+    option = {
+        name = BR_HERO_SKILL_LOCKED
+    }
+}
