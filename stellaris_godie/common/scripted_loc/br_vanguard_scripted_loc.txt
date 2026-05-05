@@ -1,6 +1,11 @@
 #文本必须有一个保底显示，否则会导致游戏闪退
 
-# 主动技能：检测 br_skill_self_repair_unlocked
+# ========================
+# 主动技能文本
+# 每个 defined_text 对应一种已解锁的主动技能，用于 tooltip 中展示技能描述
+# ========================
+
+# 防御核心 — 自修复
 defined_text = {
     name = GetBRVanguardActive1
     random = no
@@ -12,6 +17,7 @@ defined_text = {
     default = ""
 }
 
+# 火力核心 — 能量超频
 defined_text = {
     name = GetBRVanguardActive2
     random = no
@@ -23,7 +29,57 @@ defined_text = {
     default = ""
 }
 
-# 被动技能：检测 br_hero_core_power + br_skill_combat_stack_unlocked
+# 火力核心 — 弱点扫描
+defined_text = {
+    name = GetBRVanguardActive3
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_scan
+        trigger = { owner = { has_country_flag = br_skill_weakness_scan_unlocked } }
+    }
+    default = ""
+}
+
+# ========================
+# 旗舰超载文本
+# ========================
+
+# 火力核心 — 火力全开
+defined_text = {
+    name = GetBRVanguardUltimate1
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_fullfire
+        trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
+    }
+    default = ""
+}
+
+# 旗舰超载全部未解锁
+defined_text = {
+    name = GetBRVanguardUltimateEmpty
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                }
+            }
+        }
+    }
+    default = ""
+}
+
+# ========================
+# 被动技能文本
+# ========================
+
+# 火力核心 — 战意过载
 defined_text = {
     name = GetBRVanguardPassive1
     random = no
@@ -40,6 +96,7 @@ defined_text = {
     default = ""
 }
 
+# 火力核心 — 越战越勇
 defined_text = {
     name = GetBRVanguardPassive2
     random = no
@@ -51,7 +108,12 @@ defined_text = {
     default = ""
 }
 
-# 主动技能全部未解锁时显示
+# ========================
+# 空状态兜底 — 无技能解锁时显示
+# NOR 须包含所有已实装的对应类型技能 flag
+# ========================
+
+# 主动技能全部未解锁
 defined_text = {
     name = GetBRVanguardActiveEmpty
     random = no
@@ -63,6 +125,7 @@ defined_text = {
                 NOR = {
                     has_country_flag = br_skill_self_repair_unlocked
                     has_country_flag = br_skill_energy_overclock_unlocked
+                    has_country_flag = br_skill_weakness_scan_unlocked
                 }
             }
         }
@@ -70,7 +133,30 @@ defined_text = {
     default = ""
 }
 
-# 当前核心主动技能 CD 显示。实际 CD 由事件层 country 变量管理。
+# 被动技能全部未解锁
+defined_text = {
+    name = GetBRVanguardPassiveEmpty
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_combat_stack_unlocked
+                    has_country_flag = br_skill_kill_stack_unlocked
+                }
+            }
+        }
+    }
+    default = ""
+}
+
+# ========================
+# CD 动态显示
+# 作用域：舰船，按核心类型匹配对应 CD 文本
+# ========================
+
 defined_text = {
     name = GetBRVanguardActiveCD
     random = no
@@ -109,29 +195,40 @@ defined_text = {
     default = ""
 }
 
-# 被动技能全部未解锁时显示
+# ========================
+# 旗舰超载 CD 动态显示
+# 作用域：舰船，火力核心专用
+# ========================
+
 defined_text = {
-    name = GetBRVanguardPassiveEmpty
+    name = GetBRVanguardUltimateCD
     random = no
 
     text = {
-        localization_key = br_vanguard_skill_locked
+        localization_key = br_vanguard_ultimate_cd_power
         trigger = {
-            owner = {
-                NOR = {
-                    has_country_flag = br_skill_combat_stack_unlocked
-                    has_country_flag = br_skill_kill_stack_unlocked
-                }
-            }
+            br_has_power_vanguard = yes
+            owner = { br_vanguard_power_ultimate_cd_running = yes }
+        }
+    }
+    text = {
+        localization_key = br_vanguard_ultimate_cd_ready
+        trigger = {
+            br_has_power_vanguard = yes
         }
     }
     default = ""
 }
 
+# ========================
 # 右键菜单动态文本
+# 按已解锁技能匹配对应的菜单名
+# ========================
+
 defined_text = {
     name = GetBRVanguardContextMenu
     random = no
+
     text = {
         localization_key = br_vanguard_skill_locked
         trigger = {
@@ -139,6 +236,7 @@ defined_text = {
                 NOR = {
                     has_country_flag = br_skill_self_repair_unlocked
                     has_country_flag = br_skill_energy_overclock_unlocked
+                    has_country_flag = br_skill_weakness_scan_unlocked
                 }
             }
         }
@@ -151,13 +249,26 @@ defined_text = {
         localization_key = br_context_menu_repair
         trigger = { owner = { has_country_flag = br_skill_self_repair_unlocked } }
     }
+    text = {
+        localization_key = br_context_menu_scan
+        trigger = { owner = { has_country_flag = br_skill_weakness_scan_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_fullfire
+        trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
+    }
     default = br_hero_active_skill_menu_title
 }
 
-# 英雄舰等级/经验显示。作用域：舰船（Root），读取 owner 国家变量。
+# ========================
+# 通用 — 英雄舰等级/经验
+# 作用域：舰船（Root），读取 owner 国家变量
+# ========================
+
 defined_text = {
     name = GetBRHeroXPState
     random = no
+
     text = {
         localization_key = BR_HERO_XP_MAX
         trigger = { owner = { check_variable = { which = br_hero_level value >= 12 } } }

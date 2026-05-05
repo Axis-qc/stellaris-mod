@@ -40,6 +40,46 @@ fleet_event = {
     }
 }
 
+# 弱点扫描激活（由 on_br_hero_active_skill_activated 触发）
+fleet_event = {
+    id = heroship.1101
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_power_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_weakness_scan_unlocked
+            br_vanguard_power_skill_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = controller
+                    controller = { is_hostile = root.owner }
+                }
+                every_owned_ship = {
+                    add_modifier = {
+                        modifier = br_vanguard_power_weakness_scan
+                        days = 15
+                    }
+                }
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_power_skill_cd value = 120 }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+    }
+}
+
 # 越战越勇被动：每击杀 +1% 武器伤害，上限 50%（仅先锋舰）
 country_event = {
     id = heroship.1102
@@ -147,6 +187,69 @@ fleet_event = {
             remove_modifier = br_vanguard_power_combat_stack_damage
             clear_variable = br_vanguard_power_combat_stack
             remove_fleet_flag = br_vanguard_power_combat_stack_active
+        }
+    }
+}
+
+# ========================
+# 火力核心旗舰超载技能 — heroship.1110-1119
+# ========================
+
+# 火力全开激活（由 on_br_power_ultimate_activated 触发）
+fleet_event = {
+    id = heroship.1110
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_power_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_fullfire_unlocked
+            br_vanguard_power_ultimate_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_POWER
+            }
+            add_modifier = {
+                modifier = br_vanguard_power_ultimate_fullfire
+                days = 5
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_power_ultimate_cd value = 300 }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+        fleet_event = { id = heroship.1111 days = 5 }
+    }
+}
+
+# 火力全开副作用：射速 -30%，持续 15 天
+fleet_event = {
+    id = heroship.1111
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = { always = yes }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_POWER
+            }
+            add_modifier = {
+                modifier = br_vanguard_power_ultimate_fullfire_crash
+                days = 15
+            }
         }
     }
 }

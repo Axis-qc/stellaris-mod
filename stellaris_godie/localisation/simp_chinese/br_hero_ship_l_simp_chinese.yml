@@ -31,17 +31,26 @@
  br_hero_active_skill_activity_key:0 "释放[Root.GetBRVanguardContextMenu]"
  br_hero_active_skill_menu_title:0 "释放[Root.GetBRVanguardContextMenu]（[Root.GetBRVanguardActiveCD]）"
  br_hero_active_skill_progress_activity_key:0 "$br_hero_active_skill_activity_key$（§Y$PROGRESS$%§!）"
+ br_hero_ultimate_skill_activity_key:0 "释放旗舰超载"
+ br_hero_ultimate_skill_menu_title:0 "旗舰超载"
+ br_hero_ultimate_skill_progress_activity_key:0 "$br_hero_ultimate_skill_activity_key$（§Y$PROGRESS$%§!）"
  br_hero_active_skill_fail_tt:0 ""
  br_hero_no_skill_unlocked_tt:0 "§R先锋舰尚未解锁任何主动技能§!"
  br_hero_active_skill_cd_fail_tt:0 "§R先锋舰主动技能仍在冷却中§!"
+ br_hero_no_ultimate_unlocked_tt:0 "§R旗舰超载未解锁§!"
 
  # 技能动态展示主键值（br_vanguard_scripted_loc.txt 引用）
- br_vanguard_active_skill_button:0 "§H先锋舰技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActive2][Root.GetBRVanguardActiveEmpty]\n被动：[Root.GetBRVanguardPassive1][Root.GetBRVanguardPassive2][Root.GetBRVanguardPassiveEmpty]\n[Root.GetBRVanguardActiveCD]"
+ br_vanguard_power_skill_button:0 "§H火力核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive2][Root.GetBRVanguardActive3][Root.GetBRVanguardActiveEmpty]\n被动：[Root.GetBRVanguardPassive1][Root.GetBRVanguardPassive2][Root.GetBRVanguardPassiveEmpty]\n[Root.GetBRVanguardActiveCD]"
+ br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActiveEmpty]\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
+ br_vanguard_support_skill_button:0 "§H支援核心技能§!\n[Root.GetBRHeroXPState]\n主动：§R未解锁§!\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
+ br_vanguard_power_ultimate_button:0 "§H旗舰超载§!\n[Root.GetBRHeroXPState]\n旗舰超载：[Root.GetBRVanguardUltimate1][Root.GetBRVanguardUltimateEmpty]\n[Root.GetBRVanguardUltimateCD]"
  br_vanguard_skill_locked:0 "§R未解锁§!"
  br_vanguard_active_cd_ready:0 "冷却：§G就绪§!"
  br_vanguard_active_cd_power:0 "冷却：§Y[Root.owner.br_vanguard_power_skill_cd]§!天"
  br_vanguard_active_cd_defense:0 "冷却：§Y[Root.owner.br_vanguard_defense_skill_cd]§!天"
  br_vanguard_active_cd_support:0 "冷却：§Y[Root.owner.br_vanguard_support_skill_cd]§!天"
+ br_vanguard_ultimate_cd_power:0 "冷却：§Y[Root.owner.br_vanguard_power_ultimate_cd]§!天"
+ br_vanguard_ultimate_cd_ready:0 "冷却：§G就绪§!"
 
  # ============================================================
  # 技能：自动构造修复（共有，slot=1 主动）
@@ -80,11 +89,15 @@
 
  # 右键菜单
  br_context_menu_overclock:0 "§H能量超频§!"
+ br_context_menu_scan:0 "§H弱点扫描§!"
+ br_context_menu_fullfire:0 "§H火力全开§!"
 
  # 技能合并展示文本（scripted loc 引用）
  br_vanguard_skill_overclock:0 "§G能量超频§!\n  §G+40%§!射速，每日§R-1%§!船体，持续§Y10天§!。基础冷却：§Y90天§!"
+ br_vanguard_skill_scan:0 "§G弱点扫描§!\n  标记本星系所有敌方舰队，受到武器伤害§G+30%§!，持续§Y15天§!。基础冷却：§Y120天§!"
  br_vanguard_skill_combat_stack:0 "§G战意过载§!\n  进入战斗后每日§G+1§!层，每层§G+2%§!武器伤害，最多§Y100§!层。脱战清空。"
  br_vanguard_skill_kill_stack:0 "§G越战越勇§!\n  每击杀一艘敌舰永久§G+1%§!武器伤害，上限§Y50%§!。当前：§Y[Root.owner.br_vanguard_kill_count]§!层"
+ br_vanguard_skill_fullfire:0 "§G火力全开§!\n  §G+200%§!射速，§G+50%§!武器伤害，持续§Y5天§!；结束后§R-30%§!射速，持续§Y15天§!。冷却：§Y300天§!"
 
  # Modifier 描述
  br_vanguard_power_combat_stack_damage:0 "战意过载"
@@ -93,6 +106,12 @@
  br_vanguard_power_energy_overclock_desc:0 "该舰船正在超频运转。§G+40%§!射速，每日§R-1%§!船体。"
  br_vanguard_power_kill_stack_damage:0 "越战越勇"
  br_vanguard_power_kill_stack_damage_desc:0 "每击杀一艘敌舰，永久§G+1%§!武器伤害，上限§Y50%§!。"
+ br_vanguard_power_weakness_scan:0 "弱点扫描"
+ br_vanguard_power_weakness_scan_desc:0 "该舰船已被弱点扫描标记，受到武器伤害§R+30%§!。"
+ br_vanguard_power_ultimate_fullfire:0 "火力全开"
+ br_vanguard_power_ultimate_fullfire_desc:0 "该舰船正在全力输出。§G+200%§!射速，§G+50%§!武器伤害。"
+ br_vanguard_power_ultimate_fullfire_crash:0 "火力全开副作用"
+ br_vanguard_power_ultimate_fullfire_crash_desc:0 "该舰船因火力全开而过热，§R-30%§!射速。"
 
  # ============================================================
  # 测试法令
@@ -106,8 +125,12 @@
  edict_br_test_toggle_combat_stack_desc:0 "测试用。激活后切换战意过载技能 flag。"
  edict_br_test_toggle_energy_overclock:0 "切换能量超频技能"
  edict_br_test_toggle_energy_overclock_desc:0 "测试用。激活后切换能量超频技能 flag。"
+ edict_br_test_toggle_weakness_scan:0 "切换弱点扫描技能"
+ edict_br_test_toggle_weakness_scan_desc:0 "测试用。激活后切换弱点扫描技能 flag。"
  edict_br_test_toggle_kill_stack:0 "切换越战越勇技能"
  edict_br_test_toggle_kill_stack_desc:0 "测试用。激活后切换越战越勇技能 flag。"
+ edict_br_test_toggle_fullfire:0 "切换火力全开技能"
+ edict_br_test_toggle_fullfire_desc:0 "测试用。激活后切换火力全开技能 flag。"
 
  # ============================================================
  # 先锋级英雄舰 — 舰船类型

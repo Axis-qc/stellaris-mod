@@ -103,6 +103,31 @@ br_test_toggle_energy_overclock = {
     ai_weight = { weight = 0 }
 }
 
+br_test_toggle_weakness_scan = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_weakness_scan_unlocked }
+            remove_country_flag = br_skill_weakness_scan_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_weakness_scan_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
 br_test_toggle_kill_stack = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -122,6 +147,31 @@ br_test_toggle_kill_stack = {
         }
         else = {
             set_country_flag = br_skill_kill_stack_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+br_test_toggle_fullfire = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_fullfire_unlocked }
+            remove_country_flag = br_skill_fullfire_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_fullfire_unlocked
         }
     }
 

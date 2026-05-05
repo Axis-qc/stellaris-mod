@@ -293,7 +293,7 @@ country_event = {
 # 火力核心技能选择 — heroship.10-19
 # ========================
 
-# Lv3 主动技能：自动构造修复 / 能量超频（二选一）
+# Lv3 主动技能：能量超频 / 弱点扫描（二选一）
 country_event = {
     id = heroship.10
     is_triggered_only = yes
@@ -302,14 +302,14 @@ country_event = {
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = br_hero_self_repair_menu_title
-        custom_tooltip = br_hero_self_repair_ship_button
-        set_country_flag = br_skill_self_repair_unlocked
-    }
-    option = {
         name = br_context_menu_overclock
         custom_tooltip = br_vanguard_skill_overclock
         set_country_flag = br_skill_energy_overclock_unlocked
+    }
+    option = {
+        name = br_context_menu_scan
+        custom_tooltip = br_vanguard_skill_scan
+        set_country_flag = br_skill_weakness_scan_unlocked
     }
 }
 
@@ -333,7 +333,7 @@ country_event = {
     }
 }
 
-# Lv7 大招（预留）
+# Lv7 旗舰超载：火力全开
 country_event = {
     id = heroship.12
     is_triggered_only = yes
@@ -342,7 +342,9 @@ country_event = {
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_context_menu_fullfire
+        custom_tooltip = br_vanguard_skill_fullfire
+        set_country_flag = br_skill_fullfire_unlocked
     }
 }
 

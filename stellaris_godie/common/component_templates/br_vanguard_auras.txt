@@ -91,14 +91,28 @@ utility_component_template = {
 
     # 主动技能（槽位2），事件层管理实际 CD
     # ─── scripted_action 三个关键字段 ───
-    # possible:         该 action 是否在游戏中存在（静态，组件定义时确定）
+    # possible:         该 action 是否能使用 (对按钮和右键菜单也生效)
     # button_visible:   按钮是否显示在舰队面板上 → 用 flag 控制哪个技能可见
-    # button_clickable: 按钮是否可点击 → 额外运行时条件（资源不足等），置灰显示 fail_text
+    # button_clickable: 按钮是否可点击 → 额外运行时条件（资源不足等），置灰显示 fail_text (仅对按钮生效)
     scripted_action = {
         scope = self
 
         possible = {
-            always = yes
+            custom_tooltip = {
+                fail_text = br_hero_no_skill_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_energy_overclock_unlocked
+                        has_country_flag = br_skill_weakness_scan_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_power_skill_cd_ready = yes
+                }
+            }
         }
 
         button_visible = {
@@ -112,8 +126,8 @@ utility_component_template = {
                 fail_text = br_hero_no_skill_unlocked_tt
                 owner = {
                     OR = {
-                        has_country_flag = br_skill_self_repair_unlocked
                         has_country_flag = br_skill_energy_overclock_unlocked
+                        has_country_flag = br_skill_weakness_scan_unlocked
                     }
                 }
             }
@@ -128,7 +142,7 @@ utility_component_template = {
         # 触发的 scripted effect
         name = on_br_hero_active_skill_activated
         # 按钮提示文本
-        tooltip = br_vanguard_active_skill_button
+        tooltip = br_vanguard_power_skill_button
         # 按钮图标
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
@@ -139,11 +153,63 @@ utility_component_template = {
         # 进度提示文本
         progress_activity_key = br_hero_active_skill_progress_activity_key
         # 所需进度天数
-        required_progress = 4
+        # required_progress = 4
         # 内置防抖冷却；真正技能 CD 由事件层变量管理，这里防止玩家将CD叠0
-        cooldown = 5
+        # cooldown = 5
         # 技能槽位
         slot = 2
+    }
+
+    # 旗舰超载（槽位3）
+    scripted_action = {
+        scope = self
+
+        possible = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_power_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_power_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        name = on_br_power_ultimate_activated
+        tooltip = br_vanguard_power_ultimate_button
+        icon = GFX_fleet_order_button_ground_support_seismic_bombing
+        icon_selected = GFX_fleet_order_button_ground_support_seismic_bombing
+        activity_key = br_hero_ultimate_skill_activity_key
+        context_menu_name = br_hero_ultimate_skill_menu_title
+        progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+        # required_progress = 4
+        # cooldown = 5
+        slot = 3
     }
 
     # AI权重
@@ -204,12 +270,23 @@ utility_component_template = {
         slot = 1
     }
 
-    # 防御核心技能模组尚未实装
+    # 防御核心主动技能挂载处
     scripted_action = {
         scope = self
 
         possible = {
-            always = yes
+            custom_tooltip = {
+                fail_text = br_hero_no_skill_unlocked_tt
+                owner = {
+                    has_country_flag = br_skill_self_repair_unlocked
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_defense_skill_cd_ready = yes
+                }
+            }
         }
 
         button_visible = {
@@ -233,8 +310,8 @@ utility_component_template = {
             }
         }
 
-        name = on_br_hero_active_skill_activated
-        tooltip = br_vanguard_active_skill_button
+        name = on_br_defense_skill_activated
+        tooltip = br_vanguard_defense_skill_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_active_skill_activity_key
@@ -307,7 +384,10 @@ utility_component_template = {
         scope = self
 
         possible = {
-            always = yes
+            custom_tooltip = {
+                fail_text = br_hero_no_skill_unlocked_tt
+                always = yes
+            }
         }
 
         button_visible = {
@@ -319,20 +399,12 @@ utility_component_template = {
         button_clickable = {
             custom_tooltip = {
                 fail_text = br_hero_no_skill_unlocked_tt
-                owner = {
-                    has_country_flag = br_skill_self_repair_unlocked
-                }
-            }
-            custom_tooltip = {
-                fail_text = br_hero_active_skill_cd_fail_tt
-                owner = {
-                    br_vanguard_support_skill_cd_ready = yes
-                }
+                always = yes
             }
         }
 
-        name = on_br_hero_active_skill_activated
-        tooltip = br_vanguard_active_skill_button
+        name = on_br_support_skill_activated
+        tooltip = br_vanguard_support_skill_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_active_skill_activity_key
