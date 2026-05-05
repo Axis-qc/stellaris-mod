@@ -1,3 +1,5 @@
+#文本必须有一个保底显示，否则会导致游戏闪退
+
 # 主动技能：检测 br_skill_self_repair_unlocked
 defined_text = {
     name = GetBRVanguardActive1
@@ -130,7 +132,17 @@ defined_text = {
 defined_text = {
     name = GetBRVanguardContextMenu
     random = no
-
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_self_repair_unlocked
+                    has_country_flag = br_skill_energy_overclock_unlocked
+                }
+            }
+        }
+    }
     text = {
         localization_key = br_context_menu_overclock
         trigger = { owner = { has_country_flag = br_skill_energy_overclock_unlocked } }

@@ -1,7 +1,57 @@
-# 危险星系内特效，大地图没办法
+# =======================
+# create_ambient_object 使用规则
+# =======================
+# 1. entity 是 .asset 中定义的内容，ambient_object 只是给 entity 套了个名字和属性。
+# 2. location = ship 作用域（非 fleet），fleet 无 3D 坐标会导致不可见。
+# 3. entity_face_object = ship/planet/star，beam 类的终点。
+# 4. 普通 entity（如 explosion_particle_entity）：
+#    - 只需 type + location + use_3d_location + scale + duration + play_animation_once
+# 5. beam 类 entity（如 terraforming_beam_entity）：
+#    - 必须 entity_scale_to_size = yes，否则不会拉伸填满两点。
+#    - 必须 scripted_scale = 变量名 配 set_variable 设粗细，不能用 scale。
+#    - location = 起点 ship，entity_face_object = 终点 ship。
+#    - 船→船 beam 方向可能异常，terraforming_beam_entity 原生设计是船→星球垂直俯射。
+# 6. 全字段速查：
+#    type                    = 特效类型（本文件定义的 name）
+#    location                = 放置位置（ship/planet/star/solar_system/event_target）
+#    scale                   = 直接缩放系数（普通 entity 用）
+#    use_3d_location         = yes=3D空间 / no=2D大地图层
+#    entity_offset           = 水平偏移 { min = 0 max = 10 }
+#    entity_offset_angle     = 偏移角度 { min = 0 max = 360 }
+#    entity_offset_height    = 高度偏移 { min = -5 max = 5 }
+#    base_angle_towards      = 初始朝向目标
+#    entity_face_object      = 持续面向/连接目标（beam 类的终点）
+#    entity_scale_to_size    = yes=拉伸填满两端（beam 类必用）
+#    scripted_scale          = 变量缩放（beam 类用此代替 scale）
+#    play_animation_once     = yes=动画只播一次
+#    duration                = 存活天数
+#    effect                  = 未找到原版用例，疑废字段
+# 7. 参考案例：
+#    原版 Azaryn 改造光束（船→星球）：paragon_events.txt paragon.250
+#    本项目自修复粒子（舰队原地爆）：heroship_skill_shared_events.txt heroship.1000
+#    本项目母舰维修光束（船→船，待修复）：br_dominator_action_events.txt br.1200
+# =======================
+
+# 危险星系内特效，大地图无法添加
 ambient_object = {
     name = br_danger_cloud
     entity = electric_storm_entity
+    selectable = no
+    show_name = no
+}
+
+# 自修复技能特效 — 舰队位置爆炸粒子
+ambient_object = {
+    name = br_repair_vfx
+    entity = explosion_particle_entity
+    selectable = no
+    show_name = no
+}
+
+# 维修光束特效 — 母舰 → 目标舰船 beam
+ambient_object = {
+    name = br_repair_beam
+    entity = terraforming_beam_entity
     selectable = no
     show_name = no
 }
