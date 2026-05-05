@@ -1,53 +1,17 @@
 namespace = br
 
-# 接战为本星系所有舰船挂 all_country_buff，含减速/射程惩罚
-fleet_event = {
+# 开局常驻：射程减半
+country_event = {
     id = br.1
     hide_window = yes
     is_triggered_only = yes
 
     trigger = {
-        owner = { is_country_type = br_player_pve }
+        not = { has_modifier = br_combat_range_buff }
     }
-
     immediate = {
-        solar_system = {
-            every_fleet_in_system = {
-                add_modifier = { modifier = all_country_buff days = -1 }
-            }
-        }
-        owner = {
-            if = {
-                limit = { NOT = { has_country_flag = br_combat_buff_active } }
-                set_country_flag = br_combat_buff_active
-                country_event = { id = br.3 days = 15 }
-            }
-        }
-    }
-}
-
-# br.3：每15天检测是否仍有舰队接战，无则清除 all_country_buff
-country_event = {
-    id = br.3
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_country_flag = br_combat_buff_active
-    }
-
-    immediate = {
-        if = {
-            limit = {
-                any_owned_fleet = { is_in_combat = yes }
-            }
-            country_event = { id = br.3 days = 15 }
-        }
-        else = {
-            every_owned_fleet = {
-                remove_modifier = all_country_buff
-            }
-            remove_country_flag = br_combat_buff_active
+        every_country = {
+            add_modifier = { modifier = br_combat_range_buff days = -1 }
         }
     }
 }
@@ -120,3 +84,57 @@ country_event = {
         }
     }
 }
+
+# 接战为本星系所有舰队挂移速减半
+fleet_event = {
+    id = br.11
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        owner = { is_country_type = br_player_pve }
+    }
+
+    immediate = {
+        solar_system = {
+            every_fleet_in_system = {
+                add_modifier = { modifier = br_combat_speed_buff days = -1 }
+            }
+        }
+        owner = {
+            if = {
+                limit = { NOT = { has_country_flag = br_combat_buff_active } }
+                set_country_flag = br_combat_buff_active
+                country_event = { id = br.12 days = 15 }
+            }
+        }
+    }
+}
+
+# br.12：每15天检测是否仍有舰队接战，无则清除移速减半
+country_event = {
+    id = br.12
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_combat_buff_active
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                any_owned_fleet = { is_in_combat = yes }
+            }
+            country_event = { id = br.12 days = 15 }
+        }
+        else = {
+            every_owned_fleet = {
+                remove_modifier = br_combat_speed_buff
+            }
+            remove_country_flag = br_combat_buff_active
+        }
+    }
+}
+
+
