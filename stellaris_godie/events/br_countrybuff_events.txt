@@ -13,3 +13,72 @@ event = {
         }
     }
 }
+
+# br.2：按玩家总舰队战力刷新 PVE 敌方强度
+country_event = {
+    id = br.2
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        exists = event_target:br_pve_enemy_country
+        OR = {
+            AND = {
+                exists = event_target:br_void_country
+                is_same_value = event_target:br_void_country
+            }
+            AND = {
+                NOT = { exists = event_target:br_void_country }
+                is_country_type = br_player_pve
+                exists = event_target:br_pve_alliance_leader
+                is_same_value = event_target:br_pve_alliance_leader
+            }
+        }
+    }
+
+    immediate = {
+        set_variable = { which = br_pve_total_player_fleet_power value = 0 }
+
+        every_country = {
+            limit = {
+                is_ai = no
+                is_country_type = br_player_pve
+            }
+            export_trigger_value_to_variable = {
+                trigger = fleet_power
+                variable = br_pve_tmp_player_fleet_power
+            }
+            root = {
+                change_variable = {
+                    which = br_pve_total_player_fleet_power
+                    value = prev.br_pve_tmp_player_fleet_power
+                }
+            }
+            clear_variable = br_pve_tmp_player_fleet_power
+        }
+
+        event_target:br_pve_enemy_country = {
+            set_variable = {
+                which = br_pve_total_player_fleet_power
+                value = root.br_pve_total_player_fleet_power
+            }
+            remove_modifier = br_pve_enemy_player_fleet_scaling
+            if = {
+                limit = {
+                    root = {
+                        check_variable = {
+                            which = br_pve_total_player_fleet_power
+                            value > 0
+                        }
+                    }
+                }
+                add_modifier = {
+                    modifier = br_pve_enemy_player_fleet_scaling
+                    days = -1
+                    multiplier = root.value:br_pve_enemy_scaling_multiplier
+                }
+            }
+        }
+    }
+}

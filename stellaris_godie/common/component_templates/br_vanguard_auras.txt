@@ -47,54 +47,7 @@ utility_component_template = {
         mult = owner.br_hero_level
     }
 
-    # 主动技能（槽位1）90天CD
-    scripted_action = {
-        scope = self
-
-        possible = {
-            always = yes
-        }
-
-        button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_vanguard
-            }
-        }
-
-        button_clickable = {
-            custom_tooltip = {
-                fail_text = br_hero_no_skill_unlocked_tt
-                owner = {
-                    OR = {
-                        has_country_flag = br_skill_self_repair_unlocked
-                        has_country_flag = br_skill_energy_overclock_unlocked
-                    }
-                }
-            }
-        }
-
-        # 触发的 scripted effect
-        name = on_br_hero_active_skill_activated
-        # 按钮提示文本
-        tooltip = br_vanguard_active_skill_button
-        # 按钮图标
-        icon = GFX_fleet_order_auto_construct
-        icon_selected = GFX_fleet_order_auto_construct
-        # 执行中状态文本
-        activity_key = br_hero_active_skill_activity_key
-        # 右键菜单按钮名
-        context_menu_name = br_hero_active_skill_menu_title
-        # 进度提示文本
-        progress_activity_key = br_hero_active_skill_progress_activity_key
-        # 所需进度天数
-        required_progress = 4
-        # 冷却天数
-        cooldown = 90
-        # 技能槽位
-        slot = 1
-    }
-
-    # 集结技能（槽位2）
+    # 紧急跳跃（槽位1）
     scripted_action = {
         scope = self
 
@@ -132,6 +85,63 @@ utility_component_template = {
         required_progress = 4
         # 冷却天数
         cooldown = 90
+        # 技能槽位
+        slot = 1
+    }
+
+    # 主动技能（槽位2），事件层管理实际 CD
+    # ─── scripted_action 三个关键字段 ───
+    # possible:         该 action 是否在游戏中存在（静态，组件定义时确定）
+    # button_visible:   按钮是否显示在舰队面板上 → 用 flag 控制哪个技能可见
+    # button_clickable: 按钮是否可点击 → 额外运行时条件（资源不足等），置灰显示 fail_text
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_no_skill_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_self_repair_unlocked
+                        has_country_flag = br_skill_energy_overclock_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_power_skill_cd_ready = yes
+                }
+            }
+        }
+
+        # 触发的 scripted effect
+        name = on_br_hero_active_skill_activated
+        # 按钮提示文本
+        tooltip = br_vanguard_active_skill_button
+        # 按钮图标
+        icon = GFX_fleet_order_auto_construct
+        icon_selected = GFX_fleet_order_auto_construct
+        # 执行中状态文本
+        activity_key = br_hero_active_skill_activity_key
+        # 右键菜单按钮名
+        context_menu_name = br_hero_active_skill_menu_title
+        # 进度提示文本
+        progress_activity_key = br_hero_active_skill_progress_activity_key
+        # 所需进度天数
+        required_progress = 4
+        # 内置防抖冷却；真正技能 CD 由事件层变量管理
+        cooldown = 5
         # 技能槽位
         slot = 2
     }
@@ -157,8 +167,41 @@ utility_component_template = {
             ship_hull_add = 500
             ship_armor_add = 500
             ship_shield_add = 500
+            ship_damage_reduction_add = 1
         }
         mult = owner.br_hero_level
+    }
+    # 紧急跳跃（槽位1）
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_fail_tt
+                always = yes
+            }
+        }
+
+        name = on_br_gather_fleets_to_mothership
+        tooltip = br_vanguard_skill_gather
+        icon = GFX_fleet_order_button_mia_jump
+        icon_selected = GFX_fleet_order_button_mia_jump
+        activity_key = br_hero_gather_skill_activity_key
+        context_menu_name = br_hero_gather_skill_menu_title
+        progress_activity_key = br_hero_gather_skill_progress_activity_key
+        required_progress = 4
+        cooldown = 90
+        slot = 1
     }
 
     # 防御核心技能模组尚未实装
@@ -182,6 +225,12 @@ utility_component_template = {
                     has_country_flag = br_skill_self_repair_unlocked
                 }
             }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_defense_skill_cd_ready = yes
+                }
+            }
         }
 
         name = on_br_hero_active_skill_activated
@@ -192,39 +241,7 @@ utility_component_template = {
         context_menu_name = br_hero_active_skill_menu_title
         progress_activity_key = br_hero_active_skill_progress_activity_key
         required_progress = 4
-        cooldown = 90
-        slot = 1
-    }
-
-    scripted_action = {
-        scope = self
-
-        possible = {
-            always = yes
-        }
-
-        button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_vanguard
-            }
-        }
-
-        button_clickable = {
-            custom_tooltip = {
-                fail_text = br_hero_active_skill_fail_tt
-                always = yes
-            }
-        }
-
-        name = on_br_gather_fleets_to_mothership
-        tooltip = br_vanguard_skill_gather
-        icon = GFX_fleet_order_button_mia_jump
-        icon_selected = GFX_fleet_order_button_mia_jump
-        activity_key = br_hero_gather_skill_activity_key
-        context_menu_name = br_hero_gather_skill_menu_title
-        progress_activity_key = br_hero_gather_skill_progress_activity_key
-        required_progress = 4
-        cooldown = 90
+        cooldown = 5
         slot = 2
     }
 
@@ -248,45 +265,11 @@ utility_component_template = {
             ship_hull_add = 500
             ship_armor_add = 500
             ship_shield_add = 500
+            ship_damage_reduction_add = 1
         }
         mult = owner.br_hero_level
     }
-
-    # 支援核心技能模组尚未实装
-    scripted_action = {
-        scope = self
-
-        possible = {
-            always = yes
-        }
-
-        button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_vanguard
-            }
-        }
-
-        button_clickable = {
-            custom_tooltip = {
-                fail_text = br_hero_no_skill_unlocked_tt
-                owner = {
-                    has_country_flag = br_skill_self_repair_unlocked
-                }
-            }
-        }
-
-        name = on_br_hero_active_skill_activated
-        tooltip = br_vanguard_active_skill_button
-        icon = GFX_fleet_order_auto_construct
-        icon_selected = GFX_fleet_order_auto_construct
-        activity_key = br_hero_active_skill_activity_key
-        context_menu_name = br_hero_active_skill_menu_title
-        progress_activity_key = br_hero_active_skill_progress_activity_key
-        required_progress = 4
-        cooldown = 90
-        slot = 1
-    }
-
+    # 紧急跳跃（槽位1）
     scripted_action = {
         scope = self
 
@@ -316,6 +299,47 @@ utility_component_template = {
         progress_activity_key = br_hero_gather_skill_progress_activity_key
         required_progress = 4
         cooldown = 90
+        slot = 1
+    }
+
+    # 支援核心技能模组尚未实装
+    scripted_action = {
+        scope = self
+
+        possible = {
+            always = yes
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_no_skill_unlocked_tt
+                owner = {
+                    has_country_flag = br_skill_self_repair_unlocked
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_support_skill_cd_ready = yes
+                }
+            }
+        }
+
+        name = on_br_hero_active_skill_activated
+        tooltip = br_vanguard_active_skill_button
+        icon = GFX_fleet_order_auto_construct
+        icon_selected = GFX_fleet_order_auto_construct
+        activity_key = br_hero_active_skill_activity_key
+        context_menu_name = br_hero_active_skill_menu_title
+        progress_activity_key = br_hero_active_skill_progress_activity_key
+        required_progress = 4
+        cooldown = 5
         slot = 2
     }
 

@@ -11,16 +11,22 @@ fleet_event = {
     is_triggered_only = yes
 
     trigger = {
-        any_owned_ship = {
-            is_ship_size = br_vanguard
-            has_component = BR_VANGUARD_CORE_POWER
+        br_has_power_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_energy_overclock_unlocked
+            br_vanguard_power_skill_cd_ready = yes
         }
-        owner = { has_country_flag = br_skill_energy_overclock_unlocked }
-        NOT = { has_fleet_flag = br_overclock_active }
     }
 
     immediate = {
-        set_timed_fleet_flag = { flag = br_overclock_active days = 10 }
+        owner = {
+            set_variable = { which = br_vanguard_power_skill_cd value = 90 }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
         every_owned_ship = {
             limit = {
                 is_ship_size = br_vanguard

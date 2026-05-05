@@ -68,6 +68,45 @@ defined_text = {
     default = ""
 }
 
+# 当前核心主动技能 CD 显示。实际 CD 由事件层 country 变量管理。
+defined_text = {
+    name = GetBRVanguardActiveCD
+    random = no
+
+    text = {
+        localization_key = br_vanguard_active_cd_power
+        trigger = {
+            br_has_power_vanguard = yes
+            owner = { br_vanguard_power_skill_cd_running = yes }
+        }
+    }
+    text = {
+        localization_key = br_vanguard_active_cd_defense
+        trigger = {
+            br_has_defense_vanguard = yes
+            owner = { br_vanguard_defense_skill_cd_running = yes }
+        }
+    }
+    text = {
+        localization_key = br_vanguard_active_cd_support
+        trigger = {
+            br_has_support_vanguard = yes
+            owner = { br_vanguard_support_skill_cd_running = yes }
+        }
+    }
+    text = {
+        localization_key = br_vanguard_active_cd_ready
+        trigger = {
+            OR = {
+                br_has_power_vanguard = yes
+                br_has_defense_vanguard = yes
+                br_has_support_vanguard = yes
+            }
+        }
+    }
+    default = ""
+}
+
 # 被动技能全部未解锁时显示
 defined_text = {
     name = GetBRVanguardPassiveEmpty

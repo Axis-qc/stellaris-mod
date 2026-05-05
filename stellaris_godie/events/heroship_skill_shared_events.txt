@@ -3,9 +3,10 @@ namespace = heroship
 # ========================
 # 英雄舰共有技能 — heroship.1000-1099
 # 所有核心均可使用的通用技能
+# 技能CD管理器
 # ========================
 
-# 自修复（由 on_br_hero_active_skill_activated 触发，slot=1）
+# 自修复（由 on_br_hero_active_skill_activated 触发）
 fleet_event = {
     id = heroship.1000
     hide_window = yes
@@ -15,7 +16,29 @@ fleet_event = {
         any_owned_ship = {
             is_ship_size = br_vanguard
         }
-        owner = { has_country_flag = br_skill_self_repair_unlocked }
+        owner = {
+            has_country_flag = br_skill_self_repair_unlocked
+        }
+        OR = {
+            AND = {
+                br_has_power_vanguard = yes
+                owner = {
+                    br_vanguard_power_skill_cd_ready = yes
+                }
+            }
+            AND = {
+                br_has_defense_vanguard = yes
+                owner = {
+                    br_vanguard_defense_skill_cd_ready = yes
+                }
+            }
+            AND = {
+                br_has_support_vanguard = yes
+                owner = {
+                    br_vanguard_support_skill_cd_ready = yes
+                }
+            }
+        }
     }
 
     immediate = {
@@ -54,10 +77,50 @@ fleet_event = {
             #     play_animation_once = yes     # 动画只播一次
             # }
         }
+
+        if = {
+            limit = {
+                br_has_power_vanguard = yes
+            }
+            owner = {
+                set_variable = { which = br_vanguard_power_skill_cd value = 90 }
+                if = {
+                    limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                    set_country_flag = br_vanguard_skill_cd_tick_running
+                    country_event = { id = heroship.1014 days = 1 }
+                }
+            }
+        }
+        if = {
+            limit = {
+                br_has_defense_vanguard = yes
+            }
+            owner = {
+                set_variable = { which = br_vanguard_defense_skill_cd value = 90 }
+                if = {
+                    limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                    set_country_flag = br_vanguard_skill_cd_tick_running
+                    country_event = { id = heroship.1014 days = 1 }
+                }
+            }
+        }
+        if = {
+            limit = {
+                br_has_support_vanguard = yes
+            }
+            owner = {
+                set_variable = { which = br_vanguard_support_skill_cd value = 90 }
+                if = {
+                    limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                    set_country_flag = br_vanguard_skill_cd_tick_running
+                    country_event = { id = heroship.1014 days = 1 }
+                }
+            }
+        }
     }
 }
 
-# 舰队集合到母舰位置（由 slot=2 action 触发）
+# 舰队集合到母舰位置（由 slot=1 action 触发）
 fleet_event = {
     id = heroship.1001
     hide_window = yes
@@ -92,6 +155,47 @@ fleet_event = {
                 }
                 set_location = event_target:br_mothership_fleet
             }
+        }
+    }
+}
+
+# 主动技能变量 CD 每日递减。
+country_event = {
+    id = heroship.1014
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {
+                br_any_vanguard_active_skill_cd_running = yes
+            }
+
+            if = {
+                limit = { br_vanguard_power_skill_cd_running = yes }
+                change_variable = { which = br_vanguard_power_skill_cd value = -1 }
+            }
+            if = {
+                limit = { br_vanguard_defense_skill_cd_running = yes }
+                change_variable = { which = br_vanguard_defense_skill_cd value = -1 }
+            }
+            if = {
+                limit = { br_vanguard_support_skill_cd_running = yes }
+                change_variable = { which = br_vanguard_support_skill_cd value = -1 }
+            }
+
+            if = {
+                limit = {
+                    br_any_vanguard_active_skill_cd_running = yes
+                }
+                country_event = { id = heroship.1014 days = 1 }
+            }
+            else = {
+                remove_country_flag = br_vanguard_skill_cd_tick_running
+            }
+        }
+        else = {
+            remove_country_flag = br_vanguard_skill_cd_tick_running
         }
     }
 }

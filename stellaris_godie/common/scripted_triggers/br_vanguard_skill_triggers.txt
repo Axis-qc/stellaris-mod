@@ -1,0 +1,73 @@
+# 先锋级英雄舰技能通用触发器
+
+# 作用域：舰队
+br_has_power_vanguard = {
+    any_owned_ship = {
+        is_ship_size = br_vanguard
+        has_component = BR_VANGUARD_CORE_POWER
+    }
+}
+
+# 作用域：舰队
+br_has_defense_vanguard = {
+    any_owned_ship = {
+        is_ship_size = br_vanguard
+        has_component = BR_VANGUARD_CORE_DEFENSE
+    }
+}
+
+# 作用域：舰队
+br_has_support_vanguard = {
+    any_owned_ship = {
+        is_ship_size = br_vanguard
+        has_component = BR_VANGUARD_CORE_SUPPORT
+    }
+}
+
+# 作用域：国家
+br_vanguard_power_skill_cd_ready = {
+    OR = {
+        NOT = { is_variable_set = br_vanguard_power_skill_cd }
+        check_variable = { which = br_vanguard_power_skill_cd value <= 0 }
+    }
+}
+
+# 作用域：国家
+br_vanguard_defense_skill_cd_ready = {
+    OR = {
+        NOT = { is_variable_set = br_vanguard_defense_skill_cd }
+        check_variable = { which = br_vanguard_defense_skill_cd value <= 0 }
+    }
+}
+
+# 作用域：国家
+br_vanguard_support_skill_cd_ready = {
+    OR = {
+        NOT = { is_variable_set = br_vanguard_support_skill_cd }
+        check_variable = { which = br_vanguard_support_skill_cd value <= 0 }
+    }
+}
+
+# 作用域：国家
+br_vanguard_power_skill_cd_running = {
+    check_variable = { which = br_vanguard_power_skill_cd value > 0 }
+}
+
+# 作用域：国家
+br_vanguard_defense_skill_cd_running = {
+    check_variable = { which = br_vanguard_defense_skill_cd value > 0 }
+}
+
+# 作用域：国家
+br_vanguard_support_skill_cd_running = {
+    check_variable = { which = br_vanguard_support_skill_cd value > 0 }
+}
+
+# 作用域：国家
+br_any_vanguard_active_skill_cd_running = {
+    OR = {
+        br_vanguard_power_skill_cd_running = yes
+        br_vanguard_defense_skill_cd_running = yes
+        br_vanguard_support_skill_cd_running = yes
+    }
+}
