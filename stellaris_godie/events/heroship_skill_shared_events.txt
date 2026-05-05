@@ -27,6 +27,32 @@ fleet_event = {
                 modifier = br_vanguard_self_repair
                 days = 30
             }
+            # ====== create_ambient_object 全字段参考 ======
+            # create_ambient_object = {
+            #     type =                    # 特效类型，对应 common/ambient_objects/ 中定义的 name
+            #     location =                # 放置位置作用域（planet/star/fleet/solar_system/event_target）
+            #     scale =                   # 直接缩放系数，0.1=10%，5.0=5倍
+            #     use_3d_location =         # yes=3D空间定位 / no=2D大地图层
+            #     entity_offset =           # 水平偏移距离 { min = 0 max = 10 }
+            #     entity_offset_angle =     # 偏移方向角度 { min = 0 max = 360 }，0=正右
+            #     entity_offset_height =    # 高度偏移 { min = -5 max = 5 }，负=向下
+            #     base_angle_towards =      # 初始朝向目标（star/this/event_target）
+            #     entity_face_object =      # 持续面向目标，entity 会始终对准该对象
+            #     entity_scale_to_size =    # yes=自动匹配 location 目标尺寸（行星/恒星用）
+            #     scripted_scale =          # 变量缩放，填变量名，用变量值动态控大小
+            #     play_animation_once =     # yes=动画只播一次后静止，适合爆炸/闪光
+            #     duration =                # 存活天数，到期自动销毁，不填=永久
+            #     effect =                  # 未找到原版用例，疑为废字段
+            # }
+            # 技能释放特效：舰队位置生成爆炸粒子，10天后自毁
+            # create_ambient_object = {
+            #     type = br_repair_vfx          # 特效类型，见 common/ambient_objects/
+            #     location = this               # 舰队当前位置
+            #     use_3d_location = yes         # 3D空间定位（非大地图层）
+            #     scale = 10                    # 缩放倍数
+            #     duration = 10                 # 存活天数
+            #     play_animation_once = yes     # 动画只播一次
+            # }
         }
     }
 }

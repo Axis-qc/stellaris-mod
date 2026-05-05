@@ -185,15 +185,15 @@ country_event = {
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 防御核心 Lv3 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_defense
+                    NOT = { has_country_flag = br_skill_self_repair_unlocked }
                 }
                 country_event = { id = heroship.20 }
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 支援核心 Lv3 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_support
+                    NOT = { has_country_flag = br_skill_self_repair_unlocked }
                 }
                 country_event = { id = heroship.30 }
             }
@@ -358,7 +358,9 @@ country_event = {
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_hero_self_repair_menu_title
+        custom_tooltip = br_hero_self_repair_ship_button
+        set_country_flag = br_skill_self_repair_unlocked
     }
 }
 
@@ -398,7 +400,9 @@ country_event = {
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_hero_self_repair_menu_title
+        custom_tooltip = br_hero_self_repair_ship_button
+        set_country_flag = br_skill_self_repair_unlocked
     }
 }
 

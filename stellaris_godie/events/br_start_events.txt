@@ -91,13 +91,26 @@ country_event = {
     }
 }
 
-# br.504：创建虚空工具国家，启动扩圈，为所有原版玩家排程模式初始化喵
+# br.504：先杀一遍原版，创建虚空工具国家，启动扩圈，为所有原版玩家排程模式初始化
 country_event = {
     id = br.504
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
+        #先杀一遍
+        every_country = {
+            limit = {
+                is_ai = yes
+                NOT = {
+                    is_country_type = br_void
+                    is_country_type = br_player
+                    is_country_type = br_player_pvp
+                    is_country_type = br_player_pve
+                }
+            }
+            destroy_country = yes
+        }
         # 每次游戏开始时创建虚空工具国家，承载全局变量和定时事件触发喵
         create_country = {
             name = "BR_VOID_COUNTRY_NAME"
@@ -146,8 +159,8 @@ country_event = {
                 }
             }
             event_target:br_void_country = {
-                country_event = { id = br.300 days = 1079 }
-                country_event = { id = br.1000 days = 1079 }
+                country_event = { id = br.300 days = 1800 }
+                country_event = { id = br.1000 days = 1800 }
             }
         }
 
@@ -171,7 +184,7 @@ country_event = {
     }
 }
 
-# br.505：按模式分流，排程对应初始化流程喵
+# br.505：按模式分流，排程对应初始化流程
 country_event = {
     id = br.505
     hide_window = yes
@@ -209,7 +222,7 @@ country_event = {
     }
 }
 
-# br.507：地图清理与后续排程，在玩家国家创建完成后执行喵
+# br.507：保险二次地图清理与后续排程，在玩家国家创建完成后执行
 country_event = {
     id = br.507
     hide_window = yes
@@ -265,13 +278,6 @@ country_event = {
                     destroy_ship = this
                 }
             }
-
-            every_country = {
-                every_owned_planet = {
-                    destroy_colony = yes
-                }
-            }
-
             every_country = {
                 limit = {
                     is_ai = yes

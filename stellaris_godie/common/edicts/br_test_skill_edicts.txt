@@ -1,5 +1,32 @@
 # 测试法令 — 直接切换英雄舰技能 flag
 # 激活即生效，length = 1 瞬间结束，可反复点击切换。
+# 以下法令仅在 br_debug_mode 激活时可见。
+
+# 全局调试开关 — 始终可见，用于打开/关闭调试模式
+br_test_toggle_debug = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { always = yes }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_debug_mode }
+            remove_country_flag = br_debug_mode
+        }
+        else = {
+            set_country_flag = br_debug_mode
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
 
 br_test_toggle_self_repair = {
     icon = "GFX_edict_type_policy"
@@ -10,7 +37,7 @@ br_test_toggle_self_repair = {
         cost = { }
     }
 
-    potential = { always = yes }
+    potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
 
     effect = {
@@ -35,7 +62,7 @@ br_test_toggle_combat_stack = {
         cost = { }
     }
 
-    potential = { always = yes }
+    potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
 
     effect = {
@@ -60,7 +87,7 @@ br_test_toggle_energy_overclock = {
         cost = { }
     }
 
-    potential = { always = yes }
+    potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
 
     effect = {
@@ -85,7 +112,7 @@ br_test_toggle_kill_stack = {
         cost = { }
     }
 
-    potential = { always = yes }
+    potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
 
     effect = {
