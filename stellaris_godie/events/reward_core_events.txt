@@ -13,12 +13,48 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        random_list = {
-            20 = { country_event = { id = reward.1001 } }   # 资源池
-            25 = { country_event = { id = reward.2001 } }   # 科技池
-            25 = { country_event = { id = reward.3001 } }   # BUFF池
-            15 = { country_event = { id = reward.4001 } }   # 舰船池
-            15 = { country_event = { id = reward.5001 } }   # 领袖池
+        if = {
+            limit = { any_owned_ship = { is_in_combat = yes } }
+            change_variable = { which = br_pending_rewards value = 1 }
+        }
+        else = {
+            random_list = {
+                20 = { country_event = { id = reward.1001 } }   # 资源池
+                25 = { country_event = { id = reward.2001 } }   # 科技池
+                25 = { country_event = { id = reward.3001 } }   # BUFF池
+                15 = { country_event = { id = reward.4001 } }   # 舰船池
+                15 = { country_event = { id = reward.5001 } }   # 领袖池
+            }
+        }
+    }
+}
+
+# ========================
+# 奖励补发 — reward.2
+# 每月触发，检测无战斗且 pending > 0 时补发
+# ========================
+
+country_event = {
+    id = reward.2
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        check_variable = { which = br_pending_rewards value > 0 }
+        NOT = { any_owned_ship = { is_in_combat = yes } }
+    }
+
+    immediate = {
+        while = {
+            limit = { check_variable = { which = br_pending_rewards value > 0 } }
+            random_list = {
+                20 = { country_event = { id = reward.1001 } }   # 资源池
+                25 = { country_event = { id = reward.2001 } }   # 科技池
+                25 = { country_event = { id = reward.3001 } }   # BUFF池
+                15 = { country_event = { id = reward.4001 } }   # 舰船池
+                15 = { country_event = { id = reward.5001 } }   # 领袖池
+            }
+            subtract_variable = { which = br_pending_rewards value = 1 }
         }
     }
 }

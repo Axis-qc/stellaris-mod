@@ -34,7 +34,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_energy_overclock
+                mult = value:br_hero_ship_skill_1_mult
                 days = 10
+                time_multiplier = value:br_hero_ship_skill_1_daymult
             }
         }
     }
@@ -64,7 +66,9 @@ fleet_event = {
                 every_owned_ship = {
                     add_modifier = {
                         modifier = br_vanguard_power_weakness_scan
+                        mult = value:br_hero_ship_skill_1_mult
                         days = 15
+                        time_multiplier = value:br_hero_ship_skill_1_daymult
                     }
                 }
             }
@@ -99,7 +103,8 @@ country_event = {
             }
             set_variable = { which = br_vanguard_kill_count value = value:br_vanguard_kill_cap }
         }
-
+        set_variable = { which = br_vanguard_kill_buff value = br_vanguard_kill_count }
+        multiply_variable = { which = br_vanguard_kill_buff value = value:br_hero_ship_skill_2_mult }
         every_owned_fleet = {
             every_owned_ship = {
                 limit = {
@@ -110,7 +115,7 @@ country_event = {
                 add_modifier = {
                     modifier = br_vanguard_power_kill_stack_damage
                     days = -1
-                    mult = owner.br_vanguard_kill_count
+                    mult = owner.br_vanguard_kill_buff
                 }
             }
         }
@@ -174,10 +179,12 @@ fleet_event = {
             }
 
             remove_modifier = br_vanguard_power_combat_stack_damage
+            set_variable = { which = br_vanguard_combat_buff value = br_vanguard_power_combat_stack }
+            multiply_variable = { which = br_vanguard_combat_buff value = value:br_hero_ship_skill_2_mult }
             add_modifier = {
                 modifier = br_vanguard_power_combat_stack_damage
                 days = 2
-                mult = br_vanguard_power_combat_stack
+                mult = br_vanguard_combat_buff
             }
 
             fleet_event = { id = heroship.1104 days = 1 }
@@ -217,7 +224,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_ultimate_fullfire
+                mult = value:br_hero_ship_skill_3_mult
                 days = 15
+                time_multiplier = value:br_hero_ship_skill_3_daymult
             }
         }
         owner = {
@@ -228,7 +237,10 @@ fleet_event = {
                 country_event = { id = heroship.1014 days = 1 }
             }
         }
-        fleet_event = { id = heroship.1111 days = 15 }
+        set_variable = { which = buff_time value = 15 }
+        multiply_variable = { which = buff_time value = value:br_hero_ship_skill_3_daymult }
+        #days可以用变量
+        fleet_event = { id = heroship.1111 days = buff_time }
     }
 }
 
@@ -248,7 +260,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_ultimate_fullfire_crash
+                mult = value:br_hero_ship_skill_3_mult
                 days = 15
+                time_multiplier = value:br_hero_ship_skill_3_daymult
             }
         }
     }

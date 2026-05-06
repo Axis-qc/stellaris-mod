@@ -1,0 +1,92 @@
+#所有技能效果的动态变量值
+
+#力量核心大招
+#火力全开
+#射速
+br_vanguard_skill_fullfire_1 = {
+    base = 200
+    mult = value:br_hero_ship_skill_3_mult
+}
+#伤害
+br_vanguard_skill_fullfire_2 = {
+    base = 50
+    mult = value:br_hero_ship_skill_3_mult
+}
+#持续时间
+br_vanguard_skill_fullfire_day = {
+    base = 15
+    mult = value:br_hero_ship_skill_3_daymult
+}
+#debuff
+br_vanguard_skill_fullfire_debuff = {
+    base = 30
+    mult = value:br_hero_ship_skill_3_mult
+}
+
+# ============================================================
+# 主动技能 (Skill 1)
+# ============================================================
+
+# ---- 能量超频 ----
+# 射速 +40% × sk1_mult
+br_skill_overclock_firerate = {
+    base = 40
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 每日船体 -1% × sk1_mult
+br_skill_overclock_hulldrain = {
+    base = 1
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 持续 10天 × sk1_daymult
+br_skill_overclock_day = {
+    base = 10
+    mult = value:br_hero_ship_skill_1_daymult
+}
+
+# ---- 弱点扫描 ----
+# 敌方受伤 +30% × sk1_mult
+br_skill_scan_damage = {
+    base = 30
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 持续 15天 × sk1_daymult
+br_skill_scan_day = {
+    base = 15
+    mult = value:br_hero_ship_skill_1_daymult
+}
+
+# ---- 自动构造修复 ----
+# 船体/装甲再生 20% × sk1_mult
+br_skill_repair_regen = {
+    base = 20
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 持续 30天 × sk1_daymult
+br_skill_repair_day = {
+    base = 30
+    mult = value:br_hero_ship_skill_1_daymult
+}
+
+# ============================================================
+# 被动技能 (Skill 2)
+# ============================================================
+
+# ---- 战意过载 ----
+# 每层 +2% × sk2_mult
+br_skill_combat_stack_damage = {
+    base = 2
+    mult = value:br_hero_ship_skill_2_mult
+}
+
+# ---- 越战越勇 ----
+# 每击杀 +1% × sk2_mult
+br_skill_kill_stack_damage = {
+    base = 1
+    mult = value:br_hero_ship_skill_2_mult
+}
+# 上限显示 — 复用 br_vanguard_kill_cap
+br_skill_kill_stack_cap_display = {
+    base = 0
+    add = value:br_vanguard_kill_cap
+}
