@@ -341,3 +341,25 @@ br_test_reset_skill_values = {
 
     ai_weight = { weight = 0 }
 }
+
+br_test_unlock_all_cores = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_power
+        set_country_flag = br_hero_core_defense
+        set_country_flag = br_hero_core_support
+    }
+
+    ai_weight = { weight = 0 }
+}

@@ -1,7 +1,8 @@
 namespace = heroship
 
 # ========================
-# 英雄舰等级系统 — heroship.1-9
+# 英雄舰等级系统 & 技能选择路由 — heroship.1-999
+# 核心选择已迁移至 reward.6101（reward_core_events.txt）
 # ========================
 
 # 后备初始化（主初始化在 reward.6101 发放英雄舰时）
@@ -149,6 +150,73 @@ country_event = {
             }
             country_event = { id = heroship.4 }
         }
+        # 技能1 倍率提升（主动技能）：Lv3, Lv8, Lv10
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 3 }
+                NOT = { has_country_flag = br_skill_1_lv3 }
+            }
+            set_country_flag = br_skill_1_lv3
+            change_variable = { which = br_skill_1_mult_player value = 0.1 }
+        }
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 8 }
+                NOT = { has_country_flag = br_skill_1_lv8 }
+            }
+            set_country_flag = br_skill_1_lv8
+            change_variable = { which = br_skill_1_mult_player value = 0.1 }
+        }
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 10 }
+                NOT = { has_country_flag = br_skill_1_lv10 }
+            }
+            set_country_flag = br_skill_1_lv10
+            change_variable = { which = br_skill_1_mult_player value = 0.1 }
+        }
+        # 技能2 倍率提升（被动技能）：Lv5, Lv9, Lv11
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 5 }
+                NOT = { has_country_flag = br_skill_2_lv5 }
+            }
+            set_country_flag = br_skill_2_lv5
+            change_variable = { which = br_skill_2_mult_player value = 0.1 }
+        }
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 9 }
+                NOT = { has_country_flag = br_skill_2_lv9 }
+            }
+            set_country_flag = br_skill_2_lv9
+            change_variable = { which = br_skill_2_mult_player value = 0.1 }
+        }
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 11 }
+                NOT = { has_country_flag = br_skill_2_lv11 }
+            }
+            set_country_flag = br_skill_2_lv11
+            change_variable = { which = br_skill_2_mult_player value = 0.1 }
+        }
+        # 技能3 倍率提升（大招）：Lv7, Lv12
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 7 }
+                NOT = { has_country_flag = br_skill_3_lv7 }
+            }
+            set_country_flag = br_skill_3_lv7
+            change_variable = { which = br_skill_3_mult_player value = 0.1 }
+        }
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value >= 12 }
+                NOT = { has_country_flag = br_skill_3_lv12 }
+            }
+            set_country_flag = br_skill_3_lv12
+            change_variable = { which = br_skill_3_mult_player value = 0.1 }
+        }
     }
 }
 
@@ -159,26 +227,17 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        # Lv2 → 核心选择
+        # Lv2 → 主动技能选择
         if = {
             limit = {
                 check_variable = { which = br_hero_level value >= 2 }
-                NOT = { has_country_flag = br_hero_core_selected }
-            }
-            country_event = { id = heroship.5 }
-        }
-        # Lv3 → 主动技能选择
-        else_if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 3 }
-                has_country_flag = br_hero_core_selected
             }
             if = {
                 limit = {
                     has_country_flag = br_hero_core_power
                     NOR = {
                         has_country_flag = br_skill_energy_overclock_unlocked
-                        has_country_flag = br_skill_self_repair_unlocked
+                        has_country_flag = br_skill_weakness_scan_unlocked
                     }
                 }
                 country_event = { id = heroship.10 }
@@ -198,11 +257,10 @@ country_event = {
                 country_event = { id = heroship.30 }
             }
         }
-        # Lv5 → 被动技能选择
+        # Lv4 → 被动技能选择
         else_if = {
             limit = {
-                check_variable = { which = br_hero_level value >= 5 }
-                has_country_flag = br_hero_core_selected
+                check_variable = { which = br_hero_level value >= 4 }
             }
             if = {
                 limit = {
@@ -216,42 +274,41 @@ country_event = {
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 防御核心 Lv5 实装后替换为对应 flag 检查
+                    always = no # TODO: 防御核心 Lv4 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_defense
                 }
                 country_event = { id = heroship.21 }
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 支援核心 Lv5 实装后替换为对应 flag 检查
+                    always = no # TODO: 支援核心 Lv4 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_support
                 }
                 country_event = { id = heroship.31 }
             }
         }
-        # Lv7 → 大招选择（预留）
+        # Lv6 → 大招选择（预留）
         else_if = {
             limit = {
-                check_variable = { which = br_hero_level value >= 7 }
-                has_country_flag = br_hero_core_selected
+                check_variable = { which = br_hero_level value >= 6 }
             }
             if = {
                 limit = {
-                    always = no # TODO: 火力核心 Lv7 实装后替换为对应 flag 检查
+                    always = no # TODO: 火力核心 Lv6 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_power
                 }
                 country_event = { id = heroship.12 }
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 防御核心 Lv7 实装后替换为对应 flag 检查
+                    always = no # TODO: 防御核心 Lv6 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_defense
                 }
                 country_event = { id = heroship.22 }
             }
             else_if = {
                 limit = {
-                    always = no # TODO: 支援核心 Lv7 实装后替换为对应 flag 检查
+                    always = no # TODO: 支援核心 Lv6 实装后替换为对应 flag 检查
                     has_country_flag = br_hero_core_support
                 }
                 country_event = { id = heroship.32 }
@@ -261,39 +318,10 @@ country_event = {
 }
 
 # ========================
-# 英雄舰 Lv2 核心选择
-# 仅设置核心 flag，不解锁技能（技能由后续升级选择逐一解锁）
-# ========================
-
-country_event = {
-    id = heroship.5
-    is_triggered_only = yes
-    title = REWARD_HERO_CORE_TITLE
-    desc = REWARD_HERO_CORE_DESC
-    picture = GFX_evt_rare_tech_cache
-
-    option = {
-        name = REWARD_HERO_CORE_POWER
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_power
-    }
-    option = {
-        name = REWARD_HERO_CORE_DEFENSE
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_defense
-    }
-    option = {
-        name = REWARD_HERO_CORE_SUPPORT
-        set_country_flag = br_hero_core_selected
-        set_country_flag = br_hero_core_support
-    }
-}
-
-# ========================
 # 火力核心技能选择 — heroship.10-19
 # ========================
 
-# Lv3 主动技能：能量超频 / 弱点扫描（二选一）
+# Lv2 主动技能：能量超频 / 弱点扫描（二选一）
 country_event = {
     id = heroship.10
     is_triggered_only = yes
@@ -313,7 +341,7 @@ country_event = {
     }
 }
 
-# Lv5 被动技能：战意过载 / 越战越勇（二选一）
+# Lv4 被动技能：战意过载 / 越战越勇（二选一）
 country_event = {
     id = heroship.11
     is_triggered_only = yes
@@ -333,7 +361,7 @@ country_event = {
     }
 }
 
-# Lv7 旗舰超载：火力全开
+# Lv6 旗舰超载：火力全开
 country_event = {
     id = heroship.12
     is_triggered_only = yes

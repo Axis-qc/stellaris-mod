@@ -1,10 +1,10 @@
 #不能使用巨像以外作战电脑，其他作战电脑无法在战斗中下指令放技能
-#is_hero_ship = yes英雄舰会导致舰船无法升级，无法设计
+#is_hero_ship = yes英雄舰
 # ============================================================
 # 先锋级英雄舰（br_vanguard）
 # 基于原版泰坦模型，三段式区段（bow/mid/stern）
-#使用泰坦模型做假英雄舰，等DLC有没有新英雄舰机制用
-# 光环槽统一挂载技能，is_hero_ship=no 避免无法设计的限制
+# 使用泰坦模型做假英雄舰，等DLC有没有新英雄舰机制用
+# 光环槽统一挂载技能
 # ============================================================
 br_vanguard = {
     entity = "titan_entity"
@@ -65,7 +65,7 @@ br_vanguard = {
     required_component_set = "br_hero_ship_Core"
     # 允许设计
     is_designable = yes
-    is_hero_ship = no
+    is_hero_ship = yes
     # 组件计入成本
     components_add_to_cost = no
     # 建造成本,限制一艘，建造用来复活，防止被摧毁后就没了。

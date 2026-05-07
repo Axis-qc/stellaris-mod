@@ -62,8 +62,7 @@ country_event = {
 # ========================
 # 英雄舰发放 — reward.6101
 # 由 br_reward_level_events.txt 在玩家达到 2 级时调用。
-# 核心选择已迁移至 heroship_level_events.txt (heroship.5)，在英雄舰 Lv2 时触发。
-# 技能解锁由后续升级选择事件逐一处理。
+# 核心选择直接内置于本事件：选择核心后初始化等级系统，60天后先锋舰折跃抵达。
 # ========================
 
 country_event = {
@@ -77,17 +76,40 @@ country_event = {
     }
 
     option = {
-        name = reward.6101_option
+        name = REWARD_HERO_CORE_POWER
+        custom_tooltip = REWARD_HERO_CORE_POWER_TT
         set_country_flag = br_hero_ship_received
-
-        # 英雄舰等级初始化
         set_country_flag = br_hero_level_initialized
         set_variable = { which = br_hero_level value = 1 }
         set_variable = { which = br_hero_xp value = 0 }
         set_variable = { which = br_hero_xp_next value = 10 }
-
-        # 30天后先锋舰折跃抵达母舰位置
-        country_event = { id = reward.6102 days = 30 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_power
+        country_event = { id = reward.6102 days = 60 }
+    }
+    option = {
+        name = REWARD_HERO_CORE_DEFENSE
+        custom_tooltip = REWARD_HERO_CORE_DEFENSE_TT
+        set_country_flag = br_hero_ship_received
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_defense
+        country_event = { id = reward.6102 days = 60 }
+    }
+    option = {
+        name = REWARD_HERO_CORE_SUPPORT
+        custom_tooltip = REWARD_HERO_CORE_SUPPORT_TT
+        set_country_flag = br_hero_ship_received
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_support
+        country_event = { id = reward.6102 days = 60 }
     }
 }
 
@@ -124,6 +146,7 @@ country_event = {
 }
 
 # ========================
-# 等级系统 & 核心选择 & 技能选择 → heroship_level_events.txt (heroship.1-999)
+# 等级系统 & 技能选择 → heroship_level_events.txt (heroship.1-999)
+# 核心选择 → 已内置于本文件的 reward.6101
 # 技能执行 → heroship_skill_*.txt (heroship.1000-1999)
 # ========================
