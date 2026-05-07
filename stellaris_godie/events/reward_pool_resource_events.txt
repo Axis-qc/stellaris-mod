@@ -1,9 +1,12 @@
 namespace = reward
 
 # ========================
-# 资源池 — reward.1001-1099
+# 资源池 — reward.1001-1199
 # 只能由 reward.1 总触发器调用。
-# 统一基础值×战力等级，不再分级。
+# 每次从14种资源中随机选4种展示，玩家四选一。
+# 战略资源（8-10）需 br_power_level >= 4 才入池。
+# 稀有资源（11-14）需 br_power_level >= 8 才入池，基础值 0.2×等级。
+# 增量 = @reward_monthly_base × br_power_level
 # ========================
 
 # 资源池入口
@@ -13,27 +16,348 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        set_variable = { which = br_resource_alloy value = @reward_alloy_base }
-        set_variable = { which = br_resource_energy value = @reward_energy_base }
-        set_variable = { which = br_resource_strategic value = @reward_strategic_base }
-        multiply_variable = { which = br_resource_alloy value = br_power_level }
-        multiply_variable = { which = br_resource_energy value = br_power_level }
-        multiply_variable = { which = br_resource_strategic value = br_power_level }
+        # 计算本次月产出增量
+        set_variable = { which = br_res_inc value = @reward_monthly_base }
+        multiply_variable = { which = br_res_inc value = br_power_level }
+        # 预计算战略资源是否解锁（≥4级）
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 4 } }
+            set_variable = { which = br_res_strategic_ok value = 1 }
+            else = { set_variable = { which = br_res_strategic_ok value = 0 } }
+        }
+        # 预计算稀有资源是否解锁（≥8级）
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 8 } }
+            set_variable = { which = br_res_rare_ok value = 1 }
+            else = { set_variable = { which = br_res_rare_ok value = 0 } }
+        }
+        # 稀有资源基础值 0.2×等级（br_res_inc 的 0.1 倍）
+        set_variable = { which = br_res_inc_rare value = br_res_inc }
+        multiply_variable = { which = br_res_inc_rare value = 0.1 }
         country_event = { id = reward.1101 }
     }
 }
 
-# 资源补给 — 五选一
+# 随机选4个资源选项（不显示给玩家）
 country_event = {
     id = reward.1101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # 清除上轮的pick变量
+        set_variable = { which = br_res_pick_1 value = 0 }
+        set_variable = { which = br_res_pick_2 value = 0 }
+        set_variable = { which = br_res_pick_3 value = 0 }
+        set_variable = { which = br_res_pick_4 value = 0 }
+
+        # ======================== 第1轮 ========================
+        random_list = {
+            10 = { set_variable = { which = br_res_pick_1 value = 1 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 2 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 3 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 4 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 5 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 6 } }
+            10 = { set_variable = { which = br_res_pick_1 value = 7 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 8 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 9 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 10 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 11 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 12 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 13 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 14 } }
+        }
+
+        # ======================== 第2轮：排除pick_1 ========================
+        random_list = {
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 1 } } set_variable = { which = br_res_pick_2 value = 1 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 2 } } set_variable = { which = br_res_pick_2 value = 2 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 3 } } set_variable = { which = br_res_pick_2 value = 3 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 4 } } set_variable = { which = br_res_pick_2 value = 4 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 5 } } set_variable = { which = br_res_pick_2 value = 5 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 6 } } set_variable = { which = br_res_pick_2 value = 6 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 7 } } set_variable = { which = br_res_pick_2 value = 7 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } } } set_variable = { which = br_res_pick_2 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } } } set_variable = { which = br_res_pick_2 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } } } set_variable = { which = br_res_pick_2 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } } } set_variable = { which = br_res_pick_2 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } } } set_variable = { which = br_res_pick_2 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } } } set_variable = { which = br_res_pick_2 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } } } set_variable = { which = br_res_pick_2 value = 14 } }
+        }
+
+        # ======================== 第3轮：排除pick_1和pick_2 ========================
+        random_list = {
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 1 } check_variable = { which = br_res_pick_2 value = 1 } } } set_variable = { which = br_res_pick_3 value = 1 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 2 } check_variable = { which = br_res_pick_2 value = 2 } } } set_variable = { which = br_res_pick_3 value = 2 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 3 } check_variable = { which = br_res_pick_2 value = 3 } } } set_variable = { which = br_res_pick_3 value = 3 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 4 } check_variable = { which = br_res_pick_2 value = 4 } } } set_variable = { which = br_res_pick_3 value = 4 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 5 } check_variable = { which = br_res_pick_2 value = 5 } } } set_variable = { which = br_res_pick_3 value = 5 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 6 } check_variable = { which = br_res_pick_2 value = 6 } } } set_variable = { which = br_res_pick_3 value = 6 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 7 } check_variable = { which = br_res_pick_2 value = 7 } } } set_variable = { which = br_res_pick_3 value = 7 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } } } set_variable = { which = br_res_pick_3 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } } } set_variable = { which = br_res_pick_3 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } } } set_variable = { which = br_res_pick_3 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } } } set_variable = { which = br_res_pick_3 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } } } set_variable = { which = br_res_pick_3 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } } } set_variable = { which = br_res_pick_3 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } } } set_variable = { which = br_res_pick_3 value = 14 } }
+        }
+
+        # ======================== 第4轮：排除pick_1、pick_2、pick_3 ========================
+        random_list = {
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 1 } check_variable = { which = br_res_pick_2 value = 1 } check_variable = { which = br_res_pick_3 value = 1 } } } set_variable = { which = br_res_pick_4 value = 1 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 2 } check_variable = { which = br_res_pick_2 value = 2 } check_variable = { which = br_res_pick_3 value = 2 } } } set_variable = { which = br_res_pick_4 value = 2 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 3 } check_variable = { which = br_res_pick_2 value = 3 } check_variable = { which = br_res_pick_3 value = 3 } } } set_variable = { which = br_res_pick_4 value = 3 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 4 } check_variable = { which = br_res_pick_2 value = 4 } check_variable = { which = br_res_pick_3 value = 4 } } } set_variable = { which = br_res_pick_4 value = 4 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 5 } check_variable = { which = br_res_pick_2 value = 5 } check_variable = { which = br_res_pick_3 value = 5 } } } set_variable = { which = br_res_pick_4 value = 5 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 6 } check_variable = { which = br_res_pick_2 value = 6 } check_variable = { which = br_res_pick_3 value = 6 } } } set_variable = { which = br_res_pick_4 value = 6 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 7 } check_variable = { which = br_res_pick_2 value = 7 } check_variable = { which = br_res_pick_3 value = 7 } } } set_variable = { which = br_res_pick_4 value = 7 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } check_variable = { which = br_res_pick_3 value = 8 } } } set_variable = { which = br_res_pick_4 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } check_variable = { which = br_res_pick_3 value = 9 } } } set_variable = { which = br_res_pick_4 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } check_variable = { which = br_res_pick_3 value = 10 } } } set_variable = { which = br_res_pick_4 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } check_variable = { which = br_res_pick_3 value = 11 } } } set_variable = { which = br_res_pick_4 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } check_variable = { which = br_res_pick_3 value = 12 } } } set_variable = { which = br_res_pick_4 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } check_variable = { which = br_res_pick_3 value = 13 } } } set_variable = { which = br_res_pick_4 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } check_variable = { which = br_res_pick_3 value = 14 } } } set_variable = { which = br_res_pick_4 value = 14 } }
+        }
+
+        country_event = { id = reward.1102 }
+    }
+}
+
+# ========================
+# 统一资源展示事件
+# 14个资源选项全写在这里，通过 br_res_pick_1/2/3/4 变量控制仅显示被选中的4个。
+#
+# 选项编号对照表：
+#   1=能量币  2=矿物  3=食物  4=消费品  5=合金  6=凝聚力  7=贸易额
+#   8=易燃微粒  9=稀有水晶  10=异星天然气（8-10需战力≥4）
+#   11=暗物质  12=活体金属  13=泽洛  14=纳米机器人（11-14需战力≥8）
+# ========================
+country_event = {
+    id = reward.1102
     is_triggered_only = yes
     title = REWARD_POOL_RESOURCE_TITLE
     desc = REWARD_POOL_RESOURCE_DESC
     picture = GFX_evt_mining_station
 
-    option = { name = REWARD_OPTION_ALLOY    custom_tooltip = REWARD_OPTION_ALLOY_TT    add_resource = { alloys = @reward_alloy_base mult = br_power_level } }
-    option = { name = REWARD_OPTION_ENERGY   custom_tooltip = REWARD_OPTION_ENERGY_TT   add_resource = { energy = @reward_energy_base mult = br_power_level } }
-    option = { name = REWARD_OPTION_MOTES    custom_tooltip = REWARD_OPTION_MOTES_TT    add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level } }
-    option = { name = REWARD_OPTION_CRYSTALS custom_tooltip = REWARD_OPTION_CRYSTALS_TT add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level } }
-    option = { name = REWARD_OPTION_GASES    custom_tooltip = REWARD_OPTION_GASES_TT    add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level } }
+    # 1. 能量币
+    option = {
+        name = REWARD_RES_ENERGY
+        custom_tooltip = REWARD_RES_ENERGY_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 1 }
+                check_variable = { which = br_res_pick_2 value = 1 }
+                check_variable = { which = br_res_pick_3 value = 1 }
+                check_variable = { which = br_res_pick_4 value = 1 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_energy_income value = br_res_inc } }
+    }
+
+    # 2. 矿物
+    option = {
+        name = REWARD_RES_MINERAL
+        custom_tooltip = REWARD_RES_MINERAL_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 2 }
+                check_variable = { which = br_res_pick_2 value = 2 }
+                check_variable = { which = br_res_pick_3 value = 2 }
+                check_variable = { which = br_res_pick_4 value = 2 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_mineral_income value = br_res_inc } }
+    }
+
+    # 3. 食物
+    option = {
+        name = REWARD_RES_FOOD
+        custom_tooltip = REWARD_RES_FOOD_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 3 }
+                check_variable = { which = br_res_pick_2 value = 3 }
+                check_variable = { which = br_res_pick_3 value = 3 }
+                check_variable = { which = br_res_pick_4 value = 3 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_food_income value = br_res_inc } }
+    }
+
+    # 4. 消费品
+    option = {
+        name = REWARD_RES_CG
+        custom_tooltip = REWARD_RES_CG_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 4 }
+                check_variable = { which = br_res_pick_2 value = 4 }
+                check_variable = { which = br_res_pick_3 value = 4 }
+                check_variable = { which = br_res_pick_4 value = 4 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_cg_income value = br_res_inc } }
+    }
+
+    # 5. 合金
+    option = {
+        name = REWARD_RES_ALLOY
+        custom_tooltip = REWARD_RES_ALLOY_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 5 }
+                check_variable = { which = br_res_pick_2 value = 5 }
+                check_variable = { which = br_res_pick_3 value = 5 }
+                check_variable = { which = br_res_pick_4 value = 5 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_alloy_income value = br_res_inc } }
+    }
+
+    # 6. 凝聚力
+    option = {
+        name = REWARD_RES_UNITY
+        custom_tooltip = REWARD_RES_UNITY_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 6 }
+                check_variable = { which = br_res_pick_2 value = 6 }
+                check_variable = { which = br_res_pick_3 value = 6 }
+                check_variable = { which = br_res_pick_4 value = 6 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_unity_income value = br_res_inc } }
+    }
+
+    # 7. 贸易额
+    option = {
+        name = REWARD_RES_TRADE
+        custom_tooltip = REWARD_RES_TRADE_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 7 }
+                check_variable = { which = br_res_pick_2 value = 7 }
+                check_variable = { which = br_res_pick_3 value = 7 }
+                check_variable = { which = br_res_pick_4 value = 7 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_trade_income value = br_res_inc } }
+    }
+
+    # 8. 易燃微粒
+    option = {
+        name = REWARD_RES_MOTES
+        custom_tooltip = REWARD_RES_MOTES_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 8 }
+                check_variable = { which = br_res_pick_2 value = 8 }
+                check_variable = { which = br_res_pick_3 value = 8 }
+                check_variable = { which = br_res_pick_4 value = 8 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_motes_income value = br_res_inc } }
+    }
+
+    # 9. 稀有水晶
+    option = {
+        name = REWARD_RES_CRYSTALS
+        custom_tooltip = REWARD_RES_CRYSTALS_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 9 }
+                check_variable = { which = br_res_pick_2 value = 9 }
+                check_variable = { which = br_res_pick_3 value = 9 }
+                check_variable = { which = br_res_pick_4 value = 9 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_crystal_income value = br_res_inc } }
+    }
+
+    # 10. 异星天然气
+    option = {
+        name = REWARD_RES_GASES
+        custom_tooltip = REWARD_RES_GASES_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 10 }
+                check_variable = { which = br_res_pick_2 value = 10 }
+                check_variable = { which = br_res_pick_3 value = 10 }
+                check_variable = { which = br_res_pick_4 value = 10 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_gas_income value = br_res_inc } }
+    }
+
+    # 11. 暗物质
+    option = {
+        name = REWARD_RES_DARK_MATTER
+        custom_tooltip = REWARD_RES_DARK_MATTER_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 11 }
+                check_variable = { which = br_res_pick_2 value = 11 }
+                check_variable = { which = br_res_pick_3 value = 11 }
+                check_variable = { which = br_res_pick_4 value = 11 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_dark_matter_income value = br_res_inc_rare } }
+    }
+
+    # 12. 活体金属
+    option = {
+        name = REWARD_RES_LIVING_METAL
+        custom_tooltip = REWARD_RES_LIVING_METAL_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 12 }
+                check_variable = { which = br_res_pick_2 value = 12 }
+                check_variable = { which = br_res_pick_3 value = 12 }
+                check_variable = { which = br_res_pick_4 value = 12 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_living_metal_income value = br_res_inc_rare } }
+    }
+
+    # 13. 泽洛
+    option = {
+        name = REWARD_RES_ZRO
+        custom_tooltip = REWARD_RES_ZRO_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 13 }
+                check_variable = { which = br_res_pick_2 value = 13 }
+                check_variable = { which = br_res_pick_3 value = 13 }
+                check_variable = { which = br_res_pick_4 value = 13 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_zro_income value = br_res_inc_rare } }
+    }
+
+    # 14. 纳米机器人
+    option = {
+        name = REWARD_RES_NANITES
+        custom_tooltip = REWARD_RES_NANITES_TT
+        trigger = {
+            OR = {
+                check_variable = { which = br_res_pick_1 value = 14 }
+                check_variable = { which = br_res_pick_2 value = 14 }
+                check_variable = { which = br_res_pick_3 value = 14 }
+                check_variable = { which = br_res_pick_4 value = 14 }
+            }
+        }
+        hidden_effect = { change_variable = { which = br_reward_nanites_income value = br_res_inc_rare } }
+    }
+
+    # 选完后清理pick变量
+    after = {
+        set_variable = { which = br_res_pick_1 value = 0 }
+        set_variable = { which = br_res_pick_2 value = 0 }
+        set_variable = { which = br_res_pick_3 value = 0 }
+        set_variable = { which = br_res_pick_4 value = 0 }
+    }
 }

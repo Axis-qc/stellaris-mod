@@ -34,21 +34,31 @@ br_reward_relics = {
     triggered_country_modifier = { potential = { always = yes } ship_shield_mult = 0.05 mult = br_reward_shield }
     triggered_country_modifier = { potential = { always = yes } ship_armor_mult = 0.05 mult = br_reward_armor }
 
-    # 舰船维护费-100%，免除经济负担
+    # 舰船维护费和贸易维护费-50%（靠奖励池月产出养舰队）
     triggered_country_modifier = { potential = { always = yes } modifier = { ships_upkeep_mult = -0.5 } }
     triggered_country_modifier = { potential = { always = yes } modifier = { ships_logistics_mult = -1 } }
-    # 等级加成：基础资源产出，随等级成长，基础每月资源
-    #贸易会转能量币，不用给电
-    # triggered_country_modifier = { potential = { always = yes } country_base_energy_produces_add = 10 mult = br_power_level }
-    # triggered_country_modifier = { potential = { always = yes } country_base_minerals_produces_add = 5 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } country_base_alloys_produces_add = 10 mult = br_power_level }
-    # triggered_country_modifier = { potential = { always = yes } country_base_food_produces_add = 5 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } country_base_unity_produces_add = 10 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } country_base_trade_produces_add = 10 mult = br_power_level }
+    # 海军和资源上限（随战力等级成长）
     triggered_country_modifier = { potential = { always = yes } country_resource_max_add = 50000 mult = br_power_level }
-    # 等级加成：海军容量和指挥上限，随等级成长
-    triggered_country_modifier = { potential = { always = yes } country_naval_cap_add = 300 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } command_limit_add = 100 mult = br_power_level }
+    triggered_country_modifier = { potential = { always = yes } country_naval_cap_add = 500 mult = br_power_level }
+    triggered_country_modifier = { potential = { always = yes } command_limit_add = 200 mult = br_power_level }
+
+    # 基础资源月产出（奖励池选择累积）
+    triggered_country_modifier = { potential = { always = yes } country_base_energy_produces_add = 1 mult = br_reward_energy_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_minerals_produces_add = 1 mult = br_reward_mineral_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_food_produces_add = 1 mult = br_reward_food_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_consumer_goods_produces_add = 1 mult = br_reward_cg_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_alloys_produces_add = 1 mult = br_reward_alloy_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_unity_produces_add = 1 mult = br_reward_unity_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_trade_produces_add = 1 mult = br_reward_trade_income }
+    # 战略资源月产出（奖励池选择累积）
+    triggered_country_modifier = { potential = { always = yes } country_base_volatile_motes_produces_add = 1 mult = br_reward_motes_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_rare_crystals_produces_add = 1 mult = br_reward_crystal_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_exotic_gases_produces_add = 1 mult = br_reward_gas_income }
+    # 稀有资源月产出（战力≥8解锁入池）
+    triggered_country_modifier = { potential = { always = yes } country_base_sr_dark_matter_produces_add = 1 mult = br_reward_dark_matter_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_sr_living_metal_produces_add = 1 mult = br_reward_living_metal_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_sr_zro_produces_add = 1 mult = br_reward_zro_income }
+    triggered_country_modifier = { potential = { always = yes } country_base_nanites_produces_add = 1 mult = br_reward_nanites_income }
 
     score = 0
     possible = {

@@ -1,7 +1,7 @@
 namespace = br
 
 # 事件ID区间：700-799。新增或修改事件ID不得超出此区间喵
-# br.700：PVE模式初始化入口，选择出生点并为玩家分配候选星系喵
+# br.700：PVE模式初始化入口，选择6个出生点（外围3个+2跳相邻3个）并为玩家随机分配喵
 country_event = {
     id = br.700
     hide_window = yes
@@ -476,6 +476,73 @@ country_event = {
             limit = { NOT = { exists = event_target:br_player_spawn_system_1 } }
             random_system = {
                 save_global_event_target_as = br_player_spawn_system_1
+                set_star_flag = br_player_spawn_system
+            }
+        }
+
+        # 在每个出生点2跳范围内再各选1个相邻出生点
+        random_system = {
+            limit = {
+                distance = {
+                    source = event_target:br_player_spawn_system_1
+                    use_bypasses = no
+                    min_jumps = 1
+                    max_jumps = 2
+                }
+                NOT = { has_star_flag = br_player_spawn_system }
+            }
+            save_global_event_target_as = br_player_spawn_system_4
+            set_star_flag = br_player_spawn_system
+        }
+        random_system = {
+            limit = {
+                distance = {
+                    source = event_target:br_player_spawn_system_2
+                    use_bypasses = no
+                    min_jumps = 1
+                    max_jumps = 2
+                }
+                NOT = { has_star_flag = br_player_spawn_system }
+            }
+            save_global_event_target_as = br_player_spawn_system_5
+            set_star_flag = br_player_spawn_system
+        }
+        random_system = {
+            limit = {
+                distance = {
+                    source = event_target:br_player_spawn_system_3
+                    use_bypasses = no
+                    min_jumps = 1
+                    max_jumps = 2
+                }
+                NOT = { has_star_flag = br_player_spawn_system }
+            }
+            save_global_event_target_as = br_player_spawn_system_6
+            set_star_flag = br_player_spawn_system
+        }
+
+        # 回退：如果找不到相邻星系，任意选一个未标记星系
+        if = {
+            limit = { NOT = { exists = event_target:br_player_spawn_system_4 } }
+            random_system = {
+                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                save_global_event_target_as = br_player_spawn_system_4
+                set_star_flag = br_player_spawn_system
+            }
+        }
+        if = {
+            limit = { NOT = { exists = event_target:br_player_spawn_system_5 } }
+            random_system = {
+                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                save_global_event_target_as = br_player_spawn_system_5
+                set_star_flag = br_player_spawn_system
+            }
+        }
+        if = {
+            limit = { NOT = { exists = event_target:br_player_spawn_system_6 } }
+            random_system = {
+                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                save_global_event_target_as = br_player_spawn_system_6
                 set_star_flag = br_player_spawn_system
             }
         }

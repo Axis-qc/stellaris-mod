@@ -2,12 +2,12 @@ namespace = br
 
 # ============================================================
 # 外圈杂兵分批刷敌：br.820-br.823
-# br.820：ring_56-65
-# br.821：ring_46-55
-# br.822：ring_36-45
-# br.823：ring_26-35，完成后排程内圈 br.801
-# 舰队：护卫3-10 + 驱逐1-5（随机炮击/近战）
+# 每事件管10圈，越靠近内圈舰队越强，有随机扰动
 # 排除玩家初始出生星系
+# ============================================================
+
+# ============================================================
+# br.820：ring 56-65
 # ============================================================
 country_event = {
     id = br.820
@@ -24,58 +24,23 @@ country_event = {
 
     immediate = {
         every_system = {
-            limit = {
-                NOT = { has_star_flag = br_player_spawn_system }
-                OR = {
-                    has_star_flag = br_ring_56
-                    has_star_flag = br_ring_57
-                    has_star_flag = br_ring_58
-                    has_star_flag = br_ring_59
-                    has_star_flag = br_ring_60
-                    has_star_flag = br_ring_61
-                    has_star_flag = br_ring_62
-                    has_star_flag = br_ring_63
-                    has_star_flag = br_ring_64
-                    has_star_flag = br_ring_65
-                }
-            }
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_61 has_star_flag = br_ring_62 has_star_flag = br_ring_63 has_star_flag = br_ring_64 has_star_flag = br_ring_65 } }
             star = { save_global_event_target_as = br_spawn_tmp }
-
-            event_target:br_pve_enemy_country = {
-                create_fleet = {
-                    name = random
-                    effect = {
-                        set_owner = event_target:br_pve_enemy_country
-
-                        random_list = {
-                            30 = { while = { count = 3  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            25 = { while = { count = 4  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            20 = { while = { count = 5  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            15 = { while = { count = 6  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            10 = { while = { count = 7  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             7 = { while = { count = 8  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             5 = { while = { count = 9  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             3 = { while = { count = 10 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                        }
-
-                        random_list = {
-                            50 = { while = { count = 1 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            35 = { while = { count = 2 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            20 = { while = { count = 3 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            10 = { while = { count = 4 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                             5 = { while = { count = 5 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                        }
-
-                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
-                    }
-                }
-            }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 2 destroyer = 0 } }
+        }
+        every_system = {
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_56 has_star_flag = br_ring_57 has_star_flag = br_ring_58 has_star_flag = br_ring_59 has_star_flag = br_ring_60 } }
+            star = { save_global_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 3 destroyer = 1 } }
         }
         set_global_flag = br_pve_spawn_outer_56_65_done
         country_event = { id = br.821 days = 3 }
     }
 }
 
+# ============================================================
+# br.821：ring 46-55
+# ============================================================
 country_event = {
     id = br.821
     hide_window = yes
@@ -92,58 +57,23 @@ country_event = {
 
     immediate = {
         every_system = {
-            limit = {
-                NOT = { has_star_flag = br_player_spawn_system }
-                OR = {
-                    has_star_flag = br_ring_46
-                    has_star_flag = br_ring_47
-                    has_star_flag = br_ring_48
-                    has_star_flag = br_ring_49
-                    has_star_flag = br_ring_50
-                    has_star_flag = br_ring_51
-                    has_star_flag = br_ring_52
-                    has_star_flag = br_ring_53
-                    has_star_flag = br_ring_54
-                    has_star_flag = br_ring_55
-                }
-            }
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_51 has_star_flag = br_ring_52 has_star_flag = br_ring_53 has_star_flag = br_ring_54 has_star_flag = br_ring_55 } }
             star = { save_global_event_target_as = br_spawn_tmp }
-
-            event_target:br_pve_enemy_country = {
-                create_fleet = {
-                    name = random
-                    effect = {
-                        set_owner = event_target:br_pve_enemy_country
-
-                        random_list = {
-                            30 = { while = { count = 3  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            25 = { while = { count = 4  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            20 = { while = { count = 5  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            15 = { while = { count = 6  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            10 = { while = { count = 7  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             7 = { while = { count = 8  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             5 = { while = { count = 9  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             3 = { while = { count = 10 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                        }
-
-                        random_list = {
-                            50 = { while = { count = 1 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            35 = { while = { count = 2 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            20 = { while = { count = 3 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            10 = { while = { count = 4 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                             5 = { while = { count = 5 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                        }
-
-                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
-                    }
-                }
-            }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 3 destroyer = 1 } }
+        }
+        every_system = {
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_46 has_star_flag = br_ring_47 has_star_flag = br_ring_48 has_star_flag = br_ring_49 has_star_flag = br_ring_50 } }
+            star = { save_global_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 4 destroyer = 1 } }
         }
         set_global_flag = br_pve_spawn_outer_46_55_done
         country_event = { id = br.822 days = 3 }
     }
 }
 
+# ============================================================
+# br.822：ring 36-45
+# ============================================================
 country_event = {
     id = br.822
     hide_window = yes
@@ -160,58 +90,23 @@ country_event = {
 
     immediate = {
         every_system = {
-            limit = {
-                NOT = { has_star_flag = br_player_spawn_system }
-                OR = {
-                    has_star_flag = br_ring_36
-                    has_star_flag = br_ring_37
-                    has_star_flag = br_ring_38
-                    has_star_flag = br_ring_39
-                    has_star_flag = br_ring_40
-                    has_star_flag = br_ring_41
-                    has_star_flag = br_ring_42
-                    has_star_flag = br_ring_43
-                    has_star_flag = br_ring_44
-                    has_star_flag = br_ring_45
-                }
-            }
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_41 has_star_flag = br_ring_42 has_star_flag = br_ring_43 has_star_flag = br_ring_44 has_star_flag = br_ring_45 } }
             star = { save_global_event_target_as = br_spawn_tmp }
-
-            event_target:br_pve_enemy_country = {
-                create_fleet = {
-                    name = random
-                    effect = {
-                        set_owner = event_target:br_pve_enemy_country
-
-                        random_list = {
-                            30 = { while = { count = 3  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            25 = { while = { count = 4  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            20 = { while = { count = 5  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            15 = { while = { count = 6  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            10 = { while = { count = 7  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             7 = { while = { count = 8  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             5 = { while = { count = 9  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             3 = { while = { count = 10 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                        }
-
-                        random_list = {
-                            50 = { while = { count = 1 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            35 = { while = { count = 2 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            20 = { while = { count = 3 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            10 = { while = { count = 4 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                             5 = { while = { count = 5 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                        }
-
-                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
-                    }
-                }
-            }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 4 destroyer = 2 } }
+        }
+        every_system = {
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_36 has_star_flag = br_ring_37 has_star_flag = br_ring_38 has_star_flag = br_ring_39 has_star_flag = br_ring_40 } }
+            star = { save_global_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 5 destroyer = 2 } }
         }
         set_global_flag = br_pve_spawn_outer_36_45_done
         country_event = { id = br.823 days = 3 }
     }
 }
 
+# ============================================================
+# br.823：ring 26-35
+# ============================================================
 country_event = {
     id = br.823
     hide_window = yes
@@ -228,52 +123,14 @@ country_event = {
 
     immediate = {
         every_system = {
-            limit = {
-                NOT = { has_star_flag = br_player_spawn_system }
-                OR = {
-                    has_star_flag = br_ring_26
-                    has_star_flag = br_ring_27
-                    has_star_flag = br_ring_28
-                    has_star_flag = br_ring_29
-                    has_star_flag = br_ring_30
-                    has_star_flag = br_ring_31
-                    has_star_flag = br_ring_32
-                    has_star_flag = br_ring_33
-                    has_star_flag = br_ring_34
-                    has_star_flag = br_ring_35
-                }
-            }
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_31 has_star_flag = br_ring_32 has_star_flag = br_ring_33 has_star_flag = br_ring_34 has_star_flag = br_ring_35 } }
             star = { save_global_event_target_as = br_spawn_tmp }
-
-            event_target:br_pve_enemy_country = {
-                create_fleet = {
-                    name = random
-                    effect = {
-                        set_owner = event_target:br_pve_enemy_country
-
-                        random_list = {
-                            30 = { while = { count = 3  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            25 = { while = { count = 4  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            20 = { while = { count = 5  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            15 = { while = { count = 6  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                            10 = { while = { count = 7  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             7 = { while = { count = 8  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             5 = { while = { count = 9  random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                             3 = { while = { count = 10 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_CORVETTE" } } } } }
-                        }
-
-                        random_list = {
-                            50 = { while = { count = 1 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            35 = { while = { count = 2 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            20 = { while = { count = 3 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                            10 = { while = { count = 4 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                             5 = { while = { count = 5 random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_DESTROYER" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_DESTROYER" } } } } }
-                        }
-
-                        set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
-                    }
-                }
-            }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 5 destroyer = 2 } }
+        }
+        every_system = {
+            limit = { NOT = { has_star_flag = br_player_spawn_system } OR = { has_star_flag = br_ring_26 has_star_flag = br_ring_27 has_star_flag = br_ring_28 has_star_flag = br_ring_29 has_star_flag = br_ring_30 } }
+            star = { save_global_event_target_as = br_spawn_tmp }
+            event_target:br_pve_enemy_country = { br_spawn_pve_outer_fleet = { corvette = 6 destroyer = 3 } }
         }
         set_global_flag = br_pve_spawn_outer_26_35_done
         set_global_flag = br_pve_spawn_outer_done

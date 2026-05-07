@@ -1,0 +1,179 @@
+# PVE刷敌 scripted_effects
+# 在 br_pve_enemy_country 作用域下调用，目标星系通过 event_target:br_spawn_tmp 指定
+
+# 刷 N 艘指定设计（随机二选一）
+# $COUNT$ = 艘数, $DESIGN_A$ / $DESIGN_B$ = 完整设计名
+br_spawn_n_ships = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            50 = { create_ship = { name = random design = $DESIGN_A$ } }
+            50 = { create_ship = { name = random design = $DESIGN_B$ } }
+        }
+    }
+}
+
+# ======================== 普通舰队 ========================
+
+# 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），$N$ 倍率
+br_spawn_pve_fleet = {
+    create_fleet = {
+        name = random
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 0 }
+
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+        }
+    }
+}
+
+# 自定义编队：直接指定各舰种艘数，0 跳过
+br_spawn_pve_fleet_custom = {
+    create_fleet = {
+        name = random
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 0 }
+
+            br_spawn_n_ships = { COUNT = $battleship$ DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
+            br_spawn_n_ships = { COUNT = $cruiser$ DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+            br_spawn_n_ships = { COUNT = $destroyer$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            br_spawn_n_ships = { COUNT = $frigate$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+        }
+    }
+}
+
+# ======================== 精英舰队 ========================
+
+# 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），精英设计
+br_spawn_pve_elite_fleet = {
+    create_fleet = {
+        name = random
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 0 }
+
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_ELITE_BATTLESHIP }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CRUISER DESIGN_B = BR_PVE_BRAWLER_ELITE_CRUISER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CRUISER DESIGN_B = BR_PVE_BRAWLER_ELITE_CRUISER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_DESTROYER DESIGN_B = BR_PVE_BRAWLER_ELITE_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_DESTROYER DESIGN_B = BR_PVE_BRAWLER_ELITE_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_DESTROYER DESIGN_B = BR_PVE_BRAWLER_ELITE_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_DESTROYER DESIGN_B = BR_PVE_BRAWLER_ELITE_DESTROYER }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
+            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
+        }
+    }
+}
+
+# 自定义编队：直接指定各舰种艘数，精英设计，0 跳过
+br_spawn_pve_elite_fleet_custom = {
+    create_fleet = {
+        name = random
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 0 }
+
+            br_spawn_n_ships = { COUNT = $battleship$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_ELITE_BATTLESHIP }
+            br_spawn_n_ships = { COUNT = $cruiser$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CRUISER DESIGN_B = BR_PVE_BRAWLER_ELITE_CRUISER }
+            br_spawn_n_ships = { COUNT = $destroyer$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_DESTROYER DESIGN_B = BR_PVE_BRAWLER_ELITE_DESTROYER }
+            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
+            br_spawn_n_ships = { COUNT = $frigate$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
+        }
+    }
+}
+
+# ======================== 外圈杂兵舰队 ========================
+
+# 外圈随机舰队：$corvette$ 固定护卫 + $destroyer$ 固定驱逐 + 随机扰动
+br_spawn_pve_outer_fleet = {
+    create_fleet = {
+        name = random
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
+
+            # 固定基础护卫
+            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+            # 随机额外护卫 0-7（权重递减）
+            random_list = {
+                30 = { }
+                25 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                20 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                15 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                10 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                 7 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                 5 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+                 3 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
+            }
+
+            # 固定基础驱逐
+            br_spawn_n_ships = { COUNT = $destroyer$ DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+            # 随机额外驱逐 0-4（权重递减）
+            random_list = {
+                50 = { }
+                35 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER } }
+                20 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER } }
+                10 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER } }
+                 5 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+                       br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER } }
+            }
+        }
+    }
+}
