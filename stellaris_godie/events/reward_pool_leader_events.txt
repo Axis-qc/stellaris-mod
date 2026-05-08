@@ -20,7 +20,7 @@ country_event = {
     }
 }
 
-# 领袖奖励 — 三选一
+# 领袖奖励 — 六选一（三类领袖各分经验/招募）
 country_event = {
     id = reward.5101
     is_triggered_only = yes
@@ -29,66 +29,84 @@ country_event = {
     picture = GFX_evt_ship_in_orbit
 
     option = {
-        name = REWARD_LEADER_COMMANDER
-        custom_tooltip = REWARD_LEADER_COMMANDER_TT
-        hidden_effect = {
-            if = {
-                limit = { any_owned_leader = { leader_class = commander } }
-                random_owned_leader = {
-                    limit = { leader_class = commander }
-                    add_experience = owner.value:br_leader_xp
-                }
+        name = REWARD_LEADER_COMMANDER_XP
+        custom_tooltip = REWARD_LEADER_COMMANDER_XP_TT
+        allow = {
+            any_owned_leader = {
+                leader_class = commander
+                NOT = { has_base_skill >= 10 }
             }
-            else = {
-                create_leader = {
-                    class = commander
-                    species = owner_main_species
-                    name = random
-                    skill = 1
-                }
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = commander
+                NOT = { has_base_skill >= 10 }
             }
+            add_experience = owner.value:br_leader_xp
         }
     }
     option = {
-        name = REWARD_LEADER_SCIENTIST
-        custom_tooltip = REWARD_LEADER_SCIENTIST_TT
-        hidden_effect = {
-            if = {
-                limit = { any_owned_leader = { leader_class = scientist } }
-                random_owned_leader = {
-                    limit = { leader_class = scientist }
-                    add_experience = owner.value:br_leader_xp
-                }
-            }
-            else = {
-                create_leader = {
-                    class = scientist
-                    species = owner_main_species
-                    name = random
-                    skill = 1
-                }
-            }
+        name = REWARD_LEADER_COMMANDER_RECRUIT
+        custom_tooltip = REWARD_LEADER_COMMANDER_RECRUIT_TT
+        create_leader = {
+            class = commander
+            species = owner_main_species
+            name = random
+            skill = 1
         }
     }
     option = {
-        name = REWARD_LEADER_OFFICIAL
-        custom_tooltip = REWARD_LEADER_OFFICIAL_TT
-        hidden_effect = {
-            if = {
-                limit = { any_owned_leader = { leader_class = official } }
-                random_owned_leader = {
-                    limit = { leader_class = official }
-                    add_experience = owner.value:br_leader_xp
-                }
+        name = REWARD_LEADER_SCIENTIST_XP
+        custom_tooltip = REWARD_LEADER_SCIENTIST_XP_TT
+        allow = {
+            any_owned_leader = {
+                leader_class = scientist
+                NOT = { has_base_skill >= 10 }
             }
-            else = {
-                create_leader = {
-                    class = official
-                    species = owner_main_species
-                    name = random
-                    skill = 1
-                }
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = scientist
+                NOT = { has_base_skill >= 10 }
             }
+            add_experience = owner.value:br_leader_xp
+        }
+    }
+    option = {
+        name = REWARD_LEADER_SCIENTIST_RECRUIT
+        custom_tooltip = REWARD_LEADER_SCIENTIST_RECRUIT_TT
+        create_leader = {
+            class = scientist
+            species = owner_main_species
+            name = random
+            skill = 1
+        }
+    }
+    option = {
+        name = REWARD_LEADER_OFFICIAL_XP
+        custom_tooltip = REWARD_LEADER_OFFICIAL_XP_TT
+        allow = {
+            any_owned_leader = {
+                leader_class = official
+                NOT = { has_base_skill >= 10 }
+            }
+        }
+        random_owned_leader = {
+            limit = {
+                leader_class = official
+                NOT = { has_base_skill >= 10 }
+            }
+            add_experience = owner.value:br_leader_xp
+        }
+    }
+    option = {
+        name = REWARD_LEADER_OFFICIAL_RECRUIT
+        custom_tooltip = REWARD_LEADER_OFFICIAL_RECRUIT_TT
+        create_leader = {
+            class = official
+            species = owner_main_species
+            name = random
+            skill = 1
         }
     }
 }

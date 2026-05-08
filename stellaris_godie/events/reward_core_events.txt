@@ -19,11 +19,11 @@ country_event = {
         }
         else = {
             random_list = {
-                20 = { country_event = { id = reward.1001 } }   # 资源池
+                30 = { country_event = { id = reward.1001 } }   # 资源池
                 25 = { country_event = { id = reward.2001 } }   # 科技池
                 25 = { country_event = { id = reward.3001 } }   # BUFF池
-                15 = { country_event = { id = reward.4001 } }   # 舰船池
-                15 = { country_event = { id = reward.5001 } }   # 领袖池
+                5 = { country_event = { id = reward.4001 } }   # 舰船池
+                5 = { country_event = { id = reward.5001 } }   # 领袖池
             }
         }
     }
@@ -45,14 +45,14 @@ country_event = {
     }
 
     immediate = {
-        while = {
+        if = {
             limit = { check_variable = { which = br_pending_rewards value > 0 } }
             random_list = {
-                20 = { country_event = { id = reward.1001 } }   # 资源池
+                30 = { country_event = { id = reward.1001 } }   # 资源池
                 25 = { country_event = { id = reward.2001 } }   # 科技池
                 25 = { country_event = { id = reward.3001 } }   # BUFF池
-                15 = { country_event = { id = reward.4001 } }   # 舰船池
-                15 = { country_event = { id = reward.5001 } }   # 领袖池
+                5 = { country_event = { id = reward.4001 } }   # 舰船池
+                5 = { country_event = { id = reward.5001 } }   # 领袖池
             }
             subtract_variable = { which = br_pending_rewards value = 1 }
         }

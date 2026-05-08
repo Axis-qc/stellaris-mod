@@ -86,7 +86,7 @@ country_event = {
         if = {
             limit = { check_variable = { which = br_hero_xp value >= 6830 } }
             set_variable = { which = br_hero_level value = 12 }
-            set_variable = { which = br_hero_xp_next value = 0 }
+            set_variable = { which = br_hero_xp_next value = 2000 }
         }
         else_if = {
             limit = { check_variable = { which = br_hero_xp value >= 4630 } }
@@ -143,6 +143,16 @@ country_event = {
             set_variable = { which = br_hero_xp_next value = 10 }
         }
 
+        # 12级后无限成长：每2000经验消耗并+1级
+        if = {
+            limit = { check_variable = { which = br_hero_level value >= 12 } }
+            while = {
+                limit = { check_variable = { which = br_hero_xp value >= 2000 } }
+                subtract_variable = { which = br_hero_xp value = 2000 }
+                change_variable = { which = br_hero_level value = 1 }
+            }
+        }
+
         # 升级触发：当前等级 > 旧等级时弹出选择窗口
         if = {
             limit = {
@@ -150,73 +160,19 @@ country_event = {
             }
             country_event = { id = heroship.4 }
         }
-        # 技能1 倍率提升（主动技能）：Lv3, Lv8, Lv10
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 3 }
-                NOT = { has_country_flag = br_skill_1_lv3 }
-            }
-            set_country_flag = br_skill_1_lv3
-            change_variable = { which = br_skill_1_mult_player value = 0.1 }
-        }
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 8 }
-                NOT = { has_country_flag = br_skill_1_lv8 }
-            }
-            set_country_flag = br_skill_1_lv8
-            change_variable = { which = br_skill_1_mult_player value = 0.1 }
-        }
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 10 }
-                NOT = { has_country_flag = br_skill_1_lv10 }
-            }
-            set_country_flag = br_skill_1_lv10
-            change_variable = { which = br_skill_1_mult_player value = 0.1 }
-        }
-        # 技能2 倍率提升（被动技能）：Lv5, Lv9, Lv11
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 5 }
-                NOT = { has_country_flag = br_skill_2_lv5 }
-            }
-            set_country_flag = br_skill_2_lv5
-            change_variable = { which = br_skill_2_mult_player value = 0.1 }
-        }
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 9 }
-                NOT = { has_country_flag = br_skill_2_lv9 }
-            }
-            set_country_flag = br_skill_2_lv9
-            change_variable = { which = br_skill_2_mult_player value = 0.1 }
-        }
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 11 }
-                NOT = { has_country_flag = br_skill_2_lv11 }
-            }
-            set_country_flag = br_skill_2_lv11
-            change_variable = { which = br_skill_2_mult_player value = 0.1 }
-        }
-        # 技能3 倍率提升（大招）：Lv7, Lv12
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 7 }
-                NOT = { has_country_flag = br_skill_3_lv7 }
-            }
-            set_country_flag = br_skill_3_lv7
-            change_variable = { which = br_skill_3_mult_player value = 0.1 }
-        }
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 12 }
-                NOT = { has_country_flag = br_skill_3_lv12 }
-            }
-            set_country_flag = br_skill_3_lv12
-            change_variable = { which = br_skill_3_mult_player value = 0.1 }
-        }
+        # 全技能效果 = 0.1 × 英雄等级（每次等级变化重新计算）
+        set_variable = { which = br_skill_1_mult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_1_mult_player value = 0.1 }
+        set_variable = { which = br_skill_1_daymult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_1_daymult_player value = 0.1 }
+        set_variable = { which = br_skill_2_mult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_2_mult_player value = 0.1 }
+        set_variable = { which = br_skill_2_daymult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_2_daymult_player value = 0.1 }
+        set_variable = { which = br_skill_3_mult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_3_mult_player value = 0.1 }
+        set_variable = { which = br_skill_3_daymult_player value = br_hero_level }
+        multiply_variable = { which = br_skill_3_daymult_player value = 0.1 }
     }
 }
 
