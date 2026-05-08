@@ -4,8 +4,8 @@ namespace = reward
 # 资源池 — reward.1001-1199
 # 只能由 reward.1 总触发器调用。
 # 每次从14种资源中随机选4种展示，玩家四选一。
-# 战略资源（8-10）需 br_power_level >= 4 才入池。
-# 稀有资源（11-14）需 br_power_level >= 8 才入池，基础值 0.2×等级。
+# 战略资源（8-10）需 br_power_level >= 4 才入池，0.1×基础值。
+# 稀有资源（11-14）需 br_power_level >= 8 才入池，0.1×基础值。
 # 增量 = @reward_monthly_base × br_power_level
 # ========================
 
@@ -260,7 +260,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 8 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_motes_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_motes_income value = br_res_inc_rare } }
     }
 
     # 9. 稀有水晶
@@ -275,7 +275,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 9 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_crystal_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_crystal_income value = br_res_inc_rare } }
     }
 
     # 10. 异星天然气
@@ -290,7 +290,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 10 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_gas_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_gas_income value = br_res_inc_rare } }
     }
 
     # 11. 暗物质
@@ -351,13 +351,5 @@ country_event = {
             }
         }
         hidden_effect = { change_variable = { which = br_reward_nanites_income value = br_res_inc_rare } }
-    }
-
-    # 选完后清理pick变量
-    after = {
-        set_variable = { which = br_res_pick_1 value = 0 }
-        set_variable = { which = br_res_pick_2 value = 0 }
-        set_variable = { which = br_res_pick_3 value = 0 }
-        set_variable = { which = br_res_pick_4 value = 0 }
     }
 }

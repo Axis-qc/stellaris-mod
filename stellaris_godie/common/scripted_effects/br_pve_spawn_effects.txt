@@ -177,3 +177,48 @@ br_spawn_pve_outer_fleet = {
         }
     }
 }
+
+# ======================== 年度增援已有舰队 ========================
+
+# 在已有舰队作用域内调用，从事件 root (br_player_pve) 读取 br_power_level
+# 按舰船容量分配增援：护卫(1容)=N艘，驱逐(2容)=N/2，巡洋(4容)=N/4，战列(8容)=N/8
+br_reinforce_pve_fleet = {
+    # 护卫/鱼雷：N 容量，每种 N 艘
+    set_variable = { which = br_reinf_cv value = root.br_power_level }
+    set_variable = { which = br_reinf_tc value = root.br_power_level }
+    br_spawn_n_ships = { COUNT = br_reinf_cv DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
+    br_spawn_n_ships = { COUNT = br_reinf_tc DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+
+    # 驱逐：N/2，N>=3 时解锁
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 3 } } }
+        set_variable = { which = br_reinf_dd value = root.br_power_level }
+        divide_variable = { which = br_reinf_dd value = 2 }
+        br_spawn_n_ships = { COUNT = br_reinf_dd DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+        br_spawn_n_ships = { COUNT = br_reinf_dd DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+        clear_variable = br_reinf_dd
+    }
+
+    # 巡洋：N/4，N>=5 时解锁
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 5 } } }
+        set_variable = { which = br_reinf_cr value = root.br_power_level }
+        divide_variable = { which = br_reinf_cr value = 4 }
+        br_spawn_n_ships = { COUNT = br_reinf_cr DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+        br_spawn_n_ships = { COUNT = br_reinf_cr DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+        clear_variable = br_reinf_cr
+    }
+
+    # 战列：N/8，N>=8 时解锁
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 8 } } }
+        set_variable = { which = br_reinf_bb value = root.br_power_level }
+        divide_variable = { which = br_reinf_bb value = 8 }
+        br_spawn_n_ships = { COUNT = br_reinf_bb DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
+        br_spawn_n_ships = { COUNT = br_reinf_bb DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
+        clear_variable = br_reinf_bb
+    }
+
+    clear_variable = br_reinf_cv
+    clear_variable = br_reinf_tc
+}
