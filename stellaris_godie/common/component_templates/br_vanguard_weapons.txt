@@ -1,0 +1,312 @@
+# 先锋级泰坦主炮 — 虚空裁决射线（3级）
+# 固定槽 TITANIC_01，仅先锋级可用，英雄等级解锁更高等级
+# 战斗数值：T1→快子光矛级，T3→炼狱射线级，T2 过渡
+
+@br_judgment_range_1 = 25
+@br_judgment_range_2 = 33
+@br_judgment_range_3 = 40
+
+@br_judgment_damage_1 = 300
+@br_judgment_damage_2 = 400
+@br_judgment_damage_3 = 500
+
+@br_judgment_cost_1 = 900
+@br_judgment_cost_2 = 1450
+@br_judgment_cost_3 = 2083
+
+@br_judgment_rare_1 = 6
+@br_judgment_rare_2 = 13
+@br_judgment_rare_3 = 22
+
+@br_judgment_upkeep_energy_1 = 5.2
+@br_judgment_upkeep_energy_2 = 8.6
+@br_judgment_upkeep_energy_3 = 12.15
+
+@br_judgment_upkeep_alloys_1 = 0.79
+@br_judgment_upkeep_alloys_2 = 1.28
+@br_judgment_upkeep_alloys_3 = 1.823
+
+# ========================
+# T1 虚空裁决射线（英雄Lv1-5）— 快子光矛级
+# ========================
+weapon_component_template = {
+    key = "BR_VANGUARD_JUDGMENT_BEAM_1"
+    size = titanic
+    type = instant
+    prio_projectile = yes
+
+    icon = "GFX_ship_part_perdition_beam"
+    icon_frame = 1
+
+    firing_arc = 360.0
+
+    tags = { weapon_type_energy weapon_role_artillery t_slot }
+    component_set = "BR_VANGUARD_JUDGMENT_BEAM_1"
+    projectile_gfx = "perdition_beam"
+
+    upgrades_to = "BR_VANGUARD_JUDGMENT_BEAM_2"
+
+    potential = {
+        # from = {
+        #     check_variable = { which = br_hero_level value >= 1 }
+        #     NOT = {
+        #         check_variable = { which = br_hero_level value >= 6 }
+        #     }
+        # }
+    }
+    possible = { }
+    size_restriction = { br_vanguard }
+    class_restriction = { shipclass_military_special }
+
+    prerequisites = { tech_corvettes }
+
+    power = -200
+    damage = { min = 600 max = 1500 }
+    hull_damage = 1.50
+    shield_damage = 0.50
+    shield_penetration = 0
+    armor_damage = 2.00
+    armor_penetration = 0
+    windup = { min = 12 max = 47 }
+    total_fire_time = 70
+    range = 150
+    accuracy = 0.85
+    tracking = 0.00
+
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @br_judgment_cost_1
+            rare_crystals = @br_judgment_rare_1
+        }
+        upkeep = {
+            alloys = @br_judgment_upkeep_alloys_1
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = no
+                }
+            }
+            energy = @br_judgment_upkeep_energy_1
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            food = @br_judgment_upkeep_energy_1
+        }
+    }
+
+    on_hit = {
+        inline_script = {
+            script = ship_components/collateral_damage
+            RANGE = @br_judgment_range_1
+            DAMAGE = @br_judgment_damage_1
+        }
+        custom_tooltip = "BR_JUDGMENT_BEAM_FLEET_EFFECT"
+    }
+
+    target_weights = {
+        titan = 3
+        battleship = 2
+    }
+
+    ai_weight = {
+        weight = 1
+        modifier = {
+            factor = 0.0
+        }
+    }
+}
+
+# ========================
+# T2 虚空裁决射线（英雄Lv6-9）— 过渡级
+# ========================
+weapon_component_template = {
+    key = "BR_VANGUARD_JUDGMENT_BEAM_2"
+    size = titanic
+    type = instant
+    prio_projectile = yes
+
+    icon = "GFX_ship_part_perdition_beam"
+    icon_frame = 1
+
+    firing_arc = 360.0
+
+    tags = { weapon_type_energy weapon_role_artillery t_slot }
+    component_set = "BR_VANGUARD_JUDGMENT_BEAM_2"
+    projectile_gfx = "perdition_beam"
+
+    upgrades_to = "BR_VANGUARD_JUDGMENT_BEAM_3"
+
+    potential = {
+    }
+    possible = {
+        # from = {
+        #     check_variable = { which = br_hero_level value >= 10 }
+        # }
+    }
+    size_restriction = { br_vanguard }
+    class_restriction = { shipclass_military_special }
+    prerequisites = { tech_cruisers }
+
+    power = -350
+    damage = { min = 3500 max = 7000 }
+    hull_damage = 1.375
+    shield_damage = 0.625
+    shield_penetration = 0
+    armor_damage = 1.75
+    armor_penetration = 0
+    windup = { min = 21 max = 84 }
+    total_fire_time = 125
+    range = 200
+    accuracy = 0.85
+    tracking = 0.00
+
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @br_judgment_cost_2
+            rare_crystals = @br_judgment_rare_2
+        }
+        upkeep = {
+            alloys = @br_judgment_upkeep_alloys_2
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = no
+                }
+            }
+            energy = @br_judgment_upkeep_energy_2
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            food = @br_judgment_upkeep_energy_2
+        }
+    }
+
+    on_hit = {
+        inline_script = {
+            script = ship_components/collateral_damage
+            RANGE = @br_judgment_range_2
+            DAMAGE = @br_judgment_damage_2
+        }
+        custom_tooltip = "BR_JUDGMENT_BEAM_FLEET_EFFECT"
+    }
+
+    target_weights = {
+        titan = 3
+        battleship = 2
+    }
+
+    ai_weight = {
+        weight = 1
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = rare_crystals }
+        }
+    }
+}
+
+# ========================
+# T3 虚空裁决射线（英雄Lv10+）— 炼狱射线级
+# ========================
+weapon_component_template = {
+    key = "BR_VANGUARD_JUDGMENT_BEAM_3"
+    size = titanic
+    type = instant
+    prio_projectile = yes
+
+    icon = "GFX_ship_part_perdition_beam"
+    icon_frame = 1
+
+    firing_arc = 360.0
+
+    tags = { weapon_type_energy weapon_role_artillery t_slot }
+    component_set = "BR_VANGUARD_JUDGMENT_BEAM_3"
+    projectile_gfx = "perdition_beam"
+
+    potential = {
+    }
+    possible = {
+        # from = {
+        #     check_variable = { which = br_hero_level value >= 10 }
+        # }
+    }
+    size_restriction = { br_vanguard }
+    class_restriction = { shipclass_military_special }
+    prerequisites = {
+        #科技
+        tech_titans
+    }
+
+    power = -500
+    damage = { min = 5000 max = 10000 }
+    hull_damage = 1.25
+    shield_damage = 0.75
+    shield_penetration = 0
+    armor_damage = 1.50
+    armor_penetration = 0
+    windup = { min = 30 max = 120 }
+    total_fire_time = 180
+    range = 250
+    accuracy = 0.85
+    tracking = 0.00
+
+    resources = {
+        category = ship_components
+        cost = {
+            alloys = @br_judgment_cost_3
+            rare_crystals = @br_judgment_rare_3
+        }
+        upkeep = {
+            alloys = @br_judgment_upkeep_alloys_3
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = no
+                }
+            }
+            energy = @br_judgment_upkeep_energy_3
+        }
+        upkeep = {
+            trigger = {
+                from = {
+                    country_uses_bio_ships = yes
+                }
+            }
+            food = @br_judgment_upkeep_energy_3
+        }
+    }
+
+    on_hit = {
+        inline_script = {
+            script = ship_components/collateral_damage
+            RANGE = @br_judgment_range_3
+            DAMAGE = @br_judgment_damage_3
+        }
+        custom_tooltip = "BR_JUDGMENT_BEAM_FLEET_EFFECT"
+    }
+
+    target_weights = {
+        titan = 3
+        battleship = 2
+    }
+
+    ai_weight = {
+        weight = 1
+        modifier = {
+            factor = 0.0
+            no_resource_for_component = { RESOURCE = rare_crystals }
+        }
+    }
+}
