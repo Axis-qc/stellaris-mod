@@ -1,0 +1,319 @@
+particle={
+	name="br_harvest_explosion"
+	subsystem={
+		name="CoreFlash"
+		max_amount=5
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/sun_flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255
+			y=220
+			z=100
+			alpha={ 255,harvest_flash_fade 10 }
+		}
+		position={
+			x=0
+			y=0
+			z=0
+		}
+		start=0
+		duration=-1
+		emitter_yaw={ 0 0 }
+		emitter_pitch={ 0 0 }
+		velocity_pitch={ 0 180 }
+		velocity_yaw={ 0 180 }
+		velocity={ 0 0 }
+		life={ 1.5 0.3 }
+		emission=10
+		size={ 1800,harvest_core_grow 100 }
+		particle_yaw={ 0 180 }
+		particle_pitch={ 0 180 }
+		rotation={ 0 180 }
+	}
+	subsystem={
+		name="DebrisBurst"
+		max_amount=50
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/sparks_muzzle.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=240
+			y=150
+			z=30
+			alpha={ 255,harvest_debris_fade 15 }
+		}
+		position={
+			x=0
+			y=0
+			z=0
+		}
+		start=0.3
+		duration=-1
+		emitter_yaw={ 0 0 }
+		emitter_pitch={ 0 0 }
+		velocity_pitch={ 0 180 }
+		velocity_yaw={ 0 180 }
+		velocity={ 6 2 }
+		life={ 6 1 }
+		emission=20
+		size={ 800,size_grow_flairs 80 }
+		particle_yaw={ 0 180 }
+		particle_pitch={ 0 180 }
+		rotation={ 0 180 }
+		rotation_speed={ 0 5 }
+	}
+	subsystem={
+		name="Shockwave"
+		max_amount=3
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/halo.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255
+			y=200
+			z=80
+			alpha=255,harvest_shock_fade
+		}
+		position={
+			x=0
+			y=0
+			z=0
+		}
+		start={ 0 1.5 }
+		duration=-1
+		emitter_yaw={ 0 0 }
+		emitter_pitch={ 0 0 }
+		velocity_pitch={ 0 180 }
+		velocity_yaw={ 0 180 }
+		velocity={ 0 0 }
+		life={ 8 1 }
+		emission={ 5 0.1 }
+		size={ 2200,harvest_shockwave_grow 200 }
+		particle_yaw={ 0 0 }
+		particle_pitch={ 90 0 }
+		rotation={ 0 180 }
+	}
+	subsystem={
+		name="GlowCloud"
+		max_amount=8
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=220
+			y=120
+			z=30
+			alpha={ 200,harvest_glow_linger 50 }
+		}
+		position={
+			x=0
+			y=0
+			z=0
+		}
+		start=3
+		duration=-1
+		emitter_yaw={ 0 0 }
+		emitter_pitch={ 0 0 }
+		velocity_pitch={ 0 180 }
+		velocity_yaw={ 0 180 }
+		velocity={ 0 0 }
+		life={ 12 2 }
+		emission=15
+		size={ 1500,harvest_glow_grow 200 }
+		particle_yaw={ 0 180 }
+		particle_pitch={ 0 180 }
+		rotation={ 0 180 }
+	}
+	subsystem={
+		name="Sparks"
+		max_amount=35
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/sparks_circle.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255
+			y=200
+			z=80
+			alpha={ 255,harvest_spark_fade 15 }
+		}
+		position={
+			x=0
+			y=0
+			z=0
+		}
+		start=0.5
+		duration=-1
+		emitter_yaw={ 0 0 }
+		emitter_pitch={ 0 0 }
+		velocity_pitch={ 0 180 }
+		velocity_yaw={ 0 180 }
+		velocity={ 2.5 1.5 }
+		life={ 7 1 }
+		emission=18
+		size={ 600,size_grow_flairs 60 }
+		particle_yaw={ 0 180 }
+		particle_pitch={ 0 180 }
+		rotation={ 0 180 }
+		rotation_speed={ 0 10 }
+	}
+	animation={
+		name="harvest_flash_fade"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0 0.03 1 0.08 1 0.4 0.5 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_core_grow"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0.1
+		maxValue=1
+		curve={
+			0 0.1 0.03 0.7 0.2 1 0.5 0.7 0.8 0.3 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_shockwave_grow"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0.05 0.5 0.5 0.75 0.85 1 1 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_shock_fade"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0 0.03 1 0.3 0.8 0.6 0.4 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_glow_linger"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0 0.08 0.5 0.25 1 0.5 0.9 0.75 0.5 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_glow_grow"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0.1
+		maxValue=1
+		curve={
+			0 0.1 0.2 0.6 0.5 1 1 1.2 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_debris_fade"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0 0.05 1 0.3 0.8 0.6 0.3 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="harvest_spark_fade"
+		start=0
+		duration=1
+		repeat=no
+		minValue=0
+		maxValue=1
+		curve={
+			0 0 0.05 1 0.35 0.8 0.65 0.3 1 0 
+		}
+		op="MUL"
+		time="life"
+	}
+}

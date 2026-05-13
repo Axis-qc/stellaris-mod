@@ -2,7 +2,9 @@ namespace = br
 #这里是母舰的技能模组
 # 英雄舰技能已迁移至 heroship_skill_*.txt (heroship.10-24)
 
-# Dominator 一次性维修（由 on_br_dominator_repair_activated 触发）
+# Dominator 战地再生力场（由 on_br_dominator_repair_activated 触发）
+# 消耗充能层数，为母舰所在星系内所有友军舰队施加再生力场。
+# 持续天数 = 30 × 充能层数。
 fleet_event = {
     id = br.1200
     hide_window = yes
@@ -16,25 +18,36 @@ fleet_event = {
 
     immediate = {
         owner = {
-            save_event_target_as = br_dominator_mode_owner
+            save_event_target_as = br_dominator_regen_owner
+            set_variable = { which = br_dominator_regen_charge_day value = 30 }
+            multiply_variable = { which = br_dominator_regen_charge_day value = br_dominator_regen_charge }
         }
-
         solar_system = {
             every_fleet_in_system = {
                 limit = {
                     exists = controller
                     controller = {
-                        NOT = { is_hostile = event_target:br_dominator_mode_owner }
+                        NOT = { is_hostile = event_target:br_dominator_regen_owner }
                     }
                 }
-                repair_percentage = 0.10
-                repair_armor_percentage = 0.10
+                add_modifier = {
+                    modifier = br_dominator_regen_field
+                    days = 1
+                    time_multiplier = owner.br_dominator_regen_charge_day
+                }
             }
+        }
+
+        owner = {
+            set_variable = { which = br_dominator_regen_charge value = 0 }
+            set_variable = { which = br_dominator_regen_charge_day value = 0 }
+            country_event = { id = br.1205 days = 60 }
         }
     }
 }
 
-# Dominator 模式切换光环（由 on_br_dominator_mode_toggle_activated 触发）
+# Dominator 全体召回（由 on_br_dominator_recall_activated 触发）
+# 将所有玩家舰队直接传送至母舰位置。
 fleet_event = {
     id = br.1201
     hide_window = yes
@@ -47,129 +60,112 @@ fleet_event = {
     }
 
     immediate = {
+        save_event_target_as = br_mothership_recall_target
+
         owner = {
-            save_event_target_as = br_dominator_mode_owner
-        }
-
-        if = {
-            limit = { has_fleet_flag = br_dominator_mode_targeting }
-
-            remove_fleet_flag = br_dominator_mode_targeting
-            remove_fleet_flag = br_dominator_mode_repair_aura
-            set_fleet_flag = br_dominator_mode_repair_aura
-
-            solar_system = {
-                every_fleet_in_system = {
-                    limit = {
-                        exists = controller
-                        controller = {
-                            NOT = { is_hostile = event_target:br_dominator_mode_owner }
-                        }
-                    }
-                    remove_modifier = br_dominator_mode_targeting
-                    remove_modifier = br_dominator_mode_repair_aura
-                    add_modifier = {
-                        modifier = br_dominator_mode_repair_aura
-                        days = 30
-                    }
+            every_owned_fleet = {
+                limit = {
+                    NOT = { is_same_value = event_target:br_mothership_recall_target }
                 }
-            }
-        }
-
-        else = {
-            remove_fleet_flag = br_dominator_mode_targeting
-            remove_fleet_flag = br_dominator_mode_repair_aura
-            set_fleet_flag = br_dominator_mode_targeting
-
-            solar_system = {
-                every_fleet_in_system = {
-                    limit = {
-                        exists = controller
-                        controller = {
-                            NOT = { is_hostile = event_target:br_dominator_mode_owner }
-                        }
-                    }
-                    remove_modifier = br_dominator_mode_targeting
-                    remove_modifier = br_dominator_mode_repair_aura
-                    add_modifier = {
-                        modifier = br_dominator_mode_targeting
-                        days = 30
-                    }
-                }
+                set_location = event_target:br_mothership_recall_target
             }
         }
     }
 }
 
-# 周期刷新母舰模式的临时星系范围 modifier。
+# Dominator 再生力场充能（由 br.1200 启动，每 60 天 +1 层，满 3 层停止自触发）
 country_event = {
-    id = br.1204
+    id = br.1205
     hide_window = yes
     is_triggered_only = yes
 
     trigger = {
-        any_owned_fleet = {
-            any_owned_ship = {
-                is_ship_size = br_dominator
-            }
-            OR = {
-                has_fleet_flag = br_dominator_mode_targeting
-                has_fleet_flag = br_dominator_mode_repair_aura
-            }
-        }
+        is_ai = no
+        check_variable = { which = br_dominator_regen_charge value < 3 }
     }
 
     immediate = {
-        every_owned_fleet = {
+        change_variable = { which = br_dominator_regen_charge value = 1 }
+        set_variable = { which = br_dominator_regen_charge_day value = 30 }
+        multiply_variable = { which = br_dominator_regen_charge_day value = br_dominator_regen_charge }
+        if = {
             limit = {
-                any_owned_ship = {
-                    is_ship_size = br_dominator
-                }
-                OR = {
-                    has_fleet_flag = br_dominator_mode_targeting
-                    has_fleet_flag = br_dominator_mode_repair_aura
-                }
+                check_variable = { which = br_dominator_regen_charge value < 3 }
             }
-
-            if = {
-                limit = { has_fleet_flag = br_dominator_mode_targeting }
-                solar_system = {
-                    every_fleet_in_system = {
-                        limit = {
-                            exists = controller
-                            controller = {
-                                NOT = { is_hostile = root }
-                            }
-                        }
-                        remove_modifier = br_dominator_mode_targeting
-                        remove_modifier = br_dominator_mode_repair_aura
-                        add_modifier = {
-                            modifier = br_dominator_mode_targeting
-                            days = 30
-                        }
-                    }
-                }
-            }
-
-            if = {
-                limit = { has_fleet_flag = br_dominator_mode_repair_aura }
-                solar_system = {
-                    every_fleet_in_system = {
-                        limit = {
-                            exists = controller
-                            controller = {
-                                NOT = { is_hostile = root }
-                            }
-                        }
-                        remove_modifier = br_dominator_mode_targeting
-                        remove_modifier = br_dominator_mode_repair_aura
-                        add_modifier = {
-                            modifier = br_dominator_mode_repair_aura
-                            days = 30
-                        }
-                    }
-                }
-            }
+            country_event = { id = br.1205 days = 60 }
         }
     }
 }
+
+# br.1204 已废弃（原母舰模式光环周期刷新，随 br.1201 模式切换功能一并移除）。
+# country_event = {
+#     id = br.1204
+#     hide_window = yes
+#     is_triggered_only = yes
+# 
+#     trigger = {
+#         any_owned_fleet = {
+#             any_owned_ship = {
+#                 is_ship_size = br_dominator
+#             }
+#             OR = {
+#                 has_fleet_flag = br_dominator_mode_targeting
+#                 has_fleet_flag = br_dominator_mode_repair_aura
+#             }
+#         }
+#     }
+# 
+#     immediate = {
+#         every_owned_fleet = {
+#             limit = {
+#                 any_owned_ship = {
+#                     is_ship_size = br_dominator
+#                 }
+#                 OR = {
+#                     has_fleet_flag = br_dominator_mode_targeting
+#                     has_fleet_flag = br_dominator_mode_repair_aura
+#                 }
+#             }
+# 
+#             if = {
+#                 limit = { has_fleet_flag = br_dominator_mode_targeting }
+#                 solar_system = {
+#                     every_fleet_in_system = {
+#                         limit = {
+#                             exists = controller
+#                             controller = {
+#                                 NOT = { is_hostile = root }
+#                             }
+#                         }
+#                         remove_modifier = br_dominator_mode_targeting
+#                         remove_modifier = br_dominator_mode_repair_aura
+#                         add_modifier = {
+#                             modifier = br_dominator_mode_targeting
+#                             days = 30
+#                         }
+#                     }
+#                 }
+#             }
+# 
+#             if = {
+#                 limit = { has_fleet_flag = br_dominator_mode_repair_aura }
+#                 solar_system = {
+#                     every_fleet_in_system = {
+#                         limit = {
+#                             exists = controller
+#                             controller = {
+#                                 NOT = { is_hostile = root }
+#                             }
+#                         }
+#                         remove_modifier = br_dominator_mode_targeting
+#                         remove_modifier = br_dominator_mode_repair_aura
+#                         add_modifier = {
+#                             modifier = br_dominator_mode_repair_aura
+#                             days = 30
+#                         }
+#                     }
+#                 }
+#             }
+#         }
+#     }
+# }

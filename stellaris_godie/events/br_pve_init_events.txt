@@ -816,13 +816,14 @@ country_event = {
                     exists = event_target:br_pve_enemy_country
                 }
                 country_event = { id = br.1 }
-                country_event = { id = br.799 }
+                country_event = { id = br.3 }   # 正常初始化：统一变量初始化
+                country_event = { id = br.799 }  # [后备保障] 敌人已存在时 trigger 不生效，冗余调用仅供防御
             }
         }
     }
 }
 
-# br.799：确保PVE敌对势力存在，按天灾式可见敌对国家创建
+# br.799：[后备保障] 月度脉冲安全网，仅在敌人被摧毁后重建。正常初始化走 br.702 → br.3 链路
 country_event = {
     id = br.799
     hide_window = yes
@@ -876,8 +877,10 @@ country_event = {
                 NOT = { has_global_flag = br_pve_initialized }
                 exists = event_target:br_pve_enemy_country
             }
-            country_event = { id = br.1 }
+            #初始化完成开始刷敌和初始化变量
             country_event = { id = br.800 }
         }
+        country_event = { id = br.1 }
+        country_event = { id = br.3 }
     }
 }

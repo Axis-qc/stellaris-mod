@@ -17,40 +17,34 @@ country_event = {
     }
 
     immediate = {
-        set_variable = { which = br_reinf_any value = 0 }
-
         random_owned_fleet = {
             limit = { is_ship_size = br_dominator }
             solar_system = {
-                save_event_target_as = br_dominator_target_@root
+                random_neighbor_system = {
+                    limit = {
+                        NOT = { any_fleet_in_system = { owner = { is_country_type = br_player_pve } } }
+                    }
+                    save_event_target_as = br_reinf_spawn_@root
+                }
+            }
+        }
 
-                every_neighbor_system = {
-                    every_fleet_in_system = {
-                        limit = {
-                            owner = { is_country_type = br_pve_enemy }
-                        }
+        if = {
+            limit = { exists = event_target:br_reinf_spawn_@root }
+            event_target:br_pve_enemy_country = {
+                create_fleet = {
+                    name = random
+                    effect = {
+                        set_owner = PREV
+                        set_location = event_target:br_reinf_spawn_@root
                         br_reinforce_pve_fleet = yes
-                        root = { set_variable = { which = br_reinf_any value = 1 } }
                     }
                 }
             }
         }
 
         if = {
-            limit = { exists = event_target:br_assault_fleet_@root }
-            event_target:br_assault_fleet_@root = {
-                clear_fleet_actions = this
-                if = {
-                    limit = { exists = event_target:br_dominator_target_@root }
-                    queue_actions = {
-                        move_to = event_target:br_dominator_target_@root
-                    }
-                }
-            }
-        }
-
-        if = {
-            limit = { check_variable = { which = br_reinf_any value > 0 } }
+            limit = { exists = event_target:br_reinf_spawn_@root }
             create_message = {
                 type = FLEET_DETECTED_MESSAGE_TYPE
                 localization = br.830.toast
@@ -58,8 +52,6 @@ country_event = {
                 custom_toast_content_icon = GFX_message_fleet_detected
             }
         }
-
-        clear_variable = br_reinf_any
     }
 }
 
@@ -78,17 +70,7 @@ country_event = {
     trigger = {
         is_country_type = br_player_pve
         exists = event_target:br_pve_enemy_country
-        NOT = { exists = event_target:br_assault_fleet_@root }
-        any_owned_fleet = {
-            is_ship_size = br_dominator
-            solar_system = {
-                any_system = {
-                    distance = { source = PREV max_jumps = 10 }
-                    NOT = { has_star_flag = br_danger }
-                    NOT = { any_fleet_in_system = { owner = { is_country_type = br_player_pve } } }
-                }
-            }
-        }
+        any_owned_fleet = { is_ship_size = br_dominator }
     }
 
     immediate = {
@@ -96,7 +78,18 @@ country_event = {
             limit = { is_ship_size = br_dominator }
             solar_system = {
                 save_event_target_as = br_dominator_target_@root
+            }
+        }
 
+        if = {
+            limit = { exists = event_target:br_assault_fleet_@root }
+            event_target:br_assault_fleet_@root = {
+                clear_fleet_actions = this
+                queue_actions = { move_to = event_target:br_dominator_target_@root }
+            }
+        }
+        else = {
+            event_target:br_dominator_target_@root = {
                 random_system = {
                     limit = {
                         distance = { source = PREV max_jumps = 10 }
@@ -106,36 +99,33 @@ country_event = {
                     save_event_target_as = br_assault_spawn_@root
                 }
             }
-        }
 
-        event_target:br_pve_enemy_country = {
-            create_fleet = {
-                name = random
-                effect = {
-                    set_owner = PREV
-                    set_location = event_target:br_assault_spawn_@root
-
-                    br_reinforce_pve_fleet = yes
-
-                    set_fleet_stance = aggressive
-                    if = {
-                        limit = { exists = event_target:br_dominator_target_@root }
-                        queue_actions = {
-                            move_to = event_target:br_dominator_target_@root
+            if = {
+                limit = { exists = event_target:br_assault_spawn_@root }
+                event_target:br_pve_enemy_country = {
+                    create_fleet = {
+                        name = random
+                        effect = {
+                            set_owner = PREV
+                            set_location = event_target:br_assault_spawn_@root
+                            br_reinforce_pve_fleet = yes
+                            set_fleet_stance = aggressive
+                            queue_actions = {
+                                move_to = event_target:br_dominator_target_@root
+                            }
                         }
                     }
+                    last_created_fleet = {
+                        save_event_target_as = br_assault_fleet_@root
+                    }
+                }
+                create_message = {
+                    type = FLEET_DETECTED_MESSAGE_TYPE
+                    localization = br.840.toast
+                    days = 30
+                    custom_toast_content_icon = GFX_message_fleet_detected
                 }
             }
-            last_created_fleet = {
-                save_event_target_as = br_assault_fleet_@root
-            }
-        }
-
-        create_message = {
-            type = FLEET_DETECTED_MESSAGE_TYPE
-            localization = br.840.toast
-            days = 30
-            custom_toast_content_icon = GFX_message_fleet_detected
         }
     }
 }

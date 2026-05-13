@@ -1,7 +1,8 @@
 br_dominator = {
-    entity = "colossus_entity"
+    # entity = "colossus_entity"
+    entity = "juggernaut_core_section_entity"
     # 舰体显示缩放倍率。
-    hull_scale = 1.75
+    hull_scale = 3
     formation_priority = @colossus_formation_priority
     max_speed = @speed_very_slow
     acceleration = 0.2
@@ -13,11 +14,13 @@ br_dominator = {
         starbase_shipyard_capacity_add = 6
         ship_sensor_range_add = 1
     }
-    size_multiplier = 100
+    size_multiplier = 32
     map_counter_icon = ship_counter_128
     icon = ship_size_military_64
     fleet_slot_size = 32
-    section_slots = { "ship" = { locator = "frame_ship" } }
+    section_slots = {
+        "core" = { locator = "part1" }
+    }
     num_target_locators = 4
     is_space_station = no
     base_buildtime = @colossus_build_time

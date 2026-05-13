@@ -1,3 +1,8 @@
+# 不要用一个组件内多个 friendly_aura + 母舰 ship_flag 来切换母舰模式。
+# friendly_aura.limit 的作用域是受影响舰船，只会筛选谁能吃到光环，不能读取光环来源母舰的标记。
+# 母舰模式光环改用事件周期刷新舰队 modifier 实现。
+# 母舰光环已经废弃
+
 weapon_component_template = {
     key = "BR_PLANET_KILLER_HARVESTER"
     size = planet_killer
@@ -35,14 +40,25 @@ utility_component_template = {
 
     scripted_action = {
         scope = self
-
+        # ─── scripted_action 三个关键字段 ───
+        # possible:         该 action 是否能使用 (对按钮和右键菜单也生效)
+        # button_visible:   按钮是否显示在舰队面板上 → 用 flag 控制哪个技能可见
+        # button_clickable: 按钮是否可点击 → 额外运行时条件（资源不足等），置灰显示 fail_text (仅对按钮生效)
         possible = {
-            always = yes
+            custom_tooltip = {
+                fail_text = br_dominator_repair_fail_tt
+                always = yes
+                owner = {
+                    check_variable = { which = br_dominator_regen_charge value > 0 }
+                }
+            }
         }
 
         button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_dominator
+            owner = {
+                any_owned_ship = {
+                    is_ship_size = br_dominator
+                }
             }
         }
 
@@ -50,6 +66,9 @@ utility_component_template = {
             custom_tooltip = {
                 fail_text = br_dominator_repair_fail_tt
                 always = yes
+                owner = {
+                    check_variable = { which = br_dominator_regen_charge value > 0 }
+                }
             }
         }
 
@@ -61,7 +80,6 @@ utility_component_template = {
         context_menu_name = br_dominator_repair_menu_title
         progress_activity_key = br_dominator_repair_progress_activity_key
         required_progress = 4
-        cooldown = 30
         slot = 1
     }
 
@@ -73,28 +91,55 @@ utility_component_template = {
         }
 
         button_visible = {
-            any_owned_ship = {
-                is_ship_size = br_dominator
+            owner = {
+                any_owned_ship = {
+                    is_ship_size = br_dominator
+                }
             }
         }
 
         button_clickable = {
             custom_tooltip = {
-                fail_text = br_dominator_mode_fail_tt
+                fail_text = br_dominator_recall_fail_tt
                 always = yes
             }
         }
 
-        name = on_br_dominator_mode_toggle_activated
-        tooltip = br_dominator_mode_toggle_ship_button
+        name = on_br_dominator_recall_activated
+        tooltip = br_dominator_recall_ship_button
         icon = GFX_br_dominator_mode_repair_aura
         icon_selected = GFX_br_dominator_mode_repair_aura
-        activity_key = br_dominator_mode_toggle_activity_key
-        context_menu_name = br_dominator_mode_toggle_menu_title
-        progress_activity_key = br_dominator_mode_toggle_progress_activity_key
+        activity_key = br_dominator_recall_activity_key
+        context_menu_name = br_dominator_recall_menu_title
+        progress_activity_key = br_dominator_recall_progress_activity_key
         required_progress = 4
-        cooldown = 30
+        cooldown = 360
         slot = 2
+    }
+
+    scripted_action = {
+        scope = planet
+        possible = {
+            NOT = {
+                is_star = yes
+            }
+            custom_tooltip = {
+                fail_text = br_dominator_survey_fail_tt
+                NOT = {
+                    has_planet_flag = br_harvested_planet
+                }
+            }
+        }
+        name = on_br_dominator_survey_planet_activated
+        tooltip = br_dominator_survey_planet_button
+        icon = GFX_fleet_order_blow_up_planet_action
+        icon_selected = GFX_fleet_order_blow_up_planet_action
+        activity_key = br_dominator_survey_activity_key
+        context_menu_name = br_dominator_survey_menu_title
+        progress_activity_key = br_dominator_survey_progress_activity_key
+        required_progress = 60
+        cooldown = 30
+        slot = 3
     }
 
     ai_weight = {
@@ -102,9 +147,6 @@ utility_component_template = {
     }
 }
 
-# 不要用一个组件内多个 friendly_aura + 母舰 ship_flag 来切换母舰模式。
-# friendly_aura.limit 的作用域是受影响舰船，只会筛选谁能吃到光环，不能读取光环来源母舰的标记。
-# 母舰模式光环改用事件周期刷新舰队 modifier 实现。
 
 utility_component_template = {
     key = "BR_DOMINATOR_THRUSTER"

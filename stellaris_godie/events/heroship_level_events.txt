@@ -214,7 +214,7 @@ country_event = {
             }
         }
         # Lv4 → 被动技能选择
-        else_if = {
+        if = {
             limit = {
                 check_variable = { which = br_hero_level value >= 4 }
             }
@@ -244,14 +244,17 @@ country_event = {
             }
         }
         # Lv6 → 大招选择（预留）
-        else_if = {
+        if = {
             limit = {
                 check_variable = { which = br_hero_level value >= 6 }
             }
             if = {
                 limit = {
-                    always = no # TODO: 火力核心 Lv6 实装后替换为对应 flag 检查
+                    always = no # TODO: 火力核心 Lv6 实装一个
                     has_country_flag = br_hero_core_power
+                    NOR = {
+                        has_country_flag = br_skill_fullfire_unlocked
+                    }
                 }
                 country_event = { id = heroship.12 }
             }

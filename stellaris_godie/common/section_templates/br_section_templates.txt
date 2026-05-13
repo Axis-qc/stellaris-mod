@@ -2,50 +2,89 @@ ship_section_template = {
     key = "BR_DOMINATOR_SECTION"
     ship_size = br_dominator
 
-    fits_on_slot = "ship"
-    entity = "colossus_ship_entity"
+    fits_on_slot = "core"
+    entity = "juggernaut_core_section_entity"
     icon = "GFX_ship_part_core_mid"
+    ai_tags = { carrier artillery }
 
     component_slot = {
-        name = "PLANET_KILLER_GUN_01"
-        template = "br_planet_killer_fixed"
-        locatorname = "planet_killer_gun_01"
+        name = "EXTRA_LARGE_01"
+        template = "extra_large_turret"
+        locatorname = "xl_gun_01"
+    }
+
+    component_slot = {
+        name = "EXTRA_LARGE_02"
+        template = "extra_large_turret"
+        locatorname = "xl_gun_02"
     }
 
     component_slot = {
         name = "STRIKE_CRAFT_01"
         template = "large_strike_craft"
-        rotation = 90
         locatorname = "strike_craft_locator_01"
     }
-
     component_slot = {
         name = "STRIKE_CRAFT_02"
         template = "large_strike_craft"
-        rotation = -90
         locatorname = "strike_craft_locator_02"
     }
-
     component_slot = {
         name = "STRIKE_CRAFT_03"
         template = "large_strike_craft"
-        rotation = 90
         locatorname = "strike_craft_locator_03"
     }
-
     component_slot = {
         name = "STRIKE_CRAFT_04"
         template = "large_strike_craft"
-        rotation = -90
         locatorname = "strike_craft_locator_04"
     }
+    component_slot = {
+        name = "STRIKE_CRAFT_05"
+        template = "large_strike_craft"
+        locatorname = "strike_craft_locator_05"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_06"
+        template = "large_strike_craft"
+        locatorname = "strike_craft_locator_06"
+    }
 
-    large_utility_slots = 6
+    component_slot = {
+        name = "MEDIUM_GUN_01"
+        template = "medium_turret"
+        locatorname = "gun_1"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_02"
+        template = "medium_turret"
+        locatorname = "gun_2"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_03"
+        template = "medium_turret"
+        locatorname = "gun_3"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_04"
+        template = "medium_turret"
+        locatorname = "gun_4"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_05"
+        template = "medium_turret"
+        locatorname = "gun_5"
+    }
+
+    small_utility_slots = 0
+    medium_utility_slots = 0
+    large_utility_slots = 21
+    aux_utility_slots = 4
 
     resources = {
         category = ship_sections
         cost = {
-            alloys = 5000     # 母舰区段（灭星武器+4机库），巨像级
+            alloys = 10000
         }
     }
 }

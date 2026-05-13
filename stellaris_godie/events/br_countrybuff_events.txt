@@ -85,6 +85,29 @@ country_event = {
     }
 }
 
+# 变量初始化：所有国家级变量统一在此事件初始化。
+country_event = {
+    id = br.3
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        # is_ai = no
+        NOT = { has_country_flag = br_vars_initialized }
+    }
+
+    immediate = {
+        every_country = {
+            limit = {
+                is_ai = no
+            }
+            set_country_flag = br_vars_initialized
+            set_variable = { which = br_dominator_regen_charge value = 3 }
+            set_variable = { which = br_dominator_regen_charge_day value = 90 }
+        }
+    }
+}
+
 # 接战为本星系所有舰队挂移速减半
 fleet_event = {
     id = br.11

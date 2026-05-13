@@ -3,16 +3,8 @@
 # 越战越勇上限
 br_vanguard_kill_cap = {
     base = 50
-
-    # 上限提升 +25/+25 → 最高 100
-    modifier = {
-        add = 25
-        owner = { has_country_flag = br_kill_stack_cap_upgraded_1 }
-    }
-    modifier = {
-        add = 25
-        owner = { has_country_flag = br_kill_stack_cap_upgraded_2 }
-    }
+    #根据等级加上限
+    add = owner.br_hero_level
 }
 
 

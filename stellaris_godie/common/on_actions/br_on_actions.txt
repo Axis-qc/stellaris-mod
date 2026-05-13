@@ -10,9 +10,8 @@ on_game_start_country = {
 }
 on_monthly_pulse_country = {
     events = {
-        br.799
+        br.799   # [后备保障] 敌人被摧毁时重建，正常初始化不走此路
         br.800
-        br.1204
         reward.2
     }
 }
@@ -64,9 +63,15 @@ on_br_dominator_repair_activated = {
     }
 }
 
-on_br_dominator_mode_toggle_activated = {
+on_br_dominator_recall_activated = {
     events = {
         br.1201
+    }
+}
+
+on_br_dominator_survey_planet_activated = {
+    events = {
+        br.6000
     }
 }
 
