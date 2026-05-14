@@ -57,6 +57,18 @@ defined_text = {
     default = ""
 }
 
+# 终末齐射
+defined_text = {
+    name = GetBRVanguardUltimate2
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_final_volley
+        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
+    }
+    default = ""
+}
+
 # 旗舰超载全部未解锁
 defined_text = {
     name = GetBRVanguardUltimateEmpty
@@ -68,6 +80,7 @@ defined_text = {
             owner = {
                 NOR = {
                     has_country_flag = br_skill_fullfire_unlocked
+                    has_country_flag = br_skill_final_volley_unlocked
                 }
             }
         }
@@ -256,6 +269,10 @@ defined_text = {
     text = {
         localization_key = br_context_menu_fullfire
         trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_final_volley
+        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
     }
     default = br_hero_active_skill_menu_title
 }

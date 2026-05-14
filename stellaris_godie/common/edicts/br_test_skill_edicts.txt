@@ -178,6 +178,31 @@ br_test_toggle_fullfire = {
     ai_weight = { weight = 0 }
 }
 
+br_test_toggle_final_volley = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_final_volley_unlocked }
+            remove_country_flag = br_skill_final_volley_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_final_volley_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
 # 测试法令 — 调整技能效果/时长倍率（改国家 _player 变量）
 
 br_test_skill_1_mult_up = {

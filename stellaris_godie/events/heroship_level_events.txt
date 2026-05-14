@@ -250,10 +250,10 @@ country_event = {
             }
             if = {
                 limit = {
-                    always = no # TODO: 火力核心 Lv6 实装一个
                     has_country_flag = br_hero_core_power
                     NOR = {
                         has_country_flag = br_skill_fullfire_unlocked
+                        has_country_flag = br_skill_final_volley_unlocked
                     }
                 }
                 country_event = { id = heroship.12 }
@@ -320,7 +320,7 @@ country_event = {
     }
 }
 
-# Lv6 旗舰超载：火力全开
+# Lv6 旗舰超载：火力全开 / 终末齐射（二选一）
 country_event = {
     id = heroship.12
     is_triggered_only = yes
@@ -332,6 +332,11 @@ country_event = {
         name = br_context_menu_fullfire
         custom_tooltip = br_vanguard_skill_fullfire
         set_country_flag = br_skill_fullfire_unlocked
+    }
+    option = {
+        name = br_context_menu_final_volley
+        custom_tooltip = br_vanguard_skill_final_volley
+        set_country_flag = br_skill_final_volley_unlocked
     }
 }
 

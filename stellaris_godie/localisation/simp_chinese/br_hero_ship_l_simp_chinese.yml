@@ -42,7 +42,7 @@
  br_vanguard_power_skill_button:0 "§H火力核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive2][Root.GetBRVanguardActive3][Root.GetBRVanguardActiveEmpty]\n被动：[Root.GetBRVanguardPassive1][Root.GetBRVanguardPassive2][Root.GetBRVanguardPassiveEmpty]\n[Root.GetBRVanguardActiveCD]"
  br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActiveEmpty]\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
  br_vanguard_support_skill_button:0 "§H支援核心技能§!\n[Root.GetBRHeroXPState]\n主动：§R未解锁§!\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
- br_vanguard_power_ultimate_button:0 "§H旗舰超载§!\n[Root.GetBRHeroXPState]\n旗舰超载：[Root.GetBRVanguardUltimate1][Root.GetBRVanguardUltimateEmpty]\n[Root.GetBRVanguardUltimateCD]"
+  br_vanguard_power_ultimate_button:0 "§H旗舰超载§!\n[Root.GetBRHeroXPState]\n旗舰超载：[Root.GetBRVanguardUltimate1][Root.GetBRVanguardUltimate2][Root.GetBRVanguardUltimateEmpty]\n[Root.GetBRVanguardUltimateCD]"
  br_vanguard_skill_locked:0 "§R未解锁§!"
  br_vanguard_active_cd_ready:0 "冷却：§G就绪§!"
  br_vanguard_active_cd_power:0 "冷却：§B[Root.owner.br_vanguard_power_skill_cd]§!天"
@@ -89,14 +89,16 @@
  # 右键菜单
  br_context_menu_overclock:0 "§H能量超频§!"
  br_context_menu_scan:0 "§H弱点扫描§!"
- br_context_menu_fullfire:0 "§H火力全开§!"
+  br_context_menu_fullfire:0 "§H火力全开§!"
+  br_context_menu_final_volley:0 "§H终末齐射§!"
 
  # 技能合并展示文本（scripted loc 引用）
  br_vanguard_skill_overclock:0 "§G能量超频§!\n  §G+[br_skill_overclock_firerate]%§!射速，每日§R-[br_skill_overclock_hulldrain]%§!船体，持续§Y[br_skill_overclock_day]天§!。基础冷却：§Y90天§!"
  br_vanguard_skill_scan:0 "§G弱点扫描§!\n  标记本星系所有敌方舰队，受到武器伤害§G+[br_skill_scan_damage]%§!，持续§Y[br_skill_scan_day]天§!。基础冷却：§Y120天§!"
   br_vanguard_skill_combat_stack:0 "§G战意过载§!\n  进入战斗后每日§G+1§!层，为星系内所有友方单位提供§G+[br_skill_combat_stack_damage]%§!武器伤害，最多§Y100§!层。脱战清空。"
  br_vanguard_skill_kill_stack:0 "§G越战越勇§!\n  每击杀一艘敌舰永久§G+[br_skill_kill_stack_damage]%§!武器伤害，上限§Y[br_skill_kill_stack_cap_display]%§!。当前：§Y[Root.owner.br_vanguard_kill_count]§!层"
- br_vanguard_skill_fullfire:0 "§G火力全开§!\n  §G+[br_vanguard_skill_fullfire_1]%§!射速，§G+[br_vanguard_skill_fullfire_2]%§!武器伤害，持续§Y[br_vanguard_skill_fullfire_day]天§!；结束后§R-[br_vanguard_skill_fullfire_debuff]%§!射速，持续§Y[br_vanguard_skill_fullfire_day]天§!。\n基础冷却：§Y300天§!"
+  br_vanguard_skill_fullfire:0 "§G火力全开§!\n  §G+[br_vanguard_skill_fullfire_1]%§!射速，§G+[br_vanguard_skill_fullfire_2]%§!武器伤害，持续§Y[br_vanguard_skill_fullfire_day]天§!；结束后§R-[br_vanguard_skill_fullfire_debuff]%§!射速，持续§Y[br_vanguard_skill_fullfire_day]天§!。\n基础冷却：§Y300天§!"
+  br_vanguard_skill_final_volley:0 "§G终末齐射§!\n  星系内所有友方单位武器伤害和射速§G+[br_vanguard_skill_final_volley_amount]%§!，持续§Y[br_vanguard_skill_final_volley_day]天§!。基础冷却：§Y360天§!"
 
  # Modifier 描述
  br_vanguard_power_combat_stack_damage:0 "战意过载"
@@ -110,7 +112,9 @@
  br_vanguard_power_ultimate_fullfire:0 "火力全开"
  br_vanguard_power_ultimate_fullfire_desc:0 "该舰船正在全力输出。§G+200%§!射速，§G+50%§!武器伤害。"
  br_vanguard_power_ultimate_fullfire_crash:0 "火力全开副作用"
- br_vanguard_power_ultimate_fullfire_crash_desc:0 "该舰船因火力全开而过热，§R-30%§!射速。"
+  br_vanguard_power_ultimate_fullfire_crash_desc:0 "该舰船因火力全开而过热，§R-30%§!射速。"
+  br_vanguard_power_final_volley:0 "终末齐射"
+  br_vanguard_power_final_volley_desc:0 "受终末齐射加成，武器伤害和射速大幅提升。"
 
  # ============================================================
  # 测试法令

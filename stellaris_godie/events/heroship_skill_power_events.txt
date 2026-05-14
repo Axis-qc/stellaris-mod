@@ -184,7 +184,7 @@ fleet_event = {
                 every_fleet_in_system = {
                     limit = {
                         exists = owner
-                        owner = { NOT = { is_hostile = owner } }
+                        owner = { NOT = { is_hostile = root.owner } }
                     }
                     remove_modifier = br_vanguard_power_combat_stack_damage
                     add_modifier = {
@@ -279,6 +279,46 @@ fleet_event = {
                 mult = value:br_hero_ship_skill_3_mult
                 days = 15
                 time_multiplier = value:br_hero_ship_skill_3_daymult
+            }
+        }
+    }
+}
+
+# 终末齐射激活（由 on_br_power_ultimate_activated 触发）
+fleet_event = {
+    id = heroship.1112
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_power_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_final_volley_unlocked
+            br_vanguard_power_ultimate_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = owner
+                    owner = { NOT = { is_hostile = root.owner } }
+                }
+                add_modifier = {
+                    modifier = br_vanguard_power_final_volley
+                    mult = value:br_hero_ship_skill_3_mult
+                    days = 10
+                    time_multiplier = value:br_hero_ship_skill_3_daymult
+                }
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_power_ultimate_cd value = 360 }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
             }
         }
     }
