@@ -7,6 +7,11 @@ country_event = {
     hide_window = yes
     is_triggered_only = yes
 
+    trigger = {
+        NOT = { has_global_flag = br_cycle_resetting }
+        NOT = { has_global_flag = br_shrink_paused }
+    }
+
     immediate = {
 
         change_variable = {

@@ -1,7 +1,7 @@
 namespace = br
 
 # 事件ID区间：700-799。新增或修改事件ID不得超出此区间喵
-# br.700：PVE模式初始化入口，选择6个出生点（外围3个+2跳相邻3个）并为玩家随机分配喵
+# br.700：PVE模式初始化入口，在最外圈选1个锚点再在附近选5个共6个出生点喵
 country_event = {
     id = br.700
     hide_window = yes
@@ -22,526 +22,364 @@ country_event = {
     }
 
     immediate = {
-        # 首位玩家在边缘圈随机选择三个候选出生星系喵
+        # 在最外圈选1个锚点，再在附近选5个共6个出生点喵
         if = {
             limit = { NOT = { has_global_flag = br_player_spawns_marked } }
             set_global_flag = br_player_spawns_marked
             if = {
                 limit = { has_global_flag = br_reached_100 }
                 random_system = { limit = { has_star_flag = br_ring_100 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_100 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_100 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_99 }
                 random_system = { limit = { has_star_flag = br_ring_99 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_99 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_99 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_98 }
                 random_system = { limit = { has_star_flag = br_ring_98 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_98 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_98 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_97 }
                 random_system = { limit = { has_star_flag = br_ring_97 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_97 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_97 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_96 }
                 random_system = { limit = { has_star_flag = br_ring_96 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_96 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_96 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_95 }
                 random_system = { limit = { has_star_flag = br_ring_95 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_95 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_95 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_94 }
                 random_system = { limit = { has_star_flag = br_ring_94 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_94 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_94 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_93 }
                 random_system = { limit = { has_star_flag = br_ring_93 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_93 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_93 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_92 }
                 random_system = { limit = { has_star_flag = br_ring_92 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_92 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_92 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_91 }
                 random_system = { limit = { has_star_flag = br_ring_91 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_91 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_91 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_90 }
                 random_system = { limit = { has_star_flag = br_ring_90 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_90 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_90 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_89 }
                 random_system = { limit = { has_star_flag = br_ring_89 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_89 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_89 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_88 }
                 random_system = { limit = { has_star_flag = br_ring_88 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_88 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_88 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_87 }
                 random_system = { limit = { has_star_flag = br_ring_87 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_87 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_87 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_86 }
                 random_system = { limit = { has_star_flag = br_ring_86 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_86 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_86 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_85 }
                 random_system = { limit = { has_star_flag = br_ring_85 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_85 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_85 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_84 }
                 random_system = { limit = { has_star_flag = br_ring_84 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_84 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_84 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_83 }
                 random_system = { limit = { has_star_flag = br_ring_83 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_83 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_83 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_82 }
                 random_system = { limit = { has_star_flag = br_ring_82 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_82 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_82 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_81 }
                 random_system = { limit = { has_star_flag = br_ring_81 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_81 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_81 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_80 }
                 random_system = { limit = { has_star_flag = br_ring_80 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_80 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_80 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_79 }
                 random_system = { limit = { has_star_flag = br_ring_79 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_79 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_79 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_78 }
                 random_system = { limit = { has_star_flag = br_ring_78 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_78 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_78 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_77 }
                 random_system = { limit = { has_star_flag = br_ring_77 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_77 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_77 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_76 }
                 random_system = { limit = { has_star_flag = br_ring_76 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_76 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_76 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_75 }
                 random_system = { limit = { has_star_flag = br_ring_75 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_75 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_75 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_74 }
                 random_system = { limit = { has_star_flag = br_ring_74 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_74 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_74 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_73 }
                 random_system = { limit = { has_star_flag = br_ring_73 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_73 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_73 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_72 }
                 random_system = { limit = { has_star_flag = br_ring_72 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_72 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_72 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_71 }
                 random_system = { limit = { has_star_flag = br_ring_71 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_71 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_71 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_70 }
                 random_system = { limit = { has_star_flag = br_ring_70 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_70 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_70 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_69 }
                 random_system = { limit = { has_star_flag = br_ring_69 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_69 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_69 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_68 }
                 random_system = { limit = { has_star_flag = br_ring_68 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_68 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_68 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_67 }
                 random_system = { limit = { has_star_flag = br_ring_67 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_67 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_67 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_66 }
                 random_system = { limit = { has_star_flag = br_ring_66 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_66 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_66 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_65 }
                 random_system = { limit = { has_star_flag = br_ring_65 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_65 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_65 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_64 }
                 random_system = { limit = { has_star_flag = br_ring_64 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_64 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_64 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_63 }
                 random_system = { limit = { has_star_flag = br_ring_63 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_63 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_63 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_62 }
                 random_system = { limit = { has_star_flag = br_ring_62 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_62 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_62 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_61 }
                 random_system = { limit = { has_star_flag = br_ring_61 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_61 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_61 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_60 }
                 random_system = { limit = { has_star_flag = br_ring_60 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_60 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_60 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_59 }
                 random_system = { limit = { has_star_flag = br_ring_59 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_59 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_59 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_58 }
                 random_system = { limit = { has_star_flag = br_ring_58 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_58 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_58 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_57 }
                 random_system = { limit = { has_star_flag = br_ring_57 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_57 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_57 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_56 }
                 random_system = { limit = { has_star_flag = br_ring_56 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_56 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_56 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_55 }
                 random_system = { limit = { has_star_flag = br_ring_55 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_55 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_55 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_54 }
                 random_system = { limit = { has_star_flag = br_ring_54 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_54 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_54 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_53 }
                 random_system = { limit = { has_star_flag = br_ring_53 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_53 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_53 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_52 }
                 random_system = { limit = { has_star_flag = br_ring_52 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_52 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_52 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_51 }
                 random_system = { limit = { has_star_flag = br_ring_51 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_51 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_51 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_50 }
                 random_system = { limit = { has_star_flag = br_ring_50 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_50 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_50 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_49 }
                 random_system = { limit = { has_star_flag = br_ring_49 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_49 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_49 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_48 }
                 random_system = { limit = { has_star_flag = br_ring_48 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_48 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_48 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_47 }
                 random_system = { limit = { has_star_flag = br_ring_47 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_47 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_47 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_46 }
                 random_system = { limit = { has_star_flag = br_ring_46 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_46 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_46 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_45 }
                 random_system = { limit = { has_star_flag = br_ring_45 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_45 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_45 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_44 }
                 random_system = { limit = { has_star_flag = br_ring_44 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_44 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_44 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_43 }
                 random_system = { limit = { has_star_flag = br_ring_43 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_43 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_43 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_42 }
                 random_system = { limit = { has_star_flag = br_ring_42 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_42 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_42 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_41 }
                 random_system = { limit = { has_star_flag = br_ring_41 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_41 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_41 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_40 }
                 random_system = { limit = { has_star_flag = br_ring_40 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_40 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_40 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_39 }
                 random_system = { limit = { has_star_flag = br_ring_39 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_39 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_39 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_38 }
                 random_system = { limit = { has_star_flag = br_ring_38 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_38 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_38 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_37 }
                 random_system = { limit = { has_star_flag = br_ring_37 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_37 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_37 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_36 }
                 random_system = { limit = { has_star_flag = br_ring_36 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_36 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_36 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_35 }
                 random_system = { limit = { has_star_flag = br_ring_35 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_35 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_35 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_34 }
                 random_system = { limit = { has_star_flag = br_ring_34 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_34 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_34 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_33 }
                 random_system = { limit = { has_star_flag = br_ring_33 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_33 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_33 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_32 }
                 random_system = { limit = { has_star_flag = br_ring_32 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_32 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_32 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_31 }
                 random_system = { limit = { has_star_flag = br_ring_31 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_31 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_31 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
             else_if = {
                 limit = { has_global_flag = br_reached_30 }
                 random_system = { limit = { has_star_flag = br_ring_30 } set_star_flag = br_spawn_candidate_1 }
-                random_system = { limit = { has_star_flag = br_ring_30 NOT = { has_star_flag = br_spawn_candidate_1 } } set_star_flag = br_spawn_candidate_2 }
-                random_system = { limit = { has_star_flag = br_ring_30 NOT = { has_star_flag = br_spawn_candidate_1 } NOT = { has_star_flag = br_spawn_candidate_2 } } set_star_flag = br_spawn_candidate_3 }
             }
-        }
 
-        #保存三个出生点
-        random_system = {
-            limit = { has_star_flag = br_spawn_candidate_1 }
-            save_global_event_target_as = br_player_spawn_system_1
-            # 标记出生点为玩家星系，避免后续外圈刷敌
-            set_star_flag = br_player_spawn_system
-        }
-        random_system = {
-            limit = { has_star_flag = br_spawn_candidate_2 }
-            save_global_event_target_as = br_player_spawn_system_2
-            set_star_flag = br_player_spawn_system
-        }
-        random_system = {
-            limit = { has_star_flag = br_spawn_candidate_3 }
-            save_global_event_target_as = br_player_spawn_system_3
-            set_star_flag = br_player_spawn_system
-        }
-
-        if = {
-            limit = { NOT = { exists = event_target:br_player_spawn_system_1 } }
+            # 保存锚点为出生点1喵
             random_system = {
+                limit = { has_star_flag = br_spawn_candidate_1 }
                 save_global_event_target_as = br_player_spawn_system_1
                 set_star_flag = br_player_spawn_system
             }
-        }
 
-        # 在每个出生点2跳范围内再各选1个相邻出生点
-        random_system = {
-            limit = {
-                distance = {
-                    source = event_target:br_player_spawn_system_1
-                    use_bypasses = no
-                    min_jumps = 1
-                    max_jumps = 2
+            # 锚点fallback：如果最外圈找不到，全图随机选一个喵
+            if = {
+                limit = { NOT = { exists = event_target:br_player_spawn_system_1 } }
+                random_system = {
+                    save_global_event_target_as = br_player_spawn_system_1
+                    set_star_flag = br_player_spawn_system
                 }
-                NOT = { has_star_flag = br_player_spawn_system }
             }
-            save_global_event_target_as = br_player_spawn_system_4
-            set_star_flag = br_player_spawn_system
-        }
-        random_system = {
-            limit = {
-                distance = {
-                    source = event_target:br_player_spawn_system_2
-                    use_bypasses = no
-                    min_jumps = 1
-                    max_jumps = 2
-                }
-                NOT = { has_star_flag = br_player_spawn_system }
-            }
-            save_global_event_target_as = br_player_spawn_system_5
-            set_star_flag = br_player_spawn_system
-        }
-        random_system = {
-            limit = {
-                distance = {
-                    source = event_target:br_player_spawn_system_3
-                    use_bypasses = no
-                    min_jumps = 1
-                    max_jumps = 2
-                }
-                NOT = { has_star_flag = br_player_spawn_system }
-            }
-            save_global_event_target_as = br_player_spawn_system_6
-            set_star_flag = br_player_spawn_system
-        }
 
-        # 回退：如果找不到相邻星系，任意选一个未标记星系
-        if = {
-            limit = { NOT = { exists = event_target:br_player_spawn_system_4 } }
+            # 在锚点200坐标距离内选5个出生点喵
             random_system = {
-                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 200
+                    }
+                    NOT = { has_star_flag = br_player_spawn_system }
+                }
+                save_global_event_target_as = br_player_spawn_system_2
+                set_star_flag = br_player_spawn_system
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 200
+                    }
+                    NOT = { has_star_flag = br_player_spawn_system }
+                }
+                save_global_event_target_as = br_player_spawn_system_3
+                set_star_flag = br_player_spawn_system
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 200
+                    }
+                    NOT = { has_star_flag = br_player_spawn_system }
+                }
                 save_global_event_target_as = br_player_spawn_system_4
                 set_star_flag = br_player_spawn_system
             }
-        }
-        if = {
-            limit = { NOT = { exists = event_target:br_player_spawn_system_5 } }
             random_system = {
-                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 200
+                    }
+                    NOT = { has_star_flag = br_player_spawn_system }
+                }
                 save_global_event_target_as = br_player_spawn_system_5
                 set_star_flag = br_player_spawn_system
             }
-        }
-        if = {
-            limit = { NOT = { exists = event_target:br_player_spawn_system_6 } }
             random_system = {
-                limit = { NOT = { has_star_flag = br_player_spawn_system } }
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 200
+                    }
+                    NOT = { has_star_flag = br_player_spawn_system }
+                }
                 save_global_event_target_as = br_player_spawn_system_6
                 set_star_flag = br_player_spawn_system
             }

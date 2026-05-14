@@ -12614,5 +12614,17 @@ country_event = {
             value = 0
         }
 
+        # 周目分支：非首局时触发新周目部署流程喵
+        if = {
+            limit = {
+                event_target:br_void_country = {
+                    check_variable = { which = br_cycle_count value > 0 }
+                }
+            }
+            event_target:br_void_country = {
+                country_event = { id = br.955 }
+            }
+        }
+
     }
 }

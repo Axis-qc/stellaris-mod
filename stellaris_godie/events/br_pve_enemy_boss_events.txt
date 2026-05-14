@@ -101,7 +101,6 @@ country_event = {
     immediate = {
         set_global_flag = br_pve_victory
 
-        # 通知所有PVE玩家胜利喵
         every_country = {
             limit = { is_country_type = br_player_pve }
             set_country_flag = br_pve_victory
@@ -110,6 +109,17 @@ country_event = {
                 energy = 10000
                 minerals = 5000
                 unity = 5000
+            }
+        }
+
+        # 房主弹出周目选择，非房主弹胜利通知喵
+        event_target:br_pve_alliance_leader = {
+            country_event = { id = br.950 }
+        }
+        every_country = {
+            limit = {
+                is_country_type = br_player_pve
+                NOT = { is_same_value = event_target:br_pve_alliance_leader }
             }
             country_event = { id = br.902 }
         }
@@ -130,7 +140,7 @@ country_event = {
     }
 
     immediate = {
-        # 全舰队修复喵
+        # 全舰队修复
         every_owned_ship = {
             repair_ship = yes
         }

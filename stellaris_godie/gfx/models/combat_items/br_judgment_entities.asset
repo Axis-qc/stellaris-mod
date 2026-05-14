@@ -1,0 +1,132 @@
+# ============================================================
+# 先锋级泰坦主炮 — 虚空裁决射线 (命中/护盾/炮口实体)
+# 对应光束定义: gfx/projectiles/br_vanguard_weapons.txt
+# ============================================================
+# 蓄力统一使用原版 perdition_beam_windup_entity，不在此文件定义
+# 音效均为原版资源
+# ============================================================
+
+# ============================================================
+# T1 蓝色 — 对应 br_judgment_beam_1 (英雄 Lv1~5)
+# ============================================================
+
+# 命中实体: 大规模蓝色粒子 br_judgment_hit_1 (CoreFlash+Shockwave+FireBurst+Sparks+GlowCloud)
+entity = {
+	name = "br_judgment_hit_entity_1"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle" state_time = 3.5 looping = no
+		start_event = { particle = "br_judgment_hit_1" keep_particle = yes }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 护盾命中实体: 蓝色命中粒子 + 大型护盾受击 + shield_hit 音效 (原版)
+entity = {
+	name = "br_judgment_shield_hit_entity_1"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle"
+		start_event = { particle = "br_judgment_hit_1" sound = { soundeffect = "shield_hit" } }
+		start_event = { particle = "projectile_large_shield_hit_effect" }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 炮口火焰实体: arc_emitter_muzzle_particle + arc_emitter_fire 音效 (原版)
+entity = {
+	name = "br_judgment_muzzle_entity_1"
+	pdxmesh = "locator_mesh"
+	default_state = "idle"
+	state = { name = "idle" state_time = 4.5 looping = no
+		event = { time = 0 particle = "arc_emitter_muzzle_particle" keep_particle = yes sound = { soundeffect = "arc_emitter_fire" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_arc_emitter_fire" } }
+	}
+}
+
+
+# ============================================================
+# T2 橙色 — 对应 br_judgment_beam_2 (英雄 Lv6~9)
+# ============================================================
+
+# 命中实体: 大规模橙色粒子 br_judgment_hit_2 + perdition_beam_hit 音效
+entity = {
+	name = "br_judgment_hit_entity_2"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle" state_time = 3.5 looping = no
+		start_event = { particle = "br_judgment_hit_2" keep_particle = yes sound = { soundeffect = "perdition_beam_hit" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_perdition_beam_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 护盾命中实体: 橙色命中粒子 + 泰坦激光护盾受击 + shield_hit 音效 (原版)
+entity = {
+	name = "br_judgment_shield_hit_entity_2"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle"
+		start_event = { particle = "br_judgment_hit_2" sound = { soundeffect = "shield_hit" } }
+		start_event = { particle = "titan_laser_shield_hit_effect" }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 炮口火焰实体: perdition_beam_muzzle_effect + 三层开火音效 (原版)
+entity = {
+	name = "br_judgment_muzzle_entity_2"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle" state_time = 4.5 looping = no
+		event = { time = 0 particle = "perdition_beam_muzzle_effect" keep_particle = yes }
+		event = { trigger_once = yes sound = { soundeffect = "perdition_beam_fire_layer_01" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_perdition_beam_fire_layer_01" } }
+		event = { trigger_once = yes sound = { soundeffect = "perdition_beam_fire_layer_02" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_perdition_beam_fire_layer_02" } }
+		event = { trigger_once = yes sound = { soundeffect = "perdition_beam_fire_layer_03" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_perdition_beam_fire_layer_03" } }
+	}
+}
+
+
+# ============================================================
+# T3 紫色 — 对应 br_judgment_beam_3 (英雄 Lv10+)
+# ============================================================
+
+# 命中实体: 大规模紫色粒子 br_judgment_hit_3 (最大最强)
+entity = {
+	name = "br_judgment_hit_entity_3"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle" state_time = 4.0 looping = no
+		start_event = { particle = "br_judgment_hit_3" keep_particle = yes }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 护盾命中实体: 紫色命中粒子 + 大型护盾受击 + shield_hit 音效 (原版)
+entity = {
+	name = "br_judgment_shield_hit_entity_3"
+	cull_radius = 1.5
+	default_state = "idle"
+	state = { name = "idle"
+		start_event = { particle = "br_judgment_hit_3" sound = { soundeffect = "shield_hit" } }
+		start_event = { particle = "projectile_large_shield_hit_effect" }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 炮口火焰实体: focused_arc_emitter_muzzle_particle + xl_arc_emitter 重型开火音效 (原版)
+entity = {
+	name = "br_judgment_muzzle_entity_3"
+	pdxmesh = "locator_mesh"
+	default_state = "idle"
+	state = { name = "idle" state_time = 5.0 looping = no
+		event = { time = 0 particle = "focused_arc_emitter_muzzle_particle" keep_particle = yes sound = { soundeffect = "xl_arc_emitter_fire" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_xl_arc_emitter_fire" } }
+	}
+}

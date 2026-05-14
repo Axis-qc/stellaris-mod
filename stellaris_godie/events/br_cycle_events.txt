@@ -1,0 +1,596 @@
+namespace = br
+# 事件ID区间：950-969。新增或修改事件ID不得超出此区间喵
+# ============================================================
+# 无限周目系统：BOSS击杀后进入新周目选择 → 重置 → 重建 → 部署
+# ============================================================
+# 事件链流程:
+#   br.901(已有,改造) → br.950(周目选择,玩家scope)
+#     → br.951(重置状态,void scope)
+#     → br.952(清圈层flag,void scope)
+#     → br.953(速度选择,玩家scope)
+#     → br.954(触发扩圈,玩家scope)
+#     → [br.100~br.250扩圈链,玩家scope]
+#     → br.955(部署,void scope) ← 由br.250末尾周目分支触发
+# ============================================================
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.950：周目选择弹窗
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (房主 br_pve_alliance_leader)
+# 触发源: br.901 BOSS击杀后触发
+# 作用: 让玩家选择继续深入或结束游戏
+country_event = {
+    id = br.950
+    title = br_cycle_choice_title
+    desc = br_cycle_choice_desc
+    picture = GFX_evt_surreal_visions
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        has_global_flag = br_pve_victory
+    }
+
+    option = {
+        name = br_cycle_continue
+        custom_tooltip = br_cycle_continue_tooltip
+        hidden_effect = {
+            event_target:br_void_country = {
+                country_event = { id = br.951 }
+            }
+        }
+    }
+
+    option = {
+        name = br_cycle_end
+        custom_tooltip = br_cycle_end_tooltip
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.951：新周目初始化 — 第一阶段：重置状态
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (br_void_country)
+# 触发源: br.950选项A
+# 作用: 递增周目数、暂停定时器、清BOSS标记、销毁敌舰、清风暴特效
+country_event = {
+    id = br.951
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        set_global_flag = br_cycle_resetting
+
+        change_variable = {
+            which = br_cycle_count
+            value = 1
+        }
+
+        remove_global_flag = br_boss_spawned
+        remove_global_flag = br_pve_victory
+
+        every_country = {
+            limit = { is_country_type = br_player_pve }
+            remove_country_flag = br_pve_victory
+        }
+
+        event_target:br_pve_enemy_country = {
+            every_owned_fleet = {
+                destroy_fleet = this
+            }
+        }
+
+        every_system = {
+            limit = { has_star_flag = br_danger }
+            every_system_ambient_object = {
+                destroy_ambient_object = this
+            }
+        }
+
+        country_event = { id = br.952 }
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.952：新周目初始化 — 第二阶段：清除圈层标记
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (br_void_country)
+# 触发源: br.951
+# 作用: 清除所有星系ring/danger标记，清全局safe/reached标记，重置缩圈计数，清速度flag
+country_event = {
+    id = br.952
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_system = {
+            remove_star_flag = br_spawn_candidate_1
+            remove_star_flag = br_player_spawn_system
+            remove_star_flag = br_ring_1
+            remove_star_flag = br_ring_2
+            remove_star_flag = br_ring_3
+            remove_star_flag = br_ring_4
+            remove_star_flag = br_ring_5
+            remove_star_flag = br_ring_6
+            remove_star_flag = br_ring_7
+            remove_star_flag = br_ring_8
+            remove_star_flag = br_ring_9
+            remove_star_flag = br_ring_10
+            remove_star_flag = br_ring_11
+            remove_star_flag = br_ring_12
+            remove_star_flag = br_ring_13
+            remove_star_flag = br_ring_14
+            remove_star_flag = br_ring_15
+            remove_star_flag = br_ring_16
+            remove_star_flag = br_ring_17
+            remove_star_flag = br_ring_18
+            remove_star_flag = br_ring_19
+            remove_star_flag = br_ring_20
+            remove_star_flag = br_ring_21
+            remove_star_flag = br_ring_22
+            remove_star_flag = br_ring_23
+            remove_star_flag = br_ring_24
+            remove_star_flag = br_ring_25
+            remove_star_flag = br_ring_26
+            remove_star_flag = br_ring_27
+            remove_star_flag = br_ring_28
+            remove_star_flag = br_ring_29
+            remove_star_flag = br_ring_30
+            remove_star_flag = br_ring_31
+            remove_star_flag = br_ring_32
+            remove_star_flag = br_ring_33
+            remove_star_flag = br_ring_34
+            remove_star_flag = br_ring_35
+            remove_star_flag = br_ring_36
+            remove_star_flag = br_ring_37
+            remove_star_flag = br_ring_38
+            remove_star_flag = br_ring_39
+            remove_star_flag = br_ring_40
+            remove_star_flag = br_ring_41
+            remove_star_flag = br_ring_42
+            remove_star_flag = br_ring_43
+            remove_star_flag = br_ring_44
+            remove_star_flag = br_ring_45
+            remove_star_flag = br_ring_46
+            remove_star_flag = br_ring_47
+            remove_star_flag = br_ring_48
+            remove_star_flag = br_ring_49
+            remove_star_flag = br_ring_50
+            remove_star_flag = br_ring_51
+            remove_star_flag = br_ring_52
+            remove_star_flag = br_ring_53
+            remove_star_flag = br_ring_54
+            remove_star_flag = br_ring_55
+            remove_star_flag = br_ring_56
+            remove_star_flag = br_ring_57
+            remove_star_flag = br_ring_58
+            remove_star_flag = br_ring_59
+            remove_star_flag = br_ring_60
+            remove_star_flag = br_ring_61
+            remove_star_flag = br_ring_62
+            remove_star_flag = br_ring_63
+            remove_star_flag = br_ring_64
+            remove_star_flag = br_ring_65
+            remove_star_flag = br_ring_66
+            remove_star_flag = br_ring_67
+            remove_star_flag = br_ring_68
+            remove_star_flag = br_ring_69
+            remove_star_flag = br_ring_70
+            remove_star_flag = br_ring_71
+            remove_star_flag = br_ring_72
+            remove_star_flag = br_ring_73
+            remove_star_flag = br_ring_74
+            remove_star_flag = br_ring_75
+            remove_star_flag = br_ring_76
+            remove_star_flag = br_ring_77
+            remove_star_flag = br_ring_78
+            remove_star_flag = br_ring_79
+            remove_star_flag = br_ring_80
+            remove_star_flag = br_ring_81
+            remove_star_flag = br_ring_82
+            remove_star_flag = br_ring_83
+            remove_star_flag = br_ring_84
+            remove_star_flag = br_ring_85
+            remove_star_flag = br_ring_86
+            remove_star_flag = br_ring_87
+            remove_star_flag = br_ring_88
+            remove_star_flag = br_ring_89
+            remove_star_flag = br_ring_90
+            remove_star_flag = br_ring_91
+            remove_star_flag = br_ring_92
+            remove_star_flag = br_ring_93
+            remove_star_flag = br_ring_94
+            remove_star_flag = br_ring_95
+            remove_star_flag = br_ring_96
+            remove_star_flag = br_ring_97
+            remove_star_flag = br_ring_98
+            remove_star_flag = br_ring_99
+            remove_star_flag = br_ring_100
+            remove_star_flag = br_danger
+        }
+
+        remove_global_flag = br_safe_1
+        remove_global_flag = br_safe_2
+        remove_global_flag = br_safe_3
+        remove_global_flag = br_safe_4
+        remove_global_flag = br_safe_5
+        remove_global_flag = br_safe_6
+        remove_global_flag = br_safe_7
+        remove_global_flag = br_safe_8
+        remove_global_flag = br_safe_9
+        remove_global_flag = br_safe_10
+        remove_global_flag = br_safe_11
+        remove_global_flag = br_safe_12
+        remove_global_flag = br_safe_13
+        remove_global_flag = br_safe_14
+        remove_global_flag = br_safe_15
+        remove_global_flag = br_safe_16
+        remove_global_flag = br_safe_17
+        remove_global_flag = br_safe_18
+        remove_global_flag = br_safe_19
+        remove_global_flag = br_safe_20
+        remove_global_flag = br_safe_21
+        remove_global_flag = br_safe_22
+        remove_global_flag = br_safe_23
+        remove_global_flag = br_safe_24
+        remove_global_flag = br_safe_25
+        remove_global_flag = br_safe_26
+        remove_global_flag = br_safe_27
+        remove_global_flag = br_safe_28
+        remove_global_flag = br_safe_29
+        remove_global_flag = br_safe_30
+        remove_global_flag = br_safe_31
+        remove_global_flag = br_safe_32
+        remove_global_flag = br_safe_33
+        remove_global_flag = br_safe_34
+        remove_global_flag = br_safe_35
+        remove_global_flag = br_safe_36
+        remove_global_flag = br_safe_37
+        remove_global_flag = br_safe_38
+        remove_global_flag = br_safe_39
+        remove_global_flag = br_safe_40
+        remove_global_flag = br_safe_41
+        remove_global_flag = br_safe_42
+        remove_global_flag = br_safe_43
+        remove_global_flag = br_safe_44
+        remove_global_flag = br_safe_45
+        remove_global_flag = br_safe_46
+        remove_global_flag = br_safe_47
+        remove_global_flag = br_safe_48
+        remove_global_flag = br_safe_49
+        remove_global_flag = br_safe_50
+        remove_global_flag = br_safe_51
+        remove_global_flag = br_safe_52
+        remove_global_flag = br_safe_53
+        remove_global_flag = br_safe_54
+        remove_global_flag = br_safe_55
+        remove_global_flag = br_safe_56
+        remove_global_flag = br_safe_57
+        remove_global_flag = br_safe_58
+        remove_global_flag = br_safe_59
+        remove_global_flag = br_safe_60
+        remove_global_flag = br_safe_61
+        remove_global_flag = br_safe_62
+        remove_global_flag = br_safe_63
+        remove_global_flag = br_safe_64
+        remove_global_flag = br_safe_65
+        remove_global_flag = br_safe_66
+        remove_global_flag = br_safe_67
+        remove_global_flag = br_safe_68
+        remove_global_flag = br_safe_69
+        remove_global_flag = br_safe_70
+        remove_global_flag = br_safe_71
+        remove_global_flag = br_safe_72
+        remove_global_flag = br_safe_73
+        remove_global_flag = br_safe_74
+        remove_global_flag = br_safe_75
+        remove_global_flag = br_safe_76
+        remove_global_flag = br_safe_77
+        remove_global_flag = br_safe_78
+        remove_global_flag = br_safe_79
+        remove_global_flag = br_safe_80
+        remove_global_flag = br_safe_81
+        remove_global_flag = br_safe_82
+        remove_global_flag = br_safe_83
+        remove_global_flag = br_safe_84
+        remove_global_flag = br_safe_85
+        remove_global_flag = br_safe_86
+        remove_global_flag = br_safe_87
+        remove_global_flag = br_safe_88
+        remove_global_flag = br_safe_89
+        remove_global_flag = br_safe_90
+        remove_global_flag = br_safe_91
+        remove_global_flag = br_safe_92
+        remove_global_flag = br_safe_93
+        remove_global_flag = br_safe_94
+        remove_global_flag = br_safe_95
+        remove_global_flag = br_safe_96
+        remove_global_flag = br_safe_97
+        remove_global_flag = br_safe_98
+        remove_global_flag = br_safe_99
+        remove_global_flag = br_safe_100
+
+        remove_global_flag = br_reached_1
+        remove_global_flag = br_reached_2
+        remove_global_flag = br_reached_3
+        remove_global_flag = br_reached_4
+        remove_global_flag = br_reached_5
+        remove_global_flag = br_reached_6
+        remove_global_flag = br_reached_7
+        remove_global_flag = br_reached_8
+        remove_global_flag = br_reached_9
+        remove_global_flag = br_reached_10
+        remove_global_flag = br_reached_11
+        remove_global_flag = br_reached_12
+        remove_global_flag = br_reached_13
+        remove_global_flag = br_reached_14
+        remove_global_flag = br_reached_15
+        remove_global_flag = br_reached_16
+        remove_global_flag = br_reached_17
+        remove_global_flag = br_reached_18
+        remove_global_flag = br_reached_19
+        remove_global_flag = br_reached_20
+        remove_global_flag = br_reached_21
+        remove_global_flag = br_reached_22
+        remove_global_flag = br_reached_23
+        remove_global_flag = br_reached_24
+        remove_global_flag = br_reached_25
+        remove_global_flag = br_reached_26
+        remove_global_flag = br_reached_27
+        remove_global_flag = br_reached_28
+        remove_global_flag = br_reached_29
+        remove_global_flag = br_reached_30
+        remove_global_flag = br_reached_31
+        remove_global_flag = br_reached_32
+        remove_global_flag = br_reached_33
+        remove_global_flag = br_reached_34
+        remove_global_flag = br_reached_35
+        remove_global_flag = br_reached_36
+        remove_global_flag = br_reached_37
+        remove_global_flag = br_reached_38
+        remove_global_flag = br_reached_39
+        remove_global_flag = br_reached_40
+        remove_global_flag = br_reached_41
+        remove_global_flag = br_reached_42
+        remove_global_flag = br_reached_43
+        remove_global_flag = br_reached_44
+        remove_global_flag = br_reached_45
+        remove_global_flag = br_reached_46
+        remove_global_flag = br_reached_47
+        remove_global_flag = br_reached_48
+        remove_global_flag = br_reached_49
+        remove_global_flag = br_reached_50
+        remove_global_flag = br_reached_51
+        remove_global_flag = br_reached_52
+        remove_global_flag = br_reached_53
+        remove_global_flag = br_reached_54
+        remove_global_flag = br_reached_55
+        remove_global_flag = br_reached_56
+        remove_global_flag = br_reached_57
+        remove_global_flag = br_reached_58
+        remove_global_flag = br_reached_59
+        remove_global_flag = br_reached_60
+        remove_global_flag = br_reached_61
+        remove_global_flag = br_reached_62
+        remove_global_flag = br_reached_63
+        remove_global_flag = br_reached_64
+        remove_global_flag = br_reached_65
+        remove_global_flag = br_reached_66
+        remove_global_flag = br_reached_67
+        remove_global_flag = br_reached_68
+        remove_global_flag = br_reached_69
+        remove_global_flag = br_reached_70
+        remove_global_flag = br_reached_71
+        remove_global_flag = br_reached_72
+        remove_global_flag = br_reached_73
+        remove_global_flag = br_reached_74
+        remove_global_flag = br_reached_75
+        remove_global_flag = br_reached_76
+        remove_global_flag = br_reached_77
+        remove_global_flag = br_reached_78
+        remove_global_flag = br_reached_79
+        remove_global_flag = br_reached_80
+        remove_global_flag = br_reached_81
+        remove_global_flag = br_reached_82
+        remove_global_flag = br_reached_83
+        remove_global_flag = br_reached_84
+        remove_global_flag = br_reached_85
+        remove_global_flag = br_reached_86
+        remove_global_flag = br_reached_87
+        remove_global_flag = br_reached_88
+        remove_global_flag = br_reached_89
+        remove_global_flag = br_reached_90
+        remove_global_flag = br_reached_91
+        remove_global_flag = br_reached_92
+        remove_global_flag = br_reached_93
+        remove_global_flag = br_reached_94
+        remove_global_flag = br_reached_95
+        remove_global_flag = br_reached_96
+        remove_global_flag = br_reached_97
+        remove_global_flag = br_reached_98
+        remove_global_flag = br_reached_99
+        remove_global_flag = br_reached_100
+
+        set_variable = {
+            which = br_shrink_count
+            value = 0
+        }
+
+        remove_global_flag = br_speed_fast
+        remove_global_flag = br_speed_normal
+        remove_global_flag = br_speed_slow
+
+        remove_global_flag = br_player_spawns_marked
+        remove_global_flag = br_initialized
+
+        event_target:br_pve_alliance_leader = {
+            country_event = { id = br.953 }
+        }
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.953：新周目缩圈速度选择
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (房主)
+# 触发源: br.952末尾
+# 作用: 让玩家选择新周目的缩圈速度，选完后触发扩圈
+country_event = {
+    id = br.953
+    title = br_cycle_speed_title
+    desc = br_cycle_speed_desc
+    picture = GFX_evt_surreal_visions
+    is_triggered_only = yes
+
+    option = {
+        name = br_speed_fast_name
+        remove_global_flag = br_speed_normal
+        remove_global_flag = br_speed_slow
+        set_global_flag = br_speed_fast
+        hidden_effect = {
+            country_event = { id = br.954 }
+        }
+    }
+
+    option = {
+        name = br_speed_normal_name
+        remove_global_flag = br_speed_fast
+        remove_global_flag = br_speed_slow
+        set_global_flag = br_speed_normal
+        hidden_effect = {
+            country_event = { id = br.954 }
+        }
+    }
+
+    option = {
+        name = br_speed_slow_name
+        remove_global_flag = br_speed_fast
+        remove_global_flag = br_speed_normal
+        set_global_flag = br_speed_slow
+        hidden_effect = {
+            country_event = { id = br.954 }
+        }
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.954：新周目初始化 — 第三阶段：触发扩圈
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (房主，is_ai = no)
+# 触发源: br.953选项
+# 作用: 触发br.100重新执行扩圈链（br_initialized已在br.952中清除）
+# 注意: br.100会自动随机选新中心、跑完整扩圈链、最终到br.250
+#       br.250需要加周目分支来触发br.955（接入时改动）
+country_event = {
+    id = br.954
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = { id = br.100 }
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.955：新周目初始化 — 第四阶段：部署（扩圈完成后）
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (br_void_country)
+# 触发源: br.250末尾周目分支（接入时需改动br.250）
+# 作用: 复用br.700选出生点、传送玩家、排程定时器、叠敌军buff、重启刷敌
+# 注意: br.700的br.701部分在多周目时自然跳过（玩家已是br_player_pve类型）
+country_event = {
+    id = br.955
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # 复用br.700选出生点（br_player_spawns_marked已在br.952清除）
+        country_event = { id = br.700 }
+
+        # 传送所有玩家舰队到新出生点（分散到6个出生点）
+        every_country = {
+            limit = { is_country_type = br_player_pve }
+            every_owned_fleet = {
+                random_list = {
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_1 distance = 30 angle = random }
+                    }
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_2 distance = 30 angle = random }
+                    }
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_3 distance = 30 angle = random }
+                    }
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_4 distance = 30 angle = random }
+                    }
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_5 distance = 30 angle = random }
+                    }
+                    1 = {
+                        set_location = { target = event_target:br_player_spawn_system_6 distance = 30 angle = random }
+                    }
+                }
+            }
+        }
+
+        # 给敌军国家叠加一层周目强度buff（永久，可叠加）
+        event_target:br_pve_enemy_country = {
+            add_modifier = {
+                modifier = br_cycle_strength_buff
+                days = -1
+            }
+        }
+
+		# 设置缩圈暂停flag，1800天后由br.957解除并启动缩圈/伤害
+		set_global_flag = br_shrink_paused
+		country_event = { id = br.957 days = 1800 }
+
+		remove_global_flag = br_cycle_resetting
+
+        # 重启刷敌调度
+        country_event = { id = br.800 days = 5 }
+
+        # 通知所有玩家新周目开始
+        every_country = {
+            limit = { is_country_type = br_player_pve }
+            country_event = { id = br.956 }
+        }
+    }
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.956：新周目开始通知弹窗
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (玩家)
+# 触发源: br.955
+# 作用: 通知玩家新周目已开始
+country_event = {
+	id = br.956
+	title = br_cycle_start_title
+	desc = br_cycle_start_desc
+	picture = GFX_evt_surreal_visions
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# br.957：新周目缩圈启动（1800天后触发）
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Scope: country (br_void_country)
+# 触发源: br.955排程，1800天后触发
+# 作用: 移除缩圈暂停flag，启动缩圈和圈外伤害循环
+country_event = {
+	id = br.957
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		remove_global_flag = br_shrink_paused
+		country_event = { id = br.300 }
+		country_event = { id = br.1000 }
+	}
+}

@@ -1,0 +1,274 @@
+# ============================================================
+# 先锋级泰坦主炮 — 虚空裁决射线 命中粒子
+# 所有粒子从0.1逐渐膨胀到最大尺寸，末端淡出消失，持续10秒
+# ============================================================
+
+# ============================================================
+# T1 蓝色命中 — 对应 br_judgment_beam_1
+# ============================================================
+particle = {
+    name = "br_judgment_hit_1"
+    subsystem = {
+        name = "CoreFlash"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = no hide = no
+        texture = { file = "gfx/particles/sun_flare.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 120 y = 190 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "Glow"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAlphaBlend" }
+        color = { x = 50 y = 140 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "PolarSwirl4"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_4.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 80 y = 160 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = 15
+    }
+    subsystem = {
+        name = "PolarSwirl3"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_3.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 100 y = 200 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = -15
+    }
+    subsystem = {
+        name = "RingWave"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/halo.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 50 y = 140 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 40,br_jh_ring_grow 0 }
+        particle_yaw = { 0 0 } particle_pitch = { 90 0 } rotation = { 0 0 }
+    }
+    subsystem = {
+        name = "GlowBurst"
+        max_amount = 10 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 80 y = 170 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = 0.5
+        velocity_pitch = { 0 180 } velocity_yaw = { 0 180 } velocity = { 2 1 }
+        life = { 10.0 0 }
+        emission = 20
+        size = { 1 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    animation = { name = "br_jh_size_grow" start = 0 duration = 1 repeat = no minValue = 0.005 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_ring_grow" start = 0 duration = 1 repeat = no minValue = 0.0025 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_alpha_fade" start = 0 duration = 1 repeat = no minValue = 0 maxValue = 1 curve = { 0 0 0.05 1 0.8 1 1 0 } op = "MUL" time = "life" }
+}
+
+# ============================================================
+# T2 橙色命中 — 对应 br_judgment_beam_2
+# ============================================================
+particle = {
+    name = "br_judgment_hit_2"
+    subsystem = {
+        name = "CoreFlash"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = no hide = no
+        texture = { file = "gfx/particles/sun_flare.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 255 y = 200 z = 80 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "Glow"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAlphaBlend" }
+        color = { x = 255 y = 140 z = 40 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "PolarSwirl4"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_4.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 255 y = 180 z = 60 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = 15
+    }
+    subsystem = {
+        name = "PolarSwirl3"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_3.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 255 y = 160 z = 50 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = -15
+    }
+    subsystem = {
+        name = "RingWave"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/halo.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 255 y = 150 z = 40 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 40,br_jh_ring_grow 0 }
+        particle_yaw = { 0 0 } particle_pitch = { 90 0 } rotation = { 0 0 }
+    }
+    subsystem = {
+        name = "GlowBurst"
+        max_amount = 8 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 255 y = 170 z = 50 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = 0.5
+        velocity_pitch = { 0 180 } velocity_yaw = { 0 180 } velocity = { 2 1 }
+        life = { 10.0 0 }
+        emission = 20
+        size = { 1 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    animation = { name = "br_jh_size_grow" start = 0 duration = 1 repeat = no minValue = 0.005 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_ring_grow" start = 0 duration = 1 repeat = no minValue = 0.0025 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_alpha_fade" start = 0 duration = 1 repeat = no minValue = 0 maxValue = 1 curve = { 0 0 0.05 1 0.8 1 1 0 } op = "MUL" time = "life" }
+}
+
+# ============================================================
+# T3 紫色命中 — 对应 br_judgment_beam_3
+# ============================================================
+particle = {
+    name = "br_judgment_hit_3"
+    subsystem = {
+        name = "CoreFlash"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = no hide = no
+        texture = { file = "gfx/particles/sun_flare.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 200 y = 100 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "Glow"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAlphaBlend" }
+        color = { x = 150 y = 40 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    subsystem = {
+        name = "PolarSwirl4"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_4.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 180 y = 60 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = 15
+    }
+    subsystem = {
+        name = "PolarSwirl3"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/polar_swirl_3.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 160 y = 80 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 20,br_jh_size_grow 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+        rotation_speed = -15
+    }
+    subsystem = {
+        name = "RingWave"
+        max_amount = 1 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/halo.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 180 y = 40 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = -1
+        velocity_pitch = { 0 0 } velocity_yaw = { 0 0 } velocity = { 0 0 }
+        life = { 10.0 0 }
+        emission = 1
+        size = { 40,br_jh_ring_grow 0 }
+        particle_yaw = { 0 0 } particle_pitch = { 90 0 } rotation = { 0 0 }
+    }
+    subsystem = {
+        name = "GlowBurst"
+        max_amount = 8 slave_particles = 0 emitter_type = "point" invert = no trail = no local_space = no billboard = yes hide = no
+        texture = { file = "gfx/particles/glow.dds" x = 1 y = 1 shader = "ParticleAdditive" }
+        color = { x = 170 y = 60 z = 255 alpha = { 255,br_jh_alpha_fade 10 } }
+        position = { x = 0 y = 0 z = 0 }
+        start = 0 duration = 0.5
+        velocity_pitch = { 0 180 } velocity_yaw = { 0 180 } velocity = { 2 1 }
+        life = { 10.0 0 }
+        emission = 20
+        size = { 1 0 }
+        particle_yaw = { 0 180 } particle_pitch = { 0 180 } rotation = { 0 180 }
+    }
+    animation = { name = "br_jh_size_grow" start = 0 duration = 1 repeat = no minValue = 0.005 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_ring_grow" start = 0 duration = 1 repeat = no minValue = 0.0025 maxValue = 1.0 curve = { 0 0 0.3 0.4 0.7 0.8 1 1 } op = "MUL" time = "life" }
+    animation = { name = "br_jh_alpha_fade" start = 0 duration = 1 repeat = no minValue = 0 maxValue = 1 curve = { 0 0 0.05 1 0.8 1 1 0 } op = "MUL" time = "life" }
+}
