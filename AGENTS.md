@@ -8,7 +8,6 @@
 
 所有记忆、技能和配置均存放在 `.claude/` 目录下：
 
-- `.claude/CLAUDE.md` — 完整开发指令
 - `.claude/skills/` — 技能定义
 - `.claude/settings.local.json` — 本地设置
 
@@ -22,7 +21,20 @@
 
 ## 技能
 
-对于群星 Mod 开发相关任务，始终自动加载 stellaris-modder 技能获取完整开发规范。
+群星 Mod 开发相关任务自动加载 `stellaris-modder` 技能，具体开发规范（编码、命名、本地化、事件语法、版本控制、目录结构等）以技能内容为准。
 
-如发现技能内容与实际代码不一致（如过时字段名、语法变更、文件路径变动等），应主动更新修正
-`.claude/skills/stellaris-modder/SKILL.md` 保持技能准确性。
+如发现技能内容与实际代码不一致，应主动更新 `.claude/skills/stellaris-modder/SKILL.md`。
+
+## 工作流程
+
+- **按需读取**：只读取与当前任务直接相关的文件，禁止批量读取无关文件，避免上下文膨胀导致会话失败。
+
+## 调试与验证
+
+- 修改脚本文件后，可通过启动游戏检查错误日志。错误日志位于 `Documents/Paradox Interactive/Stellaris/logs/error.log`。
+- 遇到报错时，优先根据日志内容定位到具体文件及行号。
+- 对于复杂脚本（如事件、决议），可建议用户手动测试关键路径。
+
+## 依赖与兼容性
+
+- 若 mod 需要其他 DLC 或 mod 作为依赖，必须在 `.mod` 文件中注明 `dependencies` 或 `supported_version`。

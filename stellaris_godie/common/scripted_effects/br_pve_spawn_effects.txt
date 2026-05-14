@@ -18,7 +18,7 @@ br_spawn_n_ships = {
 # 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），$N$ 倍率
 br_spawn_pve_fleet = {
     create_fleet = {
-        name = random
+        name = "BR_PVE_GARRISON_FLEET"
         effect = {
             set_owner = event_target:br_pve_enemy_country
             set_location = { target = event_target:br_spawn_tmp distance = 0 }
@@ -49,7 +49,7 @@ br_spawn_pve_fleet = {
 # 自定义编队：直接指定各舰种艘数，0 跳过
 br_spawn_pve_fleet_custom = {
     create_fleet = {
-        name = random
+        name = "BR_PVE_GARRISON_FLEET"
         effect = {
             set_owner = event_target:br_pve_enemy_country
             set_location = { target = event_target:br_spawn_tmp distance = 0 }
@@ -68,7 +68,7 @@ br_spawn_pve_fleet_custom = {
 # 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），精英设计
 br_spawn_pve_elite_fleet = {
     create_fleet = {
-        name = random
+        name = "BR_PVE_GARRISON_FLEET"
         effect = {
             set_owner = event_target:br_pve_enemy_country
             set_location = { target = event_target:br_spawn_tmp distance = 0 }
@@ -99,7 +99,7 @@ br_spawn_pve_elite_fleet = {
 # 自定义编队：直接指定各舰种艘数，精英设计，0 跳过
 br_spawn_pve_elite_fleet_custom = {
     create_fleet = {
-        name = random
+        name = "BR_PVE_GARRISON_FLEET"
         effect = {
             set_owner = event_target:br_pve_enemy_country
             set_location = { target = event_target:br_spawn_tmp distance = 0 }
@@ -118,7 +118,7 @@ br_spawn_pve_elite_fleet_custom = {
 # 外圈随机舰队：$corvette$ 固定护卫 + $destroyer$ 固定驱逐 + 随机扰动
 br_spawn_pve_outer_fleet = {
     create_fleet = {
-        name = random
+        name = "BR_PVE_GARRISON_FLEET"
         effect = {
             set_owner = event_target:br_pve_enemy_country
             set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }

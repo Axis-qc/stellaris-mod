@@ -94,13 +94,13 @@
  # 技能合并展示文本（scripted loc 引用）
  br_vanguard_skill_overclock:0 "§G能量超频§!\n  §G+[br_skill_overclock_firerate]%§!射速，每日§R-[br_skill_overclock_hulldrain]%§!船体，持续§Y[br_skill_overclock_day]天§!。基础冷却：§Y90天§!"
  br_vanguard_skill_scan:0 "§G弱点扫描§!\n  标记本星系所有敌方舰队，受到武器伤害§G+[br_skill_scan_damage]%§!，持续§Y[br_skill_scan_day]天§!。基础冷却：§Y120天§!"
- br_vanguard_skill_combat_stack:0 "§G战意过载§!\n  进入战斗后每日§G+1§!层，每层§G+[br_skill_combat_stack_damage]%§!武器伤害，最多§Y100§!层。脱战清空。"
+  br_vanguard_skill_combat_stack:0 "§G战意过载§!\n  进入战斗后每日§G+1§!层，为星系内所有友方单位提供§G+[br_skill_combat_stack_damage]%§!武器伤害，最多§Y100§!层。脱战清空。"
  br_vanguard_skill_kill_stack:0 "§G越战越勇§!\n  每击杀一艘敌舰永久§G+[br_skill_kill_stack_damage]%§!武器伤害，上限§Y[br_skill_kill_stack_cap_display]%§!。当前：§Y[Root.owner.br_vanguard_kill_count]§!层"
  br_vanguard_skill_fullfire:0 "§G火力全开§!\n  §G+[br_vanguard_skill_fullfire_1]%§!射速，§G+[br_vanguard_skill_fullfire_2]%§!武器伤害，持续§Y[br_vanguard_skill_fullfire_day]天§!；结束后§R-[br_vanguard_skill_fullfire_debuff]%§!射速，持续§Y[br_vanguard_skill_fullfire_day]天§!。\n基础冷却：§Y300天§!"
 
  # Modifier 描述
  br_vanguard_power_combat_stack_damage:0 "战意过载"
- br_vanguard_power_combat_stack_damage_desc:0 "该舰队正在积累战意过载层数。每层提供§G+2%§!武器伤害，脱离战斗后清空。"
+  br_vanguard_power_combat_stack_damage_desc:0 "受到战意过载加成，每层提供§G+2%§!武器伤害，脱离战斗后清空。"
  br_vanguard_power_energy_overclock:0 "能量超频"
  br_vanguard_power_energy_overclock_desc:0 "该舰船正在超频运转。§G+40%§!射速，每日§R-1%§!船体。"
  br_vanguard_power_kill_stack_damage:0 "越战越勇"
@@ -144,8 +144,10 @@
  edict_br_test_skill_3_daymult_up_desc:0 "测试用。br_skill_3_daymult_player 增加 0.5。"
  edict_br_test_reset_skill_values:0 "重置所有技能倍率"
  edict_br_test_reset_skill_values_desc:0 "测试用。将所有技能 _player 变量重置为 0。"
- edict_br_test_unlock_all_cores:0 "解锁全部核心"
- edict_br_test_unlock_all_cores_desc:0 "测试用。同时解锁火力、防御、支援三个核心，可查看所有技能。"
+  edict_br_test_unlock_all_cores:0 "解锁全部核心"
+  edict_br_test_unlock_all_cores_desc:0 "测试用。同时解锁火力、防御、支援三个核心，可查看所有技能。"
+  edict_br_test_trigger_cycle:0 "触发新周目"
+  edict_br_test_trigger_cycle_desc:0 "测试用。模拟BOSS击杀胜利，直接触发新周目选择流程。需要先开启全局调试开关。"
 
  # ============================================================
  # 先锋级英雄舰 — 舰船类型

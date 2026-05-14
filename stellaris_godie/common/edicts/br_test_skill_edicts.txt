@@ -363,3 +363,40 @@ br_test_unlock_all_cores = {
 
     ai_weight = { weight = 0 }
 }
+
+# 测试法令 — 直接触发新周目（模拟BOSS击杀胜利）
+br_test_trigger_cycle = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        set_global_flag = br_pve_victory
+        every_country = {
+            limit = { is_country_type = br_player_pve }
+            set_country_flag = br_pve_victory
+        }
+        if = {
+            limit = { exists = event_target:br_pve_alliance_leader }
+            event_target:br_pve_alliance_leader = {
+                country_event = { id = br.950 }
+            }
+        }
+        every_country = {
+            limit = {
+                is_country_type = br_player_pve
+                NOT = { is_same_value = event_target:br_pve_alliance_leader }
+            }
+            country_event = { id = br.902 }
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}

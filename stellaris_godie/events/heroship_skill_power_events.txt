@@ -178,20 +178,36 @@ fleet_event = {
                 change_variable = { which = br_vanguard_power_combat_stack value = 1 }
             }
 
-            remove_modifier = br_vanguard_power_combat_stack_damage
             set_variable = { which = br_vanguard_combat_buff value = br_vanguard_power_combat_stack }
             multiply_variable = { which = br_vanguard_combat_buff value = value:br_hero_ship_skill_2_mult }
-            add_modifier = {
-                modifier = br_vanguard_power_combat_stack_damage
-                days = 2
-                mult = br_vanguard_combat_buff
+            solar_system = {
+                every_fleet_in_system = {
+                    limit = {
+                        exists = owner
+                        owner = { NOT = { is_hostile = owner } }
+                    }
+                    remove_modifier = br_vanguard_power_combat_stack_damage
+                    add_modifier = {
+                        modifier = br_vanguard_power_combat_stack_damage
+                        days = 2
+                        mult = owner.br_vanguard_combat_buff
+                    }
+                }
             }
 
             fleet_event = { id = heroship.1104 days = 1 }
         }
 
         else = {
-            remove_modifier = br_vanguard_power_combat_stack_damage
+            solar_system = {
+                every_fleet_in_system = {
+                    limit = {
+                        exists = owner
+                        owner = { NOT = { is_hostile = root.owner } }
+                    }
+                    remove_modifier = br_vanguard_power_combat_stack_damage
+                }
+            }
             clear_variable = br_vanguard_power_combat_stack
             remove_fleet_flag = br_vanguard_power_combat_stack_active
         }
