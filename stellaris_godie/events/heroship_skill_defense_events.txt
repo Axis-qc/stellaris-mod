@@ -26,8 +26,25 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_phase_shift
-                days = 5
+                mult = value:br_hero_ship_skill_1_mult
+                days = 10
                 time_multiplier = value:br_hero_ship_skill_1_daymult
+            }
+        }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = owner
+                    owner = { NOT = { is_hostile = root.owner } }
+                }
+                every_owned_ship = {
+                    add_modifier = {
+                        modifier = br_vanguard_phase_shift_regen
+                        mult = value:br_hero_ship_skill_1_mult
+                        days = 10
+                        time_multiplier = value:br_hero_ship_skill_1_daymult
+                    }
+                }
             }
         }
         owner = {
@@ -36,30 +53,6 @@ fleet_event = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
                 country_event = { id = heroship.1014 days = 1 }
-            }
-        }
-        set_variable = { which = buff_time value = 5 }
-        multiply_variable = { which = buff_time value = value:br_hero_ship_skill_1_daymult }
-        fleet_event = { id = heroship.1201 days = buff_time }
-    }
-}
-
-# 相位转移结束 — 高额再生
-fleet_event = {
-    id = heroship.1201
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        every_owned_ship = {
-            limit = {
-                is_ship_size = br_vanguard
-                has_component = BR_VANGUARD_CORE_DEFENSE
-            }
-            add_modifier = {
-                modifier = br_vanguard_phase_shift_regen
-                days = 10
-                time_multiplier = value:br_hero_ship_skill_1_daymult
             }
         }
     }
