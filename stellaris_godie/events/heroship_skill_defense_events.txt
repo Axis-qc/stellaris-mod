@@ -4,7 +4,7 @@ namespace = heroship
 # 防御核心技能 — heroship.1200-1299
 # ========================
 
-# 相位转移激活（由 on_br_defense_skill_activated 触发）
+# 防御协议激活（由 on_br_defense_skill_activated 触发，需 br_skill_phase_shift_unlocked）
 fleet_event = {
     id = heroship.1200
     hide_window = yes
@@ -27,7 +27,7 @@ fleet_event = {
             add_modifier = {
                 modifier = br_vanguard_phase_shift
                 mult = value:br_hero_ship_skill_1_mult
-                days = 10
+                days = 20
                 time_multiplier = value:br_hero_ship_skill_1_daymult
             }
         }
@@ -37,13 +37,66 @@ fleet_event = {
                     exists = owner
                     owner = { NOT = { is_hostile = root.owner } }
                 }
-                every_owned_ship = {
-                    add_modifier = {
-                        modifier = br_vanguard_phase_shift_regen
-                        mult = value:br_hero_ship_skill_1_mult
-                        days = 10
-                        time_multiplier = value:br_hero_ship_skill_1_daymult
+                add_modifier = {
+                    modifier = br_vanguard_phase_shift_regen
+                    mult = value:br_hero_ship_skill_1_mult
+                    days = 20
+                    time_multiplier = value:br_hero_ship_skill_1_daymult
+                }
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_defense_skill_cd value = 240 }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+    }
+}
+
+# 协同防御协议激活（由 on_br_defense_skill_activated 触发，需 br_skill_barrier_unlocked）
+fleet_event = {
+    id = heroship.1201
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_defense_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_barrier_unlocked
+            br_vanguard_defense_skill_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            add_modifier = {
+                modifier = br_vanguard_barrier_self
+                mult = value:br_hero_ship_skill_1_mult
+                days = 20
+                time_multiplier = value:br_hero_ship_skill_1_daymult
+            }
+        }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = owner
+                    owner = { NOT = { is_hostile = root.owner } }
+                    NOT = {
+                        is_ship_size = br_vanguard
                     }
+                }
+                add_modifier = {
+                    modifier = br_vanguard_barrier_ally
+                    mult = value:br_hero_ship_skill_1_mult
+                    days = 20
+                    time_multiplier = value:br_hero_ship_skill_1_daymult
                 }
             }
         }

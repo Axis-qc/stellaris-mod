@@ -68,10 +68,10 @@ br_skill_scan_day = {
     mult = value:br_hero_ship_skill_1_daymult
 }
 
-# ---- 相位转移 ----
+# ---- 防御协议 ----
 # 免伤持续 10天 × sk1_daymult
 br_skill_phase_shift_day = {
-    base = 10
+    base = 20
     mult = value:br_hero_ship_skill_1_daymult
 }
 # 减伤 +10% × sk1_mult
@@ -86,7 +86,24 @@ br_skill_phase_shift_regen_amount = {
 }
 # 再生持续 10天 × sk1_daymult
 br_skill_phase_shift_regen_day = {
-    base = 10
+    base = 20
+    mult = value:br_hero_ship_skill_1_daymult
+}
+
+# ---- 协同防御协议 ----
+# 自身降低 1000 × sk1_mult
+br_skill_barrier_self_value = {
+    base = 1000
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 友方增加 100 × sk1_mult
+br_skill_barrier_ally_value = {
+    base = 100
+    mult = value:br_hero_ship_skill_1_mult
+}
+# 持续 10天 × sk1_daymult
+br_skill_barrier_day = {
+    base = 20
     mult = value:br_hero_ship_skill_1_daymult
 }
 

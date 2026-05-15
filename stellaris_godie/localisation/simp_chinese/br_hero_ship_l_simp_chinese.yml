@@ -40,7 +40,7 @@
 
  # 技能动态展示主键值（br_vanguard_scripted_loc.txt 引用）
  br_vanguard_power_skill_button:0 "§H火力核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive2][Root.GetBRVanguardActive3][Root.GetBRVanguardActiveEmpty]\n被动：[Root.GetBRVanguardPassive1][Root.GetBRVanguardPassive2][Root.GetBRVanguardPassiveEmpty]\n[Root.GetBRVanguardActiveCD]"
- br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActiveEmpty]\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
+ br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[Root.GetBRHeroXPState]\n主动：[Root.GetBRVanguardActive1][Root.GetBRVanguardActive4][Root.GetBRVanguardActiveEmpty]\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
  br_vanguard_support_skill_button:0 "§H支援核心技能§!\n[Root.GetBRHeroXPState]\n主动：§R未解锁§!\n被动：§R未解锁§!\n[Root.GetBRVanguardActiveCD]"
  br_vanguard_power_ultimate_button:0 "§H旗舰超载§!\n[Root.GetBRHeroXPState]\n旗舰超载：[Root.GetBRVanguardUltimate1][Root.GetBRVanguardUltimate2][Root.GetBRVanguardUltimateEmpty]\n[Root.GetBRVanguardUltimateCD]"
  br_vanguard_skill_locked:0 "§R未解锁§!"
@@ -55,23 +55,27 @@
  # 技能：自动构造修复（共有，slot=1 主动）
  # ============================================================
 
- br_hero_phase_shift:0 "相位转移"
- br_hero_phase_shift_activity_key:0 "执行相位转移"
+ br_hero_phase_shift:0 "防御协议"
+ br_hero_phase_shift_activity_key:0 "执行防御协议"
  br_hero_phase_shift_menu_title:0 "$br_hero_phase_shift$"
  br_hero_phase_shift_progress_activity_key:0 "$br_hero_phase_shift_activity_key$（§Y$PROGRESS$%§!）"
  br_hero_phase_shift_fail_tt:0 ""
+ br_hero_barrier_menu_title:0 "协同防御协议"
+ br_hero_barrier_ship_button:0 "§H$br_hero_barrier_menu_title$§!\n自身：船体/装甲/护盾§R-[br_skill_barrier_self_value]§!\n星系友方：船体/装甲/护盾§G+[br_skill_barrier_ally_value]§!\n持续§Y[br_skill_barrier_day]天§!，冷却§Y240天§!"
  br_hero_phase_shift_ship_button:0 "§H$br_hero_phase_shift_menu_title$§!\n自身：§G减伤+[br_skill_phase_shift_dmgreduct]%§!+§Y嘲讽§!，武器伤害§R-100%§!\n星系友方：§G每日船体/装甲/护盾再生+[br_skill_phase_shift_regen_amount]%§!\n持续§Y[br_skill_phase_shift_day]天§!，冷却§Y240天§!"
  BR_HERO_PHASE_SHIFT_ACTIONS:0 "$br_hero_phase_shift$"
- BR_HERO_PHASE_SHIFT_ACTIONS_DESC:0 "英雄舰进入相位转移状态，自身获得减伤+嘲讽，武器伤害归零；同时星系友方获得高额再生。"
- br_context_menu_phase_shift:0 "§H相位转移§!"
+ BR_HERO_PHASE_SHIFT_ACTIONS_DESC:0 "英雄舰进入防御协议状态，自身获得减伤+嘲讽，武器伤害归零；同时星系友方获得高额再生。"
+ br_context_menu_phase_shift:0 "§H防御协议§!"
+ br_context_menu_barrier:0 "§H协同防御协议§!"
 
  # 技能合并展示文本（scripted loc 引用）
- br_vanguard_skill_phase_shift:0 "§G相位转移§!\n  自身：§G减伤+[br_skill_phase_shift_dmgreduct]%§!+§Y嘲讽§!，武器伤害§R-100%§!\n  星系友方：§G每日船体/装甲/护盾再生+[br_skill_phase_shift_regen_amount]%§!\n  持续§Y[br_skill_phase_shift_day]天§!，冷却§Y240天§!"
+ br_vanguard_skill_phase_shift:0 "§G防御协议§!\n  自身：§G减伤+[br_skill_phase_shift_dmgreduct]%§!+§Y嘲讽§!，武器伤害§R-100%§!\n  星系友方：§G每日船体/装甲/护盾再生+[br_skill_phase_shift_regen_amount]%§!\n  持续§Y[br_skill_phase_shift_day]天§!，冷却§Y240天§!"
+ br_vanguard_skill_barrier:0 "§G协同防御协议§!\n  自身：船体/装甲/护盾§R-[br_skill_barrier_self_value]§!\n  星系友方：船体/装甲/护盾§G+[br_skill_barrier_ally_value]§!\n  持续§Y[br_skill_barrier_day]天§!，冷却§Y240天§!"
 
  # Modifier 描述
- br_vanguard_phase_shift:0 "相位转移"
+ br_vanguard_phase_shift:0 "防御协议"
  br_vanguard_phase_shift_desc:0 "减伤+嘲讽敌方集火，武器伤害§R-100%§!（受技能倍率放大）。"
- br_vanguard_phase_shift_regen:0 "相位转移·再生场"
+ br_vanguard_phase_shift_regen:0 "防御协议·再生场"
  br_vanguard_phase_shift_regen_desc:0 "星系友方每日船体/装甲/护盾再生§G+[br_skill_phase_shift_regen_amount]%§!。"
 
  # ============================================================
@@ -124,8 +128,10 @@
 
  edict_br_test_toggle_debug:0 "全局调试开关"
  edict_br_test_toggle_debug_desc:0 "激活后显示所有测试法令，用于手动切换技能flag。再次点击关闭。"
- edict_br_test_toggle_phase_shift:0 "切换相位转移"
- edict_br_test_toggle_phase_shift_desc:0 "测试用。激活后切换相位转移 flag。"
+ edict_br_test_toggle_phase_shift:0 "切换防御协议"
+ edict_br_test_toggle_phase_shift_desc:0 "测试用。激活后切换防御协议 flag。"
+ edict_br_test_toggle_barrier:0 "切换协同防御协议"
+ edict_br_test_toggle_barrier_desc:0 "测试用。激活后切换协同防御协议 flag。"
  edict_br_test_toggle_combat_stack:0 "切换战意过载技能"
  edict_br_test_toggle_combat_stack_desc:0 "测试用。激活后切换战意过载技能 flag。"
  edict_br_test_toggle_energy_overclock:0 "切换能量超频技能"
@@ -136,6 +142,10 @@
  edict_br_test_toggle_kill_stack_desc:0 "测试用。激活后切换越战越勇技能 flag。"
  edict_br_test_toggle_fullfire:0 "切换火力全开技能"
  edict_br_test_toggle_fullfire_desc:0 "测试用。激活后切换火力全开技能 flag。"
+ edict_br_test_toggle_final_volley:0 "切换终末齐射技能"
+ edict_br_test_toggle_final_volley_desc:0 "测试用。激活后切换终末齐射技能 flag。"
+ edict_br_test_reset_skill_cd:0 "重置技能冷却"
+ edict_br_test_reset_skill_cd_desc:0 "测试用。清除所有技能冷却变量，可立即再次使用技能。"
  edict_br_test_skill_1_mult_up:0 "主动技能效果倍率 +0.5"
  edict_br_test_skill_1_mult_up_desc:0 "测试用。br_skill_1_mult_player 增加 0.5。"
  edict_br_test_skill_1_daymult_up:0 "主动技能时长倍率 +0.5"

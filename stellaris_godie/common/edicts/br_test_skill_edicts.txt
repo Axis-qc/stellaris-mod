@@ -28,6 +28,10 @@ br_test_toggle_debug = {
     ai_weight = { weight = 0 }
 }
 
+# ========================
+# 防御核心
+# ========================
+
 br_test_toggle_phase_shift = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -53,7 +57,7 @@ br_test_toggle_phase_shift = {
     ai_weight = { weight = 0 }
 }
 
-br_test_toggle_combat_stack = {
+br_test_toggle_barrier = {
     icon = "GFX_edict_type_policy"
     length = 1
 
@@ -67,17 +71,22 @@ br_test_toggle_combat_stack = {
 
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_combat_stack_unlocked }
-            remove_country_flag = br_skill_combat_stack_unlocked
+            limit = { has_country_flag = br_skill_barrier_unlocked }
+            remove_country_flag = br_skill_barrier_unlocked
         }
         else = {
-            set_country_flag = br_skill_combat_stack_unlocked
+            set_country_flag = br_skill_barrier_unlocked
         }
     }
 
     ai_weight = { weight = 0 }
 }
 
+# ========================
+# 火力核心
+# ========================
+
+# Lv2 主动技能
 br_test_toggle_energy_overclock = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -128,6 +137,32 @@ br_test_toggle_weakness_scan = {
     ai_weight = { weight = 0 }
 }
 
+# Lv4 被动技能
+br_test_toggle_combat_stack = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_combat_stack_unlocked }
+            remove_country_flag = br_skill_combat_stack_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_combat_stack_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
 br_test_toggle_kill_stack = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -153,6 +188,7 @@ br_test_toggle_kill_stack = {
     ai_weight = { weight = 0 }
 }
 
+# Lv6 旗舰超载
 br_test_toggle_fullfire = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -198,6 +234,29 @@ br_test_toggle_final_volley = {
         else = {
             set_country_flag = br_skill_final_volley_unlocked
         }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+# 测试法令 — 重置所有技能冷却
+br_test_reset_skill_cd = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        set_variable = { which = br_vanguard_power_skill_cd value = 0 }
+        set_variable = { which = br_vanguard_power_ultimate_cd value = 0 }
+        set_variable = { which = br_vanguard_defense_skill_cd value = 0 }
+        set_variable = { which = br_vanguard_support_skill_cd value = 0 }
     }
 
     ai_weight = { weight = 0 }

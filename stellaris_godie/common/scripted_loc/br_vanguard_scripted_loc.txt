@@ -1,11 +1,10 @@
 #文本必须有一个保底显示，否则会导致游戏闪退
 
 # ========================
-# 主动技能文本
-# 每个 defined_text 对应一种已解锁的主动技能，用于 tooltip 中展示技能描述
+# 防御核心
 # ========================
 
-# 防御核心 — 相位转移
+# Lv2 主动 — 防御协议
 defined_text = {
     name = GetBRVanguardActive1
     random = no
@@ -17,7 +16,23 @@ defined_text = {
     default = ""
 }
 
-# 火力核心 — 能量超频
+# Lv2 主动 — 协同防御协议
+defined_text = {
+    name = GetBRVanguardActive4
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_barrier
+        trigger = { owner = { has_country_flag = br_skill_barrier_unlocked } }
+    }
+    default = ""
+}
+
+# ========================
+# 火力核心
+# ========================
+
+# Lv2 主动 — 能量超频
 defined_text = {
     name = GetBRVanguardActive2
     random = no
@@ -29,7 +44,7 @@ defined_text = {
     default = ""
 }
 
-# 火力核心 — 弱点扫描
+# Lv2 主动 — 弱点扫描
 defined_text = {
     name = GetBRVanguardActive3
     random = no
@@ -41,58 +56,7 @@ defined_text = {
     default = ""
 }
 
-# ========================
-# 旗舰超载文本
-# ========================
-
-# 火力核心 — 火力全开
-defined_text = {
-    name = GetBRVanguardUltimate1
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_fullfire
-        trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
-    }
-    default = ""
-}
-
-# 终末齐射
-defined_text = {
-    name = GetBRVanguardUltimate2
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_final_volley
-        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
-    }
-    default = ""
-}
-
-# 旗舰超载全部未解锁
-defined_text = {
-    name = GetBRVanguardUltimateEmpty
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_locked
-        trigger = {
-            owner = {
-                NOR = {
-                    has_country_flag = br_skill_fullfire_unlocked
-                    has_country_flag = br_skill_final_volley_unlocked
-                }
-            }
-        }
-    }
-    default = ""
-}
-
-# ========================
-# 被动技能文本
-# ========================
-
-# 火力核心 — 战意过载
+# Lv4 被动 — 战意过载
 defined_text = {
     name = GetBRVanguardPassive1
     random = no
@@ -109,7 +73,7 @@ defined_text = {
     default = ""
 }
 
-# 火力核心 — 越战越勇
+# Lv4 被动 — 越战越勇
 defined_text = {
     name = GetBRVanguardPassive2
     random = no
@@ -121,9 +85,34 @@ defined_text = {
     default = ""
 }
 
+# Lv6 旗舰超载 — 火力全开
+defined_text = {
+    name = GetBRVanguardUltimate1
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_fullfire
+        trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
+    }
+    default = ""
+}
+
+# Lv6 旗舰超载 — 终末齐射
+defined_text = {
+    name = GetBRVanguardUltimate2
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_final_volley
+        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
+    }
+    default = ""
+}
+
 # ========================
 # 空状态兜底 — 无技能解锁时显示
 # NOR 须包含所有已实装的对应类型技能 flag
+# ⚠ random=no 时多个 text 只显示第一个匹配的，故无法合并，每个 skill 必须独立一个 defined_text
 # ========================
 
 # 主动技能全部未解锁
@@ -137,6 +126,7 @@ defined_text = {
             owner = {
                 NOR = {
                     has_country_flag = br_skill_phase_shift_unlocked
+                    has_country_flag = br_skill_barrier_unlocked
                     has_country_flag = br_skill_energy_overclock_unlocked
                     has_country_flag = br_skill_weakness_scan_unlocked
                 }
@@ -158,6 +148,25 @@ defined_text = {
                 NOR = {
                     has_country_flag = br_skill_combat_stack_unlocked
                     has_country_flag = br_skill_kill_stack_unlocked
+                }
+            }
+        }
+    }
+    default = ""
+}
+
+# 旗舰超载全部未解锁
+defined_text = {
+    name = GetBRVanguardUltimateEmpty
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_locked
+        trigger = {
+            owner = {
+                NOR = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                    has_country_flag = br_skill_final_volley_unlocked
                 }
             }
         }
@@ -248,11 +257,16 @@ defined_text = {
             owner = {
                 NOR = {
                     has_country_flag = br_skill_phase_shift_unlocked
+                    has_country_flag = br_skill_barrier_unlocked
                     has_country_flag = br_skill_energy_overclock_unlocked
                     has_country_flag = br_skill_weakness_scan_unlocked
                 }
             }
         }
+    }
+    text = {
+        localization_key = br_context_menu_barrier
+        trigger = { owner = { has_country_flag = br_skill_barrier_unlocked } }
     }
     text = {
         localization_key = br_context_menu_overclock
