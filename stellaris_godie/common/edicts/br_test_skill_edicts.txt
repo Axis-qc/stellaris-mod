@@ -28,7 +28,7 @@ br_test_toggle_debug = {
     ai_weight = { weight = 0 }
 }
 
-br_test_toggle_self_repair = {
+br_test_toggle_phase_shift = {
     icon = "GFX_edict_type_policy"
     length = 1
 
@@ -42,11 +42,11 @@ br_test_toggle_self_repair = {
 
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_self_repair_unlocked }
-            remove_country_flag = br_skill_self_repair_unlocked
+            limit = { has_country_flag = br_skill_phase_shift_unlocked }
+            remove_country_flag = br_skill_phase_shift_unlocked
         }
         else = {
-            set_country_flag = br_skill_self_repair_unlocked
+            set_country_flag = br_skill_phase_shift_unlocked
         }
     }
 

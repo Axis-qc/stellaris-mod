@@ -68,15 +68,15 @@ br_skill_scan_day = {
     mult = value:br_hero_ship_skill_1_daymult
 }
 
-# ---- 自动构造修复 ----
-# 船体/装甲再生 20% × sk1_mult
-br_skill_repair_regen = {
-    base = 20
-    mult = value:br_hero_ship_skill_1_mult
+# ---- 相位转移 ----
+# 免伤持续 5天 × sk1_daymult
+br_skill_phase_shift_day = {
+    base = 5
+    mult = value:br_hero_ship_skill_1_daymult
 }
-# 持续 30天 × sk1_daymult
-br_skill_repair_day = {
-    base = 30
+# 再生持续 10天 × sk1_daymult
+br_skill_phase_shift_regen_day = {
+    base = 10
     mult = value:br_hero_ship_skill_1_daymult
 }
 
@@ -89,6 +89,12 @@ br_skill_repair_day = {
 br_skill_combat_stack_damage = {
     base = 2
     mult = value:br_hero_ship_skill_2_mult
+}
+
+# 上限显示
+br_skill_combat_stack_cap_display = {
+    base = 0
+    add = value:br_vanguard_combat_stack_cap
 }
 
 # ---- 越战越勇 ----

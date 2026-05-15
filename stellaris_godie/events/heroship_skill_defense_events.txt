@@ -4,7 +4,7 @@ namespace = heroship
 # 防御核心技能 — heroship.1200-1299
 # ========================
 
-# 自修复激活（由 on_br_defense_skill_activated 触发）
+# 相位转移激活（由 on_br_defense_skill_activated 触发）
 fleet_event = {
     id = heroship.1200
     hide_window = yes
@@ -13,7 +13,7 @@ fleet_event = {
     trigger = {
         br_has_defense_vanguard = yes
         owner = {
-            has_country_flag = br_skill_self_repair_unlocked
+            has_country_flag = br_skill_phase_shift_unlocked
             br_vanguard_defense_skill_cd_ready = yes
         }
     }
@@ -25,16 +25,41 @@ fleet_event = {
                 has_component = BR_VANGUARD_CORE_DEFENSE
             }
             add_modifier = {
-                modifier = br_vanguard_self_repair
-                days = 30
+                modifier = br_vanguard_phase_shift
+                days = 5
+                time_multiplier = value:br_hero_ship_skill_1_daymult
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_defense_skill_cd value = 90 }
+            set_variable = { which = br_vanguard_defense_skill_cd value = 240 }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
                 country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+        set_variable = { which = buff_time value = 5 }
+        multiply_variable = { which = buff_time value = value:br_hero_ship_skill_1_daymult }
+        fleet_event = { id = heroship.1201 days = buff_time }
+    }
+}
+
+# 相位转移结束 — 高额再生
+fleet_event = {
+    id = heroship.1201
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            add_modifier = {
+                modifier = br_vanguard_phase_shift_regen
+                days = 10
+                time_multiplier = value:br_hero_ship_skill_1_daymult
             }
         }
     }

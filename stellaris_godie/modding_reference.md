@@ -204,7 +204,7 @@ if = {
 ### 国家 scope (`has_country_flag`, `set_country_flag`)
 
 ```starlang
-owner = { has_country_flag = br_skill_self_repair_unlocked }
+owner = { has_country_flag = br_skill_phase_shift_unlocked }
 ```
 
 ### 变量操作

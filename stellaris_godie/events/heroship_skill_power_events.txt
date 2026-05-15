@@ -173,7 +173,7 @@ fleet_event = {
 
             if = {
                 limit = {
-                    check_variable = { which = br_vanguard_power_combat_stack value < 100 }
+                    check_variable = { which = br_vanguard_power_combat_stack value < value:br_vanguard_combat_stack_cap }
                 }
                 change_variable = { which = br_vanguard_power_combat_stack value = 1 }
             }
