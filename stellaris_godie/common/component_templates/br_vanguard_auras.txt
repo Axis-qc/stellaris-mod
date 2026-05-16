@@ -340,6 +340,63 @@ utility_component_template = {
         slot = 2
     }
 
+    # 防御核心旗舰超载（槽位3）
+    scripted_action = {
+        scope = self
+
+        possible = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_collapse_unlocked
+                        has_country_flag = br_skill_projection_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_defense_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_collapse_unlocked
+                        has_country_flag = br_skill_projection_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_defense_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        name = on_br_defense_ultimate_activated
+        tooltip = br_vanguard_defense_ultimate_button
+        icon = GFX_fleet_order_button_ground_support_seismic_bombing
+        icon_selected = GFX_fleet_order_button_ground_support_seismic_bombing
+        activity_key = br_hero_ultimate_skill_activity_key
+        context_menu_name = br_hero_ultimate_skill_menu_title
+        progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+        required_progress = 4
+        slot = 3
+    }
+
     ai_weight = {
         weight = 999
     }

@@ -82,6 +82,111 @@ br_test_toggle_barrier = {
     ai_weight = { weight = 0 }
 }
 
+# Lv4 被动
+br_test_toggle_structure = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_structure_unlocked }
+            remove_country_flag = br_skill_structure_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_structure_unlocked
+            country_event = { id = heroship.1202 }
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+br_test_toggle_field = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_field_unlocked }
+            remove_country_flag = br_skill_field_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_field_unlocked
+            country_event = { id = heroship.1203 }
+            country_event = { id = heroship.1204 days = 30 }
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+# Lv6 大招
+br_test_toggle_collapse = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_collapse_unlocked }
+            remove_country_flag = br_skill_collapse_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_collapse_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
+br_test_toggle_projection = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+
+    resources = {
+        category = edicts
+        cost = { }
+    }
+
+    potential = { has_country_flag = br_debug_mode }
+    allow = { always = yes }
+
+    effect = {
+        if = {
+            limit = { has_country_flag = br_skill_projection_unlocked }
+            remove_country_flag = br_skill_projection_unlocked
+        }
+        else = {
+            set_country_flag = br_skill_projection_unlocked
+        }
+    }
+
+    ai_weight = { weight = 0 }
+}
+
 # ========================
 # 火力核心
 # ========================
@@ -256,6 +361,7 @@ br_test_reset_skill_cd = {
         set_variable = { which = br_vanguard_power_skill_cd value = 0 }
         set_variable = { which = br_vanguard_power_ultimate_cd value = 0 }
         set_variable = { which = br_vanguard_defense_skill_cd value = 0 }
+        set_variable = { which = br_vanguard_defense_ultimate_cd value = 0 }
         set_variable = { which = br_vanguard_support_skill_cd value = 0 }
     }
 

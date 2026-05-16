@@ -41,7 +41,7 @@ br_vanguard_power_combat_stack_damage = {
 }
 
 br_vanguard_power_energy_overclock = {
-    ship_fire_rate_mult = 0.4
+    ship_fire_rate_mult = 0.04
     ship_hull_regen_add_perc = -0.01
 }
 
@@ -50,45 +50,45 @@ br_vanguard_power_kill_stack_damage = {
 }
 
 br_vanguard_power_weakness_scan = {
-    ship_damage_reduction_mult = -0.30
+    ship_damage_reduction_mult = -0.01
 }
 
 br_vanguard_power_ultimate_fullfire = {
-    ship_fire_rate_mult = 2.0
-    ship_weapon_damage = 0.50
+    ship_fire_rate_mult = 0.04
+    ship_weapon_damage = 0.01
 }
 
 br_vanguard_power_ultimate_fullfire_crash = {
-    ship_fire_rate_mult = -0.30
+    ship_fire_rate_mult = -0.01
 }
 
 br_vanguard_power_final_volley = {
-    ship_weapon_damage = 0.75
-    ship_fire_rate_mult = 0.75
+    ship_weapon_damage = 0.01
+    ship_fire_rate_mult = 0.01
 }
 
 br_vanguard_phase_shift = {
-    ship_damage_reduction_mult = 0.10
+    ship_damage_reduction_mult = 0.01
     ship_target_weight_mult = 1
     ship_weapon_damage = -1.0
 }
 
 br_vanguard_phase_shift_regen = {
-    ship_hull_regen_add_perc = 0.50
-    ship_armor_regen_add_perc = 0.50
-    ship_shield_regen_add_perc = 0.50
+    ship_hull_regen_add_perc = 0.01
+    ship_armor_regen_add_perc = 0.01
+    ship_shield_regen_add_perc = 0.01
 }
 
 br_vanguard_barrier_self = {
-    ship_hull_add = -1000
-    ship_armor_add = -1000
-    ship_shield_add = -1000
+    ship_hull_add = -1
+    ship_armor_add = -1
+    ship_shield_add = -1
 }
 
 br_vanguard_barrier_ally = {
-    ship_hull_add = 100
-    ship_armor_add = 100
-    ship_shield_add = 100
+    ship_hull_add = 1
+    ship_armor_add = 1
+    ship_shield_add = 1
 }
 
 # 周目强度buff，每层+100%，可叠加（周目2=2x，周目3=3x...）
@@ -97,4 +97,39 @@ br_cycle_strength_buff = {
     ship_weapon_damage = 1.0
     ship_shield_mult = 1.0
     ship_armor_mult = 1.0
+}
+
+# 防御核心·结构增幅（自身三维，被 mult 缩放）
+br_vanguard_def_structure = {
+    ship_hull_add = 1
+    ship_armor_add = 1
+    ship_shield_add = 1
+}
+
+# 防御核心·协同结构力场（光环三维，被 mult 缩放）
+br_vanguard_def_field = {
+    ship_hull_add = 1
+    ship_armor_add = 1
+    ship_shield_add = 1
+}
+
+# 防御核心·维度坍塌船体伤害（DOT，触发击杀事件）
+br_ultimate_hull_damage = {
+    # ship_hull_regen_add_static = -1
+    # ship_armor_regen_add_static = -1
+    # ship_shield_regen_add_static = -1
+    ship_hull_regen_add_perc = -1
+    ship_armor_regen_add_perc = -1
+    ship_shield_regen_add_perc = -1
+    #直接扣固定值不行，同样会直接扣死
+    # ship_hull_add = -1
+    # ship_armor_add = -1
+    # ship_shield_add = -1
+}
+
+# 防御核心·维度结构投影（大招光环，被 mult 缩放）
+br_vanguard_def_projection = {
+    ship_hull_add = 1
+    ship_armor_add = 1
+    ship_shield_add = 1
 }

@@ -178,47 +178,127 @@ br_spawn_pve_outer_fleet = {
     }
 }
 
-# ======================== 年度增援已有舰队 ========================
+# ============================================================
+# 纯编队效果 — 总容量 = power_level × 8，全出一种船
+# ============================================================
 
-# 在已有舰队作用域内调用，从事件 root (br_player_pve) 读取 br_power_level
-# 按舰船容量分配增援：护卫(1容)=N艘，驱逐(2容)=N/2，巡洋(4容)=N/4，战列(8容)=N/8
-br_reinforce_pve_fleet = {
-    # 护卫/鱼雷：N 容量，每种 N 艘
+# 纯护卫：容量 ÷ 1 = level × 8 艘
+br_spawn_pure_corvette = {
+    set_variable = { which = br_reinf_count value = root.br_power_level }
+    multiply_variable = { which = br_reinf_count value = 8 }
+    while = {
+        count = br_reinf_count
+        create_ship = { name = random design = event_target:br_player_corvette }
+    }
+    clear_variable = br_reinf_count
+}
+
+# 纯驱逐：容量 ÷ 2 = level × 4 艘，需 level≥3
+br_spawn_pure_destroyer = {
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 3 } } }
+        set_variable = { which = br_reinf_count value = root.br_power_level }
+        multiply_variable = { which = br_reinf_count value = 4 }
+        while = {
+            count = br_reinf_count
+            create_ship = { name = random design = event_target:br_player_destroyer }
+        }
+        clear_variable = br_reinf_count
+    }
+    else = { br_spawn_mixed = yes }
+}
+
+# 纯巡洋：容量 ÷ 4 = level × 2 艘，需 level≥5
+br_spawn_pure_cruiser = {
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 5 } } }
+        set_variable = { which = br_reinf_count value = root.br_power_level }
+        multiply_variable = { which = br_reinf_count value = 2 }
+        while = {
+            count = br_reinf_count
+            create_ship = { name = random design = event_target:br_player_cruiser }
+        }
+        clear_variable = br_reinf_count
+    }
+    else = { br_spawn_mixed = yes }
+}
+
+# 纯战列：容量 ÷ 8 = level × 1 艘，需 level≥8
+br_spawn_pure_battleship = {
+    if = {
+        limit = { root = { check_variable = { which = br_power_level value >= 8 } } }
+        set_variable = { which = br_reinf_count value = root.br_power_level }
+        while = {
+            count = br_reinf_count
+            create_ship = { name = random design = event_target:br_player_battleship }
+        }
+        clear_variable = br_reinf_count
+    }
+    else = { br_spawn_mixed = yes }
+}
+
+# ============================================================
+# 混合编队（原增援逻辑）
+# ============================================================
+
+br_spawn_mixed = {
+    # 护卫
     set_variable = { which = br_reinf_cv value = root.br_power_level }
-    set_variable = { which = br_reinf_tc value = root.br_power_level }
-    br_spawn_n_ships = { COUNT = br_reinf_cv DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-    br_spawn_n_ships = { COUNT = br_reinf_tc DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+    while = {
+        count = br_reinf_cv
+        create_ship = { name = random design = event_target:br_player_corvette }
+    }
+    clear_variable = br_reinf_cv
 
-    # 驱逐：N/2，N>=3 时解锁
+    # 驱逐：level≥3
     if = {
         limit = { root = { check_variable = { which = br_power_level value >= 3 } } }
         set_variable = { which = br_reinf_dd value = root.br_power_level }
         divide_variable = { which = br_reinf_dd value = 2 }
-        br_spawn_n_ships = { COUNT = br_reinf_dd DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
-        br_spawn_n_ships = { COUNT = br_reinf_dd DESIGN_A = BR_PVE_ARTILLERY_DESTROYER DESIGN_B = BR_PVE_BRAWLER_DESTROYER }
+        while = {
+            count = br_reinf_dd
+            create_ship = { name = random design = event_target:br_player_destroyer }
+        }
         clear_variable = br_reinf_dd
     }
 
-    # 巡洋：N/4，N>=5 时解锁
+    # 巡洋：level≥5
     if = {
         limit = { root = { check_variable = { which = br_power_level value >= 5 } } }
         set_variable = { which = br_reinf_cr value = root.br_power_level }
         divide_variable = { which = br_reinf_cr value = 4 }
-        br_spawn_n_ships = { COUNT = br_reinf_cr DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
-        br_spawn_n_ships = { COUNT = br_reinf_cr DESIGN_A = BR_PVE_ARTILLERY_CRUISER DESIGN_B = BR_PVE_BRAWLER_CRUISER }
+        while = {
+            count = br_reinf_cr
+            create_ship = { name = random design = event_target:br_player_cruiser }
+        }
         clear_variable = br_reinf_cr
     }
 
-    # 战列：N/8，N>=8 时解锁
+    # 战列：level≥8
     if = {
         limit = { root = { check_variable = { which = br_power_level value >= 8 } } }
         set_variable = { which = br_reinf_bb value = root.br_power_level }
         divide_variable = { which = br_reinf_bb value = 8 }
-        br_spawn_n_ships = { COUNT = br_reinf_bb DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
-        br_spawn_n_ships = { COUNT = br_reinf_bb DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_BRAWLER_BATTLESHIP }
+        while = {
+            count = br_reinf_bb
+            create_ship = { name = random design = event_target:br_player_battleship }
+        }
         clear_variable = br_reinf_bb
     }
+}
 
-    clear_variable = br_reinf_cv
-    clear_variable = br_reinf_tc
+# ============================================================
+# 年度增援调度 — 随机编队类型
+# ============================================================
+
+# 在已有舰队作用域内调用，从事件 root (br_player_pve) 读取 br_power_level
+# 设计来源：由 br.850 每年保存为全局 event_target
+br_reinforce_pve_fleet = {
+    random_list = {
+        40 = { br_spawn_mixed = yes }
+        15 = { br_spawn_pure_corvette = yes }
+        15 = { br_spawn_pure_destroyer = yes }
+        15 = { br_spawn_pure_cruiser = yes }
+        15 = { br_spawn_pure_battleship = yes }
+    }
 }

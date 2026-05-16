@@ -5,6 +5,21 @@ namespace = heroship
 # 核心选择已迁移至 reward.6101（reward_core_events.txt）
 # ========================
 
+# 英雄等级经验阈值
+@br_xp_level_2 = 10
+@br_xp_level_3 = 40
+@br_xp_level_4 = 110
+@br_xp_level_5 = 240
+@br_xp_level_6 = 460
+@br_xp_level_7 = 810
+@br_xp_level_8 = 1330
+@br_xp_level_9 = 2080
+@br_xp_level_10 = 3130
+@br_xp_level_11 = 4630
+@br_xp_level_12 = 6830
+# 12 级后无限成长
+@br_xp_next_12 = 5000
+
 # 后备初始化（主初始化在 reward.6101 发放英雄舰时）
 country_event = {
     id = heroship.1
@@ -84,71 +99,71 @@ country_event = {
 
         # 根据经验计算当前等级
         if = {
-            limit = { check_variable = { which = br_hero_xp value >= 6830 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_12 } }
             set_variable = { which = br_hero_level value = 12 }
-            set_variable = { which = br_hero_xp_next value = 2000 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_next_12 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 4630 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_11 } }
             set_variable = { which = br_hero_level value = 11 }
-            set_variable = { which = br_hero_xp_next value = 6830 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_12 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 3130 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_10 } }
             set_variable = { which = br_hero_level value = 10 }
-            set_variable = { which = br_hero_xp_next value = 4630 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_11 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 2080 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_9 } }
             set_variable = { which = br_hero_level value = 9 }
-            set_variable = { which = br_hero_xp_next value = 3130 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_10 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 1330 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_8 } }
             set_variable = { which = br_hero_level value = 8 }
-            set_variable = { which = br_hero_xp_next value = 2080 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_9 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 810 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_7 } }
             set_variable = { which = br_hero_level value = 7 }
-            set_variable = { which = br_hero_xp_next value = 1330 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_8 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 460 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_6 } }
             set_variable = { which = br_hero_level value = 6 }
-            set_variable = { which = br_hero_xp_next value = 810 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_7 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 240 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_5 } }
             set_variable = { which = br_hero_level value = 5 }
-            set_variable = { which = br_hero_xp_next value = 460 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_6 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 110 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_4 } }
             set_variable = { which = br_hero_level value = 4 }
-            set_variable = { which = br_hero_xp_next value = 240 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_5 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 40 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_3 } }
             set_variable = { which = br_hero_level value = 3 }
-            set_variable = { which = br_hero_xp_next value = 110 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_4 }
         }
         else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= 10 } }
+            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_2 } }
             set_variable = { which = br_hero_level value = 2 }
-            set_variable = { which = br_hero_xp_next value = 40 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_3 }
         }
         else = {
             set_variable = { which = br_hero_level value = 1 }
-            set_variable = { which = br_hero_xp_next value = 10 }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_2 }
         }
 
-        # 12级后无限成长：每2000经验消耗并+1级
+        # 12级后无限成长：每5000经验消耗并+1级
         if = {
             limit = { check_variable = { which = br_hero_level value >= 12 } }
             while = {
-                limit = { check_variable = { which = br_hero_xp value >= 2000 } }
-                subtract_variable = { which = br_hero_xp value = 2000 }
+                limit = { check_variable = { which = br_hero_xp value >= @br_xp_next_12 } }
+                subtract_variable = { which = br_hero_xp value = @br_xp_next_12 }
                 change_variable = { which = br_hero_level value = 1 }
             }
         }
@@ -173,106 +188,33 @@ country_event = {
         multiply_variable = { which = br_skill_3_mult_player value = 0.1 }
         set_variable = { which = br_skill_3_daymult_player value = br_hero_level }
         multiply_variable = { which = br_skill_3_daymult_player value = 0.1 }
+        # 等级变化时重算结构增幅
+        if = {
+            limit = { has_country_flag = br_skill_structure_unlocked }
+            country_event = { id = heroship.1202 }
+        }
     }
 }
 
-# 升级路由：>= 防跳级，已有 flag 防重复
+# 升级路由：无条件触发各核心事件，每个事件自身 trigger 做条件判断
 country_event = {
     id = heroship.4
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
-        # Lv2 → 主动技能选择
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 2 }
-            }
-            if = {
-                limit = {
-                    has_country_flag = br_hero_core_power
-                    NOR = {
-                        has_country_flag = br_skill_energy_overclock_unlocked
-                        has_country_flag = br_skill_weakness_scan_unlocked
-                    }
-                }
-                country_event = { id = heroship.10 }
-            }
-            else_if = {
-                limit = {
-                    has_country_flag = br_hero_core_defense
-                    NOT = { has_country_flag = br_skill_phase_shift_unlocked }
-                }
-                country_event = { id = heroship.20 }
-            }
-            else_if = {
-                limit = {
-                    always = no # TODO: 支援核心 Lv2 实装后替换为对应 flag 检查
-                    has_country_flag = br_hero_core_support
-                }
-                country_event = { id = heroship.30 }
-            }
-        }
-        # Lv4 → 被动技能选择
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 4 }
-            }
-            if = {
-                limit = {
-                    has_country_flag = br_hero_core_power
-                    NOR = {
-                        has_country_flag = br_skill_combat_stack_unlocked
-                        has_country_flag = br_skill_kill_stack_unlocked
-                    }
-                }
-                country_event = { id = heroship.11 }
-            }
-            else_if = {
-                limit = {
-                    always = no # TODO: 防御核心 Lv4 实装后替换为对应 flag 检查
-                    has_country_flag = br_hero_core_defense
-                }
-                country_event = { id = heroship.21 }
-            }
-            else_if = {
-                limit = {
-                    always = no # TODO: 支援核心 Lv4 实装后替换为对应 flag 检查
-                    has_country_flag = br_hero_core_support
-                }
-                country_event = { id = heroship.31 }
-            }
-        }
-        # Lv6 → 大招选择（预留）
-        if = {
-            limit = {
-                check_variable = { which = br_hero_level value >= 6 }
-            }
-            if = {
-                limit = {
-                    has_country_flag = br_hero_core_power
-                    NOR = {
-                        has_country_flag = br_skill_fullfire_unlocked
-                        has_country_flag = br_skill_final_volley_unlocked
-                    }
-                }
-                country_event = { id = heroship.12 }
-            }
-            else_if = {
-                limit = {
-                    always = no # TODO: 防御核心 Lv6 实装后替换为对应 flag 检查
-                    has_country_flag = br_hero_core_defense
-                }
-                country_event = { id = heroship.22 }
-            }
-            else_if = {
-                limit = {
-                    always = no # TODO: 支援核心 Lv6 实装后替换为对应 flag 检查
-                    has_country_flag = br_hero_core_support
-                }
-                country_event = { id = heroship.32 }
-            }
-        }
+        # Lv2 主动技能选择
+        country_event = { id = heroship.10 }  # 火力
+        country_event = { id = heroship.20 }  # 防御
+        country_event = { id = heroship.30 }  # 支援 TODO
+        # Lv4 被动技能选择
+        country_event = { id = heroship.11 }  # 火力
+        country_event = { id = heroship.21 }  # 防御
+        country_event = { id = heroship.31 }  # 支援 TODO
+        # Lv6 大招选择
+        country_event = { id = heroship.12 }  # 火力
+        country_event = { id = heroship.22 }  # 防御
+        country_event = { id = heroship.32 }  # 支援 TODO
     }
 }
 
@@ -284,6 +226,16 @@ country_event = {
 country_event = {
     id = heroship.10
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_power
+        check_variable = { which = br_hero_level value >= 2 }
+        NOR = {
+            has_country_flag = br_skill_energy_overclock_unlocked
+            has_country_flag = br_skill_weakness_scan_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -304,6 +256,16 @@ country_event = {
 country_event = {
     id = heroship.11
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_power
+        check_variable = { which = br_hero_level value >= 4 }
+        NOR = {
+            has_country_flag = br_skill_combat_stack_unlocked
+            has_country_flag = br_skill_kill_stack_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -324,6 +286,16 @@ country_event = {
 country_event = {
     id = heroship.12
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_power
+        check_variable = { which = br_hero_level value >= 6 }
+        NOR = {
+            has_country_flag = br_skill_fullfire_unlocked
+            has_country_flag = br_skill_final_volley_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -347,6 +319,16 @@ country_event = {
 country_event = {
     id = heroship.20
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_defense
+        check_variable = { which = br_hero_level value >= 2 }
+        NOR = {
+            has_country_flag = br_skill_phase_shift_unlocked
+            has_country_flag = br_skill_barrier_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -366,24 +348,61 @@ country_event = {
 country_event = {
     id = heroship.21
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_defense
+        check_variable = { which = br_hero_level value >= 4 }
+        NOR = {
+            has_country_flag = br_skill_structure_unlocked
+            has_country_flag = br_skill_field_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_skill_structure
+        custom_tooltip = br_vanguard_skill_structure
+        set_country_flag = br_skill_structure_unlocked
+        country_event = { id = heroship.1202 }
+    }
+    option = {
+        name = br_skill_field
+        custom_tooltip = br_vanguard_skill_field
+        set_country_flag = br_skill_field_unlocked
+        country_event = { id = heroship.1203 }
+        country_event = { id = heroship.1204 }
     }
 }
 
 country_event = {
     id = heroship.22
     is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_hero_core_defense
+        check_variable = { which = br_hero_level value >= 6 }
+        NOR = {
+            has_country_flag = br_skill_collapse_unlocked
+            has_country_flag = br_skill_projection_unlocked
+        }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
 
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_skill_collapse
+        custom_tooltip = br_vanguard_skill_collapse
+        set_country_flag = br_skill_collapse_unlocked
+    }
+    option = {
+        name = br_skill_projection
+        custom_tooltip = br_vanguard_skill_projection
+        set_country_flag = br_skill_projection_unlocked
     }
 }
 
@@ -391,9 +410,17 @@ country_event = {
 # 支援核心技能选择 — heroship.30-39
 # ========================
 
+# TODO: 支援核心 Lv2 主动 — 待实装
 country_event = {
     id = heroship.30
     is_triggered_only = yes
+
+    trigger = {
+        always = no
+        has_country_flag = br_hero_core_support
+        check_variable = { which = br_hero_level value >= 2 }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -403,9 +430,17 @@ country_event = {
     }
 }
 
+# TODO: 支援核心 Lv4 被动 — 待实装
 country_event = {
     id = heroship.31
     is_triggered_only = yes
+
+    trigger = {
+        always = no
+        has_country_flag = br_hero_core_support
+        check_variable = { which = br_hero_level value >= 4 }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
@@ -415,9 +450,17 @@ country_event = {
     }
 }
 
+# TODO: 支援核心 Lv6 大招 — 待实装
 country_event = {
     id = heroship.32
     is_triggered_only = yes
+
+    trigger = {
+        always = no
+        has_country_flag = br_hero_core_support
+        check_variable = { which = br_hero_level value >= 6 }
+    }
+
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache

@@ -85,6 +85,40 @@ defined_text = {
     default = ""
 }
 
+# Lv4 被动 — 结构增幅（防御核心）
+defined_text = {
+    name = GetBRVanguardPassive3
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_structure
+        trigger = {
+            owner = {
+                has_country_flag = br_hero_core_defense
+                has_country_flag = br_skill_structure_unlocked
+            }
+        }
+    }
+    default = ""
+}
+
+# Lv4 被动 — 协同结构力场（防御核心）
+defined_text = {
+    name = GetBRVanguardPassive4
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_field
+        trigger = {
+            owner = {
+                has_country_flag = br_hero_core_defense
+                has_country_flag = br_skill_field_unlocked
+            }
+        }
+    }
+    default = ""
+}
+
 # Lv6 旗舰超载 — 火力全开
 defined_text = {
     name = GetBRVanguardUltimate1
@@ -105,6 +139,30 @@ defined_text = {
     text = {
         localization_key = br_vanguard_skill_final_volley
         trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
+    }
+    default = ""
+}
+
+# Lv6 旗舰超载 — 维度坍塌（防御核心）
+defined_text = {
+    name = GetBRVanguardUltimate3
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_collapse
+        trigger = { owner = { has_country_flag = br_skill_collapse_unlocked } }
+    }
+    default = ""
+}
+
+# Lv6 旗舰超载 — 维度结构投影（防御核心）
+defined_text = {
+    name = GetBRVanguardUltimate4
+    random = no
+
+    text = {
+        localization_key = br_vanguard_skill_projection
+        trigger = { owner = { has_country_flag = br_skill_projection_unlocked } }
     }
     default = ""
 }
@@ -148,6 +206,8 @@ defined_text = {
                 NOR = {
                     has_country_flag = br_skill_combat_stack_unlocked
                     has_country_flag = br_skill_kill_stack_unlocked
+                    has_country_flag = br_skill_structure_unlocked
+                    has_country_flag = br_skill_field_unlocked
                 }
             }
         }
@@ -167,6 +227,8 @@ defined_text = {
                 NOR = {
                     has_country_flag = br_skill_fullfire_unlocked
                     has_country_flag = br_skill_final_volley_unlocked
+                    has_country_flag = br_skill_collapse_unlocked
+                    has_country_flag = br_skill_projection_unlocked
                 }
             }
         }
@@ -219,7 +281,7 @@ defined_text = {
 
 # ========================
 # 旗舰超载 CD 动态显示
-# 作用域：舰船，火力核心专用
+# 作用域：舰船，按核心类型匹配对应 CD 文本
 # ========================
 
 defined_text = {
@@ -234,9 +296,19 @@ defined_text = {
         }
     }
     text = {
+        localization_key = br_vanguard_ultimate_cd_defense
+        trigger = {
+            br_has_defense_vanguard = yes
+            owner = { br_vanguard_defense_ultimate_cd_running = yes }
+        }
+    }
+    text = {
         localization_key = br_vanguard_ultimate_cd_ready
         trigger = {
-            br_has_power_vanguard = yes
+            OR = {
+                br_has_power_vanguard = yes
+                br_has_defense_vanguard = yes
+            }
         }
     }
     default = ""

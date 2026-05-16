@@ -29,6 +29,7 @@ country_event = {
             }
         }
 
+        # 设计由 br.850 每年保存为全局 event_target
         if = {
             limit = { exists = event_target:br_reinf_spawn_@root }
             event_target:br_pve_enemy_country = {
@@ -60,6 +61,7 @@ country_event = {
 # 由 on_yearly_pulse_country 年度触发
 # 以玩家母舰为中心，周边10跳内随机非危险区星系刷敌
 # 每个玩家同时只存在一支，死亡后才按等级刷下一支
+# 注意：设计由 br.830 的 root.random_owned_design 提前保存
 # ============================================================
 
 country_event = {
@@ -100,6 +102,7 @@ country_event = {
                 }
             }
 
+            # 设计由 br.850 每年保存为全局 event_target
             if = {
                 limit = { exists = event_target:br_assault_spawn_@root }
                 event_target:br_pve_enemy_country = {
@@ -127,5 +130,41 @@ country_event = {
                 }
             }
         }
+    }
+}
+
+# ============================================================
+# 每年挑一个幸运儿舰船设计供敌人复制：br.850
+# 由 on_yearly_pulse_country 年度触发
+# 保存为全局 event_target，供 br.830/840 刷敌使用
+# ============================================================
+country_event = {
+    id = br.850
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_country_type = br_player_pve
+        any_owned_ship = { is_ship_size = br_vanguard }
+    }
+
+    immediate = {
+        random_owned_design = { limit = { is_ship_size = corvette } save_global_event_target_as = br_player_corvette }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 3 } }
+            random_owned_design = { limit = { is_ship_size = destroyer } save_global_event_target_as = br_player_destroyer }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 5 } }
+            random_owned_design = { limit = { is_ship_size = cruiser } save_global_event_target_as = br_player_cruiser }
+        }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 8 } }
+            random_owned_design = { limit = { is_ship_size = battleship } save_global_event_target_as = br_player_battleship }
+        }
+
+        # 延迟触发刷敌，确保用刚保存的设计
+        country_event = { id = br.830 days = 10 }
+        country_event = { id = br.840 days = 10 }
     }
 }

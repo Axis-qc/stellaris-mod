@@ -4,6 +4,10 @@ namespace = heroship
 # 防御核心技能 — heroship.1200-1299
 # ========================
 
+# ============================================================
+# 主动技能 — heroship.1200-1201
+# ============================================================
+
 # 防御协议激活（由 on_br_defense_skill_activated 触发，需 br_skill_phase_shift_unlocked）
 fleet_event = {
     id = heroship.1200
@@ -26,9 +30,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_phase_shift
-                mult = value:br_hero_ship_skill_1_mult
-                days = 20
-                time_multiplier = value:br_hero_ship_skill_1_daymult
+                mult = value:br_skill_phase_shift_dmgreduct
+                days = 1
+                time_multiplier = value:br_skill_phase_shift_day
             }
         }
         solar_system = {
@@ -39,14 +43,14 @@ fleet_event = {
                 }
                 add_modifier = {
                     modifier = br_vanguard_phase_shift_regen
-                    mult = value:br_hero_ship_skill_1_mult
-                    days = 20
-                    time_multiplier = value:br_hero_ship_skill_1_daymult
+                    mult = value:br_skill_phase_shift_regen_amount
+                    days = 1
+                    time_multiplier = value:br_skill_phase_shift_regen_day
                 }
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_defense_skill_cd value = 240 }
+            set_variable = { which = br_vanguard_defense_skill_cd value = value:br_skill_phase_shift_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
@@ -78,9 +82,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_barrier_self
-                mult = value:br_hero_ship_skill_1_mult
-                days = 20
-                time_multiplier = value:br_hero_ship_skill_1_daymult
+                mult = value:br_skill_barrier_self_value
+                days = 1
+                time_multiplier = value:br_skill_barrier_day
             }
         }
         solar_system = {
@@ -94,14 +98,14 @@ fleet_event = {
                 }
                 add_modifier = {
                     modifier = br_vanguard_barrier_ally
-                    mult = value:br_hero_ship_skill_1_mult
-                    days = 20
-                    time_multiplier = value:br_hero_ship_skill_1_daymult
+                    mult = value:br_skill_barrier_ally_value
+                    days = 1
+                    time_multiplier = value:br_skill_barrier_day
                 }
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_defense_skill_cd value = 240 }
+            set_variable = { which = br_vanguard_defense_skill_cd value = value:br_skill_barrier_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
@@ -111,3 +115,223 @@ fleet_event = {
     }
 }
 
+# ============================================================
+# 被动技能 — heroship.1202-1204
+# ============================================================
+
+# 结构增幅（由解锁/升级触发，英雄舰自身永久三维加成）
+country_event = {
+    id = heroship.1202
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        owner = {
+            has_country_flag = br_skill_structure_unlocked
+        }
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_DEFENSE
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            remove_modifier = br_vanguard_def_structure
+            add_modifier = {
+                modifier = br_vanguard_def_structure
+                days = -1
+                mult = value:br_vanguard_def_structure_mult
+            }
+        }
+    }
+}
+
+# 协同结构力场·刷新（由解锁/1204触发，星系友方三维光环）
+country_event = {
+    id = heroship.1203
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_country_flag = br_skill_field_unlocked
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_DEFENSE
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            solar_system = {
+                every_fleet_in_system = {
+                    limit = {
+                        exists = owner
+                        owner = { NOT = { is_hostile = root.owner } }
+                    }
+                    add_modifier = {
+                        modifier = br_vanguard_def_field
+                        days = 31
+                        mult = value:br_vanguard_def_field_mult
+                    }
+                }
+            }
+        }
+    }
+}
+
+# 协同结构力场·初始触发（解锁时启动，后续由月脉冲维护）
+country_event = {
+    id = heroship.1204
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { has_country_flag = br_skill_field_unlocked }
+            country_event = { id = heroship.1203 }
+        }
+    }
+}
+
+# ============================================================
+# 旗舰超载 — heroship.1205-1207
+# ============================================================
+
+# 维度坍塌（由 on_br_defense_ultimate_activated 触发，消耗50%总三维→星系敌舰伤害）
+fleet_event = {
+    id = heroship.1205
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_defense_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_collapse_unlocked
+            br_vanguard_defense_ultimate_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            # 英雄舰自伤
+            add_modifier = {
+                modifier = br_ultimate_hull_damage
+                days = 1
+                mult = value:br_vanguard_collapse_damage
+            }
+            # 星系敌舰伤害（modifier DOT 方式，不触发事件杀）
+            solar_system = {
+                every_ship_in_system = {
+                    limit = {
+                        exists = owner
+                        owner = { is_hostile = root.owner }
+                    }
+                    # damage_ship = owner.br_display_collapse 不能damage，会断事件
+                    add_modifier = {
+                        modifier = br_ultimate_hull_damage
+                        days = 1
+                        #作用域在敌方，得转回自己读变量
+                        mult = root.owner.value:br_vanguard_collapse_damage
+                    }
+                }
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_defense_ultimate_cd value = value:br_vanguard_collapse_cd }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+    }
+}
+
+# 维度结构投影（由 on_br_defense_ultimate_activated 触发，总三维10%→友方三维各+此值）
+fleet_event = {
+    id = heroship.1206
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_has_defense_vanguard = yes
+        owner = {
+            has_country_flag = br_skill_projection_unlocked
+            br_vanguard_defense_ultimate_cd_ready = yes
+        }
+    }
+
+    immediate = {
+        # 给友方舰队加 modifier
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = owner
+                    owner = { NOT = { is_hostile = root.owner } }
+                }
+                add_modifier = {
+                    modifier = br_vanguard_def_projection
+                    days = 1
+                    time_multiplier = value:br_vanguard_skill_projection_day
+                    mult = value:br_vanguard_projection_amount
+                }
+            }
+        }
+        owner = {
+            set_variable = { which = br_vanguard_defense_ultimate_cd value = value:br_vanguard_projection_cd }
+            if = {
+                limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
+                set_country_flag = br_vanguard_skill_cd_tick_running
+                country_event = { id = heroship.1014 days = 1 }
+            }
+        }
+    }
+}
+
+# 更新大招显示数值（每月脉冲触发，有解锁技能时才计算）
+country_event = {
+    id = heroship.1207
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        OR = {
+            has_country_flag = br_skill_collapse_unlocked
+            has_country_flag = br_skill_projection_unlocked
+        }
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+            has_component = BR_VANGUARD_CORE_DEFENSE
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                is_ship_size = br_vanguard
+                has_component = BR_VANGUARD_CORE_DEFENSE
+            }
+            export_trigger_value_to_variable = { trigger = has_max_hp variable = br_ship_hp }
+            export_trigger_value_to_variable = { trigger = has_max_armor_hp variable = br_ship_armor }
+            export_trigger_value_to_variable = { trigger = has_shield_hp variable = br_ship_shield }
+            save_event_target_as = br_hero_ship
+        }
+        set_variable = { which = br_display_total value = event_target:br_hero_ship.br_ship_hp }
+        change_variable = { which = br_display_total value = event_target:br_hero_ship.br_ship_armor }
+        change_variable = { which = br_display_total value = event_target:br_hero_ship.br_ship_shield }
+        # collapse/projection 数值由 script_values 自动计算 (br_vanguard_collapse_damage / br_vanguard_projection_amount)
+    }
+}

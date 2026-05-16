@@ -20,7 +20,7 @@ fleet_event = {
 
     immediate = {
         owner = {
-            set_variable = { which = br_vanguard_power_skill_cd value = 90 }
+            set_variable = { which = br_vanguard_power_skill_cd value = value:br_skill_overclock_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
@@ -34,9 +34,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_energy_overclock
-                mult = value:br_hero_ship_skill_1_mult
-                days = 10
-                time_multiplier = value:br_hero_ship_skill_1_daymult
+                mult = value:br_skill_overclock_hulldrain
+                days = 1
+                time_multiplier = value:br_skill_overclock_day
             }
         }
     }
@@ -66,15 +66,15 @@ fleet_event = {
                 every_owned_ship = {
                     add_modifier = {
                         modifier = br_vanguard_power_weakness_scan
-                        mult = value:br_hero_ship_skill_1_mult
-                        days = 15
-                        time_multiplier = value:br_hero_ship_skill_1_daymult
+                        mult = value:br_skill_scan_damage
+                        days = 1
+                        time_multiplier = value:br_skill_scan_day
                     }
                 }
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_power_skill_cd value = 120 }
+            set_variable = { which = br_vanguard_power_skill_cd value = value:br_skill_scan_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
@@ -240,23 +240,21 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_ultimate_fullfire
-                mult = value:br_hero_ship_skill_3_mult
-                days = 15
-                time_multiplier = value:br_hero_ship_skill_3_daymult
+                mult = value:br_vanguard_skill_fullfire_2
+                days = 1
+                time_multiplier = value:br_vanguard_skill_fullfire_day
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_power_ultimate_cd value = 300 }
+            set_variable = { which = br_vanguard_power_ultimate_cd value = value:br_vanguard_fullfire_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running
                 country_event = { id = heroship.1014 days = 1 }
             }
         }
-        set_variable = { which = buff_time value = 15 }
-        multiply_variable = { which = buff_time value = value:br_hero_ship_skill_3_daymult }
-        #days可以用变量
-        fleet_event = { id = heroship.1111 days = buff_time }
+        # 延迟触发过热事件（天数由 script_value 统算）
+        fleet_event = { id = heroship.1111 days = value:br_vanguard_skill_fullfire_day }
     }
 }
 
@@ -276,9 +274,9 @@ fleet_event = {
             }
             add_modifier = {
                 modifier = br_vanguard_power_ultimate_fullfire_crash
-                mult = value:br_hero_ship_skill_3_mult
-                days = 15
-                time_multiplier = value:br_hero_ship_skill_3_daymult
+                mult = value:br_vanguard_skill_fullfire_debuff
+                days = 1
+                time_multiplier = value:br_vanguard_skill_fullfire_day
             }
         }
     }
@@ -307,14 +305,14 @@ fleet_event = {
                 }
                 add_modifier = {
                     modifier = br_vanguard_power_final_volley
-                    mult = value:br_hero_ship_skill_3_mult
-                    days = 10
-                    time_multiplier = value:br_hero_ship_skill_3_daymult
+                    mult = value:br_vanguard_skill_final_volley_amount
+                    days = 1
+                    time_multiplier = value:br_vanguard_skill_final_volley_day
                 }
             }
         }
         owner = {
-            set_variable = { which = br_vanguard_power_ultimate_cd value = 360 }
+            set_variable = { which = br_vanguard_power_ultimate_cd value = value:br_vanguard_final_volley_cd }
             if = {
                 limit = { NOT = { has_country_flag = br_vanguard_skill_cd_tick_running } }
                 set_country_flag = br_vanguard_skill_cd_tick_running

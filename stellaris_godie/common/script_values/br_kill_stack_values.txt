@@ -1,19 +1,5 @@
 #技能系统变量
 
-# 战意过载上限
-br_vanguard_combat_stack_cap = {
-    base = 50
-    add = owner.br_hero_level
-}
-
-# 越战越勇上限
-br_vanguard_kill_cap = {
-    base = 50
-    #根据等级加上限
-    add = owner.br_hero_level
-}
-
-
 #技能加成，在国家域加相应变量即可提升技能强度
 #技能事件要计算此变量
 # 主动技能效果倍率
@@ -50,4 +36,22 @@ br_hero_ship_skill_3_mult = {
 br_hero_ship_skill_3_daymult = {
     base = 1
     add = owner.br_skill_3_daymult_player
+}
+
+# 主动技能CD倍率（预留，默认1.0，减CD效果改 _cdmult_player）
+br_hero_ship_skill_1_cdmult = {
+    base = 1
+    add = owner.br_skill_1_cdmult_player
+}
+
+# 被动技能CD倍率（预留）
+br_hero_ship_skill_2_cdmult = {
+    base = 1
+    add = owner.br_skill_2_cdmult_player
+}
+
+# 大招CD倍率（预留）
+br_hero_ship_skill_3_cdmult = {
+    base = 1
+    add = owner.br_skill_3_cdmult_player
 }

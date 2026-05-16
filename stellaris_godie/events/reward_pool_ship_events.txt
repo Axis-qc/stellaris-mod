@@ -15,16 +15,36 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        # 计算各类型舰船数量：基础数 × 战力等级
-        # 舰船占用比：护卫1 驱逐2 巡洋4 战列8 → 基础数 4:2:1:0.5
-        set_variable = { which = br_ship_corvette value = 4 }
-        set_variable = { which = br_ship_destroyer value = 2 }
-        set_variable = { which = br_ship_cruiser value = 1 }
-        set_variable = { which = br_ship_battleship value = 0.5 }
+        # 计算各类型舰船数量：level / 权重
+        # 权重：护卫1 驱逐2 巡洋4 战列8 → base = 1/权重
+        # 大船解锁等级：驱逐2 巡洋4 战列8
+        # 护卫舰：level × 1，无门槛
+        set_variable = { which = br_ship_corvette value = 1 }
         multiply_variable = { which = br_ship_corvette value = br_power_level }
-        multiply_variable = { which = br_ship_destroyer value = br_power_level }
-        multiply_variable = { which = br_ship_cruiser value = br_power_level }
-        multiply_variable = { which = br_ship_battleship value = br_power_level }
+
+        # 驱逐舰：level × 0.5，需 level ≥ 2
+        set_variable = { which = br_ship_destroyer value = 0 }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 2 } }
+            set_variable = { which = br_ship_destroyer value = 0.5 }
+            multiply_variable = { which = br_ship_destroyer value = br_power_level }
+        }
+
+        # 巡洋舰：level × 0.25，需 level ≥ 4
+        set_variable = { which = br_ship_cruiser value = 0 }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 4 } }
+            set_variable = { which = br_ship_cruiser value = 0.25 }
+            multiply_variable = { which = br_ship_cruiser value = br_power_level }
+        }
+
+        # 战列舰：level × 0.125，需 level ≥ 8
+        set_variable = { which = br_ship_battleship value = 0 }
+        if = {
+            limit = { check_variable = { which = br_power_level value >= 8 } }
+            set_variable = { which = br_ship_battleship value = 0.125 }
+            multiply_variable = { which = br_ship_battleship value = br_power_level }
+        }
 
         floor_variable = br_ship_corvette
         floor_variable = br_ship_destroyer
@@ -83,7 +103,7 @@ country_event = {
         name = REWARD_SHIP_DESTROYER
         trigger = {
             exists = event_target:reward_spawn_fleet
-            has_technology = tech_destroyers
+            check_variable = { which = br_power_level value >= 2 }
         }
         custom_tooltip = REWARD_SHIP_DESTROYER_TT
         hidden_effect = {
@@ -114,7 +134,7 @@ country_event = {
         name = REWARD_SHIP_CRUISER
         trigger = {
             exists = event_target:reward_spawn_fleet
-            has_technology = tech_cruisers
+            check_variable = { which = br_power_level value >= 4 }
         }
         custom_tooltip = REWARD_SHIP_CRUISER_TT
         hidden_effect = {
@@ -145,7 +165,7 @@ country_event = {
         name = REWARD_SHIP_BATTLESHIP
         trigger = {
             exists = event_target:reward_spawn_fleet
-            has_technology = tech_battleships
+            check_variable = { which = br_power_level value >= 8 }
         }
         custom_tooltip = REWARD_SHIP_BATTLESHIP_TT
         hidden_effect = {
