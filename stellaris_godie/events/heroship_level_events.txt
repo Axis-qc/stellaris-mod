@@ -175,24 +175,6 @@ country_event = {
             }
             country_event = { id = heroship.4 }
         }
-        # 全技能效果 = 0.1 × 英雄等级（每次等级变化重新计算）
-        set_variable = { which = br_skill_1_mult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_1_mult_player value = 0.1 }
-        set_variable = { which = br_skill_1_daymult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_1_daymult_player value = 0.1 }
-        set_variable = { which = br_skill_2_mult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_2_mult_player value = 0.1 }
-        set_variable = { which = br_skill_2_daymult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_2_daymult_player value = 0.1 }
-        set_variable = { which = br_skill_3_mult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_3_mult_player value = 0.1 }
-        set_variable = { which = br_skill_3_daymult_player value = br_hero_level }
-        multiply_variable = { which = br_skill_3_daymult_player value = 0.1 }
-        # 等级变化时重算结构增幅
-        if = {
-            limit = { has_country_flag = br_skill_structure_unlocked }
-            country_event = { id = heroship.1202 }
-        }
     }
 }
 

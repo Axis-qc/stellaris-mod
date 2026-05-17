@@ -2,39 +2,86 @@
 
 #技能加成，在国家域加相应变量即可提升技能强度
 #技能事件要计算此变量
+
+# ============================================================
+# 等级乘区（自动计算，无需在事件中设变量）
+# br_skill_N_level_mult = hero_level × 0.1
+# ============================================================
+br_skill_1_level_mult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+br_skill_1_level_daymult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+br_skill_2_level_mult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+br_skill_2_level_daymult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+br_skill_3_level_mult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+br_skill_3_level_daymult = {
+    base = 0
+    add = owner.br_hero_level
+    mult = 0.1
+}
+
+# ============================================================
+# 最终倍率 = 1 + 等级乘区 + 独立乘区
+# br_skill_N_mult_player 留作独立乘区（默认0，可被临时效果修改）
+# ============================================================
+
 # 主动技能效果倍率
 br_hero_ship_skill_1_mult = {
     base = 1
+    add = value:br_skill_1_level_mult
     add = owner.br_skill_1_mult_player
 }
 
 # 主动技能时长倍率
 br_hero_ship_skill_1_daymult = {
     base = 1
+    add = value:br_skill_1_level_daymult
     add = owner.br_skill_1_daymult_player
 }
 
 # 被动技能效果倍率
 br_hero_ship_skill_2_mult = {
     base = 1
+    add = value:br_skill_2_level_mult
     add = owner.br_skill_2_mult_player
 }
 
 # 被动技能时长倍率
 br_hero_ship_skill_2_daymult = {
     base = 1
+    add = value:br_skill_2_level_daymult
     add = owner.br_skill_2_daymult_player
 }
 
 # 大招效果倍率
 br_hero_ship_skill_3_mult = {
     base = 1
+    add = value:br_skill_3_level_mult
     add = owner.br_skill_3_mult_player
 }
 
 # 大招时长倍率
 br_hero_ship_skill_3_daymult = {
     base = 1
+    add = value:br_skill_3_level_daymult
     add = owner.br_skill_3_daymult_player
 }
 
