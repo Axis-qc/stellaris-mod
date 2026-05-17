@@ -164,7 +164,7 @@ br_vanguard_def_field_mult = {
 # 防御核心 (Skill 3 — 大招)
 # ============================================================
 
-# ---- 维度结构投影 ----
+# ---- 超维结构投影 ----
 # 加成 = 总三维 × 10% × sk3_mult（br_display_total 由 1207 每月刷新）
 br_vanguard_projection_amount = {
     base = 0
@@ -173,7 +173,7 @@ br_vanguard_projection_amount = {
     mult = value:br_hero_ship_skill_3_mult
 }
 
-# ---- 维度结构投影 ----
+# ---- 超维结构投影 ----
 # 持续 N天 × sk3_daymult（base=20 → sk3_daymult=1 时 20天）
 # 注意：加成数值由 br_vanguard_projection_amount 计算（总三维×10%×sk3_mult）
 br_vanguard_skill_projection_day = {
@@ -181,11 +181,15 @@ br_vanguard_skill_projection_day = {
     mult = value:br_hero_ship_skill_3_daymult
 }
 
-# ---- 维度坍塌 ----
+# ---- 超维结构撕裂 ----
 # 伤害 = 总三维 × 5% × sk3_mult（br_display_total 由 1207 每月刷新）
 br_vanguard_collapse_damage = {
     base = 0
     add = owner.br_display_total
-    mult = 0.10
+    mult = 0.05
     mult = value:br_hero_ship_skill_3_mult
+}
+br_vanguard_collapse_damage_day = {
+    base = 20
+    mult = value:br_hero_ship_skill_3_daymult
 }

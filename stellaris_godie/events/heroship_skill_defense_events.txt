@@ -206,7 +206,7 @@ country_event = {
 # 旗舰超载 — heroship.1205-1207
 # ============================================================
 
-# 维度坍塌（由 on_br_defense_ultimate_activated 触发，消耗50%总三维→星系敌舰伤害）
+# 超维结构撕裂（由 on_br_defense_ultimate_activated 触发，压制装甲护盾+船体DOT）
 fleet_event = {
     id = heroship.1205
     hide_window = yes
@@ -230,6 +230,7 @@ fleet_event = {
             add_modifier = {
                 modifier = br_ultimate_hull_damage
                 days = 1
+                time_multiplier = value:br_vanguard_collapse_damage_day
                 mult = value:br_vanguard_collapse_damage
             }
             # 星系敌舰伤害（modifier DOT 方式，不触发事件杀）
@@ -244,6 +245,7 @@ fleet_event = {
                         modifier = br_ultimate_hull_damage
                         days = 1
                         #作用域在敌方，得转回自己读变量
+                        time_multiplier = root.owner.value:br_vanguard_collapse_damage_day
                         mult = root.owner.value:br_vanguard_collapse_damage
                     }
                 }
@@ -260,7 +262,7 @@ fleet_event = {
     }
 }
 
-# 维度结构投影（由 on_br_defense_ultimate_activated 触发，总三维10%→友方三维各+此值）
+# 超维结构投影（由 on_br_defense_ultimate_activated 触发，总三维10%→友方三维各+此值）
 fleet_event = {
     id = heroship.1206
     hide_window = yes
