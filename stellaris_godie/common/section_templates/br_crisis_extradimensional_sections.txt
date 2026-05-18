@@ -1,0 +1,157 @@
+# ============================================================
+# PVE天灾舰船 — 虚空恶魔 区段模板
+# 从原版 extra_dimensional.txt 复制战斗用 section（三色 × 三级）
+# 跳过构造函数/传送门/星站/锚点
+# 全部槽位使用 br_invisible_ 空实体模板
+# key 加 br_ 前缀避免与原版冲突
+# ============================================================
+
+# ===== 蓝色 (Unbidden) =====
+
+ship_section_template = {
+    key = "br_ed_large_warship_key"
+    ship_size = br_crisis_ed_large
+    fits_on_slot = mid
+    entity = "extra_dimensional_01_warship_large_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_03" template = "br_invisible_large_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_04" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "PD_02" template = "br_invisible_point_defence_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    large_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_medium_warship_key"
+    ship_size = br_crisis_ed_medium
+    fits_on_slot = mid
+    entity = "extra_dimensional_01_warship_medium_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_01" }
+    medium_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_warship_small_key"
+    ship_size = br_crisis_ed_small
+    fits_on_slot = mid
+    entity = "extra_dimensional_01_warship_small_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+    small_utility_slots = 5
+}
+
+# ===== 橙色 (Aberrant) =====
+
+ship_section_template = {
+    key = "br_ed_large_orange_warship_key"
+    ship_size = br_crisis_ed_large
+    fits_on_slot = mid
+    entity = "extra_dimensional_03_warship_large_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_03" template = "br_invisible_large_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_04" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "PD_02" template = "br_invisible_point_defence_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    large_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_medium_orange_warship_key"
+    ship_size = br_crisis_ed_medium
+    fits_on_slot = mid
+    entity = "extra_dimensional_03_warship_medium_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_01" }
+    medium_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_warship_small_orange_key"
+    ship_size = br_crisis_ed_small
+    fits_on_slot = mid
+    entity = "extra_dimensional_03_warship_small_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+    small_utility_slots = 5
+}
+
+# ===== 绿色 (Vehement) =====
+
+ship_section_template = {
+    key = "br_ed_large_green_warship_key"
+    ship_size = br_crisis_ed_large
+    fits_on_slot = mid
+    entity = "extra_dimensional_02_warship_large_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_03" template = "br_invisible_large_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_04" template = "br_invisible_medium_turret" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "PD_02" template = "br_invisible_point_defence_turret" locatorname = "large_gun_03" is_side_slot = yes }
+    large_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_medium_green_warship_key"
+    ship_size = br_crisis_ed_medium
+    fits_on_slot = mid
+    entity = "extra_dimensional_02_warship_medium_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "large_gun_01_l" }
+    component_slot = { name = "SMALL_GUN_01" template = "br_invisible_small_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "SMALL_GUN_02" template = "br_invisible_small_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_01" }
+    medium_utility_slots = 5
+}
+
+ship_section_template = {
+    key = "br_ed_warship_small_green_key"
+    ship_size = br_crisis_ed_small
+    fits_on_slot = mid
+    entity = "extra_dimensional_02_warship_small_entity"
+    icon = "GFX_ship_part_core_mid"
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+    small_utility_slots = 5
+}

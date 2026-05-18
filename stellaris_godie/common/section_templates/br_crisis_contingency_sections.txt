@@ -1,0 +1,42 @@
+# ============================================================
+# PVE天灾舰船 — 肃正协议 区段模板
+# 从原版 ai.txt 复制，单区段(mid only)，去掉entity让ship_size的模型生效
+# 全部槽位使用 br_invisible_ 无炮塔模板
+# ============================================================
+
+# 肃正小型舰区段
+ship_section_template = {
+    key = "BR_CRISIS_AI_SMALL_MID"
+    ship_size = br_crisis_ai_small
+    fits_on_slot = mid
+    entity = ai_01_warship_small_entity
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = { name = "TORPEDO_01" template = "br_invisible_missile_turret" locatorname = "medium_gun_01" }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" }
+
+    medium_utility_slots = 8
+    aux_utility_slots = 1
+}
+
+# 肃正大型舰区段
+ship_section_template = {
+    key = "BR_CRISIS_AI_LARGE_MID"
+    ship_size = br_crisis_ai_large
+    fits_on_slot = mid
+    entity = ai_01_warship_large_entity
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = { name = "EXTRA_LARGE_01" template = "br_invisible_extra_large_fixed" locatorname = "large_gun_01" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" is_side_slot = yes }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+
+    large_utility_slots = 8
+    aux_utility_slots = 1
+}

@@ -1,0 +1,292 @@
+# ============================================================
+# PVE天灾刷敌效果 — 使用 BR_ 系列自定义舰船设计
+# 
+# 作用域链：
+#   event_target:br_pve_enemy_country = { br_spawn_crisis_fleet = yes }
+#     → 国家作用域 调用 br_spawn_crisis_fleet
+#     → 读 event_target:br_spawn_tmp 的 ring flag
+#     → 通过参数($small$/$medium$/$large$)传给 br_crisis_create_fleet
+#     → create_fleet 内部刷船
+# 
+# 所有数量全部通过 scripted_effect 参数(文本替换)传递，不依赖运行时变量
+# 避免跨作用域读变量的问题
+# 
+# ── 触发顺序 ──
+# 1. br_spawn_crisis_fleet         ← 入口：按圈层算数量
+# 2. br_crisis_create_fleet        ← 调度器：建舰队 + random_list 选编队
+# 3. 编队效果（被 random_list 调用）
+#    ├─ br_crisis_spawn_pure_contigency       (10%)
+#    ├─ br_crisis_spawn_pure_extradimensional (10%)
+#    ├─ br_crisis_spawn_pure_swarm            (10%)
+#    ├─ br_crisis_spawn_pure_queen            (10%)
+#    └─ 混合编队 → 基础 spawn (60%)
+#       ├─ br_crisis_small_spawn
+#       ├─ br_crisis_medium_spawn
+#       └─ br_crisis_large_spawn
+# ============================================================
+
+# ============================================================
+# [入口] 核心效果：读 star flag → 算数量 → 调 br_crisis_create_fleet
+# 
+# 调用方式：event_target:br_pve_enemy_country = { br_spawn_crisis_fleet = yes }
+# 调用前需设好 event_target:br_spawn_tmp（目标星系恒星）
+# 
+# 作用域：在国家作用域下执行
+# root 在整个效果执行期间都指向这个国家
+# ============================================================
+br_spawn_crisis_fleet = {
+    event_target:br_spawn_tmp = {
+        # 当前在恒星作用域，root = 国家
+
+        # --- 最外圈 61-65: 纯小舰 2艘 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_61 has_star_flag = br_ring_62 has_star_flag = br_ring_63 has_star_flag = br_ring_64 has_star_flag = br_ring_65 } }
+            root = { br_crisis_create_fleet = { small = 4 medium = 0 large = 0 } }
+        }
+
+        # --- 56-60: 小3+中1 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_56 has_star_flag = br_ring_57 has_star_flag = br_ring_58 has_star_flag = br_ring_59 has_star_flag = br_ring_60 } }
+            root = { br_crisis_create_fleet = { small = 6 medium = 2 large = 0 } }
+        }
+
+        # --- 51-55: 小3+中1 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_51 has_star_flag = br_ring_52 has_star_flag = br_ring_53 has_star_flag = br_ring_54 has_star_flag = br_ring_55 } }
+            root = { br_crisis_create_fleet = { small = 6 medium = 2 large = 0 } }
+        }
+
+        # --- 46-50: 小4+中1 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_46 has_star_flag = br_ring_47 has_star_flag = br_ring_48 has_star_flag = br_ring_49 has_star_flag = br_ring_50 } }
+            root = { br_crisis_create_fleet = { small = 8 medium = 2 large = 0 } }
+        }
+
+        # --- 41-45: 小4+中2 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_41 has_star_flag = br_ring_42 has_star_flag = br_ring_43 has_star_flag = br_ring_44 has_star_flag = br_ring_45 } }
+            root = { br_crisis_create_fleet = { small = 8 medium = 4 large = 0 } }
+        }
+
+        # --- 36-40: 小5+中2 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_36 has_star_flag = br_ring_37 has_star_flag = br_ring_38 has_star_flag = br_ring_39 has_star_flag = br_ring_40 } }
+            root = { br_crisis_create_fleet = { small = 10 medium = 4 large = 0 } }
+        }
+
+        # --- 31-35: 小5+中2 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_31 has_star_flag = br_ring_32 has_star_flag = br_ring_33 has_star_flag = br_ring_34 has_star_flag = br_ring_35 } }
+            root = { br_crisis_create_fleet = { small = 10 medium = 4 large = 0 } }
+        }
+
+        # --- 26-30: 小6+中3 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_26 has_star_flag = br_ring_27 has_star_flag = br_ring_28 has_star_flag = br_ring_29 has_star_flag = br_ring_30 } }
+            root = { br_crisis_create_fleet = { small = 12 medium = 6 large = 0 } }
+        }
+
+        # --- 22-25: 小4+中2+大1（进入内圈，开始出大舰） ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_22 has_star_flag = br_ring_23 has_star_flag = br_ring_24 has_star_flag = br_ring_25 } }
+            root = { br_crisis_create_fleet = { small = 8 medium = 4 large = 2 } }
+        }
+
+        # --- 18-21: 小6+中3+大1 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_18 has_star_flag = br_ring_19 has_star_flag = br_ring_20 has_star_flag = br_ring_21 } }
+            root = { br_crisis_create_fleet = { small = 12 medium = 6 large = 2 } }
+        }
+
+        # --- 14-17: 小8+中4+大1 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_14 has_star_flag = br_ring_15 has_star_flag = br_ring_16 has_star_flag = br_ring_17 } }
+            root = { br_crisis_create_fleet = { small = 16 medium = 8 large = 2 } }
+        }
+
+        # --- 10-13: 小10+中5+大2 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_10 has_star_flag = br_ring_11 has_star_flag = br_ring_12 has_star_flag = br_ring_13 } }
+            root = { br_crisis_create_fleet = { small = 20 medium = 10 large = 4 } }
+        }
+
+        # --- 6-9: 小12+中6+大2 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_6 has_star_flag = br_ring_7 has_star_flag = br_ring_8 has_star_flag = br_ring_9 } }
+            root = { br_crisis_create_fleet = { small = 24 medium = 12 large = 4 } }
+        }
+
+        # --- 4-5: 小14+中7+大3 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_4 has_star_flag = br_ring_5 } }
+            root = { br_crisis_create_fleet = { small = 28 medium = 14 large = 6 } }
+        }
+
+        # --- 2-3: 小18+中9+大4 ---
+        if = {
+            limit = { OR = { has_star_flag = br_ring_2 has_star_flag = br_ring_3 } }
+            root = { br_crisis_create_fleet = { small = 32 medium = 18 large = 8 } }
+        }
+
+        # --- 1: 小22+中11+大5 ---
+        if = {
+            limit = { has_star_flag = br_ring_1 }
+            root = { br_crisis_create_fleet = { small = 44 medium = 22 large = 10 } }
+        }
+    }
+}
+
+# ============================================================
+# [调度器] 创建舰队 + 编队类型选择
+# 
+# 被 br_spawn_crisis_fleet 调用
+# 在国家作用域下执行
+# $small$/$medium$/$large$ 是文本替换参数，不受作用域影响
+# ============================================================
+br_crisis_create_fleet = {
+    create_fleet = {
+        name = "BR_PVE_CRISIS_FLEET"
+        effect = {
+            set_owner = event_target:br_pve_enemy_country
+            set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
+
+            # 编队类型随机：10%纯肃正 / 10%纯恶魔 / 10%纯虫子 / 10%纯女王 / 60%混合
+            random_list = {
+                10 = { br_crisis_spawn_pure_contigency = { small = $small$ medium = $medium$ large = $large$ } }
+                10 = { br_crisis_spawn_pure_extradimensional = { small = $small$ medium = $medium$ large = $large$ } }
+                10 = { br_crisis_spawn_pure_swarm = { small = $small$ medium = $medium$ large = $large$ } }
+                10 = { br_crisis_spawn_pure_queen = { small = $small$ medium = $medium$ large = $large$ } }
+                60 = {
+                    # 混合编队：各势力按比例混抽
+                    br_crisis_small_spawn = { COUNT = $small$ }
+                    br_crisis_medium_spawn = { COUNT = $medium$ }
+                    br_crisis_large_spawn = { COUNT = $large$ }
+                }
+            }
+        }
+    }
+}
+
+# ============================================================
+# [纯肃正编队] 10%
+# 肃正只有 Corvette 和 Battleship 两种尺寸
+# 中型配额并入大型，全出 Battleship
+# ============================================================
+br_crisis_spawn_pure_contigency = {
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_AI_Corvette" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
+}
+
+# ============================================================
+# [纯恶魔编队] 10%
+# 三色恶魔均分
+# ============================================================
+br_crisis_spawn_pure_extradimensional = {
+    while = { count = $small$
+        random_list = {
+            33 = { create_ship = { name = random design = "NAME_BR_Wraith" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Predator" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Obliterator" } }
+        }
+    }
+    while = { count = $medium$
+        random_list = {
+            33 = { create_ship = { name = random design = "NAME_BR_Phantom" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Assassin" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Annihilator" } }
+        }
+    }
+    while = { count = $large$
+        random_list = {
+            33 = { create_ship = { name = random design = "NAME_BR_Revenant" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Huntress" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Eradicator" } }
+        }
+    }
+}
+
+# ============================================================
+# [纯虫子编队] 10%
+# 单色三尺寸
+# ============================================================
+br_crisis_spawn_pure_swarm = {
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Swarm_Small" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Swarm_Large" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Swarm_Carrier" } }
+}
+
+# ============================================================
+# [纯女王编队] 10%
+# 小型配额也造 Harrier，防止边缘星系抽出女王编队变空
+# ============================================================
+br_crisis_spawn_pure_queen = {
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" } }
+}
+
+# ============================================================
+# [基础 spawn] 各尺寸按势力混抽 — 用于混合编队 (60%)
+# 保留原 random_list 比例不变
+# ============================================================
+
+# ---------- 小型舰 ----------
+# 外圈：虫群小 / 恶魔三色小 / 肃正小(AI)
+# 不出女王（Harrier 带X槽前期太强）
+br_crisis_small_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            33 = { create_ship = { name = random design = "NAME_BR_Swarm_Small" } }
+            33 = {
+                random_list = {
+                    33 = { create_ship = { name = random design = "NAME_BR_Wraith" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Predator" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Obliterator" } }
+                }
+            }
+            34 = { create_ship = { name = random design = "NAME_BR_AI_Corvette" } }
+        }
+    }
+}
+
+# ---------- 中型舰 ----------
+# 中圈：虫群大(算中型) / 恶魔三色中 / 肃正中 / 女王Harrier
+br_crisis_medium_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Large" } }
+            25 = {
+                random_list = {
+                    33 = { create_ship = { name = random design = "NAME_BR_Phantom" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Assassin" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Annihilator" } }
+                }
+            }
+            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
+        }
+    }
+}
+
+# ---------- 大型舰 ----------
+# 内圈：虫群航母 / 恶魔三色大 / 肃正战列 / 女王皇家卫队
+br_crisis_large_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Carrier" } }
+            25 = {
+                random_list = {
+                    33 = { create_ship = { name = random design = "NAME_BR_Revenant" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Huntress" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Eradicator" } }
+                }
+            }
+            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" } }
+        }
+    }
+}

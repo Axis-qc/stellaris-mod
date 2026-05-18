@@ -1,254 +1,74 @@
 namespace = br
 
 # ============================================================
-# PVE内圈刷敌：br.801-br.813
-# 每事件管2圈，每次处理1星系并自触发直到刷完，外圈弱→内圈强平滑递增，精英在1-3圈
-# 默认编队 1battleship+2cruiser+4destroyer+8corvette+4frigate × N
+# PVE内圈天灾刷敌：br.801
+# 取消原来 br.801-br.813 的13个事件，统一由本事件处理
+# 每天随机挑1个未刷的1-25圈星系刷天灾舰队
+# 数量由 br_spawn_crisis_fleet 根据 br_spawn_tmp 的圈数flag自算
 # ============================================================
-
-# br.801：ring 25-24，N=1
 country_event = {
     id = br.801
     hide_window = yes
     is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_outer_done NOT = { has_global_flag = br_pve_spawn_ring_24_25_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_24 has_star_flag = br_ring_25 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 1 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_24 has_star_flag = br_ring_25 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.801 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_24_25_done country_event = { id = br.802 days = 3 } }
-    }
-}
 
-# br.802：ring 23-22，N=1
-country_event = {
-    id = br.802
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_24_25_done NOT = { has_global_flag = br_pve_spawn_ring_22_23_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_22 has_star_flag = br_ring_23 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 1 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_22 has_star_flag = br_ring_23 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.802 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_22_23_done country_event = { id = br.803 days = 3 } }
+    trigger = {
+        has_global_flag = br_mode_pve
+        has_global_flag = br_pve_spawn_outer_done
+        NOT = { has_global_flag = br_pve_initialized }
+        exists = event_target:br_pve_enemy_country
     }
-}
 
-# br.803：ring 21-20，N=2
-country_event = {
-    id = br.803
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_22_23_done NOT = { has_global_flag = br_pve_spawn_ring_20_21_done } exists = event_target:br_pve_enemy_country }
     immediate = {
+        # 从1-25圈中随机挑1个未刷过的星系
         random_system = {
-            limit = { OR = { has_star_flag = br_ring_20 has_star_flag = br_ring_21 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
+            limit = {
+                OR = {
+                    has_star_flag = br_ring_1  has_star_flag = br_ring_2
+                    has_star_flag = br_ring_3  has_star_flag = br_ring_4
+                    has_star_flag = br_ring_5  has_star_flag = br_ring_6
+                    has_star_flag = br_ring_7  has_star_flag = br_ring_8
+                    has_star_flag = br_ring_9  has_star_flag = br_ring_10
+                    has_star_flag = br_ring_11 has_star_flag = br_ring_12
+                    has_star_flag = br_ring_13 has_star_flag = br_ring_14
+                    has_star_flag = br_ring_15 has_star_flag = br_ring_16
+                    has_star_flag = br_ring_17 has_star_flag = br_ring_18
+                    has_star_flag = br_ring_19 has_star_flag = br_ring_20
+                    has_star_flag = br_ring_21 has_star_flag = br_ring_22
+                    has_star_flag = br_ring_23 has_star_flag = br_ring_24
+                    has_star_flag = br_ring_25
+                }
+                NOT = { has_star_flag = br_system_spawned }
+            }
+            save_global_event_target_as = br_spawn_tmp
             set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 2 } }
+            event_target:br_pve_enemy_country = { br_spawn_crisis_fleet = yes }
         }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_20 has_star_flag = br_ring_21 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.803 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_20_21_done country_event = { id = br.804 days = 3 } }
-    }
-}
 
-# br.804：ring 19-18，N=2
-country_event = {
-    id = br.804
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_20_21_done NOT = { has_global_flag = br_pve_spawn_ring_18_19_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_18 has_star_flag = br_ring_19 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 2 } }
+        # 还有未刷星系 → 明天继续
+        if = {
+            limit = {
+                any_system = {
+                    OR = {
+                        has_star_flag = br_ring_1  has_star_flag = br_ring_2
+                        has_star_flag = br_ring_3  has_star_flag = br_ring_4
+                        has_star_flag = br_ring_5  has_star_flag = br_ring_6
+                        has_star_flag = br_ring_7  has_star_flag = br_ring_8
+                        has_star_flag = br_ring_9  has_star_flag = br_ring_10
+                        has_star_flag = br_ring_11 has_star_flag = br_ring_12
+                        has_star_flag = br_ring_13 has_star_flag = br_ring_14
+                        has_star_flag = br_ring_15 has_star_flag = br_ring_16
+                        has_star_flag = br_ring_17 has_star_flag = br_ring_18
+                        has_star_flag = br_ring_19 has_star_flag = br_ring_20
+                        has_star_flag = br_ring_21 has_star_flag = br_ring_22
+                        has_star_flag = br_ring_23 has_star_flag = br_ring_24
+                        has_star_flag = br_ring_25
+                    }
+                    NOT = { has_star_flag = br_system_spawned }
+                }
+            }
+            event_target:br_pve_enemy_country = { country_event = { id = br.801 days = 1 } }
         }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_18 has_star_flag = br_ring_19 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.804 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_18_19_done country_event = { id = br.805 days = 3 } }
-    }
-}
-
-# br.805：ring 17-16，N=3
-country_event = {
-    id = br.805
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_18_19_done NOT = { has_global_flag = br_pve_spawn_ring_16_17_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_16 has_star_flag = br_ring_17 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 3 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_16 has_star_flag = br_ring_17 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.805 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_16_17_done country_event = { id = br.806 days = 3 } }
-    }
-}
-
-# br.806：ring 15-14，N=3
-country_event = {
-    id = br.806
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_16_17_done NOT = { has_global_flag = br_pve_spawn_ring_14_15_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_14 has_star_flag = br_ring_15 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 3 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_14 has_star_flag = br_ring_15 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.806 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_14_15_done country_event = { id = br.807 days = 3 } }
-    }
-}
-
-# br.807：ring 13-12，N=4
-country_event = {
-    id = br.807
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_14_15_done NOT = { has_global_flag = br_pve_spawn_ring_12_13_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_12 has_star_flag = br_ring_13 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 4 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_12 has_star_flag = br_ring_13 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.807 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_12_13_done country_event = { id = br.808 days = 3 } }
-    }
-}
-
-# br.808：ring 11-10，N=4
-country_event = {
-    id = br.808
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_12_13_done NOT = { has_global_flag = br_pve_spawn_ring_10_11_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_10 has_star_flag = br_ring_11 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 4 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_10 has_star_flag = br_ring_11 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.808 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_10_11_done country_event = { id = br.809 days = 3 } }
-    }
-}
-
-# br.809：ring 9-8，N=5
-country_event = {
-    id = br.809
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_10_11_done NOT = { has_global_flag = br_pve_spawn_ring_8_9_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_8 has_star_flag = br_ring_9 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 5 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_8 has_star_flag = br_ring_9 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.809 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_8_9_done country_event = { id = br.810 days = 3 } }
-    }
-}
-
-# br.810：ring 7-6，N=5
-country_event = {
-    id = br.810
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_8_9_done NOT = { has_global_flag = br_pve_spawn_ring_6_7_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_6 has_star_flag = br_ring_7 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 5 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_6 has_star_flag = br_ring_7 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.810 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_6_7_done country_event = { id = br.811 days = 3 } }
-    }
-}
-
-# br.811：ring 5-4，N=6
-country_event = {
-    id = br.811
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_6_7_done NOT = { has_global_flag = br_pve_spawn_ring_4_5_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_4 has_star_flag = br_ring_5 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_fleet = { N = 6 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_4 has_star_flag = br_ring_5 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.811 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_4_5_done country_event = { id = br.812 days = 3 } }
-    }
-}
-
-# br.812：ring 3-2，N=8，精英
-country_event = {
-    id = br.812
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_4_5_done NOT = { has_global_flag = br_pve_spawn_ring_2_3_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { OR = { has_star_flag = br_ring_2 has_star_flag = br_ring_3 } NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_elite_fleet = { N = 8 } }
-        }
-        if = { limit = { any_system = { OR = { has_star_flag = br_ring_2 has_star_flag = br_ring_3 } NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.812 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_2_3_done country_event = { id = br.813 days = 3 } }
-    }
-}
-
-# br.813：ring 1，N=10，精英，完成后设 br_pve_initialized
-country_event = {
-    id = br.813
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = { has_global_flag = br_mode_pve NOT = { has_global_flag = br_pve_initialized } has_global_flag = br_pve_spawn_ring_2_3_done NOT = { has_global_flag = br_pve_spawn_ring_1_done } exists = event_target:br_pve_enemy_country }
-    immediate = {
-        random_system = {
-            limit = { has_star_flag = br_ring_1 NOT = { has_star_flag = br_system_spawned } }
-            star = { save_global_event_target_as = br_spawn_tmp }
-            set_star_flag = br_system_spawned
-            event_target:br_pve_enemy_country = { br_spawn_pve_elite_fleet = { N = 10 } }
-        }
-        if = { limit = { any_system = { has_star_flag = br_ring_1 NOT = { has_star_flag = br_system_spawned } } }
-            country_event = { id = br.813 days = 1 } }
-        else = { set_global_flag = br_pve_spawn_ring_1_done set_global_flag = br_pve_initialized }
+        # 全刷完了 → 初始化完成
+        else = { set_global_flag = br_pve_initialized }
     }
 }

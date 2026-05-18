@@ -556,19 +556,12 @@ country_event = {
         remove_global_flag = br_pve_spawn_outer_46_55_done
         remove_global_flag = br_pve_spawn_outer_36_45_done
         remove_global_flag = br_pve_spawn_outer_26_35_done
-        remove_global_flag = br_pve_spawn_ring_24_25_done
-        remove_global_flag = br_pve_spawn_ring_22_23_done
-        remove_global_flag = br_pve_spawn_ring_20_21_done
-        remove_global_flag = br_pve_spawn_ring_18_19_done
-        remove_global_flag = br_pve_spawn_ring_16_17_done
-        remove_global_flag = br_pve_spawn_ring_14_15_done
-        remove_global_flag = br_pve_spawn_ring_12_13_done
-        remove_global_flag = br_pve_spawn_ring_10_11_done
-        remove_global_flag = br_pve_spawn_ring_8_9_done
-        remove_global_flag = br_pve_spawn_ring_6_7_done
-        remove_global_flag = br_pve_spawn_ring_4_5_done
-        remove_global_flag = br_pve_spawn_ring_2_3_done
-        remove_global_flag = br_pve_spawn_ring_1_done
+
+        # 清除内圈星系已刷标记，让新周目重新刷敌
+        every_system = {
+            limit = { has_star_flag = br_system_spawned }
+            remove_star_flag = br_system_spawned
+        }
 
         # 重启刷敌调度
         country_event = { id = br.800 days = 5 }
