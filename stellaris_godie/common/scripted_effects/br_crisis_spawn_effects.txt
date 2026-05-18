@@ -10,7 +10,10 @@
 # 
 # 所有数量全部通过 scripted_effect 参数(文本替换)传递，不依赖运行时变量
 # 避免跨作用域读变量的问题
-# 
+#
+# 注意：所有 create_ship 必须带 graphical_culture 参数！
+# 不设的话炮塔模型会 fallback 到所属国的图形文化，显示玩家炮塔
+#
 # ── 触发顺序 ──
 # 1. br_spawn_crisis_fleet         ← 入口：按圈层算数量
 # 2. br_crisis_create_fleet        ← 调度器：建舰队 + random_list 选编队
@@ -173,9 +176,9 @@ br_crisis_create_fleet = {
 # 中型配额并入大型，全出 Battleship
 # ============================================================
 br_crisis_spawn_pure_contigency = {
-    while = { count = $small$ create_ship = { name = random design = "NAME_BR_AI_Corvette" } }
-    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
-    while = { count = $large$ create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_AI_Corvette" graphical_culture = "ai_01" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
 }
 
 # ============================================================
@@ -185,23 +188,23 @@ br_crisis_spawn_pure_contigency = {
 br_crisis_spawn_pure_extradimensional = {
     while = { count = $small$
         random_list = {
-            33 = { create_ship = { name = random design = "NAME_BR_Wraith" } }
-            33 = { create_ship = { name = random design = "NAME_BR_Predator" } }
-            34 = { create_ship = { name = random design = "NAME_BR_Obliterator" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Wraith" graphical_culture = "extra_dimensional_01" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Predator" graphical_culture = "extra_dimensional_03" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Obliterator" graphical_culture = "extra_dimensional_02" } }
         }
     }
     while = { count = $medium$
         random_list = {
-            33 = { create_ship = { name = random design = "NAME_BR_Phantom" } }
-            33 = { create_ship = { name = random design = "NAME_BR_Assassin" } }
-            34 = { create_ship = { name = random design = "NAME_BR_Annihilator" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Phantom" graphical_culture = "extra_dimensional_01" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Assassin" graphical_culture = "extra_dimensional_03" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Annihilator" graphical_culture = "extra_dimensional_02" } }
         }
     }
     while = { count = $large$
         random_list = {
-            33 = { create_ship = { name = random design = "NAME_BR_Revenant" } }
-            33 = { create_ship = { name = random design = "NAME_BR_Huntress" } }
-            34 = { create_ship = { name = random design = "NAME_BR_Eradicator" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Revenant" graphical_culture = "extra_dimensional_01" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Huntress" graphical_culture = "extra_dimensional_03" } }
+            34 = { create_ship = { name = random design = "NAME_BR_Eradicator" graphical_culture = "extra_dimensional_02" } }
         }
     }
 }
@@ -211,9 +214,9 @@ br_crisis_spawn_pure_extradimensional = {
 # 单色三尺寸
 # ============================================================
 br_crisis_spawn_pure_swarm = {
-    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Swarm_Small" } }
-    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Swarm_Large" } }
-    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Swarm_Carrier" } }
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Swarm_Small" graphical_culture = "swarm_01" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Swarm_Large" graphical_culture = "swarm_01" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Swarm_Carrier" graphical_culture = "swarm_01" } }
 }
 
 # ============================================================
@@ -221,9 +224,9 @@ br_crisis_spawn_pure_swarm = {
 # 小型配额也造 Harrier，防止边缘星系抽出女王编队变空
 # ============================================================
 br_crisis_spawn_pure_queen = {
-    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
-    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
-    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" } }
+    while = { count = $small$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" graphical_culture = "synth_queen_01" } }
+    while = { count = $medium$ create_ship = { name = random design = "NAME_BR_Synth_Harrier" graphical_culture = "synth_queen_01" } }
+    while = { count = $large$ create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" graphical_culture = "synth_queen_01" } }
 }
 
 # ============================================================
@@ -238,15 +241,15 @@ br_crisis_small_spawn = {
     while = {
         count = $COUNT$
         random_list = {
-            33 = { create_ship = { name = random design = "NAME_BR_Swarm_Small" } }
+            33 = { create_ship = { name = random design = "NAME_BR_Swarm_Small" graphical_culture = "swarm_01" } }
             33 = {
                 random_list = {
-                    33 = { create_ship = { name = random design = "NAME_BR_Wraith" } }
-                    33 = { create_ship = { name = random design = "NAME_BR_Predator" } }
-                    34 = { create_ship = { name = random design = "NAME_BR_Obliterator" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Wraith" graphical_culture = "extra_dimensional_01" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Predator" graphical_culture = "extra_dimensional_03" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Obliterator" graphical_culture = "extra_dimensional_02" } }
                 }
             }
-            34 = { create_ship = { name = random design = "NAME_BR_AI_Corvette" } }
+            34 = { create_ship = { name = random design = "NAME_BR_AI_Corvette" graphical_culture = "ai_01" } }
         }
     }
 }
@@ -257,16 +260,16 @@ br_crisis_medium_spawn = {
     while = {
         count = $COUNT$
         random_list = {
-            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Large" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Large" graphical_culture = "swarm_01" } }
             25 = {
                 random_list = {
-                    33 = { create_ship = { name = random design = "NAME_BR_Phantom" } }
-                    33 = { create_ship = { name = random design = "NAME_BR_Assassin" } }
-                    34 = { create_ship = { name = random design = "NAME_BR_Annihilator" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Phantom" graphical_culture = "extra_dimensional_01" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Assassin" graphical_culture = "extra_dimensional_03" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Annihilator" graphical_culture = "extra_dimensional_02" } }
                 }
             }
-            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
-            25 = { create_ship = { name = random design = "NAME_BR_Synth_Harrier" } }
+            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Synth_Harrier" graphical_culture = "synth_queen_01" } }
         }
     }
 }
@@ -277,16 +280,16 @@ br_crisis_large_spawn = {
     while = {
         count = $COUNT$
         random_list = {
-            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Carrier" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Swarm_Carrier" graphical_culture = "swarm_01" } }
             25 = {
                 random_list = {
-                    33 = { create_ship = { name = random design = "NAME_BR_Revenant" } }
-                    33 = { create_ship = { name = random design = "NAME_BR_Huntress" } }
-                    34 = { create_ship = { name = random design = "NAME_BR_Eradicator" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Revenant" graphical_culture = "extra_dimensional_01" } }
+                    33 = { create_ship = { name = random design = "NAME_BR_Huntress" graphical_culture = "extra_dimensional_03" } }
+                    34 = { create_ship = { name = random design = "NAME_BR_Eradicator" graphical_culture = "extra_dimensional_02" } }
                 }
             }
-            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" } }
-            25 = { create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" } }
+            25 = { create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
+            25 = { create_ship = { name = random design = "NAME_BR_Synth_Royal_Guard" graphical_culture = "synth_queen_01" } }
         }
     }
 }
