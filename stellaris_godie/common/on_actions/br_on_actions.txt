@@ -11,7 +11,6 @@ on_game_start_country = {
 on_monthly_pulse_country = {
     events = {
         br.799   # [后备保障] 敌人被摧毁时重建，正常初始化不走此路
-        br.800
         reward.2
         heroship.1207   # 防御核心大招显示数值更新
         heroship.1203   # 协同结构力场·每月刷新（自带 flag 检测）
@@ -136,3 +135,16 @@ on_fleet_combat_joined_defender = {
         br.11
     }
 }
+
+# 玩家舰队进入新星系 → 检查周边4跳内刷敌
+#一支舰队已进入一个系统 | 另见：on_fleet_auto_move_arrival
+# 范围 = 舰队
+# 来源 = 系统
+# Scope = Fleet
+# From = System
+on_entering_system_fleet = {
+    events = {
+        br.804
+    }
+}
+on_fleet_auto_move_arrival = { }

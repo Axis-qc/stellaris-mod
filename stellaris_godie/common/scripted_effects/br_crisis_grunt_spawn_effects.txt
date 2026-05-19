@@ -1,0 +1,105 @@
+# =========================================================================
+# PVE天灾杂兵舰队 — 外圈使用，不出女王
+# 调用链: br_spawn_crisis_grunt_fleet → br_crisis_create_grunt_fleet
+#          → 纯种(10%×3) 或 混合编队(50%) → grunt_small/medium/large_spawn
+# 与 br_crisis_spawn_effects.txt 的区别：去掉纯女王分支，混合编队中无女王
+# =========================================================================
+
+# [入口] 接受显式 small/medium/large 数量
+# 作用域: 国家，root=国家，event_target:br_spawn_tmp=目标恒星
+br_spawn_crisis_grunt_fleet = {
+    br_crisis_create_grunt_fleet = { small = $small$ medium = $medium$ large = $large$ }
+}
+
+# [调度器] 建舰队 + random_list（无女王）
+br_crisis_create_grunt_fleet = {
+    if = {
+        limit = { not = { has_fleet_flag = br_fleet_created } }
+        # 编队类型随机：10纯肃正 / 10纯恶魔 / 10纯虫子 / 50混合（无女王）
+        br_crisis_grunt_small_spawn = { COUNT = $small$ }
+        br_crisis_grunt_medium_spawn = { COUNT = $medium$ }
+        br_crisis_grunt_large_spawn = { COUNT = $large$ }
+        set_fleet_flag = br_fleet_created
+    }
+    if = {
+        limit = {
+            has_fleet_flag = br_fleet_created
+        }
+
+    }
+}
+
+# [混合编队-小型] 无女王版本（与原版一致，本来就没有女王）
+br_crisis_grunt_small_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            33 = {
+                while = { count = 6 create_ship = { name = random design = "NAME_BR_Swarm_Small" graphical_culture = "swarm_01" } }
+            }
+            33 = {
+                while = {
+                    count = 6
+                    random_list = {
+                        33 = { create_ship = { name = random design = "NAME_BR_Wraith" graphical_culture = "extra_dimensional_01" } }
+                        33 = { create_ship = { name = random design = "NAME_BR_Predator" graphical_culture = "extra_dimensional_03" } }
+                        34 = { create_ship = { name = random design = "NAME_BR_Obliterator" graphical_culture = "extra_dimensional_02" } }
+                    }
+                }
+            }
+            34 = {
+                while = { count = 10 create_ship = { name = random design = "NAME_BR_AI_Corvette" graphical_culture = "ai_01" } }
+            }
+        }
+    }
+}
+
+# [混合编队-中型] 无女王版本（原版25%女王→均分给虫群/恶魔/肃正）
+br_crisis_grunt_medium_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            35 = {
+                while = { count = 2 create_ship = { name = random design = "NAME_BR_Swarm_Large" graphical_culture = "swarm_01" } }
+            }
+            35 = {
+                while = {
+                    count = 2
+                    random_list = {
+                        33 = { create_ship = { name = random design = "NAME_BR_Phantom" graphical_culture = "extra_dimensional_01" } }
+                        33 = { create_ship = { name = random design = "NAME_BR_Assassin" graphical_culture = "extra_dimensional_03" } }
+                        34 = { create_ship = { name = random design = "NAME_BR_Annihilator" graphical_culture = "extra_dimensional_02" } }
+                    }
+                }
+            }
+            30 = {
+                while = { count = 2 create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
+            }
+        }
+    }
+}
+
+# [混合编队-大型] 无女王版本（原版25%女王→均分给虫群/恶魔/肃正）
+br_crisis_grunt_large_spawn = {
+    while = {
+        count = $COUNT$
+        random_list = {
+            35 = {
+                while = { count = 14 create_ship = { name = random design = "NAME_BR_Swarm_Carrier" graphical_culture = "swarm_01" } }
+            }
+            35 = {
+                while = {
+                    count = 5
+                    random_list = {
+                        33 = { create_ship = { name = random design = "NAME_BR_Revenant" graphical_culture = "extra_dimensional_01" } }
+                        33 = { create_ship = { name = random design = "NAME_BR_Huntress" graphical_culture = "extra_dimensional_03" } }
+                        34 = { create_ship = { name = random design = "NAME_BR_Eradicator" graphical_culture = "extra_dimensional_02" } }
+                    }
+                }
+            }
+            30 = {
+                while = { count = 16 create_ship = { name = random design = "NAME_BR_AI_Battleship" graphical_culture = "ai_01" } }
+            }
+        }
+    }
+}

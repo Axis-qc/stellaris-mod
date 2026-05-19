@@ -542,29 +542,20 @@ country_event = {
             }
         }
 
-		# 设置缩圈暂停flag，1800天后由br.957解除并启动缩圈/伤害
-		set_global_flag = br_shrink_paused
-		country_event = { id = br.957 days = 1800 }
+        # 设置缩圈暂停flag，1800天后由br.957解除并启动缩圈/伤害
+        set_global_flag = br_shrink_paused
+        country_event = { id = br.957 days = 1800 }
 
-		remove_global_flag = br_cycle_resetting
+        remove_global_flag = br_cycle_resetting
 
-        # 清除刷敌进度标记，让外圈杂兵（br.820-823）和内圈（br.801-813）重新刷出
+        # 清除刷敌进度标记，让内圈（br.801-813）重新刷出
         remove_global_flag = br_pve_initialized
-        remove_global_flag = br_pve_spawn_started
-        remove_global_flag = br_pve_spawn_outer_done
-        remove_global_flag = br_pve_spawn_outer_56_65_done
-        remove_global_flag = br_pve_spawn_outer_46_55_done
-        remove_global_flag = br_pve_spawn_outer_36_45_done
-        remove_global_flag = br_pve_spawn_outer_26_35_done
 
         # 清除内圈星系已刷标记，让新周目重新刷敌
         every_system = {
             limit = { has_star_flag = br_system_spawned }
             remove_star_flag = br_system_spawned
         }
-
-        # 重启刷敌调度
-        country_event = { id = br.800 days = 5 }
 
         # 通知所有玩家新周目开始
         every_country = {
@@ -581,15 +572,15 @@ country_event = {
 # 触发源: br.955
 # 作用: 通知玩家新周目已开始
 country_event = {
-	id = br.956
-	title = br_cycle_start_title
-	desc = br_cycle_start_desc
-	picture = GFX_evt_surreal_visions
-	is_triggered_only = yes
+    id = br.956
+    title = br_cycle_start_title
+    desc = br_cycle_start_desc
+    picture = GFX_evt_surreal_visions
+    is_triggered_only = yes
 
-	option = {
-		name = OK
-	}
+    option = {
+        name = OK
+    }
 }
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -599,13 +590,13 @@ country_event = {
 # 触发源: br.955排程，1800天后触发
 # 作用: 移除缩圈暂停flag，启动缩圈和圈外伤害循环
 country_event = {
-	id = br.957
-	hide_window = yes
-	is_triggered_only = yes
+    id = br.957
+    hide_window = yes
+    is_triggered_only = yes
 
-	immediate = {
-		remove_global_flag = br_shrink_paused
-		country_event = { id = br.300 }
-		country_event = { id = br.1000 }
-	}
+    immediate = {
+        remove_global_flag = br_shrink_paused
+        country_event = { id = br.300 }
+        country_event = { id = br.1000 }
+    }
 }
