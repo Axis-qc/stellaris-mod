@@ -88,130 +88,23 @@ country_event = {
 
     immediate = {
         country_event = { id = br.1100 }
-
+        fromfromfrom = {
+            export_trigger_value_to_variable = {
+                # trigger = fleet_power #死亡读不到
+                trigger = has_max_hp
+                variable = br_tmp_kill_power
+            }
+        }
+        set_variable = { which = br_tmp_kill_power value = fromfromfrom.br_tmp_kill_power }
+        divide_variable = { which = br_tmp_kill_power value = 100 }
+        ceiling_variable = br_tmp_kill_power
+        change_variable = { which = br_combat_score value = br_tmp_kill_power }
+        change_variable = { which = br_kill_score value = br_tmp_kill_power }
         if = {
-            limit = { fromfromfrom = { is_ship_size = br_pve_boss } }
-            change_variable = {
-                which = br_combat_score
-                value = 1000
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 1000
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 20
-                    }
-                }
-            }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = battleship } }
-            change_variable = {
-                which = br_combat_score
-                value = 80
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 80
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 5
-                    }
-                }
-            }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = cruiser } }
-            change_variable = {
-                which = br_combat_score
-                value = 45
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 45
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 3
-                    }
-                }
-            }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = destroyer } }
-            change_variable = {
-                which = br_combat_score
-                value = 25
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 25
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 2
-                    }
-                }
-            }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = corvette } }
-            change_variable = {
-                which = br_combat_score
-                value = 12
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 12
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 1
-                    }
-                }
-            }
-        }
-        else = {
-            change_variable = {
-                which = br_combat_score
-                value = 5
-            }
-            change_variable = {
-                which = br_kill_score
-                value = 5
-            }
-            if = {
-                limit = { exists = event_target:br_pve_alliance_leader }
-                event_target:br_pve_alliance_leader = {
-                    country_event = { id = br.1101 }
-                    change_variable = {
-                        which = br_void_conquest
-                        value = 1
-                    }
-                }
+            limit = { exists = event_target:br_pve_alliance_leader }
+            event_target:br_pve_alliance_leader = {
+                country_event = { id = br.1101 }
+                change_variable = { which = br_void_conquest value = 1 }
             }
         }
 

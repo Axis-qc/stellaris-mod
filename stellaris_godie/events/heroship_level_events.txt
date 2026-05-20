@@ -58,30 +58,18 @@ country_event = {
     }
 
     immediate = {
-
-        if = {
-            limit = { fromfromfrom = { is_ship_size = br_pve_boss } }
-            change_variable = { which = br_hero_xp value = 500 }
+        #船体0.01转经验
+        fromfromfrom = {
+            export_trigger_value_to_variable = {
+                # trigger = fleet_power #死亡读不到
+                trigger = has_max_hp
+                variable = br_tmp_kill_power
+            }
         }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = battleship } }
-            change_variable = { which = br_hero_xp value = 40 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = cruiser } }
-            change_variable = { which = br_hero_xp value = 20 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = destroyer } }
-            change_variable = { which = br_hero_xp value = 10 }
-        }
-        else_if = {
-            limit = { fromfromfrom = { is_ship_size = corvette } }
-            change_variable = { which = br_hero_xp value = 5 }
-        }
-        else = {
-            change_variable = { which = br_hero_xp value = 3 }
-        }
+        set_variable = { which = br_hero_xp_add value = fromfromfrom.br_tmp_kill_power }
+        divide_variable = { which = br_hero_xp_add value = 100 }
+        ceiling_variable = br_hero_xp_add
+        change_variable = { which = br_hero_xp value = br_hero_xp_add }
 
         country_event = { id = heroship.3 }
     }

@@ -1,14 +1,15 @@
 # 行星尺度星爆命中实体 — 基于原版 star_eater_hit_entity 缩小到行星尺度
 entity = {
-	name = "br_star_eater_hit_entity"
-	pdxmesh = "system_plane_collision_mesh"
+    name = "br_star_eater_hit_entity"
+    pdxmesh = "system_plane_collision_mesh"
 
-	locator = { name = "part1" position = { 0 0 0 } }
+    locator = { name = "part1" position = { 0 0 0 } }
 
-	default_state = "explode"
-	state = { name = "explode" state_time = 5 looping = no
-		event = { time = 0.1 node = "part1" particle = "star_explosion_1_05_effect"  keep_particle = yes trigger_once = yes }
-	}
+    default_state = "explode"
+    state = {
+        name = "explode" state_time = 5 looping = no
+        event = { time = 0.1 node = "part1" particle = "star_explosion_1_05_effect" keep_particle = yes trigger_once = yes }
+    }
 
-	scale = 5
+    scale = 1
 }

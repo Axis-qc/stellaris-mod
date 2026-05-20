@@ -180,6 +180,7 @@ fleet_event = {
 
             set_variable = { which = br_vanguard_combat_buff value = br_vanguard_power_combat_stack }
             multiply_variable = { which = br_vanguard_combat_buff value = value:br_hero_ship_skill_2_mult }
+            save_event_target_as = br_vanguard_buff_add
             solar_system = {
                 every_fleet_in_system = {
                     limit = {
@@ -190,7 +191,7 @@ fleet_event = {
                     add_modifier = {
                         modifier = br_vanguard_power_combat_stack_damage
                         days = 2
-                        mult = owner.br_vanguard_combat_buff
+                        mult = event_target:br_vanguard_buff_add.br_vanguard_combat_buff
                     }
                 }
             }

@@ -30,12 +30,13 @@ ship_section_template = {
     icon = "GFX_ship_part_core_mid"
 
     component_slot = { name = "EXTRA_LARGE_01" template = "br_invisible_extra_large_fixed" locatorname = "large_gun_01" is_side_slot = yes }
-    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
-    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02" is_side_slot = yes }
-    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01" is_side_slot = yes }
-    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02" is_side_slot = yes }
-    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03" is_side_slot = yes }
-    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_03" is_side_slot = yes }
+    #神了，明明有_l和_r，写了is_side_slot = yes不认
+    component_slot = { name = "LARGE_GUN_01" template = "br_invisible_large_turret" locatorname = "large_gun_02_l" }
+    component_slot = { name = "LARGE_GUN_02" template = "br_invisible_large_turret" locatorname = "large_gun_02_r" }
+    component_slot = { name = "MEDIUM_GUN_01" template = "br_invisible_medium_turret" locatorname = "medium_gun_01_l" }
+    component_slot = { name = "MEDIUM_GUN_02" template = "br_invisible_medium_turret" locatorname = "medium_gun_02_l" }
+    component_slot = { name = "MEDIUM_GUN_03" template = "br_invisible_medium_turret" locatorname = "medium_gun_03_l" }
+    component_slot = { name = "PD_01" template = "br_invisible_point_defence_turret" locatorname = "medium_gun_03_r" }
 
     large_utility_slots = 8
     aux_utility_slots = 1

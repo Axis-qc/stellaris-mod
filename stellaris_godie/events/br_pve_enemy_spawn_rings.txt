@@ -25,6 +25,7 @@ fleet_event = {
     }
 
     immediate = {
+        #保存玩家舰队位置
         this = {
             solar_system = {
                 save_global_event_target_as = br_spawn_center@owner
@@ -54,7 +55,7 @@ country_event = {
         # 每个舰队独立3天冷却（@root = fleet_id）
         owner = { set_timed_country_flag = { flag = br_pve_spawn_cooldown_@root days = 3 } }
 
-        # 从中心点找4跳内未刷的星系
+        # 玩家舰队周边刷敌
         event_target:br_spawn_center@root = {
             # random_neighbor_system_euclidean = {
             solar_system = {
@@ -64,21 +65,16 @@ country_event = {
                             has_star_flag = br_system_spawned
                             has_star_flag = br_player_spawn_system
                         }
+                        NOT = {
+                            any_fleet_in_system = {
+                                owner = { is_country_type = br_player_pve }
+                            }
+                        }
                         distance = {
                             type = hyperlane
                             source = event_target:br_spawn_center@root
                             min_jumps = 1
                             max_jumps = 4
-                            # 距离 = {
-                            #     source =
-                            #     min_distance =最小距离 =
-                            #     max_distance =最大距离 =
-                            #     type =类型 =
-                            #     use_bypasses =使用绕行 =
-                            #     bypass_empire =绕行帝国 =
-                            #     min_jumps =最小跳数 =
-                            #     max_jumps =最大跳数 =
-                            #     same_solar_system =同一太阳系 =
                         }
                     }
                     save_global_event_target_as = br_spawn_tmp@root
@@ -113,6 +109,11 @@ country_event = {
                             nor = {
                                 has_star_flag = br_system_spawned
                                 has_star_flag = br_player_spawn_system
+                            }
+                            NOT = {
+                                any_fleet_in_system = {
+                                    owner = { is_country_type = br_player_pve }
+                                }
                             }
                             distance = {
                                 type = hyperlane
