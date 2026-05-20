@@ -1,11 +1,14 @@
 # 行星尺度星爆器特效 — 基于原版 star_destroyer_effect_gfx 缩放到行星尺度
-# 移除了 windup_entity 和 ship_fire_entity（母舰模型无对应定位点）
+# windup/fire entity 指向模型 root，避免从地图中心射出
 br_star_destroyer_effect_gfx = {
 
 	texture = "gfx/models/combat_items/star_eater_beam_diffuse.dds"
 
 	color = { 1.0 1.0 1.0 4.0 }
 	planet_dissolve_color_mult = { 0.8 1.2 1.5 }
+
+	windup_entity = "br_star_eater_windup_entity"
+	ship_fire_entity = "br_star_eater_fire_entity"
 
 	planet_hit_entity = "br_star_eater_hit_entity"
 

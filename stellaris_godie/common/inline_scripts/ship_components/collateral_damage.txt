@@ -1,0 +1,22 @@
+# for use primarily with limited ship types, since this is an expensive check.
+hidden_effect = {
+    solar_system = {
+        every_ship_in_system = {
+            limit = {
+                controller = {
+                    is_hostile = from.controller
+                }
+                distance = {
+                    source = root
+                    max_distance <= $RANGE$
+                    same_solar_system = yes
+                }
+            }
+            add_modifier = {
+                modifier = br_judgment_suppression
+                days = 10
+                mult = $DAMAGE$
+            }
+        }
+    }
+}

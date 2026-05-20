@@ -3,13 +3,28 @@ entity = {
     name = "br_star_eater_hit_entity"
     pdxmesh = "system_plane_collision_mesh"
 
-    locator = { name = "part1" position = { 0 0 0 } }
+    locator = { name = "root" position = { 0 0 0 } }
 
     default_state = "explode"
     state = {
         name = "explode" state_time = 5 looping = no
-        event = { time = 0.1 node = "part1" particle = "star_explosion_1_05_effect" keep_particle = yes trigger_once = yes }
+        event = { time = 0.1 node = "root" particle = "br_star_explosion_effect" keep_particle = yes trigger_once = yes }
     }
 
+    scale = 1
+}
+
+# 星爆器发射定位实体 — 指向模型 root，解决无 windup/fire 导致特效从地图中心射出的问题
+entity = {
+    name = "br_star_eater_windup_entity"
+    pdxmesh = "system_plane_collision_mesh"
+    locator = { name = "root" position = { 0 0 0 } }
+    scale = 1
+}
+
+entity = {
+    name = "br_star_eater_fire_entity"
+    pdxmesh = "system_plane_collision_mesh"
+    locator = { name = "root" position = { 0 0 0 } }
     scale = 1
 }
