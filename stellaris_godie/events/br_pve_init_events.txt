@@ -316,6 +316,7 @@ country_event = {
                 limit = { has_star_flag = br_spawn_candidate_1 }
                 save_global_event_target_as = br_player_spawn_system_1
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_1
             }
 
             # 锚点fallback：如果最外圈找不到，全图随机选一个喵
@@ -327,61 +328,66 @@ country_event = {
                 }
             }
 
-            # 在锚点200坐标距离内选5个出生点喵
+            # 在锚点400坐标距离内选5个出生点喵
             random_system = {
                 limit = {
                     distance = {
                         source = event_target:br_player_spawn_system_1
-                        max_distance <= 200
+                        max_distance <= 400
                     }
                     NOT = { has_star_flag = br_player_spawn_system }
                 }
                 save_global_event_target_as = br_player_spawn_system_2
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_2
             }
             random_system = {
                 limit = {
                     distance = {
                         source = event_target:br_player_spawn_system_1
-                        max_distance <= 200
+                        max_distance <= 400
                     }
                     NOT = { has_star_flag = br_player_spawn_system }
                 }
                 save_global_event_target_as = br_player_spawn_system_3
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_3
             }
             random_system = {
                 limit = {
                     distance = {
                         source = event_target:br_player_spawn_system_1
-                        max_distance <= 200
+                        max_distance <= 400
                     }
                     NOT = { has_star_flag = br_player_spawn_system }
                 }
                 save_global_event_target_as = br_player_spawn_system_4
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_4
             }
             random_system = {
                 limit = {
                     distance = {
                         source = event_target:br_player_spawn_system_1
-                        max_distance <= 200
+                        max_distance <= 400
                     }
                     NOT = { has_star_flag = br_player_spawn_system }
                 }
                 save_global_event_target_as = br_player_spawn_system_5
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_5
             }
             random_system = {
                 limit = {
                     distance = {
                         source = event_target:br_player_spawn_system_1
-                        max_distance <= 200
+                        max_distance <= 400
                     }
                     NOT = { has_star_flag = br_player_spawn_system }
                 }
                 save_global_event_target_as = br_player_spawn_system_6
                 set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_6
             }
         }
         #给所有玩家国家触发转移

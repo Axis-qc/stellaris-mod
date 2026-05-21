@@ -87,7 +87,6 @@ country_event = {
     }
 
     immediate = {
-        country_event = { id = br.1100 }
         fromfromfrom = {
             export_trigger_value_to_variable = {
                 # trigger = fleet_power #死亡读不到
@@ -137,7 +136,6 @@ country_event = {
     }
 
     immediate = {
-        country_event = { id = br.1100 }
         if = {
             limit = { exists = event_target:br_pve_alliance_leader }
             event_target:br_pve_alliance_leader = {
@@ -147,9 +145,8 @@ country_event = {
                     value = 2
                 }
             }
-
-            country_event = { id = reward.1 }
         }
+        country_event = { id = reward.1 }
     }
 }
 

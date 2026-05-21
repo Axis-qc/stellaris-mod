@@ -1,0 +1,79 @@
+################################### 内容区显隐 — potential 控制 ###################################
+br_level_ui_tab_overview_active = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 1 }
+		}
+	}
+	allow = { always = yes }
+}
+br_level_ui_tab_rewards_active = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 2 }
+		}
+	}
+	allow = { always = yes }
+}
+br_level_ui_tab_stats_active = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 3 }
+		}
+	}
+	allow = { always = yes }
+}
+br_level_ui_tab_extra_active = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 4 }
+		}
+	}
+	allow = { always = yes }
+}
+
+################################### 底部标签按钮 — allow 禁用态 ###################################
+br_level_ui_tab_overview = {
+	potential = { always = yes }
+	allow = {
+		from = {
+			NOT = { check_variable = { which = br_level_ui_tab value = 1 } }
+		}
+	}
+	effect = {
+		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 1 } } }
+	}
+}
+br_level_ui_tab_rewards = {
+	potential = { always = yes }
+	allow = {
+		from = {
+			NOT = { check_variable = { which = br_level_ui_tab value = 2 } }
+		}
+	}
+	effect = {
+		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 2 } } }
+	}
+}
+br_level_ui_tab_stats = {
+	potential = { always = yes }
+	allow = {
+		from = {
+			NOT = { check_variable = { which = br_level_ui_tab value = 3 } }
+		}
+	}
+	effect = {
+		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 3 } } }
+	}
+}
+br_level_ui_tab_extra = {
+	potential = { always = yes }
+	allow = {
+		from = {
+			NOT = { check_variable = { which = br_level_ui_tab value = 4 } }
+		}
+	}
+	effect = {
+		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 4 } } }
+	}
+}

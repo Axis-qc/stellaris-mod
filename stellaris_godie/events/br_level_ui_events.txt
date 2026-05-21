@@ -1,0 +1,28 @@
+namespace = br
+
+# 事件ID区间：1100-1199
+# br.1130：等级面板窗口。由法令 br_open_level_panel 触发。
+country_event = {
+    id = br.1130
+    title = BR_LEVEL_UI_TITLE
+    # desc = BR_LEVEL_UI_DESC
+    custom_gui = "br_level_view"
+    is_triggered_only = yes
+    diplomatic = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        is_country_type = br_player_pve
+        has_country_flag = br_level_initialized
+    }
+
+    immediate = {
+        set_variable = { which = br_level_ui_tab value = 1 }
+    }
+
+    option = {
+        name = BR_LEVEL_UI_CLOSE
+        custom_gui = "br_level_view_option"
+        custom_tooltip = BR_LEVEL_UI_CLOSE
+    }
+}

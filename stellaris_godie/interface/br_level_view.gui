@@ -1,0 +1,381 @@
+guiTypes = {
+    ### 战斗等级面板 — 底部横向标签页版 ###
+    containerWindowType = {
+        name = "br_level_view"
+        orientation = center
+        origo = center
+        moveable = yes
+        size = { width = 1024 height = 720 }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 背景与装饰
+        # ═══════════════════════════════════════════════════════════════
+        background = {
+            name = "background"
+            quadTextureSprite = "GFX_tile_large_bg_artist"
+        }
+
+        iconType = {
+            name = "empire_header_line"
+            quadTextureSprite = "GFX_line_long_artist"
+            position = { x = 6 y = 25 }
+            alwaysTransparent = yes
+        }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 标题（不能用 "heading"，diplomatic 窗口下会被引擎覆盖为"信号传输接入"）
+        # ═══════════════════════════════════════════════════════════════
+        instantTextBoxType = {
+            name = "br_title"
+            font = "malgun_goth_24"
+            text = "BR_LEVEL_UI_TITLE"
+            position = { x = 20 y = 5 }
+            maxWidth = 930
+            maxHeight = 22
+            fixedSize = yes
+            alwaysTransparent = yes
+        }
+        # heading 是引擎必需控件，丢屏幕外（实际标题用 br_title）
+        instantTextBoxType = {
+            name = "heading"
+            font = "malgun_goth_24"
+            text = "DIPLOMACY"
+            position = { x = -1100 y = -1100 }
+            maxWidth = 1
+            maxHeight = 1
+            fixedSize = yes
+            alwaysTransparent = yes
+        }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 右上角关闭按钮（通过事件 option custom_gui 实现）
+        # ═══════════════════════════════════════════════════════════════
+        containerWindowType = {
+            name = "EVENT_DIPLO"
+            position = { x = 920 y = 2 }
+            size = { width = 80 height = 34 }
+            moveable = no
+
+            instantTextBoxType = {
+                name = "action_desc"
+                font = "malgun_goth_24"
+                position = { x = -1100 y = -1100 }
+                maxWidth = 1
+                maxHeight = 1
+                orientation = "UPPER_LEFT"
+                format = center
+                alwaysTransparent = yes
+                text_color_code = "H"
+            }
+            instantTextBoxType = {
+                name = "action_title"
+                font = "malgun_goth_24"
+                position = { x = -1100 y = -1100 }
+                maxWidth = 1
+                maxHeight = 1
+                alwaysTransparent = yes
+            }
+
+            listboxType = {
+                name = "option_list"
+                position = { x = 0 y = 0 }
+                backGround = ""
+                size = { x = 142 y = 34 }
+                spacing = 0
+                scrollbartype = "standardlistbox_slider"
+                borderSize = { x = 0 y = 0 }
+                orientation = "UPPER_LEFT"
+            }
+        }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 主内容区（四个标签页，靠 button_effect potential 控制显隐）
+        # ═══════════════════════════════════════════════════════════════
+        containerWindowType = {
+            name = "content_area"
+            position = { x = 40 y = 45 }
+            size = { width = 944 height = 610 }
+
+            # 左右面板背景（始终可见，后续加 tab 可见性控制）
+            buttonType = {
+                name = "overview_left_bg"
+                position = { x = 0 y = 0 }
+                size = { x = 455 y = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                alwaysTransparent = yes
+            }
+            buttonType = {
+                name = "overview_right_bg"
+                position = { x = 465 y = 0 }
+                size = { x = 479 y = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                alwaysTransparent = yes
+            }
+
+            # ── 总览 — 左侧：玩家等级状态 ──
+            effectButtonType = {
+                name = br_overview_left_title
+                position = { x = 0 y = 10 }
+                size = { width = 455 height = 30 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_TITLE"
+                buttonFont = "malgun_goth_24"
+                format = center
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_left_level
+                position = { x = 20 y = 60 }
+                size = { width = 415 height = 24 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_LEVEL"
+                buttonFont = "cg_16b"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_left_combat
+                position = { x = 20 y = 92 }
+                size = { width = 415 height = 24 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_COMBAT"
+                buttonFont = "cg_16b"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_left_kill
+                position = { x = 20 y = 124 }
+                size = { width = 415 height = 24 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_KILL"
+                buttonFont = "cg_16b"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_left_rules
+                position = { x = 20 y = 178 }
+                size = { width = 415 height = 80 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_RULES"
+                buttonFont = "cg_16b"
+                format = left
+                multiline = yes
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            # ── 总览 — 右侧：先锋英雄舰 ──
+            effectButtonType = {
+                name = br_overview_right
+                position = { x = 475 y = 10 }
+                size = { width = 459 height = 590 }
+                buttonText = "BR_LEVEL_UI_OVERVIEW_RIGHT"
+                buttonFont = "cg_16b"
+                format = left
+                vertical_alignment = top
+                multiline = yes
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            # ── 总览 — 技能切换按钮 ──
+            effectButtonType = {
+                name = br_overview_skill_switch
+                position = { x = 620 y = 460 }
+                size = { width = 300 height = 34 }
+                quadTextureSprite = "GFX_standard_button_142_34_button"
+                buttonText = "BR_LEVEL_UI_SKILL_SWITCH"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_overview_active
+            }
+
+            # 等级奖励（占位）
+            effectButtonType = {
+                name = br_content_rewards
+                position = { x = 0 y = 0 }
+                size = { width = 944 height = 610 }
+                buttonText = "BR_LEVEL_UI_TAB_REWARDS_CONTENT"
+                buttonFont = "cg_16b"
+                format = left
+                vertical_alignment = top
+                effect = br_level_ui_tab_rewards_active
+                alwaysTransparent = yes
+            }
+            # 战斗统计（占位）
+            effectButtonType = {
+                name = br_content_stats
+                position = { x = 0 y = 0 }
+                size = { width = 944 height = 610 }
+                buttonText = "BR_LEVEL_UI_TAB_STATS_CONTENT"
+                buttonFont = "cg_16b"
+                format = left
+                vertical_alignment = top
+                effect = br_level_ui_tab_stats_active
+                alwaysTransparent = yes
+            }
+            # 预留功能（占位）
+            effectButtonType = {
+                name = br_content_extra
+                position = { x = 0 y = 0 }
+                size = { width = 944 height = 610 }
+                buttonText = "BR_LEVEL_UI_TAB_EXTRA_CONTENT"
+                buttonFont = "cg_16b"
+                format = left
+                vertical_alignment = top
+                effect = br_level_ui_tab_extra_active
+                alwaysTransparent = yes
+            }
+        }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 底部标签栏（4个按钮，当前页禁用）
+        # ═══════════════════════════════════════════════════════════════
+        containerWindowType = {
+            name = "tab_bar"
+            position = { x = 100 y = 674 }
+            size = { width = 824 height = 34 }
+
+            effectButtonType = {
+                name = br_tab_overview
+                position = { x = 0 y = 0 }
+                size = { width = 200 height = 34 }
+                quadTextureSprite = "GFX_standard_button_116_34"
+                buttonText = "BR_LEVEL_UI_TAB_OVERVIEW"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_overview
+            }
+            effectButtonType = {
+                name = br_tab_rewards
+                position = { x = 208 y = 0 }
+                size = { width = 200 height = 34 }
+                quadTextureSprite = "GFX_standard_button_116_34"
+                buttonText = "BR_LEVEL_UI_TAB_REWARDS"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_rewards
+            }
+            effectButtonType = {
+                name = br_tab_stats
+                position = { x = 416 y = 0 }
+                size = { width = 200 height = 34 }
+                quadTextureSprite = "GFX_standard_button_116_34"
+                buttonText = "BR_LEVEL_UI_TAB_STATS"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_stats
+            }
+            effectButtonType = {
+                name = br_tab_extra
+                position = { x = 624 y = 0 }
+                size = { width = 200 height = 34 }
+                quadTextureSprite = "GFX_standard_button_116_34"
+                buttonText = "BR_LEVEL_UI_TAB_EXTRA"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_extra
+            }
+        }
+
+        # ═══════════════════════════════════════════════════════════════
+        # 以下均为事件 GUI 必需控件，勿删（全部隐藏 off-screen）
+        # ═══════════════════════════════════════════════════════════════
+
+        # close — 丢屏幕外保留 ESC 快捷键，关闭由右上角 option 顶替
+        buttonType = {
+            name = "close"
+            quadTextureSprite = "GFX_standard_button_142_34_button"
+            position = { x = -1100 y = -1100 }
+            orientation = "UPPER_RIGHT"
+            font = "cg_16b"
+            text = "BR_LEVEL_UI_CLOSE"
+            clicksound = "confirmation"
+            shortcut = "ESCAPE"
+        }
+        buttonType = {
+            name = "confirm_button"
+            quadTextureSprite = "GFX_standard_button_142_34_button"
+            position = { x = -1100 y = -1100 }
+            orientation = "UPPER_RIGHT"
+            font = "cg_16b"
+            text = "BR_LEVEL_UI_CLOSE"
+            clicksound = "confirmation"
+        }
+        buttonType = {
+            name = "tts_button"
+            position = { x = -1100 y = -1100 }
+            spriteType = "GFX_button_tts_start"
+            buttonFont = "cg_16b"
+            shortCut = "t"
+        }
+
+        instantTextBoxType = {
+            name = "alien_message"
+            font = "cg_16b"
+            position = { x = -1100 y = -1100 }
+            maxWidth = 1
+            maxHeight = 1
+            format = left
+            scrollbartype = "standardtext_slider"
+        }
+
+        buttonType = { name = "focus_button" position = { x = -1180 y = -1112 } spriteType = "GFX_fleetview_focus" }
+
+        containerWindowType = {
+            name = "portrait_background"
+            position = { x = -1117 y = -1145 }
+            size = { width = 0 height = 0 }
+        }
+        containerWindowType = {
+            name = "portrait"
+            position = { x = -1117 y = -1145 }
+            size = { width = 0 height = 0 }
+
+            iconType = {
+                name = "portrait"
+                spriteType = "GFX_portrait_gamesetup_mask"
+                alwaysTransparent = yes
+            }
+        }
+
+        iconType = { name = "empire_info_bg" spriteType = "GFX_diplomacy_dark_fade_bg" position = { x = -1130 y = -1140 } }
+        instantTextBoxType = { name = "empire_name" font = "malgun_goth_24" position = { x = -1120 y = -1125 } }
+        instantTextBoxType = { name = "empire_government_type" font = "cg_16b" position = { x = -1120 y = -1125 } }
+        instantTextBoxType = { name = "empire_personality_type" font = "cg_16b" position = { x = -1120 y = -1125 } }
+        overlappingElementsBoxType = { name = "empire_ethics_icons" position = { x = -1145 y = -11138 } }
+        buttonType = { name = "empire_flag" quadTextureSprite = "GFX_empire_flag_128" position = { x = -1125 y = -11235 } orientation = UPPER_LEFT }
+
+        containerWindowType = {
+            name = "leader_details"
+            position = { x = -1125 y = -1175 }
+
+            instantTextBoxType = {
+                name = "leader_name"
+                font = "cg_16b"
+                position = { x = -1125 y = -1175 }
+                maxWidth = 1
+                maxHeight = 1
+            }
+            instantTextBoxType = {
+                name = "leader_species"
+                font = "cg_16b"
+                position = { x = -1125 y = -1175 }
+                maxWidth = 1
+                maxHeight = 1
+            }
+        }
+        containerWindowType = {
+            name = "opinion_window"
+            position = { x = -1127 y = -11110 }
+            size = { width = 0 height = 0 }
+
+            instantTextBoxType = {
+                name = "their_opinion"
+                font = "cg_16b"
+                position = { x = -1127 y = -11110 }
+                maxWidth = 1
+                maxHeight = 1
+            }
+        }
+    }
+}

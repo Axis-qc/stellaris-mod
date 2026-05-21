@@ -179,78 +179,102 @@ br_spawn_pve_outer_fleet = {
 
 # 纯护卫：累计模式，上限 100（变量挂 br_pve_enemy_country）
 br_spawn_pure_corvette = {
-    event_target:br_pve_enemy_country = {
-        change_variable = { which = br_pure_corvette_count value = 1 }
-        if = {
-            limit = { check_variable = { which = br_pure_corvette_count value > 100 } }
-            set_variable = { which = br_pure_corvette_count value = 100 }
+    if = {
+        limit = { exists = event_target:br_player_corvette }
+        event_target:br_pve_enemy_country = {
+            change_variable = { which = br_pure_corvette_count value = 1 }
+            if = {
+                limit = { check_variable = { which = br_pure_corvette_count value > 100 } }
+                set_variable = { which = br_pure_corvette_count value = 100 }
+            }
+            set_variable = { which = br_tmp_spawn value = br_pure_corvette_count }
         }
-        set_variable = { which = br_tmp_spawn value = br_pure_corvette_count }
+        set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
+        while = {
+            count = br_tmp_spawn
+            create_ship = { name = random design = event_target:br_player_corvette }
+        }
+        clear_variable = br_tmp_spawn
+        event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
     }
-    set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
-    while = {
-        count = br_tmp_spawn
-        create_ship = { name = random design = event_target:br_player_corvette }
+    else = {
+        br_spawn_mixed = yes
     }
-    clear_variable = br_tmp_spawn
-    event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
 }
 
 # 纯驱逐：累计模式，上限 50（变量挂 br_pve_enemy_country）
 br_spawn_pure_destroyer = {
-    event_target:br_pve_enemy_country = {
-        change_variable = { which = br_pure_destroyer_count value = 1 }
-        if = {
-            limit = { check_variable = { which = br_pure_destroyer_count value > 50 } }
-            set_variable = { which = br_pure_destroyer_count value = 50 }
+    if = {
+        limit = { exists = event_target:br_player_destroyer }
+        event_target:br_pve_enemy_country = {
+            change_variable = { which = br_pure_destroyer_count value = 1 }
+            if = {
+                limit = { check_variable = { which = br_pure_destroyer_count value > 50 } }
+                set_variable = { which = br_pure_destroyer_count value = 50 }
+            }
+            set_variable = { which = br_tmp_spawn value = br_pure_destroyer_count }
         }
-        set_variable = { which = br_tmp_spawn value = br_pure_destroyer_count }
+        set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
+        while = {
+            count = br_tmp_spawn
+            create_ship = { name = random design = event_target:br_player_destroyer }
+        }
+        clear_variable = br_tmp_spawn
+        event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
     }
-    set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
-    while = {
-        count = br_tmp_spawn
-        create_ship = { name = random design = event_target:br_player_destroyer }
+    else = {
+        br_spawn_mixed = yes
     }
-    clear_variable = br_tmp_spawn
-    event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
 }
 
 # 纯巡洋：累计模式，上限 25（变量挂 br_pve_enemy_country）
 br_spawn_pure_cruiser = {
-    event_target:br_pve_enemy_country = {
-        change_variable = { which = br_pure_cruiser_count value = 1 }
-        if = {
-            limit = { check_variable = { which = br_pure_cruiser_count value > 25 } }
-            set_variable = { which = br_pure_cruiser_count value = 25 }
+    if = {
+        limit = { exists = event_target:br_player_cruiser }
+        event_target:br_pve_enemy_country = {
+            change_variable = { which = br_pure_cruiser_count value = 1 }
+            if = {
+                limit = { check_variable = { which = br_pure_cruiser_count value > 25 } }
+                set_variable = { which = br_pure_cruiser_count value = 25 }
+            }
+            set_variable = { which = br_tmp_spawn value = br_pure_cruiser_count }
         }
-        set_variable = { which = br_tmp_spawn value = br_pure_cruiser_count }
+        set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
+        while = {
+            count = br_tmp_spawn
+            create_ship = { name = random design = event_target:br_player_cruiser }
+        }
+        clear_variable = br_tmp_spawn
+        event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
     }
-    set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
-    while = {
-        count = br_tmp_spawn
-        create_ship = { name = random design = event_target:br_player_cruiser }
+    else = {
+        br_spawn_mixed = yes
     }
-    clear_variable = br_tmp_spawn
-    event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
 }
 
 # 纯战列：累计模式，上限 12（变量挂 br_pve_enemy_country）
 br_spawn_pure_battleship = {
-    event_target:br_pve_enemy_country = {
-        change_variable = { which = br_pure_battleship_count value = 1 }
-        if = {
-            limit = { check_variable = { which = br_pure_battleship_count value > 12 } }
-            set_variable = { which = br_pure_battleship_count value = 12 }
+    if = {
+        limit = { exists = event_target:br_player_battleship }
+        event_target:br_pve_enemy_country = {
+            change_variable = { which = br_pure_battleship_count value = 1 }
+            if = {
+                limit = { check_variable = { which = br_pure_battleship_count value > 12 } }
+                set_variable = { which = br_pure_battleship_count value = 12 }
+            }
+            set_variable = { which = br_tmp_spawn value = br_pure_battleship_count }
         }
-        set_variable = { which = br_tmp_spawn value = br_pure_battleship_count }
+        set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
+        while = {
+            count = br_tmp_spawn
+            create_ship = { name = random design = event_target:br_player_battleship }
+        }
+        clear_variable = br_tmp_spawn
+        event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
     }
-    set_variable = { which = br_tmp_spawn value = event_target:br_pve_enemy_country.br_tmp_spawn }
-    while = {
-        count = br_tmp_spawn
-        create_ship = { name = random design = event_target:br_player_battleship }
+    else = {
+        br_spawn_mixed = yes
     }
-    clear_variable = br_tmp_spawn
-    event_target:br_pve_enemy_country = { clear_variable = br_tmp_spawn }
 }
 
 # ============================================================

@@ -1,8 +1,8 @@
 namespace = br
 
 # ============================================================
-# PVE敌方年度增援事件：br.830
-# 由 on_yearly_pulse_country 年度触发
+# PVE母舰位置追踪刷新：br.830
+# 由 br.850 年度触发，每年更新突击舰队追击目标
 # ============================================================
 
 country_event = {
@@ -13,49 +13,30 @@ country_event = {
     trigger = {
         is_country_type = br_player_pve
         exists = event_target:br_pve_enemy_country
+        exists = event_target:br_assault_fleet_@root
         any_owned_fleet = { is_ship_size = br_dominator }
     }
 
     immediate = {
+        # 更新母舰当前位置
         random_owned_fleet = {
             limit = { is_ship_size = br_dominator }
             solar_system = {
-                random_neighbor_system = {
-                    limit = {
-                        NOT = {
-                            any_fleet_in_system = {
-                                owner = { is_country_type = br_player_pve }
-                            }
-                            has_star_flag = has_br_pve_fleet
-                        }
-                    }
-                    save_event_target_as = br_reinf_spawn_@root
-                }
+                save_event_target_as = br_dominator_target_@root
             }
         }
-
-        # 设计由 br.850 每年保存为全局 event_target
+        #  突击舰，更新追击目标
+        event_target:br_assault_fleet_@root = {
+            clear_fleet_actions = this
+            queue_actions = { move_to = event_target:br_dominator_target_@root }
+        }
+        #如果舰队没了，触发刷船
         if = {
-            limit = { exists = event_target:br_reinf_spawn_@root }
-            event_target:br_pve_enemy_country = {
-                create_fleet = {
-                    name = "BR_PVE_REINFORCEMENT"
-                    effect = {
-                        set_owner = PREV
-                        set_location = event_target:br_reinf_spawn_@root
-                        br_reinforce_pve_fleet = yes
-                    }
-                }
+            limit = {
+                NOT = { exists = event_target:br_assault_fleet_@root }
             }
-            event_target:br_reinf_spawn_@root = {
-                set_star_flag = has_br_pve_fleet
-            }
-            create_message = {
-                type = FLEET_DETECTED_MESSAGE_TYPE
-                localization = br.830.toast
-                days = 30
-                custom_toast_content_icon = GFX_message_fleet_detected
-            }
+            # 延迟触发刷敌，确保用刚保存的设计
+            country_event = { id = br.840 days = 1 }
         }
     }
 }
@@ -63,9 +44,8 @@ country_event = {
 # ============================================================
 # PVE敌方年度突击编队：br.840
 # 由 on_yearly_pulse_country 年度触发
-# 以玩家母舰为中心，周边10跳内随机非危险区星系刷敌
-# 每个玩家同时只存在一支，死亡后才按等级刷下一支
-# 注意：设计由 br.830 的 root.random_owned_design 提前保存
+# 以玩家母舰为中心，周边2-5跳内随机非危险区星系刷敌
+# 每个玩家同时只存在一支，死亡后才刷下一支
 # ============================================================
 
 country_event = {
@@ -86,56 +66,42 @@ country_event = {
                 save_event_target_as = br_dominator_target_@root
             }
         }
-
-        if = {
-            limit = { exists = event_target:br_assault_fleet_@root }
-            event_target:br_assault_fleet_@root = {
-                clear_fleet_actions = this
-                queue_actions = { move_to = event_target:br_dominator_target_@root }
+        # 只负责创建，追踪交给 br.830
+        event_target:br_dominator_target_@root = {
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_dominator_target_@root
+                        type = hyperlane
+                        min_jumps = 2
+                        max_jumps = 5
+                    }
+                    NOT = { has_star_flag = br_danger }
+                    NOT = { any_fleet_in_system = { owner = { is_country_type = br_player_pve } } }
+                }
+                save_event_target_as = br_assault_spawn_@root
             }
         }
-        else = {
-            event_target:br_dominator_target_@root = {
-                random_system = {
-                    limit = {
-                        distance = {
-                            source = event_target:br_dominator_target_@root
-                            type = hyperlane
-                            min_jumps = 2
-                            max_jumps = 5
-                        }
-                        NOT = { has_star_flag = br_danger }
-                        NOT = { any_fleet_in_system = { owner = { is_country_type = br_player_pve } } }
+        event_target:br_pve_enemy_country = {
+            create_fleet = {
+                name = "BR_PVE_ASSAULT"
+                effect = {
+                    set_owner = PREV
+                    set_location = event_target:br_assault_spawn_@root
+                    br_reinforce_pve_fleet = yes
+                    set_fleet_stance = aggressive
+                    queue_actions = {
+                        move_to = event_target:br_dominator_target_@root
                     }
-                    save_event_target_as = br_assault_spawn_@root
+                    save_global_event_target_as = br_assault_fleet_@root
                 }
             }
-
-            # 设计由 br.850 每年保存为全局 event_target
-            if = {
-                limit = { exists = event_target:br_assault_spawn_@root }
-                event_target:br_pve_enemy_country = {
-                    create_fleet = {
-                        name = "BR_PVE_ASSAULT"
-                        effect = {
-                            set_owner = PREV
-                            set_location = event_target:br_assault_spawn_@root
-                            br_reinforce_pve_fleet = yes
-                            set_fleet_stance = aggressive
-                            queue_actions = {
-                                move_to = event_target:br_dominator_target_@root
-                            }
-                            save_global_event_target_as = br_assault_fleet_@root
-                        }
-                    }
-                }
-                create_message = {
-                    type = FLEET_DETECTED_MESSAGE_TYPE
-                    localization = br.840.toast
-                    days = 30
-                    custom_toast_content_icon = GFX_message_fleet_detected
-                }
-            }
+        }
+        create_message = {
+            type = FLEET_DETECTED_MESSAGE_TYPE
+            localization = br.840.toast
+            days = 30
+            custom_toast_content_icon = GFX_message_fleet_detected
         }
     }
 }
@@ -143,7 +109,7 @@ country_event = {
 # ============================================================
 # 每年挑一个幸运儿舰船设计供敌人复制：br.850
 # 由 on_yearly_pulse_country 年度触发
-# 保存为全局 event_target，供 br.830/840 刷敌使用
+# 保存为全局 event_target，供 br.840 刷敌使用
 # ============================================================
 country_event = {
     id = br.850
@@ -152,7 +118,8 @@ country_event = {
 
     trigger = {
         is_country_type = br_player_pve
-        # any_owned_ship = { is_ship_size = br_vanguard }
+        any_owned_ship = { is_ship_size = br_dominator }
+        NOT = { has_global_flag = br_designs_saved }
     }
 
     immediate = {
@@ -169,9 +136,20 @@ country_event = {
             limit = { check_variable = { which = br_power_level value >= 8 } }
             random_owned_design = { limit = { is_ship_size = battleship } save_global_event_target_as = br_player_battleship }
         }
+        #当舰队不存在时触发刷新的
+        if = {
+            limit = {
+                NOT = { exists = event_target:br_assault_fleet_@root }
+            }
+            # 延迟触发刷敌，确保用刚保存的设计
+            country_event = { id = br.840 days = 10 }
+        }
+        # 更新追踪玩家星系
+        country_event = { id = br.830 days = 11 }
+        country_event = { id = br.830 days = 100 }
+        country_event = { id = br.830 days = 200 }
+        country_event = { id = br.830 days = 300 }
 
-        # 延迟触发刷敌，确保用刚保存的设计
-        country_event = { id = br.830 days = 10 }
-        country_event = { id = br.840 days = 10 }
+        set_timed_global_flag = { flag = br_designs_saved days = 100 }
     }
 }
