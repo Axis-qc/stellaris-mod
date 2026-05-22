@@ -31,7 +31,7 @@ utility_component_template = {
     size = small
     icon = "GFX_ship_part_reactor_5"
     icon_frame = 1
-    power = @colossus_power
+    power = 10000
 
     component_set = "power_core"
     potential = {
@@ -115,6 +115,29 @@ utility_component_template = {
         required_progress = 4
         cooldown = 360
         slot = 2
+    }
+
+    # ── 打开等级面板 UI ──
+    scripted_action = {
+        scope = self
+
+        possible = { always = yes }
+
+        button_visible = {
+            owner = {
+                any_owned_ship = {
+                    is_ship_size = br_dominator
+                }
+            }
+        }
+
+        button_clickable = { always = yes }
+
+        name = on_br_level_panel_opened
+        tooltip = BR_LEVEL_UI_TITLE
+        icon = GFX_fleet_action_button_active_reconnaissance
+        icon_selected = GFX_fleet_action_button_active_reconnaissance
+        slot = 3
     }
     #action的爆星，废弃
     # scripted_action = {

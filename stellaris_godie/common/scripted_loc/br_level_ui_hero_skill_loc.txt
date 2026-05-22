@@ -1,0 +1,166 @@
+# 英雄舰技能 UI 显示 — 国家作用域
+# 用于 br_level_view.gui 总览右侧面板
+# 选中态（有 flag）→ 完整描述；未选中态 → 仅短名
+
+# ── 主动技能 slot 1 短名 ──
+defined_text = {
+    name = GetBRUIActiveSlot1
+    random = no
+    text = {
+        localization_key = br_context_menu_phase_shift
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_context_menu_overclock
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 主动技能 slot 2 短名 ──
+defined_text = {
+    name = GetBRUIActiveSlot2
+    random = no
+    text = {
+        localization_key = br_context_menu_barrier
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_context_menu_scan
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 被动技能 slot 1 短名 ──
+defined_text = {
+    name = GetBRUIPassiveSlot1
+    random = no
+    text = {
+        localization_key = br_skill_structure
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_vanguard_power_combat_stack_damage
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 被动技能 slot 2 短名 ──
+defined_text = {
+    name = GetBRUIPassiveSlot2
+    random = no
+    text = {
+        localization_key = br_skill_field
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_vanguard_power_kill_stack_damage
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 旗舰超载 slot 1 短名 ──
+defined_text = {
+    name = GetBRUIUltimateSlot1
+    random = no
+    text = {
+        localization_key = br_skill_collapse
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_context_menu_fullfire
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 旗舰超载 slot 2 短名 ──
+defined_text = {
+    name = GetBRUIUltimateSlot2
+    random = no
+    text = {
+        localization_key = br_skill_projection
+        trigger = { has_country_flag = br_hero_core_defense }
+    }
+    text = {
+        localization_key = br_context_menu_final_volley
+        trigger = { has_country_flag = br_hero_core_power }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ═══════════════════════════════════════
+# 描述区 — 始终返回当前选中技能的完整描述
+# ═══════════════════════════════════════
+
+# ── 主动技能描述 ──
+defined_text = {
+    name = GetBRUIActiveDesc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_phase_shift
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_active_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_barrier
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_active_slot_2 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_overclock
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_active_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_scan
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_active_slot_2 }
+    }
+    default = ""
+}
+
+# ── 被动技能描述 ──
+defined_text = {
+    name = GetBRUIPassiveDesc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_structure
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_passive_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_field
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_passive_slot_2 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_combat_stack
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_passive_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_kill_stack
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_passive_slot_2 }
+    }
+    default = ""
+}
+
+# ── 旗舰超载描述 ──
+defined_text = {
+    name = GetBRUIUltimateDesc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_collapse
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_ultimate_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_projection
+        trigger = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_ultimate_slot_2 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_fullfire
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_ultimate_slot_1 }
+    }
+    text = {
+        localization_key = br_vanguard_skill_final_volley
+        trigger = { has_country_flag = br_hero_core_power has_country_flag = br_skill_ultimate_slot_2 }
+    }
+    default = ""
+}

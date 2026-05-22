@@ -1,7 +1,26 @@
 namespace = br
 
 # 事件ID区间：1100-1199
-# br.1130：等级面板窗口。由法令 br_open_level_panel 触发。
+# br.1129：桥接事件。由母舰 scripted_action → on_action 触发，从 fleet 转到 country 后打开 UI。
+fleet_event = {
+    id = br.1129
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        owner = {
+            has_global_flag = br_mode_pve
+            is_country_type = br_player_pve
+            has_country_flag = br_level_initialized
+        }
+    }
+    immediate = {
+        owner = {
+            country_event = { id = br.1130 }
+        }
+    }
+}
+
+# br.1130：等级面板窗口。
 country_event = {
     id = br.1130
     title = BR_LEVEL_UI_TITLE
