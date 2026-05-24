@@ -36,7 +36,7 @@ fleet_event = {
 }
 
 # ============================================================
-#  玩家舰队进入新星系 → 找周边4跳内未刷星系 → 刷敌
+#  玩家舰队进入新星系 → 找周边未刷星系 → 刷敌
 # ============================================================
 country_event = {
     id = br.801
@@ -90,12 +90,15 @@ country_event = {
                             br_spawn_crisis_fleet = yes
                         }
                     }
+                    root = {
+                        # 排程后续阶段（保持在玩家 scope，@root 统一为玩家国家）
+                        country_event = { id = br.802 days = 1 }
+                        country_event = { id = br.803 days = 2 }
+                    }
                 }
             }
         }
-        # 排程后续阶段（保持在玩家 scope，@root 统一为玩家国家）
-        country_event = { id = br.802 days = 1 }
-        country_event = { id = br.803 days = 2 }
+
 
         # 附近还有未刷的 → 3天后继续
         if = {

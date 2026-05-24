@@ -66,9 +66,9 @@ fleet_event = {
                 every_owned_ship = {
                     add_modifier = {
                         modifier = br_vanguard_power_weakness_scan
-                        mult = value:br_skill_scan_damage
+                        mult = root.owner.value:br_skill_scan_damage
                         days = 1
-                        time_multiplier = value:br_skill_scan_day
+                        time_multiplier = root.owner.value:br_skill_scan_day
                     }
                 }
             }
@@ -306,9 +306,9 @@ fleet_event = {
                 }
                 add_modifier = {
                     modifier = br_vanguard_power_final_volley
-                    mult = value:br_vanguard_skill_final_volley_amount
+                    mult = root.owner.value:br_vanguard_skill_final_volley_amount
                     days = 1
-                    time_multiplier = value:br_vanguard_skill_final_volley_day
+                    time_multiplier = root.owner.value:br_vanguard_skill_final_volley_day
                 }
             }
         }

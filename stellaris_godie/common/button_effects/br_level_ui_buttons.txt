@@ -7,7 +7,7 @@ br_level_ui_tab_overview_active = {
 	}
 	allow = { always = yes }
 }
-br_level_ui_tab_rewards_active = {
+br_level_ui_tab_logistics_active = {
 	potential = {
 		from = {
 			check_variable = { which = br_level_ui_tab value = 2 }
@@ -15,7 +15,7 @@ br_level_ui_tab_rewards_active = {
 	}
 	allow = { always = yes }
 }
-br_level_ui_tab_stats_active = {
+br_level_ui_tab_fleet_active = {
 	potential = {
 		from = {
 			check_variable = { which = br_level_ui_tab value = 3 }
@@ -23,10 +23,19 @@ br_level_ui_tab_stats_active = {
 	}
 	allow = { always = yes }
 }
-br_level_ui_tab_extra_active = {
+br_level_ui_tab_stats_active = {
 	potential = {
 		from = {
 			check_variable = { which = br_level_ui_tab value = 4 }
+		}
+	}
+	allow = { always = yes }
+}
+
+br_level_ui_tab_other_active = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 5 }
 		}
 	}
 	allow = { always = yes }
@@ -44,7 +53,7 @@ br_level_ui_tab_overview = {
 		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 1 } } }
 	}
 }
-br_level_ui_tab_rewards = {
+br_level_ui_tab_logistics = {
 	potential = { always = yes }
 	allow = {
 		from = {
@@ -55,7 +64,7 @@ br_level_ui_tab_rewards = {
 		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 2 } } }
 	}
 }
-br_level_ui_tab_stats = {
+br_level_ui_tab_fleet = {
 	potential = { always = yes }
 	allow = {
 		from = {
@@ -66,7 +75,7 @@ br_level_ui_tab_stats = {
 		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 3 } } }
 	}
 }
-br_level_ui_tab_extra = {
+br_level_ui_tab_stats = {
 	potential = { always = yes }
 	allow = {
 		from = {
@@ -76,4 +85,37 @@ br_level_ui_tab_extra = {
 	effect = {
 		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 4 } } }
 	}
+}
+br_level_ui_tab_other = {
+	potential = { always = yes }
+	allow = {
+		from = {
+			NOT = { check_variable = { which = br_level_ui_tab value = 5 } }
+		}
+	}
+	effect = {
+		hidden_effect = { from = { set_variable = { which = br_level_ui_tab value = 5 } } }
+	}
+}
+
+################################### 占位效果（UI骨架阶段，购买按钮统一用此占位）###################################
+br_ui_placeholder = {
+	potential = { always = yes }
+	allow = { always = yes }
+}
+br_ui_placeholder_logistics = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 2 }
+		}
+	}
+	allow = { always = yes }
+}
+br_ui_placeholder_fleet = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 3 }
+		}
+	}
+	allow = { always = yes }
 }

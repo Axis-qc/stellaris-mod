@@ -2,7 +2,7 @@
 
 本文档记录 BR 等级 UI 的设计参考和已实施状态。以下"当前问题"和"方案"为历史参考。
 
-> **最新状态**：底部横向标签页已实施，总览页左右分栏、动态变量接入、scripted_loc 阈值均已落地。详见文末实施记录。
+> **最新状态**：底部横向5标签页已实施：总览 / 后勤 / 舰队 / 统计 / 其他。总览页左右分栏（等级数据+英雄舰技能），后勤页左右分栏（资源月产+舰队Buff），舰队页左右分栏（永久强化+消耗品限时）。详见文末实施记录。
 
 本文档参考来源：
 
@@ -92,12 +92,13 @@ country_event = {
 - 左侧按钮垂直排列，当前页按钮高亮。
 - 右侧只显示当前页内容，其他页内容通过 `potential` 隐藏。
 
-推荐页面：
+推荐页面（当前已实施）：
 
-- `br_level_ui_tab = 1`：总览，显示等级、经验、战斗评分、击杀分数、规则说明。
-- `br_level_ui_tab = 2`：等级奖励，显示 Lv1-Lv8 解锁内容。
-- `br_level_ui_tab = 3`：战斗统计，预留后续统计功能。
-- `br_level_ui_tab = 4`：预留功能，放后续系统入口。
+- `br_level_ui_tab = 1`：**总览**，左=玩家等级数据（等级/评分/击杀），右=英雄舰技能槽
+- `br_level_ui_tab = 2`：**后勤**，左=资源月产兑换，右=舰队Buff叠层
+- `br_level_ui_tab = 3`：**舰队**，左=永久强化，右=消耗品限时
+- `br_level_ui_tab = 4`：**统计**，占位页面
+- `br_level_ui_tab = 5`：**其他**，占位页面
 
 ## 方案一：按钮切换页面
 
@@ -315,93 +316,36 @@ containerWindowType = {
 - 可见关闭按钮继续用自定义 `close`。
 - 页面切换按钮不用 `option_list`，改用 `effectButtonType`。
 
-## 推荐下次实施顺序
+## 实际实施的最终结构
 
-下次继续时，建议按以下顺序做，避免一次改太多导致不好排错。
+当前已实施的 UI 框架：
 
-### 第一步：稳定页面切换
-
-修改文件：
-
-- `stellaris_godie/events/br_level_ui_events.txt`
-- `stellaris_godie/interface/br_level_view.gui`
-- 新增 `stellaris_godie/common/button_effects/br_level_ui_buttons.txt`
-- 修改 `stellaris_godie/localisation/simp_chinese/br_pve_l_simp_chinese.yml`
-
-目标：
-
-- 初始化 `br_level_ui_tab = 1`。
-- 左侧增加纵向导航按钮。
-- 点击左侧导航能切换右侧内容区。
-- 暂时不处理动态变量解析。
-
-### 第二步：恢复动态变量显示
-
-优先尝试顺序：
-
-1. 把动态值放回事件文本上下文，确认变量能读。
-2. 如果要独立控件，尝试 scripted_loc + `buttonText`。
-3. 如果仍失败，保留事件文本上下文，把独立控件只用于静态标题和装饰。
-
-### 第三步：经验条
-
-最终处理方式：
-
-- 使用文字经验：`经验：40 / 100`。
-- 不做字符伪进度条。
-- 不尝试真正 `progressbarType` 变量绑定。
-- 如需强化视觉，只在文字附近加静态分割线或背景块。
-
-### 第四步：美化
-
-参考方向：
-
-- 窗口继续保持约 `1024 x 720`。
-- 左侧做纵向导航栏。
-- 右侧根据当前导航切换：
-    - 总览：等级、经验、战斗评分、击杀分数、规则说明。
-    - 等级奖励：每级奖励列表。
-    - 战斗统计：后续统计扩展。
-    - 预留功能：后续系统入口。
-- 背景用深色半透明块。
-- 分割线用金色线条或参考 mod 的分割线 sprite。
-
-## 建议采用的最终结构
-
-推荐最终采用混合方案：
-
-- 页面切换：方案一，左侧纵向导航使用 `effectButtonType + button_effects + br_level_ui_tab`。
-- 动态数值：优先方案二，事件文本上下文；如果验证可行，再升级方案三。
-- 经验显示：采用方案四的固定文字格式，例如 `经验：40 / 100`。
-- 滚动区：暂不做，等内容变多再引入方案五。
-- option：保留隐藏必需控件，可见操作全部自定义。
-
-这个方案的好处是：
-
-- 先保证不闪退。
-- 再保证变量能显示。
-- 最后逐步增强交互和美观。
-- 每一步都能单独进游戏验证。
+- **页面切换**：底部横向5标签页，`effectButtonType` 单按钮 + `allow` 禁用态，点击 `set_variable` 切换
+- **内容显隐**：通过 `effect = xxx_active` 引用 button_effects 的 `potential` 控制
+- **动态数值**：`effectButtonType` 的 `buttonText` 直接解析 `[from.xxx]`（已验证可行）
+- **经验显示**：暂未实现（总览页左侧有规则说明区域可用于后续扩展）
+- **滚动区**：暂不做
+- **option**：保留隐藏必需控件，关闭按钮通过自定义 option GUI 实现
 
 ## 下次接续提示
 
-如果下次要继续实施，可以直接说：
+下次继续时，可以先做：
 
-```txt
-按 stellaris_godie/设计文档/BR等级UI参考方案.md 的推荐结构，开始实施第一步：做左侧导航切换右侧内容。
-```
+1. **后勤/舰队页功能效果**：为各购买按钮编写实际的 button_effects（检查资源→扣资源→改变量/add_modifier），参考 `br_reward_relics.txt` 中的 `br_reward_xxx` 变量体系
+2. **总览页完善**：英雄舰状态数据（船体/护甲/护盾实时数值）等
+3. **统计页实装**：战斗数据统计面板
+4. **经验条/进度显示**：如需可视化进度条，需研究原版 progressbarType 是否能在自定义 GUI 中使用
 
-实施前需要先检查：
+实施前需检查：
 
-- 当前 `br_level_view.gui` 是否仍保留 `tts_button`、`empire_flag`、`portrait`、`action_desc`、`option_list` 等事件 UI 必需控件。
-- `error.log` 是否还有新的缺控件报错。
-- 普通 GUI 文本是否仍不能解析 `[Root.xxx]`。
+- `error.log` 是否有控件缺失报错
+- 所有 off-screen 必需控件（`tts_button`、`empire_flag`、`portrait`、`action_desc`、`option_list` 等）是否保留
 
 ---
 
-## 实施记录：底部横向标签页框架
+## 实施记录：当前 UI 框架（底部5标签页）
 
-布局从"左侧信息+右侧预留"改为"底部横向标签页+全幅内容区"。关闭按钮通过自定义事件 option GUI（`br_level_view_option.gui`）实现，原 `close` 按钮丢屏幕外保留 ESC 快捷键。
+布局：底部横向5标签页 + 全幅内容区。每个标签页内容通过 `effect = xxx_active` 的 `potential` 控制显隐。关闭按钮通过自定义事件 option GUI（`br_level_view_option.gui`）实现。
 
 ### 文件清单
 
@@ -409,29 +353,55 @@ containerWindowType = {
 |------|------|
 | `interface/br_level_view.gui` | 主 GUI。背景/标题/右上关闭/内容区/底部标签栏/隐藏必需控件 |
 | `interface/br_level_view_option.gui` | option 自定义 GUI（右上角关闭按钮） |
-| `common/button_effects/br_level_ui_buttons.txt` | 按钮效果。4组 `_active`（内容显隐，potential）+ 4组 tab（按钮禁用，allow） |
+| `common/button_effects/br_level_ui_buttons.txt` | 按钮效果。5组 `_active`（内容显隐，potential）+ 5组 tab（按钮禁用，allow）+ 3组占位 placeholder |
 | `common/scripted_loc/br_level_ui_loc.txt` | `GetBRNextLevelThreshold`，根据等级返回下级阈值 |
 | `events/br_level_ui_events.txt` | `immediate` 初始化 `br_level_ui_tab = 1`；option 加 `custom_gui` + `custom_tooltip` |
-| `localisation/simp_chinese/br_level_ui_l_simp_chinese.yml` | UI 专用本地化（窗口/标签/总览/阈值/占位） |
+| `localisation/simp_chinese/br_level_ui_l_simp_chinese.yml` | UI 专用本地化（窗口/标签/总览/后勤/舰队/阈值/占位） |
 
 ### 标签切换机制
 
-- **变量**：`br_level_ui_tab`（值 1/2/3/4）
-- **按钮**：4 个 `effectButtonType`，统一 `GFX_button_60_29`，`allow` 检查非当前页时禁用（引擎自动灰化），点击 `set_variable` 切换
-- **内容显隐**：各标签内容元素引用 `_active` effect，`potential` 统一控制
+- **变量**：`br_level_ui_tab`（值 1/2/3/4/5）
+- **按钮**：5 个 `effectButtonType`，统一 `GFX_standard_button_116_34` 纹理，`allow` 检查非当前页时禁用（引擎自动灰化），点击 `set_variable` 切换
+- **按钮位置**：`x=0/160/320/480/640`，每按钮宽160（容器总宽824，5×160=800刚好）
 
-### 关闭按钮
+### 内容区显隐
 
-- 通过事件 option 的 `custom_gui = "br_level_view_option"` 实现
-- `option_button` 定位右上角，tooltip 由 `custom_tooltip` 控制
-- 原 `buttonType name="close"` 丢屏幕外保留 ESC 快捷键
+- **总览页**（tab=1）：每个元素 `effect = br_level_ui_tab_overview_active`
+- **后勤页**（tab=2）：背景/标题 `effect = br_level_ui_tab_logistics_active`，购买按钮 `effect = br_ui_placeholder_logistics`
+- **舰队页**（tab=3）：背景/标题 `effect = br_level_ui_tab_fleet_active`，购买按钮 `effect = br_ui_placeholder_fleet`
+- **统计页**（tab=4）：`effect = br_level_ui_tab_stats_active`
+- **其他页**（tab=5）：`effect = br_level_ui_tab_other_active`
+
+核心机制：`effectButtonType` 的 `effect` 属性引用 `button_effects` 中的效果，引擎会评估其 `potential` 来决定元素显隐。背景面板和标题用 `_active` 效果（无 effect 块），购买按钮用 `_placeholder` 效果（有 allow 但无 effect 块，可点击无动作）。
+
+### 各页布局
+
+| 页 | tab | 左面板 | 右面板 |
+|:--:|:---:|:-------|:-------|
+| 总览 | 1 | 等级/评分/击杀/规则说明 | 英雄舰技能槽（主动/被动/旗舰超载） |
+| 后勤 | 2 | 10个资源月产兑换按钮 | 5个舰队Buff叠层按钮 |
+| 舰队 | 3 | 4个永久强化按钮（稀有资源） | 3个消耗品限时按钮（消费品） |
+| 统计 | 4 | 占位文本 | — |
+| 其他 | 5 | 占位文本 | — |
+
+### 注意事项
+
+- **`effectButtonType` + `quadTextureSprite` 时 `size` 无效**：按钮尺寸由纹理决定，`size = { }` 设置不生效。应注释掉 `size` 行或标记说明。
+- **显隐通过 `effect` 引用实现**：直接在 GUI 元素上加 `potential` 无效。必须在 button_effects 中定义效果，在 GUI 中用 `effect =` 引用。
+- **作用域**：button_effects 中的 `potential = { from = { ... } }` 的 `from` 指向国家，`root` 不可用。
+- **必需控件**：`close`（ESC快捷键）、`confirm_button`、`tts_button`、`alien_message`、`heading`、`option_list` 等事件 GUI 必需控件全部保留 off-screen。
 
 ### 动态变量
 
-- `effectButtonType` 的 `buttonText` 支持 `[Root.xxx]` 直接解析（已验证）
-- 下级阈值通过 `scripted_loc` + `[Root.GetBRNextLevelThreshold]` 实现
-- `heading` 是引擎预留名，diplomatic 窗口下会被覆盖，已改名为 `br_title`
+- `effectButtonType` 的 `buttonText` 支持 `[from.xxx]` 直接解析（已验证）
+- 下级阈值通过 `scripted_loc` + `[from.GetBRNextLevelThreshold]` 实现
+- `heading` 是引擎预留名，diplomatic 窗口下会被覆盖，总览页标题实际使用 `br_title`
 
-### 必需控件（勿删）
+### 购买按钮占位效果
 
-`alien_message`、`heading`（隐藏）、`action_title`、`their_opinion` 等事件 GUI 必需控件全部保留，隐藏 off-screen。
+当前为 UI 骨架阶段，所有功能按钮使用占位效果：
+- `br_ui_placeholder` — 通用占位（`potential = always`，始终可见）
+- `br_ui_placeholder_logistics` — 后勤页占位（`potential` 检查 tab=2）
+- `br_ui_placeholder_fleet` — 舰队页占位（`potential` 检查 tab=3）
+
+每个占位效果 `allow = { always = yes }`（按钮可点击），无 `effect` 块（点击无动作）。功能效果待 UI 定稿后再实现。

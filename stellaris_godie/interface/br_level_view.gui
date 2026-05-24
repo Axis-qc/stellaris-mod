@@ -89,44 +89,38 @@ guiTypes = {
         }
 
         # ═══════════════════════════════════════════════════════════════
-        # 主内容区（四个标签页，靠 button_effect potential 控制显隐）
+        # 主内容区（五个标签页，靠 button_effect potential 控制显隐）
         # ═══════════════════════════════════════════════════════════════
         containerWindowType = {
             name = "content_area"
             position = { x = 40 y = 45 }
             size = { width = 944 height = 610 }
 
-            # 左右面板背景（仅总览 tab 显示）
+            # ═══════════════════════════════════════════════════════════════
+            # 总览 — Row1：玩家等级（左）+ 等级规则（右）
+            # ═══════════════════════════════════════════════════════════════
+            # ── 左：玩家等级 ──
             effectButtonType = {
                 name = br_overview_left_bg
                 position = { x = 0 y = 0 }
-                size = { width = 455 height = 610 }
+                size = { width = 460 height = 110 }
                 spriteType = "GFX_tiles_dark_area_cut_8"
                 effect = br_level_ui_tab_overview_active
             }
             effectButtonType = {
-                name = br_overview_right_bg
-                position = { x = 465 y = 0 }
-                size = { width = 479 height = 610 }
-                spriteType = "GFX_tiles_dark_area_cut_8"
-                effect = br_level_ui_tab_overview_active
-            }
-
-            # ── 总览 — 左侧：玩家等级状态 ──
-            effectButtonType = {
-                name = br_overview_left_title
-                position = { x = 0 y = 10 }
-                size = { width = 455 height = 30 }
+                name = br_overview_title_left
+                position = { x = 15 y = 5 }
+                size = { width = 430 height = 24 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_TITLE"
                 buttonFont = "malgun_goth_24"
-                format = center
+                format = left
                 effect = br_level_ui_tab_overview_active
                 alwaysTransparent = yes
             }
             effectButtonType = {
                 name = br_overview_left_level
-                position = { x = 20 y = 60 }
-                size = { width = 415 height = 24 }
+                position = { x = 15 y = 34 }
+                size = { width = 430 height = 22 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_LEVEL"
                 buttonFont = "cg_16b"
                 format = left
@@ -135,8 +129,8 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_overview_left_combat
-                position = { x = 20 y = 92 }
-                size = { width = 415 height = 24 }
+                position = { x = 15 y = 60 }
+                size = { width = 430 height = 22 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_COMBAT"
                 buttonFont = "cg_16b"
                 format = left
@@ -145,61 +139,142 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_overview_left_kill
-                position = { x = 20 y = 124 }
-                size = { width = 415 height = 24 }
+                position = { x = 15 y = 86 }
+                size = { width = 430 height = 22 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_KILL"
                 buttonFont = "cg_16b"
                 format = left
                 effect = br_level_ui_tab_overview_active
                 alwaysTransparent = yes
             }
+            # ── 右：等级规则 ──
             effectButtonType = {
-                name = br_overview_left_rules
-                position = { x = 20 y = 178 }
-                size = { width = 415 height = 80 }
+                name = br_overview_rules_bg
+                position = { x = 484 y = 0 }
+                size = { width = 460 height = 110 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
+            effectButtonType = {
+                name = br_overview_rules_title
+                position = { x = 499 y = 5 }
+                size = { width = 430 height = 24 }
+                buttonText = "§H等级规则§!"
+                buttonFont = "malgun_goth_24"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_rules_content
+                position = { x = 499 y = 34 }
+                size = { width = 430 height = 72 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_RULES"
                 buttonFont = "cg_16b"
                 format = left
                 multiline = yes
+                vertical_alignment = top
                 effect = br_level_ui_tab_overview_active
                 alwaysTransparent = yes
             }
-            # ── 总览 — 右侧：先锋英雄舰 ──
+
+            # ═══════════════════════════════════════════════════════════════
+            # 总览 — Row2：英雄舰等级（左）+ 经验规则（右）
+            # ═══════════════════════════════════════════════════════════════
+            # ── 左：英雄舰等级 ──
             effectButtonType = {
-                name = br_overview_right_title
-                position = { x = 475 y = 10 }
-                size = { width = 459 height = 30 }
+                name = br_overview_hero_bg
+                position = { x = 0 y = 115 }
+                size = { width = 460 height = 90 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
+            effectButtonType = {
+                name = br_overview_title_right
+                position = { x = 15 y = 120 }
+                size = { width = 430 height = 24 }
                 buttonText = "BR_LEVEL_UI_OVERVIEW_RIGHT_TITLE"
                 buttonFont = "malgun_goth_24"
-                format = center
+                format = left
                 effect = br_level_ui_tab_overview_active
                 alwaysTransparent = yes
             }
             effectButtonType = {
-                name = br_overview_ship_status
-                position = { x = 485 y = 45 }
-                size = { width = 439 height = 24 }
-                buttonText = "BR_LEVEL_UI_SHIP_STATUS"
+                name = br_overview_hero_level
+                position = { x = 15 y = 149 }
+                size = { width = 430 height = 22 }
+                buttonText = "英雄等级: §G[from.br_hero_level]§!"
                 buttonFont = "cg_16b"
                 format = left
                 effect = br_level_ui_tab_overview_active
                 alwaysTransparent = yes
             }
-            # ── 主动技能 ──
+            effectButtonType = {
+                name = br_overview_hero_xp
+                position = { x = 15 y = 175 }
+                size = { width = 430 height = 22 }
+                buttonText = "经验: §G[from.br_hero_xp]§! / §Y[from.br_hero_xp_next]§!"
+                buttonFont = "cg_16b"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            # ── 右：英雄经验规则 ──
+            effectButtonType = {
+                name = br_overview_hero_rules_bg
+                position = { x = 484 y = 115 }
+                size = { width = 460 height = 90 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
+            effectButtonType = {
+                name = br_overview_hero_rules_title
+                position = { x = 499 y = 120 }
+                size = { width = 430 height = 24 }
+                buttonText = "§H英雄经验规则§!"
+                buttonFont = "malgun_goth_24"
+                format = left
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+            effectButtonType = {
+                name = br_overview_hero_rules_content
+                position = { x = 499 y = 149 }
+                size = { width = 430 height = 50 }
+                buttonText = "111"
+                buttonFont = "cg_16b"
+                format = left
+                multiline = yes
+                vertical_alignment = top
+                effect = br_level_ui_tab_overview_active
+                alwaysTransparent = yes
+            }
+
+            # ═══════════════════════════════════════════════════════════════
+            # ═══════════════════════════════════════════════════════════════
+            # 总览 — Row3：三列技能
+            # ═══════════════════════════════════════════════════════════════
+            # ── 列1：主动技能 ──
+            effectButtonType = {
+                name = br_col_active_bg
+                position = { x = 0 y = 210 }
+                size = { width = 310 height = 395 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
             effectButtonType = {
                 name = br_overview_active_title
-                position = { x = 485 y = 85 }
-                size = { width = 100 height = 20 }
+                position = { x = 10 y = 215 }
+                size = { width = 290 height = 22 }
                 buttonText = "BR_LEVEL_UI_SKILL_ACTIVE"
-                buttonFont = "cg_16b"
+                buttonFont = "malgun_goth_24"
                 format = left
+                alwaysTransparent = yes
                 effect = br_level_ui_tab_overview_active
-                alwaysTransparent = no  #yes会导致debug时无法看位置
             }
             effectButtonType = {
                 name = br_skill_active_slot1
-                position = { x = 485 y = 110 }
-                size = { width = 200 height = 30 }
+                position = { x = 55 y = 245 }
                 quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIActiveSlot1]"
                 buttonFont = "cg_16b"
@@ -208,10 +283,8 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_skill_active_slot2
-                position = { x = 485 y = 160 }
-                size = { width = 200 height = 30 }
-                # quadTextureSprite = "GFX_button_60_29"
-                quadTextureSprite = GFX_delve_button
+                position = { x = 55 y = 295 }
+                quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIActiveSlot2]"
                 buttonFont = "cg_16b"
                 format = center
@@ -219,8 +292,8 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_active_desc
-                position = { x = 650 y = 110 }
-                size = { width = 230 height = 150 }
+                position = { x = 5 y = 345 }
+                size = { width = 300 height = 250 }
                 buttonText = "[from.GetBRUIActiveDesc]"
                 buttonFont = "cg_16b"
                 format = left
@@ -229,21 +302,27 @@ guiTypes = {
                 vertical_alignment = top
                 alwaysTransparent = no
             }
-            # ── 被动技能 ──
+            # ── 列2：被动技能 ──
+            effectButtonType = {
+                name = br_col_passive_bg
+                position = { x = 317 y = 210 }
+                size = { width = 310 height = 395 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
             effectButtonType = {
                 name = br_overview_passive_title
-                position = { x = 485 y = 210 }
-                size = { width = 100 height = 20 }
+                position = { x = 327 y = 215 }
+                size = { width = 290 height = 22 }
                 buttonText = "BR_LEVEL_UI_SKILL_PASSIVE"
-                buttonFont = "cg_16b"
+                buttonFont = "malgun_goth_24"
                 format = left
+                alwaysTransparent = yes
                 effect = br_level_ui_tab_overview_active
-                alwaysTransparent = no
             }
             effectButtonType = {
                 name = br_skill_passive_slot1
-                position = { x = 485 y = 230 }
-                size = { width = 200 height = 30 }
+                position = { x = 372 y = 245 }
                 quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIPassiveSlot1]"
                 buttonFont = "cg_16b"
@@ -252,8 +331,7 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_skill_passive_slot2
-                position = { x = 485 y = 280 }
-                size = { width = 200 height = 30 }
+                position = { x = 372 y = 295 }
                 quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIPassiveSlot2]"
                 buttonFont = "cg_16b"
@@ -262,8 +340,8 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_passive_desc
-                position = { x = 650 y = 230 }
-                size = { width = 230 height = 150 }
+                position = { x = 322 y = 345 }
+                size = { width = 300 height = 250 }
                 buttonText = "[from.GetBRUIPassiveDesc]"
                 buttonFont = "cg_16b"
                 format = left
@@ -272,21 +350,27 @@ guiTypes = {
                 vertical_alignment = top
                 alwaysTransparent = no
             }
-            # ── 旗舰超载 ──
+            # ── 列3：旗舰超载 ──
+            effectButtonType = {
+                name = br_col_ultimate_bg
+                position = { x = 634 y = 210 }
+                size = { width = 310 height = 395 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_overview_active
+            }
             effectButtonType = {
                 name = br_overview_ultimate_title
-                position = { x = 485 y = 330 }
-                size = { width = 100 height = 20 }
+                position = { x = 644 y = 215 }
+                size = { width = 290 height = 22 }
                 buttonText = "BR_LEVEL_UI_SKILL_ULTIMATE"
-                buttonFont = "cg_16b"
+                buttonFont = "malgun_goth_24"
                 format = left
+                alwaysTransparent = yes
                 effect = br_level_ui_tab_overview_active
-                alwaysTransparent = no
             }
             effectButtonType = {
                 name = br_skill_ultimate_slot1
-                position = { x = 485 y = 350 }
-                size = { width = 200 height = 30 }
+                position = { x = 689 y = 245 }
                 quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIUltimateSlot1]"
                 buttonFont = "cg_16b"
@@ -295,8 +379,7 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_skill_ultimate_slot2
-                position = { x = 485 y = 400 }
-                size = { width = 200 height = 30 }
+                position = { x = 689 y = 295 }
                 quadTextureSprite = "GFX_delve_button"
                 buttonText = "[from.GetBRUIUltimateSlot2]"
                 buttonFont = "cg_16b"
@@ -305,8 +388,8 @@ guiTypes = {
             }
             effectButtonType = {
                 name = br_ultimate_desc
-                position = { x = 650 y = 350 }
-                size = { width = 250 height = 150 }
+                position = { x = 639 y = 345 }
+                size = { width = 300 height = 250 }
                 buttonText = "[from.GetBRUIUltimateDesc]"
                 buttonFont = "cg_16b"
                 format = left
@@ -317,19 +400,101 @@ guiTypes = {
             }
 
 
-            # 等级奖励（占位）
+            # ── 后勤页 — 左：资源月产兑换 ──
             effectButtonType = {
-                name = br_content_rewards
+                name = br_logistics_left_bg
                 position = { x = 0 y = 0 }
-                size = { width = 944 height = 610 }
-                buttonText = "BR_LEVEL_UI_TAB_REWARDS_CONTENT"
-                buttonFont = "cg_16b"
-                format = left
-                vertical_alignment = top
-                effect = br_level_ui_tab_rewards_active
-                alwaysTransparent = yes
+                size = { width = 455 height = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_logistics_active
             }
-            # 战斗统计（占位）
+            effectButtonType = {
+                name = br_logistics_left_title
+                position = { x = 10 y = 8 }
+                size = { width = 435 height = 24 }
+                buttonText = "BR_LOGISTICS_SECTION_RESOURCE"
+                buttonFont = "malgun_goth_24"
+                format = left
+                alwaysTransparent = yes
+                effect = br_level_ui_tab_logistics_active
+            }
+            effectButtonType = { name = br_log_alloy position = { x = 15 y = 40 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_ALLOY_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_energy position = { x = 15 y = 75 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_ENERGY_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_mineral position = { x = 15 y = 110 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_MINERAL_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_food position = { x = 15 y = 145 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_FOOD_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_cg position = { x = 15 y = 180 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_CG_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_unity position = { x = 15 y = 215 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_UNITY_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_trade position = { x = 15 y = 250 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_TRADE_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_crystal position = { x = 15 y = 285 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_CRYSTAL_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_gas position = { x = 15 y = 320 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_GAS_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_motes position = { x = 15 y = 355 } size = { width = 200 height = 28 } buttonText = "BR_LOGISTICS_MOTES_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            # ── 后勤页 — 右：舰队Buff叠层 ──
+            effectButtonType = {
+                name = br_logistics_right_bg
+                position = { x = 465 y = 0 }
+                size = { width = 479 height = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_logistics_active
+            }
+            effectButtonType = {
+                name = br_logistics_right_title
+                position = { x = 475 y = 8 }
+                size = { width = 459 height = 24 }
+                buttonText = "BR_LOGISTICS_SECTION_FLEET"
+                buttonFont = "malgun_goth_24"
+                format = left
+                alwaysTransparent = yes
+                effect = br_level_ui_tab_logistics_active
+            }
+            effectButtonType = { name = br_log_weapon_dmg position = { x = 480 y = 40 } size = { width = 440 height = 28 } buttonText = "BR_LOGISTICS_WEAPON_DMG_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_fire_rate position = { x = 480 y = 80 } size = { width = 440 height = 28 } buttonText = "BR_LOGISTICS_FIRE_RATE_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_hull position = { x = 480 y = 120 } size = { width = 440 height = 28 } buttonText = "BR_LOGISTICS_HULL_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_armor position = { x = 480 y = 160 } size = { width = 440 height = 28 } buttonText = "BR_LOGISTICS_ARMOR_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            effectButtonType = { name = br_log_shield position = { x = 480 y = 200 } size = { width = 440 height = 28 } buttonText = "BR_LOGISTICS_SHIELD_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_logistics }
+            # ── 舰队页 — 左：永久强化 ──
+            effectButtonType = {
+                name = br_fleet_left_bg
+                position = { x = 0 y = 0 }
+                size = { width = 455 height = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_fleet_active
+            }
+            effectButtonType = {
+                name = br_fleet_left_title
+                position = { x = 10 y = 8 }
+                size = { width = 435 height = 24 }
+                buttonText = "BR_FLEET_SECTION_PERMANENT"
+                buttonFont = "malgun_goth_24"
+                format = left
+                alwaysTransparent = yes
+                effect = br_level_ui_tab_fleet_active
+            }
+            effectButtonType = { name = br_fleet_hull position = { x = 15 y = 40 } size = { width = 220 height = 28 } buttonText = "BR_FLEET_HERO_HULL_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            effectButtonType = { name = br_fleet_regen position = { x = 15 y = 80 } size = { width = 220 height = 28 } buttonText = "BR_FLEET_HERO_REGEN_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            effectButtonType = { name = br_fleet_armor position = { x = 15 y = 120 } size = { width = 220 height = 28 } buttonText = "BR_FLEET_HERO_ARMOR_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            effectButtonType = { name = br_fleet_speed position = { x = 15 y = 160 } size = { width = 220 height = 28 } buttonText = "BR_FLEET_HERO_SPEED_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            # ── 舰队页 — 右：消耗品限时 ──
+            effectButtonType = {
+                name = br_fleet_right_bg
+                position = { x = 465 y = 0 }
+                size = { width = 479 height = 610 }
+                spriteType = "GFX_tiles_dark_area_cut_8"
+                effect = br_level_ui_tab_fleet_active
+            }
+            effectButtonType = {
+                name = br_fleet_right_title
+                position = { x = 475 y = 8 }
+                size = { width = 459 height = 24 }
+                buttonText = "BR_FLEET_SECTION_CONSUMABLE"
+                buttonFont = "malgun_goth_24"
+                format = left
+                alwaysTransparent = yes
+                effect = br_level_ui_tab_fleet_active
+            }
+            effectButtonType = { name = br_fleet_combat_focus position = { x = 480 y = 40 } size = { width = 440 height = 28 } buttonText = "BR_FLEET_COMBAT_FOCUS_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            effectButtonType = { name = br_fleet_emergency_prot position = { x = 480 y = 80 } size = { width = 440 height = 28 } buttonText = "BR_FLEET_EMERGENCY_PROT_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            effectButtonType = { name = br_fleet_overload position = { x = 480 y = 120 } size = { width = 440 height = 28 } buttonText = "BR_FLEET_OVERLOAD_BTN" buttonFont = "cg_16b" format = left effect = br_ui_placeholder_fleet }
+            # 统计（占位）
             effectButtonType = {
                 name = br_content_stats
                 position = { x = 0 y = 0 }
@@ -341,67 +506,77 @@ guiTypes = {
                 effect = br_level_ui_tab_stats_active
                 alwaysTransparent = yes
             }
-            # 预留功能（占位）
+            # 其他（占位）
             effectButtonType = {
-                name = br_content_extra
+                name = br_content_other
                 position = { x = 0 y = 0 }
                 size = { width = 944 height = 610 }
-                buttonText = "BR_LEVEL_UI_TAB_EXTRA_CONTENT"
+                buttonText = "BR_LEVEL_UI_TAB_OTHER_CONTENT"
                 buttonFont = "cg_16b"
                 format = left
                 vertical_alignment = top
-                effect = br_level_ui_tab_extra_active
+                effect = br_level_ui_tab_other_active
                 alwaysTransparent = yes
             }
         }
 
         # ═══════════════════════════════════════════════════════════════
-        # 底部标签栏（4个按钮，当前页禁用）
+        # 底部标签栏（5个按钮，当前页禁用）
         # ═══════════════════════════════════════════════════════════════
         containerWindowType = {
             name = "tab_bar"
-            position = { x = 50 y = 654 }
+            position = { x = 50 y = 670 }
             size = { width = 824 height = 34 }
 
             effectButtonType = {
                 name = br_tab_overview
                 position = { x = 0 y = 0 }
-                size = { width = 200 height = 34 }
-                quadTextureSprite = "GFX_standard_button_116_34"
+                # size 由 quadTextureSprite 纹理决定，此处设置无效
+                quadTextureSprite = "GFX_expedition_log_tab"
                 buttonText = "BR_LEVEL_UI_TAB_OVERVIEW"
                 buttonFont = "cg_16b"
                 format = center
                 effect = br_level_ui_tab_overview
             }
             effectButtonType = {
-                name = br_tab_rewards
-                position = { x = 200 y = 0 }
-                size = { width = 200 height = 34 }
-                quadTextureSprite = "GFX_standard_button_116_34"
-                buttonText = "BR_LEVEL_UI_TAB_REWARDS"
+                name = br_tab_logistics
+                position = { x = 160 y = 0 }
+                # size 由 quadTextureSprite 纹理决定，此处设置无效
+                quadTextureSprite = "GFX_expedition_log_tab"
+                buttonText = "BR_LEVEL_UI_TAB_LOGISTICS"
                 buttonFont = "cg_16b"
                 format = center
-                effect = br_level_ui_tab_rewards
+                effect = br_level_ui_tab_logistics
+            }
+            effectButtonType = {
+                name = br_tab_fleet
+                position = { x = 320 y = 0 }
+                # size 由 quadTextureSprite 纹理决定，此处设置无效
+                quadTextureSprite = "GFX_expedition_log_tab"
+                buttonText = "BR_LEVEL_UI_TAB_FLEET"
+                buttonFont = "cg_16b"
+                format = center
+                effect = br_level_ui_tab_fleet
             }
             effectButtonType = {
                 name = br_tab_stats
-                position = { x = 400 y = 0 }
-                size = { width = 200 height = 34 }
-                quadTextureSprite = "GFX_standard_button_116_34"
+                position = { x = 480 y = 0 }
+                # size 由 quadTextureSprite 纹理决定，此处设置无效
+                quadTextureSprite = "GFX_expedition_log_tab"
                 buttonText = "BR_LEVEL_UI_TAB_STATS"
                 buttonFont = "cg_16b"
                 format = center
                 effect = br_level_ui_tab_stats
             }
             effectButtonType = {
-                name = br_tab_extra
-                position = { x = 600 y = 0 }
-                size = { width = 200 height = 34 }
-                quadTextureSprite = "GFX_standard_button_116_34"
-                buttonText = "BR_LEVEL_UI_TAB_EXTRA"
+                name = br_tab_other
+                position = { x = 640 y = 0 }
+                # size 由 quadTextureSprite 纹理决定，此处设置无效
+                quadTextureSprite = "GFX_expedition_log_tab"
+                buttonText = "BR_LEVEL_UI_TAB_OTHER"
                 buttonFont = "cg_16b"
                 format = center
-                effect = br_level_ui_tab_extra
+                effect = br_level_ui_tab_other
             }
         }
 
@@ -466,7 +641,11 @@ guiTypes = {
             }
         }
 
-        iconType = { name = "empire_info_bg" spriteType = "GFX_diplomacy_dark_fade_bg" position = { x = -1130 y = -1140 } }
+        iconType = {
+            name = "empire_info_bg"
+            spriteType = "GFX_diplomacy_dark_fade_bg"
+            position = { x = -1130 y = -1140 }
+        }
         instantTextBoxType = { name = "empire_name" font = "malgun_goth_24" position = { x = -1120 y = -1125 } }
         instantTextBoxType = { name = "empire_government_type" font = "cg_16b" position = { x = -1120 y = -1125 } }
         instantTextBoxType = { name = "empire_personality_type" font = "cg_16b" position = { x = -1120 y = -1125 } }

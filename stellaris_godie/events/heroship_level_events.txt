@@ -7,16 +7,16 @@ namespace = heroship
 
 # 英雄等级经验阈值
 @br_xp_level_2 = 10
-@br_xp_level_3 = 40
-@br_xp_level_4 = 110
-@br_xp_level_5 = 240
-@br_xp_level_6 = 460
-@br_xp_level_7 = 810
-@br_xp_level_8 = 1330
-@br_xp_level_9 = 2080
-@br_xp_level_10 = 3130
-@br_xp_level_11 = 4630
-@br_xp_level_12 = 6830
+@br_xp_level_3 = 30
+@br_xp_level_4 = 70
+@br_xp_level_5 = 130
+@br_xp_level_6 = 220
+@br_xp_level_7 = 350
+@br_xp_level_8 = 520
+@br_xp_level_9 = 750
+@br_xp_level_10 = 1050
+@br_xp_level_11 = 1500
+@br_xp_level_12 = 2200
 # 12 级后无限成长
 @br_xp_next_12 = 5000
 
@@ -85,68 +85,108 @@ country_event = {
         # 保存旧等级用于比较
         set_variable = { which = br_hero_level_prev value = br_hero_level }
 
-        # 根据经验计算当前等级
+        # 逐级升级：每个 if 是独立的，允许多级连升
+        # 等级 1→2
         if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_12 } }
-            set_variable = { which = br_hero_level value = 12 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_next_12 }
+            limit = {
+                check_variable = { which = br_hero_level value = 1 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_2 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_2 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_11 } }
-            set_variable = { which = br_hero_level value = 11 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_12 }
+        # 等级 2→3
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 2 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_3 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_3 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_10 } }
-            set_variable = { which = br_hero_level value = 10 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_11 }
+        # 等级 3→4
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 3 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_4 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_4 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_9 } }
-            set_variable = { which = br_hero_level value = 9 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_10 }
+        # 等级 4→5
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 4 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_5 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_5 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_8 } }
-            set_variable = { which = br_hero_level value = 8 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_9 }
+        # 等级 5→6
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 5 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_6 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_6 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_7 } }
-            set_variable = { which = br_hero_level value = 7 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_8 }
+        # 等级 6→7
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 6 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_7 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_7 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_6 } }
-            set_variable = { which = br_hero_level value = 6 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_7 }
+        # 等级 7→8
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 7 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_8 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_8 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_5 } }
-            set_variable = { which = br_hero_level value = 5 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_6 }
+        # 等级 8→9
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 8 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_9 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_9 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_4 } }
-            set_variable = { which = br_hero_level value = 4 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_5 }
+        # 等级 9→10
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 9 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_10 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_10 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_3 } }
-            set_variable = { which = br_hero_level value = 3 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_4 }
+        # 等级 10→11
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 10 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_11 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_11 }
+            change_variable = { which = br_hero_level value = 1 }
         }
-        else_if = {
-            limit = { check_variable = { which = br_hero_xp value >= @br_xp_level_2 } }
-            set_variable = { which = br_hero_level value = 2 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_3 }
-        }
-        else = {
-            set_variable = { which = br_hero_level value = 1 }
-            set_variable = { which = br_hero_xp_next value = @br_xp_level_2 }
+        # 等级 11→12
+        if = {
+            limit = {
+                check_variable = { which = br_hero_level value = 11 }
+                check_variable = { which = br_hero_xp value >= @br_xp_level_12 }
+            }
+            subtract_variable = { which = br_hero_xp value = @br_xp_level_12 }
+            change_variable = { which = br_hero_level value = 1 }
         }
 
-        # 12级后无限成长：每5000经验消耗并+1级
+        # 12 级后无限成长：每5000经验消耗并+1级
         if = {
             limit = { check_variable = { which = br_hero_level value >= 12 } }
             while = {
@@ -154,6 +194,55 @@ country_event = {
                 subtract_variable = { which = br_hero_xp value = @br_xp_next_12 }
                 change_variable = { which = br_hero_level value = 1 }
             }
+        }
+
+        # 设置下一级所需经验（用于UI显示）
+        if = {
+            limit = { check_variable = { which = br_hero_level value >= 12 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_next_12 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 11 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_12 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 10 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_11 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 9 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_10 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 8 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_9 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 7 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_8 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 6 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_7 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 5 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_6 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 4 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_5 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 3 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_4 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_hero_level value = 2 } }
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_3 }
+        }
+        else = {
+            set_variable = { which = br_hero_xp_next value = @br_xp_level_2 }
         }
 
         # 升级触发：当前等级 > 旧等级时弹出选择窗口
