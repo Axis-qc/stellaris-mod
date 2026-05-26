@@ -1,0 +1,326 @@
+namespace = reward
+
+# ============================================================
+# 星系探索奖励系统
+# ID 区间：reward.7001-7099
+# 玩家进入新星系时，在周边星系刷出探索奖励
+# 流程：reward.7001 → reward.7002 → reward.7010/7020 → special project → reward.7011/7021
+# ============================================================
+
+# ============================================================
+# reward.7001：入口（fleet_event）
+# 由 on_entering_system_fleet 触发，与 br.804 刷敌并行
+# 标记当前星系 → 找周边未标记星系 → 转 reward.7002 做随机
+# ============================================================
+fleet_event = {
+    id = reward.7001
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+        owner = { is_ai = no }
+        owner = { is_country_type = br_player_pve }
+    }
+
+    immediate = {
+        # 标记当前星系为已探索，防止重复触发
+        this = {
+            solar_system = {
+                if = {
+                    limit = { NOT = { has_star_flag = br_explored } }
+                    set_star_flag = br_explored
+                }
+            }
+        }
+
+        # 保存当前星系引用，找周边未标记星系
+        this = {
+            solar_system = {
+                save_global_event_target_as = br_exploration_source@owner
+
+                random_neighbor_system = {
+                    limit = {
+                        NOT = { has_star_flag = br_explored }
+                        NOT = { has_star_flag = br_player_spawn_system }
+                    }
+                    set_star_flag = br_exploration_marked
+                    save_global_event_target_as = br_exploration_target@owner
+                }
+            }
+        }
+
+        # 转给 country_event 做随机（避免 fleet_event 深层作用域限制）
+        owner = { country_event = { id = reward.7002 } }
+    }
+}
+
+# ============================================================
+# reward.7002：随机路由器（country_event）
+# 判断目标星系是否存在 → 按权重分配探索事件
+# ============================================================
+country_event = {
+    id = reward.7002
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        if = {
+            limit = { exists = event_target:br_exploration_target@root }
+            random_list = {
+                # 测试阶段：100%出星门，上线前改回 50/40/10
+                # 50 = { }
+                # 40 = { country_event = { id = reward.7010 } }
+                # 10 = { country_event = { id = reward.7020 } }
+                100 = { country_event = { id = reward.7010 } }
+            }
+        }
+    }
+}
+
+# ============================================================
+# reward.7010：在目标星系刷出星门
+# ============================================================
+country_event = {
+    id = reward.7010
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        event_target:br_exploration_target@root = {
+            create_ambient_object = {
+                type = br_wreck_ship
+                location = solar_system
+                scale = 1.0
+                entity_offset = { min = 60 max = 100 }
+                entity_offset_angle = { min = 0 max = 360 }
+                effect = {
+                    save_global_event_target_as = br_exploration_ao
+                    enable_special_project = {
+                        name = "br_exploration_wreck"
+                        location = this
+                        owner = root
+                    }
+                }
+            }
+        }
+    }
+}
+
+# ============================================================
+# reward.7011：激活星门
+# immediate 一次性确定船型、随机数量、合金单价，选项只管执行
+# ============================================================
+country_event = {
+    id = reward.7011
+    title = "REWARD_EXPLORATION_GATE_TITLE"
+    desc = "REWARD_EXPLORATION_GATE_DESC"
+    picture = GFX_evt_face_off_in_space
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        # 阶段一：科技门控随机选船型（5=泰坦 4=战列 3=巡洋 2=驱逐 1=护卫）
+        random_list = {
+            20 = {
+                set_variable = { which = br_gate_type value = 5 }
+                modifier = { factor = 0 NOT = { has_technology = tech_titans } }
+            }
+            20 = {
+                set_variable = { which = br_gate_type value = 4 }
+                modifier = { factor = 0 NOT = { has_technology = tech_battleships } }
+            }
+            20 = {
+                set_variable = { which = br_gate_type value = 3 }
+                modifier = { factor = 0 NOT = { has_technology = tech_cruisers } }
+            }
+            20 = {
+                set_variable = { which = br_gate_type value = 2 }
+                modifier = { factor = 0 NOT = { has_technology = tech_destroyers } }
+            }
+            20 = {
+                set_variable = { which = br_gate_type value = 1 }
+            }
+        }
+
+        # 阶段二：按船型确定设计、随机数量、合金单价
+        if = {
+            limit = { check_variable = { which = br_gate_type value = 5 } }
+            random_owned_design = {
+                limit = { is_ship_size = titan }
+                save_event_target_as = br_gate_design
+            }
+            set_variable = { which = br_gate_ship_count value = 1 }
+            set_variable = { which = br_gate_alloy value = 1500 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_gate_type value = 4 } }
+            random_owned_design = {
+                limit = { is_ship_size = battleship }
+                save_event_target_as = br_gate_design
+            }
+            random_list = {
+                34 = { set_variable = { which = br_gate_ship_count value = 1 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 2 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 3 } }
+            }
+            set_variable = { which = br_gate_alloy value = 800 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_gate_type value = 3 } }
+            random_owned_design = {
+                limit = { is_ship_size = cruiser }
+                save_event_target_as = br_gate_design
+            }
+            random_list = {
+                34 = { set_variable = { which = br_gate_ship_count value = 4 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 5 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 6 } }
+            }
+            set_variable = { which = br_gate_alloy value = 400 }
+        }
+        else_if = {
+            limit = { check_variable = { which = br_gate_type value = 2 } }
+            random_owned_design = {
+                limit = { is_ship_size = destroyer }
+                save_event_target_as = br_gate_design
+            }
+            random_list = {
+                34 = { set_variable = { which = br_gate_ship_count value = 7 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 8 } }
+                33 = { set_variable = { which = br_gate_ship_count value = 9 } }
+            }
+            set_variable = { which = br_gate_alloy value = 200 }
+        }
+        else = {
+            random_owned_design = {
+                limit = { is_ship_size = corvette }
+                save_event_target_as = br_gate_design
+            }
+            random_list = {
+                17 = { set_variable = { which = br_gate_ship_count value = 10 } }
+                17 = { set_variable = { which = br_gate_ship_count value = 11 } }
+                17 = { set_variable = { which = br_gate_ship_count value = 12 } }
+                17 = { set_variable = { which = br_gate_ship_count value = 13 } }
+                16 = { set_variable = { which = br_gate_ship_count value = 14 } }
+                16 = { set_variable = { which = br_gate_ship_count value = 15 } }
+            }
+            set_variable = { which = br_gate_alloy value = 100 }
+        }
+
+        # 提前算好合金总量，供 desc 和拆除 option 使用
+        set_variable = { which = br_gate_alloy_total value = br_gate_ship_count }
+        multiply_variable = { which = br_gate_alloy_total value = br_gate_alloy }
+
+        # 在目标星系刷出舰队
+        event_target:br_exploration_target@root = {
+            create_fleet = {
+                name = "BR_GATE_FLEET"
+                effect = {
+                    set_owner = root
+                    set_location = { target = event_target:br_exploration_ao distance = 30 angle = random }
+                    while = {
+                        count = root.br_gate_ship_count
+                        create_ship = {
+                            name = random
+                            design = event_target:br_gate_design
+                            graphical_culture = root
+                            effect = {
+                                #事件目标保存，供 option 效果引用（舰船名改用 scripted_loc）
+                                save_event_target_as = br_gate_fleet
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        name = "REWARD_EXPLORATION_GATE_TAKE"
+        hidden_effect = {
+            clear_variable = br_gate_ship_count
+            clear_variable = br_gate_alloy
+            clear_variable = br_gate_alloy_total
+        }
+    }
+
+    option = {
+        name = "REWARD_EXPLORATION_GATE_DISMANTLE"
+        event_target:br_gate_fleet = { destroy_fleet = this }
+        add_resource = { alloys = 1 mult = br_gate_alloy_total }
+        hidden_effect = {
+            clear_variable = br_gate_ship_count
+            clear_variable = br_gate_alloy
+            clear_variable = br_gate_alloy_total
+        }
+    }
+}
+
+# ============================================================
+# reward.7020：在目标星球刷出远古遗迹 special project
+# ============================================================
+country_event = {
+    id = reward.7020
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        event_target:br_exploration_target@root = {
+            random_system_planet = {
+                limit = {
+                    NOT = { is_planet_class = pc_gas_giant }
+                }
+                enable_special_project = {
+                    name = "br_exploration_artifact"
+                    location = this
+                    owner = root
+                }
+            }
+        }
+    }
+}
+
+# ============================================================
+# reward.7021：远古遗迹研究完成
+# TODO：内部 random_list 多分支奖励
+# ============================================================
+country_event = {
+    id = reward.7021
+    title = "REWARD_EXPLORATION_ARTIFACT_TITLE"
+    desc = "REWARD_EXPLORATION_ARTIFACT_DESC"
+    is_triggered_only = yes
+
+    trigger = {
+        has_global_flag = br_mode_pve
+    }
+
+    immediate = {
+        # TODO: internal random_list
+        # 25% 远古遗珍 → 强力 BUFF
+        # 25% 稀有科技 → 解锁一项科技
+        # 25% 虚境裂隙 → Zro + PSI 效果
+        # 25% 活体金属 → 再生 BUFF
+    }
+
+    # 占位选项（后续改为 hide_window，弹窗只做通知）
+    option = {
+        name = "REWARD_EXPLORATION_ARTIFACT_OK"
+        # TODO: 占位，后续由 immediate random_list 发奖励
+    }
+}

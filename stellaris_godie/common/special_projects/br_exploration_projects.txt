@@ -1,0 +1,28 @@
+# 探索奖励特殊项目
+# 由 reward_exploration_events.txt 通过 enable_special_project 激活
+
+# 残骸调查——玩家发现破损舰船残骸，研究后可触发 reward.7011
+special_project = {
+    key = "br_exploration_wreck"
+    cost = 0
+    days_to_research = 30
+    picture = GFX_evt_face_off_in_space
+    event_scope = country_event
+
+    on_success = {
+        country_event = { id = reward.7011 }
+    }
+}
+
+# 远古遗迹调查——玩家在星球上发现远古遗迹，研究后可触发 reward.7021
+special_project = {
+    key = "br_exploration_artifact"
+    cost = 0
+    days_to_research = 30
+    picture = GFX_evt_curator_archive
+    event_scope = country_event
+
+    on_success = {
+        country_event = { id = reward.7021 }
+    }
+}

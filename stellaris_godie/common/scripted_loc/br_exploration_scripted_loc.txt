@@ -1,0 +1,31 @@
+#文本必须有一个保底显示，否则会导致游戏闪退
+
+# ========================
+# 探索奖励 — 星门激活舰船名称
+# ========================
+defined_text = {
+    name = GetBRGateShipSizeName
+    random = no
+
+    text = {
+        localization_key = BR_GATE_SHIP_SIZE_TITAN
+        trigger = { check_variable = { which = br_gate_type value = 5 } }
+    }
+    text = {
+        localization_key = BR_GATE_SHIP_SIZE_BATTLESHIP
+        trigger = { check_variable = { which = br_gate_type value = 4 } }
+    }
+    text = {
+        localization_key = BR_GATE_SHIP_SIZE_CRUISER
+        trigger = { check_variable = { which = br_gate_type value = 3 } }
+    }
+    text = {
+        localization_key = BR_GATE_SHIP_SIZE_DESTROYER
+        trigger = { check_variable = { which = br_gate_type value = 2 } }
+    }
+    text = {
+        localization_key = BR_GATE_SHIP_SIZE_CORVETTE
+        trigger = { check_variable = { which = br_gate_type value = 1 } }
+    }
+    default = ""
+}
