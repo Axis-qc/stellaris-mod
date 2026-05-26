@@ -1,0 +1,28 @@
+# ============================================================
+# 探索奖励系统触发条件
+# ============================================================
+# 行星白名单：适合放置舰船库/远古遗迹的行星类型
+# 排除：恒星、气态巨行星、冰巨行星、小行星、环世界、栖息地等
+br_is_valid_exploration_planet = {
+	OR = {
+		# 荒芜类
+		is_planet_class = pc_barren
+		is_planet_class = pc_barren_cold
+		# 极端环境
+		is_planet_class = pc_toxic
+		is_planet_class = pc_frozen
+		is_planet_class = pc_molten
+		# 宜居类
+		is_planet_class = pc_desert
+		is_planet_class = pc_tropical
+		is_planet_class = pc_ocean
+		is_planet_class = pc_continental
+		is_planet_class = pc_alpine
+		is_planet_class = pc_savannah
+		is_planet_class = pc_tundra
+		is_planet_class = pc_arctic
+		# 特殊
+		is_planet_class = pc_nuked
+		is_planet_class = pc_gaia
+	}
+}
