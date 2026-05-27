@@ -1,0 +1,11 @@
+{
+	"hooks": {
+		"UserPromptSubmit": [
+			{
+				"type": "command",
+				"command": "powershell -NoProfile -Command \"Write-Output '{\\\"systemMessage\\\":\\\"提醒：用户发送了新消息，请先使用 MCP search_memory 搜索与当前任务相关的记忆，基于已有记忆进行工作。\\\"}'\"",
+				"timeout": 10
+			}
+		]
+	}
+}

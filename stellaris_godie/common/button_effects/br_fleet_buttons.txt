@@ -1,0 +1,49 @@
+################################### 舰队页 — 消耗品使用 ###################################
+
+br_fleet_use_combat_focus = {
+	potential = {
+		from = {
+			check_variable = { which = br_fleet_combat_focus_count value > 0 }
+		}
+	}
+	allow = { always = yes }
+	effect = {
+		from = {
+			change_variable = { which = br_fleet_combat_focus_count value = -1 }
+			# 战斗专注：伤害+30%，持续15天
+			add_modifier = { modifier = br_fleet_combat_focus days = 15 }
+		}
+	}
+}
+
+br_fleet_use_emergency_prot = {
+	potential = {
+		from = {
+			check_variable = { which = br_fleet_emergency_prot_count value > 0 }
+		}
+	}
+	allow = { always = yes }
+	effect = {
+		from = {
+			change_variable = { which = br_fleet_emergency_prot_count value = -1 }
+			# 紧急保护：护盾+50%，持续10天
+			add_modifier = { modifier = br_fleet_emergency_prot days = 10 }
+		}
+	}
+}
+
+br_fleet_use_overload = {
+	potential = {
+		from = {
+			check_variable = { which = br_fleet_overload_count value > 0 }
+		}
+	}
+	allow = { always = yes }
+	effect = {
+		from = {
+			change_variable = { which = br_fleet_overload_count value = -1 }
+			# 超载：全属性+20%，持续7天
+			add_modifier = { modifier = br_fleet_overload days = 7 }
+		}
+	}
+}

@@ -1,0 +1,456 @@
+################################### 后勤页 — 资源选择按钮 ###################################
+# 选择目标资源：设置变量 br_logistics_target
+# 1=能量 2=矿物 3=食物 4=消费品 5=合金 6=凝聚力 7=贸易
+# 8=易爆微粒 9=异星气体 10=稀有水晶 11=暗物质 12=活金属 13=零点 14=纳米
+
+br_logistics_select_energy = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 1 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 1 }
+			}
+		}
+	}
+}
+
+br_logistics_select_mineral = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 2 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 2 }
+			}
+		}
+	}
+}
+
+br_logistics_select_food = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 3 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 3 }
+			}
+		}
+	}
+}
+
+br_logistics_select_cg = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 4 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 4 }
+			}
+		}
+	}
+}
+
+br_logistics_select_alloy = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 5 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 5 }
+			}
+		}
+	}
+}
+
+br_logistics_select_unity = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 6 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 6 }
+			}
+		}
+	}
+}
+
+br_logistics_select_trade = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 7 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 7 }
+			}
+		}
+	}
+}
+
+br_logistics_select_motes = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 8 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 8 }
+			}
+		}
+	}
+}
+
+br_logistics_select_gas = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 9 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 9 }
+			}
+		}
+	}
+}
+
+br_logistics_select_crystal = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 10 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 10 }
+			}
+		}
+	}
+}
+
+br_logistics_select_dark_matter = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 11 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 11 }
+			}
+		}
+	}
+}
+
+br_logistics_select_living_metal = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 12 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 12 }
+			}
+		}
+	}
+}
+
+br_logistics_select_zro = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 13 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 13 }
+			}
+		}
+	}
+}
+
+br_logistics_select_nanites = {
+	potential = {
+		from = { check_variable = { which = br_level_ui_tab value = 2 } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_ALREADY_SELECTED
+			from = {
+				NOT = { check_variable = { which = br_logistics_target value = 14 } }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_SELECT_TOOLTIP
+		hidden_effect = {
+			from = {
+				set_variable = { which = br_logistics_target value = 14 }
+			}
+		}
+	}
+}
+
+################################### 后勤页 — 兑换数量调整 ###################################
+# +/- 按钮调整兑换数量，步长100
+
+br_logistics_decrease_amount = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 2 }
+			check_variable = { which = br_logistics_target value > 0 }
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_MIN_AMOUNT
+			from = {
+				check_variable = { which = br_log_exchange_amount value > 100 }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_ADJUST_TOOLTIP
+		hidden_effect = {
+			from = {
+				change_variable = { which = br_log_exchange_amount value = -100 }
+				change_variable = { which = br_log_exchange_yield value = -1 }
+			}
+		}
+	}
+}
+
+br_logistics_increase_amount = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 2 }
+			check_variable = { which = br_logistics_target value > 0 }
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_NOT_ENOUGH_XP
+			from = {
+				check_variable = { which = br_combat_score value >= 100 }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_ADJUST_TOOLTIP
+		hidden_effect = {
+			from = {
+				change_variable = { which = br_log_exchange_amount value = 100 }
+				change_variable = { which = br_log_exchange_yield value = 1 }
+			}
+		}
+	}
+}
+
+################################### 后勤页 — 确认兑换 ###################################
+# 消耗经验，永久增加对应资源月产出变量 br_reward_*_income
+# 兑换数量由 br_log_exchange_amount 控制
+
+br_logistics_confirm_exchange = {
+	potential = {
+		from = {
+			check_variable = { which = br_level_ui_tab value = 2 }
+			check_variable = { which = br_logistics_target value > 0 }
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LOG_NOT_ENOUGH_XP
+			from = {
+				check_variable = { which = br_combat_score value >= br_log_exchange_amount }
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = BR_LOG_CONFIRM_TOOLTIP
+		hidden_effect = {
+			from = {
+				# 扣除经验：先取负值再加
+				set_variable = { which = br_tmp_cost value = br_log_exchange_amount }
+				multiply_variable = { which = br_tmp_cost value = -1 }
+				change_variable = { which = br_combat_score value = br_tmp_cost }
+				# 根据 br_logistics_target 增加对应资源（使用 br_log_exchange_yield）
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 1 } }
+					change_variable = { which = br_reward_energy_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 2 } }
+					change_variable = { which = br_reward_mineral_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 3 } }
+					change_variable = { which = br_reward_food_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 4 } }
+					change_variable = { which = br_reward_cg_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 5 } }
+					change_variable = { which = br_reward_alloy_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 6 } }
+					change_variable = { which = br_reward_unity_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 7 } }
+					change_variable = { which = br_reward_trade_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 8 } }
+					change_variable = { which = br_reward_motes_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 9 } }
+					change_variable = { which = br_reward_gas_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 10 } }
+					change_variable = { which = br_reward_crystal_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 11 } }
+					change_variable = { which = br_reward_dark_matter_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 12 } }
+					change_variable = { which = br_reward_living_metal_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 13 } }
+					change_variable = { which = br_reward_zro_income value = br_log_exchange_yield }
+				}
+				if = {
+					limit = { check_variable = { which = br_logistics_target value = 14 } }
+					change_variable = { which = br_reward_nanites_income value = br_log_exchange_yield }
+				}
+			}
+		}
+	}
+}
