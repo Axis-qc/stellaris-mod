@@ -1,206 +1,368 @@
 # 英雄舰技能切换按钮 — 国家作用域
 # allow 查对方技能的 _unlocked flag，点过一次后两边互通
-
 # ── 主动技能 slot 1 ──
 br_level_ui_active_slot1 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_active_slot_1 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_barrier_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_weakness_scan_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_active_slot_2
-                set_country_flag = br_skill_active_slot_1
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_barrier_unlocked set_country_flag = br_skill_phase_shift_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_weakness_scan_unlocked set_country_flag = br_skill_energy_overclock_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			#条件不满足时显示文本
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 2
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 2
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_active_slot_1
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_active_slot_2
+				set_country_flag = br_skill_active_slot_1
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_barrier_unlocked
+					set_country_flag = br_skill_phase_shift_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_weakness_scan_unlocked
+					set_country_flag = br_skill_energy_overclock_unlocked
+				}
+			}
+		}
+	}
 }
 
 # ── 主动技能 slot 2 ──
 br_level_ui_active_slot2 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_active_slot_2 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_phase_shift_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_energy_overclock_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_active_slot_1
-                set_country_flag = br_skill_active_slot_2
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_phase_shift_unlocked set_country_flag = br_skill_barrier_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_energy_overclock_unlocked set_country_flag = br_skill_weakness_scan_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 2
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 2
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_active_slot_2
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_active_slot_1
+				set_country_flag = br_skill_active_slot_2
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_phase_shift_unlocked
+					set_country_flag = br_skill_barrier_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_energy_overclock_unlocked
+					set_country_flag = br_skill_weakness_scan_unlocked
+				}
+			}
+		}
+	}
 }
 
 # ── 被动技能 slot 1 ──
 br_level_ui_passive_slot1 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_passive_slot_1 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_field_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_kill_stack_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_passive_slot_2
-                set_country_flag = br_skill_passive_slot_1
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_field_unlocked set_country_flag = br_skill_structure_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_kill_stack_unlocked set_country_flag = br_skill_combat_stack_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 4
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 4
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_passive_slot_1
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_passive_slot_2
+				set_country_flag = br_skill_passive_slot_1
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_field_unlocked
+					set_country_flag = br_skill_structure_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_kill_stack_unlocked
+					set_country_flag = br_skill_combat_stack_unlocked
+				}
+			}
+		}
+	}
 }
 
 # ── 被动技能 slot 2 ──
 br_level_ui_passive_slot2 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_passive_slot_2 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_structure_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_combat_stack_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_passive_slot_1
-                set_country_flag = br_skill_passive_slot_2
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_structure_unlocked set_country_flag = br_skill_field_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_combat_stack_unlocked set_country_flag = br_skill_kill_stack_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 4
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 4
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_passive_slot_2
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_passive_slot_1
+				set_country_flag = br_skill_passive_slot_2
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_structure_unlocked
+					set_country_flag = br_skill_field_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_combat_stack_unlocked
+					set_country_flag = br_skill_kill_stack_unlocked
+				}
+			}
+		}
+	}
 }
 
 # ── 旗舰超载 slot 1 ──
 br_level_ui_ultimate_slot1 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_ultimate_slot_1 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_projection_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_final_volley_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_ultimate_slot_2
-                set_country_flag = br_skill_ultimate_slot_1
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_projection_unlocked set_country_flag = br_skill_collapse_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_final_volley_unlocked set_country_flag = br_skill_fullfire_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 6
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 6
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_ultimate_slot_1
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_ultimate_slot_2
+				set_country_flag = br_skill_ultimate_slot_1
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_projection_unlocked
+					set_country_flag = br_skill_collapse_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_final_volley_unlocked
+					set_country_flag = br_skill_fullfire_unlocked
+				}
+			}
+		}
+	}
 }
 
 # ── 旗舰超载 slot 2 ──
 br_level_ui_ultimate_slot2 = {
-    potential = {
-        from = {
-            check_variable = { which = br_level_ui_tab value = 1 }
-        }
-    }
-    allow = {
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
-            from = { NOT = { has_country_flag = br_skill_ultimate_slot_2 } }
-        }
-        custom_tooltip = {
-            fail_text = BR_LEVEL_UI_SKILL_LOCKED
-            from = {
-                OR = {
-                    AND = { has_country_flag = br_hero_core_defense has_country_flag = br_skill_collapse_unlocked }
-                    AND = { has_country_flag = br_hero_core_power has_country_flag = br_skill_fullfire_unlocked }
-                }
-            }
-        }
-    }
-    effect = {
-        hidden_effect = {
-            from = {
-                remove_country_flag = br_skill_ultimate_slot_1
-                set_country_flag = br_skill_ultimate_slot_2
-                if = { limit = { has_country_flag = br_hero_core_defense } remove_country_flag = br_skill_collapse_unlocked set_country_flag = br_skill_projection_unlocked }
-                if = { limit = { has_country_flag = br_hero_core_power } remove_country_flag = br_skill_fullfire_unlocked set_country_flag = br_skill_final_volley_unlocked }
-            }
-        }
-    }
+	potential = {
+		from = {
+			check_variable = {
+				which = br_level_ui_tab
+				value = 1
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_LOCKED
+			from = {
+				check_variable = {
+					which = br_hero_level
+					value >= 6
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = BR_LEVEL_UI_SKILL_FAIL_TT
+			from = {
+				OR = {
+					NOT = {
+						check_variable = {
+							which = br_hero_level
+							value >= 6
+						}
+					}
+					NOT = {
+						has_country_flag = br_skill_ultimate_slot_2
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			from = {
+				remove_country_flag = br_skill_ultimate_slot_1
+				set_country_flag = br_skill_ultimate_slot_2
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_defense
+					}
+					remove_country_flag = br_skill_collapse_unlocked
+					set_country_flag = br_skill_projection_unlocked
+				}
+				if = {
+					limit = {
+						has_country_flag = br_hero_core_power
+					}
+					remove_country_flag = br_skill_fullfire_unlocked
+					set_country_flag = br_skill_final_volley_unlocked
+				}
+			}
+		}
+	}
 }

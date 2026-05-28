@@ -1,1136 +1,1652 @@
 namespace = br
 #缩圈系统
-# 事件ID区间：300-399。新增或修改事件ID不得超出此区间喵
-# br.300：按当前缩圈设置收缩安全区，并安排下一轮缩圈喵
+# 事件ID区间：300-399。新增或修改事件ID不得超出此区间
+# br.300：按当前缩圈设置收缩安全区，并安排下一轮缩圈
 country_event = {
-    id = br.300
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        NOT = { has_global_flag = br_cycle_resetting }
-        NOT = { has_global_flag = br_shrink_paused }
-    }
-
-    immediate = {
-
-        change_variable = {
-            which = br_shrink_count
-            value = 1
-        }
-
-        if = {
-            limit = { has_global_flag = br_safe_100 }
-            remove_global_flag = br_safe_100
-            set_global_flag = br_safe_99
-
-            every_system = {
-                limit = { has_star_flag = br_ring_100 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_100 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_99 }
-            remove_global_flag = br_safe_99
-            set_global_flag = br_safe_98
-
-            every_system = {
-                limit = { has_star_flag = br_ring_99 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_99 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_98 }
-            remove_global_flag = br_safe_98
-            set_global_flag = br_safe_97
-
-            every_system = {
-                limit = { has_star_flag = br_ring_98 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_98 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_97 }
-            remove_global_flag = br_safe_97
-            set_global_flag = br_safe_96
-
-            every_system = {
-                limit = { has_star_flag = br_ring_97 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_97 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_96 }
-            remove_global_flag = br_safe_96
-            set_global_flag = br_safe_95
-
-            every_system = {
-                limit = { has_star_flag = br_ring_96 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_96 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_95 }
-            remove_global_flag = br_safe_95
-            set_global_flag = br_safe_94
-
-            every_system = {
-                limit = { has_star_flag = br_ring_95 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_95 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_94 }
-            remove_global_flag = br_safe_94
-            set_global_flag = br_safe_93
-
-            every_system = {
-                limit = { has_star_flag = br_ring_94 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_94 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_93 }
-            remove_global_flag = br_safe_93
-            set_global_flag = br_safe_92
-
-            every_system = {
-                limit = { has_star_flag = br_ring_93 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_93 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_92 }
-            remove_global_flag = br_safe_92
-            set_global_flag = br_safe_91
-
-            every_system = {
-                limit = { has_star_flag = br_ring_92 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_92 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_91 }
-            remove_global_flag = br_safe_91
-            set_global_flag = br_safe_90
-
-            every_system = {
-                limit = { has_star_flag = br_ring_91 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_91 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_90 }
-            remove_global_flag = br_safe_90
-            set_global_flag = br_safe_89
-
-            every_system = {
-                limit = { has_star_flag = br_ring_90 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_90 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_89 }
-            remove_global_flag = br_safe_89
-            set_global_flag = br_safe_88
-
-            every_system = {
-                limit = { has_star_flag = br_ring_89 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_89 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_88 }
-            remove_global_flag = br_safe_88
-            set_global_flag = br_safe_87
-
-            every_system = {
-                limit = { has_star_flag = br_ring_88 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_88 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_87 }
-            remove_global_flag = br_safe_87
-            set_global_flag = br_safe_86
-
-            every_system = {
-                limit = { has_star_flag = br_ring_87 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_87 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_86 }
-            remove_global_flag = br_safe_86
-            set_global_flag = br_safe_85
-
-            every_system = {
-                limit = { has_star_flag = br_ring_86 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_86 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_85 }
-            remove_global_flag = br_safe_85
-            set_global_flag = br_safe_84
-
-            every_system = {
-                limit = { has_star_flag = br_ring_85 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_85 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_84 }
-            remove_global_flag = br_safe_84
-            set_global_flag = br_safe_83
-
-            every_system = {
-                limit = { has_star_flag = br_ring_84 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_84 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_83 }
-            remove_global_flag = br_safe_83
-            set_global_flag = br_safe_82
-
-            every_system = {
-                limit = { has_star_flag = br_ring_83 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_83 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_82 }
-            remove_global_flag = br_safe_82
-            set_global_flag = br_safe_81
-
-            every_system = {
-                limit = { has_star_flag = br_ring_82 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_82 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_81 }
-            remove_global_flag = br_safe_81
-            set_global_flag = br_safe_80
-
-            every_system = {
-                limit = { has_star_flag = br_ring_81 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_81 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_80 }
-            remove_global_flag = br_safe_80
-            set_global_flag = br_safe_79
-
-            every_system = {
-                limit = { has_star_flag = br_ring_80 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_80 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_79 }
-            remove_global_flag = br_safe_79
-            set_global_flag = br_safe_78
-
-            every_system = {
-                limit = { has_star_flag = br_ring_79 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_79 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_78 }
-            remove_global_flag = br_safe_78
-            set_global_flag = br_safe_77
-
-            every_system = {
-                limit = { has_star_flag = br_ring_78 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_78 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_77 }
-            remove_global_flag = br_safe_77
-            set_global_flag = br_safe_76
-
-            every_system = {
-                limit = { has_star_flag = br_ring_77 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_77 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_76 }
-            remove_global_flag = br_safe_76
-            set_global_flag = br_safe_75
-
-            every_system = {
-                limit = { has_star_flag = br_ring_76 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_76 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_75 }
-            remove_global_flag = br_safe_75
-            set_global_flag = br_safe_74
-
-            every_system = {
-                limit = { has_star_flag = br_ring_75 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_75 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_74 }
-            remove_global_flag = br_safe_74
-            set_global_flag = br_safe_73
-
-            every_system = {
-                limit = { has_star_flag = br_ring_74 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_74 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_73 }
-            remove_global_flag = br_safe_73
-            set_global_flag = br_safe_72
-
-            every_system = {
-                limit = { has_star_flag = br_ring_73 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_73 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_72 }
-            remove_global_flag = br_safe_72
-            set_global_flag = br_safe_71
-
-            every_system = {
-                limit = { has_star_flag = br_ring_72 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_72 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_71 }
-            remove_global_flag = br_safe_71
-            set_global_flag = br_safe_70
-
-            every_system = {
-                limit = { has_star_flag = br_ring_71 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_71 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_70 }
-            remove_global_flag = br_safe_70
-            set_global_flag = br_safe_69
-
-            every_system = {
-                limit = { has_star_flag = br_ring_70 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_70 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_69 }
-            remove_global_flag = br_safe_69
-            set_global_flag = br_safe_68
-
-            every_system = {
-                limit = { has_star_flag = br_ring_69 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_69 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_68 }
-            remove_global_flag = br_safe_68
-            set_global_flag = br_safe_67
-
-            every_system = {
-                limit = { has_star_flag = br_ring_68 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_68 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_67 }
-            remove_global_flag = br_safe_67
-            set_global_flag = br_safe_66
-
-            every_system = {
-                limit = { has_star_flag = br_ring_67 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_67 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_66 }
-            remove_global_flag = br_safe_66
-            set_global_flag = br_safe_65
-
-            every_system = {
-                limit = { has_star_flag = br_ring_66 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_66 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_65 }
-            remove_global_flag = br_safe_65
-            set_global_flag = br_safe_64
-
-            every_system = {
-                limit = { has_star_flag = br_ring_65 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_65 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_64 }
-            remove_global_flag = br_safe_64
-            set_global_flag = br_safe_63
-
-            every_system = {
-                limit = { has_star_flag = br_ring_64 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_64 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_63 }
-            remove_global_flag = br_safe_63
-            set_global_flag = br_safe_62
-
-            every_system = {
-                limit = { has_star_flag = br_ring_63 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_63 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_62 }
-            remove_global_flag = br_safe_62
-            set_global_flag = br_safe_61
-
-            every_system = {
-                limit = { has_star_flag = br_ring_62 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_62 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_61 }
-            remove_global_flag = br_safe_61
-            set_global_flag = br_safe_60
-
-            every_system = {
-                limit = { has_star_flag = br_ring_61 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_61 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_60 }
-            remove_global_flag = br_safe_60
-            set_global_flag = br_safe_59
-
-            every_system = {
-                limit = { has_star_flag = br_ring_60 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_60 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_59 }
-            remove_global_flag = br_safe_59
-            set_global_flag = br_safe_58
-
-            every_system = {
-                limit = { has_star_flag = br_ring_59 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_59 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_58 }
-            remove_global_flag = br_safe_58
-            set_global_flag = br_safe_57
-
-            every_system = {
-                limit = { has_star_flag = br_ring_58 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_58 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_57 }
-            remove_global_flag = br_safe_57
-            set_global_flag = br_safe_56
-
-            every_system = {
-                limit = { has_star_flag = br_ring_57 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_57 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_56 }
-            remove_global_flag = br_safe_56
-            set_global_flag = br_safe_55
-
-            every_system = {
-                limit = { has_star_flag = br_ring_56 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_56 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_55 }
-            remove_global_flag = br_safe_55
-            set_global_flag = br_safe_54
-
-            every_system = {
-                limit = { has_star_flag = br_ring_55 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_55 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_54 }
-            remove_global_flag = br_safe_54
-            set_global_flag = br_safe_53
-
-            every_system = {
-                limit = { has_star_flag = br_ring_54 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_54 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_53 }
-            remove_global_flag = br_safe_53
-            set_global_flag = br_safe_52
-
-            every_system = {
-                limit = { has_star_flag = br_ring_53 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_53 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_52 }
-            remove_global_flag = br_safe_52
-            set_global_flag = br_safe_51
-
-            every_system = {
-                limit = { has_star_flag = br_ring_52 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_52 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_51 }
-            remove_global_flag = br_safe_51
-            set_global_flag = br_safe_50
-
-            every_system = {
-                limit = { has_star_flag = br_ring_51 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_51 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_50 }
-            remove_global_flag = br_safe_50
-            set_global_flag = br_safe_49
-
-            every_system = {
-                limit = { has_star_flag = br_ring_50 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_50 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_49 }
-            remove_global_flag = br_safe_49
-            set_global_flag = br_safe_48
-
-            every_system = {
-                limit = { has_star_flag = br_ring_49 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_49 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_48 }
-            remove_global_flag = br_safe_48
-            set_global_flag = br_safe_47
-
-            every_system = {
-                limit = { has_star_flag = br_ring_48 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_48 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_47 }
-            remove_global_flag = br_safe_47
-            set_global_flag = br_safe_46
-
-            every_system = {
-                limit = { has_star_flag = br_ring_47 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_47 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_46 }
-            remove_global_flag = br_safe_46
-            set_global_flag = br_safe_45
-
-            every_system = {
-                limit = { has_star_flag = br_ring_46 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_46 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_45 }
-            remove_global_flag = br_safe_45
-            set_global_flag = br_safe_44
-
-            every_system = {
-                limit = { has_star_flag = br_ring_45 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_45 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_44 }
-            remove_global_flag = br_safe_44
-            set_global_flag = br_safe_43
-
-            every_system = {
-                limit = { has_star_flag = br_ring_44 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_44 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_43 }
-            remove_global_flag = br_safe_43
-            set_global_flag = br_safe_42
-
-            every_system = {
-                limit = { has_star_flag = br_ring_43 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_43 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_42 }
-            remove_global_flag = br_safe_42
-            set_global_flag = br_safe_41
-
-            every_system = {
-                limit = { has_star_flag = br_ring_42 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_42 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_41 }
-            remove_global_flag = br_safe_41
-            set_global_flag = br_safe_40
-
-            every_system = {
-                limit = { has_star_flag = br_ring_41 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_41 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_40 }
-            remove_global_flag = br_safe_40
-            set_global_flag = br_safe_39
-
-            every_system = {
-                limit = { has_star_flag = br_ring_40 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_40 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_39 }
-            remove_global_flag = br_safe_39
-            set_global_flag = br_safe_38
-
-            every_system = {
-                limit = { has_star_flag = br_ring_39 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_39 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_38 }
-            remove_global_flag = br_safe_38
-            set_global_flag = br_safe_37
-
-            every_system = {
-                limit = { has_star_flag = br_ring_38 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_38 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_37 }
-            remove_global_flag = br_safe_37
-            set_global_flag = br_safe_36
-
-            every_system = {
-                limit = { has_star_flag = br_ring_37 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_37 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_36 }
-            remove_global_flag = br_safe_36
-            set_global_flag = br_safe_35
-
-            every_system = {
-                limit = { has_star_flag = br_ring_36 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_36 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_35 }
-            remove_global_flag = br_safe_35
-            set_global_flag = br_safe_34
-
-            every_system = {
-                limit = { has_star_flag = br_ring_35 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_35 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_34 }
-            remove_global_flag = br_safe_34
-            set_global_flag = br_safe_33
-
-            every_system = {
-                limit = { has_star_flag = br_ring_34 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_34 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_33 }
-            remove_global_flag = br_safe_33
-            set_global_flag = br_safe_32
-
-            every_system = {
-                limit = { has_star_flag = br_ring_33 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_33 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_32 }
-            remove_global_flag = br_safe_32
-            set_global_flag = br_safe_31
-
-            every_system = {
-                limit = { has_star_flag = br_ring_32 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_32 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_31 }
-            remove_global_flag = br_safe_31
-            set_global_flag = br_safe_30
-
-            every_system = {
-                limit = { has_star_flag = br_ring_31 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_31 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_30 }
-            remove_global_flag = br_safe_30
-            set_global_flag = br_safe_29
-
-            every_system = {
-                limit = { has_star_flag = br_ring_30 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_30 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_29 }
-            remove_global_flag = br_safe_29
-            set_global_flag = br_safe_28
-
-            every_system = {
-                limit = { has_star_flag = br_ring_29 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_29 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_28 }
-            remove_global_flag = br_safe_28
-            set_global_flag = br_safe_27
-
-            every_system = {
-                limit = { has_star_flag = br_ring_28 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_28 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_27 }
-            remove_global_flag = br_safe_27
-            set_global_flag = br_safe_26
-
-            every_system = {
-                limit = { has_star_flag = br_ring_27 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_27 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_26 }
-            remove_global_flag = br_safe_26
-            set_global_flag = br_safe_25
-
-            every_system = {
-                limit = { has_star_flag = br_ring_26 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_26 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_25 }
-            remove_global_flag = br_safe_25
-            set_global_flag = br_safe_24
-
-            every_system = {
-                limit = { has_star_flag = br_ring_25 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_25 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_24 }
-            remove_global_flag = br_safe_24
-            set_global_flag = br_safe_23
-
-            every_system = {
-                limit = { has_star_flag = br_ring_24 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_24 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_23 }
-            remove_global_flag = br_safe_23
-            set_global_flag = br_safe_22
-
-            every_system = {
-                limit = { has_star_flag = br_ring_23 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_23 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_22 }
-            remove_global_flag = br_safe_22
-            set_global_flag = br_safe_21
-
-            every_system = {
-                limit = { has_star_flag = br_ring_22 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_22 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_21 }
-            remove_global_flag = br_safe_21
-            set_global_flag = br_safe_20
-
-            every_system = {
-                limit = { has_star_flag = br_ring_21 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_21 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_20 }
-            remove_global_flag = br_safe_20
-            set_global_flag = br_safe_19
-
-            every_system = {
-                limit = { has_star_flag = br_ring_20 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_20 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_19 }
-            remove_global_flag = br_safe_19
-            set_global_flag = br_safe_18
-
-            every_system = {
-                limit = { has_star_flag = br_ring_19 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_19 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_18 }
-            remove_global_flag = br_safe_18
-            set_global_flag = br_safe_17
-
-            every_system = {
-                limit = { has_star_flag = br_ring_18 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_18 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_17 }
-            remove_global_flag = br_safe_17
-            set_global_flag = br_safe_16
-
-            every_system = {
-                limit = { has_star_flag = br_ring_17 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_17 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_16 }
-            remove_global_flag = br_safe_16
-            set_global_flag = br_safe_15
-
-            every_system = {
-                limit = { has_star_flag = br_ring_16 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_16 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_15 }
-            remove_global_flag = br_safe_15
-            set_global_flag = br_safe_14
-
-            every_system = {
-                limit = { has_star_flag = br_ring_15 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_15 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_14 }
-            remove_global_flag = br_safe_14
-            set_global_flag = br_safe_13
-
-            every_system = {
-                limit = { has_star_flag = br_ring_14 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_14 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_13 }
-            remove_global_flag = br_safe_13
-            set_global_flag = br_safe_12
-
-            every_system = {
-                limit = { has_star_flag = br_ring_13 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_13 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_12 }
-            remove_global_flag = br_safe_12
-            set_global_flag = br_safe_11
-
-            every_system = {
-                limit = { has_star_flag = br_ring_12 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_12 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_11 }
-            remove_global_flag = br_safe_11
-            set_global_flag = br_safe_10
-
-            every_system = {
-                limit = { has_star_flag = br_ring_11 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_11 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_10 }
-            remove_global_flag = br_safe_10
-            set_global_flag = br_safe_9
-
-            every_system = {
-                limit = { has_star_flag = br_ring_10 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_10 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_9 }
-            remove_global_flag = br_safe_9
-            set_global_flag = br_safe_8
-
-            every_system = {
-                limit = { has_star_flag = br_ring_9 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_9 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_8 }
-            remove_global_flag = br_safe_8
-            set_global_flag = br_safe_7
-
-            every_system = {
-                limit = { has_star_flag = br_ring_8 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_8 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_7 }
-            remove_global_flag = br_safe_7
-            set_global_flag = br_safe_6
-
-            every_system = {
-                limit = { has_star_flag = br_ring_7 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_7 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_6 }
-            remove_global_flag = br_safe_6
-            set_global_flag = br_safe_5
-
-            every_system = {
-                limit = { has_star_flag = br_ring_6 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_6 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_5 }
-            remove_global_flag = br_safe_5
-            set_global_flag = br_safe_4
-
-            every_system = {
-                limit = { has_star_flag = br_ring_5 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_5 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_4 }
-            remove_global_flag = br_safe_4
-            set_global_flag = br_safe_3
-
-            every_system = {
-                limit = { has_star_flag = br_ring_4 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_4 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_3 }
-            remove_global_flag = br_safe_3
-            set_global_flag = br_safe_2
-
-            every_system = {
-                limit = { has_star_flag = br_ring_3 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_3 }
-            }
-        }
-        else_if = {
-            limit = { has_global_flag = br_safe_2 }
-            remove_global_flag = br_safe_2
-            set_global_flag = br_safe_1
-
-            every_system = {
-                limit = { has_star_flag = br_ring_2 }
-                set_star_flag = br_danger
-                set_name = { key = br_danger_name_2 }
-            }
-
-            event_target:battle_royale_center = {
-                set_name = { key = br_final_circle }
-            }
-        }
-
-        if = {
-            limit = { NOT = { has_global_flag = br_safe_1 } }
-
-            if = {
-                limit = { has_global_flag = br_speed_fast }
-                country_event = { id = br.300 days = 180 }
-            }
-            else_if = {
-                limit = { has_global_flag = br_speed_normal }
-                country_event = { id = br.300 days = 360 }
-            }
-            else_if = {
-                limit = { has_global_flag = br_speed_slow }
-                country_event = { id = br.300 days = 540 }
-            }
-            else = {
-                country_event = { id = br.300 days = 360 }
-            }
-        }
-    }
+	id = br.300
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_global_flag = br_cycle_resetting
+		}
+		NOT = {
+			has_global_flag = br_shrink_paused
+		}
+	}
+	immediate = {
+		change_variable = {
+			which = br_shrink_count
+			value = 1
+		}
+		if = {
+			limit = {
+				has_global_flag = br_safe_100
+			}
+			remove_global_flag = br_safe_100
+			set_global_flag = br_safe_99
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_100
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_100
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_99
+			}
+			remove_global_flag = br_safe_99
+			set_global_flag = br_safe_98
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_99
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_99
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_98
+			}
+			remove_global_flag = br_safe_98
+			set_global_flag = br_safe_97
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_98
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_98
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_97
+			}
+			remove_global_flag = br_safe_97
+			set_global_flag = br_safe_96
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_97
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_97
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_96
+			}
+			remove_global_flag = br_safe_96
+			set_global_flag = br_safe_95
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_96
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_96
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_95
+			}
+			remove_global_flag = br_safe_95
+			set_global_flag = br_safe_94
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_95
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_95
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_94
+			}
+			remove_global_flag = br_safe_94
+			set_global_flag = br_safe_93
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_94
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_94
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_93
+			}
+			remove_global_flag = br_safe_93
+			set_global_flag = br_safe_92
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_93
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_93
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_92
+			}
+			remove_global_flag = br_safe_92
+			set_global_flag = br_safe_91
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_92
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_92
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_91
+			}
+			remove_global_flag = br_safe_91
+			set_global_flag = br_safe_90
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_91
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_91
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_90
+			}
+			remove_global_flag = br_safe_90
+			set_global_flag = br_safe_89
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_90
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_90
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_89
+			}
+			remove_global_flag = br_safe_89
+			set_global_flag = br_safe_88
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_89
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_89
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_88
+			}
+			remove_global_flag = br_safe_88
+			set_global_flag = br_safe_87
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_88
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_88
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_87
+			}
+			remove_global_flag = br_safe_87
+			set_global_flag = br_safe_86
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_87
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_87
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_86
+			}
+			remove_global_flag = br_safe_86
+			set_global_flag = br_safe_85
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_86
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_86
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_85
+			}
+			remove_global_flag = br_safe_85
+			set_global_flag = br_safe_84
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_85
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_85
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_84
+			}
+			remove_global_flag = br_safe_84
+			set_global_flag = br_safe_83
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_84
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_84
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_83
+			}
+			remove_global_flag = br_safe_83
+			set_global_flag = br_safe_82
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_83
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_83
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_82
+			}
+			remove_global_flag = br_safe_82
+			set_global_flag = br_safe_81
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_82
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_82
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_81
+			}
+			remove_global_flag = br_safe_81
+			set_global_flag = br_safe_80
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_81
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_81
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_80
+			}
+			remove_global_flag = br_safe_80
+			set_global_flag = br_safe_79
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_80
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_80
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_79
+			}
+			remove_global_flag = br_safe_79
+			set_global_flag = br_safe_78
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_79
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_79
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_78
+			}
+			remove_global_flag = br_safe_78
+			set_global_flag = br_safe_77
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_78
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_78
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_77
+			}
+			remove_global_flag = br_safe_77
+			set_global_flag = br_safe_76
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_77
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_77
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_76
+			}
+			remove_global_flag = br_safe_76
+			set_global_flag = br_safe_75
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_76
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_76
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_75
+			}
+			remove_global_flag = br_safe_75
+			set_global_flag = br_safe_74
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_75
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_75
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_74
+			}
+			remove_global_flag = br_safe_74
+			set_global_flag = br_safe_73
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_74
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_74
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_73
+			}
+			remove_global_flag = br_safe_73
+			set_global_flag = br_safe_72
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_73
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_73
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_72
+			}
+			remove_global_flag = br_safe_72
+			set_global_flag = br_safe_71
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_72
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_72
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_71
+			}
+			remove_global_flag = br_safe_71
+			set_global_flag = br_safe_70
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_71
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_71
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_70
+			}
+			remove_global_flag = br_safe_70
+			set_global_flag = br_safe_69
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_70
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_70
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_69
+			}
+			remove_global_flag = br_safe_69
+			set_global_flag = br_safe_68
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_69
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_69
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_68
+			}
+			remove_global_flag = br_safe_68
+			set_global_flag = br_safe_67
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_68
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_68
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_67
+			}
+			remove_global_flag = br_safe_67
+			set_global_flag = br_safe_66
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_67
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_67
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_66
+			}
+			remove_global_flag = br_safe_66
+			set_global_flag = br_safe_65
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_66
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_66
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_65
+			}
+			remove_global_flag = br_safe_65
+			set_global_flag = br_safe_64
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_65
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_65
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_64
+			}
+			remove_global_flag = br_safe_64
+			set_global_flag = br_safe_63
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_64
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_64
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_63
+			}
+			remove_global_flag = br_safe_63
+			set_global_flag = br_safe_62
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_63
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_63
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_62
+			}
+			remove_global_flag = br_safe_62
+			set_global_flag = br_safe_61
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_62
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_62
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_61
+			}
+			remove_global_flag = br_safe_61
+			set_global_flag = br_safe_60
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_61
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_61
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_60
+			}
+			remove_global_flag = br_safe_60
+			set_global_flag = br_safe_59
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_60
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_60
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_59
+			}
+			remove_global_flag = br_safe_59
+			set_global_flag = br_safe_58
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_59
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_59
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_58
+			}
+			remove_global_flag = br_safe_58
+			set_global_flag = br_safe_57
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_58
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_58
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_57
+			}
+			remove_global_flag = br_safe_57
+			set_global_flag = br_safe_56
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_57
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_57
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_56
+			}
+			remove_global_flag = br_safe_56
+			set_global_flag = br_safe_55
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_56
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_56
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_55
+			}
+			remove_global_flag = br_safe_55
+			set_global_flag = br_safe_54
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_55
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_55
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_54
+			}
+			remove_global_flag = br_safe_54
+			set_global_flag = br_safe_53
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_54
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_54
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_53
+			}
+			remove_global_flag = br_safe_53
+			set_global_flag = br_safe_52
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_53
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_53
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_52
+			}
+			remove_global_flag = br_safe_52
+			set_global_flag = br_safe_51
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_52
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_52
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_51
+			}
+			remove_global_flag = br_safe_51
+			set_global_flag = br_safe_50
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_51
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_51
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_50
+			}
+			remove_global_flag = br_safe_50
+			set_global_flag = br_safe_49
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_50
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_50
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_49
+			}
+			remove_global_flag = br_safe_49
+			set_global_flag = br_safe_48
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_49
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_49
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_48
+			}
+			remove_global_flag = br_safe_48
+			set_global_flag = br_safe_47
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_48
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_48
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_47
+			}
+			remove_global_flag = br_safe_47
+			set_global_flag = br_safe_46
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_47
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_47
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_46
+			}
+			remove_global_flag = br_safe_46
+			set_global_flag = br_safe_45
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_46
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_46
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_45
+			}
+			remove_global_flag = br_safe_45
+			set_global_flag = br_safe_44
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_45
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_45
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_44
+			}
+			remove_global_flag = br_safe_44
+			set_global_flag = br_safe_43
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_44
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_44
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_43
+			}
+			remove_global_flag = br_safe_43
+			set_global_flag = br_safe_42
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_43
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_43
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_42
+			}
+			remove_global_flag = br_safe_42
+			set_global_flag = br_safe_41
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_42
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_42
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_41
+			}
+			remove_global_flag = br_safe_41
+			set_global_flag = br_safe_40
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_41
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_41
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_40
+			}
+			remove_global_flag = br_safe_40
+			set_global_flag = br_safe_39
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_40
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_40
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_39
+			}
+			remove_global_flag = br_safe_39
+			set_global_flag = br_safe_38
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_39
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_39
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_38
+			}
+			remove_global_flag = br_safe_38
+			set_global_flag = br_safe_37
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_38
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_38
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_37
+			}
+			remove_global_flag = br_safe_37
+			set_global_flag = br_safe_36
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_37
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_37
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_36
+			}
+			remove_global_flag = br_safe_36
+			set_global_flag = br_safe_35
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_36
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_36
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_35
+			}
+			remove_global_flag = br_safe_35
+			set_global_flag = br_safe_34
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_35
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_35
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_34
+			}
+			remove_global_flag = br_safe_34
+			set_global_flag = br_safe_33
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_34
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_34
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_33
+			}
+			remove_global_flag = br_safe_33
+			set_global_flag = br_safe_32
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_33
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_33
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_32
+			}
+			remove_global_flag = br_safe_32
+			set_global_flag = br_safe_31
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_32
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_32
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_31
+			}
+			remove_global_flag = br_safe_31
+			set_global_flag = br_safe_30
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_31
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_31
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_30
+			}
+			remove_global_flag = br_safe_30
+			set_global_flag = br_safe_29
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_30
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_30
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_29
+			}
+			remove_global_flag = br_safe_29
+			set_global_flag = br_safe_28
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_29
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_29
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_28
+			}
+			remove_global_flag = br_safe_28
+			set_global_flag = br_safe_27
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_28
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_28
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_27
+			}
+			remove_global_flag = br_safe_27
+			set_global_flag = br_safe_26
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_27
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_27
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_26
+			}
+			remove_global_flag = br_safe_26
+			set_global_flag = br_safe_25
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_26
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_26
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_25
+			}
+			remove_global_flag = br_safe_25
+			set_global_flag = br_safe_24
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_25
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_25
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_24
+			}
+			remove_global_flag = br_safe_24
+			set_global_flag = br_safe_23
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_24
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_24
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_23
+			}
+			remove_global_flag = br_safe_23
+			set_global_flag = br_safe_22
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_23
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_23
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_22
+			}
+			remove_global_flag = br_safe_22
+			set_global_flag = br_safe_21
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_22
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_22
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_21
+			}
+			remove_global_flag = br_safe_21
+			set_global_flag = br_safe_20
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_21
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_21
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_20
+			}
+			remove_global_flag = br_safe_20
+			set_global_flag = br_safe_19
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_20
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_20
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_19
+			}
+			remove_global_flag = br_safe_19
+			set_global_flag = br_safe_18
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_19
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_19
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_18
+			}
+			remove_global_flag = br_safe_18
+			set_global_flag = br_safe_17
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_18
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_18
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_17
+			}
+			remove_global_flag = br_safe_17
+			set_global_flag = br_safe_16
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_17
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_17
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_16
+			}
+			remove_global_flag = br_safe_16
+			set_global_flag = br_safe_15
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_16
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_16
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_15
+			}
+			remove_global_flag = br_safe_15
+			set_global_flag = br_safe_14
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_15
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_15
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_14
+			}
+			remove_global_flag = br_safe_14
+			set_global_flag = br_safe_13
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_14
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_14
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_13
+			}
+			remove_global_flag = br_safe_13
+			set_global_flag = br_safe_12
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_13
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_13
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_12
+			}
+			remove_global_flag = br_safe_12
+			set_global_flag = br_safe_11
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_12
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_12
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_11
+			}
+			remove_global_flag = br_safe_11
+			set_global_flag = br_safe_10
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_11
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_11
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_10
+			}
+			remove_global_flag = br_safe_10
+			set_global_flag = br_safe_9
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_10
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_10
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_9
+			}
+			remove_global_flag = br_safe_9
+			set_global_flag = br_safe_8
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_9
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_9
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_8
+			}
+			remove_global_flag = br_safe_8
+			set_global_flag = br_safe_7
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_8
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_8
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_7
+			}
+			remove_global_flag = br_safe_7
+			set_global_flag = br_safe_6
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_7
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_7
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_6
+			}
+			remove_global_flag = br_safe_6
+			set_global_flag = br_safe_5
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_6
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_6
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_5
+			}
+			remove_global_flag = br_safe_5
+			set_global_flag = br_safe_4
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_5
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_5
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_4
+			}
+			remove_global_flag = br_safe_4
+			set_global_flag = br_safe_3
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_4
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_4
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_3
+			}
+			remove_global_flag = br_safe_3
+			set_global_flag = br_safe_2
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_3
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_3
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = br_safe_2
+			}
+			remove_global_flag = br_safe_2
+			set_global_flag = br_safe_1
+			every_system = {
+				limit = {
+					has_star_flag = br_ring_2
+				}
+				set_star_flag = br_danger
+				set_name = {
+					key = br_danger_name_2
+				}
+			}
+			event_target:battle_royale_center = {
+				set_name = {
+					key = br_final_circle
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_global_flag = br_safe_1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = br_speed_fast
+				}
+				country_event = {
+					id = br.300
+					days = 180
+				}
+			}
+			else_if = {
+				limit = {
+					has_global_flag = br_speed_normal
+				}
+				country_event = {
+					id = br.300
+					days = 360
+				}
+			}
+			else_if = {
+				limit = {
+					has_global_flag = br_speed_slow
+				}
+				country_event = {
+					id = br.300
+					days = 540
+				}
+			}
+			else = {
+				country_event = {
+					id = br.300
+					days = 360
+				}
+			}
+		}
+	}
 }

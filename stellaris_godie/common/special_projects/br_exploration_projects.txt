@@ -1,16 +1,24 @@
 # 探索奖励特殊项目
 # 由 reward_exploration_events.txt 通过 enable_special_project 激活
-
 # 残骸调查——玩家发现破损舰船残骸，研究后可触发 reward.7011
+# 主宰，英雄舰可以满足条件，但是不会主动开始，只有普通舰船可以主动开始调查
 special_project = {
     key = "br_exploration_wreck"
     cost = 0
     days_to_research = 30
-    picture = GFX_evt_face_off_in_space
-    event_scope = country_event
-
+    picture = GFX_evt_inhabited_solar_system
+    event_scope = ship_event
+    requirements = {
+        fleet_power = 100
+        # shipclass_military = 1
+    }
     on_success = {
-        country_event = { id = reward.7011 }
+        #没法触发事件
+        owner = {
+            country_event = {
+                id = reward.7011
+            }
+        }
     }
 }
 
@@ -19,10 +27,16 @@ special_project = {
     key = "br_exploration_artifact"
     cost = 0
     days_to_research = 30
-    picture = GFX_evt_curator_archive
-    event_scope = country_event
-
+    picture = GFX_evt_inhabited_solar_system
+    event_scope = ship_event
+    requirements = {
+        fleet_power = 100
+    }
     on_success = {
-        country_event = { id = reward.7021 }
+        owner = {
+            country_event = {
+                id = reward.7021
+            }
+        }
     }
 }

@@ -163,7 +163,7 @@ country_event = {
 	id = reward.7011
 	title = "REWARD_EXPLORATION_GATE_TITLE"
 	desc = "REWARD_EXPLORATION_GATE_DESC"
-	picture = GFX_evt_face_off_in_space
+	picture = GFX_evt_imperial_vassal
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = br_mode_pve
@@ -429,16 +429,13 @@ country_event = {
 				effect = {
 					set_owner = root
 					set_location = event_target:br_exploration_ao
+					save_event_target_as = br_gate_fleet
 					while = {
 						count = root.br_gate_ship_count
 						create_ship = {
 							name = random
 							design = event_target:br_gate_design
 							graphical_culture = root
-							effect = {
-								#事件目标保存，供 option 效果引用（舰船名改用 scripted_loc）
-								save_event_target_as = br_gate_fleet
-							}
 						}
 					}
 				}
