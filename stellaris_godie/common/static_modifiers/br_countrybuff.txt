@@ -158,3 +158,86 @@ br_judgment_suppression = {
     ship_fire_rate_mult = -0.001
     ship_evasion_mult = -0.001
 }
+
+# ========================
+# 航母核心·舰队增幅（制空权被动）
+# 按星系友舰类型为无人机提供加成，通过 mult=数量 缩放
+# 基础值 = 1/单位，mult = 友舰数量 → 实际值 = 1 × count
+# ========================
+
+# 护卫舰增幅：+2 命中/艘（base=1，mult=count×2 via script_value）
+br_carrier_enhance_corvette = {
+    ship_accuracy_add = 1
+}
+
+# 驱逐舰增幅：+2 追踪/艘
+br_carrier_enhance_destroyer = {
+    ship_tracking_add = 1
+}
+
+# 巡洋舰增幅：+1% 闪避/艘（base=0.01=1%，mult=count×1）
+br_carrier_enhance_cruiser = {
+    ship_evasion_mult = 0.01
+}
+
+# 战列舰增幅：+1 减伤/艘
+br_carrier_enhance_battleship = {
+    ship_damage_reduction_add = 1
+}
+
+# ========================
+# 航母核心·无人机屏障（Lv2 主动）
+# 按友军舰船数量缩放，通过 mult = 友军数量 施加到无人机舰队
+# base = 基础值/艘，mult = 数量 → 实际 = base × count
+# ========================
+
+# 无人机屏障：每艘友军提供 +2 闪避、+1 减伤、+1% 护盾再生
+br_carrier_barrier = {
+    ship_evasion_add = 2
+    ship_damage_reduction_add = 1
+    ship_shield_regen_add_perc = 0.01
+}
+
+# ========================
+# 航母核心·甲板维护（Lv4 被动替代）
+# 船体和伤害分开缩放（base = 1%/单位，mult 到最终值）
+# ========================
+
+# 无人机船体加成：base = 1%，mult = br_carrier_deck_hull（50 × sk2_mult）
+br_carrier_deck_hull_buff = {
+    ship_hull_mult = 0.01
+}
+
+# 无人机武器伤害加成：base = 1%，mult = br_carrier_deck_dmg（25 × sk2_mult）
+br_carrier_deck_dmg_buff = {
+    ship_weapon_damage = 0.01
+}
+
+# ========================
+# 航母核心·全甲板攻击（Lv6 大招选1）
+# 无人机舰队获得战斗强化，被 mult 缩放
+# ========================
+
+br_carrier_full_deck = {
+    ship_weapon_damage = 0.01
+    ship_fire_rate_mult = 0.01
+}
+
+# ========================
+# 航母核心·无人机蜂群风暴（Lv6 大招选2）
+# 无人机暴走 + 敌方压制，被 mult 缩放
+# ========================
+
+# 无人机暴走：base = 1%/单位，mult 缩放
+br_carrier_swarm_drone = {
+    ship_weapon_damage = 0.01
+    ship_fire_rate_mult = 0.01
+    ship_hull_mult = 0.01
+}
+
+# 敌方压制：base = -1%/单位，mult 缩放
+br_carrier_swarm_enemy = {
+    weapon_type_strike_craft_weapon_damage_mult = -0.01
+    weapon_type_strike_craft_speed_mult = -0.01
+    weapon_type_explosive_weapon_damage_mult = -0.01
+}

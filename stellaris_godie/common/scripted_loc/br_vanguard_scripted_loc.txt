@@ -1,14 +1,22 @@
 #文本必须有一个保底显示，否则会导致游戏闪退
 
 # ========================
-# 防御核心
+# 主动技能（槽位1）
+# 按核心自动匹配：防御协议 / 能量超频 / 编队出击
 # ========================
 
-# Lv2 主动 — 防御协议
 defined_text = {
     name = GetBRVanguardActive1
     random = no
 
+    text = {
+        localization_key = br_vanguard_skill_sortie
+        trigger = { owner = { has_country_flag = br_skill_sortie_unlocked } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_overclock
+        trigger = { owner = { has_country_flag = br_skill_energy_overclock_unlocked } }
+    }
     text = {
         localization_key = br_vanguard_skill_phase_shift
         trigger = { owner = { has_country_flag = br_skill_phase_shift_unlocked } }
@@ -16,11 +24,23 @@ defined_text = {
     default = ""
 }
 
-# Lv2 主动 — 协同防御协议
+# ========================
+# 主动技能（槽位2）
+# 按核心自动匹配：协同防御协议 / 弱点扫描 / 防空阵型
+# ========================
+
 defined_text = {
-    name = GetBRVanguardActive4
+    name = GetBRVanguardActive2
     random = no
 
+    text = {
+        localization_key = br_vanguard_skill_aat
+        trigger = { owner = { has_country_flag = br_skill_aat_unlocked } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_scan
+        trigger = { owner = { has_country_flag = br_skill_weakness_scan_unlocked } }
+    }
     text = {
         localization_key = br_vanguard_skill_barrier
         trigger = { owner = { has_country_flag = br_skill_barrier_unlocked } }
@@ -29,125 +49,70 @@ defined_text = {
 }
 
 # ========================
-# 火力核心
+# 被动技能（槽位1）
+# 按核心自动匹配：结构增幅 / 战意过载 / 制空权
 # ========================
 
-# Lv2 主动 — 能量超频
-defined_text = {
-    name = GetBRVanguardActive2
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_overclock
-        trigger = { owner = { has_country_flag = br_skill_energy_overclock_unlocked } }
-    }
-    default = ""
-}
-
-# Lv2 主动 — 弱点扫描
-defined_text = {
-    name = GetBRVanguardActive3
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_scan
-        trigger = { owner = { has_country_flag = br_skill_weakness_scan_unlocked } }
-    }
-    default = ""
-}
-
-# Lv4 被动 — 战意过载
 defined_text = {
     name = GetBRVanguardPassive1
     random = no
 
     text = {
+        localization_key = br_vanguard_skill_air_supremacy
+        trigger = { owner = { has_country_flag = br_skill_air_supremacy_unlocked } }
+    }
+    text = {
         localization_key = br_vanguard_skill_combat_stack
-        trigger = {
-            owner = {
-                has_country_flag = br_hero_core_power
-                has_country_flag = br_skill_combat_stack_unlocked
-            }
-        }
+        trigger = { owner = { has_country_flag = br_skill_combat_stack_unlocked } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_structure
+        trigger = { owner = { has_country_flag = br_skill_structure_unlocked } }
     }
     default = ""
 }
 
-# Lv4 被动 — 越战越勇
+# ========================
+# 被动技能（槽位2）
+# 按核心自动匹配：协同结构力场 / 越战越勇 / 甲板维护
+# ========================
+
 defined_text = {
     name = GetBRVanguardPassive2
     random = no
 
     text = {
+        localization_key = br_vanguard_skill_deck_maintenance
+        trigger = { owner = { has_country_flag = br_skill_deck_maintenance_unlocked } }
+    }
+    text = {
         localization_key = br_vanguard_skill_kill_stack
         trigger = { owner = { has_country_flag = br_skill_kill_stack_unlocked } }
     }
-    default = ""
-}
-
-# Lv4 被动 — 结构增幅（防御核心）
-defined_text = {
-    name = GetBRVanguardPassive3
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_structure
-        trigger = {
-            owner = {
-                has_country_flag = br_hero_core_defense
-                has_country_flag = br_skill_structure_unlocked
-            }
-        }
-    }
-    default = ""
-}
-
-# Lv4 被动 — 协同结构力场（防御核心）
-defined_text = {
-    name = GetBRVanguardPassive4
-    random = no
-
     text = {
         localization_key = br_vanguard_skill_field
-        trigger = {
-            owner = {
-                has_country_flag = br_hero_core_defense
-                has_country_flag = br_skill_field_unlocked
-            }
-        }
+        trigger = { owner = { has_country_flag = br_skill_field_unlocked } }
     }
     default = ""
 }
 
-# Lv6 旗舰超载 — 火力全开
+# ========================
+# 旗舰超载（槽位1）
+# 按核心自动匹配：超维结构撕裂 / 火力全开 / 全甲板攻击
+# ========================
+
 defined_text = {
     name = GetBRVanguardUltimate1
     random = no
 
     text = {
+        localization_key = br_vanguard_skill_full_deck
+        trigger = { owner = { has_country_flag = br_skill_full_deck_unlocked } }
+    }
+    text = {
         localization_key = br_vanguard_skill_fullfire
         trigger = { owner = { has_country_flag = br_skill_fullfire_unlocked } }
     }
-    default = ""
-}
-
-# Lv6 旗舰超载 — 终末齐射
-defined_text = {
-    name = GetBRVanguardUltimate2
-    random = no
-
-    text = {
-        localization_key = br_vanguard_skill_final_volley
-        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
-    }
-    default = ""
-}
-
-# Lv6 旗舰超载 — 维度坍塌（防御核心）
-defined_text = {
-    name = GetBRVanguardUltimate3
-    random = no
-
     text = {
         localization_key = br_vanguard_skill_collapse
         trigger = { owner = { has_country_flag = br_skill_collapse_unlocked } }
@@ -155,11 +120,23 @@ defined_text = {
     default = ""
 }
 
-# Lv6 旗舰超载 — 维度结构投影（防御核心）
+# ========================
+# 旗舰超载（槽位2）
+# 按核心自动匹配：超维结构投影 / 终末齐射 / 绝对制空
+# ========================
+
 defined_text = {
-    name = GetBRVanguardUltimate4
+    name = GetBRVanguardUltimate2
     random = no
 
+    text = {
+        localization_key = br_vanguard_skill_total_air_supremacy
+        trigger = { owner = { has_country_flag = br_skill_total_air_supremacy_unlocked } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_final_volley
+        trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
+    }
     text = {
         localization_key = br_vanguard_skill_projection
         trigger = { owner = { has_country_flag = br_skill_projection_unlocked } }
@@ -208,6 +185,8 @@ defined_text = {
                     has_country_flag = br_skill_kill_stack_unlocked
                     has_country_flag = br_skill_structure_unlocked
                     has_country_flag = br_skill_field_unlocked
+                    has_country_flag = br_skill_air_supremacy_unlocked
+                    has_country_flag = br_skill_deck_maintenance_unlocked
                 }
             }
         }
@@ -229,6 +208,8 @@ defined_text = {
                     has_country_flag = br_skill_final_volley_unlocked
                     has_country_flag = br_skill_collapse_unlocked
                     has_country_flag = br_skill_projection_unlocked
+                    has_country_flag = br_skill_full_deck_unlocked
+                    has_country_flag = br_skill_total_air_supremacy_unlocked
                 }
             }
         }
@@ -260,10 +241,10 @@ defined_text = {
         }
     }
     text = {
-        localization_key = br_vanguard_active_cd_support
+        localization_key = br_vanguard_active_cd_carrier
         trigger = {
-            br_has_support_vanguard = yes
-            owner = { br_vanguard_support_skill_cd_running = yes }
+            br_has_carrier_vanguard = yes
+            owner = { br_vanguard_carrier_skill_cd_running = yes }
         }
     }
     text = {
@@ -272,7 +253,7 @@ defined_text = {
             OR = {
                 br_has_power_vanguard = yes
                 br_has_defense_vanguard = yes
-                br_has_support_vanguard = yes
+                br_has_carrier_vanguard = yes
             }
         }
     }
@@ -303,11 +284,19 @@ defined_text = {
         }
     }
     text = {
+        localization_key = br_vanguard_ultimate_cd_carrier
+        trigger = {
+            br_has_carrier_vanguard = yes
+            owner = { br_vanguard_carrier_ultimate_cd_running = yes }
+        }
+    }
+    text = {
         localization_key = br_vanguard_ultimate_cd_ready
         trigger = {
             OR = {
                 br_has_power_vanguard = yes
                 br_has_defense_vanguard = yes
+                br_has_carrier_vanguard = yes
             }
         }
     }
@@ -332,6 +321,8 @@ defined_text = {
                     has_country_flag = br_skill_barrier_unlocked
                     has_country_flag = br_skill_energy_overclock_unlocked
                     has_country_flag = br_skill_weakness_scan_unlocked
+                    has_country_flag = br_skill_sortie_unlocked
+                    has_country_flag = br_skill_aat_unlocked
                 }
             }
         }
@@ -359,6 +350,22 @@ defined_text = {
     text = {
         localization_key = br_context_menu_final_volley
         trigger = { owner = { has_country_flag = br_skill_final_volley_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_sortie
+        trigger = { owner = { has_country_flag = br_skill_sortie_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_aat
+        trigger = { owner = { has_country_flag = br_skill_aat_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_full_deck
+        trigger = { owner = { has_country_flag = br_skill_full_deck_unlocked } }
+    }
+    text = {
+        localization_key = br_context_menu_total_air_supremacy
+        trigger = { owner = { has_country_flag = br_skill_total_air_supremacy_unlocked } }
     }
     default = br_hero_active_skill_menu_title
 }

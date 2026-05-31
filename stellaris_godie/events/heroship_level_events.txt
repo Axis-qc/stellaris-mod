@@ -531,7 +531,7 @@ country_event = {
         country_event = {
             id = heroship.30
         }
-        # 支援 TODO
+        # 航母
         # Lv4 被动技能选择
         country_event = {
             id = heroship.11
@@ -544,7 +544,7 @@ country_event = {
         country_event = {
             id = heroship.31
         }
-        # 支援 TODO
+        # 航母
         # Lv6 大招选择
         country_event = {
             id = heroship.12
@@ -557,7 +557,7 @@ country_event = {
         country_event = {
             id = heroship.32
         }
-        # 支援 TODO
+        # 航母
     }
 }
 
@@ -790,64 +790,114 @@ country_event = {
 }
 
 # ========================
-# 支援核心技能选择 — heroship.30-39
+# 航母核心技能选择 — heroship.30-39
 # ========================
-# TODO: 支援核心 Lv2 主动 — 待实装
+# Lv2 主动技能：编队出击 / 防空阵型（二选一）
 country_event = {
     id = heroship.30
     is_triggered_only = yes
     trigger = {
-        always = no
-        has_country_flag = br_hero_core_support
+        has_country_flag = br_hero_core_carrier
         check_variable = {
             which = br_hero_level
             value >= 2
         }
+        NOR = {
+            has_country_flag = br_skill_sortie_unlocked
+            has_country_flag = br_skill_aat_unlocked
+        }
     }
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_context_menu_sortie
+        custom_tooltip = br_vanguard_skill_sortie
+        hidden_effect = {
+            set_country_flag = br_skill_sortie_unlocked
+            set_country_flag = br_skill_active_slot_1
+        }
+    }
+    option = {
+        name = br_context_menu_aat
+        custom_tooltip = br_vanguard_skill_aat
+        hidden_effect = {
+            set_country_flag = br_skill_aat_unlocked
+            set_country_flag = br_skill_active_slot_2
+        }
     }
 }
 
-# TODO: 支援核心 Lv4 被动 — 待实装
+# Lv4 被动技能：制空权 / 甲板维护（二选一）
 country_event = {
     id = heroship.31
     is_triggered_only = yes
     trigger = {
-        always = no
-        has_country_flag = br_hero_core_support
+        has_country_flag = br_hero_core_carrier
         check_variable = {
             which = br_hero_level
             value >= 4
         }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = BR_HERO_SKILL_LOCKED
-    }
-}
-
-# TODO: 支援核心 Lv6 大招 — 待实装
-country_event = {
-    id = heroship.32
-    is_triggered_only = yes
-    trigger = {
-        always = no
-        has_country_flag = br_hero_core_support
-        check_variable = {
-            which = br_hero_level
-            value >= 6
+        NOR = {
+            has_country_flag = br_skill_air_supremacy_unlocked
+            has_country_flag = br_skill_deck_maintenance_unlocked
         }
     }
     title = br_hero_active_skill
     desc = br_hero_active_skill
     picture = GFX_evt_rare_tech_cache
     option = {
-        name = BR_HERO_SKILL_LOCKED
+        name = br_context_menu_air_supremacy
+        custom_tooltip = br_vanguard_skill_air_supremacy
+        hidden_effect = {
+            set_country_flag = br_skill_air_supremacy_unlocked
+            set_country_flag = br_skill_passive_slot_1
+            country_event = { id = heroship.1310 }
+        }
+    }
+    option = {
+        name = br_context_menu_deck_maintenance
+        custom_tooltip = br_vanguard_skill_deck_maintenance
+        hidden_effect = {
+            set_country_flag = br_skill_deck_maintenance_unlocked
+            set_country_flag = br_skill_passive_slot_2
+            country_event = { id = heroship.1312 }
+        }
+    }
+}
+
+# Lv6 旗舰超载：全甲板攻击 / 绝对制空（二选一）
+country_event = {
+    id = heroship.32
+    is_triggered_only = yes
+    trigger = {
+        has_country_flag = br_hero_core_carrier
+        check_variable = {
+            which = br_hero_level
+            value >= 6
+        }
+        NOR = {
+            has_country_flag = br_skill_full_deck_unlocked
+            has_country_flag = br_skill_total_air_supremacy_unlocked
+        }
+    }
+    title = br_hero_active_skill
+    desc = br_hero_active_skill
+    picture = GFX_evt_rare_tech_cache
+    option = {
+        name = br_context_menu_full_deck
+        custom_tooltip = br_vanguard_skill_full_deck
+        hidden_effect = {
+            set_country_flag = br_skill_full_deck_unlocked
+            set_country_flag = br_skill_ultimate_slot_1
+        }
+    }
+    option = {
+        name = br_context_menu_total_air_supremacy
+        custom_tooltip = br_vanguard_skill_total_air_supremacy
+        hidden_effect = {
+            set_country_flag = br_skill_total_air_supremacy_unlocked
+            set_country_flag = br_skill_ultimate_slot_2
+        }
     }
 }

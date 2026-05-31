@@ -29,318 +29,169 @@ br_test_toggle_debug = {
 }
 
 # ========================
-# 防御核心
+# 通用技能切换（6 个法令覆盖全核心）
+# 按当前已选择的核心自动匹配对应的 skill flag
 # ========================
 
-br_test_toggle_phase_shift = {
+# 主动 — 槽位1（能量超频 / 防御协议 / 编队出击）
+br_test_toggle_active_1 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_phase_shift_unlocked }
-            remove_country_flag = br_skill_phase_shift_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_energy_overclock_unlocked } remove_country_flag = br_skill_energy_overclock_unlocked }
+            else = { set_country_flag = br_skill_energy_overclock_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_phase_shift_unlocked
+        if = {
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_phase_shift_unlocked } remove_country_flag = br_skill_phase_shift_unlocked }
+            else = { set_country_flag = br_skill_phase_shift_unlocked }
+        }
+        if = {
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_sortie_unlocked } remove_country_flag = br_skill_sortie_unlocked }
+            else = { set_country_flag = br_skill_sortie_unlocked }
         }
     }
-
     ai_weight = { weight = 0 }
 }
 
-br_test_toggle_barrier = {
+# 主动 — 槽位2（弱点扫描 / 协同防御协议 / 防空阵型）
+br_test_toggle_active_2 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_barrier_unlocked }
-            remove_country_flag = br_skill_barrier_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_weakness_scan_unlocked } remove_country_flag = br_skill_weakness_scan_unlocked }
+            else = { set_country_flag = br_skill_weakness_scan_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_barrier_unlocked
+        if = {
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_barrier_unlocked } remove_country_flag = br_skill_barrier_unlocked }
+            else = { set_country_flag = br_skill_barrier_unlocked }
+        }
+        if = {
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_aat_unlocked } remove_country_flag = br_skill_aat_unlocked }
+            else = { set_country_flag = br_skill_aat_unlocked }
         }
     }
-
     ai_weight = { weight = 0 }
 }
 
-# Lv4 被动
-br_test_toggle_structure = {
+# 被动 — 槽位1（战意过载 / 结构增幅 / 制空权）
+br_test_toggle_passive_1 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_structure_unlocked }
-            remove_country_flag = br_skill_structure_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_combat_stack_unlocked } remove_country_flag = br_skill_combat_stack_unlocked }
+            else = { set_country_flag = br_skill_combat_stack_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_structure_unlocked
-            country_event = { id = heroship.1202 }
+        if = {
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_structure_unlocked } remove_country_flag = br_skill_structure_unlocked }
+            else = { set_country_flag = br_skill_structure_unlocked country_event = { id = heroship.1202 } }
+        }
+        if = {
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_air_supremacy_unlocked } remove_country_flag = br_skill_air_supremacy_unlocked }
+            else = { set_country_flag = br_skill_air_supremacy_unlocked country_event = { id = heroship.1310 } }
         }
     }
-
     ai_weight = { weight = 0 }
 }
 
-br_test_toggle_field = {
+# 被动 — 槽位2（越战越勇 / 协同结构力场 / 甲板维护）
+br_test_toggle_passive_2 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_field_unlocked }
-            remove_country_flag = br_skill_field_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_kill_stack_unlocked } remove_country_flag = br_skill_kill_stack_unlocked }
+            else = { set_country_flag = br_skill_kill_stack_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_field_unlocked
-            country_event = { id = heroship.1203 }
-            country_event = { id = heroship.1204 days = 30 }
+        if = {
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_field_unlocked } remove_country_flag = br_skill_field_unlocked }
+            else = { set_country_flag = br_skill_field_unlocked country_event = { id = heroship.1203 } country_event = { id = heroship.1204 days = 30 } }
+        }
+        if = {
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_deck_maintenance_unlocked } remove_country_flag = br_skill_deck_maintenance_unlocked }
+            else = { set_country_flag = br_skill_deck_maintenance_unlocked country_event = { id = heroship.1312 } }
         }
     }
-
     ai_weight = { weight = 0 }
 }
 
-# Lv6 大招
-br_test_toggle_collapse = {
+# 旗舰超载 — 槽位1（火力全开 / 超维结构撕裂 / 全甲板攻击）
+br_test_toggle_ultimate_1 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_collapse_unlocked }
-            remove_country_flag = br_skill_collapse_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_fullfire_unlocked } remove_country_flag = br_skill_fullfire_unlocked }
+            else = { set_country_flag = br_skill_fullfire_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_collapse_unlocked
+        if = {
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_collapse_unlocked } remove_country_flag = br_skill_collapse_unlocked }
+            else = { set_country_flag = br_skill_collapse_unlocked }
+        }
+        if = {
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_full_deck_unlocked } remove_country_flag = br_skill_full_deck_unlocked }
+            else = { set_country_flag = br_skill_full_deck_unlocked }
         }
     }
-
     ai_weight = { weight = 0 }
 }
 
-br_test_toggle_projection = {
+# 旗舰超载 — 槽位2（终末齐射 / 超维结构投影 / 绝对制空）
+br_test_toggle_ultimate_2 = {
     icon = "GFX_edict_type_policy"
     length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
+    resources = { category = edicts cost = { } }
     potential = { has_country_flag = br_debug_mode }
     allow = { always = yes }
-
     effect = {
         if = {
-            limit = { has_country_flag = br_skill_projection_unlocked }
-            remove_country_flag = br_skill_projection_unlocked
+            limit = { has_country_flag = br_hero_core_power }
+            if = { limit = { has_country_flag = br_skill_final_volley_unlocked } remove_country_flag = br_skill_final_volley_unlocked }
+            else = { set_country_flag = br_skill_final_volley_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_projection_unlocked
-        }
-    }
-
-    ai_weight = { weight = 0 }
-}
-
-# ========================
-# 火力核心
-# ========================
-
-# Lv2 主动技能
-br_test_toggle_energy_overclock = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
         if = {
-            limit = { has_country_flag = br_skill_energy_overclock_unlocked }
-            remove_country_flag = br_skill_energy_overclock_unlocked
+            limit = { has_country_flag = br_hero_core_defense }
+            if = { limit = { has_country_flag = br_skill_projection_unlocked } remove_country_flag = br_skill_projection_unlocked }
+            else = { set_country_flag = br_skill_projection_unlocked }
         }
-        else = {
-            set_country_flag = br_skill_energy_overclock_unlocked
-        }
-    }
-
-    ai_weight = { weight = 0 }
-}
-
-br_test_toggle_weakness_scan = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
         if = {
-            limit = { has_country_flag = br_skill_weakness_scan_unlocked }
-            remove_country_flag = br_skill_weakness_scan_unlocked
-        }
-        else = {
-            set_country_flag = br_skill_weakness_scan_unlocked
+            limit = { has_country_flag = br_hero_core_carrier }
+            if = { limit = { has_country_flag = br_skill_total_air_supremacy_unlocked } remove_country_flag = br_skill_total_air_supremacy_unlocked }
+            else = { set_country_flag = br_skill_total_air_supremacy_unlocked }
         }
     }
-
-    ai_weight = { weight = 0 }
-}
-
-# Lv4 被动技能
-br_test_toggle_combat_stack = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
-        if = {
-            limit = { has_country_flag = br_skill_combat_stack_unlocked }
-            remove_country_flag = br_skill_combat_stack_unlocked
-        }
-        else = {
-            set_country_flag = br_skill_combat_stack_unlocked
-        }
-    }
-
-    ai_weight = { weight = 0 }
-}
-
-br_test_toggle_kill_stack = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
-        if = {
-            limit = { has_country_flag = br_skill_kill_stack_unlocked }
-            remove_country_flag = br_skill_kill_stack_unlocked
-        }
-        else = {
-            set_country_flag = br_skill_kill_stack_unlocked
-        }
-    }
-
-    ai_weight = { weight = 0 }
-}
-
-# Lv6 旗舰超载
-br_test_toggle_fullfire = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
-        if = {
-            limit = { has_country_flag = br_skill_fullfire_unlocked }
-            remove_country_flag = br_skill_fullfire_unlocked
-        }
-        else = {
-            set_country_flag = br_skill_fullfire_unlocked
-        }
-    }
-
-    ai_weight = { weight = 0 }
-}
-
-br_test_toggle_final_volley = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-
-    resources = {
-        category = edicts
-        cost = { }
-    }
-
-    potential = { has_country_flag = br_debug_mode }
-    allow = { always = yes }
-
-    effect = {
-        if = {
-            limit = { has_country_flag = br_skill_final_volley_unlocked }
-            remove_country_flag = br_skill_final_volley_unlocked
-        }
-        else = {
-            set_country_flag = br_skill_final_volley_unlocked
-        }
-    }
-
     ai_weight = { weight = 0 }
 }
 
@@ -362,7 +213,8 @@ br_test_reset_skill_cd = {
         set_variable = { which = br_vanguard_power_ultimate_cd value = 0 }
         set_variable = { which = br_vanguard_defense_skill_cd value = 0 }
         set_variable = { which = br_vanguard_defense_ultimate_cd value = 0 }
-        set_variable = { which = br_vanguard_support_skill_cd value = 0 }
+        set_variable = { which = br_vanguard_carrier_skill_cd value = 0 }
+        set_variable = { which = br_vanguard_carrier_ultimate_cd value = 0 }
     }
 
     ai_weight = { weight = 0 }
@@ -548,7 +400,7 @@ br_test_unlock_all_cores = {
         set_country_flag = br_hero_core_selected
         set_country_flag = br_hero_core_power
         set_country_flag = br_hero_core_defense
-        set_country_flag = br_hero_core_support
+        set_country_flag = br_hero_core_carrier
     }
 
     ai_weight = { weight = 0 }

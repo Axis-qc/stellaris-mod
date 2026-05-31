@@ -17,10 +17,10 @@ br_has_defense_vanguard = {
 }
 
 # 作用域：舰队
-br_has_support_vanguard = {
+br_has_carrier_vanguard = {
     any_owned_ship = {
         is_ship_size = br_vanguard
-        has_component = BR_VANGUARD_CORE_SUPPORT
+        has_component = BR_VANGUARD_CORE_CARRIER
     }
 }
 
@@ -56,11 +56,19 @@ br_vanguard_defense_ultimate_cd_ready = {
     }
 }
 
-#支援核心CD 作用域：国家
-br_vanguard_support_skill_cd_ready = {
+#航母核心主动CD 作用域：国家
+br_vanguard_carrier_skill_cd_ready = {
     OR = {
-        NOT = { is_variable_set = br_vanguard_support_skill_cd }
-        check_variable = { which = br_vanguard_support_skill_cd value <= 0 }
+        NOT = { is_variable_set = br_vanguard_carrier_skill_cd }
+        check_variable = { which = br_vanguard_carrier_skill_cd value <= 0 }
+    }
+}
+
+#航母核心旗舰超载CD 作用域：国家
+br_vanguard_carrier_ultimate_cd_ready = {
+    OR = {
+        NOT = { is_variable_set = br_vanguard_carrier_ultimate_cd }
+        check_variable = { which = br_vanguard_carrier_ultimate_cd value <= 0 }
     }
 }
 
@@ -85,8 +93,13 @@ br_vanguard_defense_ultimate_cd_running = {
 }
 
 # 作用域：国家
-br_vanguard_support_skill_cd_running = {
-    check_variable = { which = br_vanguard_support_skill_cd value > 0 }
+br_vanguard_carrier_skill_cd_running = {
+    check_variable = { which = br_vanguard_carrier_skill_cd value > 0 }
+}
+
+# 作用域：国家
+br_vanguard_carrier_ultimate_cd_running = {
+    check_variable = { which = br_vanguard_carrier_ultimate_cd value > 0 }
 }
 
 # 作用域：国家
@@ -96,6 +109,7 @@ br_any_vanguard_active_skill_cd_running = {
         br_vanguard_power_ultimate_cd_running = yes
         br_vanguard_defense_skill_cd_running = yes
         br_vanguard_defense_ultimate_cd_running = yes
-        br_vanguard_support_skill_cd_running = yes
+        br_vanguard_carrier_skill_cd_running = yes
+        br_vanguard_carrier_ultimate_cd_running = yes
     }
 }

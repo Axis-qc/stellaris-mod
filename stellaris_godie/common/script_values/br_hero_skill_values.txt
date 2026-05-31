@@ -1,193 +1,364 @@
 # ============================================================
 # 火力核心 (Skill 1 — 主动)
 # ============================================================
-
 # ---- 能量超频 ----
 # 射速 +N% × sk1_mult（base=40 → sk1_mult=1 时 +40%）
 br_skill_overclock_firerate = {
-    base = 40
-    mult = value:br_hero_ship_skill_1_mult
+	base = 40
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 每日船体自伤 -N% × sk1_mult（因同比例，base=10 → sk1_mult=1 时 -10%）
 br_skill_overclock_hulldrain = {
-    base = 10
-    mult = value:br_hero_ship_skill_1_mult
+	base = 10
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 持续 N天 × sk1_daymult（base=10 → sk1_daymult=1 时 10天）
 br_skill_overclock_day = {
-    base = 10
-    mult = value:br_hero_ship_skill_1_daymult
+	base = 10
+	mult = value:br_hero_ship_skill_1_daymult
 }
 
 # ---- 弱点扫描 ----
 # 敌方受伤 +N% × sk1_mult（base=30 → sk1_mult=1 时 +30%）
 br_skill_scan_damage = {
-    base = 30
-    mult = value:br_hero_ship_skill_1_mult
+	base = 30
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 持续 N天 × sk1_daymult（base=15 → sk1_daymult=1 时 15天）
 br_skill_scan_day = {
-    base = 15
-    mult = value:br_hero_ship_skill_1_daymult
+	base = 15
+	mult = value:br_hero_ship_skill_1_daymult
 }
 
 # ============================================================
 # 火力核心 (Skill 2 — 被动)
 # ============================================================
-
 # ---- 战意过载 ----
 # 叠加上限（base=50 + 英雄等级）
 br_vanguard_combat_stack_cap = {
-    base = 50
-    add = owner.br_hero_level
+	base = 50
+	add = owner.br_hero_level
 }
+
 # 每层武器伤害 +N% × sk2_mult（base=2 → sk2_mult=1 时每层 +2%）
 br_skill_combat_stack_damage = {
-    base = 2
-    mult = value:br_hero_ship_skill_2_mult
+	base = 2
+	mult = value:br_hero_ship_skill_2_mult
 }
 
 # ---- 越战越勇 ----
 # 叠加上限（base=50 + 英雄等级）
 br_vanguard_kill_cap = {
-    base = 50
-    add = owner.br_hero_level
+	base = 50
+	add = owner.br_hero_level
 }
+
 # 每击杀武器伤害 +N% × sk2_mult（base=1 → sk2_mult=1 时每层 +1%）
 br_skill_kill_stack_damage = {
-    base = 1
-    mult = value:br_hero_ship_skill_2_mult
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
 }
 
 # ============================================================
 # 火力核心 (Skill 3 — 大招)
 # ============================================================
-
 # ---- 火力全开 ----
 # 射速 +N% × sk3_mult（base=200 → sk3_mult=1 时 +200%）
 br_vanguard_skill_fullfire_1 = {
-    base = 200
-    mult = value:br_hero_ship_skill_3_mult
+	base = 200
+	mult = value:br_hero_ship_skill_3_mult
 }
+
 # 武器伤害 +N% × sk3_mult（base=50 → sk3_mult=1 时 +50%）
 br_vanguard_skill_fullfire_2 = {
-    base = 50
-    mult = value:br_hero_ship_skill_3_mult
+	base = 50
+	mult = value:br_hero_ship_skill_3_mult
 }
+
 # 持续 N天 × sk3_daymult（base=15 → sk3_daymult=1 时 15天）
 br_vanguard_skill_fullfire_day = {
-    base = 15
-    mult = value:br_hero_ship_skill_3_daymult
+	base = 15
+	mult = value:br_hero_ship_skill_3_daymult
 }
+
 # 结束后射速 debuff -N% × sk3_mult（base=30 → sk3_mult=1 时 -30%）
 br_vanguard_skill_fullfire_debuff = {
-    base = 30
-    mult = value:br_hero_ship_skill_3_mult
+	base = 30
+	mult = value:br_hero_ship_skill_3_mult
 }
 
 # ---- 终末齐射 ----
 # 武器伤害和射速 +N% × sk3_mult（base=75 → sk3_mult=1 时 +75%，同值共用）
 br_vanguard_skill_final_volley_amount = {
-    base = 75
-    mult = value:br_hero_ship_skill_3_mult
+	base = 75
+	mult = value:br_hero_ship_skill_3_mult
 }
+
 # 持续 N天 × sk3_daymult（base=10 → sk3_daymult=1 时 10天）
 br_vanguard_skill_final_volley_day = {
-    base = 10
-    mult = value:br_hero_ship_skill_3_daymult
+	base = 10
+	mult = value:br_hero_ship_skill_3_daymult
 }
 
 # ============================================================
 # 防御核心 (Skill 1 — 主动)
 # ============================================================
-
 # ---- 防御协议 ----
 # 减伤 +N% × sk1_mult（base=10 → sk1_mult=1 时 +10%）
 br_skill_phase_shift_dmgreduct = {
-    base = 10
-    mult = value:br_hero_ship_skill_1_mult
+	base = 10
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 星系友方三维再生 +N% × sk1_mult（base=50 → sk1_mult=1 时 +50%，三维同值）
 br_skill_phase_shift_regen_amount = {
-    base = 50
-    mult = value:br_hero_ship_skill_1_mult
+	base = 50
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 自身减伤/嘲讽持续 N天 × sk1_daymult（base=20 → sk1_daymult=1 时 20天）
 br_skill_phase_shift_day = {
-    base = 20
-    mult = value:br_hero_ship_skill_1_daymult
+	base = 20
+	mult = value:br_hero_ship_skill_1_daymult
 }
+
 # 再生场持续 N天 × sk1_daymult（base=20 → sk1_daymult=1 时 20天）
 br_skill_phase_shift_regen_day = {
-    base = 20
-    mult = value:br_hero_ship_skill_1_daymult
+	base = 20
+	mult = value:br_hero_ship_skill_1_daymult
 }
 
 # ---- 协同防御协议 ----
 # 自身三维降低（base=1000 → sk1_mult=1 时 -1000）
 br_skill_barrier_self_value = {
-    base = 1000
-    mult = value:br_hero_ship_skill_1_mult
+	base = 1000
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 友方三维增加（base=100 → sk1_mult=1 时 +100）
 br_skill_barrier_ally_value = {
-    base = 100
-    mult = value:br_hero_ship_skill_1_mult
+	base = 100
+	mult = value:br_hero_ship_skill_1_mult
 }
+
 # 持续 N天 × sk1_daymult（base=20 → sk1_daymult=1 时 20天）
 br_skill_barrier_day = {
-    base = 20
-    mult = value:br_hero_ship_skill_1_daymult
+	base = 20
+	mult = value:br_hero_ship_skill_1_daymult
 }
 
 # ============================================================
 # 防御核心 (Skill 2 — 被动)
 # ============================================================
-
 # ---- 结构增幅 ----
 # 自身三维 +base × 英雄等级 × sk2_mult（base=300 → level=1,sk2=1 时 +300）
 br_vanguard_def_structure_mult = {
-    base = 300
-    mult = owner.br_hero_level
-    mult = value:br_hero_ship_skill_2_mult
+	base = 300
+	mult = owner.br_hero_level
+	mult = value:br_hero_ship_skill_2_mult
 }
 
 # ---- 协同结构力场 ----
 # 友方三维 +base × 英雄等级 × sk2_mult（base=10 → level=1,sk2=1 时 +10）
 br_vanguard_def_field_mult = {
-    base = 10
-    mult = owner.br_hero_level
-    mult = value:br_hero_ship_skill_2_mult
+	base = 10
+	mult = owner.br_hero_level
+	mult = value:br_hero_ship_skill_2_mult
 }
 
 # ============================================================
 # 防御核心 (Skill 3 — 大招)
 # ============================================================
-
 # ---- 超维结构投影 ----
 # 加成 = 总三维 × 10% × sk3_mult（br_display_total 由 1207 每月刷新）
 br_vanguard_projection_amount = {
-    base = 0
-    add = owner.br_display_total
-    mult = 0.10
-    mult = value:br_hero_ship_skill_3_mult
+	base = 0
+	add = owner.br_display_total
+	mult = 0.1
+	mult = value:br_hero_ship_skill_3_mult
 }
+
 # 持续 N天 × sk3_daymult（base=20 → sk3_daymult=1 时 20天）
 br_vanguard_skill_projection_day = {
-    base = 20
-    mult = value:br_hero_ship_skill_3_daymult
+	base = 20
+	mult = value:br_hero_ship_skill_3_daymult
 }
 
 # ---- 超维结构撕裂 ----
 # 伤害 = 总三维 × 5% × sk3_mult（br_display_total 由 1207 每月刷新）
 br_vanguard_collapse_damage = {
-    base = 0
-    add = owner.br_display_total
-    mult = 0.05
-    mult = value:br_hero_ship_skill_3_mult
+	base = 0
+	add = owner.br_display_total
+	mult = 0.05
+	mult = value:br_hero_ship_skill_3_mult
 }
+
 #持续时间
 br_vanguard_collapse_damage_day = {
-    base = 20
-    mult = value:br_hero_ship_skill_3_daymult
+	base = 20
+	mult = value:br_hero_ship_skill_3_daymult
+}
+
+# ============================================================
+# 航母核心 (Skill 1 — 主动)
+# ============================================================
+# ---- 无人机屏障 ----
+# 每艘友军提供闪避 +N × sk1_mult（base=2 → sk1_mult=1 时 +2/艘）
+br_carrier_barrier_evasion = {
+	base = 2
+	mult = value:br_hero_ship_skill_1_mult
+}
+
+# 每艘友军提供减伤 +N × sk1_mult（base=1 → sk1_mult=1 时 +1/艘）
+br_carrier_barrier_dr = {
+	base = 1
+	mult = value:br_hero_ship_skill_1_mult
+}
+
+# 每艘友军提供护盾再生 +N% × sk1_mult（base=1 → sk1_mult=1 时 +1%/艘）
+br_carrier_barrier_shield_regen = {
+	base = 1
+	mult = value:br_hero_ship_skill_1_mult
+}
+
+# 无人机屏障持续 N天 × sk1_daymult（base=180 → sk1_daymult=1 时 180天）
+br_carrier_barrier_day = {
+	base = 180
+	mult = value:br_hero_ship_skill_1_daymult
+}
+
+# 无人机屏障 mult = 1 × sk1_mult × 友军数量（由事件 set_variable 提供，通过 owner 访问）
+br_carrier_barrier_mult = {
+	base = 1
+	mult = value:br_hero_ship_skill_1_mult
+	mult = owner.br_carrier_friendly_count
+}
+
+# ============================================================
+# 航母核心 (Skill 2 — 被动)
+# ============================================================
+# ---- 制空权·舰队增幅 ----
+# 护卫舰命中 +N × sk2_mult（base=2 → sk2_mult=1 时 +2/艘）
+br_carrier_enhance_cv_acc = {
+	base = 2
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# 驱逐舰追踪 +N × sk2_mult（base=2 → sk2_mult=1 时 +2/艘）
+br_carrier_enhance_dd_trk = {
+	base = 2
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# 巡洋舰闪避 +N% × sk2_mult（base=1 → sk2_mult=1 时 +1%/艘）
+br_carrier_enhance_ca_eva = {
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# 战列舰减伤 +N × sk2_mult（base=1 → sk2_mult=1 时 +1/艘）
+br_carrier_enhance_bb_dr = {
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# ---- 甲板维护 ----
+# 无人机船体 +N% × sk2_mult（base=50 → sk2_mult=1 时 +50%）
+br_carrier_deck_hull = {
+	base = 50
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# 无人机武器伤害 +N% × sk2_mult（base=25 → sk2_mult=1 时 +25%）
+br_carrier_deck_dmg = {
+	base = 25
+	mult = value:br_hero_ship_skill_2_mult
+}
+
+# ============================================================
+# 航母核心 (Skill 3 — 大招)
+# ============================================================
+# ---- 全甲板攻击 ----
+# 无人机武器伤害 +N% × sk3_mult（base=75 → sk3_mult=1 时 +75%）
+br_carrier_full_deck_drone_dmg = {
+	base = 75
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 无人机射速 +N% × sk3_mult（base=75 → sk3_mult=1 时 +75%）
+br_carrier_full_deck_drone_fr = {
+	base = 75
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 全甲板攻击持续 N天 × sk3_daymult（base=360 → sk3_daymult=1 时 360天）
+br_carrier_full_deck_day = {
+	base = 360
+	mult = value:br_hero_ship_skill_3_daymult
+}
+
+# ---- 无人机蜂群风暴 ----
+# 无人机武器伤害 +N% × sk3_mult（base=100 → sk3_mult=1 时 +100%）
+br_carrier_swarm_drone_dmg = {
+	base = 100
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 无人机射速 +N% × sk3_mult（base=100 → sk3_mult=1 时 +100%）
+br_carrier_swarm_drone_fr = {
+	base = 100
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 无人机船体 +N% × sk3_mult（base=100 → sk3_mult=1 时 +100%）
+br_carrier_swarm_drone_hull = {
+	base = 100
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 敌方舰载机效率 -N% × sk3_mult（base=75 → sk3_mult=1 时 -75%）
+br_carrier_swarm_enemy_sc = {
+	base = 75
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 敌方导弹伤害 -N% × sk3_mult（base=50 → sk3_mult=1 时 -50%）
+br_carrier_swarm_enemy_msl = {
+	base = 50
+	mult = value:br_hero_ship_skill_3_mult
+}
+
+# 无人机蜂群风暴持续 N天 × sk3_daymult（base=480 → sk3_daymult=1 时 480天）
+br_carrier_swarm_day = {
+	base = 480
+	mult = value:br_hero_ship_skill_3_daymult
+}
+
+# ---- 制空权·舰队增幅计数（由 heroship.1311 设定变量，用于 add_modifier mult） ----
+# base = per-ship基础值 × skill_mult，最终再 × owner的计数变量
+br_carrier_cv_mult = {
+	base = 2
+	mult = value:br_hero_ship_skill_2_mult
+	mult = owner.br_carrier_cv_count
+}
+
+br_carrier_dd_mult = {
+	base = 2
+	mult = value:br_hero_ship_skill_2_mult
+	mult = owner.br_carrier_dd_count
+}
+
+br_carrier_ca_mult = {
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
+	mult = owner.br_carrier_ca_count
+}
+
+br_carrier_bb_mult = {
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
+	mult = owner.br_carrier_bb_count
 }

@@ -1,212 +1,262 @@
 namespace = br
-
+#废弃，实际上并未使用
 # 事件ID区间：6010-6099。新增或修改事件ID不得超出此区间喵
 # br.6010：湿润或盖亚星球被母舰采掘后发放生态类资源奖励喵
 country_event = {
-    id = br.6010
-    title = "BR_DESTRUCTION_REWARD_BIOSPHERE_TITLE"
-    desc = "BR_DESTRUCTION_REWARD_BIOSPHERE_DESC"
-    picture = GFX_evt_asteroid_field
-    is_triggered_only = yes
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_BIOSPHERE_FOOD"
-        add_resource = { food = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_BIOSPHERE_SOCIETY"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 2
-                }
-            }
-        }
-        add_resource = { society_research = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_BIOSPHERE_CONSUMER"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 3
-                }
-            }
-        }
-        add_resource = { consumer_goods = 30 mult = br_power_level }
-    }
+	id = br.6010
+	title = "BR_DESTRUCTION_REWARD_BIOSPHERE_TITLE"
+	desc = "BR_DESTRUCTION_REWARD_BIOSPHERE_DESC"
+	picture = GFX_evt_asteroid_field
+	is_triggered_only = yes
+	option = {
+		name = "BR_DESTRUCTION_REWARD_BIOSPHERE_FOOD"
+		add_resource = {
+			food = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_BIOSPHERE_SOCIETY"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+			}
+		}
+		add_resource = {
+			society_research = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_BIOSPHERE_CONSUMER"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 3
+				}
+			}
+		}
+		add_resource = {
+			consumer_goods = 30
+			mult = br_power_level
+		}
+	}
 }
 
 # br.6011：干旱或死寂星球被母舰采掘后发放矿物类资源奖励喵
 country_event = {
-    id = br.6011
-    title = "BR_DESTRUCTION_REWARD_GEOTHERMAL_TITLE"
-    desc = "BR_DESTRUCTION_REWARD_GEOTHERMAL_DESC"
-    picture = GFX_evt_asteroid_field
-    is_triggered_only = yes
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_ENERGY"
-        add_resource = { energy = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_GASES"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 2
-                }
-            }
-        }
-        add_resource = { exotic_gases = @reward_strategic_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_MOTES"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 3
-                }
-            }
-        }
-        add_resource = { volatile_motes = @reward_strategic_base mult = br_power_level }
-    }
+	id = br.6011
+	title = "BR_DESTRUCTION_REWARD_GEOTHERMAL_TITLE"
+	desc = "BR_DESTRUCTION_REWARD_GEOTHERMAL_DESC"
+	picture = GFX_evt_asteroid_field
+	is_triggered_only = yes
+	option = {
+		name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_ENERGY"
+		add_resource = {
+			energy = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_GASES"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+			}
+		}
+		add_resource = {
+			exotic_gases = @reward_strategic_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_GEOTHERMAL_MOTES"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 3
+				}
+			}
+		}
+		add_resource = {
+			volatile_motes = @reward_strategic_base
+			mult = br_power_level
+		}
+	}
 }
 
 # br.6012：寒冷星球被母舰采掘后发放能源类资源奖励喵
 country_event = {
-    id = br.6012
-    title = "BR_DESTRUCTION_REWARD_CRYSTAL_TITLE"
-    desc = "BR_DESTRUCTION_REWARD_CRYSTAL_DESC"
-    picture = GFX_evt_asteroid_field
-    is_triggered_only = yes
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_CRYSTAL_MINERALS"
-        add_resource = { minerals = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_CRYSTAL_RARE"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 2
-                }
-            }
-        }
-        add_resource = { rare_crystals = @reward_strategic_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_CRYSTAL_ALLOYS"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 3
-                }
-            }
-        }
-        add_resource = { alloys = @reward_alloy_base mult = br_power_level }
-    }
+	id = br.6012
+	title = "BR_DESTRUCTION_REWARD_CRYSTAL_TITLE"
+	desc = "BR_DESTRUCTION_REWARD_CRYSTAL_DESC"
+	picture = GFX_evt_asteroid_field
+	is_triggered_only = yes
+	option = {
+		name = "BR_DESTRUCTION_REWARD_CRYSTAL_MINERALS"
+		add_resource = {
+			minerals = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_CRYSTAL_RARE"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+			}
+		}
+		add_resource = {
+			rare_crystals = @reward_strategic_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_CRYSTAL_ALLOYS"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 3
+				}
+			}
+		}
+		add_resource = {
+			alloys = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
 }
 
 # br.6013：都市、遗落、蜂巢、机械或居住站被母舰采掘后发放高级资源奖励喵
 country_event = {
-    id = br.6013
-    title = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_TITLE"
-    desc = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_DESC"
-    picture = GFX_evt_asteroid_field
-    is_triggered_only = yes
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_ALLOYS"
-        add_resource = { alloys = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_ENGINEERING"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 2
-                }
-            }
-        }
-        add_resource = { engineering_research = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_UNITY"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 3
-                }
-            }
-        }
-        add_resource = { unity = 30 mult = br_power_level }
-    }
+	id = br.6013
+	title = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_TITLE"
+	desc = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_DESC"
+	picture = GFX_evt_asteroid_field
+	is_triggered_only = yes
+	option = {
+		name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_ALLOYS"
+		add_resource = {
+			alloys = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_ENGINEERING"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+			}
+		}
+		add_resource = {
+			engineering_research = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_INFRASTRUCTURE_UNITY"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 3
+				}
+			}
+		}
+		add_resource = {
+			unity = 30
+			mult = br_power_level
+		}
+	}
 }
 
 # br.6014：普通星球被母舰采掘后发放通用地幔资源奖励喵
 country_event = {
-    id = br.6014
-    title = "BR_DESTRUCTION_REWARD_MANTLE_TITLE"
-    desc = "BR_DESTRUCTION_REWARD_MANTLE_DESC"
-    picture = GFX_evt_asteroid_field
-    is_triggered_only = yes
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_MANTLE_ALLOYS"
-        add_resource = { alloys = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_MANTLE_ENERGY"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 2
-                }
-            }
-        }
-        add_resource = { energy = @reward_alloy_base mult = br_power_level }
-    }
-
-    option = {
-        name = "BR_DESTRUCTION_REWARD_MANTLE_MINERALS"
-        trigger = {
-            OR = {
-                NOT = { has_global_flag = br_mode_pve }
-                check_variable = {
-                    which = br_power_level
-                    value >= 3
-                }
-            }
-        }
-        add_resource = { minerals = @reward_alloy_base mult = br_power_level }
-    }
+	id = br.6014
+	title = "BR_DESTRUCTION_REWARD_MANTLE_TITLE"
+	desc = "BR_DESTRUCTION_REWARD_MANTLE_DESC"
+	picture = GFX_evt_asteroid_field
+	is_triggered_only = yes
+	option = {
+		name = "BR_DESTRUCTION_REWARD_MANTLE_ALLOYS"
+		add_resource = {
+			alloys = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_MANTLE_ENERGY"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+			}
+		}
+		add_resource = {
+			energy = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
+	option = {
+		name = "BR_DESTRUCTION_REWARD_MANTLE_MINERALS"
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 3
+				}
+			}
+		}
+		add_resource = {
+			minerals = @reward_alloy_base
+			mult = br_power_level
+		}
+	}
 }

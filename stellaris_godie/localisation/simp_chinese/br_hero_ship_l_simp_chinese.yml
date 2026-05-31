@@ -39,18 +39,20 @@
  br_hero_no_ultimate_unlocked_tt:0 "§R旗舰超载未解锁§!"
 
  # 技能动态展示主键值（br_vanguard_scripted_loc.txt 引用）
- br_vanguard_power_skill_button:0 "§H火力核心技能§!\n[GetBRHeroXPState]\n主动：[GetBRVanguardActive2][GetBRVanguardActive3][GetBRVanguardActiveEmpty]\n被动：[GetBRVanguardPassive1][GetBRVanguardPassive2][GetBRVanguardPassiveEmpty]\n[GetBRVanguardActiveCD]"
- br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[GetBRHeroXPState]\n主动：[GetBRVanguardActive1][GetBRVanguardActive4][GetBRVanguardActiveEmpty]\n被动：[GetBRVanguardPassive3][GetBRVanguardPassive4][GetBRVanguardPassiveEmpty]\n[GetBRVanguardActiveCD]"
- br_vanguard_support_skill_button:0 "§H支援核心技能§!\n[GetBRHeroXPState]\n主动：§R未解锁§!\n被动：§R未解锁§!\n[GetBRVanguardActiveCD]"
+ br_vanguard_power_skill_button:0 "§H火力核心技能§!\n[GetBRHeroXPState]\n主动：[GetBRVanguardActive1][GetBRVanguardActive2][GetBRVanguardActiveEmpty]\n被动：[GetBRVanguardPassive1][GetBRVanguardPassive2][GetBRVanguardPassiveEmpty]\n[GetBRVanguardActiveCD]"
+ br_vanguard_defense_skill_button:0 "§H防御核心技能§!\n[GetBRHeroXPState]\n主动：[GetBRVanguardActive1][GetBRVanguardActive2][GetBRVanguardActiveEmpty]\n被动：[GetBRVanguardPassive1][GetBRVanguardPassive2][GetBRVanguardPassiveEmpty]\n[GetBRVanguardActiveCD]"
+ br_vanguard_carrier_skill_button:0 "§H航母核心技能§!\n[GetBRHeroXPState]\n主动：[GetBRVanguardActive1][GetBRVanguardActive2][GetBRVanguardActiveEmpty]\n被动：[GetBRVanguardPassive1][GetBRVanguardPassive2][GetBRVanguardPassiveEmpty]\n[GetBRVanguardActiveCD]"
  br_vanguard_power_ultimate_button:0 "§H旗舰超载§!\n[GetBRHeroXPState]\n旗舰超载：[GetBRVanguardUltimate1][GetBRVanguardUltimate2][GetBRVanguardUltimateEmpty]\n[GetBRVanguardUltimateCD]"
- br_vanguard_defense_ultimate_button:0 "§H旗舰超载§!\n[GetBRHeroXPState]\n旗舰超载：[GetBRVanguardUltimate3][GetBRVanguardUltimate4][GetBRVanguardUltimateEmpty]\n[GetBRVanguardUltimateCD]"
+ br_vanguard_defense_ultimate_button:0 "§H旗舰超载§!\n[GetBRHeroXPState]\n旗舰超载：[GetBRVanguardUltimate1][GetBRVanguardUltimate2][GetBRVanguardUltimateEmpty]\n[GetBRVanguardUltimateCD]"
+ br_vanguard_carrier_ultimate_button:0 "§H旗舰超载§!\n[GetBRHeroXPState]\n旗舰超载：[GetBRVanguardUltimate1][GetBRVanguardUltimate2][GetBRVanguardUltimateEmpty]\n[GetBRVanguardUltimateCD]"
  br_vanguard_skill_locked:0 "§R未解锁§!"
  br_vanguard_active_cd_ready:0 "冷却：§G就绪§!"
  br_vanguard_active_cd_power:0 "冷却：§B[Root.owner.br_vanguard_power_skill_cd]§!天"
  br_vanguard_active_cd_defense:0 "冷却：§B[Root.owner.br_vanguard_defense_skill_cd]§!天"
- br_vanguard_active_cd_support:0 "冷却：§B[Root.owner.br_vanguard_support_skill_cd]§!天"
+ br_vanguard_active_cd_carrier:0 "冷却：§B[Root.owner.br_vanguard_carrier_skill_cd]§!天"
  br_vanguard_ultimate_cd_power:0 "冷却：§B[Root.owner.br_vanguard_power_ultimate_cd]§!天"
  br_vanguard_ultimate_cd_defense:0 "冷却：§B[Root.owner.br_vanguard_defense_ultimate_cd]§!天"
+ br_vanguard_ultimate_cd_carrier:0 "冷却：§B[Root.owner.br_vanguard_carrier_ultimate_cd]§!天"
  br_vanguard_ultimate_cd_ready:0 "冷却：§G就绪§!"
 
  # ============================================================
@@ -153,8 +155,52 @@
  br_vanguard_power_final_volley_desc:0 "受终末齐射加成，武器伤害和射速§G+[br_vanguard_skill_final_volley_amount]%§!。"
 
  # ============================================================
- # 支援核心（预留）
+ # 航母核心
  # ============================================================
+
+ # --- Lv2 主动技能 ---
+
+ br_context_menu_sortie:0 "§H编队出击§!"
+ br_context_menu_aat:0 "§H无人机屏障§!"
+ br_vanguard_skill_sortie:0 "§G编队出击§!\n  立即补充无人机编队至满编上限（英雄等级×2艘）。\n  冷却：§Y[br_carrier_sortie_cd]§!天"
+ br_vanguard_skill_aat:0 "§G无人机屏障§!\n  激活后无人机舰队展开防御屏障，星系内每艘友军舰船为无人机提供：\n  • §G+[br_carrier_barrier_evasion]§! 闪避\n  • §G+[br_carrier_barrier_dr]§! 减伤\n  • §G+[br_carrier_barrier_shield_regen]%§! 护盾再生\n  上限30艘友军。持续§Y[br_carrier_barrier_day]§!天。冷却：§Y[br_carrier_barrier_cd]§!天"
+
+ # --- Lv4 被动技能 ---
+
+ br_context_menu_air_supremacy:0 "§H制空权§!"
+ br_context_menu_deck_maintenance:0 "§H甲板维护§!"
+ br_vanguard_skill_air_supremacy:0 "§G制空权§!\n  解锁舰队增幅系统：星系内友方舰船按舰种为无人机提供常驻加成（上限各10艘）：\n  • 护卫舰：§G+[br_carrier_enhance_cv_acc]§! 命中/艘\n  • 驱逐舰：§G+[br_carrier_enhance_dd_trk]§! 追踪/艘\n  • 巡洋舰：§G+[br_carrier_enhance_ca_eva]%§! 闪避/艘\n  • 战列舰：§G+[br_carrier_enhance_bb_dr]§! 减伤/艘"
+ br_vanguard_skill_deck_maintenance:0 "§G甲板维护§!\n  每§Y30§!天自动补充§Y1§!艘无人机至满编上限。\n  无人机额外获得§G+[br_carrier_deck_hull]%§!船体§G+[br_carrier_deck_dmg]%§!武器伤害。"
+
+ # --- Lv6 旗舰超载 ---
+
+ br_context_menu_full_deck:0 "§H全甲板攻击§!"
+ br_context_menu_total_air_supremacy:0 "§H无人机蜂群风暴§!"
+ br_vanguard_skill_full_deck:0 "§G全甲板攻击§!\n  立即补满无人机编队至上限，无人机获得：\n  • 武器伤害§G+[br_carrier_full_deck_drone_dmg]%§!\n  • 射速§G+[br_carrier_full_deck_drone_fr]%§!\n  持续§Y[br_carrier_full_deck_day]§!天。冷却：§Y[br_carrier_full_deck_cd]§!天"
+ br_vanguard_skill_total_air_supremacy:0 "§G无人机蜂群风暴§!\n  无人机上限翻倍至英雄等级×4并立即补满，无人机获得：\n  • 武器伤害§G+[br_carrier_swarm_drone_dmg]%§!\n  • 射速§G+[br_carrier_swarm_drone_fr]%§!\n  • 船体§G+[br_carrier_swarm_drone_hull]%§!\n  蜂群风暴压制星系内敌方：\n  • 舰载机效率§R-[br_carrier_swarm_enemy_sc]%§!\n  • 导弹伤害§R-[br_carrier_swarm_enemy_msl]%§!\n  持续§Y[br_carrier_swarm_day]§!天。冷却：§Y[br_carrier_swarm_cd]§!天"
+
+ # --- Modifier 描述 ---
+
+ br_carrier_enhance_corvette:0 "舰队增幅·护卫"
+ br_carrier_enhance_corvette_desc:0 "受友方护卫舰编队增幅，命中提升。"
+ br_carrier_enhance_destroyer:0 "舰队增幅·驱逐"
+ br_carrier_enhance_destroyer_desc:0 "受友方驱逐舰编队增幅，追踪提升。"
+ br_carrier_enhance_cruiser:0 "舰队增幅·巡洋"
+ br_carrier_enhance_cruiser_desc:0 "受友方巡洋舰编队增幅，闪避提升。"
+ br_carrier_enhance_battleship:0 "舰队增幅·战列"
+ br_carrier_enhance_battleship_desc:0 "受友方战列舰编队增幅，减伤提升。"
+ br_carrier_barrier:0 "无人机屏障"
+ br_carrier_barrier_desc:0 "无人机屏障激活，闪避、减伤与护盾再生提升。"
+ br_carrier_deck_hull_buff:0 "甲板维护·船体强化"
+ br_carrier_deck_hull_buff_desc:0 "甲板维护提供的船体加成。"
+ br_carrier_deck_dmg_buff:0 "甲板维护·武器强化"
+ br_carrier_deck_dmg_buff_desc:0 "甲板维护提供的武器伤害加成。"
+ br_carrier_full_deck:0 "全甲板攻击"
+ br_carrier_full_deck_desc:0 "全甲板攻击生效，无人机武器伤害与射速大幅提升。"
+ br_carrier_swarm_drone:0 "无人机蜂群风暴"
+ br_carrier_swarm_drone_desc:0 "蜂群风暴激活，无人机进入暴走状态。"
+ br_carrier_swarm_enemy:0 "蜂群压制"
+ br_carrier_swarm_enemy_desc:0 "蜂群风暴压制范围内敌方舰载机与导弹。"
 
  # ============================================================
  # 测试法令
@@ -162,30 +208,18 @@
 
  edict_br_test_toggle_debug:0 "全局调试开关"
  edict_br_test_toggle_debug_desc:0 "激活后显示所有测试法令，用于手动切换技能flag。再次点击关闭。"
- edict_br_test_toggle_phase_shift:0 "切换防御协议"
- edict_br_test_toggle_phase_shift_desc:0 "测试用。激活后切换防御协议 flag。"
- edict_br_test_toggle_barrier:0 "切换协同防御协议"
- edict_br_test_toggle_barrier_desc:0 "测试用。激活后切换协同防御协议 flag。"
- edict_br_test_toggle_structure:0 "切换结构增幅"
- edict_br_test_toggle_structure_desc:0 "测试用。激活后切换结构增幅 flag 并立即应用。"
- edict_br_test_toggle_field:0 "切换协同结构力场"
- edict_br_test_toggle_field_desc:0 "测试用。激活后切换协同结构力场 flag 并启动光环循环。"
- edict_br_test_toggle_collapse:0 "切换超维结构撕裂"
- edict_br_test_toggle_collapse_desc:0 "测试用。激活后切换超维结构撕裂 flag。"
- edict_br_test_toggle_projection:0 "切换超维结构投影"
- edict_br_test_toggle_projection_desc:0 "测试用。激活后切换超维结构投影 flag。"
- edict_br_test_toggle_energy_overclock:0 "切换能量超频技能"
- edict_br_test_toggle_energy_overclock_desc:0 "测试用。激活后切换能量超频技能 flag。"
- edict_br_test_toggle_weakness_scan:0 "切换弱点扫描技能"
- edict_br_test_toggle_weakness_scan_desc:0 "测试用。激活后切换弱点扫描技能 flag。"
- edict_br_test_toggle_combat_stack:0 "切换战意过载技能"
- edict_br_test_toggle_combat_stack_desc:0 "测试用。激活后切换战意过载技能 flag。"
- edict_br_test_toggle_kill_stack:0 "切换越战越勇技能"
- edict_br_test_toggle_kill_stack_desc:0 "测试用。激活后切换越战越勇技能 flag。"
- edict_br_test_toggle_fullfire:0 "切换火力全开技能"
- edict_br_test_toggle_fullfire_desc:0 "测试用。激活后切换火力全开技能 flag。"
- edict_br_test_toggle_final_volley:0 "切换终末齐射技能"
- edict_br_test_toggle_final_volley_desc:0 "测试用。激活后切换终末齐射技能 flag。"
+ edict_br_test_toggle_active_1:0 "切换主动技能·槽1"
+ edict_br_test_toggle_active_1_desc:0 "测试用。按核心自动匹配：能量超频 / 防御协议 / 编队出击。"
+ edict_br_test_toggle_active_2:0 "切换主动技能·槽2"
+ edict_br_test_toggle_active_2_desc:0 "测试用。按核心自动匹配：弱点扫描 / 协同防御协议 / 防空阵型。"
+ edict_br_test_toggle_passive_1:0 "切换被动技能·槽1"
+ edict_br_test_toggle_passive_1_desc:0 "测试用。按核心自动匹配：战意过载 / 结构增幅 / 制空权。"
+ edict_br_test_toggle_passive_2:0 "切换被动技能·槽2"
+ edict_br_test_toggle_passive_2_desc:0 "测试用。按核心自动匹配：越战越勇 / 协同结构力场 / 甲板维护。"
+ edict_br_test_toggle_ultimate_1:0 "切换旗舰超载·槽1"
+ edict_br_test_toggle_ultimate_1_desc:0 "测试用。按核心自动匹配：火力全开 / 超维结构撕裂 / 全甲板攻击。"
+ edict_br_test_toggle_ultimate_2:0 "切换旗舰超载·槽2"
+ edict_br_test_toggle_ultimate_2_desc:0 "测试用。按核心自动匹配：终末齐射 / 超维结构投影 / 绝对制空。"
  edict_br_test_reset_skill_cd:0 "重置技能冷却"
  edict_br_test_reset_skill_cd_desc:0 "测试用。清除所有技能冷却变量，可立即再次使用技能。"
  edict_br_test_skill_1_mult_up:0 "主动技能效果倍率 +0.5"
@@ -247,8 +281,8 @@
  BR_VANGUARD_CORE_POWER_DESC:0 "先锋级英雄舰核心。"
  BR_VANGUARD_CORE_DEFENSE:0 "§B防御核心§!"
  BR_VANGUARD_CORE_DEFENSE_DESC:0 "先锋级英雄舰核心。"
- BR_VANGUARD_CORE_SUPPORT:0 "§M支援核心§!"
- BR_VANGUARD_CORE_SUPPORT_DESC:0 "先锋级英雄舰核心。"
+ BR_VANGUARD_CORE_CARRIER:0 "§Y航母核心§!"
+ BR_VANGUARD_CORE_CARRIER_DESC:0 "先锋级英雄舰核心——指挥无人机编队执行航母作战。"
 
  ## 区段
  BR_VANGUARD_BOW:0 "先锋级舰首"

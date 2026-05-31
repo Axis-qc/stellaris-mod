@@ -401,17 +401,17 @@ utility_component_template = {
         weight = 999
     }
 }
-# 支援核心
+# 航母核心
 utility_component_template = {
-    key = "BR_VANGUARD_CORE_SUPPORT"
+    key = "BR_VANGUARD_CORE_CARRIER"
     size = small
-    icon = "GFX_ship_part_aura_minefield"
+    icon = "GFX_ship_part_aura_strike_craft"
     icon_frame = 1
     power = 0
 
     size_restriction = { br_vanguard }
     component_set = "br_hero_ship_Core"
-    potential = { from = { has_country_flag = br_hero_core_support } }
+    potential = { from = { has_country_flag = br_hero_core_carrier } }
     triggered_ship_modifier = {
         modifier = {
             ship_hull_add = 500
@@ -457,14 +457,25 @@ utility_component_template = {
         slot = 1
     }
 
-    # 支援核心技能模组尚未实装
+    # 航母核心主动技能（槽位2）
     scripted_action = {
         scope = self
 
         possible = {
             custom_tooltip = {
                 fail_text = br_hero_no_skill_unlocked_tt
-                always = yes
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_sortie_unlocked
+                        has_country_flag = br_skill_aat_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_carrier_skill_cd_ready = yes
+                }
             }
         }
 
@@ -477,12 +488,23 @@ utility_component_template = {
         button_clickable = {
             custom_tooltip = {
                 fail_text = br_hero_no_skill_unlocked_tt
-                always = yes
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_sortie_unlocked
+                        has_country_flag = br_skill_aat_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_carrier_skill_cd_ready = yes
+                }
             }
         }
 
-        name = on_br_support_skill_activated
-        tooltip = br_vanguard_support_skill_button
+        name = on_br_carrier_skill_activated
+        tooltip = br_vanguard_carrier_skill_button
         icon = GFX_fleet_order_auto_construct
         icon_selected = GFX_fleet_order_auto_construct
         activity_key = br_hero_active_skill_activity_key
@@ -491,6 +513,63 @@ utility_component_template = {
         required_progress = 4
         # cooldown = 5
         slot = 2
+    }
+
+    # 航母核心旗舰超载（槽位3）
+    scripted_action = {
+        scope = self
+
+        possible = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_full_deck_unlocked
+                        has_country_flag = br_skill_total_air_supremacy_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_carrier_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        button_visible = {
+            any_owned_ship = {
+                is_ship_size = br_vanguard
+            }
+        }
+
+        button_clickable = {
+            custom_tooltip = {
+                fail_text = br_hero_no_ultimate_unlocked_tt
+                owner = {
+                    OR = {
+                        has_country_flag = br_skill_full_deck_unlocked
+                        has_country_flag = br_skill_total_air_supremacy_unlocked
+                    }
+                }
+            }
+            custom_tooltip = {
+                fail_text = br_hero_active_skill_cd_fail_tt
+                owner = {
+                    br_vanguard_carrier_ultimate_cd_ready = yes
+                }
+            }
+        }
+
+        name = on_br_carrier_ultimate_activated
+        tooltip = br_vanguard_carrier_ultimate_button
+        icon = GFX_fleet_order_button_ground_support_seismic_bombing
+        icon_selected = GFX_fleet_order_button_ground_support_seismic_bombing
+        activity_key = br_hero_ultimate_skill_activity_key
+        context_menu_name = br_hero_ultimate_skill_menu_title
+        progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+        required_progress = 4
+        slot = 3
     }
 
     ai_weight = {

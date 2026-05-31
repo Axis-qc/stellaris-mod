@@ -1,0 +1,840 @@
+namespace = heroship
+# ========================
+# 航母核心技能 — heroship.1300-1399
+# 定位：无人机舰队 / 友军协同 / 制空权
+# 所有技能围绕无人机舰队展开，友军舰船通过制空权被动为无人机提供增幅
+# 事件ID区间：1300-1399。新增或修改事件ID不得超出此区间喵
+# ========================
+# ============================================================
+# 主动技能 — heroship.1300-1309
+# 触发方式：由 on_br_carrier_skill_activated 统一触发
+# ============================================================
+# 编队出击 — 补充无人机至上限（需 br_skill_sortie_unlocked）
+fleet_event = {
+	id = heroship.1300
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_sortie_unlocked
+			br_vanguard_carrier_skill_cd_ready = yes
+		}
+	}
+	immediate = {
+		# 1. 定位英雄舰所在星系
+		solar_system = {
+			save_event_target_as = br_hero_system
+		}
+		# 2. 确保常驻舰队存在（fleet_event 中必须通过 owner 访问国家作用域）
+		owner = {
+			if = {
+				limit = {
+					NOT = {
+						any_owned_fleet = {
+							has_fleet_flag = br_carrier_fleet
+						}
+					}
+				}
+				create_fleet = {
+					name = random
+					effect = {
+						set_owner = root
+						set_fleet_flag = br_carrier_fleet
+						set_location = event_target:br_hero_system
+					}
+				}
+			}
+			# 3. 定位常驻舰队
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_fleet
+				}
+				save_event_target_as = br_carrier_fleet
+			}
+			# 4. 计算上限 = hero_level × 2
+			set_variable = {
+				which = br_carrier_cap
+				value = br_hero_level
+			}
+			multiply_variable = {
+				which = br_carrier_cap
+				value = 2
+			}
+			# 5. 统计无人机舰队现有数量（用 every_owned_ship + fleet flag 过滤）
+			set_variable = {
+				which = br_carrier_count
+				value = 0
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = corvette
+					fleet = {
+						has_fleet_flag = br_carrier_fleet
+					}
+				}
+				change_variable = {
+					which = br_carrier_count
+					value = 1
+				}
+			}
+			# 6. 计算缺口 = 上限 - 现有
+			set_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_cap
+			}
+			subtract_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_count
+			}
+			# 7. while 补船到上限
+			while = {
+				limit = {
+					check_variable = {
+						which = br_carrier_deficit
+						value > 0
+					}
+				}
+				event_target:br_carrier_fleet = {
+					create_ship = {
+						name = random
+						design = "NAME_Dagger"
+					}
+				}
+				subtract_variable = {
+					which = br_carrier_deficit
+					value = 1
+				}
+			}
+			# 8. 设置 CD
+			set_variable = {
+				which = br_vanguard_carrier_skill_cd
+				value = value:br_carrier_sortie_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# 无人机屏障 — 友军护航强化（需 br_skill_aat_unlocked）
+# 星系内每艘友军舰船为无人机舰队提供防御加成
+fleet_event = {
+	id = heroship.1301
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_aat_unlocked
+			br_vanguard_carrier_skill_cd_ready = yes
+		}
+	}
+	immediate = {
+		# 1. 定位英雄舰星系
+		solar_system = {
+			save_event_target_as = br_hero_system
+		}
+		# 2. 确保常驻舰队存在
+		owner = {
+			if = {
+				limit = {
+					NOT = {
+						any_owned_fleet = {
+							has_fleet_flag = br_carrier_fleet
+						}
+					}
+				}
+				create_fleet = {
+					name = random
+					effect = {
+						set_owner = root
+						set_fleet_flag = br_carrier_fleet
+						set_location = event_target:br_hero_system
+					}
+				}
+			}
+			# 3. 定位常驻舰队
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_fleet
+				}
+				save_event_target_as = br_carrier_fleet
+			}
+			# 4. 统计星系内友军舰船数量（上限 30）
+			set_variable = {
+				which = br_carrier_friendly_count
+				value = 0
+			}
+			event_target:br_hero_system = {
+				every_ship_in_system = {
+					limit = {
+						exists = owner
+						owner = {
+							OR = {
+								is_same_value = root
+								is_country_type = br_player_pve
+							}
+						}
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_friendly_count
+							value = 1
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = br_carrier_friendly_count
+						value > 30
+					}
+				}
+				set_variable = {
+					which = br_carrier_friendly_count
+					value = 30
+				}
+			}
+			# 5. 按友军数量对无人机舰队施加防御加成
+			event_target:br_carrier_fleet = {
+				add_modifier = {
+					modifier = br_carrier_barrier
+					days = 1
+					time_multiplier = value:br_carrier_barrier_day
+					mult = value:br_carrier_barrier_mult
+				}
+			}
+			# 6. 设置 CD
+			set_variable = {
+				which = br_vanguard_carrier_skill_cd
+				value = value:br_carrier_barrier_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# ============================================================
+# 被动技能 — heroship.1310-1319
+# 触发方式：解锁时由 heroship.31 触发，月脉冲自我排程
+# ============================================================
+# 制空权·初始施加（解锁时由 heroship.31 触发一次）
+country_event = {
+	id = heroship.1310
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_skill_air_supremacy_unlocked
+	}
+	immediate = {
+		# 确保常驻舰队存在
+		random_owned_ship = {
+			limit = {
+				is_ship_size = br_vanguard
+			}
+			solar_system = {
+				save_event_target_as = br_hero_system
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_owned_fleet = {
+						has_fleet_flag = br_carrier_fleet
+					}
+				}
+			}
+			create_fleet = {
+				name = random
+				effect = {
+					set_owner = root
+					set_fleet_flag = br_carrier_fleet
+					set_location = event_target:br_hero_system
+				}
+			}
+		}
+		# 排程第一次月脉冲刷新
+		country_event = {
+			id = heroship.1311
+			days = 30
+		}
+	}
+}
+
+# 制空权·月脉冲刷新（每 30 天自我排程）
+country_event = {
+	id = heroship.1311
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_skill_air_supremacy_unlocked
+		any_owned_fleet = {
+			has_fleet_flag = br_carrier_fleet
+		}
+	}
+	immediate = {
+		# 1. 定位英雄舰星系
+		random_owned_ship = {
+			limit = {
+				is_ship_size = br_vanguard
+			}
+			solar_system = {
+				save_event_target_as = br_hero_system
+			}
+		}
+		# 2. 统计星系友舰各舰种数量（上限各 10）
+		set_variable = {
+			which = br_carrier_cv_count
+			value = 0
+		}
+		set_variable = {
+			which = br_carrier_dd_count
+			value = 0
+		}
+		set_variable = {
+			which = br_carrier_ca_count
+			value = 0
+		}
+		set_variable = {
+			which = br_carrier_bb_count
+			value = 0
+		}
+		event_target:br_hero_system = {
+			every_ship_in_system = {
+				limit = {
+					exists = owner
+					owner = {
+						OR = {
+							is_same_value = root
+							is_country_type = br_player_pve
+						}
+					}
+				}
+				# 用 if/else_if 替代 switch 判断舰种
+				if = {
+					limit = {
+						is_ship_size = corvette
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_cv_count
+							value = 1
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						is_ship_size = destroyer
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_dd_count
+							value = 1
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						is_ship_size = cruiser
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_ca_count
+							value = 1
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						is_ship_size = battleship
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_bb_count
+							value = 1
+						}
+					}
+				}
+			}
+		}
+		# 上限各 10
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_cv_count
+					value > 10
+				}
+			}
+			set_variable = {
+				which = br_carrier_cv_count
+				value = 10
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_dd_count
+					value > 10
+				}
+			}
+			set_variable = {
+				which = br_carrier_dd_count
+				value = 10
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_ca_count
+					value > 10
+				}
+			}
+			set_variable = {
+				which = br_carrier_ca_count
+				value = 10
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_bb_count
+					value > 10
+				}
+			}
+			set_variable = {
+				which = br_carrier_bb_count
+				value = 10
+			}
+		}
+		# 3. 对无人机舰队施加增幅 modifier（mult 引用 script_value）
+		every_owned_fleet = {
+			limit = {
+				has_fleet_flag = br_carrier_fleet
+			}
+			add_modifier = {
+				modifier = br_carrier_enhance_corvette
+				days = 32
+				mult = value:br_carrier_cv_mult
+			}
+			add_modifier = {
+				modifier = br_carrier_enhance_destroyer
+				days = 32
+				mult = value:br_carrier_dd_mult
+			}
+			add_modifier = {
+				modifier = br_carrier_enhance_cruiser
+				days = 32
+				mult = value:br_carrier_ca_mult
+			}
+			add_modifier = {
+				modifier = br_carrier_enhance_battleship
+				days = 32
+				mult = value:br_carrier_bb_mult
+			}
+		}
+		# 4. 排程下一次月脉冲
+		country_event = {
+			id = heroship.1311
+			days = 30
+		}
+	}
+}
+
+# 甲板维护·月脉冲自动补给（每 30 天补 1 艘无人机）
+country_event = {
+	id = heroship.1312
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_skill_deck_maintenance_unlocked
+	}
+	immediate = {
+		# 1. 定位英雄舰星系 + 确保常驻舰队存在
+		random_owned_ship = {
+			limit = {
+				is_ship_size = br_vanguard
+			}
+			solar_system = {
+				save_event_target_as = br_hero_system
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_owned_fleet = {
+						has_fleet_flag = br_carrier_fleet
+					}
+				}
+			}
+			create_fleet = {
+				name = random
+				effect = {
+					set_owner = root
+					set_fleet_flag = br_carrier_fleet
+					set_location = event_target:br_hero_system
+				}
+			}
+		}
+		# 2. 定位常驻舰队
+		random_owned_fleet = {
+			limit = {
+				has_fleet_flag = br_carrier_fleet
+			}
+			save_event_target_as = br_carrier_fleet
+		}
+		# 3. 计算上限 = hero_level × 2
+		set_variable = {
+			which = br_carrier_cap
+			value = br_hero_level
+		}
+		multiply_variable = {
+			which = br_carrier_cap
+			value = 2
+		}
+		# 4. 统计无人机舰队现有数量
+		set_variable = {
+			which = br_carrier_count
+			value = 0
+		}
+		every_owned_ship = {
+			limit = {
+				is_ship_size = corvette
+				fleet = {
+					has_fleet_flag = br_carrier_fleet
+				}
+			}
+			change_variable = {
+				which = br_carrier_count
+				value = 1
+			}
+		}
+		# 5. 低于上限则补 1 艘
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_count
+					value < br_carrier_cap
+				}
+			}
+			event_target:br_carrier_fleet = {
+				create_ship = {
+					name = random
+					design = "NAME_Dagger"
+				}
+			}
+		}
+		# 6. 刷新质量强化 modifier（覆盖写入，按 sk2_mult 缩放）
+		event_target:br_carrier_fleet = {
+			add_modifier = {
+				modifier = br_carrier_deck_hull_buff
+				mult = value:br_carrier_deck_hull
+				days = 32
+			}
+			add_modifier = {
+				modifier = br_carrier_deck_dmg_buff
+				mult = value:br_carrier_deck_dmg
+				days = 32
+			}
+		}
+		# 7. 排程下一次月脉冲
+		country_event = {
+			id = heroship.1312
+			days = 30
+		}
+	}
+}
+
+# ============================================================
+# 大招 — heroship.1320-1329
+# 触发方式：由 on_br_carrier_ultimate_activated 统一触发
+# ============================================================
+# 全甲板攻击 — 补满无人机 + 无人机战斗强化（需 br_skill_full_deck_unlocked）
+fleet_event = {
+	id = heroship.1320
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_full_deck_unlocked
+			br_vanguard_carrier_ultimate_cd_ready = yes
+		}
+	}
+	immediate = {
+		solar_system = {
+			save_event_target_as = br_hero_system
+		}
+		owner = {
+			# 1. 确保常驻舰队存在
+			if = {
+				limit = {
+					NOT = {
+						any_owned_fleet = {
+							has_fleet_flag = br_carrier_fleet
+						}
+					}
+				}
+				create_fleet = {
+					name = random
+					effect = {
+						set_owner = root
+						set_fleet_flag = br_carrier_fleet
+						set_location = event_target:br_hero_system
+					}
+				}
+			}
+			# 2. 定位常驻舰队
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_fleet
+				}
+				save_event_target_as = br_carrier_fleet
+			}
+			# 3. 计算上限 + 统计现有 + 补满
+			set_variable = {
+				which = br_carrier_cap
+				value = br_hero_level
+			}
+			multiply_variable = {
+				which = br_carrier_cap
+				value = 2
+			}
+			set_variable = {
+				which = br_carrier_count
+				value = 0
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = corvette
+					fleet = {
+						has_fleet_flag = br_carrier_fleet
+					}
+				}
+				change_variable = {
+					which = br_carrier_count
+					value = 1
+				}
+			}
+			set_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_cap
+			}
+			subtract_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_count
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = br_carrier_deficit
+						value > 0
+					}
+				}
+				event_target:br_carrier_fleet = {
+					create_ship = {
+						name = random
+						design = "NAME_Dagger"
+					}
+				}
+				subtract_variable = {
+					which = br_carrier_deficit
+					value = 1
+				}
+			}
+			# 4. 无人机舰队获得战斗强化（伤害 + 射速，按 sk3_mult 缩放）
+			event_target:br_carrier_fleet = {
+				add_modifier = {
+					modifier = br_carrier_full_deck
+					mult = value:br_carrier_full_deck_drone_dmg
+					days = 1
+					time_multiplier = value:br_carrier_full_deck_day
+				}
+			}
+			# 5. 设置 CD
+			set_variable = {
+				which = br_vanguard_carrier_ultimate_cd
+				value = value:br_carrier_full_deck_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# 无人机蜂群风暴 — 无人机暴走 + 敌方压制（需 br_skill_total_air_supremacy_unlocked）
+# 无人机上限翻倍并补满，无人机获得巨额加成，同时蜂群压制敌方导弹和舰载机
+fleet_event = {
+	id = heroship.1321
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_total_air_supremacy_unlocked
+			br_vanguard_carrier_ultimate_cd_ready = yes
+		}
+	}
+	immediate = {
+		solar_system = {
+			save_event_target_as = br_hero_system
+		}
+		owner = {
+			# 1. 确保常驻舰队存在
+			if = {
+				limit = {
+					NOT = {
+						any_owned_fleet = {
+							has_fleet_flag = br_carrier_fleet
+						}
+					}
+				}
+				create_fleet = {
+					name = random
+					effect = {
+						set_owner = root
+						set_fleet_flag = br_carrier_fleet
+						set_location = event_target:br_hero_system
+					}
+				}
+			}
+			# 2. 定位常驻舰队
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_fleet
+				}
+				save_event_target_as = br_carrier_fleet
+			}
+			# 3. 上限翻倍（英雄等级 × 4）并补满
+			set_variable = {
+				which = br_carrier_cap
+				value = br_hero_level
+			}
+			multiply_variable = {
+				which = br_carrier_cap
+				value = 4
+			}
+			set_variable = {
+				which = br_carrier_count
+				value = 0
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = corvette
+					fleet = {
+						has_fleet_flag = br_carrier_fleet
+					}
+				}
+				change_variable = {
+					which = br_carrier_count
+					value = 1
+				}
+			}
+			set_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_cap
+			}
+			subtract_variable = {
+				which = br_carrier_deficit
+				value = br_carrier_count
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = br_carrier_deficit
+						value > 0
+					}
+				}
+				event_target:br_carrier_fleet = {
+					create_ship = {
+						name = random
+						design = "NAME_Dagger"
+					}
+				}
+				subtract_variable = {
+					which = br_carrier_deficit
+					value = 1
+				}
+			}
+			# 4. 无人机舰队获得暴走加成（伤害 + 射速 + 船体，按 sk3_mult 缩放）
+			event_target:br_carrier_fleet = {
+				add_modifier = {
+					modifier = br_carrier_swarm_drone
+					mult = value:br_carrier_swarm_drone_dmg
+					days = 1
+					time_multiplier = value:br_carrier_swarm_day
+				}
+			}
+			# 5. 星系内敌方舰载机和导弹被蜂群压制（按 sk3_mult 缩放）
+			event_target:br_hero_system = {
+				every_fleet_in_system = {
+					limit = {
+						exists = owner
+						owner = {
+							is_hostile = root
+						}
+					}
+					add_modifier = {
+						modifier = br_carrier_swarm_enemy
+						mult = value:br_carrier_swarm_enemy_sc
+						days = 1
+						time_multiplier = value:br_carrier_swarm_day
+					}
+				}
+			}
+			# 6. 设置 CD
+			set_variable = {
+				which = br_vanguard_carrier_ultimate_cd
+				value = value:br_carrier_swarm_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# ============================================================
+# 预留区间 — heroship.1330-1399
+# ============================================================
