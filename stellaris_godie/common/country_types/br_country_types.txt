@@ -15,7 +15,6 @@ br_player = {
     can_use_invalid_technology = yes
     can_receive_envoys = yes
     ownership_limits = default
-
     faction = {
         hostile = no
         needs_border_access = yes
@@ -23,20 +22,24 @@ br_player = {
         needs_colony = no
         auto_delete = no
     }
-
     ai = {
         enabled = no
     }
-
     modules = {
-        standard_event_module = { }
-        standard_economy_module = { }
-        standard_leader_module = { }
-        standard_diplomacy_module = { contact_rule = does_first_contact_sites }
-        standard_technology_module = { }
-        standard_species_rights_module = { }
+        standard_event_module = {
+        }
+        standard_economy_module = {
+        }
+        standard_leader_module = {
+        }
+        standard_diplomacy_module = {
+            contact_rule = does_first_contact_sites
+        }
+        standard_technology_module = {
+        }
+        standard_species_rights_module = {
+        }
     }
-
     resources = {
         category = country_base
         produces = {
@@ -73,7 +76,6 @@ br_player_pvp = {
     can_receive_envoys = no
     ownership_limits = default
     custom_diplomacy = yes
-
     faction = {
         hostile = yes
         needs_border_access = no
@@ -81,20 +83,24 @@ br_player_pvp = {
         needs_colony = no
         auto_delete = no
     }
-
     ai = {
         enabled = no
     }
-
     modules = {
-        standard_event_module = { }
-        standard_economy_module = { }
-        standard_leader_module = { }
-        exclusive_diplomacy_module = { contact_rule = always }
-        standard_technology_module = { }
-        standard_species_rights_module = { }
+        standard_event_module = {
+        }
+        standard_economy_module = {
+        }
+        standard_leader_module = {
+        }
+        exclusive_diplomacy_module = {
+            contact_rule = always
+        }
+        standard_technology_module = {
+        }
+        standard_species_rights_module = {
+        }
     }
-
     resources = {
         category = country_base
         produces = {
@@ -113,44 +119,60 @@ br_player_pvp = {
     }
 }
 
-# 大逃杀工具国家：不在地图上，承载全局变量和定时事件触发喵
+# 大逃杀工具国家：不在地图上，承载全局变量和定时事件触发，辅助玩家
+# 后续支持自定义外交
 br_void = {
-    counts_for_victory = no
-    playable = no
-    has_pulse_events = yes
-    has_deficits = no
-    piracy_risk = no
-    needs_survey = no
-    has_complete_sensor = yes
-    diplomatic_wars = no
-    ship_disengagement = no
-    army_disengagement = no
-    relations = no
-    observable = no
-    has_capital = no
-    can_own_empty_planets = no
-    can_receive_envoys = no
-    ownership_limits = default
-    enforces_borders = no
-    share_survey_data = no
-    show_in_contacts_list = no
-    custom_diplomacy = no
-    government = no
-
-    faction = {
-        hostile = no
-        needs_border_access = no
-        generate_borders = no
-        needs_colony = no
-        auto_delete = no
-    }
-
+    show_in_contacts_list = yes    # 是否在联系人列表中显示
+    custom_diplomacy = yes    #自定义外交
+    custom_opinion = yes    #自定义好感，用于事件调整国家好感
+    share_survey_data = no    #是否共享调查数据
+    enforces_borders = no    #是否强制执行边界
+    needs_survey = yes    #是否需要调查
+    government = yes    #是否有政府
+    has_complete_sensor = no    #是否有完整的传感器
+    can_have_their_comms_shared = no    #是否可以共享通信
+    # custom_starbase =     #自定义星基
+    observable = yes    #是否可观察
     ai = {
-        enabled = no
+        enabled = no        #是否启用AI
     }
-
+    faction = {
+        hostile = no        #是否敌对
+        pirate = no        #是否是海盗
+        needs_border_access = no        #是否需要边界访问
+        generate_borders = no        #是否生成边界
+        needs_colony = no        #是否需要殖民地
+        auto_delete = no        #是否自动删除
+    }
     modules = {
-        standard_event_module = { }
+        exclusive_diplomacy_module = {
+        }
+        #独占外交模块（不允许任何东西，但我们需要这个用于关系）
+        tiered_technology_module = {
+            tier = 5            #技术等级
+            rare = yes            # 是否稀有
+        }
+        standard_event_module = {
+        }
+        #标准事件模块
+    }
+    resources = {
+        category = country_base
+        produces = {
+            energy = 100
+            minerals = 100
+            food = 100
+            alloys = 100
+            consumer_goods = 100
+            rare_crystals = 10
+            exotic_gases = 10
+            volatile_motes = 10
+            sr_dark_matter = 2
+            sr_living_metal = 2
+            sr_zro = 2
+            influence = 1
+            unity = 100
+        }
     }
 }
 
@@ -171,7 +193,6 @@ br_player_pve = {
     can_use_invalid_technology = yes
     can_receive_envoys = yes
     ownership_limits = default
-
     faction = {
         hostile = no
         needs_border_access = yes
@@ -179,20 +200,24 @@ br_player_pve = {
         needs_colony = no
         auto_delete = no
     }
-
     ai = {
         enabled = no
     }
-
     modules = {
-        standard_event_module = { }
-        standard_economy_module = { }
-        standard_leader_module = { }
-        standard_diplomacy_module = { contact_rule = always }
-        standard_technology_module = { }
-        standard_species_rights_module = { }
+        standard_event_module = {
+        }
+        standard_economy_module = {
+        }
+        standard_leader_module = {
+        }
+        standard_diplomacy_module = {
+            contact_rule = always
+        }
+        standard_technology_module = {
+        }
+        standard_species_rights_module = {
+        }
     }
-
     resources = {
         category = country_base
         produces = {
