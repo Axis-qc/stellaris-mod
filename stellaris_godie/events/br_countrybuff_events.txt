@@ -267,7 +267,12 @@ fleet_event = {
 	is_triggered_only = yes
 	trigger = {
 		owner = {
-			is_country_type = br_player_pve
+			OR = {
+				is_country_type = br_player_pve
+				is_country_type = br_player_pvp
+				is_country_type = br_void
+				is_country_type = br_pve_enemy
+			}
 		}
 	}
 	immediate = {
@@ -296,7 +301,9 @@ fleet_event = {
 	}
 }
 
-# br.12：每15天检测是否仍有舰队接战，无则清除移速减半
+# br.12：每15天检测是否仍有舰队接战
+# - 有接战 → 重新对接战舰队挂减速buff（覆盖新船/增援船）→ 继续循环
+# - 无接战 → 清除所有舰队的减速buff
 country_event = {
 	id = br.12
 	hide_window = yes
@@ -309,6 +316,16 @@ country_event = {
 			limit = {
 				any_owned_fleet = {
 					is_in_combat = yes
+				}
+			}
+			# 重新施加buff，确保新加入的舰船也获得减速效果
+			every_owned_fleet = {
+				limit = {
+					is_in_combat = yes
+				}
+				add_modifier = {
+					modifier = br_combat_speed_buff
+					days = -1
 				}
 			}
 			country_event = {
