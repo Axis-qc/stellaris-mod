@@ -1,80 +1,82 @@
 on_game_start = {
-    events = {
-    }
+	events = {
+	}
 }
+
 on_game_start_country = {
-    events = {
-        br.500
-        br.1
-    }
+	events = {
+		br.500
+		br.1
+	}
 }
+
 on_monthly_pulse_country = {
-    events = {
-        br.799   # [后备保障] 敌人被摧毁时重建，正常初始化不走此路
-        reward.2
-        heroship.1207   # 防御核心大招显示数值更新
-        heroship.1203   # 协同结构力场·每月刷新（自带 flag 检测）
-        heroship.1202   # 结构增幅·每月刷新（等级变化自动更新）
-        heroship.1331   # 无人机·月度链起点（全局初始化→计算变量→补船→位置/buff）
-    }
+	events = {
+		br.799		# [后备保障] 敌人被摧毁时重建，正常初始化不走此路
+		reward.2
+		heroship.1207		# 防御核心大招显示数值更新
+		heroship.1203		# 协同结构力场·每月刷新（自带 flag 检测）
+		heroship.1202		# 结构增幅·每月刷新（等级变化自动更新）
+		heroship.1331		# 无人机·月度链起点（全局初始化→计算变量→补船→位置/buff）
+	}
 }
 
 on_yearly_pulse_country = {
-    events = {
-        br.1
-        br.2
-        # br.1105 #废弃
-        br.1010
-        br.850   # 保存玩家舰船设计 → 延迟触发 830/840
-    }
+	events = {
+		br.1
+		br.2
+		# br.1105 #废弃
+		br.1010
+		br.850		# 保存玩家舰船设计 → 延迟触发 830/840
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER = {
-    events = {
-        br.6000
-    }
+	events = {
+		br.6000
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_queued = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_unqueued = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_ship_destroyed_victim = {
-    events = {
-        br.901
-    }
+	events = {
+		br.901
+	}
 }
 
 on_ship_destroyed_perp = {
-    events = {
-        br.1102
-        heroship.2
-        heroship.1102
-    }
+	events = {
+		br.1102
+		heroship.2
+		heroship.1102
+	}
 }
 
 on_br_dominator_repair_activated = {
-    events = {
-        br.1200
-    }
+	events = {
+		br.1200
+	}
 }
 
 on_br_dominator_recall_activated = {
-    events = {
-        br.1201
-    }
+	events = {
+		br.1201
+	}
 }
 
 on_br_level_panel_opened = {
-    events = {
-        br.1129
-    }
+	events = {
+		br.1129
+	}
 }
 
 # [废弃] 旧版 scripted_action 触发路径，已改用武器系统 W 槽。
@@ -83,72 +85,71 @@ on_br_level_panel_opened = {
 #         br.6000
 #     }
 # }
-
 on_br_hero_active_skill_activated = {
-    events = {
-        heroship.1100
-        heroship.1101
-    }
+	events = {
+		heroship.1100
+		heroship.1101
+	}
 }
 
 on_br_power_ultimate_activated = {
-    events = {
-        heroship.1110
-        heroship.1112
-    }
+	events = {
+		heroship.1110
+		heroship.1112
+	}
 }
 
 on_br_defense_skill_activated = {
-    events = {
-        heroship.1200
-        heroship.1201
-    }
+	events = {
+		heroship.1200
+		heroship.1201
+	}
 }
 
 on_br_defense_ultimate_activated = {
-    events = {
-        heroship.1205
-        heroship.1206
-    }
+	events = {
+		heroship.1205
+		heroship.1206
+	}
 }
 
 on_br_carrier_skill_activated = {
-    events = {
-        heroship.1300
-        heroship.1301
-    }
+	events = {
+		heroship.1300
+		heroship.1301
+	}
 }
 
 on_br_carrier_ultimate_activated = {
-    events = {
-        heroship.1320
-        heroship.1321
-    }
+	events = {
+		heroship.1310
+		heroship.1311
+	}
 }
 
 on_br_gather_fleets_to_mothership = {
-    events = {
-        heroship.1001
-    }
+	events = {
+		heroship.1001
+	}
 }
 
 on_country_destroyed = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_fleet_combat_joined_attacker = {
-    events = {
-        heroship.1103
-        br.11
-    }
+	events = {
+		heroship.1103
+		br.11
+	}
 }
 
 on_fleet_combat_joined_defender = {
-    events = {
-        heroship.1103
-        br.11
-    }
+	events = {
+		heroship.1103
+		br.11
+	}
 }
 
 # 玩家舰队进入新星系 → 检查周边4跳内刷敌
@@ -158,8 +159,10 @@ on_fleet_combat_joined_defender = {
 # Scope = Fleet
 # From = System
 on_entering_system_fleet = {
-    events = {
-        br.804
-    }
+	events = {
+		br.804
+	}
 }
-on_fleet_auto_move_arrival = { }
+
+on_fleet_auto_move_arrival = {
+}

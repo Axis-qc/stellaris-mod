@@ -154,6 +154,7 @@ br_vanguard_def_projection = {
 
 # 虚空裁决·压制（命中后给敌舰加 debuff，mult = $DAMAGE$，每点 -0.1%）
 br_judgment_suppression = {
+    ship_hull_regen_add_static = -0.01
     ship_speed_mult = -0.001
     ship_fire_rate_mult = -0.001
     ship_evasion_mult = -0.001
@@ -214,30 +215,27 @@ br_carrier_deck_dmg_buff = {
 }
 
 # ========================
-# 航母核心·全甲板攻击（Lv6 大招选1）
-# 无人机舰队获得战斗强化，被 mult 缩放
+# 航母核心·指挥链路（Lv6 大招选1）
+# 每架无人机 base 值，英雄舰 mult = count × sk3_mult，无人机 mult = sk3_mult
 # ========================
 
-br_carrier_full_deck = {
-    ship_weapon_damage = 0.01
-    ship_fire_rate_mult = 0.01
+# 英雄舰自损：三维 -100 / 伤害 -1% / 命中/追踪 -3（每架 base）
+br_carrier_command_link_self = {
+    ship_hull_add = -1
+    ship_armor_add = -1
+    ship_shield_add = -1
+}
+br_carrier_command_link_self_1 = {
+    ship_fire_rate_mult = -0.01
 }
 
-# ========================
-# 航母核心·无人机蜂群风暴（Lv6 大招选2）
-# 无人机暴走 + 敌方压制，被 mult 缩放
-# ========================
-
-# 无人机暴走：base = 1%/单位，mult 缩放
-br_carrier_swarm_drone = {
-    ship_weapon_damage = 0.01
-    ship_fire_rate_mult = 0.01
-    ship_hull_mult = 0.01
+# 无人机增益：三维/命中/追踪
+br_carrier_command_link_drone = {
+    ship_hull_add = 1
+    ship_armor_add = 1
+    ship_shield_add = 1
 }
-
-# 敌方压制：base = -1%/单位，mult 缩放
-br_carrier_swarm_enemy = {
-    weapon_type_strike_craft_weapon_damage_mult = -0.01
-    weapon_type_strike_craft_speed_mult = -0.01
-    weapon_type_explosive_weapon_damage_mult = -0.01
+br_carrier_command_link_drone_1 = {
+    ship_accuracy_add = 1
+    ship_tracking_add = 1
 }
