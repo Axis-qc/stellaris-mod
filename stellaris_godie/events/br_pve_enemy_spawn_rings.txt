@@ -1,171 +1,182 @@
 namespace = br
-
 # ============================================================
 # PVE内圈天灾刷敌：br.801 / br.802 / br.803
 # 三天刷完一个星系：第1天刷small，第2天刷medium，第3天刷large
 # br.801创舰队 + 刷small，br.802刷medium，br.803刷large + 继续
 # 编队类型和进度用fleet flag控制，见br_crisis_create_fleet
 # ============================================================
-
 # ============================================================
 # br.804：on_entering_system_fleet 触发入口（Fleet scope）
 # 保存进入星系 → 转给 br.801（country scope）
 # ============================================================
 fleet_event = {
-    id = br.804
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        owner = {
-            is_ai = no
-            is_country_type = br_player_pve
-        }
-    }
-
-    immediate = {
-        #保存玩家舰队位置
-        this = {
-            solar_system = {
-                save_global_event_target_as = br_spawn_center@owner
-            }
-        }
-        owner = { country_event = { id = br.801 } }
-    }
+	id = br.804
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		owner = {
+			is_ai = no
+			is_country_type = br_player_pve
+		}
+		solar_system = {
+			NOT = {
+				has_star_flag = br_system_spawn_center_used
+			}
+		}
+	}
+	immediate = {
+		#保存玩家舰队位置，标记该星系已作为刷怪中心
+		this = {
+			solar_system = {
+				set_star_flag = br_system_spawn_center_used
+				save_global_event_target_as = br_spawn_center@owner
+			}
+		}
+		owner = {
+			country_event = {
+				id = br.801
+			}
+		}
+	}
 }
 
 # ============================================================
 #  玩家舰队进入新星系 → 找周边未刷星系 → 刷敌
 # ============================================================
 country_event = {
-    id = br.801
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        exists = event_target:br_pve_enemy_country
-        exists = owner
-        owner = { is_country_type = br_player_pve }
-        owner = { NOT = { has_country_flag = br_pve_spawn_cooldown_@root } }
-    }
-
-    immediate = {
-        # 每个舰队独立3天冷却（@root = fleet_id）
-        owner = { set_timed_country_flag = { flag = br_pve_spawn_cooldown_@root days = 3 } }
-
-        # 玩家舰队周边刷敌
-        event_target:br_spawn_center@root = {
-            # random_neighbor_system_euclidean = {
-            solar_system = {
-                random_neighbor_system = {
-                    limit = {
-                        nor = {
-                            has_star_flag = br_system_spawned
-                            has_star_flag = br_player_spawn_system
-                        }
-                        NOT = {
-                            any_fleet_in_system = {
-                                owner = { is_country_type = br_player_pve }
-                            }
-                        }
-                        distance = {
-                            type = hyperlane
-                            source = event_target:br_spawn_center@root
-                            # min_jumps = 1
-                            # max_jumps = 4
-                        }
-                    }
-                    save_global_event_target_as = br_spawn_tmp@root
-                    set_star_flag = br_system_spawned
-                    # 创建舰队
-                    create_fleet = {
-                        name = "BR_PVE_GARRISON_FLEET"
-                        effect = {
-                            set_owner = event_target:br_pve_enemy_country
-                            set_location = { target = event_target:br_spawn_tmp@root distance = 50 angle = random }
-                            save_global_event_target_as = br_pve_enemy_fleet@root
-                            # Phase 1：刷small
-                            br_spawn_crisis_fleet = yes
-                        }
-                    }
-                    root = {
-                        # 排程后续阶段（保持在玩家 scope，@root 统一为玩家国家）
-                        country_event = { id = br.802 days = 1 }
-                        country_event = { id = br.803 days = 2 }
-                    }
-                }
-            }
-        }
-        
-        # 附近还有未刷的 → 4天后继续
-        if = {
-            limit = {
-                event_target:br_spawn_center@root = {
-                    solar_system = {
-                        # any_bypass_in_system = { }
-                        # any_neighbor_system = { }
-                        # any_neighbor_system_euclidean = {
-                        any_neighbor_system = {
-                            nor = {
-                                has_star_flag = br_system_spawned
-                                has_star_flag = br_player_spawn_system
-                            }
-                            NOT = {
-                                any_fleet_in_system = {
-                                    owner = { is_country_type = br_player_pve }
-                                }
-                            }
-                            distance = {
-                                type = hyperlane
-                                source = event_target:br_spawn_center@root
-                                min_jumps = 1
-                                max_jumps = 4
-                            }
-                        }
-                    }
-                }
-            }
-            country_event = { id = br.801 days = 4 }
-        }
-    }
+	id = br.801
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+		exists = owner
+		owner = {
+			is_country_type = br_player_pve
+		}
+	}
+	immediate = {
+		# 玩家舰队周边刷敌
+		# event_target:br_spawn_center@root 已经是 solar_system 作用域（在 br.804 中保存）
+		event_target:br_spawn_center@root = {
+			# random_neighbor_system_euclidean = {
+			random_neighbor_system = {
+				limit = {
+					nor = {
+						has_star_flag = br_system_spawned
+						has_star_flag = br_player_spawn_system
+					}
+					NOT = {
+						any_fleet_in_system = {
+							owner = {
+								is_country_type = br_player_pve
+							}
+						}
+					}
+					distance = {
+						type = hyperlane
+						source = event_target:br_spawn_center@root
+						# min_jumps = 1
+						# max_jumps = 4
+					}
+				}
+				save_global_event_target_as = br_spawn_tmp@root
+				set_star_flag = br_system_spawned
+				# 创建舰队
+				create_fleet = {
+					name = "BR_PVE_GARRISON_FLEET"
+					effect = {
+						set_owner = event_target:br_pve_enemy_country
+						set_location = {
+							target = event_target:br_spawn_tmp@root
+							distance = 50
+							angle = random
+						}
+						save_global_event_target_as = br_pve_enemy_fleet@root
+						# Phase 1：刷small
+						br_spawn_crisis_fleet = yes
+					}
+				}
+				root = {
+					# 排程后续阶段（保持在玩家 scope，@root 统一为玩家国家）
+					country_event = {
+						id = br.802
+						days = 1
+					}
+					country_event = {
+						id = br.803
+						days = 2
+					}
+				}
+			}
+		}
+		# 附近还有未刷的 → 4天后继续
+		if = {
+			limit = {
+				event_target:br_spawn_center@root = {
+					# any_bypass_in_system = { }
+					# any_neighbor_system = { }
+					# any_neighbor_system_euclidean = {
+					any_neighbor_system = {
+						nor = {
+							has_star_flag = br_system_spawned
+							has_star_flag = br_player_spawn_system
+						}
+						NOT = {
+							any_fleet_in_system = {
+								owner = {
+									is_country_type = br_player_pve
+								}
+							}
+						}
+						distance = {
+							type = hyperlane
+							source = event_target:br_spawn_center@root
+							min_jumps = 1
+							max_jumps = 4
+						}
+					}
+				}
+			}
+			country_event = {
+				id = br.801
+				days = 4
+			}
+		}
+	}
 }
 
 # 第2天：刷medium
 country_event = {
-    id = br.802
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        exists = event_target:br_pve_enemy_country
-        exists = event_target:br_pve_enemy_fleet@root
-        exists = event_target:br_spawn_tmp@root
-    }
-
-    immediate = {
-        # 刷medium（Phase 2）
-        br_spawn_crisis_fleet = yes
-    }
+	id = br.802
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+		exists = event_target:br_pve_enemy_fleet@root
+		exists = event_target:br_spawn_tmp@root
+	}
+	immediate = {
+		# 刷medium（Phase 2）
+		br_spawn_crisis_fleet = yes
+	}
 }
 
 # 第3天：刷large
 country_event = {
-    id = br.803
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        exists = event_target:br_pve_enemy_country
-        exists = event_target:br_pve_enemy_fleet@root
-        exists = event_target:br_spawn_tmp@root
-    }
-
-    immediate = {
-        # 刷large（Phase 3）
-        br_spawn_crisis_fleet = yes
-    }
+	id = br.803
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+		exists = event_target:br_pve_enemy_fleet@root
+		exists = event_target:br_spawn_tmp@root
+	}
+	immediate = {
+		# 刷large（Phase 3）
+		br_spawn_crisis_fleet = yes
+	}
 }

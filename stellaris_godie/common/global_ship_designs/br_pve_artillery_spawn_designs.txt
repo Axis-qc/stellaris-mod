@@ -4,211 +4,348 @@
 # Elite：内圈 ring_1~3，L3-L4 高级组件
 # 使用 br_pve_*_section_templates.txt 中的炮击区段
 # ============================================================
-
 # ---------- 炮击护卫舰 普通 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_CORVETTE"
-    ship_size = corvette
-
-    section = {
-        template = "CORVETTE_MID_S3"
-        slot = "mid"
-
-        component = { slot = "SMALL_GUN_01" template = "SMALL_RED_LASER" }
-        component = { slot = "SMALL_GUN_02" template = "SMALL_MASS_DRIVER_1" }
-        component = { slot = "SMALL_GUN_03" template = "SMALL_RED_LASER" }
-
-        component = { slot = "SMALL_UTILITY_1" template = "SMALL_ARMOR_1" }
-        component = { slot = "SMALL_UTILITY_2" template = "SMALL_SHIELD_1" }
-        component = { slot = "SMALL_UTILITY_3" template = "SMALL_ARMOR_1" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_1" }
-    }
-
-    required_component = "CORVETTE_FISSION_REACTOR"
-    required_component = "HYPER_DRIVE_1"
-    required_component = "SHIP_THRUSTER_1"
-    required_component = "SENSOR_1"
-    required_component = "COMBAT_COMPUTER_LINE_BASIC"
+	name = "BR_PVE_ARTILLERY_CORVETTE"
+	ship_size = corvette
+	section = {
+		template = "CORVETTE_MID_S3"
+		slot = "mid"
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_RED_LASER"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "SMALL_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "SMALL_GUN_03"
+			template = "SMALL_RED_LASER"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+	}
+	required_component = "CORVETTE_FISSION_REACTOR"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "SENSOR_1"
+	required_component = "COMBAT_COMPUTER_LINE_BASIC"
 }
 
 # ---------- 炮击护卫舰 精英 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_ELITE_CORVETTE"
-    ship_size = corvette
-
-    section = {
-        template = "CORVETTE_MID_S3"
-        slot = "mid"
-
-        component = { slot = "SMALL_GUN_01" template = "SMALL_UV_LASER" }
-        component = { slot = "SMALL_GUN_02" template = "SMALL_MASS_DRIVER_3" }
-        component = { slot = "SMALL_GUN_03" template = "SMALL_PLASMA_1" }
-
-        component = { slot = "SMALL_UTILITY_1" template = "SMALL_ARMOR_3" }
-        component = { slot = "SMALL_UTILITY_2" template = "SMALL_SHIELD_3" }
-        component = { slot = "SMALL_UTILITY_3" template = "SMALL_ARMOR_3" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_2" }
-    }
-
-    required_component = "CORVETTE_COLD_FUSION_REACTOR"
-    required_component = "HYPER_DRIVE_2"
-    required_component = "SHIP_THRUSTER_3"
-    required_component = "SENSOR_2"
-    required_component = "COMBAT_COMPUTER_LINE_ADVANCED"
+	name = "BR_PVE_ARTILLERY_ELITE_CORVETTE"
+	ship_size = corvette
+	section = {
+		template = "CORVETTE_MID_S3"
+		slot = "mid"
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_UV_LASER"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "SMALL_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "SMALL_GUN_03"
+			template = "SMALL_PLASMA_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_SHIELD_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_3"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_2"
+		}
+	}
+	required_component = "CORVETTE_COLD_FUSION_REACTOR"
+	required_component = "HYPER_DRIVE_2"
+	required_component = "SHIP_THRUSTER_3"
+	required_component = "SENSOR_2"
+	required_component = "COMBAT_COMPUTER_LINE_ADVANCED"
 }
 
 # ---------- 炮击雷击舰（护卫舰+G鱼雷） 普通 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE"
-    ship_size = frigate
-
-    section = {
-        template = "CORVETTE_MID_M1S1"
-        slot = "mid"
-
-        component = { slot = "TORPEDO_01" template = "TORPEDO_1" }
-        component = { slot = "SMALL_GUN_01" template = "SMALL_MASS_DRIVER_1" }
-
-        component = { slot = "SMALL_UTILITY_1" template = "SMALL_ARMOR_1" }
-        component = { slot = "SMALL_UTILITY_2" template = "SMALL_ARMOR_1" }
-        component = { slot = "SMALL_UTILITY_3" template = "SMALL_ARMOR_1" }
-        component = { slot = "SMALL_UTILITY_4" template = "SMALL_SHIELD_1" }
-        component = { slot = "SMALL_UTILITY_5" template = "SMALL_SHIELD_1" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_1" }
-        component = { slot = "AUX_UTILITY_2" template = "AFTERBURNER_1" }
-    }
-
-    required_component = "CORVETTE_FISSION_REACTOR"
-    required_component = "HYPER_DRIVE_1"
-    required_component = "SHIP_THRUSTER_1"
-    required_component = "SENSOR_1"
-    required_component = "COMBAT_COMPUTER_TORPEDO_BASIC"
+	name = "BR_PVE_ARTILLERY_TORPEDO_CORVETTE"
+	ship_size = frigate
+	section = {
+		template = "CORVETTE_MID_M1S1"
+		slot = "mid"
+		component = {
+			slot = "TORPEDO_01"
+			template = "TORPEDO_1"
+		}
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_4"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_5"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "AFTERBURNER_1"
+		}
+	}
+	required_component = "CORVETTE_FISSION_REACTOR"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "SENSOR_1"
+	required_component = "COMBAT_COMPUTER_TORPEDO_BASIC"
 }
 
 # ---------- 炮击雷击舰 精英 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE"
-    ship_size = frigate
-
-    section = {
-        template = "CORVETTE_MID_M1S1"
-        slot = "mid"
-
-        component = { slot = "TORPEDO_01" template = "TORPEDO_3" }
-        component = { slot = "SMALL_GUN_01" template = "SMALL_MASS_DRIVER_3" }
-
-        component = { slot = "SMALL_UTILITY_1" template = "SMALL_ARMOR_3" }
-        component = { slot = "SMALL_UTILITY_2" template = "SMALL_ARMOR_3" }
-        component = { slot = "SMALL_UTILITY_3" template = "SMALL_ARMOR_3" }
-        component = { slot = "SMALL_UTILITY_4" template = "SMALL_SHIELD_3" }
-        component = { slot = "SMALL_UTILITY_5" template = "SMALL_SHIELD_3" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_2" }
-        component = { slot = "AUX_UTILITY_2" template = "AFTERBURNER_2" }
-    }
-
-    required_component = "CORVETTE_COLD_FUSION_REACTOR"
-    required_component = "HYPER_DRIVE_2"
-    required_component = "SHIP_THRUSTER_3"
-    required_component = "SENSOR_2"
-    required_component = "COMBAT_COMPUTER_TORPEDO_ADVANCED"
+	name = "BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE"
+	ship_size = frigate
+	section = {
+		template = "CORVETTE_MID_M1S1"
+		slot = "mid"
+		component = {
+			slot = "TORPEDO_01"
+			template = "TORPEDO_3"
+		}
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_4"
+			template = "SMALL_SHIELD_3"
+		}
+		component = {
+			slot = "SMALL_UTILITY_5"
+			template = "SMALL_SHIELD_3"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_2"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "AFTERBURNER_2"
+		}
+	}
+	required_component = "CORVETTE_COLD_FUSION_REACTOR"
+	required_component = "HYPER_DRIVE_2"
+	required_component = "SHIP_THRUSTER_3"
+	required_component = "SENSOR_2"
+	required_component = "COMBAT_COMPUTER_TORPEDO_ADVANCED"
 }
-
-
 
 # ---------- 炮击战列舰 普通 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_BATTLESHIP"
-    ship_size = battleship
-
-    section = {
-        template = "BATTLESHIP_BOW_L2"
-        slot = "bow"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_RED_LASER" }
-        component = { slot = "LARGE_GUN_02" template = "LARGE_MASS_DRIVER_1" }
-
-        component = { slot = "LARGE_UTILITY_1" template = "LARGE_ARMOR_1" }
-        component = { slot = "LARGE_UTILITY_2" template = "LARGE_SHIELD_1" }
-        component = { slot = "LARGE_UTILITY_3" template = "LARGE_ARMOR_1" }
-    }
-
-    section = {
-        template = "BATTLESHIP_MID_L3"
-        slot = "mid"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_RED_LASER" }
-        component = { slot = "LARGE_GUN_02" template = "LARGE_MASS_DRIVER_1" }
-        component = { slot = "LARGE_GUN_03" template = "LARGE_RED_LASER" }
-
-        component = { slot = "LARGE_UTILITY_1" template = "LARGE_ARMOR_1" }
-        component = { slot = "LARGE_UTILITY_2" template = "LARGE_SHIELD_1" }
-        component = { slot = "LARGE_UTILITY_3" template = "LARGE_ARMOR_1" }
-    }
-
-    section = {
-        template = "BATTLESHIP_STERN_L1"
-        slot = "stern"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_MASS_DRIVER_1" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_1" }
-        component = { slot = "AUX_UTILITY_2" template = "FIRE_CONTROL_1" }
-    }
-
-    required_component = "BATTLESHIP_FISSION_REACTOR"
-    required_component = "HYPER_DRIVE_1"
-    required_component = "BATTLESHIP_SHIP_THRUSTER_1"
-    required_component = "SENSOR_1"
-    required_component = "COMBAT_COMPUTER_ARTILLERY_BASIC"
+	name = "BR_PVE_ARTILLERY_BATTLESHIP"
+	ship_size = battleship
+	section = {
+		template = "BATTLESHIP_BOW_L2"
+		slot = "bow"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_RED_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_1"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_SHIELD_1"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_1"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_MID_L3"
+		slot = "mid"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_RED_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "LARGE_GUN_03"
+			template = "LARGE_RED_LASER"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_1"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_SHIELD_1"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_1"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_STERN_L1"
+		slot = "stern"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "FIRE_CONTROL_1"
+		}
+	}
+	required_component = "BATTLESHIP_FISSION_REACTOR"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "BATTLESHIP_SHIP_THRUSTER_1"
+	required_component = "SENSOR_1"
+	required_component = "COMBAT_COMPUTER_ARTILLERY_BASIC"
 }
 
 # ---------- 炮击战列舰 精英 ----------
 ship_design = {
-    name = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP"
-    ship_size = battleship
-
-    section = {
-        template = "BATTLESHIP_BOW_L2"
-        slot = "bow"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_UV_LASER" }
-        component = { slot = "LARGE_GUN_02" template = "LARGE_MASS_DRIVER_3" }
-
-        component = { slot = "LARGE_UTILITY_1" template = "LARGE_ARMOR_3" }
-        component = { slot = "LARGE_UTILITY_2" template = "LARGE_SHIELD_3" }
-        component = { slot = "LARGE_UTILITY_3" template = "LARGE_ARMOR_3" }
-    }
-
-    section = {
-        template = "BATTLESHIP_MID_L3"
-        slot = "mid"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_UV_LASER" }
-        component = { slot = "LARGE_GUN_02" template = "LARGE_PLASMA_1" }
-        component = { slot = "LARGE_GUN_03" template = "LARGE_MASS_DRIVER_3" }
-
-        component = { slot = "LARGE_UTILITY_1" template = "LARGE_ARMOR_3" }
-        component = { slot = "LARGE_UTILITY_2" template = "LARGE_SHIELD_3" }
-        component = { slot = "LARGE_UTILITY_3" template = "LARGE_ARMOR_3" }
-    }
-
-    section = {
-        template = "BATTLESHIP_STERN_L1"
-        slot = "stern"
-
-        component = { slot = "LARGE_GUN_01" template = "LARGE_MASS_DRIVER_3" }
-
-        component = { slot = "AUX_UTILITY_1" template = "AFTERBURNER_2" }
-        component = { slot = "AUX_UTILITY_2" template = "FIRE_CONTROL_1" }
-    }
-
-    required_component = "BATTLESHIP_COLD_FUSION_REACTOR"
-    required_component = "HYPER_DRIVE_2"
-    required_component = "BATTLESHIP_SHIP_THRUSTER_3"
-    required_component = "SENSOR_2"
-    required_component = "COMBAT_COMPUTER_ARTILLERY_ADVANCED"
+	name = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP"
+	ship_size = battleship
+	section = {
+		template = "BATTLESHIP_BOW_L2"
+		slot = "bow"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_UV_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_3"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_MID_L3"
+		slot = "mid"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_UV_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_PLASMA_1"
+		}
+		component = {
+			slot = "LARGE_GUN_03"
+			template = "LARGE_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_3"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_STERN_L1"
+		slot = "stern"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_2"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "FIRE_CONTROL_1"
+		}
+	}
+	required_component = "BATTLESHIP_COLD_FUSION_REACTOR"
+	required_component = "HYPER_DRIVE_2"
+	required_component = "BATTLESHIP_SHIP_THRUSTER_3"
+	required_component = "SENSOR_2"
+	required_component = "COMBAT_COMPUTER_ARTILLERY_ADVANCED"
 }

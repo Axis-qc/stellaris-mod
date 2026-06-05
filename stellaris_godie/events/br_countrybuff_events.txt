@@ -105,6 +105,28 @@ country_event = {
 			limit = {
 				is_ai = no
 			}
+			random_owned_design = {
+				limit = {
+					is_ship_size = corvette
+				}
+				save_event_target_as = corvette
+			}
+			random_owned_design = {
+				limit = {
+					is_ship_size = br_vanguard
+				}
+				save_event_target_as = br_vanguard
+			}
+			random_owned_design = {
+				limit = {
+					is_ship_size = br_dominator
+				}
+				save_event_target_as = br_dominator
+			}
+			remove_ship_design = event_target:corvette
+			remove_ship_design = event_target:br_vanguard
+			remove_ship_design = event_target:br_dominator
+			refresh_auto_generated_ship_designs = yes			#重新生成自动设计
 			set_country_flag = br_vars_initialized
 			set_variable = {
 				which = br_dominator_regen_charge
