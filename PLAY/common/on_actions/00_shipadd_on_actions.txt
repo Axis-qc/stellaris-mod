@@ -8,20 +8,19 @@ on_game_start = {
         # shipadd.10
     }
 }
-on_monthly_pulse_country = {
-    events = {
-        shipadd.10
-    }
-}
-on_yearly_pulse_country = {
-    events = {
-        shipadd.11
-        shipadd.12
-    }
-}
-on_country_created = {
+# 移除 monthly_pulse 触发 shipadd.10（只需开局触发一次）
+# on_monthly_pulse_country = {
+#     events = {
+#         shipadd.10
+#     }
+# }
+on_fleet_combat_joined_attacker = {
     events = {
         shipadd.11
-        shipadd.12
+    }
+}
+on_fleet_combat_joined_defender = {
+    events = {
+        shipadd.11
     }
 }
