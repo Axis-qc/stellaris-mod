@@ -1,582 +1,659 @@
 namespace = play_move_pop
-
-
 country_event = {
-    id = play_move_pop.1
-    is_triggered_only = yes
-    hide_window = yes
-    immediate = {
-        if = {
-            limit = {
-                # has_edict = play_move_pop_1
-                any_owned_planet = {
-                    is_planet_class = pc_cosmogenesis_world
-                }
-            }
-            random_owned_planet = {
-                limit = {
-                    is_planet_class = pc_cosmogenesis_world
-                }
-                save_event_target_as = ATR_cosmogenesis
-            }
-            every_owned_planet = {
-                limit = { NOT = { has_planet_flag = ATR_no_this_planet } }
-                every_owned_pop_group = {
-                    limit = {
-                        OR = {
-                            is_pop_category = civilian
-                            is_pop_category = maintenance_drone
-                        }
-                        not = { has_trait = trait_robot_digital_2 }
-                    }
-                    resettle_pop_group = {
-                        POP_GROUP = this
-                        PLANET = event_target:ATR_cosmogenesis
-                        #AMOUNT = 100%
-                        PERCENTAGE = 100
-                    }
-                }
-            }
-        }
-    }
-    after = {
-        country_event = {
-            id = play_move_pop.1
-            days = 42
-        }
-    }
+	id = play_move_pop.1
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		if = {
+			limit = {
+				# has_edict = play_move_pop_1
+				any_owned_planet = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				save_event_target_as = ATR_cosmogenesis
+			}
+			every_owned_planet = {
+				limit = {
+					NOT = {
+						has_planet_flag = ATR_no_this_planet
+					}
+				}
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							is_pop_category = civilian
+							is_pop_category = maintenance_drone
+						}
+						not = {
+							has_trait = trait_robot_digital_2
+						}
+					}
+					resettle_pop_group = {
+						POP_GROUP = this
+						PLANET = event_target:ATR_cosmogenesis
+						#AMOUNT = 100%
+						PERCENTAGE = 100
+					}
+				}
+			}
+		}
+	}
+	after = {
+		country_event = {
+			id = play_move_pop.1
+			days = 42
+		}
+	}
 }
 
 country_event = {
-    id = play_move_pop.2
-    is_triggered_only = yes
-    hide_window = yes
-    immediate = {
-        if = {
-            limit = {
-                # has_edict = play_move_pop_2
-                any_owned_planet = {
-                    has_building = building_order_keep
-                }
-            }
-            random_owned_planet = {
-                limit = {
-                    has_building = building_order_keep
-                }
-                save_event_target_as = ATR_building_order_keep
-            }
-            every_owned_planet = {
-                limit = {
-                    not = { has_building = building_order_keep }
-                    NOT = { has_planet_flag = ATR_no_this_planet }
-                }
-                every_owned_pop_group = {
-                    limit = {
-                        OR = {
-                            is_pop_category = civilian
-                            is_pop_category = maintenance_drone
-                        }
-                        not = { has_trait = trait_robot_digital_2 }
-                    }
-                    resettle_pop_group = {
-                        POP_GROUP = this
-                        PLANET = event_target:ATR_building_order_keep
-                        #AMOUNT = 100%
-                        PERCENTAGE = 100
-                    }
-                }
-            }
-        }
-    }
-    after = {
-        country_event = {
-            id = play_move_pop.2
-            days = 42
-        }
-    }
+	id = play_move_pop.2
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		if = {
+			limit = {
+				# has_edict = play_move_pop_2
+				any_owned_planet = {
+					has_building = building_order_keep
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					has_building = building_order_keep
+				}
+				save_event_target_as = ATR_building_order_keep
+			}
+			every_owned_planet = {
+				limit = {
+					not = {
+						has_building = building_order_keep
+					}
+					NOT = {
+						has_planet_flag = ATR_no_this_planet
+					}
+				}
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							is_pop_category = civilian
+							is_pop_category = maintenance_drone
+						}
+						not = {
+							has_trait = trait_robot_digital_2
+						}
+					}
+					resettle_pop_group = {
+						POP_GROUP = this
+						PLANET = event_target:ATR_building_order_keep
+						#AMOUNT = 100%
+						PERCENTAGE = 100
+					}
+				}
+			}
+		}
+	}
+	after = {
+		country_event = {
+			id = play_move_pop.2
+			days = 42
+		}
+	}
 }
+
 #普通星球
 country_event = {
-    id = play_move_pop.100  # 事件ID
-    title = play_move_pop.title  # 事件标题
-    desc = play_move_pop.desc  # 事件描述
-    picture = GFX_evt_space_station  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-        play_event_ui = no
-    }
-    option = {
-        name = play_move_pop.1  # 选项名称
-        trigger = {
-        }
-
-    }
-    option = {
-        name = play_move_pop.2  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.25
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.3  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.5
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.4  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.75
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.5  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 1
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.6  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 500
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.7  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 1000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.8  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 5000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.9  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 10000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-
-    option = {
-        name = play_move_pop.10  # 选项名称
-        country_event = { id = play_move_pop.101 }
-        # every_owned_planet = {
-        #     limit = {
-        #         not = { is_planet_class = pc_cosmogenesis_world }
-        #         has_modifier = play_move_pop_to_planet
-        #     }
-        #     every_owned_pop_group = {
-        #         limit = {
-        #             is_sapient = yes
-        #             species = {
-        #                 NOR = {
-        #                     has_trait = trait_cybernetic
-        #                     has_trait = trait_mechanical
-        #                     has_trait = trait_machine_unit
-        #                     has_trait = trait_hive_mind
-        #                 }
-        #             }
-        #         }
-        #         resettle_pop_group = {
-        #             POP_GROUP = this
-        #             PLANET = prevprevprev
-        #             #AMOUNT = 100%
-        #             PERCENTAGE = 100
-        #         }
-        #     }
-        # }
-    }
+	id = play_move_pop.100	# 事件ID
+	title = play_move_pop.title	# 事件标题
+	desc = play_move_pop.desc	# 事件描述
+	picture = GFX_evt_space_station	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+		play_event_ui = no
+	}
+	immediate = {
+		# 保存源星球为事件目标，用于显示名字和人口
+		random_owned_planet = {
+			limit = { has_modifier = play_move_pop_to_planet }
+			save_event_target_as = play_move_pop_source
+		}
+		# 计算源星球符合条件的总人口
+		set_variable = { which = play_move_pop_source_pop_count value = 0 }
+		event_target:play_move_pop_source = {
+			every_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = { has_trait = trait_robot_digital_2 }
+				}
+				root = {
+					change_variable = { which = play_move_pop_source_pop_count value = prev.trigger:pop_group_size }
+				}
+			}
+		}
+	}
+	option = {
+		name = play_move_pop.1		# 选项名称
+		trigger = {
+		}
+	}
+	option = {
+		name = play_move_pop.2		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.25
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.3		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.5
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.4		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.75
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.5		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 1
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.6		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 500
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.7		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 1000
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.8		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 5000
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.9		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 10000
+			}
+		}
+		country_event = {
+			id = play_move_pop.100
+		}
+	}
+	option = {
+		name = play_move_pop.10		# 选项名称
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
 }
 
 country_event = {
-    id = play_move_pop.101  # 事件ID
-    title = play_move_pop_all.title  # 事件标题
-    desc = play_move_pop_all.desc  # 事件描述
-    picture = GFX_evt_space_station  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-        play_event_ui = no
-    }
-    immediate = {
-    }
-    option = {
-        name = play_move_pop_all.1  # 选项名称
-        trigger = {
-        }
-    }
-    option = {
-        name = play_move_pop_all.2  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.25
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.3  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.5
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.4  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.75
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.5  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 1
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.6  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 500
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.7  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 1000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.8  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 5000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.9  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 10000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-
-
-    option = {
-        name = play_move_pop_all.10  # 选项名称
-        country_event = { id = play_move_pop.100 }
-        allow = {
-            any_owned_planet = {
-                has_modifier = play_move_pop_to_planet
-            }
-            fail_text = not_has_from_pop
-        }
-    }
+	id = play_move_pop.101	# 事件ID
+	title = play_move_pop_all.title	# 事件标题
+	desc = play_move_pop_all.desc	# 事件描述
+	picture = GFX_evt_space_station	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+		play_event_ui = no
+	}
+	immediate = {
+	}
+	option = {
+		name = play_move_pop_all.1		# 选项名称
+		trigger = {
+		}
+	}
+	option = {
+		name = play_move_pop_all.2		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.25
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.3		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.5
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.4		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 0.75
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.5		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				PERCENTAGE = 1
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.6		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 500
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.7		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 1000
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.8		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 5000
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.9		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = move_pop_planet
+				AMOUNT = 10000
+			}
+		}
+		country_event = {
+			id = play_move_pop.101
+		}
+	}
+	option = {
+		name = play_move_pop_all.10		# 选项名称
+		country_event = {
+			id = play_move_pop.100
+		}
+		allow = {
+			any_owned_planet = {
+				has_modifier = play_move_pop_to_planet
+			}
+			fail_text = not_has_from_pop
+		}
+	}
 }
+
 #突触机
 country_event = {
-    id = play_move_pop.102  # 事件ID
-    title = play_move_pop.title  # 事件标题
-    desc = play_move_pop.desc  # 事件描述
-    picture = GFX_evt_space_station  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-        play_event_ui = no
-    }
-    option = {
-        name = play_move_pop.1  # 选项名称
-        trigger = {
-        }
-
-    }
-    option = {
-        name = play_move_pop.2  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.25
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.3  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.5
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.4  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.75
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.5  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_effect = {
-                    PLANET = this
-                    PERCENTAGE = 1
-                }
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.6  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 500
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.7  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 1000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.8  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 5000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-    option = {
-        name = play_move_pop.9  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_effect = {
-                PLANET = this
-                AMOUNT = 10000
-            }
-        }
-        country_event = { id = play_move_pop.100 }
-    }
-
-    option = {
-        name = play_move_pop.10  # 选项名称
-        country_event = { id = play_move_pop.103 }
-    }
+	id = play_move_pop.102	# 事件ID
+	title = play_move_pop.title	# 事件标题
+	desc = play_move_pop.desc	# 事件描述
+	picture = GFX_evt_space_station	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+		play_event_ui = no
+	}
+	immediate = {
+		# 保存突触机为迁移目标
+		random_owned_planet = {
+			limit = { is_planet_class = pc_cosmogenesis_world }
+			save_event_target_as = play_move_pop_cosmogenesis
+		}
+		# 保存源星球为事件目标，用于显示名字和人口
+		random_owned_planet = {
+			limit = { has_modifier = play_move_pop_to_planet }
+			save_event_target_as = play_move_pop_source
+		}
+		# 计算源星球符合条件的总人口
+		set_variable = { which = play_move_pop_source_pop_count value = 0 }
+		event_target:play_move_pop_source = {
+			every_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = { has_trait = trait_robot_digital_2 }
+				}
+				root = {
+					change_variable = { which = play_move_pop_source_pop_count value = prev.trigger:pop_group_size }
+				}
+			}
+		}
+	}
+	option = {
+		name = play_move_pop.1		# 选项名称
+		trigger = {
+		}
+	}
+	option = {
+		name = play_move_pop.2		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.25
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.3		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.5
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.4		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.75
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.5		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 1
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.6		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 500
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.7		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 1000
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.8		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 5000
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.9		# 选项名称
+		hidden_effect = {
+			play_move_pop_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 10000
+			}
+		}
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
+	option = {
+		name = play_move_pop.10		# 选项名称
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
 }
 
 country_event = {
-    id = play_move_pop.103  # 事件ID
-    title = play_move_pop_all.title  # 事件标题
-    desc = play_move_pop_all.desc  # 事件描述
-    picture = GFX_evt_space_station  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-        play_event_ui = no
-    }
-    option = {
-        name = play_move_pop_all.1  # 选项名称
-        trigger = {
-        }
-    }
-    option = {
-        name = play_move_pop_all.2  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.25
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.3  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.5
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.4  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 0.75
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.5  # 选项名称
-        hidden_effect = {
-            event_target:move_pop_planet = {
-                play_move_pop_all_effect = {
-                    PLANET = this
-                    PERCENTAGE = 1
-                }
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.6  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 500
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.7  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 1000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.8  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 5000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-    option = {
-        name = play_move_pop_all.9  # 选项名称
-        event_target:move_pop_planet = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 10000
-            }
-        }
-        country_event = { id = play_move_pop.101 }
-    }
-
-
-    option = {
-        name = play_move_pop_all.10  # 选项名称
-        country_event = { id = play_move_pop.102 }
-    }
+	id = play_move_pop.103	# 事件ID
+	title = play_move_pop_all.title	# 事件标题
+	desc = play_move_pop_all.desc	# 事件描述
+	picture = GFX_evt_space_station	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+		play_event_ui = no
+	}
+	immediate = {
+		# 保存突触机为迁移目标
+		random_owned_planet = {
+			limit = { is_planet_class = pc_cosmogenesis_world }
+			save_event_target_as = play_move_pop_cosmogenesis
+		}
+	}
+	option = {
+		name = play_move_pop_all.1		# 选项名称
+		trigger = {
+		}
+	}
+	option = {
+		name = play_move_pop_all.2		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.25
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.3		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.5
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.4		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 0.75
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.5		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				PERCENTAGE = 1
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.6		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 500
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.7		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 1000
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.8		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 5000
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.9		# 选项名称
+		hidden_effect = {
+			play_move_pop_all_effect = {
+				PLANET_TARGET = play_move_pop_cosmogenesis
+				AMOUNT = 10000
+			}
+		}
+		country_event = {
+			id = play_move_pop.103
+		}
+	}
+	option = {
+		name = play_move_pop_all.10		# 选项名称
+		country_event = {
+			id = play_move_pop.102
+		}
+	}
 }

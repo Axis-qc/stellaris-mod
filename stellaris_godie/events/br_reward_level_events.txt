@@ -1,58 +1,131 @@
 namespace = br
-
 # 升级特殊奖励池，ID 6130-6199。
 # 普通爆星和战斗奖励不走这里，只在升级时由 br_level_events.txt 调用。
 # 英雄核心选择已迁移至 reward.6101（reward_core_events.txt）。
 country_event = {
-    id = br.6130
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        country_event = { id = br.6135 }
-
-        if = {
-            limit = {
-                NOT = { has_country_flag = br_hero_ship_received }
-                check_variable = { which = br_power_level value >= 2 }
-            }
-            country_event = { id = reward.6101 }
-        }
-    }
+	id = br.6130
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		country_event = {
+			id = br.6135
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = br_hero_ship_received
+				}
+				check_variable = {
+					which = br_power_level
+					value >= 1
+				}
+			}
+			country_event = {
+				id = reward.6101
+			}
+		}
+	}
 }
 
 # 固定舰船科技推进。升级时必定检查一次，避免随机池太快把科技路线抽空。
 country_event = {
-    id = br.6135
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        give_technology = { tech = tech_corvettes message = no }
-
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 2 } NOT = { has_technology = tech_torpedoes_1 } }
-            give_technology = { tech = tech_torpedoes_1 message = yes }
-        }
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 4 } NOT = { has_technology = tech_destroyers } }
-            give_technology = { tech = tech_destroyers message = yes }
-        }
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 6 } NOT = { has_technology = tech_cruisers } }
-            give_technology = { tech = tech_cruisers message = yes }
-        }
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 8 } NOT = { has_technology = tech_battleships } }
-            give_technology = { tech = tech_battleships message = yes }
-        }
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 10 } NOT = { has_technology = tech_titans } }
-            give_technology = { tech = tech_titans message = yes }
-        }
-        if = {
-            limit = { check_variable = { which = br_power_level value >= 12 } NOT = { has_technology = tech_juggernaut } }
-            give_technology = { tech = tech_juggernaut message = yes }
-        }
-    }
+	id = br.6135
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		give_technology = {
+			tech = tech_corvettes
+			message = no
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 2
+				}
+				NOT = {
+					has_technology = tech_torpedoes_1
+				}
+			}
+			give_technology = {
+				tech = tech_torpedoes_1
+				message = yes
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 4
+				}
+				NOT = {
+					has_technology = tech_destroyers
+				}
+			}
+			give_technology = {
+				tech = tech_destroyers
+				message = yes
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 6
+				}
+				NOT = {
+					has_technology = tech_cruisers
+				}
+			}
+			give_technology = {
+				tech = tech_cruisers
+				message = yes
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 8
+				}
+				NOT = {
+					has_technology = tech_battleships
+				}
+			}
+			give_technology = {
+				tech = tech_battleships
+				message = yes
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 10
+				}
+				NOT = {
+					has_technology = tech_titans
+				}
+			}
+			give_technology = {
+				tech = tech_titans
+				message = yes
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_power_level
+					value >= 12
+				}
+				NOT = {
+					has_technology = tech_juggernaut
+				}
+			}
+			give_technology = {
+				tech = tech_juggernaut
+				message = yes
+			}
+		}
+	}
 }

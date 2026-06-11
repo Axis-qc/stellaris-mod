@@ -1,1727 +1,1749 @@
 namespace = lxleader
 country_event = {
-    id = lxleader.100  # 事件ID
-    title = lxleader100.title  # 事件标题
-    desc = {
-        text = "lxleader100.desc"
-    }
-    picture = GFX_evt_throne_room  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    fire_only_once = yes
-    trigger = {
-        is_ai = no
-        nor = {
-            has_global_flag = yes_two_traits
-            has_global_flag = no_two_traits
-        }
-    }
-    immediate = {
-        # 可以在事件触发时初始化变量
-    }
-
-    option = {
-        name = lxleader100.2
-        hidden_effect = {
-            set_global_flag = no_two_traits
-        }
-    }
-
-    option = {
-        name = lxleader100.1
-        hidden_effect = {
-            set_global_flag = yes_two_traits
-        }
-    }
+	id = lxleader.100	# 事件ID
+	title = lxleader100.title	# 事件标题
+	desc = {
+		text = "lxleader100.desc"
+	}
+	picture = GFX_evt_throne_room	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	fire_only_once = yes
+	trigger = {
+		is_ai = no
+		nor = {
+			has_global_flag = yes_two_traits
+			has_global_flag = no_two_traits
+		}
+	}
+	immediate = {
+		# 可以在事件触发时初始化变量
+	}
+	option = {
+		name = lxleader100.2
+		hidden_effect = {
+			set_global_flag = no_two_traits
+		}
+	}
+	option = {
+		name = lxleader100.1
+		hidden_effect = {
+			set_global_flag = yes_two_traits
+		}
+	}
 }
+
 #选择保存领袖 20级的，普政用
 country_event = {
-    id = lxleader.101
-    hide_window = yes  # 隐藏窗口
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    trigger = {
-        is_ai = no
-        is_gestalt = no
-        has_global_flag = yes_two_traits
-        not = {
-            has_global_flag = add_two_traits_leader_ing
-        }
-    }
-    immediate = {
-        #查找符合条件的领袖
-        random_owned_leader = {
-            limit = {
-                # 基础技能
-                has_base_skill > 19
-                # 没有特殊标记
-                NOT = { has_leader_flag = has_two_traits }
-                # 拥有特定特质
-                # OR = {
-                #     AND = {
-                #         has_trait = leader_trait_brilliant_shipwright
-                #         has_trait = leader_trait_engineer
-                #     }
-                #     AND = {
-                #         has_trait = leader_trait_exceptional
-                #         has_trait = leader_trait_archaeologist
-                #     }
-                # }
-            }
-            #保存找到的领袖
-            save_event_target_as = has_two_traits_leader
-        }
-        #指挥官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = commander
-                }
-                exists = event_target:has_two_traits_leader
-            }
-            country_event = {
-                days = 30
-                id = lxleader.103
-            }
-        }
-        #行政官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = official
-                }
-                exists = event_target:has_two_traits_leader
-            }
-            country_event = {
-                days = 30
-                id = lxleader.104
-            }
-        }
-        #科学官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = scientist
-                }
-                exists = event_target:has_two_traits_leader
-            }
-            country_event = {
-                days = 30
-                id = lxleader.105
-            }
-        }
-        # assign_leader = event_target:a#分配领袖
-
-        # set_timed_global_flag = { flag = add_two_traits_leader_ing days = 180 }
-    }
+	id = lxleader.101
+	hide_window = yes	# 隐藏窗口
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	trigger = {
+		is_ai = no
+		is_gestalt = no
+		has_global_flag = yes_two_traits
+		not = {
+			has_global_flag = add_two_traits_leader_ing
+		}
+	}
+	immediate = {
+		#查找符合条件的领袖
+		random_owned_leader = {
+			limit = {
+				# 基础技能
+				has_base_skill > 19
+				# 没有特殊标记
+				NOT = {
+					has_leader_flag = has_two_traits
+				}
+				NOT = {
+					has_leader_flag = lx_pending_trait
+				}
+				# 拥有特定特质
+				# OR = {
+				#     AND = {
+				#         has_trait = leader_trait_brilliant_shipwright
+				#         has_trait = leader_trait_engineer
+				#     }
+				#     AND = {
+				#         has_trait = leader_trait_exceptional
+				#         has_trait = leader_trait_archaeologist
+				#     }
+				# }
+			}
+			#保存找到的领袖
+			save_event_target_as = has_two_traits_leader
+		}
+		# 标记领袖为已选中，防止重复选择
+		event_target:has_two_traits_leader = {
+			set_leader_flag = lx_pending_trait
+		}
+		#指挥官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = commander
+				}
+				exists = event_target:has_two_traits_leader
+			}
+			country_event = {
+				days = 30
+				id = lxleader.103
+			}
+		}
+		#行政官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = official
+				}
+				exists = event_target:has_two_traits_leader
+			}
+			country_event = {
+				days = 30
+				id = lxleader.104
+			}
+		}
+		#科学官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = scientist
+				}
+				exists = event_target:has_two_traits_leader
+			}
+			country_event = {
+				days = 30
+				id = lxleader.105
+			}
+		}
+		# assign_leader = event_target:a#分配领袖
+		# set_timed_global_flag = { flag = add_two_traits_leader_ing days = 180 }
+	}
 }
+
 #格式塔
 country_event = {
-    id = lxleader.102
-    hide_window = yes  # 隐藏窗口
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    trigger = {
-        is_ai = no
-        is_gestalt = yes
-        not = {
-            has_global_flag = add_two_traits_leader_ing
-        }
-    }
-    immediate = {
-        #第二个命定
-        random_owned_leader = {
-            limit = {
-                # 基础技能
-                has_base_skill > 19
-                has_leader_flag = has_two_traits
-                not = {
-                    has_leader_flag = lx_gestalt_two_traits
-                }
-                has_global_flag = yes_two_traits
-            }
-            #保存找到的领袖
-            save_event_target_as = has_two_traits_leader
-        }
-        #第一个
-        random_owned_leader = {
-            limit = {
-                # 基础技能
-                has_base_skill > 9
-                # 没有特殊标记
-                NOT = {
-                    has_leader_flag = has_two_traits
-                }
-            }
-            #保存找到的领袖
-            save_event_target_as = has_two_traits_leader
-        }
-        #指挥官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = commander
-                }
-            }
-            country_event = {
-                days = 30
-                id = lxleader.103
-            }
-        }
-        #行政官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = official
-                }
-            }
-            country_event = {
-                days = 30
-                id = lxleader.104
-            }
-        }
-        #科学官
-        if = {
-            limit = {
-                event_target:has_two_traits_leader = {
-                    leader_class = scientist
-                }
-            }
-            country_event = {
-                days = 30
-                id = lxleader.105
-            }
-        }
-        # assign_leader = event_target:a#分配领袖
-
-        # set_timed_global_flag = { flag = add_two_traits_leader_ing days = 180 }
-    }
+	id = lxleader.102
+	hide_window = yes	# 隐藏窗口
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	trigger = {
+		is_ai = no
+		is_gestalt = yes
+		not = {
+			has_global_flag = add_two_traits_leader_ing
+		}
+	}
+	immediate = {
+		#第二个命定
+		random_owned_leader = {
+			limit = {
+				# 基础技能
+				has_base_skill > 19
+				has_leader_flag = has_two_traits
+				not = {
+					has_leader_flag = lx_gestalt_two_traits
+				}
+				NOT = {
+					has_leader_flag = lx_pending_trait
+				}
+				has_global_flag = yes_two_traits
+			}
+			#保存找到的领袖
+			save_event_target_as = has_two_traits_leader
+		}
+		#第一个
+		random_owned_leader = {
+			limit = {
+				# 基础技能
+				has_base_skill > 9
+				# 没有特殊标记
+				NOT = {
+					has_leader_flag = has_two_traits
+				}
+				NOT = {
+					has_leader_flag = lx_pending_trait
+				}
+			}
+			#保存找到的领袖
+			save_event_target_as = has_two_traits_leader
+		}
+		# 标记领袖为已选中，防止重复选择
+		event_target:has_two_traits_leader = {
+			set_leader_flag = lx_pending_trait
+		}
+		#指挥官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = commander
+				}
+			}
+			country_event = {
+				days = 30
+				id = lxleader.103
+			}
+		}
+		#行政官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = official
+				}
+			}
+			country_event = {
+				days = 30
+				id = lxleader.104
+			}
+		}
+		#科学官
+		if = {
+			limit = {
+				event_target:has_two_traits_leader = {
+					leader_class = scientist
+				}
+			}
+			country_event = {
+				days = 30
+				id = lxleader.105
+			}
+		}
+		# assign_leader = event_target:a#分配领袖
+		# set_timed_global_flag = { flag = add_two_traits_leader_ing days = 180 }
+	}
 }
+
 #指挥官选择特质
 country_event = {
-    id = lxleader.103
-    title = "lxleader102.title"
-    desc = {
-        trigger = {}
-        text = "lxleader102.desc"
-        show_sound = par_event_keides
-    }
-    # desc = "lxleader102.desc"
-    diplomatic = yes
-    fire_only_once = no
-    is_triggered_only = yes
-    show_sound = par_event_keides
-
-    picture = GFX_leader_recruitment_bg_renowned
-    event_window_type = leader_recruit
-    #ui硬的要死
-    # custom_gui = LeadertwotraitsEventWindow
-
-    picture_event_data = {
-        portrait = event_target:has_two_traits_leader
-        room = galactic_custodian_room
-    }
-
-    trigger = {
-        is_ai = no
-        has_global_flag = yes_two_traits
-        event_target:has_two_traits_leader = {
-            exists = leader
-        }
-    }
-    #没法隐藏
-    option = {
-        name = lxleader103_yes
-        tag = hire_leader
-        sound = "par_keides_hire"
-        custom_tooltip = lxleader103_0
-        hidden_effect = {
-            # default_hide_option = yes #关闭界面，不能在这里用
-            # clone_leader = {
-            #     target = event_target:has_two_traits_leader
-            # }
-        }
-
-        # create_message = {
-        #     type = MESSAGE_RECRUITED_LEADER
-        #     localization = MESSAGE_RECRUITED_LEADER_DESC
-        #     days = @toast_message_days
-        #     target = event_target:legendary_lost_leader
-        #     variable = {
-        #         type = name
-        #         localization = LEADER
-        #         scope = event_target:legendary_lost_leader
-        #     }
-        #     variable = {
-        #         key = "border"
-        #         value = "GFX_border_legendary"
-        #     }
-        # }
-    }
-    #忽略
-    option = {
-        name = DISMISS
-        # Special tag to mark this as the dismiss option
-        tag = dismiss_leader
-        sound = "par_keides_dismiss"
-        hidden_effect = {
-        }
-    }
-    #废弃
-    option = {
-        name = lxleader102.1
-        response_text = lxleader102.2
-        is_dialog_only = yes
-        trigger = {
-            always = no
-        }
-    }
-    #指挥官
-    #军事监督者
-    option = {
-        name = lxleader103.1
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_councilor
-                not = {
-                    has_trait = leader_trait_military_overseer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_military_overseer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #天才军械师
-    option = {
-        name = lxleader103.2
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_councilor
-                not = {
-                    has_trait = leader_trait_armorer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_armorer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #枪炮大师
-    option = {
-        name = lxleader103.3  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_admiral
-                not = {
-                    has_trait = leader_trait_master_gunner
-                }
-            }
-        }
-        custom_tooltip = lxleader.3.1
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_master_gunner
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #维护指挥官
-    option = {
-        name = lxleader103.5  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_admiral
-                not = {
-                    has_trait = leader_trait_destiny_engineer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_destiny_engineer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #游击大师
-    option = {
-        name = lxleader103.6  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_admiral
-                not = {
-                    has_trait = leader_trait_guerilla_tactics
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_guerilla_tactics
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #帝国之盾
-    option = {
-        name = lxleader103.7  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_admiral
-                not = {
-                    has_trait = leader_trait_survivalist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_survivalist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #战争构筑师
-    option = {
-        name = lxleader103.8  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_councilor
-                not = {
-                    has_trait = leader_trait_maven_of_war
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_maven_of_war
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #测试
-    option = {
-        name = lxleader103.4  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_admiral
-                not = {
-                    has_trait = leader_trait_add_1
-                }
-            }
-            always = no
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_add_1
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #内阁 和平守护者
-    option = {
-        name = lxleader104.2
-        trigger = {
-            event_target:has_two_traits_leader = {
-                OR = {
-                    has_trait = subclass_official_economy_councilor
-                    has_trait = subclass_commander_councilor
-                }
-                not = {
-                    has_trait = leader_trait_peacekeeper
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_peacekeeper
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-
-    #大监工
-    option = {
-        name = lxleader103.9
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_governor
-                not = {
-                    has_trait = leader_trait_taskmaster
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_taskmaster
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #堡垒克星
-    option = {
-        name = lxleader103.10
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_general
-                not = {
-                    has_trait = leader_trait_fortress_cracker
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_fortress_cracker
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #枷锁破除者
-    option = {
-        name = lxleader103.11
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_general
-                has_ethic = ethic_egalitarian
-                not = {
-                    has_trait = leader_trait_chainbreaker
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_chainbreaker
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #荣耀老将
-    option = {
-        name = lxleader103.12
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_governor
-                has_ethic = ethic_xenophile
-                not = {
-                    has_trait = leader_trait_honored_warmaster
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_honored_warmaster
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #学院征募官
-    option = {
-        name = lxleader103.13
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_governor
-                has_ethic = ethic_materialist
-                not = {
-                    has_trait = leader_trait_academia_recruiter
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_academia_recruiter
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #终极战士
-    option = {
-        name = lxleader103.14
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_general
-                not = {
-                    has_trait = leader_trait_supreme_warrior
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_supreme_warrior
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #崇敬军需官
-    option = {
-        name = lxleader103.15 # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_councilor
-                not = {
-                    has_trait = leader_trait_bellicose
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_bellicose
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #冷酷开发者
-    option = {
-        name = lxleader103.16 # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_commander_governor
-                not = {
-                    has_trait = leader_trait_arbiter
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_arbiter
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-
-    #敏锐导师  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.7  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_educator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_educator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #官场老手  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.8  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_master_bureaucrat
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_master_bureaucrat
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #异种调停者 星球通用
-    option = {
-        name = lxleader104.13  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                has_ethic = ethic_xenophile
-                not = {
-                    has_trait = leader_trait_mediator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_mediator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #虚境布道者 星球通用
-    option = {
-        name = lxleader104.14  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                owner = {
-                    NOT = {
-                        has_origin = origin_mindwardens
-                    }
-                    OR = {
-                        has_ascension_perk = ap_mind_over_matter
-                        has_origin = origin_shroudwalker_apprentice
-                        has_origin = origin_endbringers
-                        is_chosen_empire = yes
-                        AND = {
-                            has_origin = origin_shroud_forged
-                            has_country_flag = finish_shroud_forged_liberation_flag
-                        }
-                    }
-                }
-                NOT = {
-                    has_leader_flag = mindwarden_commander
-                }
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                not = {
-                    has_trait = leader_trait_shroud_preacher
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_shroud_preacher
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #行星分析师 星球通用
-    option = {
-        name = lxleader105.1  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                not = {
-                    has_trait = leader_trait_surveyor
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_surveyor
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #机器人之王 星球通用
-    option = {
-        name = lxleader105.5  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                exists = owner
-                owner = {
-                    OR = {
-                        has_technology = tech_robotic_workers
-                        has_cybernetic_ascension = yes
-                        is_individual_machine = yes
-                    }
-                }
-                not = {
-                    has_trait = leader_trait_robotist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_robotist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
+	id = lxleader.103
+	title = "lxleader102.title"
+	desc = {
+		trigger = {
+		}
+		text = "lxleader102.desc"
+		show_sound = par_event_keides
+	}
+	# desc = "lxleader102.desc"
+	diplomatic = yes
+	fire_only_once = no
+	is_triggered_only = yes
+	show_sound = par_event_keides
+	picture = GFX_leader_recruitment_bg_renowned
+	event_window_type = leader_recruit
+	#ui硬的要死
+	# custom_gui = LeadertwotraitsEventWindow
+	picture_event_data = {
+		portrait = event_target:has_two_traits_leader
+		room = galactic_custodian_room
+	}
+	trigger = {
+		is_ai = no
+		has_global_flag = yes_two_traits
+		event_target:has_two_traits_leader = {
+			exists = leader
+		}
+	}
+	#没法隐藏
+	option = {
+		name = lxleader103_yes
+		tag = hire_leader
+		sound = "par_keides_hire"
+		custom_tooltip = lxleader103_0
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				lx_leader_two_traits_effect = yes
+			}
+			# default_hide_option = yes #关闭界面，不能在这里用
+			# clone_leader = {
+			#     target = event_target:has_two_traits_leader
+			# }
+		}
+		# create_message = {
+		#     type = MESSAGE_RECRUITED_LEADER
+		#     localization = MESSAGE_RECRUITED_LEADER_DESC
+		#     days = @toast_message_days
+		#     target = event_target:legendary_lost_leader
+		#     variable = {
+		#         type = name
+		#         localization = LEADER
+		#         scope = event_target:legendary_lost_leader
+		#     }
+		#     variable = {
+		#         key = "border"
+		#         value = "GFX_border_legendary"
+		#     }
+		# }
+	}
+	#忽略
+	option = {
+		name = DISMISS
+		# Special tag to mark this as the dismiss option
+		tag = dismiss_leader
+		sound = "par_keides_dismiss"
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				remove_leader_flag = lx_pending_trait
+			}
+		}
+	}
+	#废弃
+	option = {
+		name = lxleader102.1
+		response_text = lxleader102.2
+		is_dialog_only = yes
+		trigger = {
+			always = no
+		}
+	}
+	#指挥官
+	#军事监督者
+	option = {
+		name = lxleader103.1
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_councilor
+				not = {
+					has_trait = leader_trait_military_overseer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_military_overseer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#天才军械师
+	option = {
+		name = lxleader103.2
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_councilor
+				not = {
+					has_trait = leader_trait_armorer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_armorer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#枪炮大师
+	option = {
+		name = lxleader103.3		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_admiral
+				not = {
+					has_trait = leader_trait_master_gunner
+				}
+			}
+		}
+		custom_tooltip = lxleader.3.1
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_master_gunner
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#维护指挥官
+	option = {
+		name = lxleader103.5		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_admiral
+				not = {
+					has_trait = leader_trait_destiny_engineer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_destiny_engineer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#游击大师
+	option = {
+		name = lxleader103.6		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_admiral
+				not = {
+					has_trait = leader_trait_guerilla_tactics
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_guerilla_tactics
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#帝国之盾
+	option = {
+		name = lxleader103.7		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_admiral
+				not = {
+					has_trait = leader_trait_survivalist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_survivalist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#战争构筑师
+	option = {
+		name = lxleader103.8		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_councilor
+				not = {
+					has_trait = leader_trait_maven_of_war
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_maven_of_war
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#测试
+	option = {
+		name = lxleader103.4		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_admiral
+				not = {
+					has_trait = leader_trait_add_1
+				}
+			}
+			always = no
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_add_1
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#内阁 和平守护者
+	option = {
+		name = lxleader104.2
+		trigger = {
+			event_target:has_two_traits_leader = {
+				OR = {
+					has_trait = subclass_official_economy_councilor
+					has_trait = subclass_commander_councilor
+				}
+				not = {
+					has_trait = leader_trait_peacekeeper
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_peacekeeper
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#大监工
+	option = {
+		name = lxleader103.9
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_governor
+				not = {
+					has_trait = leader_trait_taskmaster
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_taskmaster
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#堡垒克星
+	option = {
+		name = lxleader103.10
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_general
+				not = {
+					has_trait = leader_trait_fortress_cracker
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_fortress_cracker
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#枷锁破除者
+	option = {
+		name = lxleader103.11
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_general
+				has_ethic = ethic_egalitarian
+				not = {
+					has_trait = leader_trait_chainbreaker
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_chainbreaker
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#荣耀老将
+	option = {
+		name = lxleader103.12
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_governor
+				has_ethic = ethic_xenophile
+				not = {
+					has_trait = leader_trait_honored_warmaster
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_honored_warmaster
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#学院征募官
+	option = {
+		name = lxleader103.13
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_governor
+				has_ethic = ethic_materialist
+				not = {
+					has_trait = leader_trait_academia_recruiter
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_academia_recruiter
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#终极战士
+	option = {
+		name = lxleader103.14
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_general
+				not = {
+					has_trait = leader_trait_supreme_warrior
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_supreme_warrior
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#崇敬军需官
+	option = {
+		name = lxleader103.15		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_councilor
+				not = {
+					has_trait = leader_trait_bellicose
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_bellicose
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#冷酷开发者
+	option = {
+		name = lxleader103.16		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_commander_governor
+				not = {
+					has_trait = leader_trait_arbiter
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_arbiter
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#敏锐导师  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.7		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_educator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_educator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#官场老手  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.8		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_master_bureaucrat
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_master_bureaucrat
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#异种调停者 星球通用
+	option = {
+		name = lxleader104.13		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				has_ethic = ethic_xenophile
+				not = {
+					has_trait = leader_trait_mediator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_mediator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#虚境布道者 星球通用
+	option = {
+		name = lxleader104.14		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				owner = {
+					NOT = {
+						has_origin = origin_mindwardens
+					}
+					OR = {
+						has_ascension_perk = ap_mind_over_matter
+						has_origin = origin_shroudwalker_apprentice
+						has_origin = origin_endbringers
+						is_chosen_empire = yes
+						AND = {
+							has_origin = origin_shroud_forged
+							has_country_flag = finish_shroud_forged_liberation_flag
+						}
+					}
+				}
+				NOT = {
+					has_leader_flag = mindwarden_commander
+				}
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				not = {
+					has_trait = leader_trait_shroud_preacher
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_shroud_preacher
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#行星分析师 星球通用
+	option = {
+		name = lxleader105.1		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				not = {
+					has_trait = leader_trait_surveyor
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_surveyor
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#机器人之王 星球通用
+	option = {
+		name = lxleader105.5		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				exists = owner
+				owner = {
+					OR = {
+						has_technology = tech_robotic_workers
+						has_cybernetic_ascension = yes
+						is_individual_machine = yes
+					}
+				}
+				not = {
+					has_trait = leader_trait_robotist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_robotist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
 }
+
 #行政官选择特质
 country_event = {
-    id = lxleader.104
-    title = "lxleader102.title"
-    desc = {
-        trigger = {}
-        text = "lxleader102.desc"
-        show_sound = par_event_keides
-    }
-    # desc = "lxleader102.desc"
-    diplomatic = yes
-    fire_only_once = no
-    is_triggered_only = yes
-    show_sound = par_event_keides
-
-    picture = GFX_leader_recruitment_bg_renowned
-    event_window_type = leader_recruit
-    #ui硬的要死
-    # custom_gui = LeadertwotraitsEventWindow
-
-    picture_event_data = {
-        portrait = event_target:has_two_traits_leader
-        room = galactic_custodian_room
-    }
-
-    trigger = {
-        is_ai = no
-        has_global_flag = yes_two_traits
-        event_target:has_two_traits_leader = {
-            exists = leader
-        }
-    }
-
-    option = {
-        name = lxleader103_yes
-        tag = hire_leader
-        sound = "par_keides_hire"
-        custom_tooltip = lxleader103_0
-        hidden_effect = {
-            # default_hide_option = yes #关闭界面，不能在这里用
-            # clone_leader = {
-            #     target = event_target:has_two_traits_leader
-            # }
-        }
-    }
-
-    option = {
-        name = DISMISS
-        # Special tag to mark this as the dismiss option
-        tag = dismiss_leader
-        sound = "par_keides_dismiss"
-        hidden_effect = {
-        }
-    }
-    #50人口加一灵能使的虚境塑造者
-    option = {
-        name = lxleader104.1
-        trigger = {
-            event_target:has_two_traits_leader = {
-                leader_class = official
-                not = {
-                    has_trait = exleader_leader_trait_shroudshaper
-                }
-                owner = {
-                    OR = {
-                        has_ascension_perk = ap_mind_over_matter
-                        has_origin = origin_shroudwalker_apprentice
-                        has_origin = origin_endbringers
-                        is_chosen_empire = yes
-                        AND = {
-                            has_origin = origin_shroud_forged
-                            has_country_flag = finish_shroud_forged_liberation_flag
-                        }
-                    }
-                }
-                or = {
-                    has_trait = leader_trait_psionic
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = exleader_leader_trait_shroudshaper
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #内阁 和平守护者
-    option = {
-        name = lxleader104.2
-        trigger = {
-            event_target:has_two_traits_leader = {
-                OR = {
-                    has_trait = subclass_official_economy_councilor
-                    has_trait = subclass_commander_councilor
-                }
-                not = {
-                    has_trait = leader_trait_peacekeeper
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_peacekeeper
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #内阁 幕后主使
-    option = {
-        name = lxleader104.3  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                trait_is_wilderness_check = no
-                has_trait = subclass_official_economy_councilor
-                not = {
-                    has_trait = leader_trait_supreme_organizer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_supreme_organizer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #城建专家
-    option = {
-        name = lxleader104.4  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_governor
-                not = {
-                    has_trait = leader_trait_urbanist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_urbanist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #影中人
-    option = {
-        name = lxleader104.5  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_diplomacy_councilor
-                not = {
-                    has_trait = leader_trait_spymaster
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_spymaster
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #帝国掌礼官
-    option = {
-        name = lxleader104.6  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_diplomacy_councilor
-                has_ethic = ethic_authoritarian
-                not = {
-                    has_trait = leader_trait_totalitarian
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_totalitarian
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #敏锐导师  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.7  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_educator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_educator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #官场老手  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.8  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_master_bureaucrat
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_master_bureaucrat
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #外交大师
-    option = {
-        name = lxleader104.9  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_diplomacy_councilor
-                exists = owner
-                owner = {
-                    is_homicidal = no
-                }
-                not = {
-                    has_trait = leader_trait_master_diplomat
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_master_diplomat
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #激人奋进
-    option = {
-        name = lxleader104.10  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_governor
-                not = {
-                    has_trait = leader_trait_galvanizer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_galvanizer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #精英施益者
-    option = {
-        name = lxleader104.11  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_governor
-                not = {
-                    has_trait = leader_trait_efficient
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_efficient
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #乌托邦理想家
-    option = {
-        name = lxleader104.12  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_official_governor
-                not = {
-                    has_trait = leader_trait_utopian_idealist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_utopian_idealist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #异种调停者 星球通用
-    option = {
-        name = lxleader104.13  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                has_ethic = ethic_xenophile
-                not = {
-                    has_trait = leader_trait_mediator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_mediator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #虚境布道者 星球通用
-    option = {
-        name = lxleader104.14  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                owner = {
-                    NOT = {
-                        has_origin = origin_mindwardens
-                    }
-                    OR = {
-                        has_ascension_perk = ap_mind_over_matter
-                        has_origin = origin_shroudwalker_apprentice
-                        has_origin = origin_endbringers
-                        is_chosen_empire = yes
-                        AND = {
-                            has_origin = origin_shroud_forged
-                            has_country_flag = finish_shroud_forged_liberation_flag
-                        }
-                    }
-                }
-                NOT = {
-                    has_leader_flag = mindwarden_commander
-                }
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                not = {
-                    has_trait = leader_trait_shroud_preacher
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_shroud_preacher
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #行星分析师 星球通用
-    option = {
-        name = lxleader105.1  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                not = {
-                    has_trait = leader_trait_surveyor
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_surveyor
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #机器人之王 星球通用
-    option = {
-        name = lxleader105.5  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                exists = owner
-                owner = {
-                    OR = {
-                        has_technology = tech_robotic_workers
-                        has_cybernetic_ascension = yes
-                        is_individual_machine = yes
-                    }
-                }
-                not = {
-                    has_trait = leader_trait_robotist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_robotist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
+	id = lxleader.104
+	title = "lxleader102.title"
+	desc = {
+		trigger = {
+		}
+		text = "lxleader102.desc"
+		show_sound = par_event_keides
+	}
+	# desc = "lxleader102.desc"
+	diplomatic = yes
+	fire_only_once = no
+	is_triggered_only = yes
+	show_sound = par_event_keides
+	picture = GFX_leader_recruitment_bg_renowned
+	event_window_type = leader_recruit
+	#ui硬的要死
+	# custom_gui = LeadertwotraitsEventWindow
+	picture_event_data = {
+		portrait = event_target:has_two_traits_leader
+		room = galactic_custodian_room
+	}
+	trigger = {
+		is_ai = no
+		has_global_flag = yes_two_traits
+		event_target:has_two_traits_leader = {
+			exists = leader
+		}
+	}
+	option = {
+		name = lxleader103_yes
+		tag = hire_leader
+		sound = "par_keides_hire"
+		custom_tooltip = lxleader103_0
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				lx_leader_two_traits_effect = yes
+			}
+			# default_hide_option = yes #关闭界面，不能在这里用
+			# clone_leader = {
+			#     target = event_target:has_two_traits_leader
+			# }
+		}
+	}
+	option = {
+		name = DISMISS
+		# Special tag to mark this as the dismiss option
+		tag = dismiss_leader
+		sound = "par_keides_dismiss"
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				remove_leader_flag = lx_pending_trait
+			}
+		}
+	}
+	#50人口加一灵能使的虚境塑造者
+	option = {
+		name = lxleader104.1
+		trigger = {
+			event_target:has_two_traits_leader = {
+				leader_class = official
+				not = {
+					has_trait = exleader_leader_trait_shroudshaper
+				}
+				owner = {
+					OR = {
+						has_ascension_perk = ap_mind_over_matter
+						has_origin = origin_shroudwalker_apprentice
+						has_origin = origin_endbringers
+						is_chosen_empire = yes
+						AND = {
+							has_origin = origin_shroud_forged
+							has_country_flag = finish_shroud_forged_liberation_flag
+						}
+					}
+				}
+				or = {
+					has_trait = leader_trait_psionic
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = exleader_leader_trait_shroudshaper
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#内阁 和平守护者
+	option = {
+		name = lxleader104.2
+		trigger = {
+			event_target:has_two_traits_leader = {
+				OR = {
+					has_trait = subclass_official_economy_councilor
+					has_trait = subclass_commander_councilor
+				}
+				not = {
+					has_trait = leader_trait_peacekeeper
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_peacekeeper
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#内阁 幕后主使
+	option = {
+		name = lxleader104.3		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				trait_is_wilderness_check = no
+				has_trait = subclass_official_economy_councilor
+				not = {
+					has_trait = leader_trait_supreme_organizer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_supreme_organizer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#城建专家
+	option = {
+		name = lxleader104.4		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_governor
+				not = {
+					has_trait = leader_trait_urbanist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_urbanist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#影中人
+	option = {
+		name = lxleader104.5		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_diplomacy_councilor
+				not = {
+					has_trait = leader_trait_spymaster
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_spymaster
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#帝国掌礼官
+	option = {
+		name = lxleader104.6		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_diplomacy_councilor
+				has_ethic = ethic_authoritarian
+				not = {
+					has_trait = leader_trait_totalitarian
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_totalitarian
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#敏锐导师  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.7		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_educator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_educator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#官场老手  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.8		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_master_bureaucrat
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_master_bureaucrat
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#外交大师
+	option = {
+		name = lxleader104.9		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_diplomacy_councilor
+				exists = owner
+				owner = {
+					is_homicidal = no
+				}
+				not = {
+					has_trait = leader_trait_master_diplomat
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_master_diplomat
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#激人奋进
+	option = {
+		name = lxleader104.10		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_governor
+				not = {
+					has_trait = leader_trait_galvanizer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_galvanizer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#精英施益者
+	option = {
+		name = lxleader104.11		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_governor
+				not = {
+					has_trait = leader_trait_efficient
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_efficient
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#乌托邦理想家
+	option = {
+		name = lxleader104.12		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_official_governor
+				not = {
+					has_trait = leader_trait_utopian_idealist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_utopian_idealist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#异种调停者 星球通用
+	option = {
+		name = lxleader104.13		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				has_ethic = ethic_xenophile
+				not = {
+					has_trait = leader_trait_mediator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_mediator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#虚境布道者 星球通用
+	option = {
+		name = lxleader104.14		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				owner = {
+					NOT = {
+						has_origin = origin_mindwardens
+					}
+					OR = {
+						has_ascension_perk = ap_mind_over_matter
+						has_origin = origin_shroudwalker_apprentice
+						has_origin = origin_endbringers
+						is_chosen_empire = yes
+						AND = {
+							has_origin = origin_shroud_forged
+							has_country_flag = finish_shroud_forged_liberation_flag
+						}
+					}
+				}
+				NOT = {
+					has_leader_flag = mindwarden_commander
+				}
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				not = {
+					has_trait = leader_trait_shroud_preacher
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_shroud_preacher
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#行星分析师 星球通用
+	option = {
+		name = lxleader105.1		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				not = {
+					has_trait = leader_trait_surveyor
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_surveyor
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#机器人之王 星球通用
+	option = {
+		name = lxleader105.5		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				exists = owner
+				owner = {
+					OR = {
+						has_technology = tech_robotic_workers
+						has_cybernetic_ascension = yes
+						is_individual_machine = yes
+					}
+				}
+				not = {
+					has_trait = leader_trait_robotist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_robotist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
 }
+
 #科学官选择特质
 country_event = {
-    id = lxleader.105
-    title = "lxleader102.title"
-    desc = {
-        trigger = {}
-        text = "lxleader102.desc"
-        show_sound = par_event_keides
-    }
-    # desc = "lxleader102.desc"
-    diplomatic = yes
-    fire_only_once = no
-    is_triggered_only = yes
-    show_sound = par_event_keides
-
-    picture = GFX_leader_recruitment_bg_renowned
-    event_window_type = leader_recruit
-    #ui硬的要死
-    # custom_gui = LeadertwotraitsEventWindow
-
-    picture_event_data = {
-        portrait = event_target:has_two_traits_leader
-        room = galactic_custodian_room
-    }
-
-    trigger = {
-        is_ai = no
-        has_global_flag = yes_two_traits
-        event_target:has_two_traits_leader = {
-            exists = leader
-        }
-    }
-
-    option = {
-        name = lxleader103_yes
-        tag = hire_leader
-        sound = "par_keides_hire"
-        custom_tooltip = lxleader103_0
-        hidden_effect = {
-            # default_hide_option = yes #关闭界面，不能在这里用
-            # clone_leader = {
-            #     target = event_target:has_two_traits_leader
-            # }
-        }
-
-        # create_message = {
-        #     type = MESSAGE_RECRUITED_LEADER
-        #     localization = MESSAGE_RECRUITED_LEADER_DESC
-        #     days = @toast_message_days
-        #     target = event_target:legendary_lost_leader
-        #     variable = {
-        #         type = name
-        #         localization = LEADER
-        #         scope = event_target:legendary_lost_leader
-        #     }
-        #     variable = {
-        #         key = "border"
-        #         value = "GFX_border_legendary"
-        #     }
-        # }
-    }
-
-    option = {
-        name = DISMISS
-        # Special tag to mark this as the dismiss option
-        tag = dismiss_leader
-        sound = "par_keides_dismiss"
-        hidden_effect = {
-        }
-    }
-
-    #行星分析师 星球通用
-    option = {
-        name = lxleader105.1  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                not = {
-                    has_trait = leader_trait_surveyor
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_surveyor
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #活力讲古人
-    option = {
-        name = lxleader105.2  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_trait = subclass_scientist_scholar
-                not = {
-                    has_trait = leader_trait_midas_touch
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_midas_touch
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #细致入微
-    option = {
-        name = lxleader105.3  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                OR = {
-                    has_paragon_dlc = no
-                    has_trait = subclass_scientist_scholar
-                }
-                not = {
-                    has_trait = leader_trait_collective_wisdom
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_collective_wisdom
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #致力教育家
-    option = {
-        name = lxleader105.4  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                has_trait = subclass_scientist_councilor
-                not = {
-                    has_trait = leader_trait_knowledge_for_the_masses
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_knowledge_for_the_masses
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #机器人之王 星球通用
-    option = {
-        name = lxleader105.5  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                exists = owner
-                owner = {
-                    OR = {
-                        has_technology = tech_robotic_workers
-                        has_cybernetic_ascension = yes
-                        is_individual_machine = yes
-                    }
-                }
-                not = {
-                    has_trait = leader_trait_robotist
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_robotist
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #大研究者
-    option = {
-        name = lxleader105.6  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                has_trait = subclass_scientist_councilor
-                not = {
-                    has_trait = leader_trait_great_researcher
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_great_researcher
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #异种编目家
-    option = {
-        name = lxleader105.7  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                has_trait = subclass_scientist_explorer
-                not = {
-                    has_trait = leader_trait_xeno_cataloger
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_xeno_cataloger
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #边疆冒险家
-    option = {
-        name = lxleader105.8  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                has_ancrel = yes
-                has_trait = subclass_scientist_explorer
-                not = {
-                    has_trait = leader_trait_frontier_adventurer
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_frontier_adventurer
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #卓越造船家
-    option = {
-        name = lxleader105.9  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_paragon_dlc = yes
-                has_trait = subclass_scientist_councilor
-                not = {
-                    has_trait = leader_trait_brilliant_shipwright
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_brilliant_shipwright
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #真理探求者
-    option = {
-        name = lxleader105.10  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                owner = {
-                    has_psionic_ascension = yes
-                }
-                has_paragon_dlc = yes
-                has_trait = subclass_scientist_governor
-                not = {
-                    has_trait = leader_trait_truth_seeker
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_truth_seeker
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-
-    #敏锐导师  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.7  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_educator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_educator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #官场老手  科学军事行政内阁通用特质
-    option = {
-        name = lxleader104.8  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_council_subclass = yes
-                not = {
-                    has_trait = leader_trait_master_bureaucrat
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_master_bureaucrat
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #异种调停者 星球通用
-    option = {
-        name = lxleader104.13  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                has_governor_subclass = yes
-                has_ethic = ethic_xenophile
-                not = {
-                    has_trait = leader_trait_mediator
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_mediator
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
-    #虚境布道者 星球通用
-    option = {
-        name = lxleader104.14  # 选项名称
-        trigger = {
-            event_target:has_two_traits_leader = {
-                owner = {
-                    NOT = {
-                        has_origin = origin_mindwardens
-                    }
-                    OR = {
-                        has_ascension_perk = ap_mind_over_matter
-                        has_origin = origin_shroudwalker_apprentice
-                        has_origin = origin_endbringers
-                        is_chosen_empire = yes
-                        AND = {
-                            has_origin = origin_shroud_forged
-                            has_country_flag = finish_shroud_forged_liberation_flag
-                        }
-                    }
-                }
-                NOT = {
-                    has_leader_flag = mindwarden_commander
-                }
-                OR = {
-                    has_trait = subclass_scientist_governor
-                    has_trait = subclass_official_governor
-                    has_trait = subclass_commander_governor
-                }
-                not = {
-                    has_trait = leader_trait_shroud_preacher
-                }
-            }
-        }
-        event_target:has_two_traits_leader = {
-            add_trait = {
-                trait = leader_trait_shroud_preacher
-                consume_selection = no
-                show_message = yes
-            }
-            hidden_effect = {
-                lx_leader_two_traits_effect = yes
-            }
-        }
-    }
+	id = lxleader.105
+	title = "lxleader102.title"
+	desc = {
+		trigger = {
+		}
+		text = "lxleader102.desc"
+		show_sound = par_event_keides
+	}
+	# desc = "lxleader102.desc"
+	diplomatic = yes
+	fire_only_once = no
+	is_triggered_only = yes
+	show_sound = par_event_keides
+	picture = GFX_leader_recruitment_bg_renowned
+	event_window_type = leader_recruit
+	#ui硬的要死
+	# custom_gui = LeadertwotraitsEventWindow
+	picture_event_data = {
+		portrait = event_target:has_two_traits_leader
+		room = galactic_custodian_room
+	}
+	trigger = {
+		is_ai = no
+		has_global_flag = yes_two_traits
+		event_target:has_two_traits_leader = {
+			exists = leader
+		}
+	}
+	option = {
+		name = lxleader103_yes
+		tag = hire_leader
+		sound = "par_keides_hire"
+		custom_tooltip = lxleader103_0
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				lx_leader_two_traits_effect = yes
+			}
+			# default_hide_option = yes #关闭界面，不能在这里用
+			# clone_leader = {
+			#     target = event_target:has_two_traits_leader
+			# }
+		}
+		# create_message = {
+		#     type = MESSAGE_RECRUITED_LEADER
+		#     localization = MESSAGE_RECRUITED_LEADER_DESC
+		#     days = @toast_message_days
+		#     target = event_target:legendary_lost_leader
+		#     variable = {
+		#         type = name
+		#         localization = LEADER
+		#         scope = event_target:legendary_lost_leader
+		#     }
+		#     variable = {
+		#         key = "border"
+		#         value = "GFX_border_legendary"
+		#     }
+		# }
+	}
+	option = {
+		name = DISMISS
+		# Special tag to mark this as the dismiss option
+		tag = dismiss_leader
+		sound = "par_keides_dismiss"
+		hidden_effect = {
+			event_target:has_two_traits_leader = {
+				remove_leader_flag = lx_pending_trait
+			}
+		}
+	}
+	#行星分析师 星球通用
+	option = {
+		name = lxleader105.1		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				not = {
+					has_trait = leader_trait_surveyor
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_surveyor
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#活力讲古人
+	option = {
+		name = lxleader105.2		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_trait = subclass_scientist_scholar
+				not = {
+					has_trait = leader_trait_midas_touch
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_midas_touch
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#细致入微
+	option = {
+		name = lxleader105.3		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				OR = {
+					has_paragon_dlc = no
+					has_trait = subclass_scientist_scholar
+				}
+				not = {
+					has_trait = leader_trait_collective_wisdom
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_collective_wisdom
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#致力教育家
+	option = {
+		name = lxleader105.4		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				has_trait = subclass_scientist_councilor
+				not = {
+					has_trait = leader_trait_knowledge_for_the_masses
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_knowledge_for_the_masses
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#机器人之王 星球通用
+	option = {
+		name = lxleader105.5		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				exists = owner
+				owner = {
+					OR = {
+						has_technology = tech_robotic_workers
+						has_cybernetic_ascension = yes
+						is_individual_machine = yes
+					}
+				}
+				not = {
+					has_trait = leader_trait_robotist
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_robotist
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#大研究者
+	option = {
+		name = lxleader105.6		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				has_trait = subclass_scientist_councilor
+				not = {
+					has_trait = leader_trait_great_researcher
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_great_researcher
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#异种编目家
+	option = {
+		name = lxleader105.7		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				has_trait = subclass_scientist_explorer
+				not = {
+					has_trait = leader_trait_xeno_cataloger
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_xeno_cataloger
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#边疆冒险家
+	option = {
+		name = lxleader105.8		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				has_ancrel = yes
+				has_trait = subclass_scientist_explorer
+				not = {
+					has_trait = leader_trait_frontier_adventurer
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_frontier_adventurer
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#卓越造船家
+	option = {
+		name = lxleader105.9		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_paragon_dlc = yes
+				has_trait = subclass_scientist_councilor
+				not = {
+					has_trait = leader_trait_brilliant_shipwright
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_brilliant_shipwright
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#真理探求者
+	option = {
+		name = lxleader105.10		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				owner = {
+					has_psionic_ascension = yes
+				}
+				has_paragon_dlc = yes
+				has_trait = subclass_scientist_governor
+				not = {
+					has_trait = leader_trait_truth_seeker
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_truth_seeker
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#敏锐导师  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.7		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_educator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_educator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#官场老手  科学军事行政内阁通用特质
+	option = {
+		name = lxleader104.8		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_council_subclass = yes
+				not = {
+					has_trait = leader_trait_master_bureaucrat
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_master_bureaucrat
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#异种调停者 星球通用
+	option = {
+		name = lxleader104.13		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				has_governor_subclass = yes
+				has_ethic = ethic_xenophile
+				not = {
+					has_trait = leader_trait_mediator
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_mediator
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
+	#虚境布道者 星球通用
+	option = {
+		name = lxleader104.14		# 选项名称
+		trigger = {
+			event_target:has_two_traits_leader = {
+				owner = {
+					NOT = {
+						has_origin = origin_mindwardens
+					}
+					OR = {
+						has_ascension_perk = ap_mind_over_matter
+						has_origin = origin_shroudwalker_apprentice
+						has_origin = origin_endbringers
+						is_chosen_empire = yes
+						AND = {
+							has_origin = origin_shroud_forged
+							has_country_flag = finish_shroud_forged_liberation_flag
+						}
+					}
+				}
+				NOT = {
+					has_leader_flag = mindwarden_commander
+				}
+				OR = {
+					has_trait = subclass_scientist_governor
+					has_trait = subclass_official_governor
+					has_trait = subclass_commander_governor
+				}
+				not = {
+					has_trait = leader_trait_shroud_preacher
+				}
+			}
+		}
+		event_target:has_two_traits_leader = {
+			add_trait = {
+				trait = leader_trait_shroud_preacher
+				consume_selection = no
+				show_message = yes
+			}
+			hidden_effect = {
+				lx_leader_two_traits_effect = yes
+			}
+		}
+	}
 }

@@ -1,59 +1,62 @@
 namespace = br
-
 # 事件ID区间：6000-6099。新增或修改事件ID不得超出此区间喵
 # br.6000：母舰采掘光束爆星后分流奖励事件，并把目标星球变成破碎星球喵
 planet_event = {
-    id = br.6000
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        save_event_target_as = br_harvested_planet
-        set_planet_flag = br_harvested_planet
-
-        from = {
-            owner = {
-                save_event_target_as = br_harvester_owner
-                country_event = { id = br.1103 }
-            }
-        }
-
-        # 采掘光束：母舰→星球，没办法在action开始时触发，
-        # export_trigger_value_to_variable = {
-        #     trigger = planet_size
-        #     variable = beam_size_var
-        # }
-        # multiply_variable = { which = beam_size_var value = 0.5 }
-        # create_ambient_object = {
-        #     type = br_repair_beam
-        #     location = from
-        #     entity_face_object = this
-        #     use_3d_location = yes
-        #     entity_scale_to_size = yes
-        #     scripted_scale = beam_size_var
-        #     play_animation_once = yes
-        #     duration = 50
-        # }
-
-        # 普通奖励由 br.1103 直接触发 reward.1，等级重算由 br.1104 处理。
-        # 爆星事件只负责基础资源、经验入口和星球处理。
-
-        if = {
-            limit = {
-                is_colony = yes
-            }
-            destroy_colony = yes
-        }
-
-        clear_deposits = yes
-        change_pc = pc_br_black_hole
-        create_ambient_object = {
-            type = br_harvest_vfx
-            location = event_target:br_harvested_planet
-            use_3d_location = yes
-            scale = 1.0
-            play_animation_once = no
-            duration = 180
-        }
-    }
+	id = br.6000
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = br_harvested_planet
+		set_planet_flag = br_harvested_planet
+		from = {
+			owner = {
+				change_variable = {
+					which = br_combat_score
+					value = 50
+				}
+				change_variable = {
+					which = br_kill_score
+					value = 50
+				}
+				save_event_target_as = br_harvester_owner
+				country_event = {
+					id = br.1103
+				}
+			}
+		}
+		# 采掘光束：母舰→星球，没办法在action开始时触发，
+		# export_trigger_value_to_variable = {
+		#     trigger = planet_size
+		#     variable = beam_size_var
+		# }
+		# multiply_variable = { which = beam_size_var value = 0.5 }
+		# create_ambient_object = {
+		#     type = br_repair_beam
+		#     location = from
+		#     entity_face_object = this
+		#     use_3d_location = yes
+		#     entity_scale_to_size = yes
+		#     scripted_scale = beam_size_var
+		#     play_animation_once = yes
+		#     duration = 50
+		# }
+		# 普通奖励由 br.1103 直接触发 reward.1，等级重算由 br.1104 处理。
+		# 爆星事件只负责基础资源、经验入口和星球处理。
+		if = {
+			limit = {
+				is_colony = yes
+			}
+			destroy_colony = yes
+		}
+		clear_deposits = yes
+		change_pc = pc_br_black_hole
+		create_ambient_object = {
+			type = br_harvest_vfx
+			location = event_target:br_harvested_planet
+			use_3d_location = yes
+			scale = 1
+			play_animation_once = no
+			duration = 180
+		}
+	}
 }

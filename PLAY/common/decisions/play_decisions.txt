@@ -1,474 +1,493 @@
 play_wx_add = {
-    # owned_planets_only = yes
-    icon = play_wx_decision_mastery_of_nature
-    enactment_time = 720
-    resources = {
-        category = decisions
-        cost = {
-            influence = 100
-            energy = 2000
-        }
-    }
-
-    potential = {
-        # is_artificial = no #不是人工星球
-        or = {
-            has_modifier = mastery_of_nature
-            has_modifier = cultivated_worldscaping_modifier
-            is_planet_class = pc_cybrex
-            is_planet_class = pc_ringworld_habitable
-            is_planet_class = pc_ringworld_habitable_damaged
-            is_planet_class = pc_ringworld_tech
-            is_planet_class = pc_ringworld_tech_damaged
-            is_planet_class = pc_ringworld_seam
-            is_planet_class = pc_ringworld_seam_damaged
-            is_planet_class = pc_shattered_ring_habitable
-            is_planet_class = pc_habitat
-        }
-        owner = {
-            has_ascension_perk = ap_mastery_of_nature
-        }
-    }
-
-    effect = {
-        change_variable = { which = planet_qh_add_value value = 2 }
-        add_modifier = {
-            modifier = planet_qh_add
-            mult = planet_qh_add_value
-            # multiplier =
-            # time_multiplier =
-            # clear_on_owner_change = yes
-            days = -1
-        }
-    }
-    ai_weight = {
-        weight = 0
-        modifier = {
-            factor = 0
-            free_district_slots > 0
-            pop_amount < 5000 #carrying capacity bonus always good at that stage
-        }
-    }
+	# owned_planets_only = yes
+	icon = play_wx_decision_mastery_of_nature
+	enactment_time = 720
+	resources = {
+		category = decisions
+		cost = {
+			influence = 100
+			energy = 2000
+		}
+	}
+	potential = {
+		# is_artificial = no #不是人工星球
+		or = {
+			has_modifier = mastery_of_nature
+			has_modifier = cultivated_worldscaping_modifier
+			is_planet_class = pc_cybrex
+			is_planet_class = pc_ringworld_habitable
+			is_planet_class = pc_ringworld_habitable_damaged
+			is_planet_class = pc_ringworld_tech
+			is_planet_class = pc_ringworld_tech_damaged
+			is_planet_class = pc_ringworld_seam
+			is_planet_class = pc_ringworld_seam_damaged
+			is_planet_class = pc_shattered_ring_habitable
+			is_planet_class = pc_habitat
+		}
+		owner = {
+			has_ascension_perk = ap_mastery_of_nature
+		}
+	}
+	effect = {
+		change_variable = {
+			which = planet_qh_add_value
+			value = 2
+		}
+		add_modifier = {
+			modifier = planet_qh_add
+			mult = planet_qh_add_value
+			# multiplier =
+			# time_multiplier =
+			# clear_on_owner_change = yes
+			days = -1
+		}
+	}
+	ai_weight = {
+		weight = 0
+		modifier = {
+			factor = 0
+			free_district_slots > 0
+			pop_amount < 5000			#carrying capacity bonus always good at that stage
+		}
+	}
 }
 
 play_orbital_ring = {
-    owned_planets_only = yes
-    icon = play_orbital_ring
-    enactment_time = 360
-    resources = {
-        category = decisions
-        cost = {
-            alloys = 1000
-            influence = 50
-            energy = 1000
-        }
-    }
-
-    potential = {
-        # is_artificial = no #不是人工星球
-        planet = {
-            not = {
-                has_modifier = play_orbital_ring
-                exists = orbital_defence
-            }
-            nor = {
-                is_planet_class = pc_ringworld_habitable
-                is_planet_class = pc_ringworld_seam
-                is_planet_class = pc_ringworld_tech
-                is_planet_class = pc_shattered_ring_habitable
-                is_planet_class = pc_habitat
-            }
-        }
-        from = {
-            has_technology = tech_orbital_ring_tier_1
-        }
-    }
-
-    effect = {
-        create_starbase = {
-            size = orbital_ring_tier_1
-            owner = this
-            #module = <starbase_module>
-            #building = <starbase_building>
-            effect = {}
-        }
-        add_modifier = {
-            modifier = play_orbital_ring
-            days = -1
-        }
-        set_planet_flag = has_megastructure
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = play_orbital_ring
+	enactment_time = 360
+	resources = {
+		category = decisions
+		cost = {
+			alloys = 1000
+			influence = 50
+			energy = 1000
+		}
+	}
+	potential = {
+		# is_artificial = no #不是人工星球
+		planet = {
+			not = {
+				has_modifier = play_orbital_ring
+				exists = orbital_defence
+			}
+			nor = {
+				is_planet_class = pc_ringworld_habitable
+				is_planet_class = pc_ringworld_seam
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_shattered_ring_habitable
+				is_planet_class = pc_habitat
+			}
+		}
+		from = {
+			has_technology = tech_orbital_ring_tier_1
+		}
+	}
+	effect = {
+		create_starbase = {
+			size = orbital_ring_tier_1
+			owner = this
+			#module = <starbase_module>
+			#building = <starbase_building>
+			effect = {
+			}
+		}
+		add_modifier = {
+			modifier = play_orbital_ring
+			days = -1
+		}
+		set_planet_flag = has_megastructure
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 play_pop_to_root = {
-    owned_planets_only = yes
-    sound = event_administrative_work
-    #icon =
-
-    enactment_time = 30
-    resources = {
-        category = decisions
-        cost = {
-        }
-    }
-    potential = {
-        any_owned_pop_group = {
-            NOT = {
-                is_same_species = root
-            }
-            or = {
-                has_citizenship_type = { type = citizenship_full }
-                has_citizenship_type = { type = citizenship_full_machine }
-            }
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
-    effect = {
-        hidden_effect = {
-            every_owned_pop_group = {
-                limit = {
-                    NOT = {
-                        is_same_species = root
-                    }
-                    or = {
-                        has_citizenship_type = { type = citizenship_full }
-                        has_citizenship_type = { type = citizenship_full_machine }
-                    }
-                    # has_slavery_type = { type = slavery_livestock }
-                }
-                change_species = root
-            }
-        }
-    }
+	owned_planets_only = yes
+	sound = event_administrative_work
+	#icon =
+	enactment_time = 30
+	resources = {
+		category = decisions
+		cost = {
+		}
+	}
+	potential = {
+		any_owned_pop_group = {
+			NOT = {
+				is_same_species = root
+			}
+			or = {
+				has_citizenship_type = {
+					type = citizenship_full
+				}
+				has_citizenship_type = {
+					type = citizenship_full_machine
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_pop_group = {
+				limit = {
+					NOT = {
+						is_same_species = root
+					}
+					or = {
+						has_citizenship_type = {
+							type = citizenship_full
+						}
+						has_citizenship_type = {
+							type = citizenship_full_machine
+						}
+					}
+					# has_slavery_type = { type = slavery_livestock }
+				}
+				change_species = root
+			}
+		}
+	}
 }
 
 #标记迁出星球
 play_move_pop_to = {
-    owned_planets_only = yes
-    icon = decision_art_monument
-    resources = {
-        category = decisions
-        cost = {
-            energy = 1
-        }
-    }
-    potential = {
-        nor = {
-            has_modifier = play_move_pop_to_this_planet
-            has_modifier = play_move_pop_to_planet
-        }
-    }
-    effect = {
-        from = {
-            every_owned_planet = {
-                remove_modifier = play_move_pop_to_planet
-            }
-        }
-        add_modifier = {
-            modifier = play_move_pop_to_planet
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = decision_art_monument
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1
+		}
+	}
+	potential = {
+		nor = {
+			has_modifier = play_move_pop_to_this_planet
+			has_modifier = play_move_pop_to_planet
+		}
+	}
+	effect = {
+		from = {
+			every_owned_planet = {
+				remove_modifier = play_move_pop_to_planet
+			}
+		}
+		add_modifier = {
+			modifier = play_move_pop_to_planet
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
+
 #取消标记
 play_move_pop_to_no = {
-    owned_planets_only = yes
-    icon = decision_art_monument
-    resources = {
-        category = decisions
-        cost = {
-            energy = 1
-        }
-    }
-    potential = {
-        has_modifier = play_move_pop_to_planet
-    }
-    effect = {
-        remove_modifier = play_move_pop_to_planet
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = decision_art_monument
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1
+		}
+	}
+	potential = {
+		has_modifier = play_move_pop_to_planet
+	}
+	effect = {
+		remove_modifier = play_move_pop_to_planet
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 #标记迁入星球
 play_move_pop_to_this_planet = {
-    owned_planets_only = yes
-    icon = decision_art_monument
-    resources = {
-        category = decisions
-        cost = {
-            energy = 1
-        }
-    }
-    potential = {
-        always = no
-        nor = {
-            has_modifier = play_move_pop_to_this_planet
-            has_modifier = play_move_pop_to_planet
-        }
-    }
-    allow = {
-        from = {
-            any_owned_planet = {
-                not = {
-                    has_modifier = play_move_pop_to_this_planet
-                }
-            }
-            fail_text = have_play_move_pop_to_this_planet
-        }
-    }
-    effect = {
-        add_modifier = {
-            modifier = play_move_pop_to_this_planet
-
-        }
-        save_global_event_target_as = play_move_pop_to_this_planet
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = decision_art_monument
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1
+		}
+	}
+	potential = {
+		always = no
+		nor = {
+			has_modifier = play_move_pop_to_this_planet
+			has_modifier = play_move_pop_to_planet
+		}
+	}
+	allow = {
+		from = {
+			any_owned_planet = {
+				not = {
+					has_modifier = play_move_pop_to_this_planet
+				}
+			}
+			fail_text = have_play_move_pop_to_this_planet
+		}
+	}
+	effect = {
+		add_modifier = {
+			modifier = play_move_pop_to_this_planet
+		}
+		save_global_event_target_as = play_move_pop_to_this_planet
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
+
 #取消标记
 play_move_pop_to_this_planet_no = {
-    owned_planets_only = yes
-    icon = decision_art_monument
-    resources = {
-        category = decisions
-        cost = {
-            energy = 1
-        }
-    }
-    potential = {
-        has_modifier = play_move_pop_to_this_planet
-    }
-    effect = {
-        remove_modifier = play_move_pop_to_this_planet
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = decision_art_monument
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1
+		}
+	}
+	potential = {
+		has_modifier = play_move_pop_to_this_planet
+	}
+	effect = {
+		remove_modifier = play_move_pop_to_this_planet
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
+
 #迁入人口
 play_move_pop_to_this = {
-    owned_planets_only = yes
-    icon = decision_art_monument
-    resources = {
-        category = decisions
-        cost = {
-            energy = 1
-        }
-    }
-    potential = {
-        # from = {
-        #     any_owned_planet = {
-        #         has_modifier = play_move_pop_to_planet
-        #     }
-        # }
-        not = {
-            has_modifier = play_move_pop_to_planet
-        }
-    }
-    effect = {
-        if = {
-            limit = {
-                from = {
-                    any_owned_planet = {
-                        has_modifier = play_move_pop_to_planet
-                    }
-                }
-            }
-            from = {
-                country_event = { id = play_move_pop.100 }
-            }
-        }
-        if = {
-            limit = {
-                from = {
-                    any_owned_planet = {
-                        NOT = {
-                            has_modifier = play_move_pop_to_planet
-                        }
-                    }
-                }
-            }
-            from = {
-                country_event = { id = play_move_pop.101 }
-            }
-        }
-        this = {
-            #保存迁入星球
-            save_global_event_target_as = move_pop_planet
-            save_global_event_target_as = play_move_pop_to_this_planet
-        }
-        event_target:move_pop_planet = {
-            set_variable = { which = move_pop_planet_variable value = trigger:count_owned_pop_amount }
-        }
-        add_modifier = {
-            modifier = play_move_pop_to_this_planet
-            days = 10
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	icon = decision_art_monument
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1
+		}
+	}
+	potential = {
+		# from = {
+		#     any_owned_planet = {
+		#         has_modifier = play_move_pop_to_planet
+		#     }
+		# }
+		not = {
+			has_modifier = play_move_pop_to_planet
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				from = {
+					any_owned_planet = {
+						has_modifier = play_move_pop_to_planet
+					}
+				}
+			}
+			from = {
+				country_event = {
+					id = play_move_pop.100
+				}
+			}
+		}
+		if = {
+			limit = {
+				from = {
+					any_owned_planet = {
+						NOT = {
+							has_modifier = play_move_pop_to_planet
+						}
+					}
+				}
+			}
+			from = {
+				country_event = {
+					id = play_move_pop.101
+				}
+			}
+		}
+		this = {
+			#保存迁入星球
+			save_global_event_target_as = move_pop_planet
+			save_global_event_target_as = play_move_pop_to_this_planet
+		}
+		event_target:move_pop_planet = {
+			set_variable = {
+				which = move_pop_planet_variable
+				value = trigger:count_owned_pop_amount
+			}
+		}
+		add_modifier = {
+			modifier = play_move_pop_to_this_planet
+			days = 10
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 #把平民人口移动到突触
 play_plant_decision_3 = {
-    owned_planets_only = yes
-    sound = event_administrative_work
-    icon = decision_expel_population
-    resources = {
-        category = decisions
-        cost = {
-            unity = 200
-            energy = 500
-        }
-    }
-    potential = {
-        owner = {
-            any_owned_planet = {
-                is_planet_class = pc_cosmogenesis_world
-            }
-        }
-    }
-    effect = {
-        owner = {
-            random_owned_planet = {
-                limit = {
-                    is_planet_class = pc_cosmogenesis_world
-                }
-                save_event_target_as = play_pc_cosmogenesis_world
-            }
-            root = {
-                every_owned_pop_group = {
-                    limit = {
-                        OR = {
-                            is_pop_category = civilian
-                            is_pop_category = maintenance_drone
-                        }
-                        not = { has_trait = trait_robot_digital_2 }
-                    }
-                    resettle_pop_group = {
-                        POP_GROUP = this
-                        PLANET = event_target:play_pc_cosmogenesis_world
-                        #AMOUNT = 100%
-                        PERCENTAGE = 100
-                    }
-                }
-            }
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_expel_population
+	resources = {
+		category = decisions
+		cost = {
+			unity = 200
+			energy = 500
+		}
+	}
+	potential = {
+		owner = {
+			any_owned_planet = {
+				is_planet_class = pc_cosmogenesis_world
+			}
+		}
+	}
+	effect = {
+		owner = {
+			random_owned_planet = {
+				limit = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				save_event_target_as = play_pc_cosmogenesis_world
+			}
+			root = {
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							is_pop_category = civilian
+							is_pop_category = maintenance_drone
+						}
+						not = {
+							has_trait = trait_robot_digital_2
+						}
+					}
+					resettle_pop_group = {
+						POP_GROUP = this
+						PLANET = event_target:play_pc_cosmogenesis_world
+						#AMOUNT = 100%
+						PERCENTAGE = 100
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 #把平民人口移动到毒圣居住站
 play_plant_decision_4 = {
-    owned_planets_only = yes
-    sound = event_administrative_work
-    icon = decision_expel_population
-    resources = {
-        category = decisions
-        cost = {
-            unity = 200
-            energy = 500
-        }
-    }
-    potential = {
-        owner = {
-            any_owned_planet = {
-                has_building = building_order_keep
-            }
-        }
-    }
-    effect = {
-        owner = {
-            random_owned_planet = {
-                limit = {
-                    has_building = building_order_keep
-                }
-                save_event_target_as = play_building_order_keep
-            }
-            root = {
-                every_owned_pop_group = {
-                    limit = {
-                        OR = {
-                            is_pop_category = civilian
-                            is_pop_category = maintenance_drone
-                        }
-                        not = { has_trait = trait_robot_digital_2 }
-                    }
-                    resettle_pop_group = {
-                        POP_GROUP = this
-                        PLANET = event_target:play_building_order_keep
-                        #AMOUNT = 100%
-                        PERCENTAGE = 100
-                    }
-                }
-            }
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_expel_population
+	resources = {
+		category = decisions
+		cost = {
+			unity = 200
+			energy = 500
+		}
+	}
+	potential = {
+		owner = {
+			any_owned_planet = {
+				has_building = building_order_keep
+			}
+		}
+	}
+	effect = {
+		owner = {
+			random_owned_planet = {
+				limit = {
+					has_building = building_order_keep
+				}
+				save_event_target_as = play_building_order_keep
+			}
+			root = {
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							is_pop_category = civilian
+							is_pop_category = maintenance_drone
+						}
+						not = {
+							has_trait = trait_robot_digital_2
+						}
+					}
+					resettle_pop_group = {
+						POP_GROUP = this
+						PLANET = event_target:play_building_order_keep
+						#AMOUNT = 100%
+						PERCENTAGE = 100
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
+
 #迁移少量人口
 play_plant_decision_pop = {
-    owned_planets_only = yes
-    sound = event_administrative_work
-    icon = decision_expel_population
-    resources = {
-        category = decisions
-        cost = {
-            # unity = 10
-            energy = 2000
-        }
-    }
-    effect = {
-        this = { save_event_target_as = move_2k_pop }
-        event_target:move_2k_pop = {
-            play_move_pop_all_effect = {
-                PLANET = this
-                AMOUNT = 2000
-            }
-        }
-        # hidden_effect = {
-        #     this = { save_event_target_as = move_2k_pop }
-        #     owner = {
-        #         every_owned_planet = {
-        #             limit = {
-        #                 not = { is_planet_class = pc_cosmogenesis_world }
-        #             }
-        #             every_owned_pop_group = {
-        #                 limit = {
-        #                     OR = {
-        #                         is_pop_category = civilian
-        #                         is_pop_category = maintenance_drone
-        #                     }
-        #                     not = { has_trait = trait_robot_digital_2 }
-        #                 }
-        #                 resettle_pop_group = {
-        #                     POP_GROUP = this
-        #                     PLANET = event_target:move_2k_pop
-        #                     AMOUNT = 2000
-        #                     # PERCENTAGE = 1
-        #                 }
-        #             }
-        #         }
-        #     }
-        # }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_expel_population
+	resources = {
+		category = decisions
+		cost = {
+			# unity = 10
+			energy = 2000
+		}
+	}
+	effect = {
+		save_global_event_target_as = move_2k_pop
+		play_move_pop_all_effect = {
+			PLANET_TARGET = move_2k_pop
+			AMOUNT = 2000
+		}
+		# hidden_effect = {
+		#     this = { save_event_target_as = move_2k_pop }
+		#     owner = {
+		#         every_owned_planet = {
+		#             limit = {
+		#                 not = { is_planet_class = pc_cosmogenesis_world }
+		#             }
+		#             every_owned_pop_group = {
+		#                 limit = {
+		#                     OR = {
+		#                         is_pop_category = civilian
+		#                         is_pop_category = maintenance_drone
+		#                     }
+		#                     not = { has_trait = trait_robot_digital_2 }
+		#                 }
+		#                 resettle_pop_group = {
+		#                     POP_GROUP = this
+		#                     PLANET = event_target:move_2k_pop
+		#                     AMOUNT = 2000
+		#                     # PERCENTAGE = 1
+		#                 }
+		#             }
+		#         }
+		#     }
+		# }
+	}
+	ai_weight = {
+		weight = 0
+	}
 }

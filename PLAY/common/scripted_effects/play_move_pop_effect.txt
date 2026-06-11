@@ -1,93 +1,471 @@
 #迁移人口脚本
-
-#将指定数量或百分比的人口转移到目标行星
+#PLANET_TARGET: 目标行星的event_target名称（如 move_pop_planet）
+#支持两种模式：AMOUNT（精确数量）和 PERCENTAGE（百分比）
 play_move_pop_effect = {
-    owner = {
-        every_owned_planet = {
-            limit = {
-                not = { is_planet_class = pc_cosmogenesis_world }
-                has_modifier = play_move_pop_to_planet
-            }
-            every_owned_pop_group = {
-                limit = {
-                    OR = {
-                        is_pop_category = civilian
-                        is_pop_category = maintenance_drone
-                    }
-                    not = { has_trait = trait_robot_digital_2 }
-                }
-                save_global_event_target_as = play_source_pop_group  # 将源人口组保存为事件目标，便于后续引用
-            }
-        }
-    }
-    $PLANET$ = {
-        # 目标行星参数（需要替换为实际值）
-        create_pop_group = {
-            # 在目标行星创建新人口组
-            pop_group = event_target:play_source_pop_group  # 使用源人口组定义
-            size = 0  # 初始大小为0
-            effect = {
-                # 创建后执行的效果
-                transfer_pop_amount = {
-                    # 转移人口操作
-                    source = event_target:play_source_pop_group  # 源人口组
-                    target = this  # 目标为当前行星
-                    [[AMOUNT]  # 按数量转移模式
-                        amount = $AMOUNT$  # 转移的具体数量
-                    ]
-                    [[PERCENTAGE]  # 按百分比转移模式
-                        percentage = $PERCENTAGE$  # 转移的百分比
-                    ]
-                }
-                save_event_target_as = play_resettled_pop_group  # 保存迁移后的人口组
-            }
-        }
-    }
+	[[PERCENTAGE]
+	# 先统计源星球符合条件的总人口
+	set_variable = {
+		which = play_total_pop
+		value = 0
+	}
+	every_owned_planet = {
+		limit = {
+			not = {
+				is_planet_class = pc_cosmogenesis_world
+			}
+			has_modifier = play_move_pop_to_planet
+		}
+		every_owned_pop_group = {
+			limit = {
+				OR = {
+					is_pop_category = civilian
+					is_pop_category = maintenance_drone
+				}
+				not = {
+					has_trait = trait_robot_digital_2
+				}
+			}
+			owner = {
+				change_variable = {
+					which = play_total_pop
+					value = prev.trigger:pop_group_size
+				}
+			}
+		}
+	}
+	# 总人口 × 百分比 = 目标迁移量
+	multiply_variable = {
+		which = play_total_pop
+		value = $PERCENTAGE$
+	}
+	# 复用 AMOUNT 的 while 循环逻辑
+	set_variable = {
+		which = play_remaining
+		value = play_total_pop
+	}
+	set_variable = {
+		which = play_local_move
+		value = 0
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = play_remaining
+				value > 0
+			}
+			any_owned_planet = {
+				not = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				has_modifier = play_move_pop_to_planet
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				not = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				has_modifier = play_move_pop_to_planet
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+			random_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+				owner = {
+					set_variable = {
+						which = play_local_move
+						value = prev.trigger:pop_group_size
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = play_local_move
+								value > play_remaining
+							}
+						}
+						set_variable = {
+							which = play_local_move
+							value = play_remaining
+						}
+					}
+				}
+				save_event_target_as = play_source_pop
+				resettle_pop_group = {
+					POP_GROUP = this
+					PLANET = event_target:$PLANET_TARGET$
+					AMOUNT = owner.play_local_move
+				}
+				owner = {
+					subtract_variable = {
+						which = play_remaining
+						value = play_local_move
+					}
+				}
+			}
+		}
+	}
+	clear_variable = play_total_pop
+	clear_variable = play_remaining
+	clear_variable = play_local_move
+	]
+	[[AMOUNT]
+	set_variable = {
+		which = play_remaining
+		value = $AMOUNT$
+	}
+	set_variable = {
+		which = play_local_move
+		value = 0
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = play_remaining
+				value > 0
+			}
+			any_owned_planet = {
+				not = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				has_modifier = play_move_pop_to_planet
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				not = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				has_modifier = play_move_pop_to_planet
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+			random_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+				owner = {
+					set_variable = {
+						which = play_local_move
+						value = prev.trigger:pop_group_size
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = play_local_move
+								value > play_remaining
+							}
+						}
+						set_variable = {
+							which = play_local_move
+							value = play_remaining
+						}
+					}
+				}
+				save_event_target_as = play_source_pop
+				resettle_pop_group = {
+					POP_GROUP = this
+					PLANET = event_target:$PLANET_TARGET$
+					AMOUNT = owner.play_local_move
+				}
+				owner = {
+					subtract_variable = {
+						which = play_remaining
+						value = play_local_move
+					}
+				}
+			}
+		}
+	}
+	clear_variable = play_remaining
+	clear_variable = play_local_move
+	]
 }
-#所有星球迁移
+
+#所有星球迁移（从所有非目标星球迁移）
+#PLANET_TARGET: 目标行星的event_target名称
 play_move_pop_all_effect = {
-    owner = {
-        random_owned_planet = {
-            limit = {
-                NOR = {
-                    is_planet_class = pc_cosmogenesis_world
-                    has_modifier = play_move_pop_to_this_planet
-                    # is_same_value = this #不是自身
-                }
-            }
-            save_event_target_as = from_move_pop_all_planet
-            every_owned_pop_group = {
-                limit = {
-                    OR = {
-                        is_pop_category = civilian
-                        is_pop_category = maintenance_drone
-                    }
-                    not = { has_trait = trait_robot_digital_2 }
-                }
-                save_event_target_as = play_source_pop_group_all  # 将源人口组保存为事件目标，便于后续引用
-            }
-        }
-    }
-    $PLANET$ = {
-        create_pop_group = {
-            # 在目标行星创建新人口组
-            pop_group = event_target:play_source_pop_group_all  # 使用源人口组定义
-            size = 0  # 初始大小为0
-            effect = {
-                # 创建后执行的效果
-                transfer_pop_amount = {
-                    # 转移人口操作
-                    source = event_target:play_source_pop_group_all  # 源人口组
-                    target = this  # 目标为当前行星
-                    [[AMOUNT]  # 按数量转移模式
-                        amount = $AMOUNT$  # 转移的具体数量
-                    ]
-                    [[PERCENTAGE]  # 按百分比转移模式
-                        percentage = $PERCENTAGE$  # 转移的百分比
-                    ]
-                }
-                save_event_target_as = play_resettled_pop_group_all  # 保存迁移后的人口组
-            }
-        }
-    }
+	[[PERCENTAGE]
+	# 先统计所有非目标星球符合条件的总人口
+	set_variable = {
+		which = play_total_pop
+		value = 0
+	}
+	every_owned_planet = {
+		limit = {
+			NOR = {
+				is_planet_class = pc_cosmogenesis_world
+				has_modifier = play_move_pop_to_this_planet
+			}
+			NOT = {
+				is_same_value = event_target:$PLANET_TARGET$
+			}
+		}
+		every_owned_pop_group = {
+			limit = {
+				OR = {
+					is_pop_category = civilian
+					is_pop_category = maintenance_drone
+				}
+				not = {
+					has_trait = trait_robot_digital_2
+				}
+			}
+			owner = {
+				change_variable = {
+					which = play_total_pop
+					value = prev.trigger:pop_group_size
+				}
+			}
+		}
+	}
+	# 总人口 × 百分比 = 目标迁移量
+	multiply_variable = {
+		which = play_total_pop
+		value = $PERCENTAGE$
+	}
+	# 复用 AMOUNT 的 while 循环逻辑
+	set_variable = {
+		which = play_remaining
+		value = play_total_pop
+	}
+	set_variable = {
+		which = play_local_move
+		value = 0
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = play_remaining
+				value > 0
+			}
+			any_owned_planet = {
+				NOR = {
+					is_planet_class = pc_cosmogenesis_world
+					has_modifier = play_move_pop_to_this_planet
+				}
+				NOT = {
+					is_same_value = event_target:$PLANET_TARGET$
+				}
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				NOR = {
+					is_planet_class = pc_cosmogenesis_world
+					has_modifier = play_move_pop_to_this_planet
+				}
+				NOT = {
+					is_same_value = event_target:$PLANET_TARGET$
+				}
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+			random_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+				owner = {
+					set_variable = {
+						which = play_local_move
+						value = prev.trigger:pop_group_size
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = play_local_move
+								value > play_remaining
+							}
+						}
+						set_variable = {
+							which = play_local_move
+							value = play_remaining
+						}
+					}
+				}
+				save_event_target_as = play_source_pop_all
+				resettle_pop_group = {
+					POP_GROUP = this
+					PLANET = event_target:$PLANET_TARGET$
+					AMOUNT = owner.play_local_move
+				}
+				owner = {
+					subtract_variable = {
+						which = play_remaining
+						value = play_local_move
+					}
+				}
+			}
+		}
+	}
+	clear_variable = play_total_pop
+	clear_variable = play_remaining
+	clear_variable = play_local_move
+	]
+	[[AMOUNT]
+	set_variable = {
+		which = play_remaining
+		value = $AMOUNT$
+	}
+	set_variable = {
+		which = play_local_move
+		value = 0
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = play_remaining
+				value > 0
+			}
+			any_owned_planet = {
+				NOR = {
+					is_planet_class = pc_cosmogenesis_world
+					has_modifier = play_move_pop_to_this_planet
+				}
+				NOT = {
+					is_same_value = event_target:$PLANET_TARGET$
+				}
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				NOR = {
+					is_planet_class = pc_cosmogenesis_world
+					has_modifier = play_move_pop_to_this_planet
+				}
+				NOT = {
+					is_same_value = event_target:$PLANET_TARGET$
+				}
+				any_owned_pop_group = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+			}
+			random_owned_pop_group = {
+				limit = {
+					OR = {
+						is_pop_category = civilian
+						is_pop_category = maintenance_drone
+					}
+					not = {
+						has_trait = trait_robot_digital_2
+					}
+				}
+				owner = {
+					set_variable = {
+						which = play_local_move
+						value = prev.trigger:pop_group_size
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = play_local_move
+								value > play_remaining
+							}
+						}
+						set_variable = {
+							which = play_local_move
+							value = play_remaining
+						}
+					}
+				}
+				save_event_target_as = play_source_pop_all
+				resettle_pop_group = {
+					POP_GROUP = this
+					PLANET = event_target:$PLANET_TARGET$
+					AMOUNT = owner.play_local_move
+				}
+				owner = {
+					subtract_variable = {
+						which = play_remaining
+						value = play_local_move
+					}
+				}
+			}
+		}
+	}
+	clear_variable = play_remaining
+	clear_variable = play_local_move
+	]
 }

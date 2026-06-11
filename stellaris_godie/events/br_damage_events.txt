@@ -1,12 +1,10 @@
 namespace = br
-
 # 事件ID区间：1000-1099。新增或修改事件ID不得超出此区间喵
 # br.1000：把所有没有进入任何圈层的孤立星系补成危险区喵
 country_event = {
     id = br.1000
     hide_window = yes
     is_triggered_only = yes
-
     immediate = {
         every_system = {
             limit = {
@@ -114,13 +112,20 @@ country_event = {
                 }
             }
             set_star_flag = br_danger
-            set_name = { key = br_danger_outer }
+            set_name = {
+                key = br_danger_outer
+            }
         }
-
         if = {
-            limit = { NOT = { has_global_flag = br_damage_started } }
+            limit = {
+                NOT = {
+                    has_global_flag = br_damage_started
+                }
+            }
             set_global_flag = br_damage_started
-            country_event = { id = br.1001 }
+            country_event = {
+                id = br.1001
+            }
         }
     }
 }
@@ -130,170 +135,211 @@ country_event = {
     id = br.1001
     hide_window = yes
     is_triggered_only = yes
-
     trigger = {
-        NOT = { has_global_flag = br_cycle_resetting }
-        NOT = { has_global_flag = br_shrink_paused }
+        NOT = {
+            has_global_flag = br_cycle_resetting
+        }
+        NOT = {
+            has_global_flag = br_shrink_paused
+        }
     }
-
     immediate = {
-        every_system = {
-            limit = { has_star_flag = br_danger }
-
-            every_ship_in_system = {
+        every_country = {
+            every_owned_ship = {
                 limit = {
-                    exists = controller
-                }
-
-                # 基础毒伤：前期给玩家撤离时间，后期不能靠回复硬抗喵
-                damage_ship = 50
-
-                # 大图按缩圈次数推进，小图额外按剩余安全圈数兜底，避免伤害永远到不了终盘喵
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 10
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_15 = yes
-                        }
+                    solar_system = {
+                        has_star_flag = br_danger
                     }
-                    damage_ship = 100
                 }
                 if = {
                     limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 15
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_10 = yes
+                        not = {
+                            has_ship_flag = br_in_danger
                         }
                     }
-                    damage_ship = 200
+                    set_variable = { which = br_in_danger value = 0 }
                 }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 20
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_8 = yes
-                        }
-                    }
-                    damage_ship = 400
+                set_timed_ship_flag = {
+                    flag = br_in_danger
+                    days = 30
                 }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 25
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_6 = yes
-                        }
-                    }
-                    damage_ship = 800
-                }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 30
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_5 = yes
-                        }
-                    }
-                    damage_ship = 1200
-                }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 35
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_4 = yes
-                        }
-                    }
-                    damage_ship = 1600
-                }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 40
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_3 = yes
-                        }
-                    }
-                    damage_ship = 2200
-                }
-                if = {
-                    limit = {
-                        OR = {
-                            root = {
-                                NOT = {
-                                    check_variable = {
-                                        which = br_shrink_count
-                                        value < 45
-                                    }
-                                }
-                            }
-                            br_safe_ring_at_most_2 = yes
-                        }
-                    }
-                    damage_ship = 3000
-                }
+                add_variable = { which = br_in_danger value = 25 }
+                damage_ship = br_in_danger
             }
         }
-
+        # every_system = {
+        #     limit = {
+        #         has_star_flag = br_danger
+        #     }
+        #     every_ship_in_system = {
+        #         limit = {
+        #             exists = controller
+        #         }
+        #         # 基础毒伤：前期给玩家撤离时间，后期不能靠回复硬抗喵
+        #         damage_ship = 50
+        #         # 大图按缩圈次数推进，小图额外按剩余安全圈数兜底，避免伤害永远到不了终盘喵
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 10
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_15 = yes
+        #                 }
+        #             }
+        #             damage_ship = 100
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 15
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_10 = yes
+        #                 }
+        #             }
+        #             damage_ship = 200
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 20
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_8 = yes
+        #                 }
+        #             }
+        #             damage_ship = 400
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 25
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_6 = yes
+        #                 }
+        #             }
+        #             damage_ship = 800
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 30
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_5 = yes
+        #                 }
+        #             }
+        #             damage_ship = 1200
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 35
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_4 = yes
+        #                 }
+        #             }
+        #             damage_ship = 1600
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 40
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_3 = yes
+        #                 }
+        #             }
+        #             damage_ship = 2200
+        #         }
+        #         if = {
+        #             limit = {
+        #                 OR = {
+        #                     root = {
+        #                         NOT = {
+        #                             check_variable = {
+        #                                 which = br_shrink_count
+        #                                 value < 45
+        #                             }
+        #                         }
+        #                     }
+        #                     br_safe_ring_at_most_2 = yes
+        #                 }
+        #             }
+        #             damage_ship = 3000
+        #         }
+        #     }
+        # }
         if = {
-            limit = { has_global_flag = br_speed_fast }
-            country_event = { id = br.1001 days = 5 }
+            limit = {
+                has_global_flag = br_speed_fast
+            }
+            country_event = {
+                id = br.1001
+                days = 5
+            }
         }
         else_if = {
-            limit = { has_global_flag = br_speed_normal }
-            country_event = { id = br.1001 days = 10 }
+            limit = {
+                has_global_flag = br_speed_normal
+            }
+            country_event = {
+                id = br.1001
+                days = 10
+            }
         }
         else_if = {
-            limit = { has_global_flag = br_speed_slow }
-            country_event = { id = br.1001 days = 15 }
+            limit = {
+                has_global_flag = br_speed_slow
+            }
+            country_event = {
+                id = br.1001
+                days = 15
+            }
         }
         else = {
-            country_event = { id = br.1001 days = 10 }
+            country_event = {
+                id = br.1001
+                days = 10
+            }
         }
     }
 }
@@ -303,12 +349,15 @@ country_event = {
     id = br.1010
     hide_window = yes
     is_triggered_only = yes
-
     immediate = {
         every_system = {
             limit = {
                 has_star_flag = br_danger
-                NOT = { any_system_ambient_object = { has_ambient_object_flag = br_danger_cloud_object } }
+                NOT = {
+                    any_system_ambient_object = {
+                        has_ambient_object_flag = br_danger_cloud_object
+                    }
+                }
             }
             star = {
                 create_ambient_object = {

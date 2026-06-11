@@ -54,36 +54,32 @@ country_event = {
         }
     }
 }
-#给没有无畏舰的玩家（应该改成检测星系内没有无畏的玩家，然后刷修复残骸的事件
+#科技扩散：其他国家研究出无畏战舰科技后，概率给玩家推进研究进度
 country_event = {
     id = ww_ship.2
-    hide_window = yes  # 隐藏窗口
-    is_triggered_only = yes  # 仅在触发条件满足时触发
+    title = ww_ship2.title
+    desc = ww_ship2.desc
+    picture = GFX_evt_automated_dreadnought
+    show_sound = event_space_cloud
+    is_triggered_only = yes
     trigger = {
-        exists = event_target:ww_ship_object
-        not = {
+        is_ai = no
+        NOT = { has_technology = tech_ww_ship }
+        any_country = {
+            is_ai = no
             has_technology = tech_ww_ship
-            has_country_flag = player_ww_ship_object
         }
+        NOT = { has_country_flag = ww_ship_tech_cooldown }
     }
     immediate = {
-        random_country = {
-            limit = {
-                # is_country_type = default
-                is_ai = no
-            }
-            event_target:ww_ship_object = {
-                enable_special_project = {
-                    name = "ww_ship_DISABLED_DREADNOUGHT_PROJECT"
-                    location = THIS
-                    owner = ROOT
-                }
-            }
-        }
         set_timed_country_flag = {
-            flag = player_ww_ship_object
-            days = 400
+            flag = ww_ship_tech_cooldown
+            days = 360
         }
+    }
+    option = {
+        name = ww_ship2.1
+        add_tech_progress = { tech = tech_ww_ship progress = 0.1 }
     }
 }
 

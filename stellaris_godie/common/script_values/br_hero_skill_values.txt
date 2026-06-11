@@ -205,42 +205,31 @@ br_vanguard_collapse_damage_day = {
 # ============================================================
 # 航母核心 (Skill 1 — 主动)
 # ============================================================
-# ---- 无人机屏障 ----
-# 每艘友军提供闪避 +N × sk1_mult（base=2 → sk1_mult=1 时 +2/艘）
-br_carrier_barrier_evasion = {
-	base = 2
-	mult = value:br_hero_ship_skill_1_mult
-}
-
-# 每艘友军提供减伤 +N × sk1_mult（base=1 → sk1_mult=1 时 +1/艘）
-br_carrier_barrier_dr = {
-	base = 1
-	mult = value:br_hero_ship_skill_1_mult
-}
-
-# 每艘友军提供护盾再生 +N% × sk1_mult（base=1 → sk1_mult=1 时 +1%/艘）
-br_carrier_barrier_shield_regen = {
-	base = 1
-	mult = value:br_hero_ship_skill_1_mult
-}
-
-# 无人机屏障持续 N天 × sk1_daymult（base=180 → sk1_daymult=1 时 180天）
+# ---- 无人机屏障（1300 编队出击使用）----
+# 无人机屏障持续 N天 × sk1_daymult（base=120 → sk1_daymult=1 时 120天）
 br_carrier_barrier_day = {
-	base = 180
+	base = 120
 	mult = value:br_hero_ship_skill_1_daymult
 }
 
-# 无人机屏障 mult = 1 × sk1_mult × 友军数量（由事件 set_variable 提供，通过 owner 访问）
-br_carrier_barrier_mult = {
-	base = 1
-	mult = value:br_hero_ship_skill_1_mult
-	mult = owner.br_carrier_friendly_count
-}
-
-# 编队出击屏障 mult = 2 × sk1_mult（无友军数量缩放）
+# 编队出击屏障 mult = 2 × sk1_mult
 br_carrier_sortie_mult = {
 	base = 2
 	mult = value:br_hero_ship_skill_1_mult
+}
+
+# ---- 无人机护卫（1301 无人机增强使用）----
+# mult = sk1_mult × 无人机数量（由事件 set_variable 提供）
+br_carrier_drone_guard_mult = {
+	base = 1
+	mult = value:br_hero_ship_skill_1_mult
+	mult = owner.br_carrier_count
+}
+
+# 无人机护卫持续 N天 × sk1_daymult（base=120 → sk1_daymult=1 时 120天）
+br_carrier_drone_guard_day = {
+	base = 120
+	mult = value:br_hero_ship_skill_1_daymult
 }
 
 # 编队出击召唤数量 = hero_level
@@ -252,31 +241,6 @@ br_carrier_sortie_count = {
 # ============================================================
 # 航母核心 (Skill 2 — 被动)
 # ============================================================
-# ---- 制空权·舰队增幅 ----
-# 护卫舰命中 +N × sk2_mult（base=2 → sk2_mult=1 时 +2/艘）
-br_carrier_enhance_cv_acc = {
-	base = 2
-	mult = value:br_hero_ship_skill_2_mult
-}
-
-# 驱逐舰追踪 +N × sk2_mult（base=2 → sk2_mult=1 时 +2/艘）
-br_carrier_enhance_dd_trk = {
-	base = 2
-	mult = value:br_hero_ship_skill_2_mult
-}
-
-# 巡洋舰闪避 +N% × sk2_mult（base=1 → sk2_mult=1 时 +1%/艘）
-br_carrier_enhance_ca_eva = {
-	base = 1
-	mult = value:br_hero_ship_skill_2_mult
-}
-
-# 战列舰减伤 +N × sk2_mult（base=1 → sk2_mult=1 时 +1/艘）
-br_carrier_enhance_bb_dr = {
-	base = 1
-	mult = value:br_hero_ship_skill_2_mult
-}
-
 # ---- 甲板维护 ----
 # 无人机船体 +N% × sk2_mult（base=50 → sk2_mult=1 时 +50%）
 br_carrier_deck_hull = {
@@ -288,6 +252,30 @@ br_carrier_deck_hull = {
 br_carrier_deck_dmg = {
 	base = 25
 	mult = value:br_hero_ship_skill_2_mult
+}
+
+# ---- 蜂群护卫 ----
+# 英雄舰 per-drone 加成 mult = sk2_mult × 无人机数量（base=1 → sk2_mult=1,count=10 时 +10）
+br_carrier_swarm_guard_mult = {
+	base = 1
+	mult = value:br_hero_ship_skill_2_mult
+	mult = owner.br_carrier_count
+}
+
+#月补船计算
+br_carrier_supply_rate = {
+	base = 2
+	mult = owner.br_hero_level	#算上限
+	subtract = owner.br_carrier_count	#减去现有
+	min = 0
+}
+
+br_carrier_supply_rate_1 = {
+	base = 0
+	add = owner.br_hero_level
+	mult = 0.5
+	add = 1
+	floor = yes	#向下取整
 }
 
 # ============================================================
@@ -337,30 +325,4 @@ br_carrier_command_link_day = {
 br_carrier_mass_assault_day = {
 	base = 45
 	mult = value:br_hero_ship_skill_3_daymult
-}
-
-# ---- 制空权·舰队增幅计数（由 heroship.1335 设定变量，用于 add_modifier mult） ----
-# base = per-ship基础值 × skill_mult，最终再 × owner的计数变量
-br_carrier_cv_mult = {
-	base = 2
-	mult = value:br_hero_ship_skill_2_mult
-	mult = owner.br_carrier_cv_count
-}
-
-br_carrier_dd_mult = {
-	base = 2
-	mult = value:br_hero_ship_skill_2_mult
-	mult = owner.br_carrier_dd_count
-}
-
-br_carrier_ca_mult = {
-	base = 1
-	mult = value:br_hero_ship_skill_2_mult
-	mult = owner.br_carrier_ca_count
-}
-
-br_carrier_bb_mult = {
-	base = 1
-	mult = value:br_hero_ship_skill_2_mult
-	mult = owner.br_carrier_bb_count
 }
