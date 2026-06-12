@@ -1,0 +1,87 @@
+namespace = heroship
+
+# ========================
+# 英雄舰发放 — heroship.101
+# 由 br_reward_level_events.txt (br.6130) 在玩家达到 2 级时调用。
+# 核心选择直接内置于本事件：选择核心后初始化等级系统，60天后先锋舰折跃抵达。
+# ========================
+
+country_event = {
+    id = heroship.101
+    title = heroship.101_title
+    desc = heroship.101_desc
+    is_triggered_only = yes
+
+    trigger = {
+        NOT = { has_country_flag = br_hero_ship_received }
+    }
+
+    option = {
+        name = HEROSHIP_CORE_POWER
+        custom_tooltip = HEROSHIP_CORE_POWER_TT
+        set_country_flag = br_hero_ship_received
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_power
+        country_event = { id = heroship.102 days = 60 }
+    }
+    option = {
+        name = HEROSHIP_CORE_DEFENSE
+        custom_tooltip = HEROSHIP_CORE_DEFENSE_TT
+        set_country_flag = br_hero_ship_received
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_defense
+        country_event = { id = heroship.102 days = 60 }
+    }
+    option = {
+        name = HEROSHIP_CORE_CARRIER
+        custom_tooltip = HEROSHIP_CORE_CARRIER_TT
+        set_country_flag = br_hero_ship_received
+        set_country_flag = br_hero_level_initialized
+        set_variable = { which = br_hero_level value = 1 }
+        set_variable = { which = br_hero_xp value = 0 }
+        set_variable = { which = br_hero_xp_next value = 10 }
+        set_country_flag = br_hero_core_selected
+        set_country_flag = br_hero_core_carrier
+        country_event = { id = heroship.102 days = 60 }
+    }
+}
+
+# 先锋英雄舰折跃抵达（heroship.101 的延迟落地事件）
+country_event = {
+    id = heroship.102
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        random_owned_design = {
+            limit = { is_ship_size = br_vanguard }
+            save_event_target_as = br_reward_vanguard_design
+        }
+        owner = {
+            random_owned_ship = {
+                limit = { is_ship_size = br_dominator }
+                fleet = { save_event_target_as = br_vanguard_arrival_fleet }
+            }
+        }
+        create_fleet = {
+            name = "BR_VANGUARD_ARRIVAL"
+            effect = {
+                set_owner = root
+                create_ship = {
+                    name = random
+                    design = event_target:br_reward_vanguard_design
+                    graphical_culture = root
+                }
+                set_location = { target = event_target:br_vanguard_arrival_fleet distance = 35 angle = random }
+            }
+        }
+    }
+}

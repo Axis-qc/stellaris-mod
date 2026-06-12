@@ -233,6 +233,6 @@ add_modifier = {
 | 自修技能（主动） | `br.1210` | `br_dominator_action_events.txt` | `repair_percentage = 1` |
 | 战意过载（被动） | `br.1211`/`br.1212` | 同上 | 战斗加入初始化 + 每日叠层 + `mult` 动态 modifier |
 | 母舰光环切换 | `br.1201` | 同上 | fleet flag + 星系范围 `add_modifier` |
-| 杀敌经验 | `reward.6201` | `reward_core_events.txt` | `on_ship_destroyed_perp` + 按尺寸加经验 |
-| 核心选择 | `reward.6101` | `reward_core_events.txt` | country flag 门控 + 技能解锁 |
+| 杀敌经验 | `heroship.2` | `heroship_level_events.txt` | `on_ship_destroyed_perp` + 按尺寸加经验 |
+| 核心选择 | `heroship.101` | `heroship_events.txt` | country flag 门控 + 技能解锁 |
 | 脚本化文本 | `GetBRVanguardSkillActive` | `br_vanguard_scripted_loc.txt` | `defined_text` 按 flag 切换显示 |

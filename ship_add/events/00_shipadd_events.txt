@@ -24,15 +24,6 @@ country_event = {
         }
         set_global_flag = yes_ship_all_add_1
     }
-    option = {
-        name = shipadd.3  # 选项名称
-        trigger = {
-        }
-        every_country = {
-            add_modifier = { modifier = ship_all_add_2 }
-        }
-        set_global_flag = yes_ship_all_add_2
-    }
 }
 #提质少量一级
 event = {
@@ -47,30 +38,6 @@ event = {
     immediate = {
         every_country = {
             add_modifier = { modifier = ship_all_add_1 }
-            if = {
-                limit = { has_modifier = ship_all_add_2 }
-                remove_modifier = ship_all_add_2
-            }
-        }
-    }
-}
-#提质少量2级
-event = {
-    id = shipadd.12
-    hide_window = yes
-
-    is_triggered_only = yes
-    trigger = {
-        has_global_flag = yes_ship_all_add_2
-    }
-
-    immediate = {
-        every_country = {
-            add_modifier = { modifier = ship_all_add_2 }
-            if = {
-                limit = { has_modifier = ship_all_add_1 }
-                remove_modifier = ship_all_add_1
-            }
         }
     }
 }

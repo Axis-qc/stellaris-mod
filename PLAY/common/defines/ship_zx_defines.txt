@@ -1,67 +1,107 @@
 NCamera = {
-    SYSTEM_MIN_PITCH = 10.0 # 系统最小俯仰角度
-    SYSTEM_MAX_PITCH = 80.0 # 系统最大俯仰角度
-    GALAXY_MIN_PITCH = 20.0 # 星系最小俯仰角度
-    GALAXY_MAX_PITCH = 85.0 # 星系最大俯仰角度
+    SYSTEM_MIN_PITCH = 10    # 系统最小俯仰角度
+    SYSTEM_MAX_PITCH = 80    # 系统最大俯仰角度
+    GALAXY_MIN_PITCH = 20    # 星系最小俯仰角度
+    GALAXY_MAX_PITCH = 85    # 星系最大俯仰角度
     #    SYSTEM_SPACE_SCALE_MULT = 40.0 #四倍缩放 需要做巨构等适配
 }
+
 NGraphics = {
-    MAX_GFX_PROJECTILES = 3000  # 最大图形投射物数量
-    MAX_GFX_PRIO_PROJECTILES = 2000  # 最大优先级图形投射物数量
-    MAX_GFX_MISSILES = 600  # 最大导弹图形效果数量
-    MUZZLE_FLASH_LIMIT = 2000  # 最大枪口火焰效果数量
-    MUZZLE_FLASH_DURATION = 2.0  # 每次枪口火焰效果持续时间（秒）
-
-    TRAILS_ALPHA_FADE = 2 # 尾迹透明 0.5
-
-    SHIP_RANDOM_HEIGHT_OFFSET = 150.0                        # 飞船在舰队排列中的高度随机偏移
-
-    STRIKE_CRAFT_TRAIL_FADE_RATE = 3.5                    # 舰载机尾迹消散速度，值越高消失越快（默认1.0）
-    STRIKE_CRAFT_HEIGHT_OFFSET = 80.0                        # 舰载机飞行高度基础偏移（默认50）
-    STRIKE_CRAFT_HEIGHT_RANDOM = 80.0                    # 舰载机飞行高度随机波动（默认60）
-
-    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 15.0                # 未命中弹道武器存活时间（单位秒，默认15.0）
-
-    MISSILE_HEIGHT_OFFSET = 10.0                            # 导弹飞行高度偏移，控制导弹离舰表的高度
-
-    MISSILE_RANDOM_OFFSET_MIN_RADIUS = 5.0                # 导弹发射时的最小随机散布半径
-    MISSILE_RANDOM_OFFSET_MAX_RADIUS = 10.0                # 导弹发射时的最大随机散布半径
-
-    SHIELD_EFFECT_TIME_SCALE = 0.5                        # 护盾特效动画播放速度（默认0.5）
-    SHIELD_EFFECT_LOOP_INTERVAL = 1.5                        # 护盾特效循环间隔百分比（默认1.5）
-    SHIELD_DISTANCE_FROM_SHIP = { 2.0 1.0 5.0 }            # 护盾与舰船外形的距离：左右，上下，前后
-    SHIELD_DISTANCE_FROM_SHIP_MULT = { 1.15 1.15 1.15 }    # 护盾半径距离倍率
+    MAX_GFX_PROJECTILES = 3000    # 最大图形投射物数量
+    MAX_GFX_PRIO_PROJECTILES = 2000    # 最大优先级图形投射物数量
+    MAX_GFX_MISSILES = 600    # 最大导弹图形效果数量
+    MUZZLE_FLASH_LIMIT = 2000    # 最大枪口火焰效果数量
+    MUZZLE_FLASH_DURATION = 2    # 每次枪口火焰效果持续时间（秒）
+    TRAILS_ALPHA_FADE = 2    # 尾迹透明 0.5
+    SHIP_RANDOM_HEIGHT_OFFSET = 150    # 飞船在舰队排列中的高度随机偏移
+    STRIKE_CRAFT_TRAIL_FADE_RATE = 3.5    # 舰载机尾迹消散速度，值越高消失越快（默认1.0）
+    STRIKE_CRAFT_HEIGHT_OFFSET = 80    # 舰载机飞行高度基础偏移（默认50）
+    STRIKE_CRAFT_HEIGHT_RANDOM = 80    # 舰载机飞行高度随机波动（默认60）
+    BALLISTIC_PROJECTILE_MISSED_LIFETIME = 15    # 未命中弹道武器存活时间（单位秒，默认15.0）
+    MISSILE_HEIGHT_OFFSET = 10    # 导弹飞行高度偏移，控制导弹离舰表的高度
+    MISSILE_RANDOM_OFFSET_MIN_RADIUS = 5    # 导弹发射时的最小随机散布半径
+    MISSILE_RANDOM_OFFSET_MAX_RADIUS = 10    # 导弹发射时的最大随机散布半径
+    SHIELD_EFFECT_TIME_SCALE = 0.5    # 护盾特效动画播放速度（默认0.5）
+    SHIELD_EFFECT_LOOP_INTERVAL = 1.5    # 护盾特效循环间隔百分比（默认1.5）
+    SHIELD_DISTANCE_FROM_SHIP = {
+        2
+        1
+        5
+    }
+    # 护盾与舰船外形的距离：左右，上下，前后
+    SHIELD_DISTANCE_FROM_SHIP_MULT = {
+        1.15
+        1.15
+        1.15
+    }
+    # 护盾半径距离倍率
 }
 
 NShip = {
     FLEET_FORMATION_CIRCLE_SHIPS_PER_LAYER_MULT = 10    #防御平台最里圈的数量
     FLEET_FORMATION_CIRCLE_RADIUS_PER_LAYER_MULT = 1    #防御平台的距离
-
-    FLEET_MOVE_MAX_DIST_SHIPS = 50                        # 队形内最大舰船间距
-    FLEET_BASE_FORMATION_SCALE = 6                        # 队形缩放基础值
-    FLEET_BASE_FORMATION_DIV = 20                            # 队形缩放分母参数
-
-    MOVE_TO_ACTION_THRESHOLD = 5.0                        # 判定舰队到达目标的距离阈值
-    MOVE_SHIP_TO_FLEET_MAX_DIST = 50.0                    # 个别舰船自动归队最大距离（默认200）
-
-    MISSILE_HIGH_CONTROL_DISTANCE = 5.0                    # 导弹距离目标小于该值会急弯
-    MISSILE_HIGH_CONTROL_INTERPOLATION_RANGE = 5.0        # 导弹从平滑飞行过渡到完全控制的范围
-    MISSILE_BASE_ROTATION_SPEED = 0.001                    # 导弹基础旋转速度（每tick的弧度）
-    MISSILE_RETARGET_CHANCE_START = 100                    # 导弹首次丢失目标时重新锁定新目标的概率（百分比）
-    MISSILE_RETARGET_CHANCE_REDUCTION = 25                # 每次重新锁定目标后概率减少的数值
+    # FLEET_MOVE_MAX_DIST_SHIPS = 50    # 队形内最大舰船间距（似乎没有了）
+    FLEET_BASE_FORMATION_SCALE = 6    # 队形缩放基础值
+    FLEET_BASE_FORMATION_DIV = 20    # 队形缩放分母参数
+    MOVE_TO_ACTION_THRESHOLD = 5    # 判定舰队到达目标的距离阈值
+    MOVE_SHIP_TO_FLEET_MAX_DIST = 50    # 个别舰船自动归队最大距离（默认200）
 }
 
 NCombat = {
-    COMBAT_BACK_OFF_RATE = 0.24                            # 撤退速率参数
-    SHIP_SMOOTH_ROTATION_THRESHOLD = 3.2                # 判定舰船平滑转向的角速度阈值
-    COMBAT_TARGET_STICKYNESS_FACTOR = 10.0                    # 攻击目标“粘性”系数
-
-    RANDOM_TARGETING_WEIGHT = 10.0                            # 随机选定目标权重
-
-    COMBAT_DETECT_RANGE_MULT = 0.50                        # 战斗中探测距离倍率（默认1.05）
-    COMBAT_DETECT_RANGE_MIN = 30                            # 战斗探测距离最小值
-
-    COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 60.0            # 紧急跃迁基础延迟天数
+    # 舰船在攻击时会尝试保持在最大射程并围绕目标绕行。
+    # 如果舰船距离小于最大射程，此值决定其"后退"以回到最大射程的速度。
+    # 0.0 表示舰船不会后退，而是以当前半径继续绕行
+    # 1.0 表示舰船会优先以与后退速度相同的轨道速度移动，即45度角
+    # COMBAT_BACK_OFF_RATE = 0.50
+    # COMBAT_DESIRED_RANGE_MULT = 0.90    # 期望的战斗范围应略小于武器的实际射程。
+    # COMBAT_CHARGE_DISTANCE_COEFFICIENT = 200.0    # 如果目标在无风险地攻击我们，我们将期望射程乘以此值，以判断是否应该冲锋
+    #
+    # SHIP_SMOOTH_ROTATION_THRESHOLD = 3.141 # 用于平滑舰船的旋转速率。公式为 "y = x * ( min ( 1.0 x / SHIP_SMOOTH_ROTATION_THRESHOLD ) )"，其中 x 是本tick期望的旋转增量，y 是结果旋转增量
+    #
+    # FORCE_DISPARITY_BASE = 20    # 计算力量差距时加入舰队规模
+    # FORCE_DISPARITY_MAX_EFFECT = 5.0    # 力量差距的最大乘数
+    #
+    # SHIP_CURRENT_TARGET_MULTIPLIER = 1.1    # 应用于舰船和专注于单一目标的组件的当前目标得分的乘数
+    SHIP_CURRENT_TARGET_MULTIPLIER = 1.01
+    # 应大于1
+    # SHIP_RECENT_TARGET_PENALIZER = 0.3    # 应用于舰船和在敌人间分散火力的组件的近期目标得分的乘数
+    # 应在0和1之间
+    # NUMBER_OF_TARGETS_TO_REMEMBER = 10.0    # 分散火力时记住并尝试避开的近期目标数量
+    # RANDOM_TARGETING_WEIGHT = 3.0    # 此值越高，舰船瞄准越随机。仅影响舰船的主要目标
+    # ADMIRAL_DEATH_CHANCE = 0.1        # 当他们的舰船被击毁时，提督死亡的概率
+    # COMBAT_SHIP_TARGETING_SIZE_MULT = 0.03    # 此权重越高，小型、脆弱的舰船越有可能被优先瞄准
+    COMBAT_SHIP_TARGETING_SIZE_MULT = 0.4
+    # COMBAT_SHIP_TARGETING_SIZE_MAX = 10    # [推测] 舰船尺寸瞄准权重的最大值上限
+    # COMBAT_SHIP_TARGETING_TRACKING_MULT = 2.0    # 此权重确保高追踪舰船瞄准高闪避舰船
+    # COMBAT_SHIP_EVASION_TARGETING_WEIGHT = 2.0    # 此值越高，舰船瞄准高闪避敌舰的可能性越小
+    # COMBAT_SHIP_LOW_HEALTH_THRESHOLD = 0.5            # 应用低血量瞄准权重的血量阈值
+    # COMBAT_SHIP_LOW_HEALTH_TARGETING_WEIGHT = 1.5    # [推测] 低血量舰船的瞄准权重乘数，值越高残血舰船越容易被集火
+    # COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT = 0.002        # 此值越高，舰船瞄准远距离目标的可能性越小
+    COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT = 0.8
+    # COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT_MIN = 0.10    # 目标权重因距离不能小于此值
+    # COMBAT_SHIP_UNARMED_TARGETING_WEIGHT = 0.005        # 此值越低，舰船瞄准非武装敌人而非武装敌人的可能性越小
+    # COMBAT_SHIP_STARBASE_TARGETING_WEIGHT = 0.75    # 此值越低，舰船瞄准星港而非军事舰船和防御平台的可能性越小
+    # COMBAT_SHIP_EVASION_AVOID_MIN_SHIP_SIZE = 8        # 应尝试避免瞄准高闪避目标的最小舰船尺寸
+    # COMBAT_SHIP_EVASION_AVOID_THRESHOLD = 0.7    # 在此闪避水平以上，尝试寻找闪避较低的目标
+    # COMBAT_DETECT_RANGE_MULT = 1.05    # 与其他舰船交战的范围是 <舰队最大攻击范围> * COMBAT_DETECT_RANGE_MULT
+    # COMBAT_DETECT_RANGE_MIN = 10    # [推测] 战斗检测的最小范围，低于此值舰船不会主动交战
+    # COMBAT_AREA_MIN_ATTACK_RADIUS = 0.2    # [推测] 区域攻击的最小半径系数
+    # COMBAT_EMERGENCY_FTL_LOST_RISK = 0.05 # 舰船在跳跃时永久丢失的风险百分比
+    # COMBAT_EMERGENCY_FTL_DAMAGE_RISK = 0.25 # 舰船在紧急FTL跳跃中受损的概率百分比
+    # COMBAT_EMERGENCY_FTL_DAMAGE_AMOUNT = 0.75 # 紧急FTL可能造成的伤害百分比
+    # COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 14.0    # 舰队在可以紧急FTL前应处于战斗中的天数
+    COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL = 60
+    # MISSILE_HIGH_CONTROL_DISTANCE = 5.0 # 如果导弹距离目标小于此值，它会急转弯
+    # MISSILE_HIGH_CONTROL_INTERPOLATION_RANGE = 5.0 # 导弹在"平滑控制"和"完全控制"之间插值的时间
+    # MISSILE_BASE_ROTATION_SPEED = 0.001 # 导弹的基础旋转速率，单位为每tick弧度
+    # MISSILE_RETARGET_CHANCE_START = 100 # 导弹在目标丢失时首次在范围内找到新目标的可能性
+    # MISSILE_RETARGET_CHANCE_REDUCTION = 35 # 每次重新瞄准后，导弹找到新目标的机会减少的程度
+    # SHIP_DISENGAGE_BASE_CHANCE = 0.75 # 舰船每次受到伤害时脱离的概率，随受到的伤害缩放（X = 在SHIP_DISENGAGE_HEALTH_THRESHOLD血量伤害时的概率）
+    # SHIP_DISENGAGE_MAX_CHANCE = 0.5    # [推测] 舰船脱离战斗的最大概率上限
+    SHIP_DISENGAGE_MAX_CHANCE = 0.75
+    # SHIP_DISENGAGE_HEALTH_THRESHOLD = 0.5 # 在受到伤害前，血量必须低于此值舰船才能脱离
+    SHIP_DISENGAGE_HEALTH_THRESHOLD = 0.75
+    # SHIP_DISENGAGE_FRIENDLY_TERRITORY_MULT = 1.25    # [推测] 在友方领土内舰船脱离概率的倍率加成
 }
 
 NGameplay = {

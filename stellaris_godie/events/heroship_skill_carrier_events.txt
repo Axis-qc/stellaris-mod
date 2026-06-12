@@ -9,192 +9,192 @@ namespace = heroship
 # ============================================================
 # 编队出击 — 补船 + 施加无人机屏障
 fleet_event = {
-    id = heroship.1300
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        br_has_carrier_vanguard = yes
-        owner = {
-            has_country_flag = br_skill_sortie_unlocked
-            br_vanguard_carrier_skill_cd_ready = yes
-        }
-    }
-    immediate = {
-        solar_system = {
-            save_global_event_target_as = br_hero_system_@root
-        }
-        owner = {
-            # 定位英雄舰
-            random_owned_ship = {
-                limit = {
-                    is_ship_size = br_vanguard
-                }
-                save_global_event_target_as = br_hero_ship_@root
-            }
-            # 复制玩家护卫舰设计
-            random_owned_design = {
-                limit = {
-                    is_ship_size = corvette
-                }
-                save_global_event_target_as = br_carrier_ship_@root
-            }
-            # 补充 hero_level 艘无人机
-            create_fleet = {
-                name = "BR_CARRIER_DRONE_FLEET"
-                settings = {
-                    spawn_debris = no
-                    garrison = no
-                    can_upgrade = no
-                    can_disband = no
-                    can_change_composition = yes
-                    can_change_leader = no
-                    uses_naval_capacity = no
-                    is_boss = no
-                    ai_ignore_strength = no
-                    is_ultra_boss = no
-                }
-                effect = {
-                    set_fleet_stance = aggressive
-                    set_owner = event_target:br_void_country
-                    set_location = {
-                        target = event_target:br_hero_ship_@root
-                        distance = 0
-                        angle = random
-                        direction = in_system
-                    }
-                    set_fleet_flag = br_carrier_temp_fleet_@root.owner
-                    while = {
-                        count = root.owner.br_hero_level
-                        create_ship = {
-                            name = random
-                            design = event_target:br_carrier_ship_@root
-                            effect = {
-                                set_ship_flag = br_carrier_ship_@root.owner
-                            }
-                        }
-                    }
-                    # 施加无人机屏障
-                    add_modifier = {
-                        modifier = br_carrier_barrier
-                        days = 1
-                        time_multiplier = root.owner.value:br_carrier_barrier_day
-                        mult = root.owner.value:br_carrier_sortie_mult
-                    }
-                    # 合并到主舰队
-                    queue_actions = {
-                        find_random_fleet = {
-                            trigger = {
-                                has_fleet_flag = br_carrier_fleet_@root.owner
-                            }
-                            found_fleet = {
-                                merge_fleet = {
-                                    target = this
-                                    allow_ftl = yes
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            # 设 CD
-            set_variable = {
-                which = br_vanguard_carrier_skill_cd
-                value = value:br_carrier_sortie_cd
-            }
-            if = {
-                limit = {
-                    NOT = {
-                        has_country_flag = br_vanguard_skill_cd_tick_running
-                    }
-                }
-                set_country_flag = br_vanguard_skill_cd_tick_running
-                country_event = {
-                    id = heroship.1014
-                    days = 1
-                }
-            }
-        }
-    }
+	id = heroship.1300
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_sortie_unlocked
+			br_vanguard_carrier_skill_cd_ready = yes
+		}
+	}
+	immediate = {
+		solar_system = {
+			save_global_event_target_as = br_hero_system_@root
+		}
+		owner = {
+			# 定位英雄舰
+			random_owned_ship = {
+				limit = {
+					is_ship_size = br_vanguard
+				}
+				save_global_event_target_as = br_hero_ship_@root
+			}
+			# 复制玩家护卫舰设计
+			random_owned_design = {
+				limit = {
+					is_ship_size = corvette
+				}
+				save_global_event_target_as = br_carrier_ship_@root
+			}
+			# 补充 hero_level 艘无人机
+			create_fleet = {
+				name = "BR_CARRIER_DRONE_FLEET"
+				settings = {
+					spawn_debris = no
+					garrison = no
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = yes
+					can_change_leader = no
+					uses_naval_capacity = no
+					is_boss = no
+					ai_ignore_strength = no
+					is_ultra_boss = no
+				}
+				effect = {
+					set_fleet_stance = aggressive
+					set_owner = event_target:br_void_country
+					set_location = {
+						target = event_target:br_hero_ship_@root
+						distance = 0
+						angle = random
+						direction = in_system
+					}
+					set_fleet_flag = br_carrier_temp_fleet_@root.owner
+					while = {
+						count = root.owner.br_hero_level
+						create_ship = {
+							name = random
+							design = event_target:br_carrier_ship_@root
+							effect = {
+								set_ship_flag = br_carrier_ship_@root.owner
+							}
+						}
+					}
+					# 施加无人机屏障
+					add_modifier = {
+						modifier = br_carrier_barrier
+						days = 1
+						time_multiplier = root.owner.value:br_carrier_barrier_day
+						mult = root.owner.value:br_carrier_sortie_mult
+					}
+					# 合并到主舰队
+					queue_actions = {
+						find_random_fleet = {
+							trigger = {
+								has_fleet_flag = br_carrier_fleet_@root.owner
+							}
+							found_fleet = {
+								merge_fleet = {
+									target = this
+									allow_ftl = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			# 设 CD
+			set_variable = {
+				which = br_vanguard_carrier_skill_cd
+				value = value:br_carrier_sortie_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
 }
 
 # 无人机增强 — 统计无人机数量，给英雄舰施加防御 buff
 fleet_event = {
-    id = heroship.1301
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        br_has_carrier_vanguard = yes
-        owner = {
-            has_country_flag = br_skill_aat_unlocked
-            br_vanguard_carrier_skill_cd_ready = yes
-        }
-    }
-    immediate = {
-        solar_system = {
-            save_global_event_target_as = br_hero_system_@root
-        }
-        owner = {
-            # 定位英雄舰
-            random_owned_ship = {
-                limit = {
-                    is_ship_size = br_vanguard
-                }
-                save_global_event_target_as = br_hero_ship_@root
-            }
-            # 统计无人机数量
-            set_variable = {
-                which = br_carrier_count
-                value = 0
-            }
-            event_target:br_void_country = {
-                every_owned_fleet = {
-                    limit = {
-                        OR = {
-                            has_fleet_flag = br_carrier_fleet_@root.owner
-                            has_fleet_flag = br_carrier_temp_fleet_@root.owner
-                        }
-                    }
-                    every_owned_ship = {
-                        limit = {
-                            is_ship_size = corvette
-                        }
-                        root.owner = {
-                            change_variable = {
-                                which = br_carrier_count
-                                value = 1
-                            }
-                        }
-                    }
-                }
-            }
-            # 给英雄舰施加无人机护卫
-            event_target:br_hero_ship_@root = {
-                add_modifier = {
-                    modifier = br_carrier_barrier
-                    days = 1
-                    time_multiplier = root.owner.value:br_carrier_drone_guard_day
-                    mult = root.owner.value:br_carrier_drone_guard_mult
-                }
-            }
-            # 设 CD
-            set_variable = {
-                which = br_vanguard_carrier_skill_cd
-                value = value:br_carrier_barrier_cd
-            }
-            if = {
-                limit = {
-                    NOT = {
-                        has_country_flag = br_vanguard_skill_cd_tick_running
-                    }
-                }
-                set_country_flag = br_vanguard_skill_cd_tick_running
-                country_event = {
-                    id = heroship.1014
-                    days = 1
-                }
-            }
-        }
-    }
+	id = heroship.1301
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_aat_unlocked
+			br_vanguard_carrier_skill_cd_ready = yes
+		}
+	}
+	immediate = {
+		solar_system = {
+			save_global_event_target_as = br_hero_system_@root
+		}
+		owner = {
+			# 定位英雄舰
+			random_owned_ship = {
+				limit = {
+					is_ship_size = br_vanguard
+				}
+				save_global_event_target_as = br_hero_ship_@root
+			}
+			# 统计无人机数量
+			set_variable = {
+				which = br_carrier_count
+				value = 0
+			}
+			event_target:br_void_country = {
+				every_owned_fleet = {
+					limit = {
+						OR = {
+							has_fleet_flag = br_carrier_fleet_@root.owner
+							has_fleet_flag = br_carrier_temp_fleet_@root.owner
+						}
+					}
+					every_owned_ship = {
+						limit = {
+							is_ship_size = corvette
+						}
+						root.owner = {
+							change_variable = {
+								which = br_carrier_count
+								value = 1
+							}
+						}
+					}
+				}
+			}
+			# 给英雄舰施加无人机护卫
+			event_target:br_hero_ship_@root = {
+				add_modifier = {
+					modifier = br_carrier_barrier
+					days = 1
+					time_multiplier = root.owner.value:br_carrier_drone_guard_day
+					mult = root.owner.value:br_carrier_drone_guard_mult
+				}
+			}
+			# 设 CD
+			set_variable = {
+				which = br_vanguard_carrier_skill_cd
+				value = value:br_carrier_barrier_cd
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_vanguard_skill_cd_tick_running
+					}
+				}
+				set_country_flag = br_vanguard_skill_cd_tick_running
+				country_event = {
+					id = heroship.1014
+					days = 1
+				}
+			}
+		}
+	}
 }
 
 # ============================================================
@@ -202,46 +202,44 @@ fleet_event = {
 # ============================================================
 # 指挥链路入口 — 按钮触发 fleet_event，转接 country_event.1320
 fleet_event = {
-    id = heroship.1310
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        br_has_carrier_vanguard = yes
-        owner = {
-            has_country_flag = br_hero_core_carrier
-            has_country_flag = br_skill_full_deck_unlocked
-            br_vanguard_carrier_ultimate_cd_ready = yes
-        }
-    }
-    immediate = {
-        owner = {
-            country_event = {
-                id = heroship.1320
-            }
-        }
-    }
+	id = heroship.1310
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_full_deck_unlocked
+			br_vanguard_carrier_ultimate_cd_ready = yes
+		}
+	}
+	immediate = {
+		owner = {
+			country_event = {
+				id = heroship.1320
+			}
+		}
+	}
 }
 
 # 全甲板突击入口 — 按钮触发 fleet_event，转接 country_event.1321
 fleet_event = {
-    id = heroship.1311
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        br_has_carrier_vanguard = yes
-        owner = {
-            has_country_flag = br_hero_core_carrier
-            has_country_flag = br_skill_total_air_supremacy_unlocked
-            br_vanguard_carrier_ultimate_cd_ready = yes
-        }
-    }
-    immediate = {
-        owner = {
-            country_event = {
-                id = heroship.1321
-            }
-        }
-    }
+	id = heroship.1311
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		br_has_carrier_vanguard = yes
+		owner = {
+			has_country_flag = br_skill_total_air_supremacy_unlocked
+			br_vanguard_carrier_ultimate_cd_ready = yes
+		}
+	}
+	immediate = {
+		owner = {
+			country_event = {
+				id = heroship.1321
+			}
+		}
+	}
 }
 
 # ============================================================
@@ -249,142 +247,142 @@ fleet_event = {
 # ============================================================
 # 指挥链路 — 英雄舰自损 + 无人机增益
 country_event = {
-    id = heroship.1320
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        has_country_flag = br_skill_full_deck_unlocked
-        br_vanguard_carrier_ultimate_cd_ready = yes
-    }
-    immediate = {
-        # 英雄舰自损
-        random_owned_ship = {
-            limit = {
-                is_ship_size = br_vanguard
-            }
-            add_modifier = {
-                modifier = br_carrier_command_link_self
-                mult = value:br_carrier_command_link_hero_mult
-                days = 1
-                time_multiplier = value:br_carrier_command_link_day
-            }
-            add_modifier = {
-                modifier = br_carrier_command_link_self_1
-                mult = value:br_carrier_command_link_hero_mult_1
-                days = 1
-                time_multiplier = value:br_carrier_command_link_day
-            }
-        }
-        # 无人机舰队增益
-        event_target:br_void_country = {
-            random_owned_fleet = {
-                limit = {
-                    OR = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                        has_fleet_flag = br_carrier_temp_fleet_@root
-                    }
-                }
-                add_modifier = {
-                    modifier = br_carrier_command_link_drone
-                    mult = root.value:br_carrier_command_link_drone_hull
-                    days = 1
-                    time_multiplier = root.value:br_carrier_command_link_day
-                }
-                add_modifier = {
-                    modifier = br_carrier_command_link_drone_1
-                    mult = root.value:br_carrier_command_link_drone_hit
-                    days = 1
-                    time_multiplier = root.value:br_carrier_command_link_day
-                }
-            }
-        }
-        # 设 CD
-        set_variable = {
-            which = br_vanguard_carrier_ultimate_cd
-            value = value:br_carrier_command_link_cd
-        }
-        # CD 倒计时
-        if = {
-            limit = {
-                NOT = {
-                    has_country_flag = br_vanguard_skill_cd_tick_running
-                }
-            }
-            set_country_flag = br_vanguard_skill_cd_tick_running
-            country_event = {
-                id = heroship.1014
-                days = 1
-            }
-        }
-    }
+	id = heroship.1320
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+		has_country_flag = br_skill_full_deck_unlocked
+		br_vanguard_carrier_ultimate_cd_ready = yes
+	}
+	immediate = {
+		# 英雄舰自损
+		random_owned_ship = {
+			limit = {
+				is_ship_size = br_vanguard
+			}
+			add_modifier = {
+				modifier = br_carrier_command_link_self
+				mult = value:br_carrier_command_link_hero_mult
+				days = 1
+				time_multiplier = value:br_carrier_command_link_day
+			}
+			add_modifier = {
+				modifier = br_carrier_command_link_self_1
+				mult = value:br_carrier_command_link_hero_mult_1
+				days = 1
+				time_multiplier = value:br_carrier_command_link_day
+			}
+		}
+		# 无人机舰队增益
+		event_target:br_void_country = {
+			random_owned_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = br_carrier_fleet_@root
+						has_fleet_flag = br_carrier_temp_fleet_@root
+					}
+				}
+				add_modifier = {
+					modifier = br_carrier_command_link_drone
+					mult = root.value:br_carrier_command_link_drone_hull
+					days = 1
+					time_multiplier = root.value:br_carrier_command_link_day
+				}
+				add_modifier = {
+					modifier = br_carrier_command_link_drone_1
+					mult = root.value:br_carrier_command_link_drone_hit
+					days = 1
+					time_multiplier = root.value:br_carrier_command_link_day
+				}
+			}
+		}
+		# 设 CD
+		set_variable = {
+			which = br_vanguard_carrier_ultimate_cd
+			value = value:br_carrier_command_link_cd
+		}
+		# CD 倒计时
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = br_vanguard_skill_cd_tick_running
+				}
+			}
+			set_country_flag = br_vanguard_skill_cd_tick_running
+			country_event = {
+				id = heroship.1014
+				days = 1
+			}
+		}
+	}
 }
 
 # 全甲板突击 — 召唤临时舰队
 country_event = {
-    id = heroship.1321
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        has_country_flag = br_skill_total_air_supremacy_unlocked
-        br_vanguard_carrier_ultimate_cd_ready = yes
-    }
-    immediate = {
-        create_fleet = {
-            name = "BR_CARRIER_STRIKE_FLEET"
-            settings = {
-                spawn_debris = no
-                garrison = no
-                can_upgrade = no
-                can_disband = no
-                can_change_composition = no
-                can_change_leader = no
-                uses_naval_capacity = no
-                is_boss = no
-                ai_ignore_strength = no
-                is_ultra_boss = no
-            }
-            effect = {
-                set_fleet_stance = aggressive
-                set_owner = event_target:br_void_country
-                set_location = {
-                    target = event_target:br_hero_ship_@root
-                    distance = 0
-                    angle = random
-                    direction = in_system
-                }
-                set_fleet_flag = br_carrier_strike_fleet_@root
-                while = {
-                    count = root.value:br_carrier_mass_assault_count
-                    create_ship = {
-                        name = random
-                        design = event_target:br_carrier_ship_@root
-                    }
-                }
-                set_timed_fleet_flag = {
-                    flag = br_carrier_strike_fleet_@root
-                    days = value:br_carrier_mass_assault_day
-                }
-            }
-        }
-        set_variable = {
-            which = br_vanguard_carrier_ultimate_cd
-            value = value:br_carrier_mass_assault_cd
-        }
-        if = {
-            limit = {
-                NOT = {
-                    has_country_flag = br_vanguard_skill_cd_tick_running
-                }
-            }
-            set_country_flag = br_vanguard_skill_cd_tick_running
-            country_event = {
-                id = heroship.1014
-                days = 1
-            }
-        }
-    }
+	id = heroship.1321
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+		has_country_flag = br_skill_total_air_supremacy_unlocked
+		br_vanguard_carrier_ultimate_cd_ready = yes
+	}
+	immediate = {
+		create_fleet = {
+			name = "BR_CARRIER_STRIKE_FLEET"
+			settings = {
+				spawn_debris = no
+				garrison = no
+				can_upgrade = no
+				can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+				is_boss = no
+				ai_ignore_strength = no
+				is_ultra_boss = no
+			}
+			effect = {
+				set_fleet_stance = aggressive
+				set_owner = event_target:br_void_country
+				set_location = {
+					target = event_target:br_hero_ship_@root
+					distance = 0
+					angle = random
+					direction = in_system
+				}
+				set_fleet_flag = br_carrier_strike_fleet_@root
+				while = {
+					count = root.value:br_carrier_mass_assault_count
+					create_ship = {
+						name = random
+						design = event_target:br_carrier_ship_@root
+					}
+				}
+				set_timed_fleet_flag = {
+					flag = br_carrier_strike_fleet_@root
+					days = value:br_carrier_mass_assault_day
+				}
+			}
+		}
+		set_variable = {
+			which = br_vanguard_carrier_ultimate_cd
+			value = value:br_carrier_mass_assault_cd
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = br_vanguard_skill_cd_tick_running
+				}
+			}
+			set_country_flag = br_vanguard_skill_cd_tick_running
+			country_event = {
+				id = heroship.1014
+				days = 1
+			}
+		}
+	}
 }
 
 # ============================================================
@@ -393,343 +391,337 @@ country_event = {
 # ============================================================
 # heroship.1331 — 全局初始化
 country_event = {
-    id = heroship.1331
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        any_owned_ship = {
-            is_ship_size = br_vanguard
-        }
-    }
-    immediate = {
-        # 定位英雄舰
-        random_owned_ship = {
-            limit = {
-                is_ship_size = br_vanguard
-            }
-            save_global_event_target_as = br_hero_ship_@root
-            solar_system = {
-                save_global_event_target_as = br_hero_system_@root
-            }
-        }
-        # 复制玩家设计
-        random_owned_design = {
-            limit = {
-                is_ship_size = corvette
-            }
-            save_global_event_target_as = br_carrier_ship_@root
-        }
-        # → Step1: 计算变量
-        country_event = {
-            id = heroship.1332
-        }
-    }
+	id = heroship.1331
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+	}
+	immediate = {
+		# 定位英雄舰
+		random_owned_ship = {
+			limit = {
+				is_ship_size = br_vanguard
+			}
+			save_global_event_target_as = br_hero_ship_@root
+			solar_system = {
+				save_global_event_target_as = br_hero_system_@root
+			}
+		}
+		# 复制玩家设计
+		random_owned_design = {
+			limit = {
+				is_ship_size = corvette
+			}
+			save_global_event_target_as = br_carrier_ship_@root
+		}
+		# → Step1: 计算变量
+		country_event = {
+			id = heroship.1332
+		}
+	}
 }
 
 # heroship.1332 — 计算变量
 country_event = {
-    id = heroship.1332
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        any_owned_ship = {
-            is_ship_size = br_vanguard
-        }
-    }
-    immediate = {
-        # 计算上限（仅用于技能描述显示）
-        set_variable = {
-            which = br_carrier_cap
-            value = br_hero_level
-        }
-        multiply_variable = {
-            which = br_carrier_cap
-            value = 2
-        }
-        # 给现有无人机打旗标
-        event_target:br_void_country = {
-            every_owned_fleet = {
-                limit = {
-                    OR = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                        has_fleet_flag = br_carrier_temp_fleet_@root
-                    }
-                }
-                every_owned_ship = {
-                    limit = {
-                        is_ship_size = corvette
-                    }
-                    set_ship_flag = br_carrier_ship_@root
-                }
-            }
-        }
-        # 统计所有无人机
-        set_variable = {
-            which = br_carrier_count
-            value = 0
-        }
-        event_target:br_void_country = {
-            every_owned_fleet = {
-                limit = {
-                    OR = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                        has_fleet_flag = br_carrier_temp_fleet_@root
-                    }
-                }
-                every_owned_ship = {
-                    limit = {
-                        has_ship_flag = br_carrier_ship_@root
-                    }
-                    root = {
-                        change_variable = {
-                            which = br_carrier_count
-                            value = 1
-                        }
-                    }
-                }
-            }
-        }
-        # 补给数量 = min(缺口, 月度上限)
-        set_variable = {
-            which = br_carrier_deficit
-            value = value:br_carrier_supply_rate
-        }
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_carrier_deficit
-                    value > value:br_carrier_supply_rate_1
-                }
-            }
-            set_variable = {
-                which = br_carrier_deficit
-                value = value:br_carrier_supply_rate_1
-            }
-        }
-        # → Step2: 补船
-        country_event = {
-            id = heroship.1333
-        }
-    }
+	id = heroship.1332
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+	}
+	immediate = {
+		# 计算上限（仅用于技能描述显示）
+		set_variable = {
+			which = br_carrier_cap
+			value = br_hero_level
+		}
+		multiply_variable = {
+			which = br_carrier_cap
+			value = 2
+		}
+		# 给现有无人机打旗标
+		event_target:br_void_country = {
+			every_owned_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = br_carrier_fleet_@root
+						has_fleet_flag = br_carrier_temp_fleet_@root
+					}
+				}
+				every_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+					}
+					set_ship_flag = br_carrier_ship_@root
+				}
+			}
+		}
+		# 统计所有无人机
+		set_variable = {
+			which = br_carrier_count
+			value = 0
+		}
+		event_target:br_void_country = {
+			every_owned_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = br_carrier_fleet_@root
+						has_fleet_flag = br_carrier_temp_fleet_@root
+					}
+				}
+				every_owned_ship = {
+					limit = {
+						has_ship_flag = br_carrier_ship_@root
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_count
+							value = 1
+						}
+					}
+				}
+			}
+		}
+		# 补给数量 = min(缺口, 月度上限)
+		set_variable = {
+			which = br_carrier_deficit
+			value = value:br_carrier_supply_rate
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_deficit
+					value > value:br_carrier_supply_rate_1
+				}
+			}
+			set_variable = {
+				which = br_carrier_deficit
+				value = value:br_carrier_supply_rate_1
+			}
+		}
+		# → Step2: 补船
+		country_event = {
+			id = heroship.1333
+		}
+	}
 }
 
 # heroship.1333 — 补船
 country_event = {
-    id = heroship.1333
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-    }
-    immediate = {
-        # 有缺口则补给
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_carrier_deficit
-                    value > 0
-                }
-            }
-            create_fleet = {
-                name = "BR_CARRIER_DRONE_FLEET"
-                settings = {
-                    spawn_debris = no
-                    garrison = no
-                    can_upgrade = no
-                    can_disband = no
-                    can_change_composition = yes
-                    can_change_leader = no
-                    uses_naval_capacity = no
-                    is_boss = no
-                    ai_ignore_strength = no
-                    is_ultra_boss = no
-                }
-                effect = {
-                    set_fleet_stance = aggressive
-                    set_owner = event_target:br_void_country
-                    set_location = {
-                        target = event_target:br_hero_ship_@root
-                        distance = 0
-                        angle = random
-                        direction = in_system
-                    }
-                    # 打临时旗标
-                    set_fleet_flag = br_carrier_temp_fleet_@root
-                    while = {
-                        count = root.br_carrier_deficit
-                        create_ship = {
-                            name = random
-                            design = event_target:br_carrier_ship_@root
-                            effect = {
-                                set_ship_flag = br_carrier_ship_@root
-                            }
-                        }
-                    }
-                    queue_actions = {
-                        find_random_fleet = {
-                            trigger = {
-                                has_fleet_flag = br_carrier_fleet_@root
-                            }
-                            found_fleet = {
-                                merge_fleet = {
-                                    target = this
-                                    allow_ftl = yes
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        # 重新统计无人机
-        set_variable = {
-            which = br_carrier_count
-            value = 0
-        }
-        event_target:br_void_country = {
-            every_owned_fleet = {
-                limit = {
-                    OR = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                        has_fleet_flag = br_carrier_temp_fleet_@root
-                    }
-                }
-                every_owned_ship = {
-                    limit = {
-                        has_ship_flag = br_carrier_ship_@root
-                    }
-                    root = {
-                        change_variable = {
-                            which = br_carrier_count
-                            value = 1
-                        }
-                    }
-                }
-            }
-        }
-        # → Step3: 位置同步与合并
-        country_event = {
-            id = heroship.1334
-        }
-    }
+	id = heroship.1333
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+	}
+	immediate = {
+		# 有缺口则补给
+		if = {
+			limit = {
+				check_variable = {
+					which = br_carrier_deficit
+					value > 0
+				}
+			}
+			create_fleet = {
+				name = "BR_CARRIER_DRONE_FLEET"
+				settings = {
+					spawn_debris = no
+					garrison = no
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = yes
+					can_change_leader = no
+					uses_naval_capacity = no
+					is_boss = no
+					ai_ignore_strength = no
+					is_ultra_boss = no
+				}
+				effect = {
+					set_fleet_stance = aggressive
+					set_owner = event_target:br_void_country
+					set_location = {
+						target = event_target:br_hero_ship_@root
+						distance = 0
+						angle = random
+						direction = in_system
+					}
+					# 打临时旗标
+					set_fleet_flag = br_carrier_temp_fleet_@root
+					while = {
+						count = root.br_carrier_deficit
+						create_ship = {
+							name = random
+							design = event_target:br_carrier_ship_@root
+							effect = {
+								set_ship_flag = br_carrier_ship_@root
+							}
+						}
+					}
+					queue_actions = {
+						find_random_fleet = {
+							trigger = {
+								has_fleet_flag = br_carrier_fleet_@root
+							}
+							found_fleet = {
+								merge_fleet = {
+									target = this
+									allow_ftl = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		# 重新统计无人机
+		set_variable = {
+			which = br_carrier_count
+			value = 0
+		}
+		event_target:br_void_country = {
+			every_owned_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = br_carrier_fleet_@root
+						has_fleet_flag = br_carrier_temp_fleet_@root
+					}
+				}
+				every_owned_ship = {
+					limit = {
+						has_ship_flag = br_carrier_ship_@root
+					}
+					root = {
+						change_variable = {
+							which = br_carrier_count
+							value = 1
+						}
+					}
+				}
+			}
+		}
+		# → Step3: 位置同步与合并
+		country_event = {
+			id = heroship.1334
+		}
+	}
 }
 
 # heroship.1334 — 位置同步
 country_event = {
-    id = heroship.1334
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        exists = event_target:br_void_country
-    }
-    immediate = {
-        # 先移动主舰队
-        event_target:br_void_country = {
-            random_owned_fleet = {
-                limit = {
-                    has_fleet_flag = br_carrier_fleet_@root
-                }
-                save_event_target_as = br_carrier_fleet
-                set_fleet_stance = aggressive
-                clear_fleet_actions = this
-                queue_actions = {
-                    move_to = event_target:br_hero_ship_@root
-                }
-            }
-            every_owned_fleet = {
-                set_fleet_stance = aggressive
-            }
-        }
-        # 临时舰队兜底
-        event_target:br_void_country = {
-            random_owned_fleet = {
-                limit = {
-                    has_fleet_flag = br_carrier_temp_fleet_@root
-                    NOT = {
-                        exists = event_target:br_carrier_fleet
-                    }
-                }
-                set_fleet_flag = br_carrier_fleet_@root
-                save_event_target_as = br_carrier_fleet
-                set_fleet_stance = aggressive
-                clear_fleet_actions = this
-                queue_actions = {
-                    move_to = event_target:br_hero_ship
-                }
-            }
-            # 合并剩余临时舰队
-            every_owned_fleet = {
-                limit = {
-                    has_fleet_flag = br_carrier_temp_fleet_@root
-                    NOT = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                    }
-                }
-                queue_actions = {
-                    merge_fleet = {
-                        target = event_target:br_carrier_fleet
-                        allow_ftl = yes
-                    }
-                }
-            }
-        }
-        # → Step4: buff处理
-        country_event = {
-            id = heroship.1335
-        }
-    }
+	id = heroship.1334
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+		exists = event_target:br_void_country
+	}
+	immediate = {
+		# 先移动主舰队
+		event_target:br_void_country = {
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_fleet_@root
+				}
+				save_event_target_as = br_carrier_fleet
+				set_fleet_stance = aggressive
+				clear_fleet_actions = this
+				queue_actions = {
+					move_to = event_target:br_hero_ship_@root
+				}
+			}
+			every_owned_fleet = {
+				set_fleet_stance = aggressive
+			}
+		}
+		# 临时舰队兜底
+		event_target:br_void_country = {
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_temp_fleet_@root
+					NOT = {
+						exists = event_target:br_carrier_fleet
+					}
+				}
+				set_fleet_flag = br_carrier_fleet_@root
+				save_event_target_as = br_carrier_fleet
+				set_fleet_stance = aggressive
+				clear_fleet_actions = this
+				queue_actions = {
+					move_to = event_target:br_hero_ship
+				}
+			}
+			# 合并剩余临时舰队
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_carrier_temp_fleet_@root
+					NOT = {
+						has_fleet_flag = br_carrier_fleet_@root
+					}
+				}
+				queue_actions = {
+					merge_fleet = {
+						target = event_target:br_carrier_fleet
+						allow_ftl = yes
+					}
+				}
+			}
+		}
+		# → Step4: buff处理
+		country_event = {
+			id = heroship.1335
+		}
+	}
 }
 
 # heroship.1335 — buff处理
 country_event = {
-    id = heroship.1335
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        exists = event_target:br_void_country
-    }
-    immediate = {
-        # 蜂群护卫 — 无人机数量 → 英雄舰常驻加成
-        if = {
-            limit = {
-                has_country_flag = br_skill_swarm_guard_unlocked
-            }
-            event_target:br_hero_ship_@root = {
-                add_modifier = {
-                    modifier = br_carrier_drone_guard
-                    days = 32
-                    mult = root.owner.value:br_carrier_swarm_guard_mult
-                }
-            }
-        }
-        # 甲板维护-质量 buff
-        if = {
-            limit = {
-                has_country_flag = br_skill_deck_maintenance_unlocked
-            }
-            event_target:br_void_country = {
-                random_owned_fleet = {
-                    limit = {
-                        has_fleet_flag = br_carrier_fleet_@root
-                    }
-                    add_modifier = {
-                        modifier = br_carrier_deck_hull_buff
-                        mult = root.value:br_carrier_deck_hull
-                        days = 32
-                    }
-                    add_modifier = {
-                        modifier = br_carrier_deck_dmg_buff
-                        mult = root.value:br_carrier_deck_dmg
-                        days = 32
-                    }
-                }
-            }
-        }
-    }
+	id = heroship.1335
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		country_has_carrier_vanguard = yes
+		exists = event_target:br_void_country
+	}
+	immediate = {
+		# 蜂群护卫 — 无人机数量 → 英雄舰常驻加成
+		if = {
+			limit = {
+				has_country_flag = br_skill_swarm_guard_unlocked
+			}
+			event_target:br_hero_ship_@root = {
+				add_modifier = {
+					modifier = br_carrier_drone_guard
+					days = 32
+					mult = root.owner.value:br_carrier_swarm_guard_mult
+				}
+			}
+		}
+		# 甲板维护-质量 buff
+		if = {
+			limit = {
+				has_country_flag = br_skill_deck_maintenance_unlocked
+			}
+			event_target:br_void_country = {
+				random_owned_fleet = {
+					limit = {
+						has_fleet_flag = br_carrier_fleet_@root
+					}
+					add_modifier = {
+						modifier = br_carrier_deck_hull_buff
+						mult = root.value:br_carrier_deck_hull
+						days = 32
+					}
+					add_modifier = {
+						modifier = br_carrier_deck_dmg_buff
+						mult = root.value:br_carrier_deck_dmg
+						days = 32
+					}
+				}
+			}
+		}
+	}
 }
 
 # ============================================================

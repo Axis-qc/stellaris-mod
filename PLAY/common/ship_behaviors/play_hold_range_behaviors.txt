@@ -1,0 +1,97 @@
+# 固定保持距离战术行为
+# 50 / 100 / 200 / 300 / 400 五档固定距离
+# 攻击时使用 maintain_distance 保持固定距离，被动时使用 stay_at_range 待命
+#
+# 字段说明：
+#   name                    - 行为名称，用于 component_templates 中的 ship_behavior 引用
+#   preferred_attack_range  - 攻击时舰船与目标的期望距离（数值/max/min/median）
+#   formation_distance      - 编队航行时舰船与编队位置的期望距离
+#   return_to_formation_distance - 超过此距离时舰船会强制返回编队位置
+#   source_target_anchor_factor  - 舰船在"来源锚点"和"目标锚点"之间的定位权重（0~1）
+#   combat_target_anchor   - 战斗定位的目标锚点（root=舰队领袖的目标，parent=母舰的目标）
+#   collision_awareness    - 碰撞回避意识（0~1，越高越会主动避让其他舰船）
+#   collision_radius       - 碰撞半径倍率（乘以舰船尺寸定义中的基础半径）
+#   collision_strafe       - 碰撞时允许的横向移动能力（0=不能横移，越大越灵活）
+#   attack_move_pattern    - 攻击时的移动模式：
+#                            charge = 冲向目标
+#                            maintain_distance = 保持设定距离
+#                            stay_at_range = 移动到设定距离后停下
+#                            orbit = 环绕目标
+#                            stationary = 原地不动
+#                            none = 无移动
+#   passive_move_pattern   - 非战斗时的移动模式（同上）
+#   desc                   - 本地化描述的 key
+ship_behavior = {
+	name = "hold_50"
+	preferred_attack_range = 50
+	formation_distance = 50
+	return_to_formation_distance = 100
+	source_target_anchor_factor = 1
+	combat_target_anchor = root
+	collision_awareness = 0.75
+	collision_radius = 2
+	collision_strafe = 2.5
+	attack_move_pattern = maintain_distance
+	passive_move_pattern = stay_at_range
+	desc = "HOLD_50_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+	name = "hold_100"
+	preferred_attack_range = 100
+	formation_distance = 100
+	return_to_formation_distance = 200
+	source_target_anchor_factor = 1
+	combat_target_anchor = root
+	collision_awareness = 0.75
+	collision_radius = 2
+	collision_strafe = 2.5
+	attack_move_pattern = maintain_distance
+	passive_move_pattern = stay_at_range
+	desc = "HOLD_100_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+	name = "hold_200"
+	preferred_attack_range = 200
+	formation_distance = 200
+	return_to_formation_distance = 400
+	source_target_anchor_factor = 1
+	combat_target_anchor = root
+	collision_awareness = 0.75
+	collision_radius = 2
+	collision_strafe = 2.5
+	attack_move_pattern = maintain_distance
+	passive_move_pattern = stay_at_range
+	desc = "HOLD_200_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+	name = "hold_300"
+	preferred_attack_range = 300
+	formation_distance = 300
+	return_to_formation_distance = 600
+	source_target_anchor_factor = 1
+	combat_target_anchor = root
+	collision_awareness = 0.75
+	collision_radius = 2
+	collision_strafe = 2.5
+	attack_move_pattern = maintain_distance
+	passive_move_pattern = stay_at_range
+	desc = "HOLD_300_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+	name = "hold_400"
+	preferred_attack_range = 400
+	formation_distance = 400
+	return_to_formation_distance = 800
+	source_target_anchor_factor = 1
+	combat_target_anchor = root
+	collision_awareness = 0.75
+	collision_radius = 2
+	collision_strafe = 2.5
+	attack_move_pattern = maintain_distance
+	passive_move_pattern = stay_at_range
+	desc = "HOLD_400_BEHAVIOR_DESC"
+}

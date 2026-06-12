@@ -6,452 +6,13 @@
 @power1 = -10
 @power2 = -15
 @power3 = -25
-#蜂拥
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_SWARM_BASIC"
-	size = small
-	icon = "GFX_ship_part_computer_swarm_basic"
-	icon_frame = 1
-	power = @power1
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost1
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	component_set = "combat_computers"
-	ship_behavior = "swarm"
-	upgrade_path = swarm
-	prerequisites = {
-		"tech_combat_computers_1"
-	}
-	upgrades_to = "COMBAT_COMPUTER_SWARM_ADVANCED"
-	ai_tags = {
-		gunship
-		gunship_stealth
-		brawler
-		brawler_stealth
-	}
-	ai_tag_weight = 0
-	modifier = {
-		ship_evasion_mult = 0.05
-	}
-	ship_modifier = {
-		ship_fire_rate_mult = 0.05
-	}
-	ai_weight = {
-		weight = 2
-	}
-}
 
+#########################
+# HOLD 100 JUGGERNAUT   #
+#########################
+# 主宰专用战斗电脑 - 使用 combat_computers 组件集
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_SWARM_ADVANCED"
-	size = small
-	icon = "GFX_ship_part_computer_swarm_advanced"
-	icon_frame = 1
-	power = @power2
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost2
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "swarm"
-	upgrade_path = swarm
-	prerequisites = {
-		"tech_combat_computers_2"
-	}
-	upgrades_to = "COMBAT_COMPUTER_SWARM_SAPIENT"
-	ai_tags = {
-		gunship
-		gunship_stealth
-		brawler
-		brawler_stealth
-	}
-	ai_tag_weight = 0
-	modifier = {
-		ship_evasion_mult = 0.1
-	}
-	ship_modifier = {
-		ship_fire_rate_mult = 0.1
-	}
-	ai_weight = {
-		weight = 3
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_SWARM_SAPIENT"
-	size = small
-	icon = "GFX_ship_part_computer_swarm_sapient"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "swarm"
-	upgrade_path = swarm
-	prerequisites = {
-		"tech_combat_computers_3"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-		brawler
-		brawler_stealth
-	}
-	ai_tag_weight = 0
-	modifier = {
-		ship_evasion_mult = 0.25
-	}
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-	}
-	ai_weight = {
-		weight = 5
-		modifier = {
-			factor = 0
-			OR = {
-				has_global_flag = ghost_signal_5_flag
-				has_global_flag = ghost_signal_4_flag
-				has_global_flag = ghost_signal_3_flag
-				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
-				has_policy_flag = ai_outlawed
-			}
-		}
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_SWARM_AUTONOMOUS"
-	size = small
-	icon = "GFX_ship_part_computer_swarm_sapient"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "swarm"
-	upgrade_path = swarm
-	prerequisites = {
-		"tech_combat_computers_autonomous"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-		brawler
-		brawler_stealth
-	}
-	ai_tag_weight = 0
-	modifier = {
-		ship_evasion_mult = 0.25
-	}
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-	}
-	ai_weight = {
-		weight = 5
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_SWARM_PRECOG"
-	size = small
-	icon = "GFX_ship_part_computer_swarm_precog"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "swarm"
-	upgrade_path = swarm
-	prerequisites = {
-		"tech_precognition_interface"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-		brawler
-		brawler_stealth
-	}
-	ai_tag_weight = 0
-	modifier = {
-		ship_evasion_mult = 0.15
-		ship_speed_mult = 0.2
-	}
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-	}
-	ai_weight = {
-		weight = 4
-	}
-}
-
-#线列
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_LINE_BASIC"
-	size = small
-	icon = "GFX_ship_part_computer_line_basic"
-	icon_frame = 1
-	power = @power1
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost1
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "line"
-	upgrade_path = line
-	prerequisites = {
-		"tech_combat_computers_1"
-	}
-	upgrades_to = "COMBAT_COMPUTER_LINE_ADVANCED"
-	ai_tags = {
-		gunship
-		gunship_stealth
-	}
-	ai_tag_weight = 0
-	ship_modifier = {
-		ship_fire_rate_mult = 0.05
-		ship_accuracy_add = 5
-	}
-	ai_weight = {
-		weight = 2
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_LINE_ADVANCED"
-	size = small
-	icon = "GFX_ship_part_computer_line_advanced"
-	icon_frame = 1
-	power = @power2
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost2
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "line"
-	upgrade_path = line
-	prerequisites = {
-		"tech_combat_computers_2"
-	}
-	upgrades_to = "COMBAT_COMPUTER_LINE_SAPIENT"
-	ai_tags = {
-		gunship
-		gunship_stealth
-	}
-	ai_tag_weight = 0
-	ship_modifier = {
-		ship_fire_rate_mult = 0.1
-		ship_accuracy_add = 10
-	}
-	ai_weight = {
-		weight = 3
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_LINE_SAPIENT"
-	size = small
-	icon = "GFX_ship_part_computer_line_sapient"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "line"
-	upgrade_path = line
-	prerequisites = {
-		"tech_combat_computers_3"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-	}
-	ai_tag_weight = 0
-	ship_modifier = {
-		ship_fire_rate_mult = 0.2
-		ship_accuracy_add = 20
-	}
-	ai_weight = {
-		weight = 5
-		modifier = {
-			factor = 0
-			OR = {
-				has_global_flag = ghost_signal_5_flag
-				has_global_flag = ghost_signal_4_flag
-				has_global_flag = ghost_signal_3_flag
-				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
-				has_policy_flag = ai_outlawed
-			}
-		}
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_LINE_AUTONOMOUS"
-	size = small
-	icon = "GFX_ship_part_computer_line_sapient"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "line"
-	upgrade_path = line
-	prerequisites = {
-		"tech_combat_computers_autonomous"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-	}
-	ai_tag_weight = 0
-	ship_modifier = {
-		ship_fire_rate_mult = 0.2
-		ship_accuracy_add = 20
-	}
-	ai_weight = {
-		weight = 5
-	}
-}
-
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_LINE_PRECOG"
-	size = small
-	icon = "GFX_ship_part_computer_line_precog"
-	icon_frame = 1
-	power = @power3
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost3
-		}
-	}
-	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
-	}
-	component_set = "combat_computers"
-	ship_behavior = "line"
-	upgrade_path = line
-	prerequisites = {
-		"tech_precognition_interface"
-	}
-	ai_tags = {
-		gunship
-		gunship_stealth
-	}
-	ai_tag_weight = 0
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-		ship_accuracy_add = 15
-		ship_tracking_add = 10
-	}
-	ai_weight = {
-		weight = 4
-	}
-}
-
-#炮击
-utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_ARTILLERY_BASIC"
+	key = "PLAY_JUGGERNAUT_HOLD_100_BASIC"
 	size = small
 	icon = "GFX_ship_part_computer_artillery_basic"
 	icon_frame = 1
@@ -463,24 +24,18 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "artillery"
-	upgrade_path = artillery
+	ship_behavior = "hold_100"
+	upgrade_path = hold_100
 	prerequisites = {
 		"tech_combat_computers_1"
 	}
-	upgrades_to = "COMBAT_COMPUTER_ARTILLERY_ADVANCED"
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_100_ADVANCED"
 	ai_tags = {
 		artillery
 		artillery_stealth
-		energy_torpedoes
-		energy_torpedoes_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
@@ -493,7 +48,7 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_ARTILLERY_ADVANCED"
+	key = "PLAY_JUGGERNAUT_HOLD_100_ADVANCED"
 	size = small
 	icon = "GFX_ship_part_computer_artillery_advanced"
 	icon_frame = 1
@@ -505,24 +60,18 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "artillery"
-	upgrade_path = artillery
+	ship_behavior = "hold_100"
+	upgrade_path = hold_100
 	prerequisites = {
 		"tech_combat_computers_2"
 	}
-	upgrades_to = "COMBAT_COMPUTER_ARTILLERY_SAPIENT"
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_100_SAPIENT"
 	ai_tags = {
 		artillery
 		artillery_stealth
-		energy_torpedoes
-		energy_torpedoes_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
@@ -535,7 +84,7 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_ARTILLERY_SAPIENT"
+	key = "PLAY_JUGGERNAUT_HOLD_100_SAPIENT"
 	size = small
 	icon = "GFX_ship_part_computer_artillery_sapient"
 	icon_frame = 1
@@ -547,23 +96,17 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "artillery"
-	upgrade_path = artillery
+	ship_behavior = "hold_100"
+	upgrade_path = hold_100
 	prerequisites = {
 		"tech_combat_computers_3"
 	}
 	ai_tags = {
 		artillery
 		artillery_stealth
-		energy_torpedoes
-		energy_torpedoes_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
@@ -587,7 +130,7 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_ARTILLERY_AUTONOMOUS"
+	key = "PLAY_JUGGERNAUT_HOLD_100_AUTONOMOUS"
 	size = small
 	icon = "GFX_ship_part_computer_artillery_sapient"
 	icon_frame = 1
@@ -599,23 +142,17 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "artillery"
-	upgrade_path = artillery
+	ship_behavior = "hold_100"
+	upgrade_path = hold_100
 	prerequisites = {
 		"tech_combat_computers_autonomous"
 	}
 	ai_tags = {
 		artillery
 		artillery_stealth
-		energy_torpedoes
-		energy_torpedoes_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
@@ -628,7 +165,7 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_ARTILLERY_PRECOG"
+	key = "PLAY_JUGGERNAUT_HOLD_100_PRECOG"
 	size = small
 	icon = "GFX_ship_part_computer_artillery_precog"
 	icon_frame = 1
@@ -640,23 +177,17 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "artillery"
-	upgrade_path = artillery
+	ship_behavior = "hold_100"
+	upgrade_path = hold_100
 	prerequisites = {
 		"tech_precognition_interface"
 	}
 	ai_tags = {
 		artillery
 		artillery_stealth
-		energy_torpedoes
-		energy_torpedoes_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
@@ -669,11 +200,13 @@ utility_component_template = {
 	}
 }
 
-#航母
+#########################
+# HOLD 200 JUGGERNAUT   #
+#########################
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_CARRIER_BASIC"
+	key = "PLAY_JUGGERNAUT_HOLD_200_BASIC"
 	size = small
-	icon = "GFX_ship_part_computer_carrier_basic"
+	icon = "GFX_ship_part_computer_artillery_basic"
 	icon_frame = 1
 	power = @power1
 	resources = {
@@ -683,39 +216,33 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "carrier"
-	upgrade_path = carrier
+	ship_behavior = "hold_200"
+	upgrade_path = hold_200
 	prerequisites = {
 		"tech_combat_computers_1"
 	}
-	upgrades_to = "COMBAT_COMPUTER_CARRIER_ADVANCED"
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_200_ADVANCED"
 	ai_tags = {
-		carrier
+		artillery
+		artillery_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
-		ship_engagement_range_mult = 0.25
+		ship_fire_rate_mult = 0.05
+		ship_weapon_range_mult = 0.05
 	}
 	ai_weight = {
 		weight = 2
-		modifier = {
-			factor = 5
-			is_preferred_weapons = weapon_type_strike_craft
-		}
 	}
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_CARRIER_ADVANCED"
+	key = "PLAY_JUGGERNAUT_HOLD_200_ADVANCED"
 	size = small
-	icon = "GFX_ship_part_computer_carrier_advanced"
+	icon = "GFX_ship_part_computer_artillery_advanced"
 	icon_frame = 1
 	power = @power2
 	resources = {
@@ -725,39 +252,33 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "carrier"
-	upgrade_path = carrier
+	ship_behavior = "hold_200"
+	upgrade_path = hold_200
 	prerequisites = {
 		"tech_combat_computers_2"
 	}
-	upgrades_to = "COMBAT_COMPUTER_CARRIER_SAPIENT"
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_200_SAPIENT"
 	ai_tags = {
-		carrier
+		artillery
+		artillery_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
-		ship_engagement_range_mult = 0.5
+		ship_fire_rate_mult = 0.1
+		ship_weapon_range_mult = 0.1
 	}
 	ai_weight = {
 		weight = 3
-		modifier = {
-			factor = 5
-			is_preferred_weapons = weapon_type_strike_craft
-		}
 	}
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_CARRIER_SAPIENT"
+	key = "PLAY_JUGGERNAUT_HOLD_200_SAPIENT"
 	size = small
-	icon = "GFX_ship_part_computer_carrier_sapient"
+	icon = "GFX_ship_part_computer_artillery_sapient"
 	icon_frame = 1
 	power = @power3
 	resources = {
@@ -767,31 +288,25 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "carrier"
-	upgrade_path = carrier
+	ship_behavior = "hold_200"
+	upgrade_path = hold_200
 	prerequisites = {
 		"tech_combat_computers_3"
 	}
 	ai_tags = {
-		carrier
+		artillery
+		artillery_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
-		ship_engagement_range_mult = 1
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
 	}
 	ai_weight = {
 		weight = 5
-		modifier = {
-			factor = 5
-			is_preferred_weapons = weapon_type_strike_craft
-		}
 		modifier = {
 			factor = 0
 			OR = {
@@ -807,9 +322,9 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_CARRIER_AUTONOMOUS"
+	key = "PLAY_JUGGERNAUT_HOLD_200_AUTONOMOUS"
 	size = small
-	icon = "GFX_ship_part_computer_carrier_sapient"
+	icon = "GFX_ship_part_computer_artillery_sapient"
 	icon_frame = 1
 	power = @power3
 	resources = {
@@ -819,38 +334,32 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "carrier"
-	upgrade_path = carrier
+	ship_behavior = "hold_200"
+	upgrade_path = hold_200
 	prerequisites = {
 		"tech_combat_computers_autonomous"
 	}
 	ai_tags = {
-		carrier
+		artillery
+		artillery_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
-		ship_engagement_range_mult = 1
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
 	}
 	ai_weight = {
 		weight = 5
-		modifier = {
-			factor = 5
-			is_preferred_weapons = weapon_type_strike_craft
-		}
 	}
 }
 
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_CARRIER_PRECOG"
+	key = "PLAY_JUGGERNAUT_HOLD_200_PRECOG"
 	size = small
-	icon = "GFX_ship_part_computer_carrier_precog"
+	icon = "GFX_ship_part_computer_artillery_precog"
 	icon_frame = 1
 	power = @power3
 	resources = {
@@ -860,57 +369,409 @@ utility_component_template = {
 		}
 	}
 	potential = {
-	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	show_tech_unlock_if = {
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
-	ship_behavior = "carrier"
-	upgrade_path = carrier
+	ship_behavior = "hold_200"
+	upgrade_path = hold_200
 	prerequisites = {
 		"tech_precognition_interface"
 	}
 	ai_tags = {
-		carrier
+		artillery
+		artillery_stealth
 	}
 	ai_tag_weight = 0
 	ship_modifier = {
-		ship_engagement_range_mult = 0.75
+		ship_fire_rate_mult = 0.15
+		ship_weapon_range_mult = 0.15
 		ship_tracking_add = 10
 	}
 	ai_weight = {
 		weight = 4
+	}
+}
+
+#########################
+# HOLD 300 JUGGERNAUT   #
+#########################
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_300_BASIC"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_basic"
+	icon_frame = 1
+	power = @power1
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost1
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_300"
+	upgrade_path = hold_300
+	prerequisites = {
+		"tech_combat_computers_1"
+	}
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_300_ADVANCED"
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_weapon_range_mult = 0.05
+	}
+	ai_weight = {
+		weight = 2
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_300_ADVANCED"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_advanced"
+	icon_frame = 1
+	power = @power2
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost2
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_300"
+	upgrade_path = hold_300
+	prerequisites = {
+		"tech_combat_computers_2"
+	}
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_300_SAPIENT"
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_weapon_range_mult = 0.1
+	}
+	ai_weight = {
+		weight = 3
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_300_SAPIENT"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_sapient"
+	icon_frame = 1
+	power = @power3
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost3
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_300"
+	upgrade_path = hold_300
+	prerequisites = {
+		"tech_combat_computers_3"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
+	ai_weight = {
+		weight = 5
 		modifier = {
-			factor = 5
-			is_preferred_weapons = weapon_type_strike_craft
+			factor = 0
+			OR = {
+				has_global_flag = ghost_signal_5_flag
+				has_global_flag = ghost_signal_4_flag
+				has_global_flag = ghost_signal_3_flag
+				has_global_flag = ghost_signal_2_flag
+				has_global_flag = ghost_signal_1_flag
+				has_policy_flag = ai_outlawed
+			}
 		}
 	}
 }
 
-#巨像
 utility_component_template = {
-	key = "ww_ship_COMBAT_COMPUTER_COLOSSUS"
+	key = "PLAY_JUGGERNAUT_HOLD_300_AUTONOMOUS"
 	size = small
-	icon = "GFX_ship_part_computer_default"
+	icon = "GFX_ship_part_computer_artillery_sapient"
 	icon_frame = 1
-	power = @power0
+	power = @power3
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost0
+			alloys = @cost3
 		}
 	}
-	size_restriction = {
-		ww_ship_sizes
-	}
-	ship_behavior = "colossus"
 	potential = {
-		# ship_uses_colossus_computers = yes
+		is_ship_size = juggernaut
 	}
 	component_set = "combat_computers"
+	ship_behavior = "hold_300"
+	upgrade_path = hold_300
+	prerequisites = {
+		"tech_combat_computers_autonomous"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
 	ai_weight = {
-		weight = 0
+		weight = 5
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_300_PRECOG"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_precog"
+	icon_frame = 1
+	power = @power3
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost3
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_300"
+	upgrade_path = hold_300
+	prerequisites = {
+		"tech_precognition_interface"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.15
+		ship_weapon_range_mult = 0.15
+		ship_tracking_add = 10
+	}
+	ai_weight = {
+		weight = 4
+	}
+}
+
+#########################
+# HOLD 400 JUGGERNAUT   #
+#########################
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_400_BASIC"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_basic"
+	icon_frame = 1
+	power = @power1
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost1
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_400"
+	upgrade_path = hold_400
+	prerequisites = {
+		"tech_combat_computers_1"
+	}
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_400_ADVANCED"
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_weapon_range_mult = 0.05
+	}
+	ai_weight = {
+		weight = 2
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_400_ADVANCED"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_advanced"
+	icon_frame = 1
+	power = @power2
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost2
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_400"
+	upgrade_path = hold_400
+	prerequisites = {
+		"tech_combat_computers_2"
+	}
+	upgrades_to = "PLAY_JUGGERNAUT_HOLD_400_SAPIENT"
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_weapon_range_mult = 0.1
+	}
+	ai_weight = {
+		weight = 3
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_400_SAPIENT"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_sapient"
+	icon_frame = 1
+	power = @power3
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost3
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_400"
+	upgrade_path = hold_400
+	prerequisites = {
+		"tech_combat_computers_3"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
+	ai_weight = {
+		weight = 5
+		modifier = {
+			factor = 0
+			OR = {
+				has_global_flag = ghost_signal_5_flag
+				has_global_flag = ghost_signal_4_flag
+				has_global_flag = ghost_signal_3_flag
+				has_global_flag = ghost_signal_2_flag
+				has_global_flag = ghost_signal_1_flag
+				has_policy_flag = ai_outlawed
+			}
+		}
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_400_AUTONOMOUS"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_sapient"
+	icon_frame = 1
+	power = @power3
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost3
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_400"
+	upgrade_path = hold_400
+	prerequisites = {
+		"tech_combat_computers_autonomous"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
+	ai_weight = {
+		weight = 5
+	}
+}
+
+utility_component_template = {
+	key = "PLAY_JUGGERNAUT_HOLD_400_PRECOG"
+	size = small
+	icon = "GFX_ship_part_computer_artillery_precog"
+	icon_frame = 1
+	power = @power3
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost3
+		}
+	}
+	potential = {
+		is_ship_size = juggernaut
+	}
+	component_set = "combat_computers"
+	ship_behavior = "hold_400"
+	upgrade_path = hold_400
+	prerequisites = {
+		"tech_precognition_interface"
+	}
+	ai_tags = {
+		artillery
+		artillery_stealth
+	}
+	ai_tag_weight = 0
+	ship_modifier = {
+		ship_fire_rate_mult = 0.15
+		ship_weapon_range_mult = 0.15
+		ship_tracking_add = 10
+	}
+	ai_weight = {
+		weight = 4
 	}
 }

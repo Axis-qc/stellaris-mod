@@ -1,7 +1,7 @@
 namespace = heroship
 # ========================
 # 英雄舰等级系统 & 技能选择路由 — heroship.1-999
-# 核心选择已迁移至 reward.6101（reward_core_events.txt）
+# 核心选择在 heroship.101（heroship_events.txt）
 # ========================
 # 英雄等级经验阈值
 @br_xp_level_2 = 10
@@ -17,548 +17,548 @@ namespace = heroship
 @br_xp_level_12 = 2200
 # 12 级后无限成长
 @br_xp_next_12 = 5000
-# 后备初始化（主初始化在 reward.6101 发放英雄舰时）
+# 后备初始化（主初始化在 heroship.101 发放英雄舰时）
 country_event = {
-    id = heroship.1
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_country_type = br_player_pve
-        NOT = {
-            has_country_flag = br_hero_level_initialized
-        }
-    }
-    immediate = {
-        set_country_flag = br_hero_level_initialized
-        set_variable = {
-            which = br_hero_level
-            value = 1
-        }
-        set_variable = {
-            which = br_hero_xp
-            value = 0
-        }
-        set_variable = {
-            which = br_hero_xp_next
-            value = 10
-        }
-    }
+	id = heroship.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_player_pve
+		NOT = {
+			has_country_flag = br_hero_level_initialized
+		}
+	}
+	immediate = {
+		set_country_flag = br_hero_level_initialized
+		set_variable = {
+			which = br_hero_level
+			value = 1
+		}
+		set_variable = {
+			which = br_hero_xp
+			value = 0
+		}
+		set_variable = {
+			which = br_hero_xp_next
+			value = 10
+		}
+	}
 }
 
 # 英雄舰杀敌经验（由 on_ship_destroyed_perp 直接调用，fromfromfrom = 被击杀舰船）
 country_event = {
-    id = heroship.2
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_country_type = br_player_pve
-        from = {
-            is_country_type = br_pve_enemy
-        }
-        exists = fromfromfrom
-        any_owned_ship = {
-            is_ship_size = br_vanguard
-            solar_system = {
-                is_same_value = fromfrom.solar_system
-            }
-        }
-    }
-    immediate = {
-        #船体0.01转经验
-        fromfromfrom = {
-            export_trigger_value_to_variable = {
-                # trigger = fleet_power #死亡读不到
-                trigger = has_max_hp
-                variable = br_tmp_kill_power
-            }
-        }
-        set_variable = {
-            which = br_hero_xp_add
-            value = fromfromfrom.br_tmp_kill_power
-        }
-        divide_variable = {
-            which = br_hero_xp_add
-            value = 100
-        }
-        ceiling_variable = br_hero_xp_add
-        change_variable = {
-            which = br_hero_xp
-            value = br_hero_xp_add
-        }
-        country_event = {
-            id = heroship.3
-        }
-    }
+	id = heroship.2
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_player_pve
+		from = {
+			is_country_type = br_pve_enemy
+		}
+		exists = fromfromfrom
+		any_owned_ship = {
+			is_ship_size = br_vanguard
+			solar_system = {
+				is_same_value = fromfrom.solar_system
+			}
+		}
+	}
+	immediate = {
+		#船体0.01转经验
+		fromfromfrom = {
+			export_trigger_value_to_variable = {
+				# trigger = fleet_power #死亡读不到
+				trigger = has_max_hp
+				variable = br_tmp_kill_power
+			}
+		}
+		set_variable = {
+			which = br_hero_xp_add
+			value = fromfromfrom.br_tmp_kill_power
+		}
+		divide_variable = {
+			which = br_hero_xp_add
+			value = 100
+		}
+		ceiling_variable = br_hero_xp_add
+		change_variable = {
+			which = br_hero_xp
+			value = br_hero_xp_add
+		}
+		country_event = {
+			id = heroship.3
+		}
+	}
 }
 
 # 等级检测 + 升级触发
 country_event = {
-    id = heroship.3
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        # 保存旧等级用于比较
-        set_variable = {
-            which = br_hero_level_prev
-            value = br_hero_level
-        }
-        # 逐级升级：每个 if 是独立的，允许多级连升
-        # 等级 1→2
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 1
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_2
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_2
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 2→3
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 2
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_3
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_3
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 3→4
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 3
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_4
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_4
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 4→5
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 4
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_5
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_5
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 5→6
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 5
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_6
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_6
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 6→7
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 6
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_7
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_7
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 7→8
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 7
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_8
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_8
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 8→9
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 8
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_9
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_9
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 9→10
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 9
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_10
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_10
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 10→11
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 10
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_11
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_11
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 等级 11→12
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 11
-                }
-                check_variable = {
-                    which = br_hero_xp
-                    value >= @br_xp_level_12
-                }
-            }
-            subtract_variable = {
-                which = br_hero_xp
-                value = @br_xp_level_12
-            }
-            change_variable = {
-                which = br_hero_level
-                value = 1
-            }
-        }
-        # 12 级后无限成长：每5000经验消耗并+1级
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value >= 12
-                }
-            }
-            while = {
-                limit = {
-                    check_variable = {
-                        which = br_hero_xp
-                        value >= @br_xp_next_12
-                    }
-                }
-                subtract_variable = {
-                    which = br_hero_xp
-                    value = @br_xp_next_12
-                }
-                change_variable = {
-                    which = br_hero_level
-                    value = 1
-                }
-            }
-        }
-        # 设置下一级所需经验（用于UI显示）
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value >= 12
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_next_12
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 11
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_12
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 10
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_11
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 9
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_10
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 8
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_9
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 7
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_8
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 6
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_7
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 5
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_6
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 4
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_5
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 3
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_4
-            }
-        }
-        else_if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value = 2
-                }
-            }
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_3
-            }
-        }
-        else = {
-            set_variable = {
-                which = br_hero_xp_next
-                value = @br_xp_level_2
-            }
-        }
-        # 升级触发：当前等级 > 旧等级时弹出选择窗口
-        if = {
-            limit = {
-                check_variable = {
-                    which = br_hero_level
-                    value > br_hero_level_prev
-                }
-            }
-            country_event = {
-                id = heroship.4
-            }
-        }
-    }
+	id = heroship.3
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# 保存旧等级用于比较
+		set_variable = {
+			which = br_hero_level_prev
+			value = br_hero_level
+		}
+		# 逐级升级：每个 if 是独立的，允许多级连升
+		# 等级 1→2
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 1
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_2
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_2
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 2→3
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 2
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_3
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_3
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 3→4
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 3
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_4
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_4
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 4→5
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 4
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_5
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_5
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 5→6
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 5
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_6
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_6
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 6→7
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 6
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_7
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_7
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 7→8
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 7
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_8
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_8
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 8→9
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 8
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_9
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_9
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 9→10
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 9
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_10
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_10
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 10→11
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 10
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_11
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_11
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 等级 11→12
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 11
+				}
+				check_variable = {
+					which = br_hero_xp
+					value >= @br_xp_level_12
+				}
+			}
+			subtract_variable = {
+				which = br_hero_xp
+				value = @br_xp_level_12
+			}
+			change_variable = {
+				which = br_hero_level
+				value = 1
+			}
+		}
+		# 12 级后无限成长：每5000经验消耗并+1级
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value >= 12
+				}
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = br_hero_xp
+						value >= @br_xp_next_12
+					}
+				}
+				subtract_variable = {
+					which = br_hero_xp
+					value = @br_xp_next_12
+				}
+				change_variable = {
+					which = br_hero_level
+					value = 1
+				}
+			}
+		}
+		# 设置下一级所需经验（用于UI显示）
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value >= 12
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_next_12
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 11
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_12
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 10
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_11
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 9
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_10
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 8
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_9
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 7
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_8
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 6
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_7
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 5
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_6
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 4
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_5
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 3
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_4
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value = 2
+				}
+			}
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_3
+			}
+		}
+		else = {
+			set_variable = {
+				which = br_hero_xp_next
+				value = @br_xp_level_2
+			}
+		}
+		# 升级触发：当前等级 > 旧等级时弹出选择窗口
+		if = {
+			limit = {
+				check_variable = {
+					which = br_hero_level
+					value > br_hero_level_prev
+				}
+			}
+			country_event = {
+				id = heroship.4
+			}
+		}
+	}
 }
 
 # 升级路由：无条件触发各核心事件，每个事件自身 trigger 做条件判断
 country_event = {
-    id = heroship.4
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        # Lv2 主动技能选择
-        country_event = {
-            id = heroship.10
-        }
-        # 火力
-        country_event = {
-            id = heroship.20
-        }
-        # 防御
-        country_event = {
-            id = heroship.30
-        }
-        # 航母
-        # Lv4 被动技能选择
-        country_event = {
-            id = heroship.11
-        }
-        # 火力
-        country_event = {
-            id = heroship.21
-        }
-        # 防御
-        country_event = {
-            id = heroship.31
-        }
-        # 航母
-        # Lv6 大招选择
-        country_event = {
-            id = heroship.12
-        }
-        # 火力
-        country_event = {
-            id = heroship.22
-        }
-        # 防御
-        country_event = {
-            id = heroship.32
-        }
-        # 航母
-    }
+	id = heroship.4
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# Lv2 主动技能选择
+		country_event = {
+			id = heroship.10
+		}
+		# 火力
+		country_event = {
+			id = heroship.20
+		}
+		# 防御
+		country_event = {
+			id = heroship.30
+		}
+		# 航母
+		# Lv4 被动技能选择
+		country_event = {
+			id = heroship.11
+		}
+		# 火力
+		country_event = {
+			id = heroship.21
+		}
+		# 防御
+		country_event = {
+			id = heroship.31
+		}
+		# 航母
+		# Lv6 大招选择
+		country_event = {
+			id = heroship.12
+		}
+		# 火力
+		country_event = {
+			id = heroship.22
+		}
+		# 防御
+		country_event = {
+			id = heroship.32
+		}
+		# 航母
+	}
 }
 
 # ========================
@@ -566,227 +566,227 @@ country_event = {
 # ========================
 # Lv2 主动技能：能量超频 / 弱点扫描（二选一）
 country_event = {
-    id = heroship.10
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_power
-        check_variable = {
-            which = br_hero_level
-            value >= 2
-        }
-        NOR = {
-            has_country_flag = br_skill_energy_overclock_unlocked
-            has_country_flag = br_skill_weakness_scan_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_context_menu_overclock
-        custom_tooltip = br_vanguard_skill_overclock
-        hidden_effect = {
-            set_country_flag = br_skill_energy_overclock_unlocked
-            set_country_flag = br_skill_active_slot_1
-        }
-    }
-    option = {
-        name = br_context_menu_scan
-        custom_tooltip = br_vanguard_skill_scan
-        hidden_effect = {
-            set_country_flag = br_skill_weakness_scan_unlocked
-            set_country_flag = br_skill_active_slot_2
-        }
-    }
+	id = heroship.10
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_power
+		check_variable = {
+			which = br_hero_level
+			value >= 2
+		}
+		NOR = {
+			has_country_flag = br_skill_energy_overclock_unlocked
+			has_country_flag = br_skill_weakness_scan_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_context_menu_overclock
+		custom_tooltip = br_vanguard_skill_overclock
+		hidden_effect = {
+			set_country_flag = br_skill_energy_overclock_unlocked
+			set_country_flag = br_skill_active_slot_1
+		}
+	}
+	option = {
+		name = br_context_menu_scan
+		custom_tooltip = br_vanguard_skill_scan
+		hidden_effect = {
+			set_country_flag = br_skill_weakness_scan_unlocked
+			set_country_flag = br_skill_active_slot_2
+		}
+	}
 }
 
 # Lv4 被动技能：战意过载 / 越战越勇（二选一）
 country_event = {
-    id = heroship.11
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_power
-        check_variable = {
-            which = br_hero_level
-            value >= 4
-        }
-        NOR = {
-            has_country_flag = br_skill_combat_stack_unlocked
-            has_country_flag = br_skill_kill_stack_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_vanguard_power_combat_stack_damage
-        custom_tooltip = br_vanguard_skill_combat_stack
-        hidden_effect = {
-            set_country_flag = br_skill_combat_stack_unlocked
-            set_country_flag = br_skill_passive_slot_1
-        }
-    }
-    option = {
-        name = br_vanguard_power_kill_stack_damage
-        custom_tooltip = br_vanguard_skill_kill_stack
-        hidden_effect = {
-            set_country_flag = br_skill_kill_stack_unlocked
-            set_country_flag = br_skill_passive_slot_2
-        }
-    }
+	id = heroship.11
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_power
+		check_variable = {
+			which = br_hero_level
+			value >= 4
+		}
+		NOR = {
+			has_country_flag = br_skill_combat_stack_unlocked
+			has_country_flag = br_skill_kill_stack_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_vanguard_power_combat_stack_damage
+		custom_tooltip = br_vanguard_skill_combat_stack
+		hidden_effect = {
+			set_country_flag = br_skill_combat_stack_unlocked
+			set_country_flag = br_skill_passive_slot_1
+		}
+	}
+	option = {
+		name = br_vanguard_power_kill_stack_damage
+		custom_tooltip = br_vanguard_skill_kill_stack
+		hidden_effect = {
+			set_country_flag = br_skill_kill_stack_unlocked
+			set_country_flag = br_skill_passive_slot_2
+		}
+	}
 }
 
 # Lv6 旗舰超载：火力全开 / 终末齐射（二选一）
 country_event = {
-    id = heroship.12
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_power
-        check_variable = {
-            which = br_hero_level
-            value >= 6
-        }
-        NOR = {
-            has_country_flag = br_skill_fullfire_unlocked
-            has_country_flag = br_skill_final_volley_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_context_menu_fullfire
-        custom_tooltip = br_vanguard_skill_fullfire
-        hidden_effect = {
-            set_country_flag = br_skill_fullfire_unlocked
-            set_country_flag = br_skill_ultimate_slot_1
-        }
-    }
-    option = {
-        name = br_context_menu_final_volley
-        custom_tooltip = br_vanguard_skill_final_volley
-        hidden_effect = {
-            set_country_flag = br_skill_final_volley_unlocked
-            set_country_flag = br_skill_ultimate_slot_2
-        }
-    }
+	id = heroship.12
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_power
+		check_variable = {
+			which = br_hero_level
+			value >= 6
+		}
+		NOR = {
+			has_country_flag = br_skill_fullfire_unlocked
+			has_country_flag = br_skill_final_volley_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_context_menu_fullfire
+		custom_tooltip = br_vanguard_skill_fullfire
+		hidden_effect = {
+			set_country_flag = br_skill_fullfire_unlocked
+			set_country_flag = br_skill_ultimate_slot_1
+		}
+	}
+	option = {
+		name = br_context_menu_final_volley
+		custom_tooltip = br_vanguard_skill_final_volley
+		hidden_effect = {
+			set_country_flag = br_skill_final_volley_unlocked
+			set_country_flag = br_skill_ultimate_slot_2
+		}
+	}
 }
 
 # ========================
 # 防御核心技能选择 — heroship.20-29
 # ========================
 country_event = {
-    id = heroship.20
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_defense
-        check_variable = {
-            which = br_hero_level
-            value >= 2
-        }
-        NOR = {
-            has_country_flag = br_skill_phase_shift_unlocked
-            has_country_flag = br_skill_barrier_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_hero_phase_shift_menu_title
-        custom_tooltip = br_hero_phase_shift_ship_button
-        hidden_effect = {
-            set_country_flag = br_skill_phase_shift_unlocked
-            set_country_flag = br_skill_active_slot_1
-        }
-    }
-    option = {
-        name = br_hero_barrier_menu_title
-        custom_tooltip = br_hero_barrier_ship_button
-        hidden_effect = {
-            set_country_flag = br_skill_barrier_unlocked
-            set_country_flag = br_skill_active_slot_2
-        }
-    }
+	id = heroship.20
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_defense
+		check_variable = {
+			which = br_hero_level
+			value >= 2
+		}
+		NOR = {
+			has_country_flag = br_skill_phase_shift_unlocked
+			has_country_flag = br_skill_barrier_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_hero_phase_shift_menu_title
+		custom_tooltip = br_hero_phase_shift_ship_button
+		hidden_effect = {
+			set_country_flag = br_skill_phase_shift_unlocked
+			set_country_flag = br_skill_active_slot_1
+		}
+	}
+	option = {
+		name = br_hero_barrier_menu_title
+		custom_tooltip = br_hero_barrier_ship_button
+		hidden_effect = {
+			set_country_flag = br_skill_barrier_unlocked
+			set_country_flag = br_skill_active_slot_2
+		}
+	}
 }
 
 country_event = {
-    id = heroship.21
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_defense
-        check_variable = {
-            which = br_hero_level
-            value >= 4
-        }
-        NOR = {
-            has_country_flag = br_skill_structure_unlocked
-            has_country_flag = br_skill_field_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_skill_structure
-        custom_tooltip = br_vanguard_skill_structure
-        hidden_effect = {
-            set_country_flag = br_skill_structure_unlocked
-            set_country_flag = br_skill_passive_slot_1
-            country_event = {
-                id = heroship.1202
-            }
-        }
-    }
-    option = {
-        name = br_skill_field
-        custom_tooltip = br_vanguard_skill_field
-        hidden_effect = {
-            set_country_flag = br_skill_field_unlocked
-            set_country_flag = br_skill_passive_slot_2
-            country_event = {
-                id = heroship.1203
-            }
-            country_event = {
-                id = heroship.1204
-            }
-        }
-    }
+	id = heroship.21
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_defense
+		check_variable = {
+			which = br_hero_level
+			value >= 4
+		}
+		NOR = {
+			has_country_flag = br_skill_structure_unlocked
+			has_country_flag = br_skill_field_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_skill_structure
+		custom_tooltip = br_vanguard_skill_structure
+		hidden_effect = {
+			set_country_flag = br_skill_structure_unlocked
+			set_country_flag = br_skill_passive_slot_1
+			country_event = {
+				id = heroship.1202
+			}
+		}
+	}
+	option = {
+		name = br_skill_field
+		custom_tooltip = br_vanguard_skill_field
+		hidden_effect = {
+			set_country_flag = br_skill_field_unlocked
+			set_country_flag = br_skill_passive_slot_2
+			country_event = {
+				id = heroship.1203
+			}
+			country_event = {
+				id = heroship.1204
+			}
+		}
+	}
 }
 
 country_event = {
-    id = heroship.22
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_defense
-        check_variable = {
-            which = br_hero_level
-            value >= 6
-        }
-        NOR = {
-            has_country_flag = br_skill_collapse_unlocked
-            has_country_flag = br_skill_projection_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_skill_collapse
-        custom_tooltip = br_vanguard_skill_collapse
-        hidden_effect = {
-            set_country_flag = br_skill_collapse_unlocked
-            set_country_flag = br_skill_ultimate_slot_1
-        }
-    }
-    option = {
-        name = br_skill_projection
-        custom_tooltip = br_vanguard_skill_projection
-        hidden_effect = {
-            set_country_flag = br_skill_projection_unlocked
-            set_country_flag = br_skill_ultimate_slot_2
-        }
-    }
+	id = heroship.22
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_defense
+		check_variable = {
+			which = br_hero_level
+			value >= 6
+		}
+		NOR = {
+			has_country_flag = br_skill_collapse_unlocked
+			has_country_flag = br_skill_projection_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_skill_collapse
+		custom_tooltip = br_vanguard_skill_collapse
+		hidden_effect = {
+			set_country_flag = br_skill_collapse_unlocked
+			set_country_flag = br_skill_ultimate_slot_1
+		}
+	}
+	option = {
+		name = br_skill_projection
+		custom_tooltip = br_vanguard_skill_projection
+		hidden_effect = {
+			set_country_flag = br_skill_projection_unlocked
+			set_country_flag = br_skill_ultimate_slot_2
+		}
+	}
 }
 
 # ========================
@@ -794,110 +794,114 @@ country_event = {
 # ========================
 # Lv2 主动技能：编队出击 / 防空阵型（二选一）
 country_event = {
-    id = heroship.30
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        check_variable = {
-            which = br_hero_level
-            value >= 2
-        }
-        NOR = {
-            has_country_flag = br_skill_sortie_unlocked
-            has_country_flag = br_skill_aat_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_context_menu_sortie
-        custom_tooltip = br_vanguard_skill_sortie
-        hidden_effect = {
-            set_country_flag = br_skill_sortie_unlocked
-            set_country_flag = br_skill_active_slot_1
-        }
-    }
-    option = {
-        name = br_context_menu_aat
-        custom_tooltip = br_vanguard_skill_aat
-        hidden_effect = {
-            set_country_flag = br_skill_aat_unlocked
-            set_country_flag = br_skill_active_slot_2
-        }
-    }
+	id = heroship.30
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_carrier
+		check_variable = {
+			which = br_hero_level
+			value >= 2
+		}
+		NOR = {
+			has_country_flag = br_skill_sortie_unlocked
+			has_country_flag = br_skill_aat_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_context_menu_sortie
+		custom_tooltip = br_vanguard_skill_sortie
+		hidden_effect = {
+			set_country_flag = br_skill_sortie_unlocked
+			set_country_flag = br_skill_active_slot_1
+		}
+	}
+	option = {
+		name = br_context_menu_aat
+		custom_tooltip = br_vanguard_skill_aat
+		hidden_effect = {
+			set_country_flag = br_skill_aat_unlocked
+			set_country_flag = br_skill_active_slot_2
+		}
+	}
 }
 
 # Lv4 被动技能：蜂群护卫 / 甲板维护（二选一）
 country_event = {
-    id = heroship.31
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        check_variable = {
-            which = br_hero_level
-            value >= 4
-        }
-        NOR = {
-            has_country_flag = br_skill_swarm_guard_unlocked
-            has_country_flag = br_skill_deck_maintenance_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_context_menu_swarm_guard
-        custom_tooltip = br_vanguard_skill_swarm_guard
-        hidden_effect = {
-            set_country_flag = br_skill_swarm_guard_unlocked
-            set_country_flag = br_skill_passive_slot_1
-            country_event = { id = heroship.1331 }
-        }
-    }
-    option = {
-        name = br_context_menu_deck_maintenance
-        custom_tooltip = br_vanguard_skill_deck_maintenance
-        hidden_effect = {
-            set_country_flag = br_skill_deck_maintenance_unlocked
-            set_country_flag = br_skill_passive_slot_2
-            country_event = { id = heroship.1331 }
-        }
-    }
+	id = heroship.31
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_carrier
+		check_variable = {
+			which = br_hero_level
+			value >= 4
+		}
+		NOR = {
+			has_country_flag = br_skill_swarm_guard_unlocked
+			has_country_flag = br_skill_deck_maintenance_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_context_menu_swarm_guard
+		custom_tooltip = br_vanguard_skill_swarm_guard
+		hidden_effect = {
+			set_country_flag = br_skill_swarm_guard_unlocked
+			set_country_flag = br_skill_passive_slot_1
+			country_event = {
+				id = heroship.1331
+			}
+		}
+	}
+	option = {
+		name = br_context_menu_deck_maintenance
+		custom_tooltip = br_vanguard_skill_deck_maintenance
+		hidden_effect = {
+			set_country_flag = br_skill_deck_maintenance_unlocked
+			set_country_flag = br_skill_passive_slot_2
+			country_event = {
+				id = heroship.1331
+			}
+		}
+	}
 }
 
 # Lv6 旗舰超载：全甲板攻击 / 绝对制空（二选一）
 country_event = {
-    id = heroship.32
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_hero_core_carrier
-        check_variable = {
-            which = br_hero_level
-            value >= 6
-        }
-        NOR = {
-            has_country_flag = br_skill_full_deck_unlocked
-            has_country_flag = br_skill_total_air_supremacy_unlocked
-        }
-    }
-    title = br_hero_active_skill
-    desc = br_hero_active_skill
-    picture = GFX_evt_rare_tech_cache
-    option = {
-        name = br_context_menu_full_deck
-        custom_tooltip = br_vanguard_skill_full_deck
-        hidden_effect = {
-            set_country_flag = br_skill_full_deck_unlocked
-            set_country_flag = br_skill_ultimate_slot_1
-        }
-    }
-    option = {
-        name = br_context_menu_total_air_supremacy
-        custom_tooltip = br_vanguard_skill_total_air_supremacy
-        hidden_effect = {
-            set_country_flag = br_skill_total_air_supremacy_unlocked
-            set_country_flag = br_skill_ultimate_slot_2
-        }
-    }
+	id = heroship.32
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_hero_core_carrier
+		check_variable = {
+			which = br_hero_level
+			value >= 6
+		}
+		NOR = {
+			has_country_flag = br_skill_full_deck_unlocked
+			has_country_flag = br_skill_total_air_supremacy_unlocked
+		}
+	}
+	title = br_hero_active_skill
+	desc = br_hero_active_skill
+	picture = GFX_evt_rare_tech_cache
+	option = {
+		name = br_context_menu_full_deck
+		custom_tooltip = br_vanguard_skill_full_deck
+		hidden_effect = {
+			set_country_flag = br_skill_full_deck_unlocked
+			set_country_flag = br_skill_ultimate_slot_1
+		}
+	}
+	option = {
+		name = br_context_menu_total_air_supremacy
+		custom_tooltip = br_vanguard_skill_total_air_supremacy
+		hidden_effect = {
+			set_country_flag = br_skill_total_air_supremacy_unlocked
+			set_country_flag = br_skill_ultimate_slot_2
+		}
+	}
 }
