@@ -6,110 +6,110 @@
 # 光环槽统一挂载技能
 # ============================================================
 br_vanguard = {
-	entity = "titan_entity"
-	# 可被玩家查看
-	can_be_inspected = yes
-	# 舰体缩放
-	hull_scale = 2
-	# 航速与机动
-	max_speed = 100
-	acceleration = 0.1
-	rotation_speed = 0.1
-	# 碰撞半径
-	collision_radius = 8
-	# 舰船自身加成
-	ship_modifier = {
-		ship_weapon_range_mult = 0.5
-	}
-	modifier = {
-	}
-	# 基础船体值
-	max_hitpoints = 3000
-	# 禁止撤退（防止半血逃跑）
-	combat_disengage_chance = -1
-	# 战斗体积（对方打击倾向）
-	combat_size_multiplier = 32
-	# 舰队规模，实际舰容占用
-	size_multiplier = 32
-	# 大地图图标，原版路径interface/solar_system.gfx，但是被巨像骷髅头覆盖了，应该是给普通船用的
-	map_counter_icon = ship_counter_64
-	# 图标，原版路径interface/icons.gfx
-	icon = hero_ship
-	# 舰队容量占用
-	fleet_slot_size = 8
-	# 三段式区段，定位器与原版泰坦一致
-	section_slots = {
-		"bow" = {
-			locator = "part1"
-		}
-		"mid" = {
-			locator = "part2"
-		}
-		"stern" = {
-			locator = "part3"
-		}
-	}
-	num_target_locators = 4
-	# 英雄舰保护
-	never_lost = yes
-	never_mia = yes
-	is_space_station = no
-	on_click_sound = "ui_kaiju_select_fleet"
-	#图标原版路径interface/icons.gfx，GFX_ship_class_medium
-	ship_class_icon_frame = 61
-	#class必须巨像，否则进战不能控制
-	class = shipclass_military_special
-	# 建造属性
-	base_buildtime = 60
-	can_have_federation_design = no
-	enable_default_design = yes
-	enable_3dview_in_ship_browser = yes
-	construction_type = starbase_shipyard
-	# 必需组件集 — 光环槽用于挂载技能
-	required_component_set = "power_core"
-	required_component_set = "ftl_components"
-	required_component_set = "thruster_components"
-	required_component_set = "combat_computers"
-	required_component_set = "sensor_components"
-	required_component_set = "br_hero_ship_Core"
-	# 允许设计
-	is_designable = yes
-	#自动升级 无效，似乎不能允许设计
-	# auto_upgrade = yes
-	is_hero_ship = yes
-	# 组件计入成本
-	components_add_to_cost = no
-	# 建造成本,限制一艘，建造用来复活，防止被摧毁后就没了。
-	resources = {
-		category = ships
-		cost = {
-			alloys = 1000
-		}
-	}
-	# 建造要求，没有船是英雄舰
-	potential_country = {
-		or = {
-			is_country_type = br_player_pve
-			is_country_type = br_player_pvp
-		}
-	}
-	# 建造位置
-	potential_construction = {
-		is_scope_type = starbase
-	}
-	# 建造条件
-	possible_construction = {
-		custom_tooltip = {
-			fail_text = not_has_br_vanguard_ship
-			NOT = {
-				any_owned_ship = {
-					is_ship_size = br_vanguard
-				}
-			}
-		}
-	}
-	min_upgrade_cost = {
-		alloys = 100
-	}
-	available_to_everyone = yes
+    entity = "titan_entity"
+    # 可被玩家查看
+    can_be_inspected = yes
+    # 舰体缩放
+    hull_scale = 2
+    # 航速与机动
+    max_speed = 100
+    acceleration = 0.1
+    rotation_speed = 0.1
+    # 碰撞半径
+    collision_radius = 8
+    # 舰船自身加成
+    ship_modifier = {
+        ship_weapon_range_mult = 0.5
+    }
+    modifier = {
+    }
+    # 基础船体值
+    max_hitpoints = 3000
+    # 禁止撤退（防止半血逃跑）
+    combat_disengage_chance = -1
+    # 战斗体积（对方打击倾向）
+    combat_size_multiplier = 32
+    # 舰队规模，实际舰容占用
+    size_multiplier = 32
+    # 大地图图标，原版路径interface/solar_system.gfx，但是被巨像骷髅头覆盖了，应该是给普通船用的
+    map_counter_icon = ship_counter_64
+    # 图标，原版路径interface/icons.gfx
+    icon = GFX_hero_ship
+    # 舰队容量占用
+    fleet_slot_size = 8
+    # 三段式区段，定位器与原版泰坦一致
+    section_slots = {
+        "bow" = {
+            locator = "part1"
+        }
+        "mid" = {
+            locator = "part2"
+        }
+        "stern" = {
+            locator = "part3"
+        }
+    }
+    num_target_locators = 4
+    # 英雄舰保护
+    never_lost = yes
+    never_mia = yes
+    is_space_station = no
+    on_click_sound = "ui_kaiju_select_fleet"
+    #图标原版路径interface/icons.gfx，GFX_ship_class_medium
+    ship_class_icon_frame = 61
+    #class必须巨像，否则进战不能控制
+    class = shipclass_military_special
+    # 建造属性
+    base_buildtime = 60
+    can_have_federation_design = no
+    enable_default_design = yes
+    enable_3dview_in_ship_browser = yes
+    construction_type = starbase_shipyard
+    # 必需组件集 — 光环槽用于挂载技能
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "thruster_components"
+    required_component_set = "combat_computers"
+    required_component_set = "sensor_components"
+    required_component_set = "br_hero_ship_Core"
+    # 允许设计
+    is_designable = yes
+    #自动升级 无效，似乎不能允许设计
+    # auto_upgrade = yes
+    is_hero_ship = yes
+    # 组件计入成本
+    components_add_to_cost = no
+    # 建造成本,限制一艘，建造用来复活，防止被摧毁后就没了。
+    resources = {
+        category = ships
+        cost = {
+            alloys = 1000
+        }
+    }
+    # 建造要求，没有船是英雄舰
+    potential_country = {
+        # or = {
+        # 	is_country_type = br_player_pve
+        # 	is_country_type = br_player_pvp
+        # }
+    }
+    # 建造位置
+    potential_construction = {
+        is_scope_type = starbase
+    }
+    # 建造条件
+    possible_construction = {
+        custom_tooltip = {
+            fail_text = not_has_br_vanguard_ship
+            NOT = {
+                any_owned_ship = {
+                    is_ship_size = br_vanguard
+                }
+            }
+        }
+    }
+    min_upgrade_cost = {
+        alloys = 100
+    }
+    available_to_everyone = yes
 }

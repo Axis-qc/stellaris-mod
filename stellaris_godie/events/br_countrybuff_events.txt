@@ -1,10 +1,14 @@
 namespace = br
-# 开局常驻：射程减半
+# 开局常驻：射程减半（仅 BR 模式生效）
 country_event = {
 	id = br.1
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		OR = {
+			has_global_flag = br_mode_pve
+			has_global_flag = br_mode_pvp
+		}
 		not = {
 			has_modifier = br_combat_range_buff
 		}

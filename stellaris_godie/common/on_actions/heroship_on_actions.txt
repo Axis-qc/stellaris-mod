@@ -1,0 +1,99 @@
+# ========================
+# 英雄舰 on_actions — 从 br_on_actions.txt 独立
+# Stellaris 会合并同目录下同 key 的 on_action，所以拆分后仍正常工作
+# ========================
+
+# ── 年度脉冲（英雄舰发放入口）──
+on_yearly_pulse_country = {
+	events = {
+		heroship.50		# 英雄舰发放路由（开局1年后）
+	}
+}
+
+# ── 每月脉冲（英雄舰部分）──
+on_monthly_pulse_country = {
+	events = {
+		heroship.1207		# 防御核心大招显示数值更新
+		heroship.1203		# 协同结构力场·每月刷新（自带 flag 检测）
+		heroship.1202		# 结构增幅·每月刷新（等级变化自动更新）
+		heroship.1331		# 无人机·月度链起点（全局初始化→计算变量→补船→位置/buff）
+	}
+}
+
+# ── 击杀敌舰（英雄舰部分）──
+on_ship_destroyed_perp = {
+	events = {
+		heroship.2			# 英雄舰杀敌经验
+		heroship.1102		# 火力被动·越战越勇击杀叠加
+	}
+}
+
+# ── 进入战斗（英雄舰部分）──
+on_fleet_combat_joined_attacker = {
+	events = {
+		heroship.1103		# 战意过载·进入战斗触发
+	}
+}
+
+on_fleet_combat_joined_defender = {
+	events = {
+		heroship.1103		# 战意过载·进入战斗触发
+	}
+}
+
+# ── 英雄舰技能系统（全部是 heroship 专属）──
+
+# 主动技能按键触发
+on_br_hero_active_skill_activated = {
+	events = {
+		heroship.1100
+		heroship.1101
+	}
+}
+
+# 火力大招
+on_br_power_ultimate_activated = {
+	events = {
+		heroship.1110
+		heroship.1112
+	}
+}
+
+# 防御技能
+on_br_defense_skill_activated = {
+	events = {
+		heroship.1200
+		heroship.1201
+	}
+}
+
+# 防御大招
+on_br_defense_ultimate_activated = {
+	events = {
+		heroship.1205
+		heroship.1206
+	}
+}
+
+# 航母技能
+on_br_carrier_skill_activated = {
+	events = {
+		heroship.1300
+		heroship.1301
+	}
+}
+
+# 航母大招
+on_br_carrier_ultimate_activated = {
+	events = {
+		heroship.1310
+		heroship.1311
+	}
+}
+
+# 集结舰队至母舰
+on_br_gather_fleets_to_mothership = {
+	events = {
+		heroship.1001
+	}
+}

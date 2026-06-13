@@ -1,0 +1,41 @@
+# ========================
+# 英雄舰遗迹：古代造舰厂残骸
+# 由 heroship.50 在首都行星上创建
+# 3 阶段探索，完成后触发旗舰修复局势
+# ========================
+
+site_heroship_flagship_wreckage = {
+	desc = "site_heroship_flagship_wreckage_desc"
+	picture = GFX_evt_ship_in_orbit
+	stages = 3
+	weight = 0
+	allow = {
+		exists = leader
+		leader = { leader_class = scientist }
+	}
+	visible = {
+		default_site_visible_trigger = yes
+	}
+
+	stage = {
+		difficulty = 3
+		icon = GFX_archaeology_runes_B1
+		event = heroship.51
+	}
+	stage = {
+		difficulty = 4
+		icon = GFX_archaeology_runes_B2
+		event = heroship.52
+	}
+	stage = {
+		difficulty = 5
+		icon = GFX_archaeology_runes_B3
+		event = heroship.53
+	}
+
+	on_roll_failed = {
+		from = {
+			standard_archaeological_site_on_roll_failed = yes
+		}
+	}
+}

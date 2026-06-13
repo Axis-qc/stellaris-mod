@@ -14,10 +14,6 @@ on_monthly_pulse_country = {
 	events = {
 		br.799		# [后备保障] 敌人被摧毁时重建，正常初始化不走此路
 		reward.2
-		heroship.1207		# 防御核心大招显示数值更新
-		heroship.1203		# 协同结构力场·每月刷新（自带 flag 检测）
-		heroship.1202		# 结构增幅·每月刷新（等级变化自动更新）
-		heroship.1331		# 无人机·月度链起点（全局初始化→计算变量→补船→位置/buff）
 	}
 }
 
@@ -56,8 +52,6 @@ on_ship_destroyed_victim = {
 on_ship_destroyed_perp = {
 	events = {
 		br.1102
-		heroship.2
-		heroship.1102
 	}
 }
 
@@ -85,54 +79,6 @@ on_br_level_panel_opened = {
 #         br.6000
 #     }
 # }
-on_br_hero_active_skill_activated = {
-	events = {
-		heroship.1100
-		heroship.1101
-	}
-}
-
-on_br_power_ultimate_activated = {
-	events = {
-		heroship.1110
-		heroship.1112
-	}
-}
-
-on_br_defense_skill_activated = {
-	events = {
-		heroship.1200
-		heroship.1201
-	}
-}
-
-on_br_defense_ultimate_activated = {
-	events = {
-		heroship.1205
-		heroship.1206
-	}
-}
-
-on_br_carrier_skill_activated = {
-	events = {
-		heroship.1300
-		heroship.1301
-	}
-}
-
-on_br_carrier_ultimate_activated = {
-	events = {
-		heroship.1310
-		heroship.1311
-	}
-}
-
-on_br_gather_fleets_to_mothership = {
-	events = {
-		heroship.1001
-	}
-}
-
 on_country_destroyed = {
 	events = {
 	}
@@ -140,14 +86,12 @@ on_country_destroyed = {
 
 on_fleet_combat_joined_attacker = {
 	events = {
-		heroship.1103
 		br.11
 	}
 }
 
 on_fleet_combat_joined_defender = {
 	events = {
-		heroship.1103
 		br.11
 	}
 }

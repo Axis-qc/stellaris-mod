@@ -1,0 +1,94 @@
+# ========================
+# 旗舰建造局势
+# 由 heroship.50 在开局1年后对普通模式玩家触发
+# 完成后触发 heroship.101 发放英雄舰
+# ========================
+
+situation_heroship_flagship_construction = {
+	picture = GFX_evt_ship_in_orbit
+	category = positive
+	initial_progress = 0
+
+	on_progress_complete = {
+		custom_tooltip = heroship_flagship_construction_complete_tt
+		hidden_effect = {
+			owner = {
+				country_event = { id = heroship.101 }
+			}
+		}
+		destroy_situation = this
+	}
+
+	stages = {
+		stage_design = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_blue
+			end = 33
+			custom_tooltip = heroship_flagship_stage_design_tt
+		}
+		stage_construction = {
+			icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_blue
+			end = 66
+			custom_tooltip = heroship_flagship_stage_construction_tt
+		}
+		stage_sea_trial = {
+			icon = GFX_situation_stage_3
+			icon_background = GFX_situation_stage_frame_blue
+			end = 100
+			custom_tooltip = heroship_flagship_stage_sea_trial_tt
+		}
+	}
+
+	approach = {
+		name = heroship_flagship_approach_standard
+		icon = GFX_situation_approach_balance_sheet
+		icon_background = GFX_situation_approach_bg_green
+		default = yes
+		on_select = {
+			custom_tooltip = heroship_flagship_approach_standard_tt
+		}
+		ai_weight = {
+			base = 1
+		}
+	}
+
+	approach = {
+		name = heroship_flagship_approach_rush
+		icon = GFX_situation_approach_energy_credits
+		icon_background = GFX_situation_approach_bg_yellow
+		on_select = {
+			custom_tooltip = heroship_flagship_approach_rush_tt
+		}
+		resources = {
+			category = situations
+			upkeep = {
+				alloys = 50
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	monthly_progress = {
+		base = 5
+		modifier = {
+			add = 3
+			desc = heroship_flagship_approach_rush_desc
+			current_situation_approach = heroship_flagship_approach_rush
+		}
+	}
+
+	abort_trigger = {
+		owner = {
+			has_country_flag = br_hero_ship_received
+		}
+	}
+
+	on_abort = {
+		owner = {
+			remove_country_flag = br_hero_construction_started
+		}
+	}
+}

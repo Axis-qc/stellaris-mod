@@ -23,7 +23,6 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_country_type = br_player_pve
 		NOT = {
 			has_country_flag = br_hero_level_initialized
 		}
@@ -46,14 +45,15 @@ country_event = {
 }
 
 # 英雄舰杀敌经验（由 on_ship_destroyed_perp 直接调用，fromfromfrom = 被击杀舰船）
+# 通用触发：只要星系内有先锋舰且击杀的是敌对目标就给经验，不限模式
 country_event = {
 	id = heroship.2
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_country_type = br_player_pve
+		is_ai = no
 		from = {
-			is_country_type = br_pve_enemy
+			is_hostile = root
 		}
 		exists = fromfromfrom
 		any_owned_ship = {
@@ -519,45 +519,24 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# Lv2 主动技能选择
+		# Lv2 主动技能选择：火力 / 防御 / 航母
 		country_event = {
 			id = heroship.10
-		}
-		# 火力
-		country_event = {
 			id = heroship.20
-		}
-		# 防御
-		country_event = {
 			id = heroship.30
 		}
-		# 航母
-		# Lv4 被动技能选择
+		# Lv4 被动技能选择：火力 / 防御 / 航母
 		country_event = {
 			id = heroship.11
-		}
-		# 火力
-		country_event = {
 			id = heroship.21
-		}
-		# 防御
-		country_event = {
 			id = heroship.31
 		}
-		# 航母
-		# Lv6 大招选择
+		# Lv6 大招选择：火力 / 防御 / 航母
 		country_event = {
 			id = heroship.12
-		}
-		# 火力
-		country_event = {
 			id = heroship.22
-		}
-		# 防御
-		country_event = {
 			id = heroship.32
 		}
-		# 航母
 	}
 }
 

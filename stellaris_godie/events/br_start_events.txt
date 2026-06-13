@@ -24,7 +24,7 @@ country_event = {
 	}
 }
 
-# br.501：开局模式设置，选择PVP或PVE喵
+# br.501：开局模式设置，选择PVP、PVE或正常模式喵
 country_event = {
 	id = br.501
 	title = br_settings_title
@@ -35,6 +35,7 @@ country_event = {
 		name = br_mode_pvp_name
 		set_global_flag = br_mode_pvp
 		remove_global_flag = br_mode_pve
+		remove_global_flag = br_mode_disabled
 		country_event = {
 			id = br.503
 		}
@@ -43,10 +44,18 @@ country_event = {
 		name = br_mode_pve_name
 		remove_global_flag = br_mode_pvp
 		set_global_flag = br_mode_pve
+		remove_global_flag = br_mode_disabled
 		# PVE敌方模板不再开局手选，刷敌逻辑自行随机。
 		country_event = {
 			id = br.503
 		}
+	}
+	option = {
+		name = br_mode_normal_name
+		remove_global_flag = br_mode_pvp
+		remove_global_flag = br_mode_pve
+		set_global_flag = br_mode_disabled
+		# 正常模式：跳过所有大逃杀初始化，原版游戏流程不受影响
 	}
 }
 
