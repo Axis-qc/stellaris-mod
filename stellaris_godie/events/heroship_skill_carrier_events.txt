@@ -55,7 +55,7 @@ fleet_event = {
 				}
 				effect = {
 					set_fleet_stance = aggressive
-					set_owner = event_target:br_void_country
+					set_owner = root.owner
 					set_location = {
 						target = event_target:br_hero_ship_@root
 						distance = 0
@@ -79,20 +79,6 @@ fleet_event = {
 						days = 1
 						time_multiplier = root.owner.value:br_carrier_barrier_day
 						mult = root.owner.value:br_carrier_sortie_mult
-					}
-					# 合并到主舰队
-					queue_actions = {
-						find_random_fleet = {
-							trigger = {
-								has_fleet_flag = br_carrier_fleet_@root.owner
-							}
-							found_fleet = {
-								merge_fleet = {
-									target = this
-									allow_ftl = yes
-								}
-							}
-						}
 					}
 				}
 			}
@@ -146,24 +132,14 @@ fleet_event = {
 				which = br_carrier_count
 				value = 0
 			}
-			event_target:br_void_country = {
-				every_owned_fleet = {
-					limit = {
-						OR = {
-							has_fleet_flag = br_carrier_fleet_@root.owner
-							has_fleet_flag = br_carrier_temp_fleet_@root.owner
-						}
-					}
-					every_owned_ship = {
-						limit = {
-							is_ship_size = corvette
-						}
-						root.owner = {
-							change_variable = {
-								which = br_carrier_count
-								value = 1
-							}
-						}
+			every_owned_ship = {
+				limit = {
+					has_ship_flag = br_carrier_ship_@root.owner
+				}
+				root.owner = {
+					change_variable = {
+						which = br_carrier_count
+						value = 1
 					}
 				}
 			}
@@ -274,27 +250,22 @@ country_event = {
 				time_multiplier = value:br_carrier_command_link_day
 			}
 		}
-		# 无人机舰队增益
-		event_target:br_void_country = {
-			random_owned_fleet = {
-				limit = {
-					OR = {
-						has_fleet_flag = br_carrier_fleet_@root
-						has_fleet_flag = br_carrier_temp_fleet_@root
-					}
-				}
-				add_modifier = {
-					modifier = br_carrier_command_link_drone
-					mult = root.value:br_carrier_command_link_drone_hull
-					days = 1
-					time_multiplier = root.value:br_carrier_command_link_day
-				}
-				add_modifier = {
-					modifier = br_carrier_command_link_drone_1
-					mult = root.value:br_carrier_command_link_drone_hit
-					days = 1
-					time_multiplier = root.value:br_carrier_command_link_day
-				}
+		# 无人机增益
+		every_owned_ship = {
+			limit = {
+				has_ship_flag = br_carrier_ship_@root
+			}
+			add_modifier = {
+				modifier = br_carrier_command_link_drone
+				mult = root.value:br_carrier_command_link_drone_hull
+				days = 1
+				time_multiplier = root.value:br_carrier_command_link_day
+			}
+			add_modifier = {
+				modifier = br_carrier_command_link_drone_1
+				mult = root.value:br_carrier_command_link_drone_hit
+				days = 1
+				time_multiplier = root.value:br_carrier_command_link_day
 			}
 		}
 		# 设 CD
@@ -345,7 +316,7 @@ country_event = {
 			}
 			effect = {
 				set_fleet_stance = aggressive
-				set_owner = event_target:br_void_country
+				set_owner = root
 				set_location = {
 					target = event_target:br_hero_ship_@root
 					distance = 0
@@ -440,46 +411,19 @@ country_event = {
 			which = br_carrier_cap
 			value = 2
 		}
-		# 给现有无人机打旗标
-		event_target:br_void_country = {
-			every_owned_fleet = {
-				limit = {
-					OR = {
-						has_fleet_flag = br_carrier_fleet_@root
-						has_fleet_flag = br_carrier_temp_fleet_@root
-					}
-				}
-				every_owned_ship = {
-					limit = {
-						is_ship_size = corvette
-					}
-					set_ship_flag = br_carrier_ship_@root
-				}
-			}
-		}
 		# 统计所有无人机
 		set_variable = {
 			which = br_carrier_count
 			value = 0
 		}
-		event_target:br_void_country = {
-			every_owned_fleet = {
-				limit = {
-					OR = {
-						has_fleet_flag = br_carrier_fleet_@root
-						has_fleet_flag = br_carrier_temp_fleet_@root
-					}
-				}
-				every_owned_ship = {
-					limit = {
-						has_ship_flag = br_carrier_ship_@root
-					}
-					root = {
-						change_variable = {
-							which = br_carrier_count
-							value = 1
-						}
-					}
+		every_owned_ship = {
+			limit = {
+				has_ship_flag = br_carrier_ship_@root
+			}
+			root = {
+				change_variable = {
+					which = br_carrier_count
+					value = 1
 				}
 			}
 		}
@@ -540,7 +484,7 @@ country_event = {
 				}
 				effect = {
 					set_fleet_stance = aggressive
-					set_owner = event_target:br_void_country
+					set_owner = root
 					set_location = {
 						target = event_target:br_hero_ship_@root
 						distance = 0
@@ -559,19 +503,6 @@ country_event = {
 							}
 						}
 					}
-					queue_actions = {
-						find_random_fleet = {
-							trigger = {
-								has_fleet_flag = br_carrier_fleet_@root
-							}
-							found_fleet = {
-								merge_fleet = {
-									target = this
-									allow_ftl = yes
-								}
-							}
-						}
-					}
 				}
 			}
 		}
@@ -580,28 +511,18 @@ country_event = {
 			which = br_carrier_count
 			value = 0
 		}
-		event_target:br_void_country = {
-			every_owned_fleet = {
-				limit = {
-					OR = {
-						has_fleet_flag = br_carrier_fleet_@root
-						has_fleet_flag = br_carrier_temp_fleet_@root
-					}
-				}
-				every_owned_ship = {
-					limit = {
-						has_ship_flag = br_carrier_ship_@root
-					}
-					root = {
-						change_variable = {
-							which = br_carrier_count
-							value = 1
-						}
-					}
+		every_owned_ship = {
+			limit = {
+				has_ship_flag = br_carrier_ship_@root
+			}
+			root = {
+				change_variable = {
+					which = br_carrier_count
+					value = 1
 				}
 			}
 		}
-		# → Step3: 位置同步与合并
+		# → Step3: 位置同步
 		country_event = {
 			id = heroship.1334
 		}
@@ -615,15 +536,30 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_carrier_vanguard = yes
-		exists = event_target:br_void_country
 	}
 	immediate = {
-		# 先移动主舰队
-		event_target:br_void_country = {
+		# 移动主舰队到英雄舰位置
+		random_owned_fleet = {
+			limit = {
+				has_fleet_flag = br_carrier_fleet_@root
+			}
+			save_event_target_as = br_carrier_fleet
+			set_fleet_stance = aggressive
+			clear_fleet_actions = this
+			queue_actions = {
+				move_to = event_target:br_hero_ship_@root
+			}
+		}
+		# 临时舰队兜底：无主舰队则提拔临时舰队
+		if = {
+			limit = {
+				NOT = { exists = event_target:br_carrier_fleet }
+			}
 			random_owned_fleet = {
 				limit = {
-					has_fleet_flag = br_carrier_fleet_@root
+					has_fleet_flag = br_carrier_temp_fleet_@root
 				}
+				set_fleet_flag = br_carrier_fleet_@root
 				save_event_target_as = br_carrier_fleet
 				set_fleet_stance = aggressive
 				clear_fleet_actions = this
@@ -631,34 +567,14 @@ country_event = {
 					move_to = event_target:br_hero_ship_@root
 				}
 			}
-			every_owned_fleet = {
-				set_fleet_stance = aggressive
-			}
 		}
-		# 临时舰队兜底
-		event_target:br_void_country = {
-			random_owned_fleet = {
-				limit = {
-					has_fleet_flag = br_carrier_temp_fleet_@root
-					NOT = {
-						exists = event_target:br_carrier_fleet
-					}
-				}
-				set_fleet_flag = br_carrier_fleet_@root
-				save_event_target_as = br_carrier_fleet
-				set_fleet_stance = aggressive
-				clear_fleet_actions = this
-				queue_actions = {
-					move_to = event_target:br_hero_ship
-				}
-			}
-			# 合并剩余临时舰队
+		# 合并剩余临时舰队到主舰队
+		if = {
+			limit = { exists = event_target:br_carrier_fleet }
 			every_owned_fleet = {
 				limit = {
 					has_fleet_flag = br_carrier_temp_fleet_@root
-					NOT = {
-						has_fleet_flag = br_carrier_fleet_@root
-					}
+					NOT = { has_fleet_flag = br_carrier_fleet_@root }
 				}
 				queue_actions = {
 					merge_fleet = {
@@ -682,7 +598,6 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_carrier_vanguard = yes
-		exists = event_target:br_void_country
 	}
 	immediate = {
 		# 蜂群护卫 — 无人机数量 → 英雄舰常驻加成
@@ -703,21 +618,19 @@ country_event = {
 			limit = {
 				has_country_flag = br_skill_deck_maintenance_unlocked
 			}
-			event_target:br_void_country = {
-				random_owned_fleet = {
-					limit = {
-						has_fleet_flag = br_carrier_fleet_@root
-					}
-					add_modifier = {
-						modifier = br_carrier_deck_hull_buff
-						mult = root.value:br_carrier_deck_hull
-						days = 32
-					}
-					add_modifier = {
-						modifier = br_carrier_deck_dmg_buff
-						mult = root.value:br_carrier_deck_dmg
-						days = 32
-					}
+			every_owned_ship = {
+				limit = {
+					has_ship_flag = br_carrier_ship_@root
+				}
+				add_modifier = {
+					modifier = br_carrier_deck_hull_buff
+					mult = root.value:br_carrier_deck_hull
+					days = 32
+				}
+				add_modifier = {
+					modifier = br_carrier_deck_dmg_buff
+					mult = root.value:br_carrier_deck_dmg
+					days = 32
 				}
 			}
 		}
