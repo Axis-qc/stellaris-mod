@@ -31,10 +31,10 @@ br_vanguard = {
     combat_size_multiplier = 32
     # 舰队规模，实际舰容占用
     size_multiplier = 32
-    # 大地图图标，原版路径interface/solar_system.gfx，但是被巨像骷髅头覆盖了，应该是给普通船用的
+    # 大地图图标，原版路径interface/solar_system.gfx，似乎是战力的星标，但是并没有生效
     map_counter_icon = ship_counter_64
-    # 图标，原版路径interface/icons.gfx
-    icon = GFX_hero_ship
+    # 图标，原版路径interface/icons.gfx 舰船类型小图标
+    icon = ship_size_military_16
     # 舰队容量占用
     fleet_slot_size = 8
     # 三段式区段，定位器与原版泰坦一致
@@ -57,8 +57,9 @@ br_vanguard = {
     on_click_sound = "ui_kaiju_select_fleet"
     #图标原版路径interface/icons.gfx，GFX_ship_class_medium
     ship_class_icon_frame = 61
-    #class必须巨像，否则进战不能控制
-    class = shipclass_military_special
+    #class普通军用可以控制，不过因为is_hero_ship导致没有升级按钮
+    # class = shipclass_military_special
+    class = shipclass_military
     # 建造属性
     base_buildtime = 60
     can_have_federation_design = no
