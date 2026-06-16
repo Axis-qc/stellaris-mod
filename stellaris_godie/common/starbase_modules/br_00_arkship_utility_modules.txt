@@ -1,0 +1,426 @@
+# If you add a new utility module, also add it to common/inline_scripts/arkship/ai_design.txt
+# and update the weights for all arkship starbase types in common/starbase_types/00_starbase_types.txt
+
+br_arkship_engineering_bay = {
+	icon = "GFX_arkship_engineering_bay"
+	section = "ARKSHIP_CONSTRUCTION_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_naval_support_cat
+
+	potential = {
+		owner? = {
+			OR = {
+				has_technology = tech_space_construction
+				has_country_flag = champions_forge_enclave_country
+			}
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	possible = {
+		count_starbase_modules = {
+			type = arkship_beastport
+			count < 1
+			include_being_constructed = yes
+		}
+	}
+
+	show_in_tech = "tech_space_construction"
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_100
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_2
+		}
+	}
+
+	station_modifier = {
+		show_only_custom_tooltip = no
+		megastructure_build_speed_mult = 0.15
+	}
+	planet_modifier = {
+		planet_building_capacity_add = 1
+	}
+
+	on_finished = {
+		set_ship_construction_type = starbase_shipyard
+	}
+	on_destroyed = {
+		if = {
+			limit = { NOT = { has_starbase_module = arkship_engineering_bay } }
+			set_ship_construction_type = none
+		}
+	}
+
+	inline_script = {
+		script = jobs/arkship_module_soldiers_add
+		ZONE = zone_ark_shipwright
+		AMOUNT = @arkship_module_jobs
+	}
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+
+br_arkship_beastport = {
+	icon = "GFX_starbase_beastport"
+	section = "ARKSHIP_CONSTRUCTION_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_naval_support_cat
+
+	potential = {
+		owner? = {
+			OR = {
+				has_technology = tech_alien_cloning
+				is_beastmasters_empire = yes
+			}
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	possible = {
+		count_starbase_modules = {
+			type = arkship_engineering_bay
+			count < 1
+			include_being_constructed = yes
+		}
+	}
+
+	abort_construction_trigger = {
+		OR = {
+			has_starbase_module = arkship_engineering_bay
+		}
+	}
+
+	resources = {
+		category = starbase_modules
+		cost = {
+			alloys = @arkship_cost_alloys_100
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_2
+		}
+	}
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	planet_modifier = {
+		planet_building_capacity_add = 1
+	}
+
+	country_modifier = {
+		country_vivarium_max_capacity_add = 30
+	}
+
+	on_finished = {
+		set_ship_construction_type = starbase_beastport
+	}
+	on_destroyed = {
+		if = {
+			limit = { NOT = { has_starbase_module = beastport } }
+			set_ship_construction_type = none
+		}
+	}
+
+	inline_script = {
+		script = jobs/arkship_module_soldiers_add
+		ZONE = zone_ark_shipwright
+		AMOUNT = @arkship_module_jobs
+	}
+
+	ai_weight = {
+		inline_script = {
+			script = starbase_modules/ship_construction_ai_weight
+			MODULE = beastport
+		}
+		modifier = {
+			factor = 0
+			owner = {
+				uses_fauna_ship_sizes = no
+			}
+		}
+	}
+}
+
+br_arkship_docking_bay = {
+	icon = "GFX_arkship_docking_bay"
+	section = "ARKSHIP_FACTORY_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_utility_cat
+
+	potential = {
+		is_br_civilian_arkship = yes
+	}
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_50
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_1
+			trade = @arkship_upkeep_trade_4
+		}
+	}
+
+	country_modifier = {
+		country_naval_cap_add = 5
+	}
+
+	station_modifier = {
+		ship_starbase_stockpile_collection_rate_mult = 0.10
+	}
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+
+br_arkship_habitation_module = {
+	icon = "GFX_arkship_habitation_module"
+	section = "ARKSHIP_LIVING_SPACE_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_utility_cat
+
+	potential = {
+		owner? = {
+			OR = {
+				has_technology = tech_housing_2
+				has_country_flag = champions_forge_enclave_country
+			}
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	show_in_tech = "tech_housing_2"
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_200
+			influence = @arkship_cost_influence_25
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_2
+		}
+	}
+
+	planet_modifier = {
+		planet_max_districts_add = 1
+	}
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+
+br_arkship_sensor_array = {
+	icon = "GFX_arkship_sensor_array"
+	section = "ARKSHIP_SCIENCE_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_utility_cat
+
+	potential = {
+		owner? = {
+			OR = {
+				has_technology = tech_sensors_2
+				has_country_flag = champions_forge_enclave_country
+			}
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	show_in_tech = "tech_sensors_2"
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_100
+			rare_crystals = @arkship_cost_strategic_25
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_2
+		}
+	}
+	station_modifier = {
+		ship_sensor_range_add = 1
+		ship_hyperlane_range_add = 1
+		science_ship_survey_speed = 0.15
+	}
+	custom_tooltip_with_modifiers = sm_arkship_sensor_array_tt
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+
+br_arkship_mining_array = {
+	icon = "GFX_arkship_mining_array"
+	section = "ARKSHIP_CONSTRUCTION_MODULE"
+	construction_days = 180
+	starbase_type = arkship
+	category = sm_utility_cat
+
+	potential = {
+		owner? = {
+			OR = {
+				has_technology = tech_planetary_engineering
+				has_country_flag = champions_forge_enclave_country
+			}
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	show_in_tech = "tech_planetary_engineering"
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_100
+			volatile_motes = @arkship_cost_strategic_25
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_2
+		}
+	}
+
+	station_modifier = {
+		show_only_custom_tooltip = no
+		arkship_harvest_resources_produces_mult = 0.05
+	}
+
+	custom_tooltip_with_modifiers = sm_arkship_mining_array_tt
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+
+br_arkship_grand_archive = {
+	icon = "GFX_arkship_grand_archive"
+	section = "ARKSHIP_LIVING_SPACE_MODULE"
+	construction_days = 1800
+	starbase_type = arkship
+	category = sm_utility_cat
+
+	empire_limit = {
+		base = 1
+	}
+
+	potential = {
+		owner? = {
+			has_technology = tech_galactic_archivism
+			has_grand_archive = no
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	show_in_tech = "tech_galactic_archivism"
+
+	show_tech_unlock_if = {
+		is_nomadic = yes
+	}
+
+	cannot_fit_on_slots = { spinal_mount_1 }
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_500
+			volatile_motes = @arkship_cost_strategic_100
+		}
+
+		upkeep = {
+			energy = @arkship_upkeep_energy_10
+		}
+	}
+
+	country_modifier = {
+		country_vivarium_max_capacity_add = @grand_archive_vivarium_capacity
+	}
+
+	on_finished = {
+		owner = {
+			if = {
+				limit = { has_country_flag = grand_archive_destroyed }
+				remove_country_flag = grand_archive_destroyed
+			}
+			set_country_flag = has_arkship_grand_archive_module
+			country_event = { id = grand_archive.4120 }
+			country_event = { id = grand_archive.4199 }
+			if = {
+				limit = { has_origin = origin_treasure_hunters }
+				country_event = {
+					id = grand_archive.8090
+					scopes = { from = prev.solar_system }
+				}
+			}
+		}
+	}
+	on_destroyed = {
+		owner = {
+			remove_country_flag = ga_destroyed_contains_space_fauna
+			if = {
+				limit = { num_vivarium_slots > 0 }
+				set_country_flag = ga_destroyed_contains_space_fauna
+				release_all_vivarium_fauna = { LOCATION = prev.solar_system }
+			}
+			set_country_flag = grand_archive_destroyed
+			remove_country_flag = has_arkship_grand_archive_module
+		}
+	}
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+	}
+}
+

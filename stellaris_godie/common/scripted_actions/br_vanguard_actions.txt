@@ -1,0 +1,383 @@
+# 先锋级英雄舰 scripted_actions
+# 从 br_vanguard_auras.txt 内嵌定义迁移而来
+# 参照原版 02_paladins.txt 的分离式架构
+# ─────────────────────────────────
+# 通用：集结舰队至母舰（槽位1，三个核心共享）
+# ─────────────────────────────────
+br_vanguard_gather = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        always = yes
+    }
+    button_visible = {
+        owner = {
+            OR = {
+                is_country_type = br_player_pve
+                is_country_type = br_player_pvp
+            }
+        }
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_fail_tt
+            always = yes
+        }
+    }
+    on_completed = on_br_gather_fleets_to_mothership
+    tooltip = br_vanguard_skill_gather
+    icon = GFX_fleet_action_button_paladin_recall
+    icon_selected = GFX_fleet_action_button_paladin_recall
+    activity_key = br_hero_gather_skill_activity_key
+    context_menu_name = br_hero_gather_skill_menu_title
+    progress_activity_key = br_hero_gather_skill_progress_activity_key
+
+    wait = no
+    cooldown = 90
+    slot = 1
+}
+
+# ─────────────────────────────────
+# 火力核心：主动技能（槽位2）
+# ─────────────────────────────────
+br_vanguard_power_skill = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_energy_overclock_unlocked
+                    has_country_flag = br_skill_weakness_scan_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_power_skill_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_energy_overclock_unlocked
+                    has_country_flag = br_skill_weakness_scan_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_power_skill_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_hero_active_skill_activated
+    tooltip = br_vanguard_power_skill_button
+    icon = GFX_fleet_action_button_paladin_for_the_order
+    icon_selected = GFX_fleet_action_button_paladin_for_the_order
+    activity_key = br_hero_active_skill_activity_key
+    context_menu_name = br_hero_active_skill_menu_title
+    progress_activity_key = br_hero_active_skill_progress_activity_key
+
+    wait = no
+    slot = 2
+}
+
+# ─────────────────────────────────
+# 火力核心：旗舰超载（槽位3）
+# ─────────────────────────────────
+br_vanguard_power_ultimate = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                    has_country_flag = br_skill_final_volley_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_power_ultimate_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_fullfire_unlocked
+                    has_country_flag = br_skill_final_volley_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_power_ultimate_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_power_ultimate_activated
+    tooltip = br_vanguard_power_ultimate_button
+    icon = GFX_fleet_action_button_paladin_harmony
+    icon_selected = GFX_fleet_action_button_paladin_harmony
+    activity_key = br_hero_ultimate_skill_activity_key
+    context_menu_name = br_hero_ultimate_skill_menu_title
+    progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+
+    wait = no
+    slot = 3
+}
+
+# ─────────────────────────────────
+# 防御核心：主动技能（槽位2）
+# ─────────────────────────────────
+br_vanguard_defense_skill = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_phase_shift_unlocked
+                    has_country_flag = br_skill_barrier_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_defense_skill_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_phase_shift_unlocked
+                    has_country_flag = br_skill_barrier_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_defense_skill_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_defense_skill_activated
+    tooltip = br_vanguard_defense_skill_button
+    icon = GFX_fleet_action_button_paladin_for_the_order
+    icon_selected = GFX_fleet_action_button_paladin_for_the_order
+    activity_key = br_hero_active_skill_activity_key
+    context_menu_name = br_hero_active_skill_menu_title
+    progress_activity_key = br_hero_active_skill_progress_activity_key
+
+    wait = no
+    slot = 2
+}
+
+# ─────────────────────────────────
+# 防御核心：旗舰超载（槽位3）
+# ─────────────────────────────────
+br_vanguard_defense_ultimate = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_collapse_unlocked
+                    has_country_flag = br_skill_projection_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_defense_ultimate_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_collapse_unlocked
+                    has_country_flag = br_skill_projection_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_defense_ultimate_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_defense_ultimate_activated
+    tooltip = br_vanguard_defense_ultimate_button
+    icon = GFX_fleet_action_button_paladin_harmony
+    icon_selected = GFX_fleet_action_button_paladin_harmony
+    activity_key = br_hero_ultimate_skill_activity_key
+    context_menu_name = br_hero_ultimate_skill_menu_title
+    progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+
+    wait = no
+    slot = 3
+}
+
+# ─────────────────────────────────
+# 航母核心：主动技能（槽位2）
+# ─────────────────────────────────
+br_vanguard_carrier_skill = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_sortie_unlocked
+                    has_country_flag = br_skill_aat_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_carrier_skill_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_skill_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_sortie_unlocked
+                    has_country_flag = br_skill_aat_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_carrier_skill_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_carrier_skill_activated
+    tooltip = br_vanguard_carrier_skill_button
+    icon = GFX_fleet_action_button_paladin_for_the_order
+    icon_selected = GFX_fleet_action_button_paladin_for_the_order
+    activity_key = br_hero_active_skill_activity_key
+    context_menu_name = br_hero_active_skill_menu_title
+    progress_activity_key = br_hero_active_skill_progress_activity_key
+
+    wait = no
+    slot = 2
+}
+
+# ─────────────────────────────────
+# 航母核心：旗舰超载（槽位3）
+# ─────────────────────────────────
+br_vanguard_carrier_ultimate = {
+    user_scope = fleet
+    scope = self
+    possible = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_full_deck_unlocked
+                    has_country_flag = br_skill_total_air_supremacy_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_carrier_ultimate_cd_ready = yes
+            }
+        }
+    }
+    button_visible = {
+        any_owned_ship = {
+            is_ship_size = br_vanguard
+        }
+    }
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = br_hero_no_ultimate_unlocked_tt
+            owner = {
+                OR = {
+                    has_country_flag = br_skill_full_deck_unlocked
+                    has_country_flag = br_skill_total_air_supremacy_unlocked
+                }
+            }
+        }
+        custom_tooltip = {
+            fail_text = br_hero_active_skill_cd_fail_tt
+            owner = {
+                br_vanguard_carrier_ultimate_cd_ready = yes
+            }
+        }
+    }
+    on_completed = on_br_carrier_ultimate_activated
+    tooltip = br_vanguard_carrier_ultimate_button
+    icon = GFX_fleet_action_button_paladin_harmony
+    icon_selected = GFX_fleet_action_button_paladin_harmony
+    activity_key = br_hero_ultimate_skill_activity_key
+    context_menu_name = br_hero_ultimate_skill_menu_title
+    progress_activity_key = br_hero_ultimate_skill_progress_activity_key
+
+    wait = no
+    slot = 3
+}

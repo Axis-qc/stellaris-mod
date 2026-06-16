@@ -818,3 +818,59 @@ br_test_trigger_cycle = {
 		weight = 0
 	}
 }
+
+# ========================
+# 测试法令：生成三种一级方舟舰
+# ========================
+br_test_spawn_arkships = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		capital_scope.solar_system = {
+			create_fleet = {
+				name = "TEST Civilian Arkship T1"
+				effect = {
+					set_owner = prevprev
+					create_ship = {
+						random_existing_design = br_civilian_arkship_tier_1
+					}
+					set_location = prevprev.capital_star
+				}
+			}
+			create_fleet = {
+				name = "TEST Science Arkship T1"
+				effect = {
+					set_owner = prevprev
+					create_ship = {
+						random_existing_design = br_science_arkship_tier_1
+					}
+					set_location = prevprev.capital_star
+				}
+			}
+			create_fleet = {
+				name = "TEST Military Arkship T1"
+				effect = {
+					set_owner = prevprev
+					create_ship = {
+						random_existing_design = br_military_arkship_tier_1
+					}
+					set_location = prevprev.capital_star
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}

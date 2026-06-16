@@ -1,0 +1,18 @@
+# 方舟舰创建 effect（覆盖原版 create_arkship_effect）
+# 原版拼接 $TYPE$_tier_1，本 mod 用 br_ 前缀
+create_br_arkship_effect = {
+	# $TYPE$     = civilian_arkship / science_arkship / military_arkship
+	# $OWNER$    = the owning country
+	# $LOCATION$ = the solar system to place the fleet in
+	create_fleet = {
+		effect = {
+			set_owner = $OWNER$
+			create_ship = {
+				name = random
+				random_existing_design = br_$TYPE$_tier_1
+				graphical_culture = $TYPE$
+			}
+			set_location = $LOCATION$
+		}
+	}
+}

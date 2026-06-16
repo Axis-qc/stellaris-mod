@@ -32,7 +32,12 @@ br_vanguard = {
     # 舰队规模，实际舰容占用
     size_multiplier = 32
     # 大地图图标，原版路径interface/solar_system.gfx，似乎是战力的星标，但是并没有生效
-    map_counter_icon = ship_counter_64
+    # map_counter_icon = ship_counter_64
+    map_icon_override = {
+        normal = GFX_fleet_presence_paladin_icons
+        mixed = GFX_fleet_presence_paladin_icons_mixed
+        cloaked = GFX_fleet_presence_paladin_icons_cloaked
+    }
     # 图标，原版路径interface/icons.gfx 舰船类型小图标
     icon = ship_size_military_16
     # 舰队容量占用
@@ -77,7 +82,13 @@ br_vanguard = {
     is_designable = yes
     #自动升级 无效，似乎不能允许设计
     # auto_upgrade = yes
-    is_hero_ship = yes
+    hero_ship = {
+        hero_ship_fleet_background = "GFX_fleet_view_paladin_ship"
+        capabilities = {
+            can_repair
+            can_upgrade
+        }
+    }
     # 组件计入成本
     components_add_to_cost = no
     # 建造成本,限制一艘，建造用来复活，防止被摧毁后就没了。
