@@ -1,138 +1,161 @@
 namespace = planet_ck
-
 event = {
-    id = planet_ck.11
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_ai = no
-    }
-
-    immediate = {
-        every_owned_planet = {
-            limit = {
-                not = {
-                    has_deposit = planet_ck_10k
-                }
-            }
-            add_deposit = planet_ck_10k
-        }
-    }
+	id = planet_ck.11
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+	}
+	immediate = {
+		every_owned_planet = {
+			limit = {
+				not = {
+					has_deposit = planet_ck_10k
+				}
+			}
+			add_deposit = planet_ck_10k
+		}
+	}
 }
+
 country_event = {
-    id = planet_ck.101
-    hide_window = yes
-    is_triggered_only = yes
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-        not = {
-            has_country_flag = xiyou_add
-        }
-    }
-    immediate = {
-        random_system = {
-            limit = {
-                is_owned_by = root
-            }
-            #选隔壁
-            random_neighbor_system = {
-                random_system_planet = {
-                    limit = {
-                        is_star = no
-                        is_colony = no
-                    }
-                    add_deposit = play_add_xiyou
-                }
-            }
-        }
-        add_tech_progress = { tech = tech_mine_dark_matter progress = 0.1 }
-        add_tech_progress = { tech = tech_mine_living_metal progress = 0.1 }
-        add_tech_progress = { tech = tech_mine_zro progress = 0.1 }
-        set_country_flag = xiyou_add
-    }
+	id = planet_ck.101
+	hide_window = yes
+	is_triggered_only = yes
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+		not = {
+			has_country_flag = xiyou_add
+		}
+	}
+	immediate = {
+		random_system = {
+			limit = {
+				is_owned_by = root
+			}
+			#选隔壁
+			random_neighbor_system = {
+				random_system_planet = {
+					limit = {
+						is_star = no
+						is_colony = no
+					}
+					add_deposit = play_add_xiyou
+				}
+			}
+		}
+		add_tech_progress = {
+			tech = tech_mine_dark_matter
+			progress = 0.1
+		}
+		add_tech_progress = {
+			tech = tech_mine_living_metal
+			progress = 0.1
+		}
+		add_tech_progress = {
+			tech = tech_mine_zro
+			progress = 0.1
+		}
+		set_country_flag = xiyou_add
+	}
 }
 
 #星球承载力
 country_event = {
-    id = planet_ck.102
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_ai = no
-        has_global_flag = play_open_planet_pop
-        not = {
-            has_global_flag = no_play_open_planet_pop
-        }
-    }
-
-    immediate = {
-        #根据住房提供人口增速加成或减成
-        every_owned_planet = {
-            limit = {
-                not = {
-                    is_planet_class = pc_cosmogenesis_world
-                }
-            }
-            #获取可用住房
-            set_variable = {
-                which = planet_house
-                value = trigger:free_housing
-            }
-            #除100，一百住房增加1%增长
-            divide_variable = {
-                which = planet_house
-                value = 100
-            }
-            add_modifier = {
-                modifier = planet_pop_speed_add
-                mult = planet_house
-                # multiplier =
-                # time_multiplier =
-                # clear_on_owner_change = yes
-                days = -1
-            }
-            #住房小于0时减少人口
-            if = {
-                limit = { check_variable = { which = planet_house value < 0 } }
-                # multiply_variable = { which = planet_house value = 3 }
-                add_modifier = {
-                    modifier = planet_pop_speed_die
-                    mult = planet_house
-                    days = -1
-                }
-            }
-            if = {
-                limit = { check_variable = { which = planet_house value > 0 } }
-                remove_modifier = planet_pop_speed_die
-            }
-            #负50k以上直接清人口
-            if = {
-                limit = { check_variable = { which = planet_house value < -500 } }
-                # multiply_variable = { which = planet_house value = 3 }
-                random_owned_pop_group = {
-                    limit = {
-                        OR = {
-                            is_pop_category = civilian
-                            is_pop_category = maintenance_drone
-                        }
-                        # or = {
-                        #     has_trait = trait_machine_unit
-                        #     has_trait = trait_mechanical
-                        # }
-                    }
-                    kill_pop_group = {
-                        pop_group = this
-                        # amount =1
-                        percentage = 0.1
-                        # random =
-                        # growth_category =
-                    }
-                }
-            }
-        }
-    }
+	id = planet_ck.102
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		has_global_flag = play_open_planet_pop
+		not = {
+			has_global_flag = no_play_open_planet_pop
+		}
+	}
+	immediate = {
+		#根据住房提供人口增速加成或减成
+		every_owned_planet = {
+			limit = {
+				not = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+			}
+			#获取可用住房
+			set_variable = {
+				which = planet_house
+				value = trigger:free_housing
+			}
+			#除100，一百住房增加1%增长
+			divide_variable = {
+				which = planet_house
+				value = 100
+			}
+			add_modifier = {
+				modifier = planet_pop_speed_add
+				mult = planet_house
+				# multiplier =
+				# time_multiplier =
+				# clear_on_owner_change = yes
+				days = -1
+			}
+			#住房小于0时减少人口
+			if = {
+				limit = {
+					check_variable = {
+						which = planet_house
+						value < 0
+					}
+				}
+				# multiply_variable = { which = planet_house value = 3 }
+				add_modifier = {
+					modifier = planet_pop_speed_die
+					mult = planet_house
+					days = -1
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = planet_house
+						value > 0
+					}
+				}
+				remove_modifier = planet_pop_speed_die
+			}
+			#负50k以上直接清人口
+			if = {
+				limit = {
+					check_variable = {
+						which = planet_house
+						value < -500
+					}
+				}
+				# multiply_variable = { which = planet_house value = 3 }
+				random_owned_pop_group = {
+					limit = {
+						OR = {
+							is_pop_category = civilian
+							is_pop_category = maintenance_drone
+						}
+						# or = {
+						#     has_trait = trait_machine_unit
+						#     has_trait = trait_mechanical
+						# }
+					}
+					kill_pop_group = {
+						pop_group = this
+						# amount =1
+						percentage = 0.1
+						# random =
+						# growth_category =
+					}
+				}
+			}
+		}
+	}
 }
+
 #废弃，直接给基础增速会凭空出机器人
 # #添加有机体
 # if = {
@@ -198,82 +221,70 @@ country_event = {
 # }
 #是否启用星球承载
 country_event = {
-    id = planet_ck.103  # 事件ID
-    title = planet_ck103.title  # 事件标题
-    desc = planet_ck103.desc  # 事件描述
-    picture = GFX_evt_big_landing_ship  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    fire_only_once = yes
-    trigger = {
-        is_ai = no
-    }
-    option = {
-        name = planet_ck103.1  # 选项名称
-        set_global_flag = no_play_open_planet_pop
-        trigger = {
-        }
-    }
-    option = {
-        name = planet_ck103.2  # 选项名称
-        set_global_flag = play_open_planet_pop
-    }
+	id = planet_ck.103	# 事件ID
+	title = planet_ck103.title	# 事件标题
+	desc = planet_ck103.desc	# 事件描述
+	picture = GFX_evt_big_landing_ship	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	fire_only_once = yes
+	trigger = {
+		is_ai = no
+	}
+	option = {
+		name = planet_ck103.1		# 选项名称
+		set_global_flag = no_play_open_planet_pop
+		trigger = {
+		}
+	}
+	option = {
+		name = planet_ck103.2		# 选项名称
+		set_global_flag = play_open_planet_pop
+	}
 }
 
 country_event = {
-    id = planet_ck.104  # 事件ID
-    title = planet_ck104.title  # 事件标题
-    desc = planet_ck104.desc  # 事件描述
-    picture = GFX_evt_big_landing_ship  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    fire_only_once = yes
-    trigger = {
-        is_ai = no
-    }
-    immediate = {
-    }
-    option = {
-        name = planet_ck104.2  # 选项名称
-        # set_global_flag = no_wgz
-    }
-    option = {
-        name = planet_ck104.1  # 选项名称
-        set_timed_global_flag = { flag = yes_wgz years = 40 }
-        # every_country = {
-        #     limit = {
-        #         has_origin = origin_hegemon_npc
-        #     }
-        #     destroy_country = yes
-        # }
-    }
+	id = planet_ck.104	# 事件ID
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		is_ai = no
+	}
+	immediate = {
+		set_timed_global_flag = {
+			flag = yes_wgz
+			years = 40
+		}
+	}
 }
+
 #废弃
 country_event = {
-    id = planet_ck.105  # 事件ID
-    title = planet_ck105.title  # 事件标题
-    desc = planet_ck105.desc  # 事件描述
-    picture = GFX_evt_big_landing_ship  # 事件图片
-    show_sound = event_space_cloud  # 事件音效
-    is_triggered_only = yes  # 仅在触发条件满足时触发
-    # fire_only_once = yes
-    trigger = {
-        is_ai = no
-    }
-    option = {
-        name = planet_ck105.1  # 选项名称
-        event_target:war_2 = {
-            set_subject_of = {
-                who = event_target:war_1
-                preset = preset_tributary
-            }
-        }
-    }
-    option = {
-        name = planet_ck105.2  # 选项名称
-        event_target:war_2 = {
-            # kill_all_pop = yes
-            destroy_country = yes
-        }
-    }
+	id = planet_ck.105	# 事件ID
+	title = planet_ck105.title	# 事件标题
+	desc = planet_ck105.desc	# 事件描述
+	picture = GFX_evt_big_landing_ship	# 事件图片
+	show_sound = event_space_cloud	# 事件音效
+	is_triggered_only = yes	# 仅在触发条件满足时触发
+	# fire_only_once = yes
+	trigger = {
+		is_ai = no
+	}
+	option = {
+		name = planet_ck105.1		# 选项名称
+		event_target:war_2 = {
+			set_subject_of = {
+				who = event_target:war_1
+				preset = preset_tributary
+			}
+		}
+	}
+	option = {
+		name = planet_ck105.2		# 选项名称
+		event_target:war_2 = {
+			# kill_all_pop = yes
+			destroy_country = yes
+		}
+	}
 }
