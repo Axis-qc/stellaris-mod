@@ -3,23 +3,29 @@
 
 br_arkship_spinal_devastator_mount = {
 	icon = "GFX_arkship_spinal_devastator_mount"
-	section = "ARKSHIP_SPINAL_DEVASTATOR"
+	section = "BR_ARKSHIP_SPINAL_DEVASTATOR"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_tier_3
-			has_technology = tech_military_arkship
+			OR = {
+				has_technology = tech_arkship_tier_3
+				has_technology = tech_br_arkship_tier_3
+			}
+			OR = {
+				has_technology = tech_military_arkship
+				has_technology = tech_br_military_arkship
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_tier_3"
+	show_in_tech = "tech_br_arkship_tier_3"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
@@ -49,22 +55,25 @@ br_arkship_spinal_devastator_mount = {
 
 br_arkship_capital_shipyard = {
 	icon = "GFX_arkship_capital_shipyard"
-	section = "ARKSHIP_SPINAL_SHIPYARD"
+	section = "BR_ARKSHIP_SPINAL_SHIPYARD"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_tier_3
+			OR = {
+				has_technology = tech_arkship_tier_3
+				has_technology = tech_br_arkship_tier_3
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_tier_3"
+	show_in_tech = "tech_br_arkship_tier_3"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
@@ -110,22 +119,25 @@ br_arkship_capital_shipyard = {
 
 br_arkship_planetary_refinery = {
 	icon = "GFX_arkship_planetary_refinery"
-	section = "ARKSHIP_SPINAL_REFINERY"
+	section = "BR_ARKSHIP_SPINAL_REFINERY"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_planetary_refinery
+			OR = {
+				has_technology = tech_arkship_planetary_refinery
+				has_technology = tech_br_arkship_planetary_refinery
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_planetary_refinery"
+	show_in_tech = "tech_br_arkship_planetary_refinery"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
@@ -158,22 +170,25 @@ br_arkship_planetary_refinery = {
 
 br_arkship_stellar_igniter = {
 	icon = "GFX_arkship_stellar_igniter"
-	section = "ARKSHIP_SPINAL_SCIENCE"
+	section = "BR_ARKSHIP_SPINAL_SCIENCE"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_stellar_igniter
+			OR = {
+				has_technology = tech_arkship_stellar_igniter
+				has_technology = tech_br_arkship_stellar_igniter
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_stellar_igniter"
+	show_in_tech = "tech_br_arkship_stellar_igniter"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
@@ -201,22 +216,25 @@ br_arkship_stellar_igniter = {
 
 br_arkship_system_scanner = {
 	icon = "GFX_arkship_system_scanner"
-	section = "ARKSHIP_SPINAL_SENSORS"
+	section = "BR_ARKSHIP_SPINAL_SENSORS"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_system_scanner
+			OR = {
+				has_technology = tech_arkship_system_scanner
+				has_technology = tech_br_arkship_system_scanner
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_system_scanner"
+	show_in_tech = "tech_br_arkship_system_scanner"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
@@ -260,22 +278,25 @@ br_arkship_system_scanner = {
 
 br_arkship_exodus_jump = {
 	icon = "GFX_arkship_exodus_jump"
-	section = "ARKSHIP_SPINAL_CATAPULT"
+	section = "BR_ARKSHIP_SPINAL_CATAPULT"
 	construction_days = @arkship_spinal_mount_build_time
 	starbase_type = arkship
 	category = sm_spinal_cat
 
 	potential = {
 		owner? = {
-			has_technology = tech_arkship_exodus_jump
+			OR = {
+				has_technology = tech_arkship_exodus_jump
+				has_technology = tech_br_arkship_exodus_jump
+			}
 		}
 		is_br_civilian_arkship = yes
 	}
 
-	show_in_tech = "tech_arkship_exodus_jump"
+	show_in_tech = "tech_br_arkship_exodus_jump"
 
 	show_tech_unlock_if = {
-		is_nomadic = yes
+		is_nomadic = no
 	}
 
 	fits_on_slots = { spinal_mount_1 }
