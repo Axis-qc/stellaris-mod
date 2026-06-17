@@ -2,6 +2,7 @@ play_wx_add = {
     # owned_planets_only = yes
     icon = play_wx_decision_mastery_of_nature
     enactment_time = 720
+    important = yes
     resources = {
         category = decisions
         cost = {
@@ -11,7 +12,7 @@ play_wx_add = {
     }
 
     potential = {
-        # is_artificial = no #不是人工星球
+        carrier_is_type = planet  # 仅限普通星球
         or = {
             has_modifier = mastery_of_nature
             has_modifier = cultivated_worldscaping_modifier
@@ -25,6 +26,47 @@ play_wx_add = {
             is_planet_class = pc_shattered_ring_habitable
             is_planet_class = pc_habitat
         }
+        owner = {
+            has_ascension_perk = ap_mastery_of_nature
+        }
+    }
+
+    effect = {
+        change_variable = { which = planet_qh_add_value value = 2 }
+        add_modifier = {
+            modifier = planet_qh_add
+            mult = planet_qh_add_value
+            # multiplier =
+            # time_multiplier =
+            # clear_on_owner_change = yes
+            days = -1
+        }
+    }
+    ai_weight = {
+        weight = 0
+        modifier = {
+            factor = 0
+            free_district_slots > 0
+            pop_amount < 5000 #carrying capacity bonus always good at that stage
+        }
+    }
+}
+
+play_wx_add_arkship = {
+    # owned_planets_only = yes
+    icon = play_wx_decision_mastery_of_nature
+    enactment_time = 720
+    important = yes
+    resources = {
+        category = decisions
+        cost = {
+            alloys = 1000
+            minerals = 2000
+        }
+    }
+
+    potential = {
+        carrier_is_type = ship  # 仅限方舟舰/舰船殖民地
         owner = {
             has_ascension_perk = ap_mastery_of_nature
         }
