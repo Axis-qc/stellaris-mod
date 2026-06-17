@@ -1,9 +1,9 @@
-# 方舟系统专用科技（普通帝国版）
+# 星舰系统专用科技（普通帝国版）
 # 游牧国家通过 is_nomadic = no 排除，使用原版 nomads_dlc 科技。
 # 这些科技为正常权重，研究池中正常刷新。
 
 # ========================
-# 方舟建造科技链
+# 星舰建造科技链
 # ========================
 
 tech_br_arkship_construction = {
@@ -45,6 +45,7 @@ tech_br_arkship_tier_2 = {
 	prerequisites = {
 		"tech_br_arkship_construction"
 		"tech_battleships"
+		"tech_mega_engineering"
 	}
 	weight = @tier4weight1
 	is_rare = yes
@@ -55,6 +56,10 @@ tech_br_arkship_tier_2 = {
 		modifier = {
 			factor = 5
 			has_technology = tech_br_arkship_construction
+		}
+		modifier = {
+			factor = 5
+			has_technology = tech_mega_engineering
 		}
 	}
 	prereqfor_desc = {
@@ -103,7 +108,7 @@ tech_br_arkship_tier_3 = {
 }
 
 # ========================
-# 特殊方舟类型
+# 特殊星舰类型
 # ========================
 
 tech_br_civilian_arkship = {
@@ -206,7 +211,7 @@ tech_br_military_arkship = {
 }
 
 # ========================
-# 方舟脊炮模块
+# 星舰脊炮模块
 # ========================
 
 tech_br_arkship_planetary_refinery = {

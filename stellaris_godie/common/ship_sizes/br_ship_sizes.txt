@@ -1,3 +1,53 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# TODO: 方舟舰禁用/恢复机制
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# 【问题】
+# 所有 br_ 方舟舰都有 can_disable = yes + stay_disabled = yes，
+# 但原版恢复事件（arkship.1020/1021/1022/1027）只认原版舰船名（is_arkship_ship 硬编码列表），
+# 不会触发 mod 舰船的恢复，导致 br 方舟舰被击毁后永远卡在禁用状态。
+# 另外，mod 的 on_actions 中没有注册 on_ship_disabled，即使加了事件也不会被触发。
+#
+# 【需要实现的事件】
+# 1. on_ship_disabled → 禁用通知 + 按攻击者类型分流（参考 arkship.1020）
+#    - 太空生物/利维坦 → 设 flag + 5天后自动恢复（参考 arkship.1021）
+#    - 普通帝国 → 设 flag + 控制权转移（参考 arkship.1020 else 分支）
+# 2. on_yearly_pulse_country 兜底 → 恢复所有非标记禁用的 br 方舟舰（参考 arkship.1022）
+# 3. on_starbase_disabled → 特殊项目恢复（参考 arkship.1027，可选）
+#
+# 【涉及文件】
+# 新建/修改:
+#   events/br_arkship_events.txt               # 新事件链
+#   common/on_actions/br_arkship_on_actions.txt # 注册 on_ship_disabled / on_starbase_disabled
+#   common/scripted_triggers/br_arkship_triggers.txt  # br_is_arkship_ship 触发器
+#   common/special_projects/br_arkship_special_projects.txt  # 恢复特殊项目（可选）
+#
+# 【可参考原版文件】
+#   G:\...\events\nomads_arkship_events.txt
+#     - arkship.1010  玩家方舟舰被摧毁通知
+#     - arkship.1020  on_ship_disabled 核心分流逻辑
+#     - arkship.1021  太空生物禁用后自动恢复（set_disabled = no + 传送）
+#     - arkship.1022  年度脉冲兜底恢复
+#     - arkship.1027  on_starbase_disabled 发起恢复特殊项目
+#     - arkship.1026  特殊项目完成后恢复（set_disabled = no + set_owner + set_controller）
+#   G:\...\common\on_actions\00_on_actions.txt
+#     - on_ship_disabled       (line 2018)  引擎级触发
+#     - on_starbase_disabled   (line 1512)  星基禁用触发
+#     - on_yearly_pulse_country (line 425)  年度脉冲
+#   G:\...\common\scripted_triggers\09_scripted_triggers_nomads.txt
+#     - is_arkship_ship        (line 147)   硬编码舰船名列表
+#     - is_arkship_fleet       (line 137)   舰队内全为方舟舰
+#
+# 【可用事件 ID】
+#   namespace = br       已用到 br.6135，可用 br.6136+
+#   namespace = heroship 已用到 heroship.1335，可用 heroship.1336+
+#
+# 【建议实现方式】（推荐 B）
+# A. 修改原版 is_arkship_ship，加入 br_ 舰船名 → 侵入性强，兼容性差
+# B. 自建 br_is_arkship_ship 触发器 + 独立事件链 → 推荐，与原版完全隔离
+# C. 在 on_ship_disabled 中直接 OR 列表匹配 → 可行但不够模块化
+# ═══════════════════════════════════════════════════════════════════════════════
+
 br_dominator = {
     # 方舟舰基础配置
     is_starting_arkship = yes

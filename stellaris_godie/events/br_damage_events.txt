@@ -349,6 +349,12 @@ country_event = {
     id = br.1010
     hide_window = yes
     is_triggered_only = yes
+    trigger = {
+        OR = {
+            has_global_flag = br_mode_pve
+            has_global_flag = br_mode_pvp
+        }
+    }
     immediate = {
         every_system = {
             limit = {

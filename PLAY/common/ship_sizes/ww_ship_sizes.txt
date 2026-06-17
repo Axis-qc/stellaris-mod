@@ -69,41 +69,7 @@ ww_ship_sizes = {
 
     # 实际建造条件（显示自定义提示）
     possible_construction = {
-        # has_country_flag = need_ww_ship
-        # 条件1：巨型船坞或堡垒级星基地
-        custom_tooltip = {
-            fail_text = starbase_citadel_trigger
-            OR = {
-                AND = {
-                    is_scope_type = megastructure
-                    OR = {
-                        is_megastructure_type = mega_shipyard_3
-                        is_megastructure_type = mega_shipyard_restored
-                    }
-                }
-                AND = {
-                    is_scope_type = starbase
-                    has_starbase_size >= starbase_citadel  # 至少是堡垒级
-                }
-            }
-        }
-        # 条件2：巨型船坞或拥有"巨像船坞"建筑的星基地
-        custom_tooltip = {
-            fail_text = starbase_titan_yards_trigger
-            OR = {
-                AND = {
-                    is_scope_type = megastructure
-                    OR = {
-                        is_megastructure_type = mega_shipyard_3
-                        is_megastructure_type = mega_shipyard_restored
-                    }
-                }
-                AND = {
-                    is_scope_type = starbase
-                    has_starbase_building = titan_yards  # 需要特殊建筑
-                }
-            }
-        }
+        titan_possible_construction = yes
     }
 
     class = shipclass_military
