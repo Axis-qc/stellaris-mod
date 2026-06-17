@@ -1,8 +1,19 @@
+# ============================================================
+# 方舟舰脚本动作定义文件
+# 包含方舟舰(Arkship)、后勤舰(Logistic Ship)的所有舰队指令
+# 涵盖：勘探、扫描、采集、采矿、建造、定居、跳跃等功能
+# ============================================================
+
+# ----------------------------
+# 方舟舰建造巨型建筑
+# 作用域: 舰队→自身
+# 功能: 模供建造舰的建造巨型建筑命令
+# ----------------------------
 br_arkship_build_megastructure = {
 	user_scope = fleet
 	scope = self
 
-	# This behaves as the Build Megastructure order from Construction Ships.
+	# 行为模式: 复供建造舰的建造巨型建筑命令
 	specific_behavior = scripted_build_megastructure_order
 
 	slot = 0
@@ -16,11 +27,17 @@ br_arkship_build_megastructure = {
 	}
 }
 
+# ----------------------------
+# 方舟舰勘探
+# 作用域: 舰队→星球
+# 功能: 复侧行政舰的勘探命令,需要领袖在舰上
+# 自动化: 优先级1,默认开启
+# ----------------------------
 br_arkship_survey = {
 	user_scope = fleet
 	scope = planet
 
-	# This behaves as the Survey order from Science Ships
+	# 行为模式: 复侧行政舰的勘探命令
 	specific_behavior = scripted_survey_order
 
 	automation_priority = 1
@@ -38,8 +55,8 @@ br_arkship_survey = {
 
 	possible = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = from.leader
 		}
 		is_surveyed = {
@@ -57,8 +74,8 @@ br_arkship_survey = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = leader
 		}
 	}
@@ -81,42 +98,62 @@ br_arkship_survey = {
 	context_menu_name = br_arkship_survey
 }
 
+# ----------------------------
+# 方舟舰深度扫描
+# 作用域: 舰队→星球
+# 功能: 对星球进行深度扫描,发现隐藏资源和异常
+# 前置条件: 需要领袖、传感器阵列/系统扫描仪(或T2+方舟舰)
+# 排除: 已有异常、宜居世界(需自然博物学家特质)、人造/环形世界
+# 自动化: 优先级3
+# ----------------------------
 br_arkship_deep_scan = {
 	user_scope = fleet
 	scope = planet
 
 	automation_priority = 3
 	on_completed = on_br_arkship_deep_scan
-	tooltip = br_arkship_deep_scan_ship_button
+	tooltip = arkship_deep_scan_ship_button
 	icon = GFX_fleet_action_button_arkship_deep_scan
 	icon_selected = GFX_fleet_action_button_arkship_deep_scan
 
 	possible = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = from.leader
 		}
 		if = {
 			limit = {
-				from = { is_science_arkship = yes }
+				from = {
+					OR = {
+						has_starbase_size = br_science_arkship_tier_1
+						has_starbase_size = br_science_arkship_tier_2
+						has_starbase_size = br_science_arkship_tier_3
+					}
+				}
 			}
 			OR = {
 				custom_tooltip = {
-					fail_text = is_tier_2_or_3_br_arkship_fail_tt
-					success_text = is_tier_2_or_3_br_arkship_pass_tt
-					from = { is_arkship_tier_1 = no }
+					fail_text = is_tier_2_or_3_arkship_fail_tt
+					success_text = is_tier_2_or_3_arkship_pass_tt
+					from = {
+						NOR = {
+							has_starbase_size = br_civilian_arkship_tier_1
+							has_starbase_size = br_science_arkship_tier_1
+							has_starbase_size = br_military_arkship_tier_1
+						}
+					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_sensor_array_fail_tt
-					success_text = has_br_arkship_sensor_array_pass_tt
+					fail_text = has_arkship_sensor_array_fail_tt
+					success_text = has_arkship_sensor_array_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_sensor_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_system_scanner_fail_tt
-					success_text = has_br_arkship_system_scanner_pass_tt
+					fail_text = has_arkship_system_scanner_fail_tt
+					success_text = has_arkship_system_scanner_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_system_scanner
 					}
@@ -126,15 +163,15 @@ br_arkship_deep_scan = {
 		else = {
 			OR = {
 				custom_tooltip = {
-					fail_text = has_br_arkship_sensor_array_fail_tt
-					success_text = has_br_arkship_sensor_array_pass_tt
+					fail_text = has_arkship_sensor_array_fail_tt
+					success_text = has_arkship_sensor_array_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_sensor_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_system_scanner_fail_tt
-					success_text = has_br_arkship_system_scanner_pass_tt
+					fail_text = has_arkship_system_scanner_fail_tt
+					success_text = has_arkship_system_scanner_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_system_scanner
 					}
@@ -147,22 +184,22 @@ br_arkship_deep_scan = {
 				habitable_planet = yes
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_habitable_world_fail_tt
+				fail_text = arkship_target_habitable_world_fail_tt
 				from.leader? = {
 					has_leader_flag = nomadic_naturalist
 				}
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_target_artificial_world_fail_tt
+			fail_text = arkship_target_artificial_world_fail_tt
 			is_artificial = no
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_target_ring_world_fail_tt
+			fail_text = arkship_target_ring_world_fail_tt
 			is_ringworld = no
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_target_astral_scar_fail_tt
+			fail_text = arkship_target_astral_scar_fail_tt
 			NOT = {
 				is_planet_class = pc_astral_scar
 			}
@@ -175,30 +212,38 @@ br_arkship_deep_scan = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = leader
 		}
 		if = {
 			limit = {
-				is_science_arkship = yes
+				OR = {
+					has_starbase_size = br_science_arkship_tier_1
+					has_starbase_size = br_science_arkship_tier_2
+					has_starbase_size = br_science_arkship_tier_3
+				}
 			}
 			OR = {
 				custom_tooltip = {
-					fail_text = is_tier_2_or_3_br_arkship_fail_tt
-					success_text = is_tier_2_or_3_br_arkship_pass_tt
-					is_arkship_tier_1 = no
+					fail_text = is_tier_2_or_3_arkship_fail_tt
+					success_text = is_tier_2_or_3_arkship_pass_tt
+					NOR = {
+						has_starbase_size = br_civilian_arkship_tier_1
+						has_starbase_size = br_science_arkship_tier_1
+						has_starbase_size = br_military_arkship_tier_1
+					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_sensor_array_fail_tt
-					success_text = has_br_arkship_sensor_array_pass_tt
+					fail_text = has_arkship_sensor_array_fail_tt
+					success_text = has_arkship_sensor_array_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_sensor_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_system_scanner_fail_tt
-					success_text = has_br_arkship_system_scanner_pass_tt
+					fail_text = has_arkship_system_scanner_fail_tt
+					success_text = has_arkship_system_scanner_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_system_scanner
 					}
@@ -208,15 +253,15 @@ br_arkship_deep_scan = {
 		else = {
 			OR = {
 				custom_tooltip = {
-					fail_text = has_br_arkship_sensor_array_fail_tt
-					success_text = has_br_arkship_sensor_array_pass_tt
+					fail_text = has_arkship_sensor_array_fail_tt
+					success_text = has_arkship_sensor_array_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_sensor_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_system_scanner_fail_tt
-					success_text = has_br_arkship_system_scanner_pass_tt
+					fail_text = has_arkship_system_scanner_fail_tt
+					success_text = has_arkship_system_scanner_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_system_scanner
 					}
@@ -225,17 +270,17 @@ br_arkship_deep_scan = {
 		}
 	}
 
-	activity_key = br_arkship_deep_scan_activity_key
-	context_menu_name = br_arkship_deep_scan
-	required_progress = value:br_arkship_deep_scan_required_progress_value
-	required_progress_key = br_arkship_deep_scan_required_progress_key
-	progress_activity_key = br_arkship_deep_scan_progress_activity_key
-	cooldown = @br_arkship_deep_scan_cooldown
+	activity_key = arkship_deep_scan_activity_key
+	context_menu_name = arkship_deep_scan
+	required_progress = value:arkship_deep_scan_required_progress_value
+	required_progress_key = arkship_deep_scan_required_progress_key
+	progress_activity_key = arkship_deep_scan_progress_activity_key
+	cooldown = @arkship_deep_scan_cooldown
 
 	uses_vfx_type = survey_effect
 
 	cost = {
-		energy = @br_arkship_deep_scan_cost
+		energy = @arkship_deep_scan_cost
 	}
 	slot = 2
 
@@ -249,7 +294,7 @@ br_arkship_deep_scan = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = energy
-						value < @br_arkship_deep_scan_cost
+						value < @arkship_deep_scan_cost
 						mult = 1.5
 					}
 				}
@@ -284,14 +329,21 @@ br_arkship_deep_scan = {
 	}
 }
 
+# ----------------------------
+# 方舟舰采集资源
+# 作用域: 舰队→星球
+# 功能: 从未被开采的星球上采集资源
+# 排除: 已被开采、有异常的已勘探星球
+# 自动化: 优先级2,默认开启
+# ----------------------------
 br_arkship_harvest_resources = {
 	user_scope = fleet
 	scope = planet
 
 	automation_priority = 2
 	automation_default_on = yes
-	on_completed = on_harvest_resources
-	tooltip = br_arkship_harvest_resources_ship_button
+	on_completed = on_br_harvest_resources
+	tooltip = arkship_harvest_resources_ship_button
 	icon = GFX_fleet_action_button_arkship_harvest_resources
 	icon_selected = GFX_fleet_action_button_arkship_harvest_resources
 
@@ -308,7 +360,7 @@ br_arkship_harvest_resources = {
 				has_anomaly = yes
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_has_anomaly_fail_tt
+				fail_text = arkship_target_has_anomaly_fail_tt
 				always = no
 			}
 		}
@@ -323,11 +375,11 @@ br_arkship_harvest_resources = {
 		always = yes
 	}
 
-	activity_key = br_arkship_harvest_resources_activity_key
-	context_menu_name = br_arkship_harvest_resources
-	required_progress = value:br_arkship_harvest_resources_required_progress_value
-	progress_activity_key = br_arkship_harvest_resources_progress_activity_key
-	required_progress_key = br_arkship_harvest_resources_required_progress_key
+	activity_key = arkship_harvest_resources_activity_key
+	context_menu_name = arkship_harvest_resources
+	required_progress = value:arkship_harvest_resources_required_progress_value
+	progress_activity_key = arkship_harvest_resources_progress_activity_key
+	required_progress_key = arkship_harvest_resources_required_progress_key
 	cooldown = @harvest_resources_cooldown
 	category = harvest_resources
 	category_limit = 1
@@ -386,37 +438,50 @@ br_arkship_harvest_resources = {
 	}
 }
 
+# ----------------------------
+# 方舟舰露天采矿
+# 作用域: 舰队→星球
+# 功能: 对已勘探的星球进行大规模开采,需采矿阵列或行星精炼厂
+# 与普通采集共享分类(harvest_resources),限制同时执行1个
+# 自动化: 优先级4
+# ----------------------------
 br_arkship_strip_mine = {
 	user_scope = fleet
 	scope = planet
 
 	automation_priority = 4
 	on_completed = on_br_arkship_strip_mine
-	tooltip = br_arkship_strip_mine_ship_button
+	tooltip = arkship_strip_mine_ship_button
 	icon = GFX_fleet_action_button_arkship_strip_mine
 	icon_selected = GFX_fleet_action_button_arkship_strip_mine
 
 	possible = {
 		if = {
 			limit = {
-				from = { is_civilian_arkship = yes }
+				from = { is_br_civilian_arkship = yes }
 			}
 			OR = {
 				custom_tooltip = {
-					fail_text = is_tier_2_or_3_br_arkship_fail_tt
-					success_text = is_tier_2_or_3_br_arkship_pass_tt
-					from = { is_arkship_tier_1 = no }
+					fail_text = is_tier_2_or_3_arkship_fail_tt
+					success_text = is_tier_2_or_3_arkship_pass_tt
+					from = {
+						NOR = {
+							has_starbase_size = br_civilian_arkship_tier_1
+							has_starbase_size = br_science_arkship_tier_1
+							has_starbase_size = br_military_arkship_tier_1
+						}
+					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_mining_array_fail_tt
-					success_text = has_br_arkship_mining_array_pass_tt
+					fail_text = has_arkship_mining_array_fail_tt
+					success_text = has_arkship_mining_array_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_mining_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_planetary_refinery_fail_tt
-					success_text = has_br_arkship_planetary_refinery_pass_tt
+					fail_text = has_arkship_planetary_refinery_fail_tt
+					success_text = has_arkship_planetary_refinery_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_planetary_refinery
 					}
@@ -426,15 +491,15 @@ br_arkship_strip_mine = {
 		else = {
 			OR = {
 				custom_tooltip = {
-					fail_text = has_br_arkship_mining_array_fail_tt
-					success_text = has_br_arkship_mining_array_pass_tt
+					fail_text = has_arkship_mining_array_fail_tt
+					success_text = has_arkship_mining_array_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_mining_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_planetary_refinery_fail_tt
-					success_text = has_br_arkship_planetary_refinery_pass_tt
+					fail_text = has_arkship_planetary_refinery_fail_tt
+					success_text = has_arkship_planetary_refinery_pass_tt
 					from.starbase? = {
 						has_starbase_module = br_arkship_planetary_refinery
 					}
@@ -449,7 +514,7 @@ br_arkship_strip_mine = {
 				}
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_not_surveyed_fail_tt
+				fail_text = arkship_target_not_surveyed_fail_tt
 				always = no
 			}
 		}
@@ -462,7 +527,7 @@ br_arkship_strip_mine = {
 					has_anomaly = yes
 				}
 				custom_tooltip = {
-					fail_text = br_arkship_target_has_anomaly_fail_tt
+					fail_text = arkship_target_has_anomaly_fail_tt
 					always = no
 				}
 			}
@@ -477,24 +542,28 @@ br_arkship_strip_mine = {
 	button_clickable = {
 		if = {
 			limit = {
-				is_civilian_arkship = yes
+				is_br_civilian_arkship = yes
 			}
 			OR = {
 				custom_tooltip = {
-					fail_text = is_tier_2_or_3_br_arkship_fail_tt
-					success_text = is_tier_2_or_3_br_arkship_pass_tt
-					is_arkship_tier_1 = no
+					fail_text = is_tier_2_or_3_arkship_fail_tt
+					success_text = is_tier_2_or_3_arkship_pass_tt
+					NOR = {
+						has_starbase_size = br_civilian_arkship_tier_1
+						has_starbase_size = br_science_arkship_tier_1
+						has_starbase_size = br_military_arkship_tier_1
+					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_mining_array_fail_tt
-					success_text = has_br_arkship_mining_array_pass_tt
+					fail_text = has_arkship_mining_array_fail_tt
+					success_text = has_arkship_mining_array_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_mining_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_planetary_refinery_fail_tt
-					success_text = has_br_arkship_planetary_refinery_pass_tt
+					fail_text = has_arkship_planetary_refinery_fail_tt
+					success_text = has_arkship_planetary_refinery_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_planetary_refinery
 					}
@@ -504,15 +573,15 @@ br_arkship_strip_mine = {
 		else = {
 			OR = {
 				custom_tooltip = {
-					fail_text = has_br_arkship_mining_array_fail_tt
-					success_text = has_br_arkship_mining_array_pass_tt
+					fail_text = has_arkship_mining_array_fail_tt
+					success_text = has_arkship_mining_array_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_mining_array
 					}
 				}
 				custom_tooltip = {
-					fail_text = has_br_arkship_planetary_refinery_fail_tt
-					success_text = has_br_arkship_planetary_refinery_pass_tt
+					fail_text = has_arkship_planetary_refinery_fail_tt
+					success_text = has_arkship_planetary_refinery_pass_tt
 					starbase? = {
 						has_starbase_module = br_arkship_planetary_refinery
 					}
@@ -521,19 +590,19 @@ br_arkship_strip_mine = {
 		}
 	}
 
-	activity_key = br_arkship_strip_mine_activity_key
-	context_menu_name = br_arkship_strip_mine
-	required_progress = value:br_arkship_strip_mine_required_progress_value
-	progress_activity_key = br_arkship_strip_mine_progress_activity_key
-	required_progress_key = br_arkship_strip_mine_required_progress_key
-	cooldown = @br_arkship_strip_mine_cooldown
+	activity_key = arkship_strip_mine_activity_key
+	context_menu_name = arkship_strip_mine
+	required_progress = value:arkship_strip_mine_required_progress_value
+	progress_activity_key = arkship_strip_mine_progress_activity_key
+	required_progress_key = arkship_strip_mine_required_progress_key
+	cooldown = @arkship_strip_mine_cooldown
 	category = harvest_resources
 	category_limit = 1
 
 	uses_vfx_type = harvest_effect
 
 	cost = {
-		energy = @br_arkship_strip_mine_cost
+		energy = @arkship_strip_mine_cost
 	}
 	slot = 4
 	overrides_gained_resources = yes
@@ -550,7 +619,7 @@ br_arkship_strip_mine = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = energy
-						value < @br_arkship_strip_mine_cost
+						value < @arkship_strip_mine_cost
 						mult = 1.5
 					}
 				}
@@ -567,15 +636,21 @@ br_arkship_strip_mine = {
 	}
 }
 
+# ----------------------------
+# 方舟舰清空脊柱槽位
+# 作用域: 舰队→星系
+# 功能: 移除脊柱上的模块(当脊柱无模块时显示按钮)
+# 这是一个占位/清理动作,不可由玩家主动点击
+# ----------------------------
 br_arkship_empty_spine = {
 	user_scope = fleet
 	scope = galactic_object
 
 	on_completed = on_br_arkship_empty_spine
-	tooltip = br_arkship_empty_spine_button
-	icon = GFX_fleet_action_button_br_arkship_empty_spine
-	icon_selected = GFX_fleet_action_button_br_arkship_empty_spine
-	context_menu_name = br_arkship_empty_spine
+	tooltip = arkship_empty_spine_button
+	icon = GFX_fleet_action_button_arkship_empty_spine
+	icon_selected = GFX_fleet_action_button_arkship_empty_spine
+	context_menu_name = arkship_empty_spine
 
 	possible = {
 		always = yes
@@ -587,7 +662,7 @@ br_arkship_empty_spine = {
 
 	button_visible = {
 		custom_tooltip = {
-			fail_text = br_arkship_empty_spine_tt
+			fail_text = arkship_empty_spine_tt
 			starbase? = {
 				NOR = {
 					has_starbase_module = br_arkship_spinal_devastator_mount
@@ -603,7 +678,7 @@ br_arkship_empty_spine = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = br_arkship_empty_spine_tt
+			fail_text = arkship_empty_spine_tt
 			always = no
 		}
 	}
@@ -611,24 +686,30 @@ br_arkship_empty_spine = {
 	slot = 5
 }
 
+# ----------------------------
+# 方舟舰亚空间成像
+# 作用域: 舰队→星系
+# 功能: 使用系统扫描仪对星系进行亚空间成像,每个星系仅可执行一次
+# 前置条件: 需要领袖、系统扫描仪模块
+# ----------------------------
 br_arkship_subspace_image = {
 	user_scope = fleet
 	scope = galactic_object
 
 	on_completed = on_br_arkship_subspace_image
-	tooltip = br_arkship_subspace_image_ship_button
+	tooltip = arkship_subspace_image_ship_button
 	icon = GFX_fleet_action_button_arkship_subspace_image
 	icon_selected = GFX_fleet_action_button_arkship_subspace_image
 
 	possible = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = from.leader
 		}
 		custom_tooltip = {
-			fail_text = has_br_arkship_system_scanner_fail_tt
-			success_text = has_br_arkship_system_scanner_pass_tt
+			fail_text = has_arkship_system_scanner_fail_tt
+			success_text = has_arkship_system_scanner_pass_tt
 			from.starbase? = {
 				has_starbase_module = br_arkship_system_scanner
 			}
@@ -644,8 +725,8 @@ br_arkship_subspace_image = {
 
 	button_visible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_system_scanner_fail_tt
-			success_text = has_br_arkship_system_scanner_pass_tt
+			fail_text = has_arkship_system_scanner_fail_tt
+			success_text = has_arkship_system_scanner_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_system_scanner
 			}
@@ -654,32 +735,32 @@ br_arkship_subspace_image = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = br_arkship_has_leader_tt_fail
-			success_text = br_arkship_has_leader_tt_success
+			fail_text = arkship_has_leader_tt_fail
+			success_text = arkship_has_leader_tt_success
 			exists = leader
 		}
 		custom_tooltip = {
-			fail_text = has_br_arkship_system_scanner_fail_tt
-			success_text = has_br_arkship_system_scanner_pass_tt
+			fail_text = has_arkship_system_scanner_fail_tt
+			success_text = has_arkship_system_scanner_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_system_scanner
 			}
 		}
 	}
 
-	activity_key = br_arkship_subspace_image_activity_key
-	context_menu_name = br_arkship_subspace_image
-	required_progress = value:br_arkship_subspace_image_required_progress_value
-	progress_activity_key = br_arkship_subspace_image_progress_activity_key
-	required_progress_key = br_arkship_subspace_image_required_progress_key
-	cooldown = @br_arkship_subspace_image_cooldown
+	activity_key = arkship_subspace_image_activity_key
+	context_menu_name = arkship_subspace_image
+	required_progress = value:arkship_subspace_image_required_progress_value
+	progress_activity_key = arkship_subspace_image_progress_activity_key
+	required_progress_key = arkship_subspace_image_required_progress_key
+	cooldown = @arkship_subspace_image_cooldown
 	category = subspace_image
 	category_limit = 1
 
 	uses_vfx_type = survey_effect
 
 	cost = {
-		energy = @br_arkship_subspace_image_cost
+		energy = @arkship_subspace_image_cost
 	}
 
 	slot = 5
@@ -694,7 +775,7 @@ br_arkship_subspace_image = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = energy
-						value < @br_arkship_subspace_image_cost
+						value < @arkship_subspace_image_cost
 						mult = 1.5
 					}
 				}
@@ -720,19 +801,25 @@ br_arkship_subspace_image = {
 	}
 }
 
+# ----------------------------
+# 方舟舰行星再加工
+# 作用域: 舰队→星球
+# 功能: 使用行星精炼厂对已勘探的无人星球进行再加工
+# 与采集/采矿共享分类(harvest_resources),限制同时执行1个
+# ----------------------------
 br_arkship_reprocess_planet = {
 	user_scope = fleet
 	scope = planet
 
 	on_completed = on_br_arkship_reprocess_planet
-	tooltip = br_arkship_reprocess_planet_ship_button
+	tooltip = arkship_reprocess_planet_ship_button
 	icon = GFX_fleet_action_button_arkship_reprocess_planet
 	icon_selected = GFX_fleet_action_button_arkship_reprocess_planet
 
 	possible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_planetary_refinery_fail_tt
-			success_text = has_br_arkship_planetary_refinery_pass_tt
+			fail_text = has_arkship_planetary_refinery_fail_tt
+			success_text = has_arkship_planetary_refinery_pass_tt
 			from.starbase? = {
 				has_starbase_module = br_arkship_planetary_refinery
 			}
@@ -745,7 +832,7 @@ br_arkship_reprocess_planet = {
 				}
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_not_surveyed_fail_tt
+				fail_text = arkship_target_not_surveyed_fail_tt
 				always = no
 			}
 		}
@@ -758,7 +845,7 @@ br_arkship_reprocess_planet = {
 					has_anomaly = yes
 				}
 				custom_tooltip = {
-					fail_text = br_arkship_target_has_anomaly_fail_tt
+					fail_text = arkship_target_has_anomaly_fail_tt
 					always = no
 				}
 			}
@@ -768,8 +855,8 @@ br_arkship_reprocess_planet = {
 
 	button_visible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_planetary_refinery_fail_tt
-			success_text = has_br_arkship_planetary_refinery_pass_tt
+			fail_text = has_arkship_planetary_refinery_fail_tt
+			success_text = has_arkship_planetary_refinery_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_planetary_refinery
 			}
@@ -778,27 +865,27 @@ br_arkship_reprocess_planet = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_planetary_refinery_fail_tt
-			success_text = has_br_arkship_planetary_refinery_pass_tt
+			fail_text = has_arkship_planetary_refinery_fail_tt
+			success_text = has_arkship_planetary_refinery_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_planetary_refinery
 			}
 		}
 	}
 
-	activity_key = br_arkship_reprocess_planet_activity_key
-	context_menu_name = br_arkship_reprocess_planet
-	required_progress = value:br_arkship_reprocess_planet_required_progress_value
-	progress_activity_key = br_arkship_reprocess_planet_progress_activity_key
-	required_progress_key = br_arkship_reprocess_planet_required_progress_key
-	cooldown = @br_arkship_reprocess_planet_cooldown
+	activity_key = arkship_reprocess_planet_activity_key
+	context_menu_name = arkship_reprocess_planet
+	required_progress = value:arkship_reprocess_planet_required_progress_value
+	progress_activity_key = arkship_reprocess_planet_progress_activity_key
+	required_progress_key = arkship_reprocess_planet_required_progress_key
+	cooldown = @arkship_reprocess_planet_cooldown
 	category = harvest_resources
 	category_limit = 1
 
 	uses_vfx_type = harvest_effect
 
 	cost = {
-		energy = @br_arkship_reprocess_planet_cost
+		energy = @arkship_reprocess_planet_cost
 	}
 
 	slot = 5
@@ -820,7 +907,7 @@ br_arkship_reprocess_planet = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = energy
-						value < @br_arkship_reprocess_planet_cost
+						value < @arkship_reprocess_planet_cost
 						mult = 1.5
 					}
 				}
@@ -837,19 +924,26 @@ br_arkship_reprocess_planet = {
 	}
 }
 
+# ----------------------------
+# 方舟舰恒星点燃
+# 作用域: 舰队→星球
+# 功能: 点燃气态巨行星或恒星,需恒星点燃器模块
+# 目标限制: 气态巨行星(且卫星上无前FTL文明殖民地)或恒星
+# 合同优先: 若星系内有恒星点燃合同目标,则只允许对该目标执行
+# ----------------------------
 br_arkship_stellar_ignition = {
 	user_scope = fleet
 	scope = planet
 
 	on_completed = on_br_arkship_stellar_ignition
-	tooltip = br_arkship_stellar_ignition_ship_button
+	tooltip = arkship_stellar_ignition_ship_button
 	icon = GFX_fleet_action_button_arkship_stellar_ignition
 	icon_selected = GFX_fleet_action_button_arkship_stellar_ignition
 
 	possible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_stellar_igniter_fail_tt
-			success_text = has_br_arkship_stellar_igniter_pass_tt
+			fail_text = has_arkship_stellar_igniter_fail_tt
+			success_text = has_arkship_stellar_igniter_pass_tt
 			from.starbase? = {
 				has_starbase_module = br_arkship_stellar_igniter
 			}
@@ -857,7 +951,7 @@ br_arkship_stellar_ignition = {
 		has_anomaly = no
 		# If you have a Stellar Ignition contract in this system, only allow that gas giant
 		custom_tooltip = {
-			fail_text = br_arkship_target_contract_target_fail_tt
+			fail_text = arkship_target_contract_target_fail_tt
 			OR = {
 				# Either there's no contract POI in this system...
 				NOT = {
@@ -887,7 +981,7 @@ br_arkship_stellar_ignition = {
 			}
 			# If a moon is a colony of a space-faring empire, we must be hostile to them.
 			custom_tooltip = {
-				fail_text = br_arkship_target_moon_is_colony_fail_tt
+				fail_text = arkship_target_moon_is_colony_fail_tt
 				count_moon = {
 					count = 0
 					limit = {
@@ -912,7 +1006,7 @@ br_arkship_stellar_ignition = {
 			# If a moon is home to a pre-FTL civilization
 			# it must either be in hostile or unowned space...
 			custom_tooltip = {
-				fail_text = br_arkship_target_moon_is_pre_ftl_colony_fail_tt
+				fail_text = arkship_target_moon_is_pre_ftl_colony_fail_tt
 				count_moon = {
 					count = 0
 					limit = {
@@ -936,7 +1030,7 @@ br_arkship_stellar_ignition = {
 			}
 			# And our pre-FTL policy must allow thier extermination
 			custom_tooltip = {
-				fail_text = br_arkship_target_pre_ftl_planet_interference_fail_tt
+				fail_text = arkship_target_pre_ftl_planet_interference_fail_tt
 				if = {
 					limit = {
 						from.owner = {
@@ -964,7 +1058,7 @@ br_arkship_stellar_ignition = {
 				has_modifier = stellar_ignition_mod
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_contract_target_fail_tt
+				fail_text = arkship_target_contract_target_fail_tt
 				OR = {
 					# Either there's no contract POI in this system...
 					NOT = {
@@ -990,7 +1084,7 @@ br_arkship_stellar_ignition = {
 		# And we inform the player if otherwise
 		else = {
 			custom_tooltip = {
-				fail_text = br_arkship_target_not_gas_giant_or_star_fail_tt
+				fail_text = arkship_target_not_gas_giant_or_star_fail_tt
 				always = no
 			}
 		}
@@ -998,8 +1092,8 @@ br_arkship_stellar_ignition = {
 
 	button_visible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_stellar_igniter_fail_tt
-			success_text = has_br_arkship_stellar_igniter_pass_tt
+			fail_text = has_arkship_stellar_igniter_fail_tt
+			success_text = has_arkship_stellar_igniter_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_stellar_igniter
 			}
@@ -1008,26 +1102,26 @@ br_arkship_stellar_ignition = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_stellar_igniter_fail_tt
-			success_text = has_br_arkship_stellar_igniter_pass_tt
+			fail_text = has_arkship_stellar_igniter_fail_tt
+			success_text = has_arkship_stellar_igniter_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_stellar_igniter
 			}
 		}
 	}
 
-	activity_key = br_arkship_stellar_ignition_activity_key
-	context_menu_name = br_arkship_stellar_ignition
-	required_progress = value:br_arkship_stellar_ignition_required_progress_value
-	progress_activity_key = br_arkship_stellar_ignition_progress_activity_key
-	required_progress_key = br_arkship_stellar_ignition_required_progress_key
-	cooldown = @br_arkship_stellar_ignition_cooldown
+	activity_key = arkship_stellar_ignition_activity_key
+	context_menu_name = arkship_stellar_ignition
+	required_progress = value:arkship_stellar_ignition_required_progress_value
+	progress_activity_key = arkship_stellar_ignition_progress_activity_key
+	required_progress_key = arkship_stellar_ignition_required_progress_key
+	cooldown = @arkship_stellar_ignition_cooldown
 	category = stellar_ignition
 	category_limit = 1
 
 	cost = {
-		energy = @br_arkship_stellar_ignition_energy_cost
-		sr_dark_matter = @br_arkship_stellar_ignition_dark_matter_cost
+		energy = @arkship_stellar_ignition_energy_cost
+		sr_dark_matter = @arkship_stellar_ignition_dark_matter_cost
 	}
 
 	slot = 5
@@ -1042,7 +1136,7 @@ br_arkship_stellar_ignition = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = energy
-						value < @br_arkship_stellar_ignition_energy_cost
+						value < @arkship_stellar_ignition_energy_cost
 						mult = 1.5
 					}
 				}
@@ -1052,7 +1146,7 @@ br_arkship_stellar_ignition = {
 				FROM.controller = {
 					resource_stockpile_compare = {
 						resource = sr_dark_matter
-						value < @br_arkship_stellar_ignition_dark_matter_cost
+						value < @arkship_stellar_ignition_dark_matter_cost
 						mult = 1.5
 					}
 				}
@@ -1076,20 +1170,26 @@ br_arkship_stellar_ignition = {
 	}
 }
 
+# ----------------------------
+# 方舟舰出埃及跳跃
+# 作用域: 舰队→星系
+# 功能: 使用出埃及跳跃引擎进行超空间跳跃,行为类似量子弹射器
+# 前置条件: 需要出埃及跳跃模块,目标星系可进入
+# ----------------------------
 br_arkship_exodus_jump = {
 	user_scope = fleet
 	scope = galactic_object
 
 	on_completed = on_br_arkship_exodus_jump
-	tooltip = br_arkship_exodus_jump_ship_button
-	click_to_act_key = br_arkship_galaxy_target_system
+	tooltip = arkship_exodus_jump_ship_button
+	click_to_act_key = arkship_galaxy_target_system
 	icon = GFX_fleet_action_button_arkship_exodus_jump
 	icon_selected = GFX_fleet_action_button_arkship_exodus_jump
 
 	possible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_exodus_jump_fail_tt
-			success_text = has_br_arkship_exodus_jump_pass_tt
+			fail_text = has_arkship_exodus_jump_fail_tt
+			success_text = has_arkship_exodus_jump_pass_tt
 			from.starbase? = {
 				has_starbase_module = br_arkship_exodus_jump
 			}
@@ -1104,8 +1204,8 @@ br_arkship_exodus_jump = {
 
 	button_visible = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_exodus_jump_fail_tt
-			success_text = has_br_arkship_exodus_jump_pass_tt
+			fail_text = has_arkship_exodus_jump_fail_tt
+			success_text = has_arkship_exodus_jump_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_exodus_jump
 			}
@@ -1114,8 +1214,8 @@ br_arkship_exodus_jump = {
 
 	button_clickable = {
 		custom_tooltip = {
-			fail_text = has_br_arkship_exodus_jump_fail_tt
-			success_text = has_br_arkship_exodus_jump_pass_tt
+			fail_text = has_arkship_exodus_jump_fail_tt
+			success_text = has_arkship_exodus_jump_pass_tt
 			starbase? = {
 				has_starbase_module = br_arkship_exodus_jump
 			}
@@ -1126,25 +1226,32 @@ br_arkship_exodus_jump = {
 	# This behaves as a Quantum Catapult, using the ship as the bypass.
 	specific_behavior = scripted_catapult_order
 
-	activity_key = br_arkship_exodus_jump_activity_key
-	context_menu_name = br_arkship_exodus_jump
-	required_progress = value:br_arkship_exodus_jump_required_progress_value
-	progress_activity_key = br_arkship_exodus_jump_progress_activity_key
-	required_progress_key = br_arkship_exodus_jump_required_progress_key
-	cooldown = @br_arkship_exodus_jump_cooldown
+	activity_key = arkship_exodus_jump_activity_key
+	context_menu_name = arkship_exodus_jump
+	required_progress = value:arkship_exodus_jump_required_progress_value
+	progress_activity_key = arkship_exodus_jump_progress_activity_key
+	required_progress_key = arkship_exodus_jump_required_progress_key
+	cooldown = @arkship_exodus_jump_cooldown
 
 	cost = {
-		energy = @br_arkship_exodus_jump_cost
+		energy = @arkship_exodus_jump_cost
 	}
 	slot = 5
 }
 
+# ----------------------------
+# 方舟舰定居
+# 作用域: 舰队→星球
+# 功能: 在可殖民且无主的星球上建立殖民地
+# 注意: 不要重命名!名称在代码中被引用
+# 通过扩展规划器UI触发,不在右键菜单中显示
+# ----------------------------
 br_arkship_settle = { #Do not rename - name referenced in code
 	user_scope = fleet
 	scope = planet
 
 	on_completed = on_br_arkship_settle
-	tooltip = br_arkship_settle_ship_button
+	tooltip = arkship_settle_ship_button
 
 	important = yes
 
@@ -1164,23 +1271,23 @@ br_arkship_settle = { #Do not rename - name referenced in code
 				}
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_not_surveyed_fail_tt
+				fail_text = arkship_target_not_surveyed_fail_tt
 				always = no
 			}
 		}
 		else = {
 			custom_tooltip = {
-				fail_text = br_arkship_target_has_owner_fail_tt
+				fail_text = arkship_target_has_owner_fail_tt
 				NOT = {
 					exists = owner_or_space_owner
 				}
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_colonizable_world_fail_tt
+				fail_text = arkship_target_colonizable_world_fail_tt
 				is_colonizable = yes
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_owner_is_subject_tt
+				fail_text = arkship_owner_is_subject_tt
 				from.owner = { is_subject = no }
 			}
 		}
@@ -1194,26 +1301,32 @@ br_arkship_settle = { #Do not rename - name referenced in code
 		}
 	}
 
-	activity_key = br_arkship_settle_activity_key
-	context_menu_name = br_arkship_settle
-	required_progress = value:br_arkship_settle_required_progress_value
-	progress_activity_key = br_arkship_settle_progress_activity_key
-	required_progress_key = br_arkship_settle_required_progress_key
-	cooldown = @br_arkship_settle_cooldown
-	category = br_arkship_settle
+	activity_key = arkship_settle_activity_key
+	context_menu_name = arkship_settle
+	required_progress = value:arkship_settle_required_progress_value
+	progress_activity_key = arkship_settle_progress_activity_key
+	required_progress_key = arkship_settle_required_progress_key
+	cooldown = @arkship_settle_cooldown
+	category = arkship_settle
 	category_limit = 1
 	cost = {
-		influence = @br_arkship_settle_cost
+		influence = @arkship_settle_cost
 	}
 }
 
+# ----------------------------
+# 岩石种方舟舰吞噬星球
+# 作用域: 舰队→星球
+# 功能: 岩石种吞噬蜂群专属,吞噬可殖民的无人星球
+# 前置条件: 控制者为岩石种吞噬蜂群
+# ----------------------------
 br_arkship_lithoid_consume_world = {
 	user_scope = fleet
 	scope = planet
 
 	on_progress_start = on_br_arkship_lithoid_consume_world
 	on_cancelled = on_br_arkship_lithoid_consume_world_cancelled
-	tooltip = br_arkship_lithoid_consume_world_ship_button
+	tooltip = arkship_lithoid_consume_world_ship_button
 	icon = GFX_fleet_action_button_arkship_strip_mine
 	icon_selected = GFX_fleet_action_button_arkship_strip_mine
 
@@ -1228,32 +1341,32 @@ br_arkship_lithoid_consume_world = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_lithoid_consume_world_habitable_fail_tt
+			fail_text = arkship_lithoid_consume_world_habitable_fail_tt
 			colonizable_planet = yes
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_lithoid_consume_world_uninhabited_fail_tt
+			fail_text = arkship_lithoid_consume_world_uninhabited_fail_tt
 			is_colony = no
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_target_not_surveyed_fail_tt
+			fail_text = arkship_target_not_surveyed_fail_tt
 			is_surveyed = {
 				who = from
 				status = yes
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_lithoid_consume_world_being_devoured_fail_tt
+			fail_text = arkship_lithoid_consume_world_being_devoured_fail_tt
 			OR = {
 				NOT = { has_carrier_flag = being_devoured }
 				AND = {
 					any_targeting_situation = {
-						is_situation_type = situation_br_arkship_lithoid_consume_planet
+						is_situation_type = situation_arkship_lithoid_consume_planet
 						is_owned_by = from.controller
 					}
 					OR = {
 						from = { has_fleet_flag = consuming_world_arkship@root }
-						has_carrier_flag = br_arkship_absent_grace
+						has_carrier_flag = arkship_absent_grace
 					}
 				}
 			}
@@ -1269,11 +1382,11 @@ br_arkship_lithoid_consume_world = {
 	}
 
 	uses_vfx_type = harvest_effect
-	activity_key = br_arkship_lithoid_consume_world_activity_key
-	context_menu_name = br_arkship_lithoid_consume_world
-	required_progress = @br_arkship_consume_world_required_progress
-	progress_activity_key = br_arkship_lithoid_consume_world_progress_activity_key
-	required_progress_key = br_arkship_lithoid_consume_world_required_progress_key
+	activity_key = arkship_lithoid_consume_world_activity_key
+	context_menu_name = arkship_lithoid_consume_world
+	required_progress = @arkship_consume_world_required_progress
+	progress_activity_key = arkship_lithoid_consume_world_progress_activity_key
+	required_progress_key = arkship_lithoid_consume_world_required_progress_key
 
 	ai = {
 		#This - Target Planet
@@ -1284,7 +1397,7 @@ br_arkship_lithoid_consume_world = {
 				factor = 0 #already consuming a planet
 				FROM.controller = {
 					any_situation = {
-						is_situation_type = situation_br_arkship_lithoid_consume_planet
+						is_situation_type = situation_arkship_lithoid_consume_planet
 					}
 				}
 			}
@@ -1307,13 +1420,19 @@ br_arkship_lithoid_consume_world = {
 	}
 }
 
+# ----------------------------
+# 纳米科技方舟舰吞噬星球
+# 作用域: 舰队→星球
+# 功能: 拥有纳米科技传统3的文明专属,吞噬可殖民的无人星球
+# 排除: 纳米科技世界(col_nanotech_world)不可吞噬
+# ----------------------------
 br_arkship_nanotech_consume_world = {
 	user_scope = fleet
 	scope = planet
 
 	on_progress_start = on_br_arkship_nanotech_consume_world
 	on_cancelled = on_br_arkship_nanotech_consume_world_cancelled
-	tooltip = br_arkship_nanotech_consume_world_ship_button
+	tooltip = arkship_nanotech_consume_world_ship_button
 	icon = GFX_fleet_action_button_arkship_reprocess_planet
 	icon_selected = GFX_fleet_action_button_arkship_reprocess_planet
 
@@ -1328,38 +1447,38 @@ br_arkship_nanotech_consume_world = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_lithoid_consume_world_habitable_fail_tt
+			fail_text = arkship_lithoid_consume_world_habitable_fail_tt
 			colonizable_planet = yes
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_lithoid_consume_world_uninhabited_fail_tt
+			fail_text = arkship_lithoid_consume_world_uninhabited_fail_tt
 			is_colony = no
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_target_not_surveyed_fail_tt
+			fail_text = arkship_target_not_surveyed_fail_tt
 			is_surveyed = {
 				who = from
 				status = yes
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_nanotech_consume_world_being_devoured_fail_tt
+			fail_text = arkship_nanotech_consume_world_being_devoured_fail_tt
 			OR = {
 				NOT = { has_carrier_flag = being_devoured }
 				AND = {
 					any_targeting_situation = {
-						is_situation_type = situation_br_arkship_nanotech_consume_planet
+						is_situation_type = situation_arkship_nanotech_consume_planet
 						is_owned_by = from.controller
 					}
 					OR = {
 						from = { has_fleet_flag = consuming_world_arkship@root }
-						has_carrier_flag = br_arkship_absent_grace
+						has_carrier_flag = arkship_absent_grace
 					}
 				}
 			}
 		}
 		custom_tooltip = {
-			fail_text = br_arkship_nanotech_consume_world_nanotech_world_fail_tt
+			fail_text = arkship_nanotech_consume_world_nanotech_world_fail_tt
 			NOT = { has_designation = col_nanotech_world }
 		}
 	}
@@ -1375,11 +1494,11 @@ br_arkship_nanotech_consume_world = {
 	}
 
 	uses_vfx_type = harvest_effect
-	activity_key = br_arkship_nanotech_consume_world_activity_key
-	context_menu_name = br_arkship_nanotech_consume_world
-	required_progress = @br_arkship_consume_world_required_progress
-	progress_activity_key = br_arkship_nanotech_consume_world_progress_activity_key
-	required_progress_key = br_arkship_nanotech_consume_world_required_progress_key
+	activity_key = arkship_nanotech_consume_world_activity_key
+	context_menu_name = arkship_nanotech_consume_world
+	required_progress = @arkship_consume_world_required_progress
+	progress_activity_key = arkship_nanotech_consume_world_progress_activity_key
+	required_progress_key = arkship_nanotech_consume_world_required_progress_key
 
 	ai = {
 		#This - Target Planet
@@ -1390,7 +1509,7 @@ br_arkship_nanotech_consume_world = {
 				factor = 0 #already consuming a planet
 				FROM.controller = {
 					any_situation = {
-						is_situation_type = situation_br_arkship_nanotech_consume_planet
+						is_situation_type = situation_arkship_nanotech_consume_planet
 					}
 				}
 			}
@@ -1413,12 +1532,18 @@ br_arkship_nanotech_consume_world = {
 	}
 }
 
+# ----------------------------
+# 方舟舰释放囚犯
+# 作用域: 舰队→星球
+# 功能: 将运输中的囚犯卸载到殖民地
+# 仅在舰队有transporting_prisoners标志时显示
+# ----------------------------
 br_arkship_drop_off_prisoners = {
 	user_scope = fleet
 	scope = planet
 
 	on_completed = on_br_arkship_drop_off_prisoners
-	tooltip = br_arkship_drop_off_prisoners_button
+	tooltip = arkship_drop_off_prisoners_button
 	icon = GFX_fleet_order_button_drop_off_prisoners
 	icon_selected = GFX_fleet_order_drop_off_prisoners
 
@@ -1444,23 +1569,30 @@ br_arkship_drop_off_prisoners = {
 		}
 	}
 
-	activity_key = br_arkship_drop_off_prisoners_activity_key
-	context_menu_name = br_arkship_drop_off_prisoners
-	required_progress = @br_arkship_drop_off_prisoners_required_progress
-	progress_activity_key = br_arkship_drop_off_prisoners_progress_activity_key
-	required_progress_key = br_arkship_drop_off_prisoners_required_progress_key
-	cooldown = @br_arkship_drop_off_prisoners_cooldown
+	activity_key = arkship_drop_off_prisoners_activity_key
+	context_menu_name = arkship_drop_off_prisoners
+	required_progress = @arkship_drop_off_prisoners_required_progress
+	progress_activity_key = arkship_drop_off_prisoners_progress_activity_key
+	required_progress_key = arkship_drop_off_prisoners_required_progress_key
+	cooldown = @arkship_drop_off_prisoners_cooldown
 }
 
-# Harvest Resources for the Logistic Ship
-logistic_harvest_resources = {
+# ----------------------------
+# 后勤舰采集资源
+# 作用域: 舰队→星球
+# 功能: 后勤舰版本的资源采集,与方舟舰共享on_action
+# 前置条件: 仓库容量使用率<90%
+# 自动化: 优先级2,默认关闭(需手动开启)
+# ----------------------------
+# 后勤舰资源采集
+br_logistic_harvest_resources = {
 	user_scope = fleet
 	scope = planet
 
 	automation_priority = 2
 	automation_default_on = no
-	also_automate = { logistic_drop_off_stockpile }
-	on_completed = on_harvest_resources					# This shares the on_action with the arkship version
+	also_automate = { br_logistic_drop_off_stockpile }
+	on_completed = on_br_harvest_resources					# This shares the on_action with the arkship version
 	tooltip = logistic_harvest_resources_ship_button
 	icon = GFX_fleet_action_button_logistic_harvest_resources
 	icon_selected = GFX_fleet_action_button_logistic_harvest_resources
@@ -1478,7 +1610,7 @@ logistic_harvest_resources = {
 				has_anomaly = yes
 			}
 			custom_tooltip = {
-				fail_text = br_arkship_target_has_anomaly_fail_tt
+				fail_text = arkship_target_has_anomaly_fail_tt
 				always = no
 			}
 		}
@@ -1577,8 +1709,15 @@ logistic_harvest_resources = {
 	}
 }
 
-# Collect Stockpile from a Waystation for Arkships and Logistic Ships
-collect_waystation_stockpile = {
+# ----------------------------
+# 收集中转站库存
+# 作用域: 舰队→星系
+# 功能: 从中转站星堡收集存储的资源,支持远程收集网络
+# 适用于方舟舰和后勤舰
+# 自动化: 优先级1,默认开启
+# ----------------------------
+# 从中转站收集库存(方舟舰和后勤舰)
+br_collect_waystation_stockpile = {
 	user_scope = fleet
 	scope = galactic_object
 
@@ -1604,7 +1743,8 @@ collect_waystation_stockpile = {
 		}
 		FROM = {
 			OR = {
-				is_br_arkship_fleet = yes
+				is_arkship_fleet = yes
+				is_br_civilian_arkship = yes
 				any_owned_ship = {
 					used_stockpile_capacity_percentage < 1
 				}
@@ -1698,8 +1838,14 @@ collect_waystation_stockpile = {
 	}
 }
 
-# Drop Off collected stockpile from a Logistic Ship to an Arkship
-logistic_drop_off_stockpile = {
+# ----------------------------
+# 后勤舰卸载库存到方舟舰
+# 作用域: 舰队→舰队
+# 功能: 后勤舰将采集的资源转移给方舟舰
+# 作用范围: 10格距离内
+# ----------------------------
+# 后勤舰向方舟舰卸载库存
+br_logistic_drop_off_stockpile = {
 	user_scope = fleet
 	scope = fleet
 	fleet_action_range = 10.0
@@ -1707,7 +1853,7 @@ logistic_drop_off_stockpile = {
 	possible = {
 		# This - Target Fleet (Arkship)
 		# From - Acting Fleet (Logistic Ship)
-		is_br_arkship_fleet = yes
+		is_arkship_fleet = yes
 		controller = {
 			is_same_value = from.controller
 		}
