@@ -11,19 +11,19 @@ play_wx_add = {
 	}
 	potential = {
 		# is_artificial = no #不是人工星球
-		or = {
-			has_modifier = mastery_of_nature
-			has_modifier = cultivated_worldscaping_modifier
-			is_planet_class = pc_cybrex
-			is_planet_class = pc_ringworld_habitable
-			is_planet_class = pc_ringworld_habitable_damaged
-			is_planet_class = pc_ringworld_tech
-			is_planet_class = pc_ringworld_tech_damaged
-			is_planet_class = pc_ringworld_seam
-			is_planet_class = pc_ringworld_seam_damaged
-			is_planet_class = pc_shattered_ring_habitable
-			is_planet_class = pc_habitat
-		}
+		# or = {
+		# 	has_modifier = mastery_of_nature
+		# 	has_modifier = cultivated_worldscaping_modifier
+		# 	is_planet_class = pc_cybrex
+		# 	is_planet_class = pc_ringworld_habitable
+		# 	is_planet_class = pc_ringworld_habitable_damaged
+		# 	is_planet_class = pc_ringworld_tech
+		# 	is_planet_class = pc_ringworld_tech_damaged
+		# 	is_planet_class = pc_ringworld_seam
+		# 	is_planet_class = pc_ringworld_seam_damaged
+		# 	is_planet_class = pc_shattered_ring_habitable
+		# 	is_planet_class = pc_habitat
+		# }
 		owner = {
 			has_ascension_perk = ap_mastery_of_nature
 		}
@@ -71,6 +71,7 @@ play_orbital_ring = {
 				has_modifier = play_orbital_ring
 				exists = orbital_defence
 			}
+			carrier_is_type = planet			# 排除所有方舟/舰船殖民地（含mod）
 			nor = {
 				is_planet_class = pc_ringworld_habitable
 				is_planet_class = pc_ringworld_seam

@@ -1,20 +1,61 @@
-# 方舟舰脊炮模块专用科技（普通国家版）
-# 权重为0，正常研究池不刷，只通过奖励事件发放。
-# 游牧国家通过 is_nomadic = no 排除，使用原版游牧科技解锁脊炮模块。
+# 方舟系统专用科技（普通帝国版）
+# 游牧国家通过 is_nomadic = no 排除，使用原版 nomads_dlc 科技。
+# 这些科技为正常权重，研究池中正常刷新。
+
+# ========================
+# 方舟建造科技链
+# ========================
+
+tech_br_arkship_construction = {
+	cost = @tier3cost1
+	area = engineering
+	tier = 3
+	category = { voidcraft }
+	prerequisites = { "tech_cruisers" }
+	weight = @tier3weight1
+	is_rare = yes
+	potential = {
+		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_cruisers
+		}
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "TECH_UNLOCK_BR_ARKSHIP_CONSTRUCTION_TITLE"
+			desc = "TECH_UNLOCK_BR_ARKSHIP_CONSTRUCTION_DESC"
+		}
+	}
+	ai_weight = {
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
+	}
+}
+
 tech_br_arkship_tier_2 = {
 	cost = @tier4cost1
 	area = engineering
 	tier = 4
-	category = {
-		voidcraft
-	}
+	category = { voidcraft }
 	prerequisites = {
-		"tech_br_dominator"
+		"tech_br_arkship_construction"
+		"tech_battleships"
 	}
 	weight = @tier4weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_construction
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -23,7 +64,10 @@ tech_br_arkship_tier_2 = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
 
@@ -31,16 +75,18 @@ tech_br_arkship_tier_3 = {
 	cost = @tier5cost1
 	area = engineering
 	tier = 5
-	category = {
-		voidcraft
-	}
-	prerequisites = {
-		"tech_br_arkship_tier_2"
-	}
+	category = { voidcraft }
+	prerequisites = { "tech_br_arkship_tier_2" }
 	weight = @tier5weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_tier_2
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -49,24 +95,101 @@ tech_br_arkship_tier_3 = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
+	}
+}
+
+# ========================
+# 特殊方舟类型
+# ========================
+
+tech_br_civilian_arkship = {
+	cost = @tier3cost1
+	area = society
+	tier = 3
+	category = { new_worlds }
+	prerequisites = { "tech_br_arkship_construction" }
+	weight = @tier3weight1
+	is_rare = yes
+	potential = {
+		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_construction
+		}
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "TECH_UNLOCK_BR_CIVILIAN_ARKSHIP_TITLE"
+			desc = "TECH_UNLOCK_BR_CIVILIAN_ARKSHIP_DESC"
+		}
+	}
+	ai_weight = {
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
+	}
+}
+
+tech_br_science_arkship = {
+	cost = @tier3cost1
+	area = physics
+	tier = 3
+	category = { computing }
+	prerequisites = {
+		"tech_sensors_2"
+		"tech_br_arkship_construction"
+	}
+	weight = @tier3weight1
+	is_rare = yes
+	potential = {
+		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_construction
+		}
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "TECH_UNLOCK_BR_SCIENCE_ARKSHIP_TITLE"
+			desc = "TECH_UNLOCK_BR_SCIENCE_ARKSHIP_DESC"
+		}
+	}
+	ai_weight = {
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
 
 tech_br_military_arkship = {
-	cost = @tier4cost1
+	cost = @tier3cost1
 	area = engineering
-	tier = 4
-	category = {
-		voidcraft
-	}
+	tier = 3
+	category = { voidcraft }
 	prerequisites = {
-		"tech_br_dominator"
+		"tech_destroyers"
+		"tech_br_arkship_construction"
 	}
-	weight = @tier4weight1
+	weight = @tier3weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_construction
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -75,24 +198,33 @@ tech_br_military_arkship = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
+
+# ========================
+# 方舟脊炮模块
+# ========================
 
 tech_br_arkship_planetary_refinery = {
 	cost = @tier5cost1
 	area = engineering
 	tier = 5
-	category = {
-		voidcraft
-	}
-	prerequisites = {
-		"tech_br_dominator_tier_2"
-	}
+	category = { voidcraft }
+	prerequisites = { "tech_br_arkship_tier_3" }
 	weight = @tier5weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_tier_3
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -101,7 +233,10 @@ tech_br_arkship_planetary_refinery = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
 
@@ -109,16 +244,18 @@ tech_br_arkship_stellar_igniter = {
 	cost = @tier5cost1
 	area = engineering
 	tier = 5
-	category = {
-		voidcraft
-	}
-	prerequisites = {
-		"tech_br_dominator_tier_2"
-	}
+	category = { voidcraft }
+	prerequisites = { "tech_br_arkship_tier_3" }
 	weight = @tier5weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_tier_3
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -127,7 +264,10 @@ tech_br_arkship_stellar_igniter = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
 
@@ -135,16 +275,18 @@ tech_br_arkship_system_scanner = {
 	cost = @tier5cost1
 	area = engineering
 	tier = 5
-	category = {
-		voidcraft
-	}
-	prerequisites = {
-		"tech_br_dominator_tier_2"
-	}
+	category = { voidcraft }
+	prerequisites = { "tech_br_arkship_tier_3" }
 	weight = @tier5weight1
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_tier_3
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -153,7 +295,10 @@ tech_br_arkship_system_scanner = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
 
@@ -161,16 +306,18 @@ tech_br_arkship_exodus_jump = {
 	cost = @tier5cost2
 	area = engineering
 	tier = 5
-	category = {
-		voidcraft
-	}
-	prerequisites = {
-		"tech_br_dominator_tier_3"
-	}
+	category = { voidcraft }
+	prerequisites = { "tech_br_arkship_tier_3" }
 	weight = @tier5weight2
 	is_rare = yes
 	potential = {
 		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_br_arkship_tier_3
+		}
 	}
 	prereqfor_desc = {
 		ship = {
@@ -179,6 +326,9 @@ tech_br_arkship_exodus_jump = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
 	}
 }
