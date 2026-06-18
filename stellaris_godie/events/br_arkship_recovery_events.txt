@@ -1,0 +1,247 @@
+namespace = br
+# 事件ID区间：1030-1049。新增或修改事件ID不得超出此区间喵
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# br.1030：方舟舰禁用核心分流（on_ship_disabled 触发）
+# ROOT = 被禁用的方舟舰 (ship scope)
+# FROM = 攻击方舰船 (ship scope)
+# ═══════════════════════════════════════════════════════════════════════════════
+ship_event = {
+    id = br.1030
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        br_is_arkship_ship = yes
+        exists = owner
+    }
+
+    immediate = {
+        save_event_target_as = br_disabled_arkship_ship
+        root.owner = { save_event_target_as = br_arkship_defender }
+        # 情况1：无攻击方 / 天灾 → 直接摧毁
+        if = {
+            limit = {
+                OR = {
+                    NOT = { exists = from }
+                    from = {
+                        OR = {
+                            NOT = { exists = owner }
+                            owner = { is_crisis_faction = yes }
+                            # owner = { is_space_critter_country = yes }
+                        }
+                    }
+                }
+            }
+            create_ambient_object = {
+                type = arkship_debris_wreckage
+                entity_offset_height = { min = -5 max = -5 }
+                is_wreck = yes
+            }
+            event_target:br_arkship_defender = {
+                country_event = { id = br.1031 }
+            }
+            destroy_ship = this
+        }
+        # 情况2：正常帝国攻击 → 标记 + 双方刷特殊项目
+        else = {
+            set_timed_ship_flag = {
+                flag = br_arkship_disabled_by_empire
+                years = 3
+            }
+            from.owner = { save_event_target_as = br_arkship_attacker }
+            # 攻击方：占领特殊项目
+            if = {
+                limit = { exists = event_target:br_arkship_attacker }
+                enable_special_project = {
+                    name = "BR_ARKSHIP_OCCUPY"
+                    location = event_target:br_disabled_arkship_ship
+                    owner = event_target:br_arkship_attacker
+                }
+            }
+            # 防御方：修复特殊项目
+            enable_special_project = {
+                name = "BR_ARKSHIP_REPAIR"
+                location = event_target:br_disabled_arkship_ship
+                owner = event_target:br_arkship_defender
+            }
+        }
+    }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# br.1031：方舟舰被非帝国力量摧毁通知（防御方）
+# ═══════════════════════════════════════════════════════════════════════════════
+country_event = {
+    id = br.1031
+    title = br_arkship_destroyed_by_crisis_title
+    desc = br_arkship_destroyed_by_crisis_desc
+    picture = GFX_evt_arkship_crisis
+    is_triggered_only = yes
+
+    option = {
+        name = br_arkship_destroyed_confirm
+    }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# br.1034：占领项目完成后选择事件（占领或摧毁）
+# ROOT = 攻击方国家 (controller)
+# FROM = 被禁用的方舟舰 (ship, 特殊项目 location = root)
+# ═══════════════════════════════════════════════════════════════════════════════
+country_event = {
+    id = br.1034
+    title = br_arkship_disabled_attacker_title
+    desc = br_arkship_disabled_attacker_desc
+    picture = GFX_evt_arkship_crisis
+    is_triggered_only = yes
+    #占领
+    option = {
+        name = br_arkship_occupy_option
+        from = {
+            fleet = {
+                set_owner = root
+            }
+            set_disabled = no
+            remove_ship_flag = br_arkship_disabled_by_empire
+        }
+    }
+    #摧毁
+    option = {
+        name = br_arkship_destroy_option
+        from = {
+            create_ambient_object = {
+                type = arkship_debris_wreckage
+                entity_offset_height = { min = -5 max = -5 }
+                is_wreck = yes
+            }
+            if = {
+                limit = {
+                    OR = {
+                        is_ship_size = br_civilian_arkship_tier_1
+                        is_ship_size = br_science_arkship_tier_1
+                        is_ship_size = br_military_arkship_tier_1
+                    }
+                }
+                add_resource = { alloys = 1000 }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        is_ship_size = br_civilian_arkship_tier_2
+                        is_ship_size = br_science_arkship_tier_2
+                        is_ship_size = br_military_arkship_tier_2
+                    }
+                }
+                add_resource = { alloys = 2000 }
+            }
+            else = {
+                add_resource = { alloys = 4000 }
+            }
+            destroy_ship = this
+        }
+    }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# br.1036：修复项目成功回调
+# ROOT = 防御方国家 (controller)
+# FROM = 被禁用的舰队 (fleet, 特殊项目 location)
+# ═══════════════════════════════════════════════════════════════════════════════
+country_event = {
+    id = br.1036
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from = {
+            every_owned_ship = {
+                limit = {
+                    br_is_arkship_ship = yes
+                    is_disabled = yes
+                }
+                set_disabled = no
+                remove_ship_flag = br_arkship_disabled_by_empire
+            }
+            set_controller = root
+        }
+    }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 不需要
+# br.1037：星基禁用兜底（on_starbase_disabled 触发）
+# ROOT = 被禁用的星基（方舟舰）
+# FROM = 攻击方舰队
+# ═══════════════════════════════════════════════════════════════════════════════
+starbase_event = {
+    id = br.1037
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        OR = {
+            has_starbase_size = br_civilian_arkship_tier_1
+            has_starbase_size = br_civilian_arkship_tier_2
+            has_starbase_size = br_civilian_arkship_tier_3
+            has_starbase_size = br_science_arkship_tier_1
+            has_starbase_size = br_science_arkship_tier_2
+            has_starbase_size = br_science_arkship_tier_3
+            has_starbase_size = br_military_arkship_tier_1
+            has_starbase_size = br_military_arkship_tier_2
+            has_starbase_size = br_military_arkship_tier_3
+        }
+        exists = owner
+    }
+
+    immediate = {
+        owner = { save_event_target_as = br_arkship_defender }
+        solar_system = {
+            random_fleet_in_system = {
+                limit = {
+                    owner = { is_same_value = event_target:br_arkship_defender }
+                    NOT = { has_fleet_flag = br_arkship_repair_project_active }
+                    any_owned_ship = {
+                        br_is_arkship_ship = yes
+                        is_disabled = yes
+                    }
+                }
+                set_fleet_flag = br_arkship_repair_project_active
+                enable_special_project = {
+                    name = "BR_ARKSHIP_REPAIR"
+                    location = this
+                    owner = event_target:br_arkship_defender
+                }
+            }
+        }
+    }
+}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# br.1038：年度脉冲兜底恢复
+# 恢复无 timed flag 的被禁用 br 方舟舰（flag 3年后自动过期，最慢4年恢复）
+# ═══════════════════════════════════════════════════════════════════════════════
+country_event = {
+    id = br.1038
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        any_owned_ship = {
+            br_is_arkship_ship = yes
+            is_disabled = yes
+            NOT = { has_ship_flag = br_arkship_disabled_by_empire }
+        }
+    }
+
+    immediate = {
+        every_owned_ship = {
+            limit = {
+                br_is_arkship_ship = yes
+                is_disabled = yes
+                NOT = { has_ship_flag = br_arkship_disabled_by_empire }
+            }
+            set_disabled = no
+        }
+    }
+}

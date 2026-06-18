@@ -1,0 +1,92 @@
+# 方舟舰占领特殊项目
+# 攻击方研究后方舟舰完全转移所有权
+special_project = {
+    key = "BR_ARKSHIP_OCCUPY"
+    days_to_research = 60
+    tech_department = engineering_technology
+    picture = GFX_evt_arkship_crisis
+    icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+    location = yes
+
+    event_scope = ship_event
+
+    desc = {
+        text = BR_ARKSHIP_OCCUPY_DESC
+    }
+
+    triggered_requirement = {
+        text = BR_ARKSHIP_OCCUPY_REQUIREMENT
+        count = 1
+        trigger = {
+            is_ship_class = shipclass_military
+        }
+    }
+
+    on_success = {
+        from = { save_event_target_as = br_occupy_ship_ref }
+        controller = {
+            country_event = {
+                id = br.1034
+                scopes = {
+                    from = event_target:br_occupy_ship_ref
+                }
+            }
+        }
+    }
+
+    abort_trigger = {
+        OR = {
+            NOT = { exists = fromfrom }
+            fromfrom = {
+                OR = {
+                    NOT = { br_is_arkship_ship = yes }
+                    NOT = { is_disabled = yes }
+                }
+            }
+        }
+    }
+}
+
+# 方舟舰修复特殊项目
+# 防御方派遣任意舰船前往修复
+special_project = {
+    key = "BR_ARKSHIP_REPAIR"
+    days_to_research = 90
+    tech_department = engineering_technology
+    picture = GFX_evt_arkship_crisis
+    icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+    location = yes
+
+    event_scope = ship_event
+
+    desc = {
+        text = BR_ARKSHIP_REPAIR_DESC
+    }
+
+    triggered_requirement = {
+        text = BR_ARKSHIP_REPAIR_REQUIREMENT
+        count = 1
+        trigger = {
+            always = yes
+        }
+    }
+
+    on_success = {
+        from = {
+            set_disabled = no
+            remove_ship_flag = br_arkship_disabled_by_empire
+        }
+    }
+
+    abort_trigger = {
+        OR = {
+            NOT = { exists = fromfrom }
+            fromfrom = {
+                OR = {
+                    NOT = { br_is_arkship_ship = yes }
+                    NOT = { is_disabled = yes }
+                }
+            }
+        }
+    }
+}

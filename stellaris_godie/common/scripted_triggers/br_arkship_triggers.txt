@@ -13,3 +13,19 @@ is_br_civilian_arkship = {
 		has_starbase_size = br_military_arkship_tier_3
 	}
 }
+
+# 方舟舰类型检查触发器（ship scope）
+# 用于 on_ship_disabled 等 ship 作用域事件
+br_is_arkship_ship = {
+	OR = {
+		is_ship_size = br_civilian_arkship_tier_1
+		is_ship_size = br_civilian_arkship_tier_2
+		is_ship_size = br_civilian_arkship_tier_3
+		is_ship_size = br_science_arkship_tier_1
+		is_ship_size = br_science_arkship_tier_2
+		is_ship_size = br_science_arkship_tier_3
+		is_ship_size = br_military_arkship_tier_1
+		is_ship_size = br_military_arkship_tier_2
+		is_ship_size = br_military_arkship_tier_3
+	}
+}
