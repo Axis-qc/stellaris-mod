@@ -16,3 +16,119 @@ create_br_arkship_effect = {
 		}
 	}
 }
+
+# 起航方舟舰创建 effect（mod 星舰版，对照原版 create_embarking_arkship）
+# 作用：把指定国家切换为游牧状态，授予方舟舰相关科技，并在起航星球位置创建 br_ 前缀方舟舰
+br_create_embarking_arkship = {
+	# $NOMAD_COUNTRY$   = 要转成游牧/方舟国家的国家
+	# $ARKSHIP_TYPE$    = civilian / science / military
+	# $EMBARKED_PLANET$ = 起航星球，方舟舰会生成在这里
+	$NOMAD_COUNTRY$ = {
+		# 原版逻辑：国家进入游牧状态
+		set_country_as_nomad_effect = { IS_NOMAD = yes }
+
+		# 原版逻辑：触发游牧初始化事件
+		country_event = {
+			id = nomads.20
+		}
+
+		# 原版逻辑：设置游牧资源转换器，并初始化合约变量
+		set_resource_converter = nomadic_operational_reserves
+		set_variable = { which = contract_completed value = 0 }
+
+		# 原版逻辑：启动方舟舰随机事件导演
+		country_event = {
+			id = arkship.1
+			random = 1800
+		}
+
+		# 原版逻辑：标记从定居帝国起航
+		set_country_flag = embarked_as_settled_empire
+
+		# 原版逻辑：如果起航星球已高度荒废，记录来源状态
+		if = {
+			limit = {
+				$EMBARKED_PLANET$ = {
+					planet_devastation >= 70
+				}
+			}
+			set_country_flag = embarked_from_devastated_homeworld
+		}
+
+		# 原版逻辑：游牧派系不需要边境通行
+		set_faction_properties = {
+			needs_border_access = no
+		}
+
+		# mod 逻辑：授予 br_ 方舟舰科技，类型由 ARKSHIP_TYPE 拼接
+		give_technology = { tech = tech_br_$ARKSHIP_TYPE$_arkship }
+		give_technology = { tech = tech_waystation_1 }
+		refresh_auto_generated_ship_designs = yes
+
+		# mod 逻辑：创建 br_ 前缀方舟舰，并保存为 event_target:br_embarking_arkship
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				create_ship = {
+					create_colony = no
+					random_existing_design = br_$ARKSHIP_TYPE$_arkship_tier_1
+					effect = {
+						save_event_target_as = br_embarking_arkship
+						initialize_arkship_starbase_effect = yes
+						switch = {
+							trigger = is_ship_size
+							br_civilian_arkship_tier_1 = {
+								set_graphical_culture = civilian_arkship
+							}
+							br_science_arkship_tier_1 = {
+								set_graphical_culture = science_arkship
+							}
+							br_military_arkship_tier_1 = {
+								set_graphical_culture = military_arkship
+							}
+						}
+					}
+				}
+				set_location = {
+					target = $EMBARKED_PLANET$
+					distance = 0
+					angle = random
+				}
+			}
+		}
+	}
+}
+
+# 星球起航 effect（mod 星舰版，对照原版 embark_planet_effect）
+# 作用：移除起航星球陆军，把殖民地内容转移到新方舟舰，并拆除原殖民地
+br_embark_planet_effect = {
+	# $EMBARKING_PLANET$ = 被起航/拆除殖民地的星球
+	# $NEW_ARKSHIP$      = br_create_embarking_arkship 创建并保存的新方舟舰
+	hidden_effect = {
+		# 原版逻辑：先移除星球陆军，避免殖民地转移后残留陆军
+		$EMBARKING_PLANET$ = {
+			every_planet_army = {
+				remove_army = yes
+			}
+		}
+	}
+	hidden_effect = {
+		# 原版逻辑：把星球殖民地内容转移到方舟舰载体
+		$NEW_ARKSHIP$ = {
+			transfer_carrier = {
+				source = $EMBARKING_PLANET$
+				target = this
+				transfer_ownership = no
+				merge_pops = no
+				destroy_colony = yes
+			}
+		}
+	}
+	# 原版逻辑：起航后的星球被剥离并获得 90 荒废度
+	$EMBARKING_PLANET$ = {
+		add_modifier = {
+			modifier = stripped_planet
+		}
+		add_planet_devastation = 90
+	}
+}

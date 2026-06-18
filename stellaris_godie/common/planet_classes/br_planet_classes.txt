@@ -21,3 +21,117 @@ pc_br_black_hole = {
 
     colonizable = no
 }
+
+# 星舰星球类型 — 基于原版 pc_ark，适配 br_*_arkship 系列舰船
+# 不做独立适应性特质，直接通过 modifier 给满居住性
+pc_br_ark = {
+    entity = "continental_planet"           # 3D 实体：方舟舰使用实际舰船模型，此值被忽略
+    icon = GFX_planet_type_generic_arkship  # 默认图标（无匹配 conditional_icon 时使用）
+    icon_large = GFX_planet_type_generic_arkship_big
+
+    # 根据绑定的舰船型号切换星球图标
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_civilian_arkship_tier_1 }
+        }
+        icon = GFX_planet_type_civilian_arkship_1
+        icon_large = GFX_planet_type_civilian_arkship_1_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_civilian_arkship_tier_2 }
+        }
+        icon = GFX_planet_type_civilian_arkship_2
+        icon_large = GFX_planet_type_civilian_arkship_2_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_civilian_arkship_tier_3 }
+        }
+        icon = GFX_planet_type_civilian_arkship_3
+        icon_large = GFX_planet_type_civilian_arkship_3_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_science_arkship_tier_1 }
+        }
+        icon = GFX_planet_type_science_arkship_1
+        icon_large = GFX_planet_type_science_arkship_1_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_science_arkship_tier_2 }
+        }
+        icon = GFX_planet_type_science_arkship_2
+        icon_large = GFX_planet_type_science_arkship_2_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_science_arkship_tier_3 }
+        }
+        icon = GFX_planet_type_science_arkship_3
+        icon_large = GFX_planet_type_science_arkship_3_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_military_arkship_tier_1 }
+        }
+        icon = GFX_planet_type_military_arkship_1
+        icon_large = GFX_planet_type_military_arkship_1_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_military_arkship_tier_2 }
+        }
+        icon = GFX_planet_type_military_arkship_2
+        icon_large = GFX_planet_type_military_arkship_2_big
+    }
+    conditional_icon = {
+        trigger = {
+            ship = { is_ship_size = br_military_arkship_tier_3 }
+        }
+        icon = GFX_planet_type_military_arkship_3
+        icon_large = GFX_planet_type_military_arkship_3_big
+    }
+
+    climate = "artificial"                  # 气候分类：人工星球
+    initial = yes                           # 允许在帝国创建时作为初始星球类型
+
+    auto_trait_prio = {
+        # 自动特质优先匹配
+        trait_auto_pc_ark_preference
+    }
+
+    starting_planet = no                    # 不随机生成为起始星球
+
+    starting_district = district_ark_city   # 初始区划类型
+
+    atmosphere_color = hsv { 0.59 0.45 0.95 }  # 大气颜色
+    atmosphere_intensity = 1.0                      # 大气强度
+    atmosphere_width = 0.5                      # 大气宽度
+
+    min_distance_from_sun = @habitable_min_distance    # 距恒星最小距离
+    max_distance_from_sun = @habitable_max_distance    # 距恒星最大距离
+    spawn_odds = 0                                     # 自然生成概率：0 = 不自然生成
+
+    extra_orbit_size = 0                    # 额外轨道大小
+    extra_planet_count = 0                  # 额外行星数量
+
+    planet_size = { min = 9 max = 9 }       # 固定大小 9
+
+    colonizable = yes                       # 可殖民
+    district_set = nomad                    # 区划集：游牧方舟
+    uses_alternative_skies_for_moons = no   # 卫星不使用替代天空
+    uses_alternative_skies_if_has_orbital_ring = no  # 轨道环不使用替代天空
+    is_artificial_planet = yes              # 标记为人工星球（排除自然星球修正）
+    default_planet_selection = yes          # 允许在星球选择界面中显示
+
+    modifier = {
+        # 星球固有修正
+        pop_environment_tolerance = 1       # +100% 居住性 = 满适应
+    }
+
+    carry_cap_per_free_district = @carry_cap_normal  # 每空闲区划承载能力
+
+    single_build_queue = yes                # 单建筑队列（方舟舰限制）
+}

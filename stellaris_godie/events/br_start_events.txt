@@ -18,9 +18,14 @@ country_event = {
 	}
 	immediate = {
 		set_global_flag = br_start_settings_opened
-		country_event = {
-			id = br.501
-		}
+		# 默认使用标准银河模式，跳过模式选择窗口
+		remove_global_flag = br_mode_pvp
+		remove_global_flag = br_mode_pve
+		set_global_flag = br_mode_disabled
+		# 等后续修好再恢复触发 br.501
+		# country_event = {
+		# 	id = br.501
+		# }
 	}
 }
 
