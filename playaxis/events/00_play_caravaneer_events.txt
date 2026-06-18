@@ -41,16 +41,15 @@ country_event = {
     }
     immediate = {
         set_global_flag = has_axis_system
-        random_system = {
-            limit = {
-                is_owned_by = root
-            }
-            spawn_system = {
-                min_distance = 50  # 最小生成距离（相对于地图中心或参考点）
-                max_distance = 100  # 最大生成距离（相对于地图中心或参考点）
-                initializer = "play_system_01"  # 系统初始化脚本，定义恒星、行星、资源等
-                hyperlane = yes  # 是否自动生成超空间航道连接到其他系统
-                is_discovered = no  # 系统是否一开始就被所有帝国发现
+        random_owned_ship = {
+            solar_system = {
+                spawn_system = {
+                    min_distance = 50  # 最小生成距离（相对于地图中心或参考点）
+                    max_distance = 100  # 最大生成距离（相对于地图中心或参考点）
+                    initializer = "play_system_01"  # 系统初始化脚本，定义恒星、行星、资源等
+                    hyperlane = yes  # 是否自动生成超空间航道连接到其他系统
+                    is_discovered = no  # 系统是否一开始就被所有帝国发现
+                }
             }
         }
     }
