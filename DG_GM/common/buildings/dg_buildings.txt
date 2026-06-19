@@ -17,9 +17,9 @@ admin_add_building = {
         exists = owner
         owner = {
             is_ai = no
-            #is_regular_empire = yes
-            #is_spiritualist = no
-            #has_make_spiritualist_perk = no
+            is_regular_empire = yes
+            is_spiritualist = no
+            has_make_spiritualist_perk = no
         }
         NOR = {
             has_modifier = penal_colony
@@ -32,9 +32,9 @@ admin_add_building = {
         exists = owner
         owner = {
             OR = {
-                #is_regular_empire = no
-                #is_spiritualist = yes
-                #has_make_spiritualist_perk = yes
+                is_regular_empire = no
+                is_spiritualist = yes
+                has_make_spiritualist_perk = yes
                 is_ai = yes
             }
         }
@@ -46,9 +46,9 @@ admin_add_building = {
     ai_weight_coefficient = 0
 
     convert_to = {
-        building_temple
-        building_hive_node
-        building_uplink_node
+        admin_add_building_temple
+        admin_add_building_hive
+        admin_add_building_uplink
     }
 
     resources = {
@@ -76,5 +76,310 @@ admin_add_building = {
         is_regular_empire = yes
         is_spiritualist = no
         has_make_spiritualist_perk = no
+    }
+}
+
+admin_add_building_temple = {
+    icon = building_temple
+    can_build = yes
+    base_buildtime = @b1_time
+    exempt_from_ai_planet_specialization = no
+
+    category = unity
+
+    building_sets = {
+        government
+        urban
+        admin
+        unity
+    }
+    #建造条件
+    potential = {
+        exists = owner
+        owner = {
+            is_ai = no
+            OR = {
+                is_spiritualist = yes
+                AND = {
+                    is_gestalt = no
+                    has_make_spiritualist_perk = yes
+                }
+            }
+        }
+        NOT = { has_modifier = slave_colony }
+    }
+    #自动拆除
+    destroy_trigger = {
+        exists = owner
+        owner = {
+            OR = {
+                AND = {
+                    is_spiritualist = no
+                    has_make_spiritualist_perk = no
+                }
+                is_gestalt = yes
+                is_ai = yes
+            }
+        }
+    }
+
+    allow = {
+    }
+
+    ai_weight_coefficient = 0
+
+    convert_to = {
+        admin_add_building
+        admin_add_building_hive
+        admin_add_building_uplink
+    }
+
+    resources = {
+        category = planet_buildings
+        cost = {
+            minerals = @b1_minerals
+        }
+        upkeep = {
+            energy = @b1_upkeep
+        }
+    }
+    planet_modifier = {
+        job_gm_admin_add = 200
+    }
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    prerequisites = {
+        "tech_planetary_government"
+    }
+
+    show_tech_unlock_if = {
+        OR = {
+            is_spiritualist = yes
+            AND = {
+                is_gestalt = no
+                has_make_spiritualist_perk = yes
+            }
+        }
+    }
+}
+
+admin_add_building_hive = {
+    icon = building_hive_node
+    can_build = yes
+    base_buildtime = @b1_time
+    exempt_from_ai_planet_specialization = no
+
+    category = unity
+
+    building_sets = {
+        government
+        urban
+        admin
+        unity
+    }
+    #建造条件
+    potential = {
+        exists = owner
+        owner = {
+            is_ai = no
+            is_hive_empire = yes
+            is_wilderness_empire = no
+        }
+    }
+    #自动拆除
+    destroy_trigger = {
+        exists = owner
+        owner = {
+            OR = {
+                is_hive_empire = no
+                is_wilderness_empire = yes
+                is_ai = yes
+            }
+        }
+    }
+
+    allow = {
+    }
+
+    ai_weight_coefficient = 0
+
+    convert_to = {
+        admin_add_building
+        admin_add_building_temple
+        admin_add_building_uplink
+    }
+
+    resources = {
+        category = planet_buildings
+        cost = {
+            minerals = @b1_minerals
+        }
+        upkeep = {
+            energy = @b1_upkeep
+        }
+    }
+    planet_modifier = {
+        job_gm_coordinator_add = 200
+    }
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    prerequisites = {
+        "tech_hive_node"
+    }
+
+    show_tech_unlock_if = {
+        is_hive_empire = yes
+        is_wilderness_empire = no
+    }
+}
+
+admin_add_building_uplink = {
+    icon = building_autochthon_monument
+    can_build = yes
+    base_buildtime = @b1_time
+    exempt_from_ai_planet_specialization = no
+
+    category = unity
+
+    building_sets = {
+        government
+        urban
+        admin
+        unity
+    }
+    #建造条件
+    potential = {
+        exists = owner
+        owner = {
+            is_ai = no
+            is_machine_empire = yes
+        }
+    }
+    #自动拆除
+    destroy_trigger = {
+        exists = owner
+        owner = {
+            OR = {
+                is_machine_empire = no
+                is_ai = yes
+            }
+        }
+    }
+
+    allow = {
+    }
+
+    ai_weight_coefficient = 0
+
+    convert_to = {
+        admin_add_building
+        admin_add_building_temple
+        admin_add_building_hive
+        admin_add_building_wilderness
+    }
+
+    resources = {
+        category = planet_buildings
+        cost = {
+            minerals = @b1_minerals
+        }
+        upkeep = {
+            energy = @b1_upkeep
+        }
+    }
+    planet_modifier = {
+        job_gm_coordinator_add = 200
+    }
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    prerequisites = {
+        "tech_planetary_government"
+    }
+
+    show_tech_unlock_if = {
+        is_machine_empire = yes
+        NOT = {
+            has_valid_civic = civic_machine_servitor
+        }
+    }
+}
+
+admin_add_building_wilderness = {
+    icon = building_commensal_clearing_1
+    can_build = yes
+    base_buildtime = @b1_time
+    exempt_from_ai_planet_specialization = no
+
+    category = unity
+
+    building_sets = {
+        government
+        urban
+        admin
+        unity
+    }
+    #建造条件
+    potential = {
+        exists = owner
+        owner = {
+            is_ai = no
+            is_wilderness_empire = yes
+        }
+    }
+    #自动拆除
+    destroy_trigger = {
+        exists = owner
+        owner = {
+            OR = {
+                is_wilderness_empire = no
+                is_ai = yes
+            }
+        }
+    }
+
+    allow = {
+    }
+
+    ai_weight_coefficient = 0
+
+    convert_to = {
+        admin_add_building
+        admin_add_building_temple
+        admin_add_building_hive
+        admin_add_building_uplink
+    }
+
+    resources = {
+        category = planet_buildings
+        cost = {
+            minerals = @b1_minerals
+        }
+        upkeep = {
+            energy = @b1_upkeep
+        }
+    }
+    planet_modifier = {
+        job_gm_coordinator_add = 200
+    }
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    prerequisites = {
+        "tech_wilderness_node"
+    }
+
+    show_tech_unlock_if = {
+        is_wilderness_empire = yes
     }
 }

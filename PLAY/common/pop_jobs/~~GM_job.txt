@@ -6,27 +6,28 @@ gm_admin = {
             condition_string = SPECIALIST_JOB_TRIGGER  # 本地化触发条件文本
             building_icon = building_bureaucratic_1    # 默认关联建筑图标
         }
-
-        ## ---- 政体/事件/起源相关变种 ----
-        #swap_type = {
-        #    # 管理者变种
-        #    trigger = { bureaucrat_is_manager = yes }  # 管理者条件
-        #    name = manager      # 显示名称
-        #    icon = manager      # 岗位图标
-        #    building_icon = building_bureaucratic_1  # 关联建筑
-        #    weight = 2          # AI选择权重
-        #}
-        #
-        #swap_type = {
-        #    # 祭司变种（唯心政体）
-        #    trigger = { bureaucrat_is_priest = yes }
-        #    building_icon = building_temple  # 关联神庙建筑
-        #    weight = 5
-        #}
+        # 唯心政体
+        swap_type = {
+            trigger = {
+                owner? = {
+                    OR = {
+                        is_spiritualist = yes
+                        AND = {
+                            is_gestalt = no
+                            has_make_spiritualist_perk = yes
+                        }
+                    }
+                }
+            }
+            name = gm_admin_temple
+            desc = gm_admin_temple
+            building_icon = building_temple
+            weight = 1
+        }
     }
 
     #基础岗位属性
-    tags = { admin }  # 标记为凝聚力相关
+    tags = { unity }  # 标记为凝聚力相关
 
     possible_pre_triggers = {
         # 通用存在条件
@@ -35,8 +36,12 @@ gm_admin = {
         is_being_assimilated = no  # 不被同化
         is_sapient = yes        # 具有智慧
     }
+    # 岗位分配条件
+    possible = {
+        complex_specialist_job_check_trigger = yes
+    }
     country_modifier = {
-        #15规模
+        #10规模
         country_admin_cap_add = 10
         country_edict_fund_add = 5
         # empire_size_add = -10 #可以减基础值
@@ -44,40 +49,16 @@ gm_admin = {
     #资源产出
     resources = {
         category = planet_bureaucrats  # 资源分类
-        upkeep = { energy = 2 }# 2电
-        #
-        ## 基础产出
-        #produces = { unity = 4 }       # 4凝聚力
-        #upkeep = { consumer_goods = 2 }# 2消费品
-        #
-        #
-        ## 变种特殊产出
-        #produces = {
-        #    # 管理者变种
-        #    trigger = { bureaucrat_is_manager = yes }
-        #    trade = 2  # 额外2贸易值
-        #}
-        #
-        #produces = {
-        #    # 预言家变种
-        #    trigger = { bureaucrat_is_haruspex = yes }
-        #    engineering_research = 2  # 工程学研究+2
-        #}
+        # 非格式塔维护
+        upkeep = {
+            consumer_goods = 2
+        }
     }
 
     # ===== 行星修正系统 =====
     triggered_planet_modifier = {
-        # 舒适度修正组
-        # 祭司/死亡祭司/预言家等变种
-        potential = { bureaucrat_is_priest = yes }
-        planet_amenities_add = 200  # +200基础舒适度
-        mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|  # 脚本乘数
-    }
-
-    triggered_planet_modifier = {
-        # 稳定性修正
-        potential = { bureaucrat_is_memorialist = yes }
-        planet_stability_add = 0.5  # +0.5稳定性
+        planet_amenities_add = 200
+        mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
     }
 
     #AI
@@ -97,18 +78,6 @@ gm_admin = {
         }
     }
 
-    #晋升
-    inline_script = "jobs/automodding_priority_unity"  # 自动化优先级调整脚本
-
-    promotion = {
-        # 晋升机制
-        time = @standard_promotion_time  # 标准晋升时间
-        effect = {
-            # 晋升效果
-            pop_amount_change_category = {
-                CATEGORY = specialist  # 保持专家类别
-                AMOUNT = local_pop_amount  # 数量继承
-            }
-        }
-    }
+    #自动化优先级
+    inline_script = "jobs/automodding_priority_unity"
 }

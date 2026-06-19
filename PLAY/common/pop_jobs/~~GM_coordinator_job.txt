@@ -1,0 +1,106 @@
+gm_coordinator = {
+    category = complex_drone  # 归类为复合子个体岗位
+    swappable_data = {
+        default = {
+            # 基础配置（机器帝国）
+            condition_string = DRONE_JOB_TRIGGER  # 本地化触发条件文本
+            building_icon = building_machine_capital    # 默认关联建筑图标
+        }
+        # 蜂巢思维（非荒野）
+        swap_type = {
+            trigger = {
+                owner? = {
+                    is_hive_empire = yes
+                    is_wilderness_empire = no
+                }
+            }
+            name = gm_coordinator_hive
+            desc = gm_coordinator_hive
+            building_icon = building_hive_capital
+            weight = 2
+        }
+        # 荒野帝国
+        swap_type = {
+            trigger = { owner? = { is_wilderness_empire = yes } }
+            name = gm_coordinator_wilderness
+            desc = gm_coordinator_wilderness
+            building_icon = building_commensal_clearing_3
+            weight = 10
+        }
+    }
+
+    #基础岗位属性
+    tags = { unity }  # 标记为凝聚力相关
+
+    possible_pre_triggers = {
+        # 通用存在条件
+        has_owner = yes
+        is_enslaved = no
+        is_being_purged = no    # 不被净化
+        is_being_assimilated = no  # 不被同化
+        is_sapient = yes        # 具有智慧
+    }
+    # 岗位分配条件
+    possible = {
+        can_think = yes
+    }
+    country_modifier = {
+        #15规模
+        country_admin_cap_add = 10
+        country_edict_fund_add = 5
+        # empire_size_add = -10 #可以减基础值
+    }
+    #资源产出
+    resources = {
+        category = planet_bureaucrats  # 资源分类
+        # 蜂巢思维维护（非硅基/地狱）
+        upkeep = {
+            trigger = {
+                owner? = {
+                    is_hive_empire = yes
+                    is_lithoid_or_infernal_empire = no
+                }
+            }
+            food = 2
+            energy = 2
+        }
+        # 蜂巢思维维护（硅基/地狱）
+        upkeep = {
+            trigger = {
+                owner? = {
+                    is_hive_empire = yes
+                    is_lithoid_or_infernal_empire = yes
+                }
+            }
+            minerals = 2
+            energy = 2
+        }
+        # 机器帝国维护
+        upkeep = {
+            trigger = { owner? = { is_machine_empire = yes } }
+            energy = 4
+        }
+    }
+
+    # ===== 行星修正系统 =====
+    triggered_planet_modifier = {
+        planet_amenities_no_happiness_add = 200
+        mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+    }
+
+    #AI
+    weight = {
+        weight = @synapse_drone_job_weight  # 基础格式塔岗位权重
+        mult = value:scripted_job_weight_shroud_forged_mult
+        modifier = {
+            factor = 0.9
+            exists = owner
+            years_passed < 1
+            owner = { has_valid_civic = civic_machine_assimilator }
+            has_trait = trait_cybernetic
+        }
+    }
+
+    #自动化优先级
+    inline_script = "jobs/automodding_priority_unity"
+}

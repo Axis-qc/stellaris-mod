@@ -1,29 +1,23 @@
 zone_admin_add = {
-    icon = GFX_dggm_admin_add
+    icon = GFX_zone_dggm_admin_add
     base_buildtime = 360
     potential = {
-        # planet scope
+        # 行星作用域
         hidden_trigger = { exists = owner }
-        #owner = {
-        #    is_wilderness_empire = no
-        #    is_spiritualist = no
-        #}
+        owner = {
+            is_wilderness_empire = no
+        }
     }
-
     unlock = {
-        # planet scope
+        # 行星作用域
         exists = owner
-        #owner = {
-        #    is_wilderness_empire = no
-        #}
+        owner = {
+            is_wilderness_empire = no
+        }
     }
     zone_sets = {
         urban
         habitat_urban
-        arcology
-        ring_world
-        nexus
-        hive
     }
 
     resources = {
@@ -36,6 +30,8 @@ zone_admin_add = {
     included_building_sets = {
         admin
         automation
+        research
+        unity
         origin
     }
 
@@ -47,7 +43,6 @@ zone_admin_add = {
     planet_modifier = {
         zone_building_slots_add = 3
     }
-
     triggered_district_planet_modifier = {
         potential = {
             owner = {
@@ -72,4 +67,341 @@ zone_admin_add = {
     convert_to = {
         zone_unity_spiritualist
     }
+}
+#荒野帝国
+zone_admin_add_wilderness = {
+    icon = GFX_zone_dggm_admin_add
+    base_buildtime = 360
+    potential = {
+        # 行星作用域
+        hidden_trigger = { exists = owner }
+        owner = {
+            is_wilderness_empire = yes
+        }
+    }
+    unlock = {
+        # 行星作用域
+        exists = owner
+        owner = {
+            is_wilderness_empire = yes
+        }
+    }
+    zone_sets = {
+        urban
+    }
+
+    resources = {
+        category = planet_zones
+        cost = {
+            minerals = 1000
+            biomass = 500
+        }
+    }
+
+    included_building_sets = {
+        admin
+        automation
+        research
+        unity
+        origin
+    }
+
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 100
+    }
+
+    planet_modifier = {
+        zone_building_slots_add = 3
+    }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = zone_unity_triggered_desc
+    }
+}
+#理想城
+zone_admin_add_arcology = {
+    icon = GFX_zone_dggm_admin_add
+    base_buildtime = 360
+    potential = {
+        # 行星作用域
+        hidden_trigger = { exists = owner }
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    unlock = {
+        # 行星作用域
+        exists = owner
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    zone_sets = {
+        arcology
+    }
+
+    resources = {
+        category = planet_zones
+        cost = {
+            minerals = 1000
+        }
+    }
+
+    included_building_sets = {
+        admin
+        automation
+        research
+        unity
+        origin
+    }
+
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    planet_modifier = {
+        zone_building_slots_add = 3
+    }
+    triggered_district_planet_modifier = {
+        potential = {
+            owner = {
+                not = {
+                    has_origin = origin_wilderness
+                }
+            }
+        }
+        planet_housing_add = -600
+    }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = zone_unity_triggered_desc
+    }
+
+
+    swap_type = district_arcology_administrative
+    swap_type_weight = 5
+
+
+}
+#环
+zone_admin_add_ring_world = {
+    icon = GFX_zone_dggm_admin_add
+    base_buildtime = 360
+    potential = {
+        # 行星作用域
+        hidden_trigger = { exists = owner }
+    }
+    unlock = {
+        # 行星作用域
+        exists = owner
+    }
+    zone_sets = {
+        ring_world
+    }
+
+    resources = {
+        category = planet_zones
+        cost = {
+            minerals = 1000
+        }
+    }
+
+    included_building_sets = {
+        admin
+        automation
+        research
+        unity
+        origin
+    }
+
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    planet_modifier = {
+        zone_building_slots_add = 3
+    }
+    triggered_district_planet_modifier = {
+        potential = {
+            owner = {
+                not = {
+                    has_origin = origin_wilderness
+                }
+            }
+        }
+        planet_housing_add = -1000
+    }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = zone_unity_triggered_desc
+    }
+
+
+    swap_type = district_ring_world_administrative
+    swap_type_weight = 5
+
+
+}
+#机械球
+zone_admin_add_nexus = {
+    icon = GFX_zone_dggm_admin_add
+    base_buildtime = 360
+    potential = {
+        # 行星作用域
+        hidden_trigger = { exists = owner }
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    unlock = {
+        # 行星作用域
+        exists = owner
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    zone_sets = {
+        nexus
+    }
+
+    resources = {
+        category = planet_zones
+        cost = {
+            minerals = 1000
+        }
+    }
+
+    included_building_sets = {
+        admin
+        automation
+        research
+        unity
+        origin
+    }
+
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    planet_modifier = {
+        zone_building_slots_add = 3
+    }
+    triggered_district_planet_modifier = {
+        potential = {
+            owner = {
+                not = {
+                    has_origin = origin_wilderness
+                }
+            }
+        }
+        planet_housing_add = -600
+    }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = zone_unity_triggered_desc
+    }
+
+
+    swap_type = district_nexus_administrative
+    swap_type_weight = 5
+
+
+}
+#蜂巢球
+zone_admin_add_hive = {
+    icon = GFX_zone_dggm_admin_add
+    base_buildtime = 360
+    potential = {
+        # 行星作用域
+        hidden_trigger = { exists = owner }
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    unlock = {
+        # 行星作用域
+        exists = owner
+        owner = {
+            is_wilderness_empire = no
+        }
+    }
+    zone_sets = {
+        hive
+    }
+
+    resources = {
+        category = planet_zones
+        cost = {
+            minerals = 1000
+        }
+    }
+
+    included_building_sets = {
+        admin
+        automation
+        research
+        unity
+        origin
+    }
+
+    inline_script = {
+        script = jobs/dggm_zone_admin_jobs
+        AMOUNT = 200
+    }
+
+    planet_modifier = {
+        zone_building_slots_add = 3
+    }
+    triggered_district_planet_modifier = {
+        potential = {
+            owner = {
+                not = {
+                    has_origin = origin_wilderness
+                }
+            }
+        }
+        planet_housing_add = -600
+    }
+    # inline_script = {
+    #     script = zones/shared_city_non_urban_zone_modifiers
+    # }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = zone_unity_triggered_desc
+    }
+
+    swap_type = district_hive_administrative
+    swap_type_weight = 5
+
 }
