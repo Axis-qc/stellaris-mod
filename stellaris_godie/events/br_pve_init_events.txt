@@ -2,789 +2,789 @@ namespace = br
 # 事件ID区间：700-799。新增或修改事件ID不得超出此区间喵
 # br.700：PVE模式初始化入口，在最外圈选1个锚点再在附近选5个共6个出生点喵
 country_event = {
-	id = br.700
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		OR = {
-			is_country_type = br_void
-			AND = {
-				is_ai = no
-				NOR = {
-					is_country_type = br_player
-					is_country_type = br_player_pvp
-					is_country_type = br_player_pve
-				}
-			}
-		}
-	}
-	immediate = {
-		# 在最外圈选1个锚点，再在附近选5个共6个出生点喵
-		if = {
-			limit = {
-				NOT = {
-					has_global_flag = br_player_spawns_marked
-				}
-			}
-			set_global_flag = br_player_spawns_marked
-			if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_100
-						has_global_flag = br_reached_99
-						has_global_flag = br_reached_98
-						has_global_flag = br_reached_97
-						has_global_flag = br_reached_96
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_100
-							has_star_flag = br_ring_99
-							has_star_flag = br_ring_98
-							has_star_flag = br_ring_97
-							has_star_flag = br_ring_96
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_95
-						has_global_flag = br_reached_94
-						has_global_flag = br_reached_93
-						has_global_flag = br_reached_92
-						has_global_flag = br_reached_91
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_95
-							has_star_flag = br_ring_94
-							has_star_flag = br_ring_93
-							has_star_flag = br_ring_92
-							has_star_flag = br_ring_91
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_90
-						has_global_flag = br_reached_89
-						has_global_flag = br_reached_88
-						has_global_flag = br_reached_87
-						has_global_flag = br_reached_86
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_90
-							has_star_flag = br_ring_89
-							has_star_flag = br_ring_88
-							has_star_flag = br_ring_87
-							has_star_flag = br_ring_86
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_85
-						has_global_flag = br_reached_84
-						has_global_flag = br_reached_83
-						has_global_flag = br_reached_82
-						has_global_flag = br_reached_81
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_85
-							has_star_flag = br_ring_84
-							has_star_flag = br_ring_83
-							has_star_flag = br_ring_82
-							has_star_flag = br_ring_81
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_80
-						has_global_flag = br_reached_79
-						has_global_flag = br_reached_78
-						has_global_flag = br_reached_77
-						has_global_flag = br_reached_76
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_80
-							has_star_flag = br_ring_79
-							has_star_flag = br_ring_78
-							has_star_flag = br_ring_77
-							has_star_flag = br_ring_76
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_75
-						has_global_flag = br_reached_74
-						has_global_flag = br_reached_73
-						has_global_flag = br_reached_72
-						has_global_flag = br_reached_71
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_75
-							has_star_flag = br_ring_74
-							has_star_flag = br_ring_73
-							has_star_flag = br_ring_72
-							has_star_flag = br_ring_71
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_70
-						has_global_flag = br_reached_69
-						has_global_flag = br_reached_68
-						has_global_flag = br_reached_67
-						has_global_flag = br_reached_66
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_70
-							has_star_flag = br_ring_69
-							has_star_flag = br_ring_68
-							has_star_flag = br_ring_67
-							has_star_flag = br_ring_66
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_65
-						has_global_flag = br_reached_64
-						has_global_flag = br_reached_63
-						has_global_flag = br_reached_62
-						has_global_flag = br_reached_61
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_65
-							has_star_flag = br_ring_64
-							has_star_flag = br_ring_63
-							has_star_flag = br_ring_62
-							has_star_flag = br_ring_61
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_60
-						has_global_flag = br_reached_59
-						has_global_flag = br_reached_58
-						has_global_flag = br_reached_57
-						has_global_flag = br_reached_56
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_60
-							has_star_flag = br_ring_59
-							has_star_flag = br_ring_58
-							has_star_flag = br_ring_57
-							has_star_flag = br_ring_56
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_55
-						has_global_flag = br_reached_54
-						has_global_flag = br_reached_53
-						has_global_flag = br_reached_52
-						has_global_flag = br_reached_51
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_55
-							has_star_flag = br_ring_54
-							has_star_flag = br_ring_53
-							has_star_flag = br_ring_52
-							has_star_flag = br_ring_51
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_50
-						has_global_flag = br_reached_49
-						has_global_flag = br_reached_48
-						has_global_flag = br_reached_47
-						has_global_flag = br_reached_46
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_50
-							has_star_flag = br_ring_49
-							has_star_flag = br_ring_48
-							has_star_flag = br_ring_47
-							has_star_flag = br_ring_46
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_45
-						has_global_flag = br_reached_44
-						has_global_flag = br_reached_43
-						has_global_flag = br_reached_42
-						has_global_flag = br_reached_41
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_45
-							has_star_flag = br_ring_44
-							has_star_flag = br_ring_43
-							has_star_flag = br_ring_42
-							has_star_flag = br_ring_41
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_40
-						has_global_flag = br_reached_39
-						has_global_flag = br_reached_38
-						has_global_flag = br_reached_37
-						has_global_flag = br_reached_36
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_40
-							has_star_flag = br_ring_39
-							has_star_flag = br_ring_38
-							has_star_flag = br_ring_37
-							has_star_flag = br_ring_36
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						has_global_flag = br_reached_35
-						has_global_flag = br_reached_34
-						has_global_flag = br_reached_33
-						has_global_flag = br_reached_32
-						has_global_flag = br_reached_31
-					}
-				}
-				random_system = {
-					limit = {
-						OR = {
-							has_star_flag = br_ring_35
-							has_star_flag = br_ring_34
-							has_star_flag = br_ring_33
-							has_star_flag = br_ring_32
-							has_star_flag = br_ring_31
-						}
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			else_if = {
-				limit = {
-					has_global_flag = br_reached_30
-				}
-				random_system = {
-					limit = {
-						has_star_flag = br_ring_30
-					}
-					set_star_flag = br_spawn_candidate_1
-				}
-			}
-			# 选择出生点1
-			random_system = {
-				limit = {
-					has_star_flag = br_spawn_candidate_1
-				}
-				save_global_event_target_as = br_player_spawn_system_1
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_1
-			}
-			# 锚点fallback：如果最外圈找不到，全图随机选一个喵
-			if = {
-				limit = {
-					NOT = {
-						exists = event_target:br_player_spawn_system_1
-					}
-				}
-				random_system = {
-					save_global_event_target_as = br_player_spawn_system_1
-					set_star_flag = br_player_spawn_system
-				}
-			}
-			# 在锚点400坐标距离内选5个出生点喵
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_player_spawn_system_1
-						max_distance <= 400
-					}
-					NOT = {
-						has_star_flag = br_player_spawn_system
-					}
-				}
-				save_global_event_target_as = br_player_spawn_system_2
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_2
-			}
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_player_spawn_system_1
-						max_distance <= 400
-					}
-					NOT = {
-						has_star_flag = br_player_spawn_system
-					}
-				}
-				save_global_event_target_as = br_player_spawn_system_3
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_3
-			}
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_player_spawn_system_1
-						max_distance <= 400
-					}
-					NOT = {
-						has_star_flag = br_player_spawn_system
-					}
-				}
-				save_global_event_target_as = br_player_spawn_system_4
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_4
-			}
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_player_spawn_system_1
-						max_distance <= 400
-					}
-					NOT = {
-						has_star_flag = br_player_spawn_system
-					}
-				}
-				save_global_event_target_as = br_player_spawn_system_5
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_5
-			}
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_player_spawn_system_1
-						max_distance <= 400
-					}
-					NOT = {
-						has_star_flag = br_player_spawn_system
-					}
-				}
-				save_global_event_target_as = br_player_spawn_system_6
-				set_star_flag = br_player_spawn_system
-				set_name = BR_SPAWN_NAME_6
-			}
-		}
-		#给所有玩家国家触发转移
-		every_country = {
-			limit = {
-				is_ai = no
-				has_country_flag = br_player_replacement_scheduled
-				NOT = {
-					has_country_flag = br_player_replaced
-				}
-				NOR = {
-					is_country_type = br_player
-					is_country_type = br_player_pvp
-					is_country_type = br_player_pve
-				}
-			}
-			country_event = {
-				id = br.701
-			}
-		}
-	}
+    id = br.700
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        OR = {
+            is_country_type = br_void
+            AND = {
+                is_ai = no
+                NOR = {
+                    is_country_type = br_player
+                    is_country_type = br_player_pvp
+                    is_country_type = br_player_pve
+                }
+            }
+        }
+    }
+    immediate = {
+        # 在最外圈选1个锚点，再在附近选5个共6个出生点喵
+        if = {
+            limit = {
+                NOT = {
+                    has_global_flag = br_player_spawns_marked
+                }
+            }
+            set_global_flag = br_player_spawns_marked
+            if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_100
+                        has_global_flag = br_reached_99
+                        has_global_flag = br_reached_98
+                        has_global_flag = br_reached_97
+                        has_global_flag = br_reached_96
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_100
+                            has_star_flag = br_ring_99
+                            has_star_flag = br_ring_98
+                            has_star_flag = br_ring_97
+                            has_star_flag = br_ring_96
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_95
+                        has_global_flag = br_reached_94
+                        has_global_flag = br_reached_93
+                        has_global_flag = br_reached_92
+                        has_global_flag = br_reached_91
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_95
+                            has_star_flag = br_ring_94
+                            has_star_flag = br_ring_93
+                            has_star_flag = br_ring_92
+                            has_star_flag = br_ring_91
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_90
+                        has_global_flag = br_reached_89
+                        has_global_flag = br_reached_88
+                        has_global_flag = br_reached_87
+                        has_global_flag = br_reached_86
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_90
+                            has_star_flag = br_ring_89
+                            has_star_flag = br_ring_88
+                            has_star_flag = br_ring_87
+                            has_star_flag = br_ring_86
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_85
+                        has_global_flag = br_reached_84
+                        has_global_flag = br_reached_83
+                        has_global_flag = br_reached_82
+                        has_global_flag = br_reached_81
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_85
+                            has_star_flag = br_ring_84
+                            has_star_flag = br_ring_83
+                            has_star_flag = br_ring_82
+                            has_star_flag = br_ring_81
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_80
+                        has_global_flag = br_reached_79
+                        has_global_flag = br_reached_78
+                        has_global_flag = br_reached_77
+                        has_global_flag = br_reached_76
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_80
+                            has_star_flag = br_ring_79
+                            has_star_flag = br_ring_78
+                            has_star_flag = br_ring_77
+                            has_star_flag = br_ring_76
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_75
+                        has_global_flag = br_reached_74
+                        has_global_flag = br_reached_73
+                        has_global_flag = br_reached_72
+                        has_global_flag = br_reached_71
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_75
+                            has_star_flag = br_ring_74
+                            has_star_flag = br_ring_73
+                            has_star_flag = br_ring_72
+                            has_star_flag = br_ring_71
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_70
+                        has_global_flag = br_reached_69
+                        has_global_flag = br_reached_68
+                        has_global_flag = br_reached_67
+                        has_global_flag = br_reached_66
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_70
+                            has_star_flag = br_ring_69
+                            has_star_flag = br_ring_68
+                            has_star_flag = br_ring_67
+                            has_star_flag = br_ring_66
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_65
+                        has_global_flag = br_reached_64
+                        has_global_flag = br_reached_63
+                        has_global_flag = br_reached_62
+                        has_global_flag = br_reached_61
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_65
+                            has_star_flag = br_ring_64
+                            has_star_flag = br_ring_63
+                            has_star_flag = br_ring_62
+                            has_star_flag = br_ring_61
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_60
+                        has_global_flag = br_reached_59
+                        has_global_flag = br_reached_58
+                        has_global_flag = br_reached_57
+                        has_global_flag = br_reached_56
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_60
+                            has_star_flag = br_ring_59
+                            has_star_flag = br_ring_58
+                            has_star_flag = br_ring_57
+                            has_star_flag = br_ring_56
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_55
+                        has_global_flag = br_reached_54
+                        has_global_flag = br_reached_53
+                        has_global_flag = br_reached_52
+                        has_global_flag = br_reached_51
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_55
+                            has_star_flag = br_ring_54
+                            has_star_flag = br_ring_53
+                            has_star_flag = br_ring_52
+                            has_star_flag = br_ring_51
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_50
+                        has_global_flag = br_reached_49
+                        has_global_flag = br_reached_48
+                        has_global_flag = br_reached_47
+                        has_global_flag = br_reached_46
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_50
+                            has_star_flag = br_ring_49
+                            has_star_flag = br_ring_48
+                            has_star_flag = br_ring_47
+                            has_star_flag = br_ring_46
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_45
+                        has_global_flag = br_reached_44
+                        has_global_flag = br_reached_43
+                        has_global_flag = br_reached_42
+                        has_global_flag = br_reached_41
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_45
+                            has_star_flag = br_ring_44
+                            has_star_flag = br_ring_43
+                            has_star_flag = br_ring_42
+                            has_star_flag = br_ring_41
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_40
+                        has_global_flag = br_reached_39
+                        has_global_flag = br_reached_38
+                        has_global_flag = br_reached_37
+                        has_global_flag = br_reached_36
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_40
+                            has_star_flag = br_ring_39
+                            has_star_flag = br_ring_38
+                            has_star_flag = br_ring_37
+                            has_star_flag = br_ring_36
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    OR = {
+                        has_global_flag = br_reached_35
+                        has_global_flag = br_reached_34
+                        has_global_flag = br_reached_33
+                        has_global_flag = br_reached_32
+                        has_global_flag = br_reached_31
+                    }
+                }
+                random_system = {
+                    limit = {
+                        OR = {
+                            has_star_flag = br_ring_35
+                            has_star_flag = br_ring_34
+                            has_star_flag = br_ring_33
+                            has_star_flag = br_ring_32
+                            has_star_flag = br_ring_31
+                        }
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            else_if = {
+                limit = {
+                    has_global_flag = br_reached_30
+                }
+                random_system = {
+                    limit = {
+                        has_star_flag = br_ring_30
+                    }
+                    set_star_flag = br_spawn_candidate_1
+                }
+            }
+            # 选择出生点1
+            random_system = {
+                limit = {
+                    has_star_flag = br_spawn_candidate_1
+                }
+                save_global_event_target_as = br_player_spawn_system_1
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_1
+            }
+            # 锚点fallback：如果最外圈找不到，全图随机选一个喵
+            if = {
+                limit = {
+                    NOT = {
+                        exists = event_target:br_player_spawn_system_1
+                    }
+                }
+                random_system = {
+                    save_global_event_target_as = br_player_spawn_system_1
+                    set_star_flag = br_player_spawn_system
+                }
+            }
+            # 在锚点400坐标距离内选5个出生点喵
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 400
+                    }
+                    NOT = {
+                        has_star_flag = br_player_spawn_system
+                    }
+                }
+                save_global_event_target_as = br_player_spawn_system_2
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_2
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 400
+                    }
+                    NOT = {
+                        has_star_flag = br_player_spawn_system
+                    }
+                }
+                save_global_event_target_as = br_player_spawn_system_3
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_3
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 400
+                    }
+                    NOT = {
+                        has_star_flag = br_player_spawn_system
+                    }
+                }
+                save_global_event_target_as = br_player_spawn_system_4
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_4
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 400
+                    }
+                    NOT = {
+                        has_star_flag = br_player_spawn_system
+                    }
+                }
+                save_global_event_target_as = br_player_spawn_system_5
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_5
+            }
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_player_spawn_system_1
+                        max_distance <= 400
+                    }
+                    NOT = {
+                        has_star_flag = br_player_spawn_system
+                    }
+                }
+                save_global_event_target_as = br_player_spawn_system_6
+                set_star_flag = br_player_spawn_system
+                set_name = BR_SPAWN_NAME_6
+            }
+        }
+        #给所有玩家国家触发转移
+        every_country = {
+            limit = {
+                is_ai = no
+                has_country_flag = br_player_replacement_scheduled
+                NOT = {
+                    has_country_flag = br_player_replaced
+                }
+                NOR = {
+                    is_country_type = br_player
+                    is_country_type = br_player_pvp
+                    is_country_type = br_player_pve
+                }
+            }
+            country_event = {
+                id = br.701
+            }
+        }
+    }
 }
 
 # br.701：为玩家帝国创建PVE国家、生成初始舰队并转移控制权
 country_event = {
-	id = br.701
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_ai = no
-		has_country_flag = br_player_replacement_scheduled
-		NOT = {
-			has_country_flag = br_player_replaced
-		}
-		NOR = {
-			is_country_type = br_player
-			is_country_type = br_player_pvp
-			is_country_type = br_player_pve
-		}
-	}
-	immediate = {
-		set_country_flag = br_player_replaced
-		# 随机选择一个出生点喵
-		random_system = {
-			limit = {
-				has_star_flag = br_player_spawn_system
-			}
-			save_event_target_as = br_chosen_spawn_system
-			star = {
-				save_event_target_as = br_chosen_spawn_star
-			}
-		}
-		# 创建PVE玩家国家（每个玩家独立创建，事件目标在各自immediate作用域内）
-		create_country = {
-			name = "BR_PLAYER_PVE_COUNTRY_NAME"
-			type = br_player_pve
-			species = root
-			authority = auth_democratic
-			ethos = {
-				ethic = ethic_egalitarian
-				ethic = ethic_xenophile
-				ethic = ethic_materialist
-			}
-			civics = {
-				civic = civic_beacon_of_liberty
-				civic = civic_idealistic_foundation
-			}
-			origin = origin_default
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			flag = {
-				icon = {
-					category = "ornate"
-					file = "flag_ornate_8.dds"
-				}
-				background = {
-					category = "backgrounds"
-					file = "00_solid.dds"
-				}
-				colors = {
-					"blue"
-					"white"
-					"null"
-					"null"
-				}
-			}
-			effect = {
-				save_event_target_as = br_new_player_country
-				set_graphical_culture = root
-				set_country_flag = br_player_country
-				set_country_flag = br_reward_initialized
-				add_relic = br_reward_relics
-				change_country_flag = random
-			}
-		}
-		# 设置房主（仅首位玩家）
-		if = {
-			limit = {
-				NOT = {
-					has_global_flag = br_pve_alliance_leader_set
-				}
-			}
-			set_global_flag = br_pve_alliance_leader_set
-			event_target:br_new_player_country = {
-				save_global_event_target_as = br_pve_alliance_leader
-			}
-		}
-		# 在出生点创建初始舰队喵
-		event_target:br_new_player_country = {
-			create_fleet = {
-				name = "BR_MOTHERSHIP_FLEET"
-				effect = {
-					set_owner = event_target:br_new_player_country
-					create_ship = {
-						name = "NAME_BR_Dominator"
-						design = "NAME_BR_Dominator"
-						prefix = no
-					}
-					set_location = {
-						target = event_target:br_chosen_spawn_star
-						distance = 50
-						angle = random
-					}
-				}
-			}
-			create_leader = {
-				class = commander
-				species = owner_main_species
-				name = "BR_ESCORT_COMMANDER"
-				skill = 3
-			}
-			create_fleet = {
-				name = "BR_ESCORT_FLEET"
-				effect = {
-					set_owner = event_target:br_new_player_country
-					while = {
-						count = 10
-						create_ship = {
-							name = random
-							design = NAME_Dagger
-						}
-					}
-					assign_leader = last_created_leader
-					set_location = {
-						target = event_target:br_chosen_spawn_star
-						distance = 80
-						angle = random
-					}
-				}
-			}
-			set_player = root
-			# 排程PVE后续初始化喵
-			country_event = {
-				id = br.507
-				days = 1
-			}
-		}
-	}
+    id = br.701
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        has_country_flag = br_player_replacement_scheduled
+        NOT = {
+            has_country_flag = br_player_replaced
+        }
+        NOR = {
+            is_country_type = br_player
+            is_country_type = br_player_pvp
+            is_country_type = br_player_pve
+        }
+    }
+    immediate = {
+        set_country_flag = br_player_replaced
+        # 随机选择一个出生点喵
+        random_system = {
+            limit = {
+                has_star_flag = br_player_spawn_system
+            }
+            save_event_target_as = br_chosen_spawn_system
+            star = {
+                save_event_target_as = br_chosen_spawn_star
+            }
+        }
+        # 创建PVE玩家国家（每个玩家独立创建，事件目标在各自immediate作用域内）
+        create_country = {
+            name = "BR_PLAYER_PVE_COUNTRY_NAME"
+            type = br_player_pve
+            species = root
+            authority = auth_democratic
+            ethos = {
+                ethic = ethic_egalitarian
+                ethic = ethic_xenophile
+                ethic = ethic_materialist
+            }
+            civics = {
+                civic = civic_beacon_of_liberty
+                civic = civic_idealistic_foundation
+            }
+            origin = origin_default
+            ignore_initial_colony_error = yes
+            day_zero_contact = no
+            flag = {
+                icon = {
+                    category = "ornate"
+                    file = "flag_ornate_8.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "blue"
+                    "white"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_event_target_as = br_new_player_country
+                set_graphical_culture = root
+                set_country_flag = br_player_country
+                set_country_flag = br_reward_initialized
+                add_relic = br_reward_relics
+                change_country_flag = random
+            }
+        }
+        # 设置房主（仅首位玩家）
+        if = {
+            limit = {
+                NOT = {
+                    has_global_flag = br_pve_alliance_leader_set
+                }
+            }
+            set_global_flag = br_pve_alliance_leader_set
+            event_target:br_new_player_country = {
+                save_global_event_target_as = br_pve_alliance_leader
+            }
+        }
+        # 在出生点创建初始舰队喵
+        event_target:br_new_player_country = {
+            create_fleet = {
+                name = "BR_MOTHERSHIP_FLEET"
+                effect = {
+                    set_owner = event_target:br_new_player_country
+                    create_ship = {
+                        name = "NAME_BR_Dominator"
+                        design = "NAME_BR_Dominator"
+                        prefix = no
+                    }
+                    set_location = {
+                        target = event_target:br_chosen_spawn_star
+                        distance = 50
+                        angle = random
+                    }
+                }
+            }
+            create_leader = {
+                class = commander
+                species = owner_main_species
+                name = "BR_ESCORT_COMMANDER"
+                skill = 3
+            }
+            create_fleet = {
+                name = "BR_ESCORT_FLEET"
+                effect = {
+                    set_owner = event_target:br_new_player_country
+                    while = {
+                        count = 10
+                        create_ship = {
+                            name = random
+                            design = NAME_Dagger
+                        }
+                    }
+                    assign_leader = last_created_leader
+                    set_location = {
+                        target = event_target:br_chosen_spawn_star
+                        distance = 80
+                        angle = random
+                    }
+                }
+            }
+            set_player = root
+            # 排程PVE后续初始化喵
+            country_event = {
+                id = br.507
+                days = 1
+            }
+        }
+    }
 }
 
 # br.702：PVE模式初始化，建立联盟与创建敌对势力喵
 country_event = {
-	id = br.702
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_country_type = br_player_pve
-	}
-	immediate = {
-		country_event = {
-			id = br.1100
-		}
-		every_country = {
-			limit = {
-				NOT = {
-					is_same_value = root
-				}
-				is_country_type = br_player_pve
-			}
-			establish_communications_no_message = root
-			add_trust = {
-				amount = 100
-				who = root
-			}
-			add_intel = {
-				amount = 100
-				who = root
-			}
-			root = {
-				add_trust = {
-					amount = 100
-					who = prev
-				}
-				add_intel = {
-					amount = 100
-					who = prev
-				}
-			}
-		}
-		if = {
-			limit = {
-				exists = event_target:br_pve_alliance_leader
-				NOT = {
-					is_same_value = event_target:br_pve_alliance_leader
-				}
-			}
-			join_alliance = {
-				who = event_target:br_pve_alliance_leader
-				name = BR_PVE_FEDERATION_NAME
-				override_requirements = yes
-			}
-		}
-		if = {
-			limit = {
-				has_federation = yes
-			}
-			federation = {
-				add_cohesion = 1000
-				add_federation_experience = 600
-			}
-		}
-		# 虚空工具国加入联邦，使其舰队与玩家协同作战
-		event_target:br_void_country = {
-			join_alliance = {
-				who = event_target:br_pve_alliance_leader
-				name = BR_PVE_FEDERATION_NAME
-				override_requirements = yes
-			}
-		}
-		# PVE模式：创建可见但不可外交的天灾式敌对势力
-		create_country = {
-			name = "BR_PVE_ENEMY_NAME"
-			type = br_pve_enemy
-			flag = {
-				icon = {
-					category = "ornate"
-					file = "flag_ornate_8.dds"
-				}
-				background = {
-					category = "backgrounds"
-					file = "00_solid.dds"
-				}
-				colors = {
-					"red"
-					"black"
-					"null"
-					"null"
-				}
-			}
-			effect = {
-				save_global_event_target_as = br_pve_enemy_country
-				set_global_flag = br_pve_enemy_created
-				set_country_flag = br_pve_enemy
-				set_country_flag = br_pve_crisis_country
-				set_graphical_culture = mammalian_01
-			}
-		}
-		every_country = {
-			limit = {
-				is_country_type = br_player_pve
-			}
-			establish_communications_no_message = event_target:br_pve_enemy_country
-		}
-		set_global_flag = br_pve_enemy_created
-		country_event = {
-			id = br.1
-		}
-		country_event = {
-			id = br.3
-		}
-		# 正常初始化：统一变量初始化
-		country_event = {
-			id = br.799
-		}
-		# [后备保障] 敌人已存在时不生效
-	}
+    id = br.702
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_country_type = br_player_pve
+    }
+    immediate = {
+        country_event = {
+            id = br.1100
+        }
+        every_country = {
+            limit = {
+                NOT = {
+                    is_same_value = root
+                }
+                is_country_type = br_player_pve
+            }
+            establish_communications_no_message = root
+            add_trust = {
+                amount = 100
+                who = root
+            }
+            add_intel = {
+                amount = 100
+                who = root
+            }
+            root = {
+                add_trust = {
+                    amount = 100
+                    who = prev
+                }
+                add_intel = {
+                    amount = 100
+                    who = prev
+                }
+            }
+        }
+        if = {
+            limit = {
+                exists = event_target:br_pve_alliance_leader
+                NOT = {
+                    is_same_value = event_target:br_pve_alliance_leader
+                }
+            }
+            join_alliance = {
+                who = event_target:br_pve_alliance_leader
+                name = BR_PVE_FEDERATION_NAME
+                override_requirements = yes
+            }
+        }
+        if = {
+            limit = {
+                has_federation = yes
+            }
+            federation = {
+                add_cohesion = 1000
+                add_federation_experience = 600
+            }
+        }
+        # 虚空工具国加入联邦，使其舰队与玩家协同作战
+        event_target:br_void_country = {
+            join_alliance = {
+                who = event_target:br_pve_alliance_leader
+                name = BR_PVE_FEDERATION_NAME
+                override_requirements = yes
+            }
+        }
+        # PVE模式：创建可见但不可外交的天灾式敌对势力
+        create_country = {
+            name = "BR_PVE_ENEMY_NAME"
+            type = br_pve_enemy
+            flag = {
+                icon = {
+                    category = "ornate"
+                    file = "flag_ornate_8.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "red"
+                    "black"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_global_event_target_as = br_pve_enemy_country
+                set_global_flag = br_pve_enemy_created
+                set_country_flag = br_pve_enemy
+                set_country_flag = br_pve_crisis_country
+                set_graphical_culture = mammalian_01
+            }
+        }
+        every_country = {
+            limit = {
+                is_country_type = br_player_pve
+            }
+            establish_communications_no_message = event_target:br_pve_enemy_country
+        }
+        set_global_flag = br_pve_enemy_created
+        country_event = {
+            id = br.1
+        }
+        country_event = {
+            id = br.3
+        }
+        # 正常初始化：统一变量初始化
+        country_event = {
+            id = br.799
+        }
+        # [后备保障] 敌人已存在时不生效
+    }
 }
 
 # br.799：[后备保障] 月度脉冲安全网，仅在敌人被摧毁后重建。正常初始化走 br.702 → br.3 链路
 country_event = {
-	id = br.799
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_global_flag = br_mode_pve
-		is_country_type = br_player_pve
-		NOT = {
-			exists = event_target:br_pve_enemy_country
-		}
-	}
-	immediate = {
-		create_country = {
-			name = "BR_PVE_ENEMY_NAME"
-			type = br_pve_enemy
-			flag = {
-				icon = {
-					category = "ornate"
-					file = "flag_ornate_8.dds"
-				}
-				background = {
-					category = "backgrounds"
-					file = "00_solid.dds"
-				}
-				colors = {
-					"red"
-					"black"
-					"null"
-					"null"
-				}
-			}
-			effect = {
-				save_global_event_target_as = br_pve_enemy_country
-				set_global_flag = br_pve_enemy_created
-				set_country_flag = br_pve_enemy
-				set_country_flag = br_pve_crisis_country
-				set_graphical_culture = mammalian_01
-			}
-		}
-		if = {
-			limit = {
-				exists = event_target:br_pve_enemy_country
-			}
-			every_country = {
-				limit = {
-					is_country_type = br_player_pve
-				}
-				establish_communications_no_message = event_target:br_pve_enemy_country
-			}
-		}
-		country_event = {
-			id = br.1
-		}
-		country_event = {
-			id = br.3
-		}
-	}
+    id = br.799
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        has_global_flag = br_mode_pve
+        is_country_type = br_player_pve
+        NOT = {
+            exists = event_target:br_pve_enemy_country
+        }
+    }
+    immediate = {
+        create_country = {
+            name = "BR_PVE_ENEMY_NAME"
+            type = br_pve_enemy
+            flag = {
+                icon = {
+                    category = "ornate"
+                    file = "flag_ornate_8.dds"
+                }
+                background = {
+                    category = "backgrounds"
+                    file = "00_solid.dds"
+                }
+                colors = {
+                    "red"
+                    "black"
+                    "null"
+                    "null"
+                }
+            }
+            effect = {
+                save_global_event_target_as = br_pve_enemy_country
+                set_global_flag = br_pve_enemy_created
+                set_country_flag = br_pve_enemy
+                set_country_flag = br_pve_crisis_country
+                set_graphical_culture = mammalian_01
+            }
+        }
+        if = {
+            limit = {
+                exists = event_target:br_pve_enemy_country
+            }
+            every_country = {
+                limit = {
+                    is_country_type = br_player_pve
+                }
+                establish_communications_no_message = event_target:br_pve_enemy_country
+            }
+        }
+        country_event = {
+            id = br.1
+        }
+        country_event = {
+            id = br.3
+        }
+    }
 }

@@ -46,7 +46,18 @@ planet_ck_10k = {
     }
     triggered_planet_modifier = {
         potential = {
-            carrier_is_type = ship  # 仅限方舟舰/舰船殖民地
+            carrier_is_type = ship
+            OR = {
+                ship = { is_ship_size = br_civilian_arkship_tier_1 }
+                ship = { is_ship_size = br_civilian_arkship_tier_2 }
+                ship = { is_ship_size = br_civilian_arkship_tier_3 }
+                ship = { is_ship_size = br_science_arkship_tier_1 }
+                ship = { is_ship_size = br_science_arkship_tier_2 }
+                ship = { is_ship_size = br_science_arkship_tier_3 }
+                ship = { is_ship_size = br_military_arkship_tier_1 }
+                ship = { is_ship_size = br_military_arkship_tier_2 }
+                ship = { is_ship_size = br_military_arkship_tier_3 }
+            }
         }
         modifier = {
             pop_environment_tolerance = 1       # +100% 居住性
