@@ -10,7 +10,7 @@ fleet_event = {
 	trigger = {
 		br_has_power_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_energy_overclock_unlocked
+			has_country_flag = br_skill_active_slot_1
 			br_vanguard_power_skill_cd_ready = yes
 		}
 	}
@@ -56,7 +56,7 @@ fleet_event = {
 	trigger = {
 		br_has_power_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_weakness_scan_unlocked
+			has_country_flag = br_skill_active_slot_2
 			br_vanguard_power_skill_cd_ready = yes
 		}
 	}
@@ -106,7 +106,11 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_country_flag = br_skill_kill_stack_unlocked
+		has_country_flag = br_skill_passive_slot_2
+		any_owned_ship = {
+			is_ship_size = br_vanguard
+			has_component = BR_VANGUARD_CORE_POWER
+		}
 		check_variable = {
 			which = br_vanguard_kill_count
 			value < value:br_vanguard_kill_cap
@@ -162,7 +166,7 @@ fleet_event = {
 	trigger = {
 		br_has_power_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_combat_stack_unlocked
+			has_country_flag = br_skill_passive_slot_1
 		}
 	}
 	immediate = {
@@ -282,7 +286,7 @@ fleet_event = {
 	trigger = {
 		br_has_power_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_fullfire_unlocked
+			has_country_flag = br_skill_ultimate_slot_1
 			br_vanguard_power_ultimate_cd_ready = yes
 		}
 	}
@@ -357,7 +361,7 @@ fleet_event = {
 	trigger = {
 		br_has_power_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_final_volley_unlocked
+			has_country_flag = br_skill_ultimate_slot_2
 			br_vanguard_power_ultimate_cd_ready = yes
 		}
 	}

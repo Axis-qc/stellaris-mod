@@ -15,7 +15,7 @@ fleet_event = {
 	trigger = {
 		br_has_carrier_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_sortie_unlocked
+			has_country_flag = br_skill_active_slot_1
 			br_vanguard_carrier_skill_cd_ready = yes
 		}
 	}
@@ -111,7 +111,7 @@ fleet_event = {
 	trigger = {
 		br_has_carrier_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_aat_unlocked
+			has_country_flag = br_skill_active_slot_2
 			br_vanguard_carrier_skill_cd_ready = yes
 		}
 	}
@@ -184,7 +184,7 @@ fleet_event = {
 	trigger = {
 		br_has_carrier_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_full_deck_unlocked
+			has_country_flag = br_skill_ultimate_slot_1
 			br_vanguard_carrier_ultimate_cd_ready = yes
 		}
 	}
@@ -205,7 +205,7 @@ fleet_event = {
 	trigger = {
 		br_has_carrier_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_total_air_supremacy_unlocked
+			has_country_flag = br_skill_ultimate_slot_2
 			br_vanguard_carrier_ultimate_cd_ready = yes
 		}
 	}
@@ -228,7 +228,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_carrier_vanguard = yes
-		has_country_flag = br_skill_full_deck_unlocked
+		has_country_flag = br_skill_ultimate_slot_1
 		br_vanguard_carrier_ultimate_cd_ready = yes
 	}
 	immediate = {
@@ -296,7 +296,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_carrier_vanguard = yes
-		has_country_flag = br_skill_total_air_supremacy_unlocked
+		has_country_flag = br_skill_ultimate_slot_2
 		br_vanguard_carrier_ultimate_cd_ready = yes
 	}
 	immediate = {
@@ -603,7 +603,7 @@ country_event = {
 		# 蜂群护卫 — 无人机数量 → 英雄舰常驻加成
 		if = {
 			limit = {
-				has_country_flag = br_skill_swarm_guard_unlocked
+				has_country_flag = br_skill_passive_slot_1
 			}
 			event_target:br_hero_ship_@root = {
 				add_modifier = {
@@ -616,7 +616,7 @@ country_event = {
 		# 甲板维护-质量 buff
 		if = {
 			limit = {
-				has_country_flag = br_skill_deck_maintenance_unlocked
+				has_country_flag = br_skill_passive_slot_2
 			}
 			every_owned_ship = {
 				limit = {

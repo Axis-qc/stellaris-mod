@@ -13,7 +13,7 @@ fleet_event = {
 	trigger = {
 		br_has_defense_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_phase_shift_unlocked
+			has_country_flag = br_skill_active_slot_1
 			br_vanguard_defense_skill_cd_ready = yes
 		}
 	}
@@ -77,7 +77,7 @@ fleet_event = {
 	trigger = {
 		br_has_defense_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_barrier_unlocked
+			has_country_flag = br_skill_active_slot_2
 			br_vanguard_defense_skill_cd_ready = yes
 		}
 	}
@@ -146,9 +146,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_defense_vanguard = yes
-		owner = {
-			has_country_flag = br_skill_structure_unlocked
-		}
+		has_country_flag = br_skill_passive_slot_1
 	}
 	immediate = {
 		every_owned_ship = {
@@ -173,7 +171,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		country_has_defense_vanguard = yes
-		has_country_flag = br_skill_field_unlocked
+		has_country_flag = br_skill_passive_slot_2
 	}
 	immediate = {
 		every_owned_ship = {
@@ -210,7 +208,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				has_country_flag = br_skill_field_unlocked
+				has_country_flag = br_skill_passive_slot_2
 			}
 			country_event = {
 				id = heroship.1203
@@ -230,7 +228,7 @@ fleet_event = {
 	trigger = {
 		br_has_defense_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_collapse_unlocked
+			has_country_flag = br_skill_ultimate_slot_1
 			br_vanguard_defense_ultimate_cd_ready = yes
 		}
 	}
@@ -296,7 +294,7 @@ fleet_event = {
 	trigger = {
 		br_has_defense_vanguard = yes
 		owner = {
-			has_country_flag = br_skill_projection_unlocked
+			has_country_flag = br_skill_ultimate_slot_2
 			br_vanguard_defense_ultimate_cd_ready = yes
 		}
 	}
@@ -348,8 +346,8 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			has_country_flag = br_skill_collapse_unlocked
-			has_country_flag = br_skill_projection_unlocked
+			has_country_flag = br_skill_ultimate_slot_1
+			has_country_flag = br_skill_ultimate_slot_2
 		}
 		any_owned_ship = {
 			is_ship_size = br_vanguard

@@ -54,45 +54,12 @@ br_test_toggle_active_1 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_active_slot_1
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_energy_overclock_unlocked
-				}
-				remove_country_flag = br_skill_energy_overclock_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_energy_overclock_unlocked
-			}
+			remove_country_flag = br_skill_active_slot_1
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_phase_shift_unlocked
-				}
-				remove_country_flag = br_skill_phase_shift_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_phase_shift_unlocked
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_sortie_unlocked
-				}
-				remove_country_flag = br_skill_sortie_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_sortie_unlocked
-			}
+		else = {
+			set_country_flag = br_skill_active_slot_1
 		}
 	}
 	ai_weight = {
@@ -118,45 +85,12 @@ br_test_toggle_active_2 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_active_slot_2
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_weakness_scan_unlocked
-				}
-				remove_country_flag = br_skill_weakness_scan_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_weakness_scan_unlocked
-			}
+			remove_country_flag = br_skill_active_slot_2
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_barrier_unlocked
-				}
-				remove_country_flag = br_skill_barrier_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_barrier_unlocked
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_aat_unlocked
-				}
-				remove_country_flag = br_skill_aat_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_aat_unlocked
-			}
+		else = {
+			set_country_flag = br_skill_active_slot_2
 		}
 	}
 	ai_weight = {
@@ -182,50 +116,17 @@ br_test_toggle_passive_1 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_passive_slot_1
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_combat_stack_unlocked
-				}
-				remove_country_flag = br_skill_combat_stack_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_combat_stack_unlocked
-			}
+			remove_country_flag = br_skill_passive_slot_1
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
+		else = {
+			set_country_flag = br_skill_passive_slot_1
+			country_event = {
+				id = heroship.1202
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_structure_unlocked
-				}
-				remove_country_flag = br_skill_structure_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_structure_unlocked
-				country_event = {
-					id = heroship.1202
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_swarm_guard_unlocked
-				}
-				remove_country_flag = br_skill_swarm_guard_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_swarm_guard_unlocked
-				country_event = {
-					id = heroship.1331
-				}
+			country_event = {
+				id = heroship.1331
 			}
 		}
 	}
@@ -252,54 +153,21 @@ br_test_toggle_passive_2 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_passive_slot_2
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_kill_stack_unlocked
-				}
-				remove_country_flag = br_skill_kill_stack_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_kill_stack_unlocked
-			}
+			remove_country_flag = br_skill_passive_slot_2
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
+		else = {
+			set_country_flag = br_skill_passive_slot_2
+			country_event = {
+				id = heroship.1203
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_field_unlocked
-				}
-				remove_country_flag = br_skill_field_unlocked
+			country_event = {
+				id = heroship.1204
+				days = 30
 			}
-			else = {
-				set_country_flag = br_skill_field_unlocked
-				country_event = {
-					id = heroship.1203
-				}
-				country_event = {
-					id = heroship.1204
-					days = 30
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_deck_maintenance_unlocked
-				}
-				remove_country_flag = br_skill_deck_maintenance_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_deck_maintenance_unlocked
-				country_event = {
-					id = heroship.1331
-				}
+			country_event = {
+				id = heroship.1331
 			}
 		}
 	}
@@ -326,45 +194,12 @@ br_test_toggle_ultimate_1 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_ultimate_slot_1
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_fullfire_unlocked
-				}
-				remove_country_flag = br_skill_fullfire_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_fullfire_unlocked
-			}
+			remove_country_flag = br_skill_ultimate_slot_1
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_collapse_unlocked
-				}
-				remove_country_flag = br_skill_collapse_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_collapse_unlocked
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_full_deck_unlocked
-				}
-				remove_country_flag = br_skill_full_deck_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_full_deck_unlocked
-			}
+		else = {
+			set_country_flag = br_skill_ultimate_slot_1
 		}
 	}
 	ai_weight = {
@@ -390,45 +225,12 @@ br_test_toggle_ultimate_2 = {
 	effect = {
 		if = {
 			limit = {
-				has_country_flag = br_hero_core_power
+				has_country_flag = br_skill_ultimate_slot_2
 			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_final_volley_unlocked
-				}
-				remove_country_flag = br_skill_final_volley_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_final_volley_unlocked
-			}
+			remove_country_flag = br_skill_ultimate_slot_2
 		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_defense
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_projection_unlocked
-				}
-				remove_country_flag = br_skill_projection_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_projection_unlocked
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = br_hero_core_carrier
-			}
-			if = {
-				limit = {
-					has_country_flag = br_skill_total_air_supremacy_unlocked
-				}
-				remove_country_flag = br_skill_total_air_supremacy_unlocked
-			}
-			else = {
-				set_country_flag = br_skill_total_air_supremacy_unlocked
-			}
+		else = {
+			set_country_flag = br_skill_ultimate_slot_2
 		}
 	}
 	ai_weight = {
@@ -760,9 +562,6 @@ br_test_unlock_all_cores = {
 	}
 	effect = {
 		set_country_flag = br_hero_core_selected
-		set_country_flag = br_hero_core_power
-		set_country_flag = br_hero_core_defense
-		set_country_flag = br_hero_core_carrier
 	}
 	ai_weight = {
 		weight = 0
