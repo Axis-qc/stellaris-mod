@@ -12,7 +12,7 @@ country_event = {
         NOR = {
             is_country_type = br_player
             is_country_type = br_player_pvp
-            is_country_type = br_player_pve
+            has_country_flag = br_player_country
         }
     }
 
@@ -148,7 +148,7 @@ country_event = {
                     NOT = { is_same_value = root }
                     OR = {
                         is_country_type = br_player_pvp
-                        is_country_type = br_player_pve
+                        has_country_flag = br_player_country
                         is_country_type = br_player
                     }
                 }
@@ -163,7 +163,7 @@ country_event = {
     id = br.602
     hide_window = yes
     is_triggered_only = yes
-
+    trigger = { always = no }
     immediate = {
         event_target:br_player_spawn_system = {
             save_event_target_as = br_test_spawn_system

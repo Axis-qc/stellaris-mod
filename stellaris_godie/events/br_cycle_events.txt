@@ -65,7 +65,7 @@ country_event = {
 		remove_global_flag = br_pve_victory
 		every_country = {
 			limit = {
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 			}
 			remove_country_flag = br_pve_victory
 		}
@@ -506,7 +506,7 @@ country_event = {
 		# 传送所有玩家舰队到新出生点（分散到6个出生点）
 		every_country = {
 			limit = {
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 			}
 			every_owned_fleet = {
 				random_list = {
@@ -585,7 +585,7 @@ country_event = {
 		# 通知所有玩家新周目开始
 		every_country = {
 			limit = {
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 			}
 			country_event = {
 				id = br.956

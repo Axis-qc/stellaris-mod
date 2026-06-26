@@ -102,7 +102,7 @@ country_event = {
         set_global_flag = br_pve_victory
 
         every_country = {
-            limit = { is_country_type = br_player_pve }
+            limit = { has_country_flag = br_player_country }
             set_country_flag = br_pve_victory
             add_resource = {
                 alloys = 5000
@@ -118,7 +118,7 @@ country_event = {
         }
         every_country = {
             limit = {
-                is_country_type = br_player_pve
+                has_country_flag = br_player_country
                 NOT = { is_same_value = event_target:br_pve_alliance_leader }
             }
             country_event = { id = br.902 }

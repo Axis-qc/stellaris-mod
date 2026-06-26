@@ -40,7 +40,7 @@ country_event = {
 				NOT = {
 					exists = event_target:br_void_country
 				}
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 				exists = event_target:br_pve_alliance_leader
 				is_same_value = event_target:br_pve_alliance_leader
 			}
@@ -54,7 +54,7 @@ country_event = {
 		every_country = {
 			limit = {
 				is_ai = no
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 			}
 			export_trigger_value_to_variable = {
 				trigger = fleet_power
@@ -294,8 +294,7 @@ fleet_event = {
 	trigger = {
 		owner = {
 			OR = {
-				is_country_type = br_player_pve
-				is_country_type = br_player_pvp
+				has_country_flag = br_player_country
 				is_country_type = br_void
 				is_country_type = br_pve_enemy
 			}

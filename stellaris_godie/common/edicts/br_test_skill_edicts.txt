@@ -565,7 +565,7 @@ br_test_trigger_cycle = {
 		set_global_flag = br_pve_victory
 		every_country = {
 			limit = {
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 			}
 			set_country_flag = br_pve_victory
 		}
@@ -581,7 +581,7 @@ br_test_trigger_cycle = {
 		}
 		every_country = {
 			limit = {
-				is_country_type = br_player_pve
+				has_country_flag = br_player_country
 				NOT = {
 					is_same_value = event_target:br_pve_alliance_leader
 				}

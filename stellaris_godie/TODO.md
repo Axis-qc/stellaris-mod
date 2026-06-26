@@ -1,229 +1,193 @@
-# 技能系统重构计划：槽位标志替代 unlock 标志
+# PVE 模式：国家类型重构 + 方舟舰迁移计划
 
-## 核心思路
+## 背景
 
-- **只用 6 个 slot 标志**记录玩家选了哪个选项：`br_skill_{active|passive|ultimate}_slot_{1|2}`
-- **删除 18 个** `br_skill_xxx_unlocked` 技能解锁标志
-- **删除 3 个** `br_xxx_slot_unlocked` 统一解锁标志
-- **删除 3 个** `br_hero_core_xxx` 核心标志（只靠组件判断）
-- **scripted_triggers 中核心过滤器去掉 flag**，只保留 `has_component`
-- **技能效果事件** trigger 中 unlock flag → slot flag（核心过滤已由 scripted_trigger 覆盖）
-- **本地化 loc** 中 `br_hero_core_xxx` → `any_owned_ship` + `has_component`
+自定义 `country_type`（`br_player_pvp`/`br_player_pve`）的模块配置与原版不兼容，导致方舟舰殖民地的建筑和岗位异常。新版本原版国家类型已支持 `has_capital = no` 等属性，不再需要自定义玩家国家类型。
 
-## 旧标志 → 新标志映射
+**先只改 PVE，PVP 后续再做。**
 
-### 删除的标志（24 个）
+## 方案
 
-| 类别 | 旧标志 | 替代方案 |
+1. **标注废弃** 3 个自定义玩家国家类型（`br_player`、`br_player_pvp`、`br_player_pve`），暂不删除
+2. **PVE 初始化流程改为**：在原版国家上直接操作，用 `transfer_carrier` 将人口迁移到方舟舰，方舟舰设为首都
+3. **所有 `is_country_type` 检查改为 `has_country_flag = br_player_country`**
+
+## 涉及文件（PVE 相关）
+
+### 第 1 步：标注国家类型为废弃
+
+#### `common/country_types/br_country_types.txt`
+
+在 `br_player`、`br_player_pvp`、`br_player_pve` 上方加注释 `# [废弃]`，暂不删除。
+
+### 第 2 步：重写 PVE 初始化事件
+
+#### `events/br_pve_init_events.txt` — br.701（第 478-663 行）
+
+**改后流程**（去掉 `create_country`/`set_player`，所有效果直接在 root 上执行）：
+
+```
+immediate = {
+    set_country_flag = br_player_replaced
+
+    # 随机选择出生点
+    random_system = { limit = { has_star_flag = br_player_spawn_system }
+        save_event_target_as = br_chosen_spawn_system
+        star = { save_event_target_as = br_chosen_spawn_star }
+    }
+
+    # 标记为玩家国家
+    set_country_flag = br_player_country
+
+    # 给科技确保方舟舰设计可用
+    give_technology = { tech = tech_br_civilian_arkship message = no }
+    refresh_auto_generated_ship_designs = yes
+
+    # 保存首都星球引用
+    capital_scope = { planet = { save_event_target_as = br_embarking_capital } }
+
+    # 在出生星系创建方舟舰
+    create_fleet = {
+        effect = {
+            set_owner = root
+            create_ship = {
+                random_existing_design = br_civilian_arkship_tier_1
+                effect = {
+                    save_event_target_as = br_embarking_arkship
+                    initialize_arkship_starbase_effect = yes
+                }
+            }
+            set_location = { target = event_target:br_chosen_spawn_star distance = 50 angle = random }
+        }
+    }
+
+    # 迁移人口：首都星球 → 方舟舰（跨星系）
+    event_target:br_embarking_capital = {
+        transfer_carrier = {
+            source = this
+            target = event_target:br_embarking_arkship
+            transfer_ownership = no
+            merge_pops = no
+            destroy_colony = yes
+        }
+    }
+
+    # 方舟舰设为首都
+    event_target:br_embarking_arkship = {
+        set_owner = root
+        colony = { upgrade_colony_shelter = yes set_capital = yes }
+    }
+
+    # 设置房主（仅首位玩家）
+    if = { limit = { NOT = { has_global_flag = br_pve_alliance_leader_set } }
+        set_global_flag = br_pve_alliance_leader_set
+        save_global_event_target_as = br_pve_alliance_leader
+    }
+
+    # 初始化奖励系统（原 create_country effect 块中的效果）
+    set_country_flag = br_reward_initialized
+    add_relic = br_reward_relics
+    change_country_flag = random
+
+    # 创建初始舰队（护卫）——作用域为 root，不再经 br_new_player_country 中转
+    create_leader = {
+        class = commander
+        species = owner_main_species
+        name = "BR_ESCORT_COMMANDER"
+        skill = 3
+    }
+    create_fleet = {
+        name = "BR_ESCORT_FLEET"
+        effect = {
+            set_owner = root
+            while = {
+                count = 10
+                create_ship = {
+                    name = random
+                    design = NAME_Dagger
+                }
+            }
+            assign_leader = last_created_leader
+            set_location = {
+                target = event_target:br_chosen_spawn_star
+                distance = 80
+                angle = random
+            }
+        }
+    }
+
+    # 排程后续
+    country_event = { id = br.507 days = 1 }
+}
+```
+
+> 注意：`set_graphical_culture = root` 不迁移，因为重构后 root 本身就是原版国家，已有图形文化。
+
+#### `events/br_pve_init_events.txt` — br.700（第 4-475 行）
+
+trigger 中 `is_country_type = br_void` 保留。3 处 NOR 块中的 `is_country_type = br_player / br_player_pvp / br_player_pve` 改为 `has_country_flag = br_player_country`：
+- 第 13-17 行（trigger 入口）
+- 第 464-468 行（every_country 遍历过滤）
+- 第 488-492 行（br.701 的 trigger，注意此处属于 br.701 但紧接在 br.700 的 every_country 循环中）
+
+#### `events/br_pve_init_events.txt` — br.702（第 666-781 行）
+
+3 处 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`：
+- 第 671 行（trigger）
+- 第 682 行（every_country 遍历过滤）
+- 第 764 行（every_country 遍历过滤）
+
+#### `events/br_pve_init_events.txt` — br.799（第 784-841 行）
+
+2 处 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`：
+- 第 790 行（trigger）
+- 第 829 行（every_country 遍历过滤）
+
+### 第 3 步：修改启动事件中的过滤条件
+
+#### `events/br_start_events.txt`
+
+**3.1 替换 NOR 块**（`NOR { is_country_type = br_player / br_player_pvp / br_player_pve }` → `NOR { has_country_flag = br_player_country }`）：
+- br.500 trigger（第 13-17 行）
+- br.504（第 120-125 行，第 201-205 行）
+- br.505 trigger（第 223-227 行）
+- br.507 immediate 内（第 307-311 行，第 321-325 行）
+
+> 注意：br.507 第 321-325 行 NOR 块同时包含 `is_country_type = br_void`，替换后应为 `NOR { is_country_type = br_void, has_country_flag = br_player_country }`，即保留 `br_void` 的排除。
+
+**3.2 br.507 trigger（第 271-275 行）**：`OR { is_country_type = br_player_pve / br_player_pvp }` → `has_country_flag = br_player_country`
+
+> 注意：重构后 PVE 国家不再有 `br_player_pve` 类型，br.507 的 trigger 若保留 `is_country_type` 检查会导致 PVE 路径失效。PVP 初始化（br.600）也设置了 `br_player_country` flag，所以统一改为 flag 检查即可。
+
+### 第 4 步：替换所有 PVE 相关文件中的 `is_country_type` 检查
+
+| 文件 | 处数 | 替换内容 |
 |---|---|---|
-| 核心标志 | `br_hero_core_power` | 不需要，`has_component` 判断 |
-| 核心标志 | `br_hero_core_defense` | 不需要，`has_component` 判断 |
-| 核心标志 | `br_hero_core_carrier` | 不需要，`has_component` 判断 |
-| 统一解锁 | `br_active_slot_unlocked` | `NOR { br_skill_active_slot_1, br_skill_active_slot_2 }` |
-| 统一解锁 | `br_passive_slot_unlocked` | `NOR { br_skill_passive_slot_1, br_skill_passive_slot_2 }` |
-| 统一解锁 | `br_ultimate_slot_unlocked` | `NOR { br_skill_ultimate_slot_1, br_skill_ultimate_slot_2 }` |
-| 技能解锁 | `br_skill_energy_overclock_unlocked` | `br_skill_active_slot_1` |
-| 技能解锁 | `br_skill_weakness_scan_unlocked` | `br_skill_active_slot_2` |
-| 技能解锁 | `br_skill_phase_shift_unlocked` | `br_skill_active_slot_1` |
-| 技能解锁 | `br_skill_barrier_unlocked` | `br_skill_active_slot_2` |
-| 技能解锁 | `br_skill_sortie_unlocked` | `br_skill_active_slot_1` |
-| 技能解锁 | `br_skill_aat_unlocked` | `br_skill_active_slot_2` |
-| 技能解锁 | `br_skill_combat_stack_unlocked` | `br_skill_passive_slot_1` |
-| 技能解锁 | `br_skill_kill_stack_unlocked` | `br_skill_passive_slot_2` |
-| 技能解锁 | `br_skill_structure_unlocked` | `br_skill_passive_slot_1` |
-| 技能解锁 | `br_skill_field_unlocked` | `br_skill_passive_slot_2` |
-| 技能解锁 | `br_skill_swarm_guard_unlocked` | `br_skill_passive_slot_1` |
-| 技能解锁 | `br_skill_deck_maintenance_unlocked` | `br_skill_passive_slot_2` |
-| 技能解锁 | `br_skill_fullfire_unlocked` | `br_skill_ultimate_slot_1` |
-| 技能解锁 | `br_skill_final_volley_unlocked` | `br_skill_ultimate_slot_2` |
-| 技能解锁 | `br_skill_collapse_unlocked` | `br_skill_ultimate_slot_1` |
-| 技能解锁 | `br_skill_projection_unlocked` | `br_skill_ultimate_slot_2` |
-| 技能解锁 | `br_skill_full_deck_unlocked` | `br_skill_ultimate_slot_1` |
-| 技能解锁 | `br_skill_total_air_supremacy_unlocked` | `br_skill_ultimate_slot_2` |
+| `events/br_level_events.txt` | 19 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country` |
+| `events/br_countrybuff_events.txt` | 3 | 同上（第 43、57、297 行） |
+| `events/br_countrybuff_events.txt` | 1 | `is_country_type = br_player_pvp` → `has_country_flag = br_player_country`（第 298 行，br.1015 trigger，与第 297 行在同一 OR 块中） |
+| `events/br_cycle_events.txt` | 3 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country` |
+| `events/br_pve_reinforce_events.txt` | 4 | 同上 |
+| `events/br_pve_enemy_spawn_rings.txt` | 4 | 同上 |
+| `events/br_pve_enemy_boss_events.txt` | 2 | 同上 |
+| `events/br_level_ui_events.txt` | 1 | 同上（第 12 行；第 34 行已注释跳过） |
+| `events/reward_exploration_events.txt` | 1 | 同上 |
+| `common/edicts/br_test_skill_edicts.txt` | 2 | 同上 |
+| `common/scripted_actions/br_vanguard_actions.txt` | 2 | 同上（第 16 行 `br_player_pve`，第 17 行 `br_player_pvp`） |
+| `events/br_pve_init_events.txt` | 8 | 同上（已在第 2 步覆盖） |
+| `events/br_pvp_init_events.txt` | 2 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country`（第 15、151 行，br.600/601 trigger 中的 PVE 过滤） |
 
-### 保留的标志（6 个）
-
-`br_skill_active_slot_1` / `br_skill_active_slot_2` / `br_skill_passive_slot_1` / `br_skill_passive_slot_2` / `br_skill_ultimate_slot_1` / `br_skill_ultimate_slot_2`
-
-## 涉及文件清单（12 个）
-
-### 第 1 步：基础触发器
-
-#### `common/scripted_triggers/br_vanguard_skill_triggers.txt`
-
-6 个核心过滤触发器去掉 `br_hero_core_xxx` flag 检查，只保留组件：
-
-```
-# 改前：
-br_has_power_vanguard = {
-    any_owned_ship = {
-        is_ship_size = br_vanguard
-        has_component = BR_VANGUARD_CORE_POWER
-    }
-    owner = { has_country_flag = br_hero_core_power }
-}
-
-# 改后：
-br_has_power_vanguard = {
-    any_owned_ship = {
-        is_ship_size = br_vanguard
-        has_component = BR_VANGUARD_CORE_POWER
-    }
-}
-```
-
-同理 `br_has_defense_vanguard` / `br_has_carrier_vanguard` / `country_has_power_vanguard` / `country_has_defense_vanguard` / `country_has_carrier_vanguard`
-
-### 第 2 步：技能选择事件
-
-#### `events/heroship_level_events.txt`
-
-- **heroship.10**（主动槽 Lv2）：trigger 改 `NOR { br_skill_active_slot_1, br_skill_active_slot_2 }`；hidden_effect 删 unlock + slot_unlocked，只留 slot 标志
-- **heroship.11**（被动槽 Lv4）：trigger 改 `NOR { br_skill_passive_slot_1, br_skill_passive_slot_2 }`；hidden_effect 同上
-- **heroship.12**（大招槽 Lv6）：trigger 改 `NOR { br_skill_ultimate_slot_1, br_skill_ultimate_slot_2 }`；hidden_effect 同上
-
-### 第 3 步：技能效果事件
-
-核心过滤已由 `br_has_xxx_vanguard` scripted_trigger 覆盖，只需替换 unlock flag → slot flag。
-
-#### `events/heroship_skill_power_events.txt`
-
-| 事件 ID | 旧 trigger | 新 trigger | 备注 |
-|---|---|---|---|
-| heroship.1100（能量超频） | `br_skill_energy_overclock_unlocked` | `br_skill_active_slot_1` | 有 `br_has_power_vanguard` 过滤 |
-| heroship.1101（弱点扫描） | `br_skill_weakness_scan_unlocked` | `br_skill_active_slot_2` | 有 `br_has_power_vanguard` 过滤 |
-| heroship.1102（越战越勇） | `br_skill_kill_stack_unlocked` | `br_skill_passive_slot_2` | ⚠️ country_event 无核心过滤，需内联补充 `has_component` |
-| heroship.1103（战意过载） | `br_skill_combat_stack_unlocked` | `br_skill_passive_slot_1` | 有 `br_has_power_vanguard` 过滤 |
-| 后续火力全开/终末齐射 | `br_skill_fullfire/full_volley_unlocked` | `br_skill_ultimate_slot_1/2` | 有核心过滤 |
-
-**heroship.1102 特殊处理**（替换后必须内联补充核心过滤）：
-```
-trigger = {
-    has_country_flag = br_skill_passive_slot_2
-    any_owned_ship = {
-        is_ship_size = br_vanguard
-        has_component = BR_VANGUARD_CORE_POWER
-    }
-    ...
-}
-```
-
-#### `events/heroship_skill_defense_events.txt`
-
-| 事件 ID | 旧 trigger | 新 trigger | 备注 |
-|---|---|---|---|
-| heroship.1200（相位偏移） | `br_skill_phase_shift_unlocked` | `br_skill_active_slot_1` | 有 `br_has_defense_vanguard` |
-| heroship.1201（能量屏障） | `br_skill_barrier_unlocked` | `br_skill_active_slot_2` | 有 `br_has_defense_vanguard` |
-| heroship.1202（结构强化） | `br_skill_structure_unlocked` | `br_skill_passive_slot_1` | ⚠️ 有 `owner = {}` 作用域 bug，需顺带修复（见下方） |
-| heroship.1203（能量力场） | `br_skill_field_unlocked` | `br_skill_passive_slot_2` | 月度脉冲触发 |
-| heroship.1204（力场初始化） | `br_skill_field_unlocked`（immediate 中） | `br_skill_passive_slot_2` | 由 1203 hidden_effect 调用 |
-| 引力坍缩/力场投射 | `br_skill_collapse/projection_unlocked` | `br_skill_ultimate_slot_1/2` | 有核心过滤 |
-
-#### `events/heroship_skill_carrier_events.txt`
-
-| 事件 ID | 旧 trigger | 新 trigger | 备注 |
-|---|---|---|---|
-| heroship.1300（编队出击） | `br_skill_sortie_unlocked` | `br_skill_active_slot_1` | 有 `br_has_carrier_vanguard` |
-| heroship.1301（防空阵型） | `br_skill_aat_unlocked` | `br_skill_active_slot_2` | 有 `br_has_carrier_vanguard` |
-| heroship.1310（全甲板入口） | `br_skill_full_deck_unlocked` | `br_skill_ultimate_slot_1` | 有 `br_has_carrier_vanguard` |
-| heroship.1331（无人机月度链） | `br_skill_swarm_guard_unlocked` / `br_skill_deck_maintenance_unlocked` | `br_skill_passive_slot_1` / `br_skill_passive_slot_2` | 月度脉冲触发，内部用 if 分支检查 |
-| heroship.1335（航母 buff 处理） | `br_skill_swarm_guard_unlocked` / `br_skill_deck_maintenance_unlocked` | `br_skill_passive_slot_1` / `br_skill_passive_slot_2` | ⚠️ TODO 遗漏，内部 immediate 中检查 |
-| 绝对制空 | `br_skill_total_air_supremacy_unlocked` | `br_skill_ultimate_slot_2` | 有核心过滤 |
-
-### 第 4 步：UI 按钮
-
-#### `common/button_effects/br_level_ui_hero_skill_buttons.txt`
-
-- 删除 effect 中所有 `remove/set_country_flag = br_skill_xxx_unlocked` 互换逻辑
-- 删除 `if { limit { has_country_flag = br_hero_core_xxx } }` 分支
-- 只保留 slot 标志的互换：`remove_country_flag = br_skill_ultimate_slot_2` / `set_country_flag = br_skill_ultimate_slot_1`
-
-### 第 5 步：本地化文本
-
-#### `common/scripted_loc/br_level_ui_hero_skill_loc.txt`
-
-`defined_text` 中每个 `text` 块的 trigger 从 flag 改为 `any_owned_ship` + `has_component`（约 18 处）：
-
-```
-# 改前：
-trigger = { has_country_flag = br_hero_core_power }
-
-# 改后：
-trigger = {
-    any_owned_ship = {
-        is_ship_size = br_vanguard
-        has_component = BR_VANGUARD_CORE_POWER
-    }
-}
-```
-
-#### `common/scripted_loc/br_vanguard_scripted_loc.txt`
-
-**⚠️ 第二轮审查发现，52 处引用完全不在原计划中！**
-
-该文件是先锋舰的技能名称/描述/计数的脚本化本地化，包含：
-- **18 处** `defined_text` 中的技能名称 trigger（每个技能 unlock flag 一处）
-- **12 处** 被动技能计数文本块的 `has_country_flag` 检查
-- **6 处** 大招技能计数文本块的 `has_country_flag` 检查
-- **约 16 处** 光环名称显示文本块的 `has_country_flag` 检查
-
-全部需要将 `br_skill_xxx_unlocked` → 对应 slot flag。同时 `owner = { has_country_flag = ... }` 作用域需检查是否正确。
-
-### 第 6 步：测试 edict
-
-#### `common/edicts/br_test_skill_edicts.txt`
-
-- `set/remove/has_country_flag = br_skill_xxx_unlocked` → 对应 slot 标志
-- `set/remove/has_country_flag = br_hero_core_xxx` → 删除
-
-### 第 7 步：核心选择事件
-
-#### `events/heroship_events.txt`
-
-heroship.101 三个 option 中的 `set_country_flag = br_hero_core_xxx` 删除
+> 已注释的行（`br_level_edicts.txt` 第 13 行、`br_level_ui_events.txt` 第 34 行、`br_ship_sizes.txt` 第 117 行）不修改。设计文档（`设计文档\核心-航母.md`）不修改。
 
 ## 执行顺序
 
-1. `br_vanguard_skill_triggers.txt` — scripted_trigger 去 flag
-2. `heroship_level_events.txt` — 选择事件 trigger + hidden_effect
-3. `heroship_skill_power_events.txt` — unlock flag → slot flag（注意 1102 补充核心过滤）
-4. `heroship_skill_defense_events.txt` — unlock flag → slot flag（注意 1202 作用域 bug 修复 + 1204 补充）
-5. `heroship_skill_carrier_events.txt` — unlock flag → slot flag（注意 1335 补充）
-6. `br_level_ui_hero_skill_buttons.txt` — 删 unlock flag 互换逻辑
-7. `br_level_ui_hero_skill_loc.txt` — `br_hero_core_xxx` → `has_component`
-8. `br_vanguard_scripted_loc.txt` — unlock flag → slot flag（52 处）
-9. `br_test_skill_edicts.txt` — 完全重写，直接 toggle slot 标志
-10. `heroship_events.txt` — 删 `br_hero_core_xxx` 设置
-11. `br_vanguard_auras.txt` — 清理注释中的旧标志（可选）
-12. `br_variables_l_simp_chinese.yml` — 清理孤立本地化条目（可选）
+1. `common/country_types/br_country_types.txt` — 标注废弃注释
+2. `events/br_pve_init_events.txt` — 重写 br.700/701/702/799
+3. `events/br_start_events.txt` — 修改过滤条件
+4. 其余 10 个文件 — 批量替换 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`
 
-## 需顺带修复的已有 bug
+## 已验证
 
-### heroship.1202 作用域 bug
-
-`events/heroship_skill_defense_events.txt` 中 heroship.1202 是 `country_event`，但 trigger 里用了 `owner = { has_country_flag = ... }`。country_event 的 scope 已经是国家，`owner` 无效，flag 检查从未生效。重构时顺带修复：
-
-```
-# 改前（bug）：
-trigger = {
-    country_has_defense_vanguard = yes
-    owner = {
-        has_country_flag = br_skill_structure_unlocked
-    }
-}
-
-# 改后：
-trigger = {
-    country_has_defense_vanguard = yes
-    has_country_flag = br_skill_passive_slot_1
-}
-```
-
-## 风险点
-
-1. **heroship.1102 核心过滤遗漏** — 替换后必须内联补充 `has_component` 检查
-2. **测试 edict 重置功能** — 需完全重写，去掉 `br_hero_core_xxx` 路由，直接 toggle slot 标志，同时保留 `country_event` 调用（如结构增幅刷新）
-3. **heroship.1335 遗漏** — 航母被动 buff 内部 immediate 中的 unlock flag 也需替换
-4. **heroship.1204 遗漏** — immediate 中的 `br_skill_field_unlocked` 也需替换
-5. **br_vanguard_scripted_loc.txt 52 处遗漏** — 第二轮审查发现，技能名称/描述/计数文本全部引用旧 unlock flag，必须同步替换
-6. **scripted_loc 18 处替换** — 需逐一替换，不能只改一处示例
+- `transfer_carrier` 可在非游牧国家上正常工作
+- `transfer_carrier` 支持跨星系迁移
+- `random_existing_design = br_civilian_arkship_tier_1` 配合 `give_technology` + `refresh_auto_generated_ship_designs` 可正常创建方舟舰
