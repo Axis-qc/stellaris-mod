@@ -313,8 +313,10 @@ Step 1-7 顺序执行。任一步失败则停止，`git checkout -- .` 恢复所
 
 ```
 on_game_start_country
-  → brstart.1 [NEW] (创建方舟舰+护卫、转移人口、设首都、奖励、br_player_country)
-  → br.500 (入口 now has_origin → 跳过已初始化)
+  → brstart.1 (检查全员起源 → 设 br_battle_royale_enabled；初始化方舟舰+护卫+人口+首都+奖励+br_player_country)
+    → 若全员有起源：继续
+    → 若有玩家无起源：静默跳过，正常模式
+  → br.500 (入口 has_origin + br_battle_royale_enabled)
     → br.501 (模式选择) → br.503 (速度选择)
       → br.504 (杀AI，虚空国，扩圈，标记 origin 玩家)
         → br.505 (路由) → br.700 (选出生点)
@@ -328,3 +330,4 @@ on_game_start_country
 - 缩进格式化 + 模式选择标签（commit `5ac1e94`）
 - 创建起源定义 + 起源事件 brstart.1 + 本地化
 - `on_game_start_country` 接入 brstart.1（仅起源效果，不含 PVE 逻辑）
+- 多人兼容：brstart.1 检查全员起源 → 设 `br_battle_royale_enabled`；下游事件全部以 `has_origin` + 全局标志为门禁；br.701 简化为仅移动舰队

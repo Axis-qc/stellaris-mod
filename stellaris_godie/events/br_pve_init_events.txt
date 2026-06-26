@@ -10,9 +10,7 @@ country_event = {
             is_country_type = br_void
             AND = {
                 is_ai = no
-                NOT = {
-                    has_country_flag = br_player_country
-                }
+                has_origin = origin_br_battle_royale
             }
         }
     }
@@ -459,9 +457,7 @@ country_event = {
                 NOT = {
                     has_country_flag = br_player_replaced
                 }
-                NOR = {
-                    has_country_flag = br_player_country
-                }
+                has_origin = origin_br_battle_royale
             }
             country_event = {
                 id = br.701
@@ -470,7 +466,7 @@ country_event = {
     }
 }
 
-# br.701：在原版国家上直接操作，用方舟舰迁移人口并设为首都
+# br.701：移动已有方舟舰和护卫舰队到出生点，设置房主，排程后续
 country_event = {
     id = br.701
     hide_window = yes
@@ -481,14 +477,12 @@ country_event = {
         NOT = {
             has_country_flag = br_player_replaced
         }
-        NOT = {
-            has_country_flag = br_player_country
-        }
+        has_origin = origin_br_battle_royale
     }
     immediate = {
         set_country_flag = br_player_replaced
 
-        # 随机选择一个出生点喵
+        # 随机选择一个出生点
         random_system = {
             limit = {
                 has_star_flag = br_player_spawn_system
@@ -499,60 +493,16 @@ country_event = {
             }
         }
 
-        # 标记为玩家国家
-        set_country_flag = br_player_country
-
-        # 给科技确保方舟舰默认设计可用喵
-        give_technology = { tech = tech_br_civilian_arkship message = no }
-        refresh_auto_generated_ship_designs = yes
-
-        # 保存首都星球引用喵
-        capital_scope = {
-            planet = {
-                save_event_target_as = br_embarking_capital
+        # 移动所有舰队到出生点喵
+        every_owned_fleet = {
+            set_location = {
+                target = event_target:br_chosen_spawn_star
+                distance = 50
+                angle = random
             }
         }
 
-        # 在出生星系创建方舟舰喵
-        create_fleet = {
-            effect = {
-                save_event_target_as = br_embarking_arkship
-                set_owner = root
-                create_ship = {
-                    random_existing_design = br_civilian_arkship_tier_1
-                    effect = {
-                        initialize_arkship_starbase_effect = yes
-                    }
-                }
-                set_location = {
-                    target = event_target:br_chosen_spawn_star
-                    distance = 50
-                    angle = random
-                }
-            }
-        }
-
-        # 迁移人口：首都星球 → 方舟舰（跨星系）喵
-        event_target:br_embarking_capital = {
-            transfer_carrier = {
-                source = this
-                target = event_target:br_embarking_arkship
-                transfer_ownership = no
-                merge_pops = no
-                destroy_colony = yes
-            }
-        }
-
-        # 方舟舰设为首都
-        event_target:br_embarking_arkship = {
-            set_owner = root
-            colony = {
-                upgrade_colony_shelter = yes
-                set_capital = yes
-            }
-        }
-
-        # 设置房主（仅首位玩家）
+        # 设置房主（仅首位玩家）喵
         if = {
             limit = {
                 NOT = {
@@ -561,38 +511,6 @@ country_event = {
             }
             set_global_flag = br_pve_alliance_leader_set
             save_global_event_target_as = br_pve_alliance_leader
-        }
-
-        # 初始化奖励系统（原 create_country effect 块中的效果）
-        set_country_flag = br_reward_initialized
-        add_relic = br_reward_relics
-        change_country_flag = random
-
-        # 创建初始舰队（护卫）——作用域为 root，不再经 br_new_player_country 中转
-        create_leader = {
-            class = commander
-            species = owner_main_species
-            name = "BR_ESCORT_COMMANDER"
-            skill = 3
-        }
-        create_fleet = {
-            name = "BR_ESCORT_FLEET"
-            effect = {
-                set_owner = root
-                while = {
-                    count = 10
-                    create_ship = {
-                        name = random
-                        design = NAME_Dagger
-                    }
-                }
-                assign_leader = last_created_leader
-                set_location = {
-                    target = event_target:br_chosen_spawn_star
-                    distance = 80
-                    angle = random
-                }
-            }
         }
 
         # 排程PVE后续初始化喵

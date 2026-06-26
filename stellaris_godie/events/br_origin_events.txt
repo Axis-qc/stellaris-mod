@@ -10,10 +10,31 @@ country_event = {
         has_origin = origin_br_battle_royale
     }
     immediate = {
+        # 多人检查：仅当所有人类玩家都有此起源时激活大逃杀模式
+        if = {
+            limit = {
+                NOT = { has_global_flag = br_origin_check_done }
+            }
+            set_global_flag = br_origin_check_done
+            if = {
+                limit = {
+                    NOT = {
+                        any_country = {
+                            is_ai = no
+                            NOT = { has_origin = origin_br_battle_royale }
+                        }
+                    }
+                }
+                set_global_flag = br_battle_royale_enabled
+            }
+        }
+
+        set_country_flag = br_player_country
 
         give_technology = { tech = tech_br_civilian_arkship message = no }
         refresh_auto_generated_ship_designs = yes
 
+        # 保存首都
         capital_scope = {
             planet = { save_event_target_as = br_embarking_capital }
         }
@@ -21,7 +42,7 @@ country_event = {
         capital_scope.solar_system = {
             starbase = { ship = { delete_ship = ship } }
         }
-        # 清理开局工程船和科学船
+        # 清理开局工程船
         every_owned_ship = {
             limit = {
                 OR = {
@@ -31,12 +52,12 @@ country_event = {
             }
             destroy_ship = this
         }
+        # 创建方舟舰
         create_fleet = {
             effect = {
-                set_name = random
+                set_name = BR_ARKSHIP_PLANET_NAME
                 set_owner = root
                 set_location = event_target:br_embarking_capital
-                set_fleet_flag = br_arkship_flag
                 create_ship = {
                     create_colony = no
                     random_existing_design = br_civilian_arkship_tier_1
@@ -47,6 +68,7 @@ country_event = {
                 }
             }
         }
+        # 刷初始护卫舰队
         random_owned_fleet = {
             limit = {
                 is_ship_size = corvette
@@ -60,6 +82,7 @@ country_event = {
             }
         }
 
+        # 转移人口：首都 → 方舟舰
         event_target:br_embarking_capital = {
             transfer_carrier = {
                 source = this
@@ -70,15 +93,18 @@ country_event = {
             }
         }
 
+        # 方舟舰设为首都
         event_target:br_embarking_arkship = {
             set_owner = root
             colony = {
                 set_name = "BR_ARKSHIP_PLANET_NAME"
                 upgrade_colony_shelter = yes
                 set_capital = yes
+                add_deposit = br_infinite_other_shore
             }
         }
 
+        # 奖励系统
         set_country_flag = br_reward_initialized
         add_resource = {
             energy = 5000

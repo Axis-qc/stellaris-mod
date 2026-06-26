@@ -7,12 +7,11 @@ country_event = {
     is_triggered_only = yes
     trigger = {
         is_ai = no
+        has_global_flag = br_battle_royale_enabled
         NOT = {
             has_global_flag = br_start_settings_opened
         }
-        NOT = {
-            has_country_flag = br_player_country
-        }
+        has_origin = origin_br_battle_royale
     }
     immediate = {
         set_global_flag = br_start_settings_opened
@@ -195,9 +194,7 @@ country_event = {
                 NOT = {
                     has_country_flag = br_player_replacement_scheduled
                 }
-                NOT = {
-                    has_country_flag = br_player_country
-                }
+                has_origin = origin_br_battle_royale
             }
             set_country_flag = br_player_replacement_scheduled
             country_event = {
@@ -215,9 +212,7 @@ country_event = {
     is_triggered_only = yes
     trigger = {
         is_ai = no
-        NOT = {
-            has_country_flag = br_player_country
-        }
+        has_origin = origin_br_battle_royale
     }
     immediate = {
         if = {
