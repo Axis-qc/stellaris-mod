@@ -1,5 +1,5 @@
 # 英雄舰技能 UI 显示 — 国家作用域
-# 用于 br_level_view.gui 总览右侧面板
+# 用于 br_level_view.gui 面板
 # 选中态（有 flag）→ 完整描述；未选中态 → 仅短名
 
 # ── 主动技能 slot 1 短名 ──
@@ -247,4 +247,122 @@ defined_text = {
         trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } has_country_flag = br_skill_ultimate_slot_2 }
     }
     default = BR_LEVEL_UI_SKILL_LOCKED
+}
+
+# ═══════════════════════════════════════
+# 技能选择事件用 — 仅按组件匹配描述（不检查 slot flag）
+# ═══════════════════════════════════════
+
+# ── 主动槽1 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickActiveSlot1Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_phase_shift
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_overclock
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_sortie
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 主动槽2 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickActiveSlot2Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_barrier
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_scan
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_aat
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 被动槽1 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickPassiveSlot1Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_structure
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_combat_stack
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_swarm_guard
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 被动槽2 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickPassiveSlot2Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_field
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_kill_stack
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_deck_maintenance
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 大招槽1 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickUltimateSlot1Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_collapse
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_fullfire
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_full_deck
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
+}
+
+# ── 大招槽2 选择描述 ──
+defined_text = {
+    name = GetBRHeroPickUltimateSlot2Desc
+    random = no
+    text = {
+        localization_key = br_vanguard_skill_projection
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_DEFENSE } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_final_volley
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_POWER } }
+    }
+    text = {
+        localization_key = br_vanguard_skill_total_air_supremacy
+        trigger = { any_owned_ship = { is_ship_size = br_vanguard has_component = BR_VANGUARD_CORE_CARRIER } }
+    }
+    default = br_vanguard_skill_locked
 }

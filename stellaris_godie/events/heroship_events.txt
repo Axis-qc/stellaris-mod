@@ -137,7 +137,7 @@ fleet_event = {
 # ========================
 # 英雄舰发放 — heroship.101
 # 由 heroship.50 路由调用（BR/PVE 直接调用，普通模式由局势完成后调用）
-# 核心选择直接内置于本事件：选择核心后初始化等级系统，60天后先锋舰折跃抵达。
+# 核心已改为组件自由切换，本事件仅做通知 + 初始化等级系统，60天后先锋舰折跃抵达。
 # ========================
 country_event = {
 	id = heroship.101
@@ -149,9 +149,7 @@ country_event = {
 			has_country_flag = br_hero_ship_received
 		}
 	}
-	option = {
-		name = HEROSHIP_CORE_POWER
-		custom_tooltip = HEROSHIP_CORE_POWER_TT
+	immediate = {
 		set_country_flag = br_hero_ship_received
 		set_country_flag = br_hero_level_initialized
 		set_variable = {
@@ -166,57 +164,13 @@ country_event = {
 			which = br_hero_xp_next
 			value = 10
 		}
-		set_country_flag = br_hero_core_selected
 		country_event = {
 			id = heroship.102
 			days = 60
 		}
 	}
 	option = {
-		name = HEROSHIP_CORE_DEFENSE
-		custom_tooltip = HEROSHIP_CORE_DEFENSE_TT
-		set_country_flag = br_hero_ship_received
-		set_country_flag = br_hero_level_initialized
-		set_variable = {
-			which = br_hero_level
-			value = 1
-		}
-		set_variable = {
-			which = br_hero_xp
-			value = 0
-		}
-		set_variable = {
-			which = br_hero_xp_next
-			value = 10
-		}
-		set_country_flag = br_hero_core_selected
-		country_event = {
-			id = heroship.102
-			days = 60
-		}
-	}
-	option = {
-		name = HEROSHIP_CORE_CARRIER
-		custom_tooltip = HEROSHIP_CORE_CARRIER_TT
-		set_country_flag = br_hero_ship_received
-		set_country_flag = br_hero_level_initialized
-		set_variable = {
-			which = br_hero_level
-			value = 1
-		}
-		set_variable = {
-			which = br_hero_xp
-			value = 0
-		}
-		set_variable = {
-			which = br_hero_xp_next
-			value = 10
-		}
-		set_country_flag = br_hero_core_selected
-		country_event = {
-			id = heroship.102
-			days = 60
-		}
+		name = heroship.101_opt
 	}
 }
 
@@ -275,6 +229,14 @@ country_event = {
 					}
 					set_location = {
 						target = event_target:heroship_wreckage_planet@root
+						distance = 35
+						angle = random
+					}
+				}
+				# 保底：都没有就刷首都
+				else = {
+					set_location = {
+						target = root.capital_scope
 						distance = 35
 						angle = random
 					}

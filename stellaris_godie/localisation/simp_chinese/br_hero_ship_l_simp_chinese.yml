@@ -25,16 +25,9 @@
  # ============================================================
  # 英雄舰发放事件（heroship.101/102）
  # ============================================================
- heroship.101_title: "先锋级核心选择"
- heroship.101_desc: "先锋级旗舰的舰体框架已就绪。剩余资源只够激活一个核心模组，请选择搭载类型。核心安装完成后舰船将在§Y60天§!内完成最终调试并投入使用。§R注意：需在舰船装备界面装载相应核心才能解锁技能。§!"
- HEROSHIP_CORE_TITLE: "英雄核心选择"
- HEROSHIP_CORE_DESC: "选择先锋级英雄舰的核心类型，不同的核心将解锁不同的战术技能。"
- HEROSHIP_CORE_POWER: "§R火力核心§!"
- HEROSHIP_CORE_POWER_TT: "解锁火力核心组件，可挂载§G进攻型§!技能模组。"
- HEROSHIP_CORE_DEFENSE: "§B防御核心§!"
- HEROSHIP_CORE_DEFENSE_TT: "解锁防御核心组件，可挂载§G防护型§!技能模组。"
- HEROSHIP_CORE_CARRIER: "§Y航母核心§!(测试中，功能不完全)"
- HEROSHIP_CORE_CARRIER_TT: "解锁航母核心组件，可挂载§G航母作战§!技能模组——指挥无人机编队执行航空支援与制空权争夺。"
+ heroship.101_title: "先锋级旗舰就绪"
+ heroship.101_desc: "先锋级旗舰的舰体框架已修复完毕，核心模组已激活。舰船将在§Y60天§!内完成最终调试并投入使用。§R注意：需在舰船装备界面装载核心组件才能解锁对应技能。§!"
+ heroship.101_opt: "期待它的到来。"
 
  # ============================================================
  # 先锋舰技能框架（通用，跨核心）
@@ -247,9 +240,7 @@
  edict_br_test_skill_3_daymult_up_desc:0 "测试用。br_skill_3_daymult_player 增加 0.5。"
  edict_br_test_reset_skill_values:0 "重置所有技能倍率"
  edict_br_test_reset_skill_values_desc:0 "测试用。将所有技能 _player 变量重置为 0。"
- edict_br_test_unlock_all_cores:0 "解锁全部核心"
- edict_br_test_unlock_all_cores_desc:0 "测试用。同时解锁火力、防御、支援三个核心，可查看所有技能。"
- edict_br_test_trigger_cycle:0 "触发新周目"
+  edict_br_test_trigger_cycle:0 "触发新周目"
  edict_br_test_trigger_cycle_desc:0 "测试用。模拟BOSS击杀胜利，直接触发新周目选择流程。需要先开启全局调试开关。"
  edict_br_test_spawn_arkships:0 "生成测试方舟舰"
  edict_br_test_spawn_arkships_desc:0 "测试用。在首都星系生成民用、科研、军事三种一级方舟舰各一艘。"
@@ -321,7 +312,7 @@
  heroship_flagship_approach_rush_tt:0 "投入额外合金加速修复进度，每月消耗§R50合金§!，修复速度§G+60%§!。"
  heroship_flagship_approach_rush_desc:0 "加急修复中"
 
- heroship_flagship_construction_complete_tt:0 "§Y旗舰修复完成！§!\n从古代造舰厂遗迹中修复的先锋级英雄舰已就绪，请选择核心模组配置。"
+ heroship_flagship_construction_complete_tt:0 "§Y旗舰修复完成！§!\n从古代造舰厂遗迹中修复的先锋级英雄舰已就绪，核心模组已激活。"
 
  # ============================================================
  # 古代造舰厂遗迹（site_heroship_flagship_wreckage）
@@ -341,3 +332,23 @@
  heroship.53_name:0 "造舰厂残骸·核心完好"
  heroship.53_desc:0 "核心模组的数据解密完成。这艘舰船被设计为一种前所未有的旗舰级作战平台，其核心模组包含完整的战术AI和武器控制协议。\n\n虽然舰体框架需要大量修复工作，但核心完好无损。工程团队评估后认为，只要投入足够的资源，完全可以将其修复并投入使用。\n\n§G旗舰修复计划已启动。§!"
  heroship.53_opt:0 "启动修复工程。"
+
+ # ============================================================
+ # 技能选择事件（heroship.10/11/12）— 动态解析
+ # ============================================================
+
+ # 选项名（按组件动态匹配技能短名）
+ br_hero_pick_active_slot_1:0 "[GetBRUIActiveSlot1]"
+ br_hero_pick_active_slot_2:0 "[GetBRUIActiveSlot2]"
+ br_hero_pick_passive_slot_1:0 "[GetBRUIPassiveSlot1]"
+ br_hero_pick_passive_slot_2:0 "[GetBRUIPassiveSlot2]"
+ br_hero_pick_ultimate_slot_1:0 "[GetBRUIUltimateSlot1]"
+ br_hero_pick_ultimate_slot_2:0 "[GetBRUIUltimateSlot2]"
+
+ # custom_tooltip（按组件动态匹配技能完整描述）
+ br_hero_pick_active_slot_1_desc:0 "[GetBRHeroPickActiveSlot1Desc]"
+ br_hero_pick_active_slot_2_desc:0 "[GetBRHeroPickActiveSlot2Desc]"
+ br_hero_pick_passive_slot_1_desc:0 "[GetBRHeroPickPassiveSlot1Desc]"
+ br_hero_pick_passive_slot_2_desc:0 "[GetBRHeroPickPassiveSlot2Desc]"
+ br_hero_pick_ultimate_slot_1_desc:0 "[GetBRHeroPickUltimateSlot1Desc]"
+ br_hero_pick_ultimate_slot_2_desc:0 "[GetBRHeroPickUltimateSlot2Desc]"

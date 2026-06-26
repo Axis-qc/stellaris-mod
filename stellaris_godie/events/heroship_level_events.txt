@@ -536,7 +536,7 @@ country_event = {
 
 # ========================
 # 主动槽选择（Lv2）— heroship.10
-# 根据舰船安装的核心组件显示对应选项
+# 2 个 option，文本按组件动态匹配
 # ========================
 country_event = {
 	id = heroship.10
@@ -554,86 +554,16 @@ country_event = {
 	title = br_hero_active_skill
 	desc = br_hero_active_skill
 	picture = GFX_evt_rare_tech_cache
-	# 火力核心：能量超频
 	option = {
-		name = br_context_menu_overclock
-		custom_tooltip = br_vanguard_skill_overclock
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
-			}
-		}
+		name = br_hero_pick_active_slot_1
+		custom_tooltip = br_hero_pick_active_slot_1_desc
 		hidden_effect = {
 			set_country_flag = br_skill_active_slot_1
 		}
 	}
-	# 火力核心：弱点扫描
 	option = {
-		name = br_context_menu_scan
-		custom_tooltip = br_vanguard_skill_scan
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_active_slot_2
-		}
-	}
-	# 防御核心：相位偏移
-	option = {
-		name = br_hero_phase_shift_menu_title
-		custom_tooltip = br_hero_phase_shift_ship_button
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_active_slot_1
-		}
-	}
-	# 防御核心：能量屏障
-	option = {
-		name = br_hero_barrier_menu_title
-		custom_tooltip = br_hero_barrier_ship_button
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_active_slot_2
-		}
-	}
-	# 航母核心：编队出击
-	option = {
-		name = br_context_menu_sortie
-		custom_tooltip = br_vanguard_skill_sortie
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_active_slot_1
-		}
-	}
-	# 航母核心：防空阵型
-	option = {
-		name = br_context_menu_aat
-		custom_tooltip = br_vanguard_skill_aat
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
+		name = br_hero_pick_active_slot_2
+		custom_tooltip = br_hero_pick_active_slot_2_desc
 		hidden_effect = {
 			set_country_flag = br_skill_active_slot_2
 		}
@@ -642,7 +572,7 @@ country_event = {
 
 # ========================
 # 被动槽选择（Lv4）— heroship.11
-# 根据舰船安装的核心组件显示对应选项
+# 2 个 option，文本按组件动态匹配，副作用按组件条件触发
 # ========================
 country_event = {
 	id = heroship.11
@@ -660,102 +590,54 @@ country_event = {
 	title = br_hero_active_skill
 	desc = br_hero_active_skill
 	picture = GFX_evt_rare_tech_cache
-	# 火力核心：战意过载
 	option = {
-		name = br_vanguard_power_combat_stack_damage
-		custom_tooltip = br_vanguard_skill_combat_stack
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
-			}
-		}
+		name = br_hero_pick_passive_slot_1
+		custom_tooltip = br_hero_pick_passive_slot_1_desc
 		hidden_effect = {
 			set_country_flag = br_skill_passive_slot_1
-		}
-	}
-	# 火力核心：越战越勇
-	option = {
-		name = br_vanguard_power_kill_stack_damage
-		custom_tooltip = br_vanguard_skill_kill_stack
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
+			if = {
+				limit = {
+					any_owned_ship = {
+						is_ship_size = br_vanguard
+						has_component = BR_VANGUARD_CORE_DEFENSE
+					}
+				}
+				country_event = { id = heroship.1202 }
+			}
+			if = {
+				limit = {
+					any_owned_ship = {
+						is_ship_size = br_vanguard
+						has_component = BR_VANGUARD_CORE_CARRIER
+					}
+				}
+				country_event = { id = heroship.1331 }
 			}
 		}
+	}
+	option = {
+		name = br_hero_pick_passive_slot_2
+		custom_tooltip = br_hero_pick_passive_slot_2_desc
 		hidden_effect = {
 			set_country_flag = br_skill_passive_slot_2
-		}
-	}
-	# 防御核心：结构强化
-	option = {
-		name = br_skill_structure
-		custom_tooltip = br_vanguard_skill_structure
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
+			if = {
+				limit = {
+					any_owned_ship = {
+						is_ship_size = br_vanguard
+						has_component = BR_VANGUARD_CORE_DEFENSE
+					}
+				}
+				country_event = { id = heroship.1203 }
+				country_event = { id = heroship.1204 }
 			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_passive_slot_1
-			country_event = {
-				id = heroship.1202
-			}
-		}
-	}
-	# 防御核心：能量力场
-	option = {
-		name = br_skill_field
-		custom_tooltip = br_vanguard_skill_field
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_passive_slot_2
-			country_event = {
-				id = heroship.1203
-			}
-			country_event = {
-				id = heroship.1204
-			}
-		}
-	}
-	# 航母核心：蜂群护卫
-	option = {
-		name = br_context_menu_swarm_guard
-		custom_tooltip = br_vanguard_skill_swarm_guard
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_passive_slot_1
-			country_event = {
-				id = heroship.1331
-			}
-		}
-	}
-	# 航母核心：甲板维护
-	option = {
-		name = br_context_menu_deck_maintenance
-		custom_tooltip = br_vanguard_skill_deck_maintenance
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_passive_slot_2
-			country_event = {
-				id = heroship.1331
+			if = {
+				limit = {
+					any_owned_ship = {
+						is_ship_size = br_vanguard
+						has_component = BR_VANGUARD_CORE_CARRIER
+					}
+				}
+				country_event = { id = heroship.1331 }
 			}
 		}
 	}
@@ -763,7 +645,7 @@ country_event = {
 
 # ========================
 # 大招槽选择（Lv6）— heroship.12
-# 根据舰船安装的核心组件显示对应选项
+# 2 个 option，文本按组件动态匹配
 # ========================
 country_event = {
 	id = heroship.12
@@ -781,86 +663,16 @@ country_event = {
 	title = br_hero_active_skill
 	desc = br_hero_active_skill
 	picture = GFX_evt_rare_tech_cache
-	# 火力核心：火力全开
 	option = {
-		name = br_context_menu_fullfire
-		custom_tooltip = br_vanguard_skill_fullfire
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
-			}
-		}
+		name = br_hero_pick_ultimate_slot_1
+		custom_tooltip = br_hero_pick_ultimate_slot_1_desc
 		hidden_effect = {
 			set_country_flag = br_skill_ultimate_slot_1
 		}
 	}
-	# 火力核心：终末齐射
 	option = {
-		name = br_context_menu_final_volley
-		custom_tooltip = br_vanguard_skill_final_volley
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_POWER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_ultimate_slot_2
-		}
-	}
-	# 防御核心：引力坍缩
-	option = {
-		name = br_skill_collapse
-		custom_tooltip = br_vanguard_skill_collapse
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_ultimate_slot_1
-		}
-	}
-	# 防御核心：力场投射
-	option = {
-		name = br_skill_projection
-		custom_tooltip = br_vanguard_skill_projection
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_DEFENSE
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_ultimate_slot_2
-		}
-	}
-	# 航母核心：全甲板攻击
-	option = {
-		name = br_context_menu_full_deck
-		custom_tooltip = br_vanguard_skill_full_deck
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
-		hidden_effect = {
-			set_country_flag = br_skill_ultimate_slot_1
-		}
-	}
-	# 航母核心：绝对制空
-	option = {
-		name = br_context_menu_total_air_supremacy
-		custom_tooltip = br_vanguard_skill_total_air_supremacy
-		trigger = {
-			any_owned_ship = {
-				is_ship_size = br_vanguard
-				has_component = BR_VANGUARD_CORE_CARRIER
-			}
-		}
+		name = br_hero_pick_ultimate_slot_2
+		custom_tooltip = br_hero_pick_ultimate_slot_2_desc
 		hidden_effect = {
 			set_country_flag = br_skill_ultimate_slot_2
 		}
