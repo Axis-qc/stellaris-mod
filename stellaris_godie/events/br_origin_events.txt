@@ -1,0 +1,98 @@
+namespace = brstart
+
+# brstart.1：起源初始化 — 在母星系创建方舟舰+护卫、转移人口、设首都、奖励
+country_event = {
+    id = brstart.1
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        has_origin = origin_br_battle_royale
+    }
+    immediate = {
+
+        give_technology = { tech = tech_br_civilian_arkship message = no }
+        refresh_auto_generated_ship_designs = yes
+
+        capital_scope = {
+            planet = { save_event_target_as = br_embarking_capital }
+        }
+        # 清理母星系开局恒星基地（方舟是舰船不是基地，不会被误伤）
+        capital_scope.solar_system = {
+            starbase = { ship = { delete_ship = ship } }
+        }
+        # 清理开局工程船和科学船
+        every_owned_ship = {
+            limit = {
+                OR = {
+                    is_ship_size = constructor
+                    is_ship_size = nomads_constructor
+                }
+            }
+            destroy_ship = this
+        }
+        create_fleet = {
+            effect = {
+                set_name = random
+                set_owner = root
+                set_location = event_target:br_embarking_capital
+                set_fleet_flag = br_arkship_flag
+                create_ship = {
+                    create_colony = no
+                    random_existing_design = br_civilian_arkship_tier_1
+                    effect = {
+                        save_event_target_as = br_embarking_arkship
+                        initialize_arkship_starbase_effect = yes
+                    }
+                }
+            }
+        }
+        random_owned_fleet = {
+            limit = {
+                is_ship_size = corvette
+            }
+            while = {
+                count = 7
+                create_ship = {
+                    name = random
+                    design = NAME_Dagger
+                }
+            }
+        }
+
+        event_target:br_embarking_capital = {
+            transfer_carrier = {
+                source = this
+                target = event_target:br_embarking_arkship
+                transfer_ownership = no
+                merge_pops = no
+                destroy_colony = yes
+            }
+        }
+
+        event_target:br_embarking_arkship = {
+            set_owner = root
+            colony = {
+                set_name = "BR_ARKSHIP_PLANET_NAME"
+                upgrade_colony_shelter = yes
+                set_capital = yes
+            }
+        }
+
+        set_country_flag = br_reward_initialized
+        add_resource = {
+            energy = 5000
+            minerals = 5000
+            food = 5000
+            trade = 5000
+            consumer_goods = 2000
+            alloys = 2000
+        }
+        add_relic = br_reward_relics
+        #不需要边境通行，全图随意出入
+        set_faction_properties = {
+            needs_border_access = no
+        }
+        # change_country_flag = random #随机换旗帜，此模式不需要，但是可能会有用
+    }
+}

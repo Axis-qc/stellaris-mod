@@ -1,193 +1,330 @@
-# PVE 模式：国家类型重构 + 方舟舰迁移计划
+# 大逃杀起源 + 入口门禁
 
 ## 背景
 
-自定义 `country_type`（`br_player_pvp`/`br_player_pve`）的模块配置与原版不兼容，导致方舟舰殖民地的建筑和岗位异常。新版本原版国家类型已支持 `has_capital = no` 等属性，不再需要自定义玩家国家类型。
-
-**先只改 PVE，PVP 后续再做。**
+原版起源自带事件链会在大逃杀中干扰。新增专属起源作为唯一入口，且起源事件直接创建方舟舰+护卫舰队+转移人口+设首都，将 br.701 简化为仅移动舰队。
 
 ## 方案
 
-1. **标注废弃** 3 个自定义玩家国家类型（`br_player`、`br_player_pvp`、`br_player_pve`），暂不删除
-2. **PVE 初始化流程改为**：在原版国家上直接操作，用 `transfer_carrier` 将人口迁移到方舟舰，方舟舰设为首都
-3. **所有 `is_country_type` 检查改为 `has_country_flag = br_player_country`**
+`brstart.1`（`on_game_start_country` 触发，独立 namespace）在母星系创建方舟舰和护卫舰队、转移人口、设首都。之后模式选择/出生点选定流程不变，但 br.701 不再创建/转移/设首都，只移动已有舰队到出生点。
 
-## 涉及文件（PVE 相关）
+### 新增文件
 
-### 第 1 步：标注国家类型为废弃
+| 文件 | 用途 |
+|---|---|
+| `common/governments/civics/br_origins.txt` | 定义 `origin_br_battle_royale` |
+| `events/br_origin_events.txt` | 起源初始化事件 br.800 |
 
-#### `common/country_types/br_country_types.txt`
+### 修改文件
 
-在 `br_player`、`br_player_pvp`、`br_player_pve` 上方加注释 `# [废弃]`，暂不删除。
+| 文件 | 变更 |
+|---|---|
+| `common/on_actions/br_on_actions.txt` | `on_game_start_country` 加 br.800 |
+| `events/br_origin_events.txt` | **新建**，namespace = brstart，起源事件 `brstart.1` |
+| `events/br_pve_init_events.txt` | br.700/701 trigger + br.701 逻辑简化 |
+| `events/br_start_events.txt` | br.500/504/505 入口门禁换 `has_origin` |
+| `localisation/simp_chinese/br_battleroyale_l_simp_chinese.yml` | 加起源文本 |
+| `TODO.md` | 更新状态 |
 
-### 第 2 步：重写 PVE 初始化事件
+## 执行步骤
 
-#### `events/br_pve_init_events.txt` — br.701（第 478-663 行）
+### Step 1 — 起源定义
 
-**改后流程**（去掉 `create_country`/`set_player`，所有效果直接在 root 上执行）：
+`common/governments/civics/br_origins.txt`（新建目录+文件）：
 
 ```
-immediate = {
-    set_country_flag = br_player_replaced
-
-    # 随机选择出生点
-    random_system = { limit = { has_star_flag = br_player_spawn_system }
-        save_event_target_as = br_chosen_spawn_system
-        star = { save_event_target_as = br_chosen_spawn_star }
-    }
-
-    # 标记为玩家国家
-    set_country_flag = br_player_country
-
-    # 给科技确保方舟舰设计可用
-    give_technology = { tech = tech_br_civilian_arkship message = no }
-    refresh_auto_generated_ship_designs = yes
-
-    # 保存首都星球引用
-    capital_scope = { planet = { save_event_target_as = br_embarking_capital } }
-
-    # 在出生星系创建方舟舰
-    create_fleet = {
-        effect = {
-            set_owner = root
-            create_ship = {
-                random_existing_design = br_civilian_arkship_tier_1
-                effect = {
-                    save_event_target_as = br_embarking_arkship
-                    initialize_arkship_starbase_effect = yes
-                }
-            }
-            set_location = { target = event_target:br_chosen_spawn_star distance = 50 angle = random }
-        }
-    }
-
-    # 迁移人口：首都星球 → 方舟舰（跨星系）
-    event_target:br_embarking_capital = {
-        transfer_carrier = {
-            source = this
-            target = event_target:br_embarking_arkship
-            transfer_ownership = no
-            merge_pops = no
-            destroy_colony = yes
-        }
-    }
-
-    # 方舟舰设为首都
-    event_target:br_embarking_arkship = {
-        set_owner = root
-        colony = { upgrade_colony_shelter = yes set_capital = yes }
-    }
-
-    # 设置房主（仅首位玩家）
-    if = { limit = { NOT = { has_global_flag = br_pve_alliance_leader_set } }
-        set_global_flag = br_pve_alliance_leader_set
-        save_global_event_target_as = br_pve_alliance_leader
-    }
-
-    # 初始化奖励系统（原 create_country effect 块中的效果）
-    set_country_flag = br_reward_initialized
-    add_relic = br_reward_relics
-    change_country_flag = random
-
-    # 创建初始舰队（护卫）——作用域为 root，不再经 br_new_player_country 中转
-    create_leader = {
-        class = commander
-        species = owner_main_species
-        name = "BR_ESCORT_COMMANDER"
-        skill = 3
-    }
-    create_fleet = {
-        name = "BR_ESCORT_FLEET"
-        effect = {
-            set_owner = root
-            while = {
-                count = 10
-                create_ship = {
-                    name = random
-                    design = NAME_Dagger
-                }
-            }
-            assign_leader = last_created_leader
-            set_location = {
-                target = event_target:br_chosen_spawn_star
-                distance = 80
-                angle = random
-            }
-        }
-    }
-
-    # 排程后续
-    country_event = { id = br.507 days = 1 }
+origin_br_battle_royale = {
+    is_origin = yes
+    icon = "gfx/interface/icons/origins/origins_default.dds"
+    picture = GFX_evt_signing
+    potential = { always = yes }
+    possible = { always = yes }
 }
 ```
 
-> 注意：`set_graphical_culture = root` 不迁移，因为重构后 root 本身就是原版国家，已有图形文化。
+无 `random_weight` → AI 不会自动选此起源。
 
-#### `events/br_pve_init_events.txt` — br.700（第 4-475 行）
+### Step 2 — 本地化
 
-trigger 中 `is_country_type = br_void` 保留。3 处 NOR 块中的 `is_country_type = br_player / br_player_pvp / br_player_pve` 改为 `has_country_flag = br_player_country`：
-- 第 13-17 行（trigger 入口）
-- 第 464-468 行（every_country 遍历过滤）
-- 第 488-492 行（br.701 的 trigger，注意此处属于 br.701 但紧接在 br.700 的 every_country 循环中）
+`origin_br_battle_royale:0 "大逃杀模式"`
+`origin_br_battle_royale_desc:0 "宇宙基本常数正在被未知力量重写……"`
 
-#### `events/br_pve_init_events.txt` — br.702（第 666-781 行）
+### Step 4 — 新增 brstart.1 起源事件（完整初始化）
 
-3 处 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`：
-- 第 671 行（trigger）
-- 第 682 行（every_country 遍历过滤）
-- 第 764 行（every_country 遍历过滤）
+新建 `events/br_origin_events.txt`，文件头 `namespace = brstart`。
 
-#### `events/br_pve_init_events.txt` — br.799（第 784-841 行）
+`brstart.1` 承担原 br.701 的全部初始化工作（创建舰船、转移人口、设首都、奖励），仅留下 spawn 位置移动给 br.701。
 
-2 处 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`：
-- 第 790 行（trigger）
-- 第 829 行（every_country 遍历过滤）
+```
+# brstart.1：起源初始化 — 创建方舟舰+护卫、转移人口、设首都、奖励
+country_event = {
+    id = brstart.1
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        has_origin = origin_br_battle_royale
+    }
+    immediate = {
+        set_country_flag = br_player_country
 
-### 第 3 步：修改启动事件中的过滤条件
+        # 科技
+        give_technology = { tech = tech_br_civilian_arkship message = no }
+        refresh_auto_generated_ship_designs = yes
 
-#### `events/br_start_events.txt`
+        # 保存首都
+        capital_scope = {
+            planet = { save_event_target_as = br_embarking_capital }
+        }
 
-**3.1 替换 NOR 块**（`NOR { is_country_type = br_player / br_player_pvp / br_player_pve }` → `NOR { has_country_flag = br_player_country }`）：
-- br.500 trigger（第 13-17 行）
-- br.504（第 120-125 行，第 201-205 行）
-- br.505 trigger（第 223-227 行）
-- br.507 immediate 内（第 307-311 行，第 321-325 行）
+        # 创建方舟舰（标记 fleet_flag 供 br.701 查找）
+        create_fleet = {
+            effect = {
+                save_event_target_as = br_embarking_arkship
+                set_owner = root
+                set_fleet_flag = br_arkship_flag
+                create_ship = {
+                    random_existing_design = br_civilian_arkship_tier_1
+                    effect = { initialize_arkship_starbase_effect = yes }
+                }
+            }
+        }
 
-> 注意：br.507 第 321-325 行 NOR 块同时包含 `is_country_type = br_void`，替换后应为 `NOR { is_country_type = br_void, has_country_flag = br_player_country }`，即保留 `br_void` 的排除。
+        # 创建护卫舰队
+        create_leader = {
+            class = commander
+            species = owner_main_species
+            name = "BR_ESCORT_COMMANDER"
+            skill = 3
+        }
+        create_fleet = {
+            name = "BR_ESCORT_FLEET"
+            effect = {
+                set_owner = root
+                set_fleet_flag = br_escort_flag
+                while = {
+                    count = 10
+                    create_ship = {
+                        name = random
+                        design = NAME_Dagger
+                    }
+                }
+                assign_leader = last_created_leader
+            }
+        }
 
-**3.2 br.507 trigger（第 271-275 行）**：`OR { is_country_type = br_player_pve / br_player_pvp }` → `has_country_flag = br_player_country`
+        # 转移人口：首都 → 方舟舰
+        event_target:br_embarking_capital = {
+            transfer_carrier = {
+                source = this
+                target = event_target:br_embarking_arkship
+                transfer_ownership = no
+                merge_pops = no
+                destroy_colony = yes
+            }
+        }
 
-> 注意：重构后 PVE 国家不再有 `br_player_pve` 类型，br.507 的 trigger 若保留 `is_country_type` 检查会导致 PVE 路径失效。PVP 初始化（br.600）也设置了 `br_player_country` flag，所以统一改为 flag 检查即可。
+        # 方舟舰设为首部
+        event_target:br_embarking_arkship = {
+            set_owner = root
+            colony = {
+                upgrade_colony_shelter = yes
+                set_capital = yes
+            }
+        }
 
-### 第 4 步：替换所有 PVE 相关文件中的 `is_country_type` 检查
+        # 奖励系统
+        set_country_flag = br_reward_initialized
+        add_relic = br_reward_relics
+        change_country_flag = random
+    }
+}
+```
 
-| 文件 | 处数 | 替换内容 |
-|---|---|---|
-| `events/br_level_events.txt` | 19 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country` |
-| `events/br_countrybuff_events.txt` | 3 | 同上（第 43、57、297 行） |
-| `events/br_countrybuff_events.txt` | 1 | `is_country_type = br_player_pvp` → `has_country_flag = br_player_country`（第 298 行，br.1015 trigger，与第 297 行在同一 OR 块中） |
-| `events/br_cycle_events.txt` | 3 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country` |
-| `events/br_pve_reinforce_events.txt` | 4 | 同上 |
-| `events/br_pve_enemy_spawn_rings.txt` | 4 | 同上 |
-| `events/br_pve_enemy_boss_events.txt` | 2 | 同上 |
-| `events/br_level_ui_events.txt` | 1 | 同上（第 12 行；第 34 行已注释跳过） |
-| `events/reward_exploration_events.txt` | 1 | 同上 |
-| `common/edicts/br_test_skill_edicts.txt` | 2 | 同上 |
-| `common/scripted_actions/br_vanguard_actions.txt` | 2 | 同上（第 16 行 `br_player_pve`，第 17 行 `br_player_pvp`） |
-| `events/br_pve_init_events.txt` | 8 | 同上（已在第 2 步覆盖） |
-| `events/br_pvp_init_events.txt` | 2 | `is_country_type = br_player_pve` → `has_country_flag = br_player_country`（第 15、151 行，br.600/601 trigger 中的 PVE 过滤） |
+### Step 5 — 更新 on_actions
 
-> 已注释的行（`br_level_edicts.txt` 第 13 行、`br_level_ui_events.txt` 第 34 行、`br_ship_sizes.txt` 第 117 行）不修改。设计文档（`设计文档\核心-航母.md`）不修改。
+`common/on_actions/br_on_actions.txt`，`on_game_start_country` 列表首行插入 `brstart.1`：
 
-## 执行顺序
+```
+on_game_start_country = {
+    events = {
+        brstart.1
+        br.500
+        br.1
+    }
+}
+```
 
-1. `common/country_types/br_country_types.txt` — 标注废弃注释
-2. `events/br_pve_init_events.txt` — 重写 br.700/701/702/799
-3. `events/br_start_events.txt` — 修改过滤条件
-4. 其余 10 个文件 — 批量替换 `is_country_type = br_player_pve` → `has_country_flag = br_player_country`
+### Step 6 — 入口门禁替换
 
-## 已验证
+#### br.500 trigger（br_start_events.txt:8-16）
 
-- `transfer_carrier` 可在非游牧国家上正常工作
-- `transfer_carrier` 支持跨星系迁移
-- `random_existing_design = br_civilian_arkship_tier_1` 配合 `give_technology` + `refresh_auto_generated_ship_designs` 可正常创建方舟舰
+```diff
+ trigger = {
+     is_ai = no
+     NOT = { has_global_flag = br_start_settings_opened }
+-    NOT = { has_country_flag = br_player_country }
++    has_origin = origin_br_battle_royale
+ }
+```
+
+#### br.504 every_country filter（br_start_events.txt:192-201）
+
+```diff
+ limit = {
+     is_ai = no
+     NOT = { has_country_flag = br_player_replacement_scheduled }
+-    NOT = { has_country_flag = br_player_country }
++    has_origin = origin_br_battle_royale
+ }
+```
+
+#### br.505 trigger（br_start_events.txt:216-221）
+
+```diff
+ trigger = {
+     is_ai = no
+-    NOT = { has_country_flag = br_player_country }
++    has_origin = origin_br_battle_royale
+ }
+```
+
+#### br.700 trigger — player arm（br_pve_init_events.txt:8-18）
+
+```diff
+ trigger = {
+     OR = {
+         is_country_type = br_void
+         AND = {
+             is_ai = no
+-            NOT = { has_country_flag = br_player_country }
++            has_origin = origin_br_battle_royale
+         }
+     }
+ }
+```
+
+#### br.700 every_country filter（br_pve_init_events.txt:455-465）
+
+```diff
+ limit = {
+     is_ai = no
+     has_country_flag = br_player_replacement_scheduled
+     NOT = { has_country_flag = br_player_replaced }
+-    NOR = { has_country_flag = br_player_country }
++    has_origin = origin_br_battle_royale
+ }
+```
+
+#### br.701 trigger（br_pve_init_events.txt:478-487）
+
+```diff
+ trigger = {
+     is_ai = no
+     has_country_flag = br_player_replacement_scheduled
+     NOT = { has_country_flag = br_player_replaced }
+-    NOT = { has_country_flag = br_player_country }
++    has_origin = origin_br_battle_royale
+ }
+```
+
+### Step 7 — 简化 br.701（仅移动舰队 + 房主设置）
+
+br.701 仅做：选出生点、移动已有方舟舰和护卫舰队到出生点、房主设置、排程 br.507。
+全部舰船创建、人口转移、设首都已由 brstart.1 完成。
+
+```diff
+ immediate = {
+     set_country_flag = br_player_replaced
++    # 找已有方舟舰
++    random_owned_fleet = {
++        limit = { has_fleet_flag = br_arkship_flag }
++        save_event_target_as = br_embarking_arkship
++    }
++    # 找已有护卫舰队
++    random_owned_fleet = {
++        limit = { has_fleet_flag = br_escort_flag }
++        save_event_target_as = br_escort_fleet
++    }
+
+     # 选出生点
+     random_system = {
+         limit = { has_star_flag = br_player_spawn_system }
+         save_event_target_as = br_chosen_spawn_system
+         star = { save_event_target_as = br_chosen_spawn_star }
+     }
+
+-    set_country_flag = br_player_country
+-    give_technology = { tech = tech_br_civilian_arkship message = no }
+-    refresh_auto_generated_ship_designs = yes
+-    capital_scope = { planet = { save_event_target_as = br_embarking_capital } }
+-    create_fleet = { ... }  # 含方舟舰创建+set_location
+-    event_target:br_embarking_capital = { transfer_carrier = ... }  # 转移人口
+-    event_target:br_embarking_arkship = { colony = { set_capital = yes } }  # 设首都
+-    set_country_flag = br_reward_initialized
+-    add_relic = br_reward_relics
+-    change_country_flag = random
+-    create_leader = { ... }
+-    create_fleet = { ... }  # 护卫舰队
++    # 移动方舟舰到出生点
++    event_target:br_embarking_arkship = {
++        set_location = {
++            target = event_target:br_chosen_spawn_star
++            distance = 50
++            angle = random
++        }
++    }
++    # 移动护卫舰队到出生点
++    event_target:br_escort_fleet = {
++        set_location = {
++            target = event_target:br_chosen_spawn_star
++            distance = 80
++            angle = random
++        }
++    }
+
+     # 房主设置（不变）
+     if = {
+         limit = { NOT { has_global_flag = br_pve_alliance_leader_set } }
+         set_global_flag = br_pve_alliance_leader_set
+         save_global_event_target_as = br_pve_alliance_leader
+     }
+
+     # 排程 br.507（不变）
+     country_event = { id = br.507 days = 1 }
+ }
+```
+
+## 不变的部分
+
+- br.504 杀AI逻辑（`is_ai = yes` / `NOR { br_void, br_player_country }`）
+- br.504 创建虚空国/扩圈排程
+- br.700 选出生点逻辑（全部保留）
+- br.507 二次清理
+- br.702 联盟+敌对势力
+- br.799 后备保障
+- 所有内部事件（level_events/cycle_events 等）仍用 `has_country_flag = br_player_country`
+
+## 回滚策略
+
+Step 1-7 顺序执行。任一步失败则停止，`git checkout -- .` 恢复所有文件，报告失败详情。
+
+## 新流程总览
+
+```
+on_game_start_country
+  → brstart.1 [NEW] (创建方舟舰+护卫、转移人口、设首都、奖励、br_player_country)
+  → br.500 (入口 now has_origin → 跳过已初始化)
+    → br.501 (模式选择) → br.503 (速度选择)
+      → br.504 (杀AI，虚空国，扩圈，标记 origin 玩家)
+        → br.505 (路由) → br.700 (选出生点)
+          → br.701 [仅移动] (方舟舰+护卫 移到出生点，房主设置)
+            → br.507 (清理) → br.702 (联盟+敌对势力)
+```
+
+## 已完成
+
+- PVE 国家类型重构（commit `20bea54`）
+- 缩进格式化 + 模式选择标签（commit `5ac1e94`）
+- 创建起源定义 + 起源事件 brstart.1 + 本地化
+- `on_game_start_country` 接入 brstart.1（仅起源效果，不含 PVE 逻辑）
