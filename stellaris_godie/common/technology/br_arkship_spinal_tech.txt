@@ -337,3 +337,34 @@ tech_br_arkship_exodus_jump = {
 		}
 	}
 }
+
+tech_br_mining_mastery = {
+	cost = @tier3cost1
+	area = engineering
+	tier = 3
+	category = { industry }
+	prerequisites = { "tech_space_mining_3" "tech_br_arkship_construction" }
+	weight = @tier3weight1
+	is_rare = yes
+	potential = {
+		is_nomadic = no
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_space_mining_3
+		}
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "TECH_UNLOCK_BR_MINING_MASTERY_TITLE"
+			desc = "TECH_UNLOCK_BR_MINING_MASTERY_DESC"
+		}
+	}
+	ai_weight = {
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
+	}
+}

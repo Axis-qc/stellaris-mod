@@ -104,7 +104,7 @@ pc_br_ark = {
 
     starting_planet = no                    # 不随机生成为起始星球
 
-    starting_district = district_ark_city   # 初始区划类型
+    starting_district = district_br_ark_habitation   # 初始区划类型
 
     atmosphere_color = hsv { 0.59 0.45 0.95 }  # 大气颜色
     atmosphere_intensity = 1.0                      # 大气强度
@@ -120,7 +120,7 @@ pc_br_ark = {
     planet_size = { min = 9 max = 9 }       # 固定大小 9
 
     colonizable = yes                       # 可殖民
-    district_set = nomad                    # 区划集：游牧方舟
+    district_set = br_arkship                    # 区划集：星舰专用
     uses_alternative_skies_for_moons = no   # 卫星不使用替代天空
     uses_alternative_skies_if_has_orbital_ring = no  # 轨道环不使用替代天空
     is_artificial_planet = yes              # 标记为人工星球（排除自然星球修正）
@@ -131,7 +131,7 @@ pc_br_ark = {
         pop_environment_tolerance = 1       # +100% 居住性 = 满适应
     }
 
-    carry_cap_per_free_district = @carry_cap_normal  # 每空闲区划承载能力
+    carry_cap_per_free_district = 500  # 每空闲区划承载能力
 
     single_build_queue = yes                # 单建筑队列（方舟舰限制）
 }

@@ -1,0 +1,84 @@
+@br_mining_t1_base = 100
+@br_mining_t2_base = 200
+@br_mining_t3_base = 400
+
+building_br_ark_mining_hub = {
+    icon = building_br_ark_mining_hub
+    base_buildtime = 120
+    category = manufacturing
+
+    building_sets = {
+        government
+        urban
+        unity
+        origin
+        trade
+        industrial
+        foundry
+        factory
+        generator
+        fortress
+        research
+        farming
+        society
+        physics
+        urban_automation
+        generator_automation
+    }
+
+    potential = {
+        always = yes
+        # is_br_civilian_arkship = yes
+    }
+
+    planet_limit = 1
+
+    resources = {
+        category = planet_buildings
+        cost = {
+            alloys = @arkship_cost_alloys_100
+            volatile_motes = @arkship_cost_strategic_100
+        }
+        upkeep = {
+            energy = @arkship_upkeep_energy_2
+            volatile_motes = @arkship_upkeep_strategic_1
+        }
+    }
+
+    triggered_planet_modifier = {
+        modifier = {
+            job_miner_add = @br_mining_t1_base
+        }
+        mult = value:br_ark_mining_planet_mult
+    }
+    triggered_planet_modifier = {
+        potential = {
+            owner = { has_technology = tech_space_mining_2 }
+            owner = { NOT = { has_technology = tech_br_mining_mastery } }
+        }
+        modifier = {
+            job_miner_add = @br_mining_t2_base
+        }
+        mult = value:br_ark_mining_planet_mult
+    }
+    triggered_planet_modifier = {
+        potential = {
+            owner = { has_technology = tech_space_mining_3 }
+        }
+        modifier = {
+            job_miner_add = @br_mining_t3_base
+        }
+        mult = value:br_ark_mining_planet_mult
+    }
+
+    ai_weight = {
+        weight = 100
+    }
+
+    triggered_desc = {
+        trigger = {
+            always = yes
+        }
+        text = building_br_ark_mining_hub_desc
+    }
+}
