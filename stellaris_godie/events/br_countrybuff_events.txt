@@ -292,6 +292,10 @@ fleet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		OR = {
+			has_global_flag = br_mode_pve
+			has_global_flag = br_mode_pvp
+		}
 		owner = {
 			OR = {
 				has_country_flag = br_player_country

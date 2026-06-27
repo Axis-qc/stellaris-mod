@@ -651,3 +651,39 @@ br_test_spawn_arkships = {
 		weight = 0
 	}
 }
+
+# ========================
+# 测试法令：清除战斗减速buff
+# ========================
+br_test_clear_combat_speed_buff = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		NOT = {
+			has_global_flag = br_mode_pve
+		}
+		NOT = {
+			has_global_flag = br_mode_pvp
+		}
+		any_owned_fleet = {
+			has_modifier = br_combat_speed_buff
+		}
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		every_owned_fleet = {
+			remove_modifier = br_combat_speed_buff
+		}
+		remove_country_flag = br_combat_buff_active
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
