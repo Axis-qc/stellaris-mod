@@ -30,6 +30,9 @@ fleet_event = {
                     is_ship_size = br_vanguard
                 }
                 save_global_event_target_as = br_hero_ship_@root
+                fleet = {
+                    save_global_event_target_as = br_hero_fleet_@root
+                }
             }
             # 复制玩家护卫舰设计
             random_owned_design = {
@@ -63,6 +66,10 @@ fleet_event = {
                         direction = in_system
                     }
                     set_fleet_flag = br_carrier_temp_fleet_@root.owner
+                    auto_follow_fleet = {
+                        target = event_target:br_hero_fleet_@root
+                        attack_fleet = yes
+                    }
                     while = {
                         count = root.owner.br_hero_level
                         create_ship = {
@@ -323,6 +330,10 @@ country_event = {
                     angle = random
                     direction = in_system
                 }
+                auto_follow_fleet = {
+                    target = event_target:br_hero_fleet_@root
+                    attack_fleet = yes
+                }
                 while = {
                     count = root.value:br_carrier_mass_assault_count
                     create_ship = {
@@ -330,8 +341,9 @@ country_event = {
                         design = event_target:br_carrier_ship_@root
                     }
                 }
+                set_fleet_flag = br_carrier_strike_fleet_@root
                 set_timed_fleet_flag = {
-                    flag = br_carrier_strike_fleet_@root
+                    flag = br_carrier_strike_alive_@root
                     days = value:br_carrier_mass_assault_day
                 }
             }
@@ -376,6 +388,9 @@ country_event = {
             save_global_event_target_as = br_hero_ship_@root
             solar_system = {
                 save_global_event_target_as = br_hero_system_@root
+            }
+            fleet = {
+                save_global_event_target_as = br_hero_fleet_@root
             }
         }
         # 复制玩家设计
@@ -492,6 +507,10 @@ country_event = {
                     }
                     # 打临时旗标
                     set_fleet_flag = br_carrier_temp_fleet_@root
+                    auto_follow_fleet = {
+                        target = event_target:br_hero_fleet_@root
+                        attack_fleet = yes
+                    }
                     while = {
                         count = root.br_carrier_deficit
                         create_ship = {
@@ -521,14 +540,14 @@ country_event = {
                 }
             }
         }
-        # → Step3: 位置同步
+        # → Step3: 跟随 + 合并
         country_event = {
             id = heroship.1334
         }
     }
 }
 
-# heroship.1334 — 位置同步
+# heroship.1334 — 位置同步（跟随英雄舰 + 合并临时舰队）
 country_event = {
     id = heroship.1334
     hide_window = yes
@@ -537,16 +556,16 @@ country_event = {
         country_has_carrier_vanguard = yes
     }
     immediate = {
-        # 移动主舰队到英雄舰位置
+        # 主舰队跟随英雄舰
         random_owned_fleet = {
             limit = {
                 has_fleet_flag = br_carrier_fleet_@root
             }
             save_event_target_as = br_carrier_fleet
             set_fleet_stance = aggressive
-            clear_fleet_actions = this
-            queue_actions = {
-                move_to = event_target:br_hero_ship_@root
+            auto_follow_fleet = {
+                target = event_target:br_hero_fleet_@root
+                attack_fleet = yes
             }
         }
         # 临时舰队兜底：无主舰队则提拔临时舰队
@@ -561,9 +580,9 @@ country_event = {
                 set_fleet_flag = br_carrier_fleet_@root
                 save_event_target_as = br_carrier_fleet
                 set_fleet_stance = aggressive
-                clear_fleet_actions = this
-                queue_actions = {
-                    move_to = event_target:br_hero_ship_@root
+                auto_follow_fleet = {
+                    target = event_target:br_hero_fleet_@root
+                    attack_fleet = yes
                 }
             }
         }
@@ -582,6 +601,14 @@ country_event = {
                     }
                 }
             }
+        }
+        # 突击舰队超时清理
+        every_owned_fleet = {
+            limit = {
+                has_fleet_flag = br_carrier_strike_fleet_@root
+                NOT = { has_fleet_flag = br_carrier_strike_alive_@root }
+            }
+            destroy_fleet = this
         }
         # → Step4: buff处理
         country_event = {

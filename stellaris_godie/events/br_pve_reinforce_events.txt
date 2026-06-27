@@ -1,43 +1,39 @@
 namespace = br
 # ============================================================
-# PVE母舰位置追踪刷新：br.830
+# PVE母舰追踪刷新：br.830
 # 由 br.850 年度多次触发（11/100/200/300天）
-# 遍历敌方所有带 br_assault_@root flag 的舰队，全部移向母舰
+# 遍历敌方所有带 br_assault_@root flag 的舰队，重新绑定跟随攻击母舰
 # ============================================================
 country_event = {
-	id = br.830
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_country_flag = br_player_country
-		exists = event_target:br_pve_enemy_country
-		any_owned_fleet = {
-			is_ship_size = br_dominator
-		}
-	}
-	immediate = {
-		# 更新母舰当前位置
-		random_owned_fleet = {
-			limit = {
-				is_ship_size = br_dominator
-			}
-			solar_system = {
-				save_event_target_as = br_dominator_target_@root
-			}
-		}
-		# 遍历敌方所有带 br_assault_@root flag 的舰队，全部移向母舰
-		event_target:br_pve_enemy_country = {
-			every_owned_fleet = {
-				limit = {
-					has_fleet_flag = br_assault_@root
-				}
-				clear_fleet_actions = this
-				queue_actions = {
-					move_to = event_target:br_dominator_target_@root
-				}
-			}
-		}
-	}
+    id = br.830
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        has_country_flag = br_player_country
+        exists = event_target:br_pve_enemy_country
+        any_owned_fleet = {
+            is_ship_size = br_dominator
+        }
+    }
+    immediate = {
+        random_owned_fleet = {
+            limit = {
+                is_ship_size = br_dominator
+            }
+            save_event_target_as = br_dominator_fleet_@root
+        }
+        event_target:br_pve_enemy_country = {
+            every_owned_fleet = {
+                limit = {
+                    has_fleet_flag = br_assault_@root
+                }
+                auto_follow_fleet = {
+                    target = event_target:br_dominator_fleet_@root
+                    attack_fleet = yes
+                }
+            }
+        }
+    }
 }
 
 # ============================================================
@@ -47,72 +43,74 @@ country_event = {
 # 舰队打上 br_assault_@root flag，可累积多支
 # ============================================================
 country_event = {
-	id = br.840
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_country_flag = br_player_country
-		exists = event_target:br_pve_enemy_country
-		any_owned_fleet = {
-			is_ship_size = br_dominator
-		}
-	}
-	immediate = {
-		random_owned_fleet = {
-			limit = {
-				is_ship_size = br_dominator
-			}
-			solar_system = {
-				save_event_target_as = br_dominator_target_@root
-			}
-		}
-		# 只负责创建，追踪交给 br.830
-		event_target:br_dominator_target_@root = {
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_dominator_target_@root
-						type = hyperlane
-						min_jumps = 2
-						max_jumps = 5
-					}
-					NOT = {
-						has_star_flag = br_danger
-					}
-					NOT = {
-						any_fleet_in_system = {
-							owner = {
-								has_country_flag = br_player_country
-							}
-						}
-					}
-				}
-				save_event_target_as = br_assault_spawn_@root
-			}
-		}
-		event_target:br_pve_enemy_country = {
-			create_fleet = {
-				name = "BR_PVE_ASSAULT"
-				effect = {
-					set_owner = PREV
-					set_location = event_target:br_assault_spawn_@root
-					br_reinforce_pve_fleet = yes
-					set_fleet_flag = br_assault_@root
-					set_fleet_stance = aggressive
-					queue_actions = {
-						move_to = event_target:br_dominator_target_@root
-					}
-					save_global_event_target_as = br_assault_fleet_@root
-				}
-			}
-		}
-		create_message = {
-			type = FLEET_DETECTED_MESSAGE_TYPE
-			localization = br.840.toast
-			days = 30
-			custom_toast_content_icon = GFX_message_fleet_detected
-		}
-	}
+    id = br.840
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        has_country_flag = br_player_country
+        exists = event_target:br_pve_enemy_country
+        any_owned_fleet = {
+            br_is_arkship_ship = yes
+        }
+    }
+    immediate = {
+        random_owned_fleet = {
+            limit = {
+                br_is_arkship_ship = yes
+            }
+            save_event_target_as = br_dominator_fleet_@root
+            solar_system = {
+                save_event_target_as = br_dominator_target_@root
+            }
+        }
+        # 只负责创建，追踪交给 br.830
+        event_target:br_dominator_target_@root = {
+            random_system = {
+                limit = {
+                    distance = {
+                        source = event_target:br_dominator_target_@root
+                        type = hyperlane
+                        min_jumps = 2
+                        max_jumps = 5
+                    }
+                    NOT = {
+                        has_star_flag = br_danger
+                    }
+                    NOT = {
+                        any_fleet_in_system = {
+                            owner = {
+                                has_country_flag = br_player_country
+                            }
+                        }
+                    }
+                }
+                save_event_target_as = br_assault_spawn_@root
+            }
+        }
+        event_target:br_pve_enemy_country = {
+            create_fleet = {
+                name = "BR_PVE_ASSAULT"
+                effect = {
+                    set_owner = PREV
+                    set_location = event_target:br_assault_spawn_@root
+                    br_reinforce_pve_fleet = yes
+                    set_fleet_flag = br_assault_@root
+                    set_fleet_stance = aggressive
+                    auto_follow_fleet = {
+                        target = event_target:br_dominator_fleet_@root
+                        attack_fleet = yes
+                    }
+                    save_global_event_target_as = br_assault_fleet_@root
+                }
+            }
+        }
+        create_message = {
+            type = FLEET_DETECTED_MESSAGE_TYPE
+            localization = br.840.toast
+            days = 30
+            custom_toast_content_icon = GFX_message_fleet_detected
+        }
+    }
 }
 
 # ============================================================
@@ -122,92 +120,92 @@ country_event = {
 # 延迟多次触发 br.830 更新追击目标
 # ============================================================
 country_event = {
-	id = br.850
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_country_flag = br_player_country
-		any_owned_ship = {
-			is_ship_size = br_dominator
-		}
-		NOT = {
-			has_global_flag = br_designs_saved
-		}
-	}
-	immediate = {
-		random_owned_design = {
-			limit = {
-				is_ship_size = corvette
-			}
-			save_global_event_target_as = br_player_corvette
-		}
-		if = {
-			limit = {
-				check_variable = {
-					which = br_power_level
-					value >= 3
-				}
-			}
-			random_owned_design = {
-				limit = {
-					is_ship_size = destroyer
-				}
-				save_global_event_target_as = br_player_destroyer
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					which = br_power_level
-					value >= 5
-				}
-			}
-			random_owned_design = {
-				limit = {
-					is_ship_size = cruiser
-				}
-				save_global_event_target_as = br_player_cruiser
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					which = br_power_level
-					value >= 8
-				}
-			}
-			random_owned_design = {
-				limit = {
-					is_ship_size = battleship
-				}
-				save_global_event_target_as = br_player_battleship
-			}
-		}
-		# 年度无条件刷新突击舰队
-		country_event = {
-			id = br.840
-			days = 10
-		}
-		# 更新追踪玩家星系
-		country_event = {
-			id = br.830
-			days = 11
-		}
-		country_event = {
-			id = br.830
-			days = 100
-		}
-		country_event = {
-			id = br.830
-			days = 200
-		}
-		country_event = {
-			id = br.830
-			days = 300
-		}
-		set_timed_global_flag = {
-			flag = br_designs_saved
-			days = 100
-		}
-	}
+    id = br.850
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        has_country_flag = br_player_country
+        any_owned_fleet = {
+            br_is_arkship_ship = yes
+        }
+        NOT = {
+            has_global_flag = br_designs_saved
+        }
+    }
+    immediate = {
+        random_owned_design = {
+            limit = {
+                is_ship_size = corvette
+            }
+            save_global_event_target_as = br_player_corvette
+        }
+        if = {
+            limit = {
+                check_variable = {
+                    which = br_power_level
+                    value >= 3
+                }
+            }
+            random_owned_design = {
+                limit = {
+                    is_ship_size = destroyer
+                }
+                save_global_event_target_as = br_player_destroyer
+            }
+        }
+        if = {
+            limit = {
+                check_variable = {
+                    which = br_power_level
+                    value >= 5
+                }
+            }
+            random_owned_design = {
+                limit = {
+                    is_ship_size = cruiser
+                }
+                save_global_event_target_as = br_player_cruiser
+            }
+        }
+        if = {
+            limit = {
+                check_variable = {
+                    which = br_power_level
+                    value >= 8
+                }
+            }
+            random_owned_design = {
+                limit = {
+                    is_ship_size = battleship
+                }
+                save_global_event_target_as = br_player_battleship
+            }
+        }
+        # 年度无条件刷新突击舰队
+        country_event = {
+            id = br.840
+            days = 10
+        }
+        # 更新追踪玩家星系
+        country_event = {
+            id = br.830
+            days = 11
+        }
+        country_event = {
+            id = br.830
+            days = 100
+        }
+        country_event = {
+            id = br.830
+            days = 200
+        }
+        country_event = {
+            id = br.830
+            days = 300
+        }
+        set_timed_global_flag = {
+            flag = br_designs_saved
+            days = 100
+        }
+    }
 }
