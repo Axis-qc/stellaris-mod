@@ -43,7 +43,19 @@ ship_event = {
             }
             destroy_ship = this
         }
-        # 情况2：正常帝国攻击 → 标记 + 双方刷特殊项目
+        # 情况2：工具国家（危险区伤害）→ 仅标记，不刷项目，等3年后自修复
+        else_if = {
+            limit = {
+                from.owner = {
+                    is_same_value = event_target:br_void_country
+                }
+            }
+            set_timed_ship_flag = {
+                flag = br_arkship_disabled_by_empire
+                years = 3
+            }
+        }
+        # 情况3：正常帝国攻击 → 标记 + 双方刷特殊项目
         else = {
             set_timed_ship_flag = {
                 flag = br_arkship_disabled_by_empire

@@ -101,6 +101,78 @@ country_event = {
                 upgrade_colony_shelter = yes
                 set_capital = yes
                 add_deposit = br_infinite_other_shore
+
+                # ========== 开局区划与建筑初始化 ==========
+                # 授予前置科技
+                owner = {
+                    give_technology = { tech = tech_power_plant_1 message = no }
+                    give_technology = { tech = tech_planetary_defenses message = no }
+                }
+
+                # 添加 mod 特化区划（每种各1个）
+                add_district = district_br_ark_habitation
+                add_district = district_br_ark_synthesis
+                add_district = district_br_ark_engineering
+                add_district = district_br_ark_reactor
+                add_district = district_br_ark_ordinance
+
+                # 殖民地特化
+                set_colony_type = col_capital_nomad
+
+                # Zone 初始化（所有类型一致）
+                if = {
+                    limit = {
+                        NOT = { has_zone = { zone = zone_research_unity } }
+                    }
+                    add_zone = {
+                        district = district_br_ark_habitation
+                        zone = zone_research_unity
+                        zone_slot = 1
+                    }
+                }
+                if = {
+                    limit = {
+                        NOT = { has_zone = { zone = zone_industrial } }
+                    }
+                    add_zone = {
+                        district = district_br_ark_habitation
+                        zone = zone_industrial
+                        zone_slot = 2
+                    }
+                }
+
+                # 建筑初始化（根据人口类型）
+                if = {
+                    limit = {
+                        owner = {
+                            OR = {
+                                is_machine_empire = yes
+                                is_individual_machine = yes
+                            }
+                        }
+                    }
+                    add_building = building_machine_assembly_plant
+                    add_building = building_drone_storage
+                }
+                else_if = {
+                    limit = {
+                        owner = { is_hive_empire = yes }
+                    }
+                    add_building = building_spawning_pool
+                    add_building = building_hive_warren
+
+                }
+                else = {
+                    add_building = {
+                        building = building_factory_1
+                        zone = zone_industrial
+                    }
+                    add_building = building_medical_1
+                    add_building = building_holo_theatres
+                }
+
+                # 采矿中枢
+                add_building = building_br_ark_mining_hub
             }
         }
 
