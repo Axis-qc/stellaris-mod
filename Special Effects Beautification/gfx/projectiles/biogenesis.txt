@@ -1,0 +1,139 @@
+@speed_1 = 0.3
+
+# BIOGENESIS WEAPONS
+#织蛛武器（生物起源DLC）
+
+#装填阻扰器/火力干扰器 降低敌人射速（6级 point_defence）
+projectile_gfx_beam = {
+    #common for all types of projectiles
+    name = "biogenesis_01_anti_fire_rate_laser"
+    color = { 0.10 0.8 0.6 5.15 }
+    hit_entity = "biogenesis_01_anti_fire_rate_laser_hit_entity"
+    shield_hit_entity = "biogenesis_01_anti_fire_rate_laser_hit_entity"
+    muzzle_flash_entity = "biogenesis_01_anti_fire_rate_laser_muzzle_entity"
+
+    #beam specific data
+    width = 1.0
+    texture_scroll_speed = @speed_1
+    texture_tiling = 5000.0
+
+    hit = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 1.0
+    }
+    miss = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 0.25
+    }
+    texture = "gfx/models/combat_items/fire_rate_diffuse.dds"
+
+    shield_impact = {
+        size = small
+        loop_duration = 0.5
+        delay = 0.1
+    }
+}
+
+#织蛛生物场发生器/织蛛增益发射器 提升友军射速（6级 point_defence）
+projectile_gfx_beam = {
+    #common for all types of projectiles
+    name = "biogenesis_01_fire_rate_laser"
+    color = { 0.10 0.8 0.7 5.1 }
+    hit_entity = "biogenesis_01_fire_rate_laser_hit_entity"
+    shield_hit_entity = "biogenesis_01_fire_rate_laser_hit_entity"
+    muzzle_flash_entity = "biogenesis_01_fire_rate_laser_muzzle_entity"
+
+    #beam specific data
+    width = 1.0
+    texture_scroll_speed = @speed_1
+    texture_tiling = 5000.0
+
+    hit = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 1.0
+    }
+    miss = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 0.25
+    }
+    texture = "gfx/models/combat_items/fire_rate_diffuse.dds"
+
+    shield_impact = {
+        size = small
+        loop_duration = 0.5
+        delay = 0.1
+    }
+}
+
+#幽暗孢子/缠结脉冲 概率混乱敌人（6级 point_defence）
+projectile_gfx_beam = {
+    #common for all types of projectiles
+    name = "biogenesis_01_confuser_laser"
+    color = { 0.4 0.8 0.1 5.15 }
+    hit_entity = "biogenesis_01_confuser_laser_hit_entity"
+    shield_hit_entity = "biogenesis_01_confuser_laser_hit_entity"
+    muzzle_flash_entity = "biogenesis_01_confuser_laser_muzzle_entity"
+
+    #beam specific data
+    width = 2.0
+    texture_scroll_speed = @speed_1
+    texture_tiling = 5000.0
+
+    hit = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 1.50
+    }
+    miss = {
+        alpha_curve = {
+            0.0 80.0
+            0.2 50.0
+            0.4 30.0
+            0.6 15.0
+            0.8 0.0
+            1.0 0.0
+        }
+        duration = 0.25
+    }
+    texture = "gfx/models/combat_items/confuser_diffuse.dds"
+
+    shield_impact = {
+        size = small
+        loop_duration = 0.5
+        delay = 0.1
+    }
+}

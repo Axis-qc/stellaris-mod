@@ -1,0 +1,3 @@
+- 游戏原版目录：`G:\SteamLibrary\steamapps\common\Stellaris`
+- 原版弹道特效目录：`G:\SteamLibrary\steamapps\common\Stellaris\gfx\projectiles`
+- 原版简中翻译目录：`G:\SteamLibrary\steamapps\common\Stellaris\localisation\simp_chinese`
