@@ -83,7 +83,7 @@ br_vanguard = {
     #自动升级 无效，似乎不能允许设计
     # auto_upgrade = yes
     hero_ship = {
-        hero_ship_fleet_background = "GFX_fleet_view_paladin_ship"
+        hero_ship_fleet_background = "GFX_fleet_view_main_precom_bg"
         capabilities = {
             can_repair
             can_upgrade
@@ -98,9 +98,9 @@ br_vanguard = {
             alloys = 1000
         }
     }
-    # 建造要求，有星垒科技
+    # 建造要求：英雄舰已解锁（BR/PVP/PVE 开局发放或普通模式遗迹局势完成后获得）
     potential_country = {
-        has_technology = tech_starbase_3
+        has_country_flag = br_hero_ship_unlocked
     }
     # 建造位置
     potential_construction = {

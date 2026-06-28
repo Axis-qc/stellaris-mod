@@ -21,8 +21,13 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				has_global_flag = br_mode_pve
+				OR = {
+					has_global_flag = br_mode_pve
+					has_global_flag = br_mode_pvp
+				}
 			}
+			set_country_flag = br_hero_ship_unlocked
+			refresh_auto_generated_ship_designs = yes
 			country_event = {
 				id = heroship.101
 			}

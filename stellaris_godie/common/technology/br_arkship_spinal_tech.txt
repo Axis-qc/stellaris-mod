@@ -1,6 +1,13 @@
 # 星舰系统专用科技（普通帝国版）
 # 游牧国家通过 is_nomadic = no 排除，使用原版 nomads_dlc 科技。
 # 这些科技为正常权重，研究池中正常刷新。
+#
+# 【bio_ship 兼容性说明】
+# 原版 tech_cruisers 的 potential = { country_uses_bio_ships = no } 排除了生物舰船国家，
+# 导致 bio_ship 玩家无法获得 tech_cruisers，进而 tech_br_arkship_construction 的前置不可达。
+# give_technology 即使提示成功，若依赖的前置科技因 potential 不可解锁，整条链也会失败。
+# 因此 tech_br_arkship_construction 的 prerequisites 用 OR 加入 tech_harbingers（bio_ship 巡洋级科技），
+# 使 bio_ship 国家也能满足前置，打通整条方舟舰科技链。
 
 # ========================
 # 星舰建造科技链
@@ -11,7 +18,12 @@ tech_br_arkship_construction = {
 	area = engineering
 	tier = 3
 	category = { voidcraft }
-	prerequisites = { "tech_cruisers" }
+	prerequisites = {
+		OR = {
+			"tech_cruisers"
+			"tech_harbingers"
+		}
+	}
 	weight = @tier3weight1
 	is_rare = yes
 	potential = {
