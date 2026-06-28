@@ -286,7 +286,7 @@ country_event = {
 	}
 }
 
-# 接战为本星系所有舰队挂移速减半
+# 接战：为本舰队挂战斗减速buff并启动循环
 fleet_event = {
 	id = br.11
 	hide_window = yes
@@ -303,16 +303,28 @@ fleet_event = {
 				is_country_type = br_pve_enemy
 			}
 		}
-	}
-	immediate = {
-		solar_system = {
-			every_fleet_in_system = {
-				add_modifier = {
-					modifier = br_combat_speed_buff
-					days = -1
-				}
+		# 短路：已挂buff且循环在跑 → 不处理
+		NOT = {
+			AND = {
+				has_modifier = br_combat_speed_buff
+				owner = { has_country_flag = br_combat_buff_active }
 			}
 		}
+	}
+	immediate = {
+		# 1. 给自己上buff（若没有）
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = br_combat_speed_buff
+				}
+			}
+			add_modifier = {
+				modifier = br_combat_speed_buff
+				days = -1
+			}
+		}
+		# 2. 启动br.12循环（若未启动）
 		owner = {
 			if = {
 				limit = {
@@ -330,9 +342,10 @@ fleet_event = {
 	}
 }
 
-# br.12：每15天检测是否仍有舰队接战
-# - 有接战 → 重新对接战舰队挂减速buff（覆盖新船/增援船）→ 继续循环
-# - 无接战 → 清除所有舰队的减速buff
+# br.12：每15天轮询，接战期间持续维护减速buff
+# - 先移除所有脱战舰队的减速buff，防止buff持续残留
+# - 有接战 → 为战斗中舰队补挂buff（兜底，正常由 br.11 即时挂）→ 继续循环
+# - 无接战 → 清除所有舰队的减速buff与标记
 country_event = {
 	id = br.12
 	hide_window = yes
@@ -341,13 +354,23 @@ country_event = {
 		has_country_flag = br_combat_buff_active
 	}
 	immediate = {
+		# 1. 移除所有不在战斗中的舰队的减速buff，防止脱战后buff持续残留
+		every_owned_fleet = {
+			limit = {
+				NOT = {
+					is_in_combat = yes
+				}
+			}
+			remove_modifier = br_combat_speed_buff
+		}
+		# 2. 检查是否仍有舰队在战斗
 		if = {
 			limit = {
 				any_owned_fleet = {
 					is_in_combat = yes
 				}
 			}
-			# 重新施加buff，确保新加入的舰船也获得减速效果
+			# 为仍在战斗的舰队补挂buff（兜底，新船通常已由br.11即时上buff）
 			every_owned_fleet = {
 				limit = {
 					is_in_combat = yes
@@ -363,6 +386,86 @@ country_event = {
 			}
 		}
 		else = {
+			# 无舰队在战斗：清除所有减速buff与标记
+			every_owned_fleet = {
+				remove_modifier = br_combat_speed_buff
+			}
+			remove_country_flag = br_combat_buff_active
+		}
+	}
+}
+
+# br.13：年度兜底清理（on_yearly_pulse_country 触发，每年一次）
+# - 移除所有脱战舰队的减速buff，防止 br.12 循环意外中断后buff持续残留
+# - 仍有舰队在战斗 → 确保其带有buff；若15天循环已停则重启 br.12
+# - 无舰队在战斗 → 清除所有减速buff与标记
+country_event = {
+	id = br.13
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			has_global_flag = br_mode_pve
+			has_global_flag = br_mode_pvp
+		}
+		OR = {
+			has_country_flag = br_player_country
+			is_country_type = br_void
+			is_country_type = br_pve_enemy
+		}
+		OR = {
+			has_country_flag = br_combat_buff_active
+			any_owned_fleet = {
+				is_in_combat = yes
+			}
+			any_owned_fleet = {
+				has_modifier = br_combat_speed_buff
+			}
+		}
+	}
+	immediate = {
+		# 1. 移除所有不在战斗中的舰队的减速buff
+		every_owned_fleet = {
+			limit = {
+				NOT = {
+					is_in_combat = yes
+				}
+			}
+			remove_modifier = br_combat_speed_buff
+		}
+		# 2. 检查是否仍有舰队在战斗
+		if = {
+			limit = {
+				any_owned_fleet = {
+					is_in_combat = yes
+				}
+			}
+			# 仍有舰队在战斗：确保其带有减速buff
+			every_owned_fleet = {
+				limit = {
+					is_in_combat = yes
+				}
+				add_modifier = {
+					modifier = br_combat_speed_buff
+					days = -1
+				}
+			}
+			# 若15天循环已停（标记缺失），则重启循环
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_combat_buff_active
+					}
+				}
+				set_country_flag = br_combat_buff_active
+				country_event = {
+					id = br.12
+					days = 15
+				}
+			}
+		}
+		else = {
+			# 无舰队在战斗：清除所有减速buff与标记
 			every_owned_fleet = {
 				remove_modifier = br_combat_speed_buff
 			}
