@@ -1,1 +1,118 @@
 # 星舰专用 Zones — 预留，后续添加 mod 特化 zone
+
+# 度假区甲板 — 需要度假星球科技后解锁
+br_ark_zone_resort = {
+	icon = GFX_district_specialization_resort
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		exists = owner
+		owner = {
+			is_wilderness_empire = no
+			has_technology = tech_resort_colonies
+		}
+	}
+
+	unlock = { # planet scope
+		exists = owner
+		owner = {
+			has_technology = tech_resort_colonies
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		br_ark_resort
+	}
+
+	included_building_sets = {
+		urban
+		origin
+	}
+
+	inline_script = {
+		script = jobs/zone_resort_worker_add
+		AMOUNT = @scaling_district_1_job
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	ai_priority = 5
+}
+
+# 娱乐区甲板 — 需要度假星球科技后解锁
+br_ark_zone_resort_entertainment = {
+	icon = GFX_district_specialization_entertainer
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		exists = owner
+		owner = {
+			is_wilderness_empire = no
+			has_technology = tech_resort_colonies
+		}
+	}
+
+	unlock = { # planet scope
+		exists = owner
+		owner = {
+			has_technology = tech_resort_colonies
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		br_ark_resort
+	}
+
+	included_building_sets = {
+		entertainment
+		origin
+	}
+
+	inline_script = {
+		script = jobs/zone_entertainers_add
+		AMOUNT = @scaling_district_1_job
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = zone_trade_triggered_desc
+	}
+
+	ai_priority = 10
+}
