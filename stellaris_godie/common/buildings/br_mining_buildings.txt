@@ -1,80 +1,137 @@
 @br_mining_t1_base = 100
 @br_mining_t2_base = 200
 @br_mining_t3_base = 400
-
 building_br_ark_mining_hub = {
-    icon = building_br_ark_mining_hub
-    base_buildtime = 120
-    category = manufacturing
-
-    building_sets = {
-        government
-        entertainment
-        resort
-        urban
-        unity
-        origin
-        trade
-        industrial
-        foundry
-        factory
-        fortress
-        research
-        society
-        physics
-    }
-
-    potential = {
-        always = yes
-        # is_br_civilian_arkship = yes
-    }
-
-    planet_limit = 1
-
-    resources = {
-        category = planet_buildings
-        cost = {
-            alloys = 100
-        }
-        upkeep = {
-            energy = 2
-        }
-    }
-
-    triggered_planet_modifier = {
-        modifier = {
-            job_miner_add = @br_mining_t1_base
-        }
-        mult = value:br_ark_mining_planet_mult
-    }
-    triggered_planet_modifier = {
-        potential = {
-            owner = { has_technology = tech_space_mining_2 }
-            owner = { NOT = { has_technology = tech_br_mining_mastery } }
-        }
-        modifier = {
-            job_miner_add = @br_mining_t2_base
-        }
-        mult = value:br_ark_mining_planet_mult
-    }
-    triggered_planet_modifier = {
-        potential = {
-            owner = { has_technology = tech_space_mining_3 }
-        }
-        modifier = {
-            job_miner_add = @br_mining_t3_base
-        }
-        mult = value:br_ark_mining_planet_mult
-    }
-
-    ai_weight = {
-        weight = 100
-    }
-
-    triggered_desc = {
-        trigger = {
-            always = yes
-        }
-        text = building_br_ark_mining_hub_desc
-    }
+	icon = building_br_ark_mining_hub
+	base_buildtime = 120
+	category = manufacturing
+	building_sets = {
+		government
+		entertainment
+		resort
+		urban
+		unity
+		origin
+		trade
+		industrial
+		foundry
+		factory
+		fortress
+		research
+		society
+		physics
+	}
+	potential = {
+		always = yes
+		# is_br_civilian_arkship = yes
+	}
+	planet_limit = 1
+	resources = {
+		category = planet_buildings
+		cost = {
+			alloys = 100
+		}
+		upkeep = {
+			energy = 2
+		}
+	}
+	# 非格式塔政体 - 普通矿工
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = no
+			}
+		}
+		modifier = {
+			job_miner_add = @br_mining_t1_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = no
+			}
+			owner = {
+				has_technology = tech_space_mining_2
+			}
+			owner = {
+				NOT = {
+					has_technology = tech_br_mining_mastery
+				}
+			}
+		}
+		modifier = {
+			job_miner_add = @br_mining_t2_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = no
+			}
+			owner = {
+				has_technology = tech_space_mining_3
+			}
+		}
+		modifier = {
+			job_miner_add = @br_mining_t3_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	# 格式塔政体 - 采矿无人机
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		modifier = {
+			job_mining_drone_add = @br_mining_t1_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = yes
+			}
+			owner = {
+				has_technology = tech_space_mining_2
+			}
+			owner = {
+				NOT = {
+					has_technology = tech_br_mining_mastery
+				}
+			}
+		}
+		modifier = {
+			job_mining_drone_add = @br_mining_t2_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner = {
+				is_gestalt = yes
+			}
+			owner = {
+				has_technology = tech_space_mining_3
+			}
+		}
+		modifier = {
+			job_mining_drone_add = @br_mining_t3_base
+		}
+		mult = value:br_ark_mining_planet_mult
+	}
+	ai_weight = {
+		weight = 100
+	}
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = building_br_ark_mining_hub_desc
+	}
 }
