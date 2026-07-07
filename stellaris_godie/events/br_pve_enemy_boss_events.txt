@@ -1,152 +1,395 @@
 namespace = br
-
 # 事件ID区间：900-999。新增或修改事件ID不得超出此区间喵
 # ============================================================
-# PVE Boss事件：终局生成 → Boss击杀检测 → 胜利通知喵
+# br.900：生成PVE Boss和护卫舰队（开局10年后触发）喵
 # ============================================================
-
-# br.900：最终圈生成PVE Boss和护卫舰队喵
 country_event = {
-    id = br.900
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        has_global_flag = br_pve_initialized
-        # has_global_flag = br_safe_1
-        NOT = { has_global_flag = br_boss_spawned }
-        exists = event_target:br_pve_enemy_country
-    }
-
-    immediate = {
-        set_global_flag = br_boss_spawned
-
-        # 当前先使用固定Boss模板，后续在这里接入虚空倾向权重选择喵
-        event_target:battle_royale_center = {
-            star = { save_event_target_as = br_boss_spawn_tmp }
-        }
-
-        event_target:br_pve_enemy_country = {
-            create_fleet = {
-                name = "BR_PVE_BOSS"
-                effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    create_ship = { name = "BR_PVE_BOSS" design = "BR_PVE_BOSS" prefix = no }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 0 }
-                }
-            }
-
-            # Boss护卫舰队单独跟随Boss生成，避免普通刷怪事件承担终局职责喵
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 60 angle = random }
-                }
-            }
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 60 angle = random }
-                }
-            }
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 80 angle = random }
-                }
-            }
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 80 angle = random }
-                }
-            }
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 40 angle = random }
-                }
-            }
-            create_fleet = {
-                name = "BR_PVE_BOSS_ESCORT" effect = {
-                    set_owner = event_target:br_pve_enemy_country
-                    random_list = { 50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } } 50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } } }
-                    set_location = { target = event_target:br_boss_spawn_tmp distance = 40 angle = random }
-                }
-            }
-        }
-    }
+	id = br.900
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		NOT = {
+			has_global_flag = br_boss_spawned
+		}
+		exists = event_target:br_pve_enemy_country
+	}
+	immediate = {
+		set_global_flag = br_boss_spawned
+		# 全图随机选星系作为Boss出生点喵
+		random_system = {
+			save_event_target_as = br_boss_spawn_tmp
+		}
+		event_target:br_pve_enemy_country = {
+			# Boss本体
+			create_fleet = {
+				name = "BR_PVE_BOSS"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					create_ship = {
+						name = "BR_PVE_BOSS"
+						design = "BR_PVE_BOSS"
+						prefix = no
+					}
+					set_location = {
+						target = event_target:br_boss_spawn_tmp
+						distance = 0
+					}
+					set_fleet_flag = br_boss_fleet
+				}
+			}
+			# Boss护卫舰队（4队战列舰）
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" }
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 60 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" }
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 60 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" }
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 80 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_BATTLESHIP" }
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 80 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+			# Boss护卫舰队（2队护卫舰）
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					random_list = {
+						50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } }
+						50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } }
+					}
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 40 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+			create_fleet = {
+				name = "BR_PVE_BOSS_ESCORT"
+				effect = {
+					set_owner = event_target:br_pve_enemy_country
+					random_list = {
+						50 = { create_ship = { name = random design = "BR_PVE_ARTILLERY_ELITE_CORVETTE" } }
+						50 = { create_ship = { name = random design = "BR_PVE_BRAWLER_ELITE_CORVETTE" } }
+					}
+					set_location = { target = event_target:br_boss_spawn_tmp distance = 40 angle = random }
+					set_fleet_flag = br_boss_escort
+				}
+			}
+		}
+		# 生成后立即启动追击循环喵
+		country_event = {
+			id = br.911
+			days = 10
+		}
+	}
 }
 
+# ============================================================
 # br.901：Boss击杀胜利，由on_ship_destroyed_victim触发喵
+# ============================================================
 country_event = {
-    id = br.901
-    hide_window = yes
-    is_triggered_only = yes
-
-    trigger = {
-        has_global_flag = br_mode_pve
-        has_global_flag = br_boss_spawned
-        NOT = { has_global_flag = br_pve_victory }
-        is_country_type = br_pve_enemy
-        fromfrom = { is_ship_size = br_pve_boss }
-    }
-
-    immediate = {
-        set_global_flag = br_pve_victory
-
-        every_country = {
-            limit = { has_country_flag = br_player_country }
-            set_country_flag = br_pve_victory
-            add_resource = {
-                alloys = 5000
-                energy = 10000
-                minerals = 5000
-                unity = 5000
-            }
-        }
-
-        # 房主弹出周目选择，非房主弹胜利通知喵
-        event_target:br_pve_alliance_leader = {
-            country_event = { id = br.950 }
-        }
-        every_country = {
-            limit = {
-                has_country_flag = br_player_country
-                NOT = { is_same_value = event_target:br_pve_alliance_leader }
-            }
-            country_event = { id = br.902 }
-        }
-    }
+	id = br.901
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		has_global_flag = br_boss_spawned
+		NOT = {
+			has_global_flag = br_pve_victory
+		}
+		is_country_type = br_pve_enemy
+		fromfrom = {
+			is_ship_size = br_pve_boss
+		}
+	}
+	immediate = {
+		set_global_flag = br_pve_victory
+		every_country = {
+			limit = {
+				has_country_flag = br_player_country
+			}
+			set_country_flag = br_pve_victory
+			add_resource = {
+				alloys = 5000
+				energy = 10000
+				minerals = 5000
+				unity = 5000
+			}
+		}
+		# 房主弹出周目选择，非房主弹胜利通知喵
+		event_target:br_pve_alliance_leader = {
+			country_event = {
+				id = br.950
+			}
+		}
+		every_country = {
+			limit = {
+				has_country_flag = br_player_country
+				NOT = {
+					is_same_value = event_target:br_pve_alliance_leader
+				}
+			}
+			country_event = {
+				id = br.902
+			}
+		}
+	}
 }
 
+# ============================================================
 # br.902：胜利弹窗与终局奖励喵
 country_event = {
-    id = br.902
-    is_triggered_only = yes
-    title = br_pve_boss_defeated_title
-    desc = br_pve_boss_defeated_desc
-    picture = GFX_evt_synth_queen_enlightenment
+	id = br.902
+	is_triggered_only = yes
+	title = br_pve_boss_defeated_title
+	desc = br_pve_boss_defeated_desc
+	picture = GFX_evt_synth_queen_enlightenment
+	trigger = {
+		has_global_flag = br_mode_pve
+		has_global_flag = br_pve_victory
+	}
+	immediate = {
+		# 全舰队修复
+		every_owned_ship = {
+			repair_ship = yes
+		}
+	}
+	option = {
+		name = OK
+	}
+}
 
-    trigger = {
-        has_global_flag = br_mode_pve
-        has_global_flag = br_pve_victory
-    }
+# ============================================================
+# br.911：Boss追击阶段——以Boss为中心逐层扩圈搜索最近的玩家方舟舰喵
+# 由 br.900 或 br.912 触发，每次重新选择追击目标
+# 搜索到目标后追击5年，之后触发 br.912 随机跳跃
+# ============================================================
+country_event = {
+	id = br.911
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_boss_spawned
+		exists = event_target:br_pve_enemy_country
+	}
+	immediate = {
+		# 清理上一轮搜索残留标记喵
+		remove_global_flag = br_boss_target_found
+		every_system = {
+			remove_star_flag = br_boss_searched
+			remove_star_flag = br_boss_search_frontier
+		}
+		# 以Boss当前星系为起点，标记为已搜索并设为前沿喵
+		event_target:br_pve_enemy_country = {
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_fleet
+				}
+				solar_system = {
+					set_star_flag = br_boss_searched
+					set_star_flag = br_boss_search_frontier
+					# 如果Boss和玩家正好同星系，直接找到喵
+					if = {
+						limit = {
+							any_fleet_in_system = {
+								owner = { has_country_flag = br_player_country }
+								any_ship_in_fleet = { br_is_arkship_ship = yes }
+							}
+						}
+						set_global_flag = br_boss_target_found
+						random_fleet_in_system = {
+							limit = {
+								owner = { has_country_flag = br_player_country }
+								any_ship_in_fleet = { br_is_arkship_ship = yes }
+							}
+							save_event_target_as = br_boss_target_fleet
+						}
+					}
+				}
+			}
+		}
+		# while逐层扩圈：每次取出当前前沿星系，遍历其未搜索的邻居喵
+		while = {
+			limit = {
+				NOT = {
+					has_global_flag = br_boss_target_found
+				}
+				any_system = {
+					has_star_flag = br_boss_search_frontier
+				}
+			}
+			every_system = {
+				limit = {
+					has_star_flag = br_boss_search_frontier
+				}
+				remove_star_flag = br_boss_search_frontier
+				every_neighbor_system = {
+					limit = {
+						NOT = {
+							has_star_flag = br_boss_searched
+						}
+					}
+					set_star_flag = br_boss_searched
+					set_star_flag = br_boss_search_frontier
+					if = {
+						limit = {
+							any_fleet_in_system = {
+								owner = {
+									has_country_flag = br_player_country
+								}
+								any_ship_in_fleet = {
+									br_is_arkship_ship = yes
+								}
+							}
+						}
+						set_global_flag = br_boss_target_found
+						random_fleet_in_system = {
+							limit = {
+								owner = {
+									has_country_flag = br_player_country
+								}
+								any_ship_in_fleet = {
+									br_is_arkship_ship = yes
+								}
+							}
+							save_event_target_as = br_boss_target_fleet
+						}
+					}
+				}
+			}
+		}
+		# 清理搜索标记喵
+		every_system = {
+			remove_star_flag = br_boss_searched
+			remove_star_flag = br_boss_search_frontier
+		}
+		# 保底：如果扩圈没找到（极端情况全图无方舟舰），随机选一个喵
+		if = {
+			limit = {
+				NOT = {
+					exists = event_target:br_boss_target_fleet
+				}
+			}
+			random_country = {
+				limit = {
+					has_country_flag = br_player_country
+					any_owned_fleet = {
+						br_is_arkship_ship = yes
+					}
+				}
+				random_owned_fleet = {
+					limit = {
+						br_is_arkship_ship = yes
+					}
+					save_event_target_as = br_boss_target_fleet
+				}
+			}
+		}
+		remove_global_flag = br_boss_target_found
+		# Boss追击目标玩家，护卫跟随Boss喵
+		event_target:br_pve_enemy_country = {
+			random_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_fleet
+				}
+				save_event_target_as = br_boss_fleet_ref
+			}
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_fleet
+				}
+				auto_follow_fleet = {
+					target = event_target:br_boss_target_fleet
+					attack_fleet = yes
+				}
+			}
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_escort
+				}
+				auto_follow_fleet = {
+					target = event_target:br_boss_fleet_ref
+				}
+			}
+		}
+		# 追击5年后随机跳跃喵
+		country_event = {
+			id = br.912
+			days = 1800
+		}
+	}
+}
 
-    immediate = {
-        # 全舰队修复
-        every_owned_ship = {
-            repair_ship = yes
-        }
-    }
-
-    option = {
-        name = OK
-    }
+# ============================================================
+# br.912：Boss随机跳跃阶段——全图随机跳星系喵
+# 由 br.911 触发（每5年一次）
+# 跳跃后重新进入追击阶段
+# ============================================================
+country_event = {
+	id = br.912
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_boss_spawned
+		exists = event_target:br_pve_enemy_country
+	}
+	immediate = {
+		# 全图随机选星系作为跳跃目标喵
+		random_system = {
+			save_event_target_as = br_boss_jump_system
+		}
+		event_target:br_pve_enemy_country = {
+			# 移动Boss本体
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_fleet
+				}
+				set_location = event_target:br_boss_jump_system
+			}
+			# 移动所有护卫舰队
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = br_boss_escort
+				}
+				set_location = event_target:br_boss_jump_system
+			}
+		}
+		# 通知玩家Boss已跳跃喵
+		create_message = {
+			type = FLEET_DETECTED_MESSAGE_TYPE
+			localization = br.912.toast
+			days = 30
+			custom_toast_content_icon = GFX_message_fleet_detected
+		}
+		# 10天后重新进入追击阶段喵
+		country_event = {
+			id = br.911
+			days = 10
+		}
+	}
 }

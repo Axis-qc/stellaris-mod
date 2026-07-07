@@ -82,8 +82,15 @@ country_event = {
 				destroy_ambient_object = this
 			}
 		}
-		country_event = {
-			id = br.952
+		# PVE模式：排程下一轮Boss生成（10年后）喵
+		if = {
+			limit = {
+				has_global_flag = br_mode_pve
+			}
+			country_event = {
+				id = br.900
+				days = 3600
+			}
 		}
 	}
 }

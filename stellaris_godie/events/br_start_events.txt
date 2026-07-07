@@ -161,31 +161,36 @@ country_event = {
                 set_country_flag = br_start_init
             }
         }
-        # 排程缩圈和圈外伤害（每局首次创建时排程）喵
+        # 排程缩圈和圈外伤害（PVE生存模式不使用）喵
         if = {
             limit = {
+                NOT = { has_global_flag = br_mode_pve }
+            }
+            if = {
+                limit = {
+                    event_target:br_void_country = {
+                        has_country_flag = br_start_init
+                    }
+                }
                 event_target:br_void_country = {
-                    has_country_flag = br_start_init
+                    set_variable = {
+                        which = br_cycle_count
+                        value = 0
+                    }
+                    country_event = {
+                        id = br.300
+                        days = 1800
+                    }
+                    country_event = {
+                        id = br.1000
+                        days = 1800
+                    }
                 }
             }
-            event_target:br_void_country = {
-                set_variable = {
-                    which = br_cycle_count
-                    value = 0
-                }
-                country_event = {
-                    id = br.300
-                    days = 1800
-                }
-                country_event = {
-                    id = br.1000
-                    days = 1800
-                }
+            # 启动圈层框架扩圈喵
+            country_event = {
+                id = br.100
             }
-        }
-        # 启动圈层框架扩圈喵
-        country_event = {
-            id = br.100
         }
         # 为所有需要替换的原版玩家国家排程模式初始化喵
         every_country = {
@@ -226,20 +231,19 @@ country_event = {
                     }
                 }
                 set_global_flag = br_pve_player_transfer_started
+                # PVE生存模式：跳过br.700出生点选择，直接在原地初始化喵
+                # 设房主（仅首位玩家）喵
                 if = {
                     limit = {
-                        exists = event_target:br_void_country
+                        NOT = { has_global_flag = br_pve_alliance_leader_set }
                     }
-                    event_target:br_void_country = {
-                        country_event = {
-                            id = br.700
-                        }
-                    }
+                    set_global_flag = br_pve_alliance_leader_set
+                    save_global_event_target_as = br_pve_alliance_leader
                 }
-                else = {
-                    country_event = {
-                        id = br.700
-                    }
+                add_relic = br_reward_relics
+                country_event = {
+                    id = br.507
+                    days = 1
                 }
             }
         }
@@ -317,6 +321,11 @@ country_event = {
             country_event = {
                 id = br.702
                 days = 4
+            }
+            # 排程10年后刷PVE Boss（给玩家发育时间）喵
+            country_event = {
+                id = br.900
+                days = 3600
             }
         }
         else = {
