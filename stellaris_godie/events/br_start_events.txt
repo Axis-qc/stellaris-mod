@@ -45,11 +45,7 @@ country_event = {
 		remove_global_flag = br_mode_pvp
 		set_global_flag = br_mode_pve
 		remove_global_flag = br_mode_disabled
-		# 开局9年冷却flag，之后五年脉冲触发Boss生成
-		set_timed_global_flag = {
-			flag = br_boss_initial_cooldown
-			days = 3240
-		}
+		# BOSS触发改由局势进度>=500驱动（br.2月度检查），不再用冷却flag
 		# PVE敌方模板不再开局手选，刷敌逻辑自行随机。
 		country_event = {
 			id = br.503

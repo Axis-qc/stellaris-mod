@@ -1,19 +1,30 @@
 # =========================================================================
-# PVE虚空裂隙刷敌 — 在 create_fleet { effect = { ... } } 内部调用
+# PVE虚空裂隙刷敌 - 在 create_fleet { effect = { ... } } 内部调用
 # 目标星系通过 event_target:br_spawn_tmp 传入
 # 直接调用 br_crisis_small/medium/large_spawn 出船
-# 数量基于 br_pve_enemy_country 的 br_boss_spawn_cycle 变量
+# 数量基于 br_total_intensity：small=/10, medium=/20(>=200), large=/40(>=400)
 # =========================================================================
 br_spawn_rift_fleet = {
-    # 设置舰种数量：small = cycle×2, medium = cycle, large = max(1, cycle/2)
-    set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
-    multiply_variable = { which = br_crisis_small value = 2 }
-    set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
-    set_variable = { which = br_crisis_large value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
-    divide_variable = { which = br_crisis_large value = 2 }
+    # small = intensity / 10
+    set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_total_intensity }
+    divide_variable = { which = br_crisis_small value = 10 }
+    # medium = intensity / 20（intensity >= 200 才触发）
     if = {
-        limit = { check_variable = { which = br_crisis_large value < 1 } }
-        set_variable = { which = br_crisis_large value = 1 }
+        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
+        set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_total_intensity }
+        divide_variable = { which = br_crisis_medium value = 20 }
+    }
+    else = {
+        set_variable = { which = br_crisis_medium value = 0 }
+    }
+    # large = intensity / 40（intensity >= 400 才触发）
+    if = {
+        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 400 } }
+        set_variable = { which = br_crisis_large value = event_target:br_pve_enemy_country.br_total_intensity }
+        divide_variable = { which = br_crisis_large value = 40 }
+    }
+    else = {
+        set_variable = { which = br_crisis_large value = 0 }
     }
     # 生成三阶段混编天灾舰队（每种随机编队类型）
     br_crisis_small_spawn = yes

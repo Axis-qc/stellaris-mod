@@ -25,9 +25,22 @@ situation_br_pve_intensity = {
 	}
 	on_progress_complete = {
 	}
-	# 月度自动增长 0.1（≈每年 1.2）
+	# 月度增长：裂隙×0.1 + BOSS×1 + 敌船×0.01（由 script_value 动态计算）
 	monthly_progress = {
-		base = 0.1
+		base = 0
+		modifier = {
+			add = value:br_pve_rift_growth
+			desc = br_pve_intensity_rifts
+		}
+		modifier = {
+			add = value:br_pve_enemy_ship_growth
+			desc = br_pve_intensity_ships
+		}
+		modifier = {
+			add = 1
+			desc = br_pve_intensity_boss
+			has_global_flag = br_boss_spawned
+		}
 	}
 	approach = {
 		name = br_pve_intensity_suppress

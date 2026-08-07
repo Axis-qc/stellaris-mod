@@ -103,6 +103,30 @@ country_event = {
 	}
 }
 
+# br.4：BOSS触发检查 — 局势总强度 >= 500 时生成Boss（on_monthly_pulse 触发）
+# 只挂在 br_pve_enemy 国家上，避免多玩家重复触发
+country_event = {
+	id = br.4
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_pve_enemy
+		has_global_flag = br_mode_pve
+		NOT = {
+			has_global_flag = br_boss_spawned
+		}
+		check_variable = {
+			which = br_total_intensity
+			value >= 500
+		}
+	}
+	immediate = {
+		country_event = {
+			id = br.900
+		}
+	}
+}
+
 # 变量初始化：所有国家级变量统一在此事件初始化。
 country_event = {
 	id = br.3

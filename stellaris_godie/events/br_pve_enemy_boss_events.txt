@@ -1,7 +1,7 @@
 namespace = br
 # 事件ID区间：900-999。新增或修改事件ID不得超出此区间
 # ============================================================
-# br.900：生成PVE Boss和护卫舰队（开局10年后触发）
+# br.900：生成PVE Boss和护卫舰队（intensity >= 500 时由 br.2 触发）
 # ============================================================
 country_event = {
 	id = br.900
@@ -10,9 +10,6 @@ country_event = {
 	trigger = {
 		is_country_type = br_pve_enemy
 		has_global_flag = br_mode_pve
-		NOT = {
-			has_global_flag = br_boss_initial_cooldown
-		}
 		NOT = {
 			has_global_flag = br_boss_spawned
 		}
@@ -81,10 +78,6 @@ country_event = {
 		}
 		# 初始化虚空裂隙体系变量
 		set_variable = {
-			which = br_boss_spawn_cycle
-			value = 1
-		}
-		set_variable = {
 			which = br_rift_count
 			value = 0
 		}
@@ -144,7 +137,6 @@ country_event = {
 		event_target:br_pve_enemy_country = {
 			remove_modifier = br_pve_rift_buff
 			clear_variable = br_rift_count
-			clear_variable = br_boss_spawn_cycle
 			every_owned_ship = {
 				destroy_ship = this
 			}
@@ -620,25 +612,6 @@ country_event = {
 					}
 					br_spawn_rift_fleet = yes
 					set_fleet_stance = aggressive
-				}
-			}
-		}
-		# C. 年度计数器 +1（上限100）
-		event_target:br_pve_enemy_country = {
-			change_variable = {
-				which = br_boss_spawn_cycle
-				value = 1
-			}
-			if = {
-				limit = {
-					check_variable = {
-						which = br_boss_spawn_cycle
-						value > 100
-					}
-				}
-				set_variable = {
-					which = br_boss_spawn_cycle
-					value = 100
 				}
 			}
 		}

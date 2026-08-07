@@ -82,14 +82,28 @@ country_event = {
 				destroy_ambient_object = this
 			}
 		}
-		# PVE模式：重新设置Boss冷却flag（9年后五年脉冲触发）喵
+		# PVE模式：重置所有玩家的局势进度（BOSS触发改由intensity>=500驱动）
 		if = {
 			limit = {
 				has_global_flag = br_mode_pve
 			}
-			set_timed_global_flag = {
-				flag = br_boss_initial_cooldown
-				days = 3240
+			every_country = {
+				limit = {
+					has_country_flag = br_player_country
+				}
+				random_situation = {
+					limit = {
+						is_situation_type = situation_br_pve_intensity
+					}
+					destroy_situation = this
+				}
+				start_situation = {
+					type = situation_br_pve_intensity
+				}
+			}
+			set_variable = {
+				which = br_total_intensity
+				value = 0
 			}
 		}
 	}

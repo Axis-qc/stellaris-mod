@@ -282,15 +282,13 @@ br_spawn_pure_battleship = {
 # ============================================================
 
 br_spawn_mixed = {
-    #递增 + 封顶（br_reinf_1 挂在 br_pve_enemy_country 上）
-    event_target:br_pve_enemy_country = {
-        change_variable = { which = br_reinf_1 value = 1 }
-        if = {
-            limit = { check_variable = { which = br_reinf_1 value > 100 } }
-            set_variable = { which = br_reinf_1 value = 100 }
-        }
+    # 数量由 br_total_intensity 驱动（替代累计计数 br_reinf_1），保底 1 艘护卫
+    set_variable = { which = br_reinf_1 value = event_target:br_pve_enemy_country.br_total_intensity }
+    divide_variable = { which = br_reinf_1 value = 10 }
+    if = {
+        limit = { check_variable = { which = br_reinf_1 value < 1 } }
+        set_variable = { which = br_reinf_1 value = 1 }
     }
-    set_variable = { which = br_reinf_1 value = event_target:br_pve_enemy_country.br_reinf_1 }
 
     # 护卫
     while = {
@@ -298,9 +296,9 @@ br_spawn_mixed = {
         create_ship = { name = random design = event_target:br_player_corvette }
     }
 
-    # 驱逐：护卫 ≥ 10 时出现，数量 = 护卫 / 2
+    # 驱逐：intensity >= 200 时出现，数量 = 护卫 / 2
     if = {
-        limit = { check_variable = { which = br_reinf_1 value >= 10 } }
+        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
         set_variable = { which = br_reinf_2 value = br_reinf_1 }
         divide_variable = { which = br_reinf_2 value = 2 }
         while = {
@@ -309,20 +307,20 @@ br_spawn_mixed = {
         }
     }
 
-    # 巡洋：驱逐 ≥ 8 时出现，数量 = 驱逐 / 4
+    # 巡洋：intensity >= 400 时出现，数量 = 驱逐 / 2
     if = {
-        limit = { check_variable = { which = br_reinf_2 value >= 8 } }
+        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 400 } }
         set_variable = { which = br_reinf_3 value = br_reinf_2 }
-        divide_variable = { which = br_reinf_3 value = 4 }
+        divide_variable = { which = br_reinf_3 value = 2 }
         while = {
             count = br_reinf_3
             create_ship = { name = random design = event_target:br_player_cruiser }
         }
     }
 
-    # 战列：巡洋 ≥ 4 时出现，数量 = 巡洋 / 2
+    # 战列：intensity >= 600 时出现，数量 = 巡洋 / 2
     if = {
-        limit = { check_variable = { which = br_reinf_3 value >= 4 } }
+        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 600 } }
         set_variable = { which = br_reinf_4 value = br_reinf_3 }
         divide_variable = { which = br_reinf_4 value = 2 }
         while = {

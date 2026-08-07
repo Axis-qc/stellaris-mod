@@ -7,29 +7,30 @@
 # =========================================================================
 
 # [调度器]刷船（br_fleet_created 防重复）
+# 数量由 br_total_intensity 驱动：small=intensity/10, medium=intensity/20(>=200), large=0
 br_crisis_create_grunt_fleet = {
     if = {
         limit = { not = { has_fleet_flag = br_fleet_created } }
-        event_target:br_pve_enemy_country = {
-            change_variable = { which = br_grunt_spawn_count value = 0.25 }
-            if = {
-                limit = { check_variable = { which = br_grunt_spawn_count value > 100 } }
-                set_variable = { which = br_grunt_spawn_count value = 100 }
-            }
+        # small = br_total_intensity / 10（保底 1 艘，保证局势初始增长源）
+        set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_total_intensity }
+        divide_variable = { which = br_crisis_small value = 10 }
+        if = {
+            limit = { check_variable = { which = br_crisis_small value < 1 } }
+            set_variable = { which = br_crisis_small value = 1 }
         }
-        set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_grunt_spawn_count }
-        set_variable = { which = br_crisis_medium value = 0 }
+        # medium = br_total_intensity / 20（intensity >= 200 才触发）
+        if = {
+            limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
+            set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_total_intensity }
+            divide_variable = { which = br_crisis_medium value = 20 }
+        }
+        else = {
+            set_variable = { which = br_crisis_medium value = 0 }
+        }
+        # large 保持 0（探索杂兵不出大型舰）
         set_variable = { which = br_crisis_large value = 0 }
         br_crisis_grunt_small_spawn = yes
-        if = {
-            limit = {
-                check_variable = { which = br_crisis_small value > 10 }
-            }
-            divide_variable = { which = br_crisis_small value = 10 }
-            change_variable = { which = br_crisis_medium value = br_crisis_small }
-        }
         br_crisis_grunt_medium_spawn = yes
-        br_crisis_grunt_large_spawn = yes
         set_fleet_flag = br_fleet_created
     }
 }
