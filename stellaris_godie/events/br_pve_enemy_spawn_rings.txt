@@ -6,42 +6,6 @@ namespace = br
 # 编队类型和进度用fleet flag控制，见br_crisis_create_fleet
 # ============================================================
 # ============================================================
-# br.804：on_entering_system_fleet 触发入口（Fleet scope）
-# 保存进入星系 → 转给 br.801（country scope）
-# ============================================================
-fleet_event = {
-	id = br.804
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_global_flag = br_mode_pve
-		owner = {
-			is_ai = no
-			has_country_flag = br_player_country
-		}
-		solar_system = {
-			NOT = {
-				has_star_flag = br_system_spawn_center_used
-			}
-		}
-	}
-	immediate = {
-		#保存玩家舰队位置，标记该星系已作为刷怪中心
-		this = {
-			solar_system = {
-				set_star_flag = br_system_spawn_center_used
-				save_global_event_target_as = br_spawn_center@owner
-			}
-		}
-		owner = {
-			country_event = {
-				id = br.801
-			}
-		}
-	}
-}
-
-# ============================================================
 #  玩家舰队进入新星系 → 找周边未刷星系 → 刷敌
 # ============================================================
 country_event = {
@@ -51,9 +15,11 @@ country_event = {
 	trigger = {
 		has_global_flag = br_mode_pve
 		exists = event_target:br_pve_enemy_country
-		exists = owner
 		owner = {
-			has_country_flag = br_player_country
+			NOR = {
+				is_country_type = br_void
+				is_country_type = br_pve_enemy
+			}
 		}
 	}
 	immediate = {
@@ -178,5 +144,43 @@ country_event = {
 	immediate = {
 		# 刷large（Phase 3）
 		br_spawn_crisis_fleet = yes
+	}
+}
+
+# ============================================================
+# br.804：on_entering_system_fleet 触发入口（Fleet scope）
+# 保存进入星系 → 转给 br.801（country scope）
+# ============================================================
+fleet_event = {
+	id = br.804
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		owner = {
+			NOR = {
+				is_country_type = br_void
+				is_country_type = br_pve_enemy
+			}
+		}
+		solar_system = {
+			NOT = {
+				has_star_flag = br_system_spawn_center_used
+			}
+		}
+	}
+	immediate = {
+		#保存玩家舰队位置，标记该星系已作为刷怪中心
+		this = {
+			solar_system = {
+				set_star_flag = br_system_spawn_center_used
+				save_global_event_target_as = br_spawn_center@owner
+			}
+		}
+		owner = {
+			country_event = {
+				id = br.801
+			}
+		}
 	}
 }

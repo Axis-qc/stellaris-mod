@@ -2,337 +2,343 @@ namespace = br
 # 事件ID区间：500-599。新增或修改事件ID不得超出此区间喵
 # br.500：首次进入游戏时打开大逃杀开局设置窗口喵
 country_event = {
-    id = br.500
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_ai = no
-        has_global_flag = br_battle_royale_enabled
-        NOT = {
-            has_global_flag = br_start_settings_opened
-        }
-        has_origin = origin_br_battle_royale
-    }
-    immediate = {
-        set_global_flag = br_start_settings_opened
-        country_event = {
-            id = br.501
-        }
-    }
+	id = br.500
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		has_global_flag = br_battle_royale_enabled
+		NOT = {
+			has_global_flag = br_start_settings_opened
+		}
+		has_origin = origin_br_battle_royale
+	}
+	immediate = {
+		set_global_flag = br_start_settings_opened
+		country_event = {
+			id = br.501
+		}
+	}
 }
 
 # br.501：开局模式设置，选择PVP、PVE或正常模式喵
 country_event = {
-    id = br.501
-    title = br_settings_title
-    desc = br_settings_desc
-    picture = GFX_evt_signing
-    is_triggered_only = yes
-    option = {
-        name = br_mode_pvp_name
-        allow = { always = no }
-        set_global_flag = br_mode_pvp
-        remove_global_flag = br_mode_pve
-        remove_global_flag = br_mode_disabled
-        country_event = {
-            id = br.503
-        }
-    }
-    option = {
-        name = br_mode_pve_name
-        remove_global_flag = br_mode_pvp
-        set_global_flag = br_mode_pve
-        remove_global_flag = br_mode_disabled
-        # PVE敌方模板不再开局手选，刷敌逻辑自行随机。
-        country_event = {
-            id = br.503
-        }
-    }
-    option = {
-        name = br_mode_normal_name
-        remove_global_flag = br_mode_pvp
-        remove_global_flag = br_mode_pve
-        set_global_flag = br_mode_disabled
-        # 正常模式：跳过所有大逃杀初始化，原版游戏流程不受影响
-    }
+	id = br.501
+	title = br_settings_title
+	desc = br_settings_desc
+	picture = GFX_evt_signing
+	is_triggered_only = yes
+	option = {
+		name = br_mode_pvp_name
+		allow = {
+			always = no
+		}
+		set_global_flag = br_mode_pvp
+		remove_global_flag = br_mode_pve
+		remove_global_flag = br_mode_disabled
+		country_event = {
+			id = br.503
+		}
+	}
+	option = {
+		name = br_mode_pve_name
+		remove_global_flag = br_mode_pvp
+		set_global_flag = br_mode_pve
+		remove_global_flag = br_mode_disabled
+		# 开局9年冷却flag，之后五年脉冲触发Boss生成
+		set_timed_global_flag = {
+			flag = br_boss_initial_cooldown
+			days = 3240
+		}
+		# PVE敌方模板不再开局手选，刷敌逻辑自行随机。
+		country_event = {
+			id = br.503
+		}
+	}
+	option = {
+		name = br_mode_normal_name
+		remove_global_flag = br_mode_pvp
+		remove_global_flag = br_mode_pve
+		set_global_flag = br_mode_disabled
+		# 正常模式：跳过所有大逃杀初始化，原版游戏流程不受影响
+	}
 }
 
 # br.502：旧版PVE敌方模板设置入口，当前隐藏并直接进入缩圈设置。
 country_event = {
-    id = br.502
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        country_event = {
-            id = br.503
-        }
-    }
+	id = br.502
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		country_event = {
+			id = br.503
+		}
+	}
 }
 
 # br.503：开局缩圈速度设置，完成后进入全局初始化喵
 country_event = {
-    id = br.503
-    title = br_speed_settings_title
-    desc = br_speed_settings_desc
-    picture = GFX_evt_signing
-    is_triggered_only = yes
-    option = {
-        name = br_speed_fast_name
-        remove_global_flag = br_speed_normal
-        remove_global_flag = br_speed_slow
-        set_global_flag = br_speed_fast
-        country_event = {
-            id = br.504
-        }
-    }
-    option = {
-        name = br_speed_normal_name
-        remove_global_flag = br_speed_fast
-        remove_global_flag = br_speed_slow
-        set_global_flag = br_speed_normal
-        country_event = {
-            id = br.504
-        }
-    }
-    option = {
-        name = br_speed_slow_name
-        remove_global_flag = br_speed_fast
-        remove_global_flag = br_speed_normal
-        set_global_flag = br_speed_slow
-        country_event = {
-            id = br.504
-        }
-    }
+	id = br.503
+	title = br_speed_settings_title
+	desc = br_speed_settings_desc
+	picture = GFX_evt_signing
+	is_triggered_only = yes
+	option = {
+		name = br_speed_fast_name
+		remove_global_flag = br_speed_normal
+		remove_global_flag = br_speed_slow
+		set_global_flag = br_speed_fast
+		country_event = {
+			id = br.504
+		}
+	}
+	option = {
+		name = br_speed_normal_name
+		remove_global_flag = br_speed_fast
+		remove_global_flag = br_speed_slow
+		set_global_flag = br_speed_normal
+		country_event = {
+			id = br.504
+		}
+	}
+	option = {
+		name = br_speed_slow_name
+		remove_global_flag = br_speed_fast
+		remove_global_flag = br_speed_normal
+		set_global_flag = br_speed_slow
+		country_event = {
+			id = br.504
+		}
+	}
 }
 
 # br.504：先杀一遍原版，创建工具国家，启动扩圈，为所有原版玩家排程模式初始化
 country_event = {
-    id = br.504
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        #先杀一遍
-        every_country = {
-            limit = {
-                is_ai = yes
-                NOR = {
-                    is_country_type = br_void
-                    has_country_flag = br_player_country
-                }
-            }
-            destroy_country = yes
-        }
-        # 每次游戏开始时创建工具国家，承载全局变量和定时事件触发
-        create_country = {
-            name = "BR_VOID_COUNTRY_NAME"
-            type = br_void
-            species = random
-            authority = auth_democratic
-            ethos = {
-                ethic = ethic_egalitarian
-                ethic = ethic_xenophile
-                ethic = ethic_materialist
-            }
-            civics = {
-                civic = civic_beacon_of_liberty
-                civic = civic_idealistic_foundation
-            }
-            origin = origin_default
-            ignore_initial_colony_error = yes
-            day_zero_contact = no
-            flag = {
-                icon = {
-                    category = "ornate"
-                    file = "flag_ornate_8.dds"
-                }
-                background = {
-                    category = "backgrounds"
-                    file = "00_solid.dds"
-                }
-                colors = {
-                    "black"
-                    "black"
-                    "null"
-                    "null"
-                }
-            }
-            effect = {
-                save_global_event_target_as = br_void_country
-                set_country_flag = br_start_init
-            }
-        }
-        # 排程缩圈和圈外伤害（PVE生存模式不使用）喵
-        if = {
-            limit = {
-                NOT = { has_global_flag = br_mode_pve }
-            }
-            if = {
-                limit = {
-                    event_target:br_void_country = {
-                        has_country_flag = br_start_init
-                    }
-                }
-                event_target:br_void_country = {
-                    set_variable = {
-                        which = br_cycle_count
-                        value = 0
-                    }
-                    country_event = {
-                        id = br.300
-                        days = 1800
-                    }
-                    country_event = {
-                        id = br.1000
-                        days = 1800
-                    }
-                }
-            }
-            # 启动圈层框架扩圈喵
-            country_event = {
-                id = br.100
-            }
-        }
-        # 为所有需要替换的原版玩家国家排程模式初始化喵
-        every_country = {
-            limit = {
-                is_ai = no
-                NOT = {
-                    has_country_flag = br_player_replacement_scheduled
-                }
-                has_origin = origin_br_battle_royale
-            }
-            set_country_flag = br_player_replacement_scheduled
-            country_event = {
-                id = br.505
-                days = 1
-            }
-        }
-    }
+	id = br.504
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# #先杀一遍
+		# every_country = {
+		# 	limit = {
+		# 		is_ai = yes
+		# 		NOR = {
+		# 			is_country_type = br_void
+		# 			has_country_flag = br_player_country
+		# 		}
+		# 	}
+		# 	destroy_country = yes
+		# }
+		# 每次游戏开始时创建工具国家，承载全局变量和定时事件触发
+		create_country = {
+			name = "BR_VOID_COUNTRY_NAME"
+			type = br_void
+			species = random
+			authority = auth_democratic
+			ethos = {
+				ethic = ethic_egalitarian
+				ethic = ethic_xenophile
+				ethic = ethic_materialist
+			}
+			civics = {
+				civic = civic_beacon_of_liberty
+				civic = civic_idealistic_foundation
+			}
+			origin = origin_default
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			flag = {
+				icon = {
+					category = "ornate"
+					file = "flag_ornate_8.dds"
+				}
+				background = {
+					category = "backgrounds"
+					file = "00_solid.dds"
+				}
+				colors = {
+					"black"
+					"black"
+					"null"
+					"null"
+				}
+			}
+			effect = {
+				save_global_event_target_as = br_void_country
+				set_country_flag = br_start_init
+			}
+		}
+		# 排程缩圈和圈外伤害（PVE生存模式不使用）喵
+		if = {
+			limit = {
+				NOT = {
+					has_global_flag = br_mode_pve
+				}
+			}
+			if = {
+				limit = {
+					event_target:br_void_country = {
+						has_country_flag = br_start_init
+					}
+				}
+				event_target:br_void_country = {
+					set_variable = {
+						which = br_cycle_count
+						value = 0
+					}
+					country_event = {
+						id = br.300
+						days = 1800
+					}
+					country_event = {
+						id = br.1000
+						days = 1800
+					}
+				}
+			}
+			# 启动圈层框架扩圈喵
+			country_event = {
+				id = br.100
+			}
+		}
+		# 为所有需要替换的原版玩家国家排程模式初始化喵
+		every_country = {
+			limit = {
+				is_ai = no
+				NOT = {
+					has_country_flag = br_player_replacement_scheduled
+				}
+				has_origin = origin_br_battle_royale
+			}
+			set_country_flag = br_player_replacement_scheduled
+			country_event = {
+				id = br.505
+				days = 1
+			}
+		}
+	}
 }
 
 # br.505：按模式分流，排程对应初始化流程
 country_event = {
-    id = br.505
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        is_ai = no
-        has_origin = origin_br_battle_royale
-    }
-    immediate = {
-        if = {
-            limit = {
-                has_global_flag = br_mode_pve
-            }
-            if = {
-                limit = {
-                    NOT = {
-                        has_global_flag = br_pve_player_transfer_started
-                    }
-                }
-                set_global_flag = br_pve_player_transfer_started
-                # PVE生存模式：跳过br.700出生点选择，直接在原地初始化喵
-                # 设房主（仅首位玩家）喵
-                if = {
-                    limit = {
-                        NOT = { has_global_flag = br_pve_alliance_leader_set }
-                    }
-                    set_global_flag = br_pve_alliance_leader_set
-                    save_global_event_target_as = br_pve_alliance_leader
-                }
-                add_relic = br_reward_relics
-                country_event = {
-                    id = br.507
-                    days = 1
-                }
-            }
-        }
-        else = {
-            country_event = {
-                id = br.600
-            }
-        }
-    }
+	id = br.505
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		has_origin = origin_br_battle_royale
+	}
+	immediate = {
+		if = {
+			limit = {
+				has_global_flag = br_mode_pve
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = br_pve_player_transfer_started
+					}
+				}
+				set_global_flag = br_pve_player_transfer_started
+				# PVE生存模式：跳过br.700出生点选择，直接在原地初始化喵
+				# 设房主（仅首位玩家）喵
+				if = {
+					limit = {
+						NOT = {
+							has_global_flag = br_pve_alliance_leader_set
+						}
+					}
+					set_global_flag = br_pve_alliance_leader_set
+					save_global_event_target_as = br_pve_alliance_leader
+				}
+				add_relic = br_reward_relics
+				country_event = {
+					id = br.507
+					days = 1
+				}
+			}
+		}
+		else = {
+			country_event = {
+				id = br.600
+			}
+		}
+	}
 }
 
 # br.507：保险二次地图清理与后续排程，在玩家国家创建完成后执行
 country_event = {
-    id = br.507
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_country_flag = br_player_country
-    }
-    immediate = {
-        # 清理地图上的原版国家和舰队（每局首次执行时清理）喵
-        if = {
-            limit = {
-                exists = event_target:br_void_country
-                event_target:br_void_country = {
-                    has_country_flag = br_start_init
-                }
-            }
-            event_target:br_void_country = {
-                remove_country_flag = br_start_init
-            }
-            every_system = {
-                limit = {
-                    exists = starbase
-                }
-                starbase = {
-                    fleet = {
-                        destroy_fleet = this
-                    }
-                }
-            }
-            every_system = {
-                every_ship_in_system = {
-                    limit = {
-                        OR = {
-                            NOT = {
-                                exists = owner
-                            }
-                            owner = {
-                                NOT = {
-                                    has_country_flag = br_player_country
-                                }
-                            }
-                        }
-                    }
-                    destroy_ship = this
-                }
-            }
-            every_country = {
-                limit = {
-                    is_ai = yes
-                    NOR = {
-                        is_country_type = br_void
-                        has_country_flag = br_player_country
-                    }
-                }
-                destroy_country = yes
-            }
-        }
-        # 排程下一阶段：PVE敌对势力 或 PVP通信喵
-        if = {
-            limit = {
-                has_global_flag = br_mode_pve
-            }
-            country_event = {
-                id = br.702
-                days = 4
-            }
-            # 排程10年后刷PVE Boss（给玩家发育时间）喵
-            country_event = {
-                id = br.900
-                days = 3600
-            }
-        }
-        else = {
-            country_event = {
-                id = br.601
-                days = 4
-            }
-        }
-    }
+	id = br.507
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = br_player_country
+	}
+	immediate = {
+		# 清理地图上的原版国家和舰队（每局首次执行时清理）喵
+		if = {
+			limit = {
+				exists = event_target:br_void_country
+				event_target:br_void_country = {
+					has_country_flag = br_start_init
+				}
+			}
+			event_target:br_void_country = {
+				remove_country_flag = br_start_init
+			}
+			every_system = {
+				limit = {
+					exists = starbase
+				}
+				starbase = {
+					fleet = {
+						destroy_fleet = this
+					}
+				}
+			}
+			every_system = {
+				every_ship_in_system = {
+					limit = {
+						OR = {
+							NOT = {
+								exists = owner
+							}
+							owner = {
+								NOT = {
+									has_country_flag = br_player_country
+								}
+							}
+						}
+					}
+					destroy_ship = this
+				}
+			}
+			# every_country = {
+			#     limit = {
+			#         is_ai = yes
+			#         NOR = {
+			#             is_country_type = br_void
+			#             has_country_flag = br_player_country
+			#         }
+			#     }
+			#     destroy_country = yes
+			# }
+		}
+			# 排程下一阶段：PVE敌对势力 或 PVP通信喵
+		if = {
+			limit = {
+				has_global_flag = br_mode_pve
+			}
+			country_event = {
+				id = br.702
+				days = 4
+			}
+		}
+		else = {
+			country_event = {
+				id = br.601
+				days = 4
+			}
+		}
+	}
 }

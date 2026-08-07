@@ -1,0 +1,90 @@
+# ====================================================================
+# PVE 天灾强度局势（每个玩家独立）
+# 每月 +0.1 自动增长，永久不消失
+# 所有玩家的进度累加 = 最终天灾强度，用于计算刷敌数量
+# 玩家可通过事件/决议影响自己的进度（加速或压制）
+# ====================================================================
+situation_br_pve_intensity = {
+	permanent = yes
+	show_in_outliner = yes
+	picture = GFX_evt_wormhole
+	situation_log_category = empire_concerns
+	category = neutral
+	initial_progress = 0
+	total_progress = {
+		base = 1000
+	}
+	abort_trigger = {
+		NOT = {
+			exists = owner
+		}
+	}
+	on_start = {
+	}
+	on_fail = {
+	}
+	on_progress_complete = {
+	}
+	# 月度自动增长 0.1（≈每年 1.2）
+	monthly_progress = {
+		base = 0.1
+	}
+	approach = {
+		name = br_pve_intensity_suppress
+		icon = GFX_situation_approach_nomad_neutral
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = {
+			custom_tooltip = "br_pve_intensity_suppress_tt"
+		}
+		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
+		modifier = {
+		}
+	}
+	approach = {
+		name = br_pve_intensity_neutral
+		icon = GFX_situation_approach_nomad_good
+		icon_background = GFX_situation_approach_bg_green
+		on_select = {
+			custom_tooltip = "br_pve_intensity_neutral_tt"
+		}
+		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
+		modifier = {
+		}
+	}
+	approach = {
+		name = br_pve_intensity_accelerate
+		icon = GFX_situation_approach_nomad_very_good
+		icon_background = GFX_situation_approach_bg_green
+		on_select = {
+			custom_tooltip = "br_pve_intensity_accelerate_tt"
+		}
+		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
+		modifier = {
+		}
+	}
+	# 纯视觉分阶段
+	stages = {
+		stage_low = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_green
+			section_weight = 25
+			custom_tooltip = stage_low_desc
+		}
+		stage_medium = {
+			icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_yellow
+			section_weight = 25
+		}
+		stage_high = {
+			icon = GFX_situation_stage_3
+			icon_background = GFX_situation_stage_frame_orange
+			section_weight = 25
+		}
+		stage_extreme = {
+			icon = GFX_situation_stage_4
+			icon_background = GFX_situation_stage_frame_red
+			section_weight = 25
+		}
+	}
+}

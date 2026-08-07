@@ -1,79 +1,89 @@
 on_game_start = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_game_start_country = {
-    events = {
-        brstart.1
-        br.500
-        br.1
-    }
+	events = {
+		brstart.1
+		br.500
+		br.1
+	}
 }
 
 on_monthly_pulse_country = {
-    events = {
-        br.799        # [后备保障] 敌人被摧毁时重建，正常初始化不走此路
-        reward.2
-    }
+	events = {
+		br.799        # [后备保障] 敌人被摧毁时重建，正常初始化不走此路
+		reward.2
+	}
+}
+
+on_five_year_pulse_country = {
+	events = {
+		br.900        # 五年触发一次 Boss 生成（由开局 flag 和 spawned flag 双重拦截）
+		br.912 #五年一次跳跃
+	}
 }
 
 on_yearly_pulse_country = {
-    events = {
-        br.1
-        br.2
-        # br.1105 #废弃
-        br.1010
-        br.850        # 保存玩家舰船设计 → 延迟触发 830/840
-        br.1038        # 方舟舰年度兜底恢复
-        br.13        # 战斗减速buff年度兜底清理：移除脱战舰队buff/重启循环
-    }
+	events = {
+		br.1
+		br.2
+		# br.1105 #废弃
+		br.1010
+		br.850        # 保存玩家舰船设计 → 延迟触发 830/840
+		br.1038        # 方舟舰年度兜底恢复
+		br.13        # 战斗减速buff年度兜底清理：移除脱战舰队buff/重启循环
+
+		br.911 #BOSS追击事件
+		br.920 #刷敌
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER = {
-    events = {
-        br.6000
-    }
+	events = {
+		br.6000
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_queued = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_unqueued = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_ship_destroyed_victim = {
-    events = {
-        br.901
-    }
+	events = {
+		br.901
+	}
 }
 
 on_ship_destroyed_perp = {
-    events = {
-        br.1102
-    }
+	events = {
+		br.1102
+	}
 }
 
 on_br_dominator_repair_activated = {
-    events = {
-        br.1200
-    }
+	events = {
+		br.1200
+	}
 }
 
 on_br_dominator_recall_activated = {
-    events = {
-        br.1201
-    }
+	events = {
+		br.1201
+	}
 }
 
 on_br_level_panel_opened = {
-    events = {
-        br.1129
-    }
+	events = {
+		br.1129
+	}
 }
 
 # [废弃] 旧版 scripted_action 触发路径，已改用武器系统 W 槽。
@@ -83,20 +93,20 @@ on_br_level_panel_opened = {
 #     }
 # }
 on_country_destroyed = {
-    events = {
-    }
+	events = {
+	}
 }
 
 on_fleet_combat_joined_attacker = {
-    events = {
-        br.11
-    }
+	events = {
+		br.11
+	}
 }
 
 on_fleet_combat_joined_defender = {
-    events = {
-        br.11
-    }
+	events = {
+		br.11
+	}
 }
 
 # 玩家舰队进入新星系 → 检查周边4跳内刷敌
@@ -106,9 +116,9 @@ on_fleet_combat_joined_defender = {
 # Scope = Fleet
 # From = System
 on_entering_system_fleet = {
-    events = {
-        br.804
-    }
+	events = {
+		br.804
+	}
 }
 
 on_fleet_auto_move_arrival = {
@@ -118,16 +128,18 @@ on_fleet_auto_move_arrival = {
 # This = Ship (被禁用的方舟舰)
 # From = Disabler Ship (攻击方舰船)
 on_ship_disabled = {
-    events = {
-        br.1030
-    }
+	events = {
+		br.1030
+	}
 }
 
 # This = starbase (被禁用的星基)
 # From = fleet that disabled the starbase
 on_starbase_disabled = {
-    events = {
-        #on_ship_disabled能够正常触发，这里会重复触发导致刷两个项目
-        # br.1037
-    }
+	events = {
+		#on_ship_disabled能够正常触发，这里会重复触发导致刷两个项目
+		# br.1037
+		# 虚空裂隙被摧毁 → 触发 br.914
+		br.914
+	}
 }

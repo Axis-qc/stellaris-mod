@@ -1,6 +1,6 @@
 namespace = br
-# 事件ID区间：700-799。新增或修改事件ID不得超出此区间喵
-# br.700：PVE模式初始化入口，在最外圈选1个锚点再在附近选5个共6个出生点喵
+# 事件ID区间：700-799。新增或修改事件ID不得超出此区间
+# br.700：PVE模式初始化入口，在最外圈选1个锚点再在附近选5个共6个出生点
 country_event = {
 	id = br.700
 	hide_window = yes
@@ -365,7 +365,7 @@ country_event = {
 				set_star_flag = br_player_spawn_system
 				set_name = BR_SPAWN_NAME_1
 			}
-			# 锚点fallback：如果最外圈找不到，全图随机选一个喵
+			# 锚点fallback：如果最外圈找不到，全图随机选一个
 			if = {
 				limit = {
 					NOT = {
@@ -377,7 +377,7 @@ country_event = {
 					set_star_flag = br_player_spawn_system
 				}
 			}
-			# 在锚点400坐标距离内选5个出生点喵
+			# 在锚点400坐标距离内选5个出生点
 			random_system = {
 				limit = {
 					distance = {
@@ -491,7 +491,7 @@ country_event = {
 				save_event_target_as = br_chosen_spawn_star
 			}
 		}
-		# 移动所有舰队到出生点喵
+		# 移动所有舰队到出生点
 		every_owned_fleet = {
 			set_location = {
 				target = event_target:br_chosen_spawn_star
@@ -499,7 +499,7 @@ country_event = {
 				angle = random
 			}
 		}
-		# 设置房主（仅首位玩家）喵
+		# 设置房主（仅首位玩家）
 		if = {
 			limit = {
 				NOT = {
@@ -511,7 +511,7 @@ country_event = {
 		}
 		#发遗珍
 		add_relic = br_reward_relics
-		# 排程PVE后续初始化喵
+		# 排程PVE后续初始化
 		country_event = {
 			id = br.507
 			days = 1
@@ -519,7 +519,7 @@ country_event = {
 	}
 }
 
-# br.702：PVE模式初始化，建立联盟与创建敌对势力喵
+# br.702：PVE模式初始化，建立联盟与创建敌对势力
 country_event = {
 	id = br.702
 	hide_window = yes
@@ -621,6 +621,7 @@ country_event = {
 				has_country_flag = br_player_country
 			}
 			establish_communications_no_message = event_target:br_pve_enemy_country
+			start_situation = { type = situation_br_pve_intensity }
 		}
 		set_global_flag = br_pve_enemy_created
 		country_event = {

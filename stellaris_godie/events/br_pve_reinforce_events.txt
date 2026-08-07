@@ -133,6 +133,9 @@ country_event = {
 		}
 	}
 	immediate = {
+		# TODO: 未适配生物舰船 — 生物舰船没有 is_ship_size = corvette/destroyer/cruiser/battleship，
+		# random_owned_design 无法匹配，导致设计保存为空，create_ship 刷不出船。
+		# 后续需改用 any_owned_ship 遍历实际舰船来获取设计，或准备一套后备固定设计。
 		random_owned_design = {
 			limit = {
 				is_ship_size = corvette

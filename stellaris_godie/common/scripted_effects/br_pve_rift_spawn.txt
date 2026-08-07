@@ -1,0 +1,26 @@
+# =========================================================================
+# PVE虚空裂隙刷敌 — 在 create_fleet { effect = { ... } } 内部调用
+# 目标星系通过 event_target:br_spawn_tmp 传入
+# 直接调用 br_crisis_small/medium/large_spawn 出船
+# 数量基于 br_pve_enemy_country 的 br_boss_spawn_cycle 变量
+# =========================================================================
+br_spawn_rift_fleet = {
+    # 设置舰种数量：small = cycle×2, medium = cycle, large = max(1, cycle/2)
+    set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
+    multiply_variable = { which = br_crisis_small value = 2 }
+    set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
+    set_variable = { which = br_crisis_large value = event_target:br_pve_enemy_country.br_boss_spawn_cycle }
+    divide_variable = { which = br_crisis_large value = 2 }
+    if = {
+        limit = { check_variable = { which = br_crisis_large value < 1 } }
+        set_variable = { which = br_crisis_large value = 1 }
+    }
+    # 生成三阶段混编天灾舰队（每种随机编队类型）
+    br_crisis_small_spawn = yes
+    br_crisis_medium_spawn = yes
+    br_crisis_large_spawn = yes
+    # 清理临时变量
+    clear_variable = br_crisis_small
+    clear_variable = br_crisis_medium
+    clear_variable = br_crisis_large
+}

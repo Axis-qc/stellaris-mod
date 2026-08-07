@@ -82,14 +82,14 @@ country_event = {
 				destroy_ambient_object = this
 			}
 		}
-		# PVE模式：排程下一轮Boss生成（10年后）喵
+		# PVE模式：重新设置Boss冷却flag（9年后五年脉冲触发）喵
 		if = {
 			limit = {
 				has_global_flag = br_mode_pve
 			}
-			country_event = {
-				id = br.900
-				days = 3600
+			set_timed_global_flag = {
+				flag = br_boss_initial_cooldown
+				days = 3240
 			}
 		}
 	}
