@@ -8,12 +8,13 @@ br_arkship_armor = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
 		owner? = {
 			has_technology = tech_ship_armor_1
+			country_uses_bio_ships = no
 		}
 		is_br_civilian_arkship = yes
 	}
@@ -45,6 +46,51 @@ br_arkship_armor = {
 		}
 	}
 }
+br_arkship_armor_bio = {
+	icon = "GFX_arkship_armor"
+	starbase_type = arkship
+	construction_days = 180
+	category = sm_defense_cat
+
+	starbase_limit = {
+		base = -1        # Uncapped
+	}
+
+	potential = {
+		owner? = {
+			has_technology = tech_ship_armor_1
+			country_uses_bio_ships = yes
+		}
+		is_br_civilian_arkship = yes
+	}
+
+	show_in_tech = "tech_ship_armor_1"
+
+	show_tech_unlock_if = {
+		is_nomadic = no
+	}
+
+	resources = {
+		category = starbase_arkship_upgrades
+		cost = {
+			alloys = @arkship_cost_alloys_250
+		}
+	}
+
+	equipped_component = LARGE_BIO_ARMOR_1
+	equipped_component = LARGE_BIO_ARMOR_1
+	equipped_component = LARGE_BIO_ARMOR_1
+	show_component_tooltips = yes
+	custom_tooltip = sm_arkship_armor_tt
+
+	ai_weight = {
+		weight = 100 #use same weight here - ai weighting is done in starbase_types.txt
+		modifier = {
+			factor = 2
+			ai_owner_prefers_armor = yes
+		}
+	}
+}
 
 br_arkship_lm_armor = {
 	icon = "GFX_arkship_lm_armor"
@@ -53,7 +99,7 @@ br_arkship_lm_armor = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -102,7 +148,7 @@ br_arkship_archaeo_armor = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -152,7 +198,7 @@ br_arkship_shield = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -198,7 +244,7 @@ br_arkship_psi_shield = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -244,7 +290,7 @@ br_arkship_archaeo_shield = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -294,7 +340,7 @@ br_arkship_crystal_plating = {
 	category = sm_defense_cat
 
 	starbase_limit = {
-		base = -1		# Uncapped
+		base = -1        # Uncapped
 	}
 
 	potential = {
@@ -336,7 +382,7 @@ br_arkship_afterburner = {
 	icon = "GFX_arkship_afterburner"
 	starbase_type = arkship
 	construction_days = 180
-	category =  sm_utility_cat
+	category = sm_utility_cat
 
 	starbase_limit = {
 		base = 2
@@ -362,9 +408,9 @@ br_arkship_afterburner = {
 		}
 	}
 
-	equipped_component = AFTERBURNER_1
-	equipped_component = AFTERBURNER_1
-	equipped_component = AFTERBURNER_1
+	equipped_component = BR_AFTERBURNER_1
+	equipped_component = BR_AFTERBURNER_1
+	equipped_component = BR_AFTERBURNER_1
 	show_component_tooltips = yes
 	custom_tooltip = sm_arkship_afterburner_tt
 
@@ -520,7 +566,7 @@ br_arkship_quantum_destabilizer = {
 	}
 
 	# show_in_tech = "tech_titans"	# Deliberately not shown in the tech
-									# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -558,7 +604,7 @@ br_arkship_subspace_snare = {
 	}
 
 	# show_in_tech = "tech_titans"	# Deliberately not shown in the tech
-									# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -596,7 +642,7 @@ br_arkship_shield_dampener = {
 	}
 
 	# show_in_tech = "tech_titans"	# Deliberately not shown in the tech
-									# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_TITAN_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -634,7 +680,7 @@ br_arkship_aura_strike_craft = {
 	}
 
 	# show_in_tech = "tech_juggernaut"	# Deliberately not shown in the tech
-										# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -672,7 +718,7 @@ br_arkship_aura_hyperlane = {
 	}
 
 	# show_in_tech = "tech_juggernaut"	# Deliberately not shown in the tech
-										# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -710,7 +756,7 @@ br_arkship_aura_pd_penetration = {
 	}
 
 	# show_in_tech = "tech_juggernaut"	# Deliberately not shown in the tech
-										# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -748,7 +794,7 @@ br_arkship_aura_bombardment = {
 	}
 
 	# show_in_tech = "tech_juggernaut"	# Deliberately not shown in the tech
-										# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no
@@ -786,7 +832,7 @@ br_arkship_aura_range = {
 	}
 
 	# show_in_tech = "tech_juggernaut"	# Deliberately not shown in the tech
-										# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
+	# see TECH_UNLOCK_ARKSHIP_JUGGERNAUT_AURAS_CONSTRUCTION_TITLE
 
 	show_tech_unlock_if = {
 		is_nomadic = no

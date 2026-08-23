@@ -66,15 +66,160 @@ utility_component_template = {
 	}
 }
 
+# 先锋级推进器（5级）——参考 br_vanguard_thrusters.txt，适配主宰舰/方舰
+@dominator_thruster_power_1 = -200
+@dominator_thruster_power_2 = -300
+@dominator_thruster_power_3 = -400
+@dominator_thruster_power_4 = -500
+@dominator_thruster_power_5 = -600
+
+@dominator_thruster_cost_1 = 60
+@dominator_thruster_cost_2 = 120
+@dominator_thruster_cost_3 = 180
+@dominator_thruster_cost_4 = 240
+@dominator_thruster_cost_5 = 300
+
+# 1级 — 星舰推进器 I
 utility_component_template = {
-	key = "BR_DOMINATOR_THRUSTER"
+	key = "BR_DOMINATOR_THRUSTER_1"
 	size = small
-	icon = "GFX_ship_part_thruster_4"
+	icon = "GFX_ship_part_thruster_5"
 	icon_frame = 1
-	power = -500
-	modifier = {
-		ship_base_speed_mult = 0.75
+	power = @dominator_thruster_power_1
+	resources = {
+		category = ship_components
+		cost = { alloys = @dominator_thruster_cost_1 }
 	}
+	modifier = { }
+	prerequisites = { "tech_thrusters_1" }
+	component_set = "thruster_components"
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	upgrades_to = "BR_DOMINATOR_THRUSTER_2"
+	ai_weight = { weight = 1 }
+}
+
+# 2级 — 星舰推进器 II
+utility_component_template = {
+	key = "BR_DOMINATOR_THRUSTER_2"
+	size = small
+	icon = "GFX_ship_part_thruster_5"
+	icon_frame = 1
+	power = @dominator_thruster_power_2
+	resources = {
+		category = ship_components
+		cost = { alloys = @dominator_thruster_cost_2 }
+	}
+	modifier = { ship_base_speed_mult = 0.25 }
+	prerequisites = { "tech_thrusters_2" }
+	component_set = "thruster_components"
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	upgrades_to = "BR_DOMINATOR_THRUSTER_3"
+	ai_weight = { weight = 2 }
+}
+
+# 3级 — 星舰推进器 III
+utility_component_template = {
+	key = "BR_DOMINATOR_THRUSTER_3"
+	size = small
+	icon = "GFX_ship_part_thruster_5"
+	icon_frame = 1
+	power = @dominator_thruster_power_3
+	resources = {
+		category = ship_components
+		cost = { alloys = @dominator_thruster_cost_3 }
+	}
+	modifier = { ship_base_speed_mult = 0.50 }
+	prerequisites = { "tech_thrusters_3" }
+	component_set = "thruster_components"
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	upgrades_to = "BR_DOMINATOR_THRUSTER_4"
+	ai_weight = { weight = 3 }
+}
+
+# 4级 — 星舰推进器 IV
+utility_component_template = {
+	key = "BR_DOMINATOR_THRUSTER_4"
+	size = small
+	icon = "GFX_ship_part_thruster_5"
+	icon_frame = 1
+	power = @dominator_thruster_power_4
+	resources = {
+		category = ship_components
+		cost = { alloys = @dominator_thruster_cost_4 }
+	}
+	modifier = { ship_base_speed_mult = 0.75 }
+	prerequisites = { "tech_thrusters_4" }
+	component_set = "thruster_components"
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	upgrades_to = "BR_DOMINATOR_THRUSTER_5"
+	ai_weight = { weight = 4 }
+}
+
+# 5级 — 星舰推进器 V
+utility_component_template = {
+	key = "BR_DOMINATOR_THRUSTER_5"
+	size = small
+	icon = "GFX_ship_part_thruster_5"
+	icon_frame = 1
+	power = @dominator_thruster_power_5
+	resources = {
+		category = ship_components
+		cost = { alloys = @dominator_thruster_cost_5 sr_dark_matter = 32 }
+	}
+	modifier = { ship_base_speed_mult = 1.25 }
+	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
 	potential = {
 		OR = {
@@ -91,7 +236,9 @@ utility_component_template = {
 		}
 	}
 	ai_weight = {
-		weight = 0
+		weight = 5
+		modifier = { factor = 0.0 no_resource_for_component = { RESOURCE = sr_dark_matter } }
+		modifier = { factor = 0.0 is_ai = yes }
 	}
 }
 
@@ -119,22 +266,22 @@ utility_component_template = {
 	}
 	scripted_action = {
 		# 无mod专属限制，直接用原版
-		arkship_build_megastructure		# 建造巨型建筑
-		arkship_survey		# 勘探星球
-		arkship_harvest_resources		# 采集资源
-		arkship_settle		# 定居殖民
-		arkship_drop_off_prisoners		# 释放囚犯
-		collect_waystation_stockpile		# 收集中转站库存
-		arkship_lithoid_consume_world		# 岩石种吞噬星球
-		arkship_nanotech_consume_world		# 纳米科技吞噬星球
+		arkship_build_megastructure        # 建造巨型建筑
+		arkship_survey        # 勘探星球
+		arkship_harvest_resources        # 采集资源
+		arkship_settle        # 定居殖民
+		arkship_drop_off_prisoners        # 释放囚犯
+		collect_waystation_stockpile        # 收集中转站库存
+		arkship_lithoid_consume_world        # 岩石种吞噬星球
+		arkship_nanotech_consume_world        # 纳米科技吞噬星球
 		# 有mod专属限制（检查br_模块/br_方舟类型），用mod版
-		br_arkship_deep_scan		# 深度扫描（需br传感器阵列/系统扫描仪）
-		br_arkship_strip_mine		# 露天采矿（需br采矿阵列/行星精炼厂）
-		br_arkship_empty_spine		# 清空脊柱槽位（检查br脊柱模块）
-		br_arkship_subspace_image		# 亚空间成像（需br系统扫描仪）
-		br_arkship_reprocess_planet		# 行星再加工（需br行星精炼厂）
-		br_arkship_stellar_ignition		# 恒星点燃（需br恒星点燃器）
-		br_arkship_exodus_jump		# 跳跃（需br跳跃引擎）
+		br_arkship_deep_scan        # 深度扫描（需br传感器阵列/系统扫描仪）
+		br_arkship_strip_mine        # 露天采矿（需br采矿阵列/行星精炼厂）
+		br_arkship_empty_spine        # 清空脊柱槽位（检查br脊柱模块）
+		br_arkship_subspace_image        # 亚空间成像（需br系统扫描仪）
+		br_arkship_reprocess_planet        # 行星再加工（需br行星精炼厂）
+		br_arkship_stellar_ignition        # 恒星点燃（需br恒星点燃器）
+		br_arkship_exodus_jump        # 跳跃（需br跳跃引擎）
 	}
 	ai_weight = {
 		weight = 0

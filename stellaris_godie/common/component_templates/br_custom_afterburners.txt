@@ -1,0 +1,96 @@
+# Mod 专属加力燃烧室组件
+# 解决原版 AFTERBURNER_1/2 的 potential 对 br_* 方舟舰 ship size 识别失败的问题
+# 属性数值完全照搬原版，仅修改 key / component_set / potential
+
+utility_component_template = {
+	key = "BR_AFTERBURNER_1"
+	size = aux
+	icon = "GFX_ship_part_afterburner_1"
+	icon_frame = 1
+	power = -10
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = 4
+		}
+	}
+	modifier = {
+		ship_speed_mult = 0.10
+		ship_evasion_mult = 0.05
+	}
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	prerequisites = { "tech_afterburners_1" }
+	component_set = "BR_AFTERBURNER_1"
+	upgrades_to = "BR_AFTERBURNER_2"
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_preferred_weapons = weapon_type_kinetic
+		}
+		modifier = {
+			factor = 0.5
+			is_preferred_weapons = weapon_type_explosive
+		}
+	}
+}
+
+utility_component_template = {
+	key = "BR_AFTERBURNER_2"
+	size = aux
+	icon = "GFX_ship_part_afterburner_2"
+	icon_frame = 1
+	power = -20
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = 6
+		}
+	}
+	modifier = {
+		ship_speed_mult = 0.20
+		ship_evasion_mult = 0.10
+	}
+	potential = {
+		OR = {
+			is_ship_size = br_dominator
+			is_ship_size = br_civilian_arkship_tier_1
+			is_ship_size = br_civilian_arkship_tier_2
+			is_ship_size = br_civilian_arkship_tier_3
+			is_ship_size = br_science_arkship_tier_1
+			is_ship_size = br_science_arkship_tier_2
+			is_ship_size = br_science_arkship_tier_3
+			is_ship_size = br_military_arkship_tier_1
+			is_ship_size = br_military_arkship_tier_2
+			is_ship_size = br_military_arkship_tier_3
+		}
+	}
+	prerequisites = { "tech_afterburners_2" }
+	component_set = "BR_AFTERBURNER_2"
+
+	ai_weight = {
+		weight = 15
+		modifier = {
+			factor = 2.0
+			is_preferred_weapons = weapon_type_kinetic
+		}
+		modifier = {
+			factor = 0.5
+			is_preferred_weapons = weapon_type_explosive
+		}
+	}
+}
