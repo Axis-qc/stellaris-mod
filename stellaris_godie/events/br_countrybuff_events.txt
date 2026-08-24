@@ -23,7 +23,7 @@ country_event = {
 	}
 }
 
-# br.2：按玩家局势刷新 PVE 敌方强度
+# br.2：按玩家局势刷新 PVE 敌方强度（on_yearly_pulse_country 年度触发，仅在 br_pve_enemy 敌国上生效）
 country_event = {
 	id = br.2
 	hide_window = yes
@@ -31,11 +31,12 @@ country_event = {
 	trigger = {
 		has_global_flag = br_mode_pve
 		exists = event_target:br_pve_enemy_country
-		is_same_value = event_target:br_void_country
+		is_country_type = br_pve_enemy
 	}
 	immediate = {
+		# 每次刷新前清零强度快照，防止在旧值上重复累加
 		set_variable = {
-			which = br_pve_total_player_fleet_power
+			which = br_total_intensity
 			value = 0
 		}
 		every_country = {
@@ -64,7 +65,7 @@ country_event = {
 					value = prev.br_tmp_player_intensity
 				}
 			}
-			clear_variable = br_pve_tmp_player_fleet_power
+			clear_variable = br_tmp_player_intensity
 		}
 		event_target:br_pve_enemy_country = {
 			set_variable = {
