@@ -1,0 +1,20 @@
+# 检测当前使用的岗位类型（用于行政管理能力 tooltip 显示来源名称）
+
+HasAdminJobs = {
+    any_owned_pop_job = {
+        OR = {
+            has_job_type = "gm_admin"
+            has_job_type = "gm_admin_temple"
+        }
+    }
+}
+
+HasCoordinatorJobs = {
+    any_owned_pop_job = {
+        OR = {
+            has_job_type = "gm_coordinator"
+            has_job_type = "gm_coordinator_hive"
+            has_job_type = "gm_coordinator_wilderness"
+        }
+    }
+}
