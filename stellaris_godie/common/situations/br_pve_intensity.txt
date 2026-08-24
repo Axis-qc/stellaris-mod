@@ -24,6 +24,10 @@ situation_br_pve_intensity = {
 		}
 	}
 	on_start = {
+		# 首次 approach 豁免：局内第一次选中（含开局默认）不设切换冷却
+		owner = {
+			set_country_flag = br_approach_first_select
+		}
 	}
 	on_fail = {
 	}
@@ -45,6 +49,16 @@ situation_br_pve_intensity = {
 			desc = br_pve_intensity_boss
 			has_global_flag = br_boss_spawned
 		}
+		modifier = {
+			desc = br_pve_intensity_approach_suppress
+			subtract = value:br_pve_suppress_reduction
+			current_situation_approach = br_pve_intensity_suppress
+		}
+		modifier = {
+			desc = br_pve_intensity_approach_accelerate
+			add = value:br_pve_accelerate_bonus
+			current_situation_approach = br_pve_intensity_accelerate
+		}
 	}
 	approach = {
 		name = br_pve_intensity_suppress
@@ -53,9 +67,52 @@ situation_br_pve_intensity = {
 		default = yes
 		on_select = {
 			custom_tooltip = "br_pve_intensity_suppress_tt"
+			owner = {
+				if = {
+					limit = {
+						has_country_flag = br_approach_first_select
+					}
+					remove_country_flag = br_approach_first_select
+				}
+				else = {
+					set_timed_country_flag = {
+						flag = br_approach_switch_cooldown
+						days = 360
+					}
+				}
+			}
 		}
-		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
-		modifier = {
+		# 压制：低流速 + 稳定虚空消耗（资源随局势阶段升级）
+		resources = {
+			category = situations
+			upkeep = {
+				energy = 20
+			}
+			upkeep = {
+				trigger = {
+					current_stage = stage_high
+				}
+				alloys = 15
+			}
+			upkeep = {
+				trigger = {
+					current_stage = stage_extreme
+				}
+				volatile_motes = 3
+			}
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = br_pve_intensity_cooldown_tt
+				OR = {
+					current_situation_approach = br_pve_intensity_suppress
+					owner = {
+						NOT = {
+							has_country_flag = br_approach_switch_cooldown
+						}
+					}
+				}
+			}
 		}
 	}
 	approach = {
@@ -64,9 +121,34 @@ situation_br_pve_intensity = {
 		icon_background = GFX_situation_approach_bg_green
 		on_select = {
 			custom_tooltip = "br_pve_intensity_neutral_tt"
+			owner = {
+				if = {
+					limit = {
+						has_country_flag = br_approach_first_select
+					}
+					remove_country_flag = br_approach_first_select
+				}
+				else = {
+					set_timed_country_flag = {
+						flag = br_approach_switch_cooldown
+						days = 360
+					}
+				}
+			}
 		}
-		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
-		modifier = {
+		# 均衡：不增不减，纯基线
+		allow = {
+			custom_tooltip = {
+				fail_text = br_pve_intensity_cooldown_tt
+				OR = {
+					current_situation_approach = br_pve_intensity_neutral
+					owner = {
+						NOT = {
+							has_country_flag = br_approach_switch_cooldown
+						}
+					}
+				}
+			}
 		}
 	}
 	approach = {
@@ -75,9 +157,35 @@ situation_br_pve_intensity = {
 		icon_background = GFX_situation_approach_bg_green
 		on_select = {
 			custom_tooltip = "br_pve_intensity_accelerate_tt"
+			add_situation_progress = 20
+			owner = {
+				if = {
+					limit = {
+						has_country_flag = br_approach_first_select
+					}
+					remove_country_flag = br_approach_first_select
+				}
+				else = {
+					set_timed_country_flag = {
+						flag = br_approach_switch_cooldown
+						days = 360
+					}
+				}
+			}
 		}
-		# TODO: approach modifier 待实现（压制/均衡/催化应对 monthly_progress 产生影响）
-		modifier = {
+		# 催化：高流速 + 选中当场推进进度（回报=战斗系统早已给出的更多刷怪）
+		allow = {
+			custom_tooltip = {
+				fail_text = br_pve_intensity_cooldown_tt
+				OR = {
+					current_situation_approach = br_pve_intensity_accelerate
+					owner = {
+						NOT = {
+							has_country_flag = br_approach_switch_cooldown
+						}
+					}
+				}
+			}
 		}
 	}
 	# 纯视觉分阶段
