@@ -116,3 +116,34 @@ br_ark_zone_resort_entertainment = {
 
 	ai_priority = 10
 }
+
+# 方舟专属政府区 — 完全脱离原版 zone_default，防止其他 mod 改动原版建筑格子数量
+zone_br_ark_default = {
+	max_buildings = 6
+
+	zone_sets = {
+		br_ark_default
+	}
+
+	include = {
+		all
+	}
+
+	excluded_building_sets = {
+		generator
+		mining
+		farming
+		knights
+		betharian
+		fallen_empire_generator
+		fallen_empire_farming
+		fallen_empire_mining
+		urban_automation
+		urban_automation_arcology
+		generator_automation
+		mining_automation
+		farming_automation
+	}
+
+	ai_priority = 0
+}

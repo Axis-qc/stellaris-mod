@@ -1,0 +1,170 @@
+# 星舰改装决议（区划行按钮触发）——同等级跨类型转换
+# 流程：按钮设 carrier 旗并 select_decision → 酝酿期进度条 → 完成时读旗判目标并转换
+# 隐藏：potential 依赖进行中旗，空闲时决议列表不显示
+# 参考：原版理想城计划机制
+
+@br_arkship_convert_days = 360	# 正式版改造时长
+
+br_arkship_convert_decision = {
+	important = yes
+	icon = decision_arcology_project
+	owned_planets_only = yes
+
+	enactment_time = @br_arkship_convert_days
+
+	resources = {
+		category = decisions
+		cost = {
+
+		}
+	}
+
+	potential = {
+		is_planet_class = pc_br_ark
+		exists = owner
+		has_carrier_flag = br_arkship_convert_in_progress
+	}
+
+	allow = {
+		always = yes
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+
+	on_queued = {
+		set_carrier_flag = br_arkship_convert_in_progress
+	}
+
+	on_unqueued = {
+		remove_carrier_flag = br_arkship_convert_in_progress
+		remove_carrier_flag = br_arkship_convert_target_civilian
+		remove_carrier_flag = br_arkship_convert_target_science
+		remove_carrier_flag = br_arkship_convert_target_military
+	}
+
+	effect = {
+		if = {
+			limit = {
+				has_carrier_flag = br_arkship_convert_target_civilian
+			}
+			remove_carrier_flag = br_arkship_convert_in_progress
+			remove_carrier_flag = br_arkship_convert_target_civilian
+			fleet = {
+				starbase? = {
+					if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_science_arkship_tier_1
+								has_starbase_size = br_military_arkship_tier_1
+							}
+						}
+						set_starbase_size = br_civilian_arkship_tier_1
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_science_arkship_tier_2
+								has_starbase_size = br_military_arkship_tier_2
+							}
+						}
+						set_starbase_size = br_civilian_arkship_tier_2
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_science_arkship_tier_3
+								has_starbase_size = br_military_arkship_tier_3
+							}
+						}
+						set_starbase_size = br_civilian_arkship_tier_3
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_carrier_flag = br_arkship_convert_target_science
+			}
+			remove_carrier_flag = br_arkship_convert_in_progress
+			remove_carrier_flag = br_arkship_convert_target_science
+			fleet = {
+				starbase? = {
+					if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_1
+								has_starbase_size = br_military_arkship_tier_1
+							}
+						}
+						set_starbase_size = br_science_arkship_tier_1
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_2
+								has_starbase_size = br_military_arkship_tier_2
+							}
+						}
+						set_starbase_size = br_science_arkship_tier_2
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_3
+								has_starbase_size = br_military_arkship_tier_3
+							}
+						}
+						set_starbase_size = br_science_arkship_tier_3
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_carrier_flag = br_arkship_convert_target_military
+			}
+			remove_carrier_flag = br_arkship_convert_in_progress
+			remove_carrier_flag = br_arkship_convert_target_military
+			fleet = {
+				starbase? = {
+					if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_1
+								has_starbase_size = br_science_arkship_tier_1
+							}
+						}
+						set_starbase_size = br_military_arkship_tier_1
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_2
+								has_starbase_size = br_science_arkship_tier_2
+							}
+						}
+						set_starbase_size = br_military_arkship_tier_2
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_3
+								has_starbase_size = br_science_arkship_tier_3
+							}
+						}
+						set_starbase_size = br_military_arkship_tier_3
+					}
+				}
+			}
+		}
+		else = {
+			# 兜底：无匹配目标旗时仅清旗
+			remove_carrier_flag = br_arkship_convert_in_progress
+			remove_carrier_flag = br_arkship_convert_target_civilian
+			remove_carrier_flag = br_arkship_convert_target_science
+			remove_carrier_flag = br_arkship_convert_target_military
+		}
+	}
+}

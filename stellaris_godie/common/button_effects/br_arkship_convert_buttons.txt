@@ -1,0 +1,135 @@
+# 星舰改装按钮（居住甲板区划行GUI）——同等级跨类型转换
+# 作用域=ship；状态用 carrier 旗（方舟船星一体，行星视角同存储）
+# 点击：设目标旗+进行中旗 → 匹配本船行星 → select_decision 启动改装决议（common/decisions/br_arkship_convert_decisions.txt）
+# 禁用：改装中全禁；当前类型灰显
+br_arkship_convert_to_civilian = {
+	potential = {
+		always = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_ARK_CONVERT_FAIL_BLOCKED
+			AND = {
+				NOT = {
+					has_carrier_flag = br_arkship_convert_in_progress
+				}
+				NOT = {
+					fleet = {
+						starbase? = {
+							OR = {
+								has_starbase_size = br_civilian_arkship_tier_1
+								has_starbase_size = br_civilian_arkship_tier_2
+								has_starbase_size = br_civilian_arkship_tier_3
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_carrier_flag = br_arkship_convert_target_civilian
+			set_carrier_flag = br_arkship_convert_in_progress
+			owner = {
+				every_owned_planet = {
+					limit = {
+						is_planet_class = pc_br_ark
+						has_carrier_flag = br_arkship_convert_in_progress
+					}
+					select_decision = {
+						name = br_arkship_convert_decision
+					}
+				}
+			}
+		}
+	}
+}
+
+br_arkship_convert_to_science = {
+	potential = {
+		always = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_ARK_CONVERT_FAIL_BLOCKED
+			AND = {
+				NOT = {
+					has_carrier_flag = br_arkship_convert_in_progress
+				}
+				NOT = {
+					fleet = {
+						starbase? = {
+							OR = {
+								has_starbase_size = br_science_arkship_tier_1
+								has_starbase_size = br_science_arkship_tier_2
+								has_starbase_size = br_science_arkship_tier_3
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_carrier_flag = br_arkship_convert_target_science
+			set_carrier_flag = br_arkship_convert_in_progress
+			owner = {
+				every_owned_planet = {
+					limit = {
+						is_planet_class = pc_br_ark
+						has_carrier_flag = br_arkship_convert_in_progress
+					}
+					select_decision = {
+						name = br_arkship_convert_decision
+					}
+				}
+			}
+		}
+	}
+}
+
+br_arkship_convert_to_military = {
+	potential = {
+		always = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = BR_ARK_CONVERT_FAIL_BLOCKED
+			AND = {
+				NOT = {
+					has_carrier_flag = br_arkship_convert_in_progress
+				}
+				NOT = {
+					fleet = {
+						starbase? = {
+							OR = {
+								has_starbase_size = br_military_arkship_tier_1
+								has_starbase_size = br_military_arkship_tier_2
+								has_starbase_size = br_military_arkship_tier_3
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_carrier_flag = br_arkship_convert_target_military
+			set_carrier_flag = br_arkship_convert_in_progress
+			owner = {
+				every_owned_planet = {
+					limit = {
+						is_planet_class = pc_br_ark
+						has_carrier_flag = br_arkship_convert_in_progress
+					}
+					select_decision = {
+						name = br_arkship_convert_decision
+					}
+				}
+			}
+		}
+	}
+}
