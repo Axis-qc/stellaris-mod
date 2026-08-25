@@ -1,0 +1,43 @@
+# ============================================================
+# 【备用 STANDBY】本文件暂存于 _waystation_standby/，当前不加载。
+# 启用时移回原目录/原名（见 README.md 与文件名后缀）。
+# ============================================================
+
+# ============================================================
+# 椹跨珯锛圵aystation锛夋櫘閫氬笣鍥界増绉戞妧
+# 鍘熺増 tech_waystation_1/2/3 鍧囦负 is_nomadic = yes 鐨勬父鐗т笓灞炵鎶€锛?# 鏈鎶€涓烘櫘閫氬笣鍥斤紙闈炴父鐗э級鐙珛鐨勪竴濂楋紝鍙甯稿湪鐮旂┒姹犱腑鍒锋柊鐮旂┒銆?#
+# 鍓嶇疆 tech_mega_engineering锛氫笌椹跨珯浣滀负宸ㄥ瀷缁撴瀯鐨勫畾浣嶄竴鑷淬€?# 鐮旂┒鍚庡彲鍦ㄥ缓閫犵晫闈㈠缓閫犳槦闄呴┛绔欙紙閰嶅悎 common/megastructures/br_waystation_megastructure.txt锛夈€?# ============================================================
+
+tech_br_waystation = {
+	area = engineering
+	cost = @tier5cost1
+	tier = 5
+	category = { voidcraft }
+	prerequisites = { "tech_mega_engineering" }
+	weight = @tier5weight1
+	is_rare = yes
+	potential = {
+		is_nomadic = no
+	}
+	modifier = {
+		country_starbase_capacity_add = 2
+	}
+	weight_modifier = {
+		modifier = {
+			factor = 5
+			has_technology = tech_mega_engineering
+		}
+	}
+	prereqfor_desc = {
+		ship = {
+			title = "allow_waystations"
+			desc = "waystation_megastructure_MEGASTRUCTURE_DETAILS"
+		}
+	}
+	ai_weight = {
+		modifier = {
+			factor = 10
+			is_nomadic = no
+		}
+	}
+}

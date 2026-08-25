@@ -1,0 +1,87 @@
+# ============================================================
+# 【备用 STANDBY】本文件暂存于 _waystation_standby/，当前不加载。
+# 启用时移回原目录/原名（见 README.md 与文件名后缀）。
+# ============================================================
+
+# ============================================================
+# br 椹跨珯鑸逛綋锛堟櫘閫氬笣鍥界増锛岃嚜寤轰竴濂楋紝涓嶇鍘熺増锛?# 鍘熺増 starbase_waystation_1 鐨?prerequisites = tech_waystation_1锛堟父鐗т笓灞烇級锛?# 闈炴父鐗у浗瀹跺洜姝ゆ棤娉曠敓鎴愯鑸逛綋/榛樿璁捐锛屽鑷磋浆鏄熸腐澶辫触銆?# 杩欓噷澶嶅埗涓?br_ 鍓嶇紑锛宲rerequisites 鏀圭敤 tech_br_waystation锛屽交搴曠粫寮€鍘熺増闄愬埗銆?#
+# 褰撳墠鍙仛 1 绾э紙鍏堥獙璇佸彲琛屾€э級锛屽尯娈典粎淇濈暀鏍稿績娈碉紙璧勬簮绔欒冻澶熺敤锛夈€?# 2/3 绾у緟 1 绾ч獙璇侀€氳繃鍚庤ˉ鍏呫€?# ============================================================
+
+br_starbase_waystation_1 = {
+	entity = "starbase_starport_entity"
+	hull_scale = 0.75
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	modifier = {
+		ship_evasion_mult = @waystation_evasion_negative_1
+		ship_armor_add = @waystation_armor_2000
+		starbase_module_capacity_add = @waystation_modules_2
+		ship_sensor_range_add = 1
+		starbase_stockpile_capacity_add = @waystation_stockpile_500
+		starbase_collected_system_resources_mult = @waystation_modifier_negative_mult_25_percent
+	}
+	max_hitpoints = @waystation_hp_5000
+	base_buildtime = @waystation_build_time_180
+	resources = {
+		category = starbase_waystations
+		upkeep = {
+			trade = @waystation_upkeep_trade_2
+		}
+		upkeep = {
+			trigger = {
+				from = {
+					country_uses_bio_ships = no
+				}
+			}
+			energy = @waystation_upkeep_energy_1
+		}
+		upkeep = {
+			trigger = {
+				from = {
+					country_uses_bio_ships = yes
+				}
+			}
+			food = @waystation_upkeep_energy_1
+		}
+	}
+
+	potential_construction = {
+		# This is built through a megastructure
+		always = no
+	}
+	possible_construction = {
+		always = no
+	}
+
+	combat_size_multiplier = 5
+	size_multiplier = 4
+	fleet_slot_size = 2
+	section_slots = {
+		"core" = { locator = "part1" }
+	}
+	is_designable = no
+	num_target_locators = 0
+	is_space_station = yes
+	can_have_federation_design = no
+	is_civilian = no
+	components_add_to_cost = no
+	is_listed = no
+	can_disable = yes
+	stay_disabled = yes
+	available_to_everyone = yes
+
+	enable_default_design = yes
+	prerequisites = { "tech_br_waystation" }
+	class = shipclass_starbase
+
+	required_component_set = "power_core"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+
+	build_block_radius = 20
+	formation_priority = 1
+	icon_frame = 13
+	icon = ship_size_military_station
+	ship_class_icon_frame = 65
+}

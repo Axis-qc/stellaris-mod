@@ -1,0 +1,28 @@
+# ============================================================
+# 【备用 STANDBY】本文件暂存于 _waystation_standby/，当前不加载。
+# 启用时移回原目录/原名（见 README.md 与文件名后缀）。
+# ============================================================
+
+# ============================================================
+# br 椹跨珯璇嗗埆瑙﹀彂鍣ㄨ鐩?#
+# 鍘熺増鏁村椹跨珯鐢熸€侊紙椹块亾 UI銆侀┛绔欐ā鍧椼€侀┛閬撶綉缁溿€佹敹闆嗛€昏緫锛夐兘闈?# is_waystation_starbase / is_waystation_ship 杩欎袱涓Е鍙戝櫒璇嗗埆椹跨珯銆?# 鍘熺増瀹氫箟锛?9_scripted_triggers_nomads.txt锛夛細
+#   is_waystation_starbase = { has_starbase_size >= starbase_waystation_1 }
+#   is_waystation_ship = { OR = { is_ship_size = starbase_waystation_1/2/3 } }
+#
+# br 椹跨珯鏄柊鑸逛綋/鏂扮瓑绾э紝蹇呴』鎶婅繖涓や釜瑙﹀彂鍣ㄨ鐩栦负鍚屾椂璁ゅ師鐗?+ br锛?# 鍚﹀垯 br 椹跨珯鏃犳硶濂楃敤椹块亾 UI銆佽椹跨珯妯″潡銆佹帴鍏ラ┛閬撶綉缁溿€?# 褰撳墠鍙寘鍚?1 绾э紱2/3 绾цˉ鍏呮椂鍦ㄦ杩藉姞銆?# ============================================================
+
+is_waystation_starbase = {
+	OR = {
+		has_starbase_size >= starbase_waystation_1
+		has_starbase_size >= br_starbase_waystation_1
+	}
+}
+
+is_waystation_ship = {
+	OR = {
+		is_ship_size = starbase_waystation_1
+		is_ship_size = starbase_waystation_2
+		is_ship_size = starbase_waystation_3
+		is_ship_size = br_starbase_waystation_1
+	}
+}

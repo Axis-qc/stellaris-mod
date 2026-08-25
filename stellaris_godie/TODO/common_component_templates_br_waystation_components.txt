@@ -1,0 +1,52 @@
+# ============================================================
+# 【备用】br 驿站（Waystation）专属组件 —— 暂存，不加载
+#
+# 状态：STANDBY —— 从 common/component_templates/br_component_templates.txt 抽出暂存，
+#       当前不接入游戏。
+# 启用：把本文件内容（两个 utility_component_template 块）合并回
+#       common/component_templates/br_component_templates.txt 末尾即可。
+#
+# 为什么需要这两个组件：
+# 原版星港反应堆（STARBASE_FISSION_REACTOR）/ 战斗电脑（STARBASE_COMBAT_COMPUTER）
+# 都带 potential = ship_uses_starbase_components = yes，而该触发器是硬编码船体名单
+# （07_scripted_triggers_ships.txt），不含 br_starbase_waystation_1。
+# 没有这两个专属组件时，br 驿站船体自动生成设计填不满 power_core/combat_computers，
+# 报 "cannot build any component in the component set power_core/combat_computers
+# for design ... and size br_starbase_waystation_1"，转星港失败、建造完成瞬间消失。
+#
+# 参考：br_component_templates.txt 里 BR_DOMINATOR_* 组件写法（mod 的 br 组件套路）。
+# 传感器不用补（常规传感器无 ship_uses_starbase_components 门槛）。
+# ============================================================
+
+# br 驿站反应堆（power_core）
+utility_component_template = {
+	key = "BR_WAYSTATION_REACTOR"
+	size = large
+	icon = "GFX_ship_part_reactor_1"
+	icon_frame = 1
+	power = 1875
+	component_set = "power_core"
+	potential = {
+		is_ship_size = br_starbase_waystation_1
+	}
+	ai_weight = {
+		weight = 1
+	}
+}
+
+# br 驿站战斗电脑（combat_computers）
+utility_component_template = {
+	key = "BR_WAYSTATION_COMBAT_COMPUTER"
+	size = small
+	icon = "GFX_ship_part_computer_default"
+	icon_frame = 1
+	power = 0
+	ship_behavior = "platform"
+	component_set = "combat_computers"
+	potential = {
+		is_ship_size = br_starbase_waystation_1
+	}
+	ai_weight = {
+		weight = 1
+	}
+}
