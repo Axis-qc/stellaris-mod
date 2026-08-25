@@ -56,7 +56,10 @@ tech_br_arkship_tier_2 = {
 	category = { voidcraft }
 	prerequisites = {
 		"tech_br_arkship_construction"
-		"tech_battleships"
+		OR = {
+			"tech_battleships"
+			"tech_stingers"
+		}
 		"tech_mega_engineering"
 	}
 	weight = @tier4weight1
@@ -194,7 +197,10 @@ tech_br_military_arkship = {
 	tier = 3
 	category = { voidcraft }
 	prerequisites = {
-		"tech_destroyers"
+		OR = {
+			"tech_destroyers"
+			"tech_mauler_growth_2"
+		}
 		"tech_br_arkship_construction"
 	}
 	weight = @tier3weight1

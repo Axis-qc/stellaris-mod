@@ -133,12 +133,17 @@ country_event = {
 		}
 	}
 	immediate = {
-		# TODO: 未适配生物舰船 — 生物舰船没有 is_ship_size = corvette/destroyer/cruiser/battleship，
-		# random_owned_design 无法匹配，导致设计保存为空，create_ship 刷不出船。
-		# 后续需改用 any_owned_ship 遍历实际舰船来获取设计，或准备一套后备固定设计。
+		# 生物舰船兼容：原版生物船型没有 is_ship_size = corvette/destroyer/cruiser/battleship，
+		# 用 OR 并入对应生物家族（mauler=护卫 / weaver=驱逐 / harbinger=巡洋 / stinger=战列），
+		# 普通玩家无生物设计时生物项恒 false，不影响原有逻辑。
 		random_owned_design = {
 			limit = {
-				is_ship_size = corvette
+				OR = {
+					is_ship_size = corvette
+					is_ship_size = mauler_stage_1
+					is_ship_size = mauler_stage_2
+					is_ship_size = mauler_stage_3
+				}
 			}
 			save_global_event_target_as = br_player_corvette
 		}
@@ -151,7 +156,12 @@ country_event = {
 			}
 			random_owned_design = {
 				limit = {
-					is_ship_size = destroyer
+					OR = {
+						is_ship_size = destroyer
+						is_ship_size = weaver_stage_1
+						is_ship_size = weaver_stage_2
+						is_ship_size = weaver_stage_3
+					}
 				}
 				save_global_event_target_as = br_player_destroyer
 			}
@@ -165,7 +175,12 @@ country_event = {
 			}
 			random_owned_design = {
 				limit = {
-					is_ship_size = cruiser
+					OR = {
+						is_ship_size = cruiser
+						is_ship_size = harbinger_stage_1
+						is_ship_size = harbinger_stage_2
+						is_ship_size = harbinger_stage_3
+					}
 				}
 				save_global_event_target_as = br_player_cruiser
 			}
@@ -179,7 +194,12 @@ country_event = {
 			}
 			random_owned_design = {
 				limit = {
-					is_ship_size = battleship
+					OR = {
+						is_ship_size = battleship
+						is_ship_size = stinger_stage_1
+						is_ship_size = stinger_stage_2
+						is_ship_size = stinger_stage_3
+					}
 				}
 				save_global_event_target_as = br_player_battleship
 			}
