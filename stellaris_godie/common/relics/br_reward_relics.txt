@@ -1,5 +1,5 @@
 br_reward_relics = {
-    portrait = "GFX_the_pattern_maker"
+    portrait = "GFX_propagandosphere"
     sound = "relic_activation_pattern_maker"
 
     resources = {
@@ -10,7 +10,12 @@ br_reward_relics = {
 
     ai_weight = { weight = 0 }
 
-    # 通用BUFF变量承载。
+	# 海军和资源上限（随战力等级成长）
+	triggered_country_modifier = { potential = { always = yes } country_resource_max_add = 50000 mult = br_power_level }
+	triggered_country_modifier = { potential = { always = yes } country_naval_cap_add = 500 mult = br_power_level }
+	triggered_country_modifier = { potential = { always = yes } command_limit_add = 200 mult = br_power_level }
+
+	# 通用BUFF变量承载。
     triggered_country_modifier = { potential = { always = yes } ship_weapon_damage = 0.03 mult = br_reward_weapon_damage }
     triggered_country_modifier = { potential = { always = yes } ship_speed_mult = 0.03 mult = br_reward_ship_speed }
     triggered_country_modifier = { potential = { always = yes } ship_evasion_mult = 0.03 mult = br_reward_thruster_evasion }
@@ -33,11 +38,6 @@ br_reward_relics = {
     triggered_country_modifier = { potential = { always = yes } weapon_type_kinetic_weapon_fire_rate_mult = 0.05 mult = br_reward_kinetic_fire_rate }
     triggered_country_modifier = { potential = { always = yes } ship_shield_mult = 0.05 mult = br_reward_shield }
     triggered_country_modifier = { potential = { always = yes } ship_armor_mult = 0.05 mult = br_reward_armor }
-    
-    # 海军和资源上限（随战力等级成长）
-    triggered_country_modifier = { potential = { always = yes } country_resource_max_add = 50000 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } country_naval_cap_add = 500 mult = br_power_level }
-    triggered_country_modifier = { potential = { always = yes } command_limit_add = 200 mult = br_power_level }
 
     # 基础资源月产出（奖励池选择累积）
     triggered_country_modifier = { potential = { always = yes } country_base_energy_produces_add = 1 mult = br_reward_energy_income }
