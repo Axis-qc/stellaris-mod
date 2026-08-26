@@ -1,180 +1,90 @@
-#旧版刷敌逻辑，部分已废弃，
-# PVE刷敌 scripted_effects
-# 在 br_pve_enemy_country 作用域下调用，目标星系通过 event_target:br_spawn_tmp 指定
+# =========================================================================
+# PVE 年度突击刷敌链
+# 调用链: br.850(on_yearly_pulse_country, 保存玩家舰船设计)
+#          → 延迟触发 br.830/br.840 → br_pve_reinforce_events.txt:96
+#          → br_reinforce_pve_fleet → br_spawn_mixed(40%) / br_spawn_pure_*(各15%)
+# 舰船设计来自 event_target:br_player_*（玩家舰船保存，含生物船兼容修复）
+# 数量由 br_total_intensity 驱动：护卫=intensity/10 保底1，驱逐/巡洋/战列逐级减半
+# =========================================================================
 
-# 刷 N 艘指定设计（随机二选一）
-# $COUNT$ = 艘数, $DESIGN_A$ / $DESIGN_B$ = 完整设计名
-br_spawn_n_ships = {
+# ============================================================
+# 年度增援调度 — 随机编队类型
+# 在已有舰队作用域内调用
+# ============================================================
+br_reinforce_pve_fleet = {
+    random_list = {
+        40 = { br_spawn_mixed = yes }
+        15 = { br_spawn_pure_corvette = yes }
+        15 = { br_spawn_pure_destroyer = yes }
+        15 = { br_spawn_pure_cruiser = yes }
+        15 = { br_spawn_pure_battleship = yes }
+    }
+}
+
+# ============================================================
+# 混合编队 — 四舰种混出
+# ============================================================
+
+br_spawn_mixed = {
+    # 数量由 br_total_intensity 驱动（替代累计计数 br_reinf_1），保底 1 艘护卫
+    #复制变量进行检查
+    set_variable = { which = br_total_intensity_effect value = event_target:br_pve_enemy_country.br_total_intensity }
+    set_variable = { which = br_reinf_1 value = event_target:br_pve_enemy_country.br_total_intensity }
+    divide_variable = { which = br_reinf_1 value = 10 }
+    if = {
+        limit = { check_variable = { which = br_reinf_1 value < 1 } }
+        set_variable = { which = br_reinf_1 value = 1 }
+    }
+
+    # 护卫
     while = {
-        count = $COUNT$
-        random_list = {
-            50 = { create_ship = { name = random design = $DESIGN_A$ } }
-            50 = { create_ship = { name = random design = $DESIGN_B$ } }
+        count = br_reinf_1
+        create_ship = { name = random design = event_target:br_player_corvette }
+    }
+
+    # 驱逐：intensity >= 200 时出现，数量 = 护卫 / 2
+    if = {
+        limit = { check_variable = { which = br_total_intensity_effect value >= 200 } }
+        set_variable = { which = br_reinf_2 value = br_reinf_1 }
+        divide_variable = { which = br_reinf_2 value = 2 }
+        while = {
+            count = br_reinf_2
+            create_ship = { name = random design = event_target:br_player_destroyer }
         }
     }
-}
 
-# ======================== 普通舰队 ========================
-
-# 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），$N$ 倍率
-br_spawn_pve_fleet = {
-    create_fleet = {
-        name = "BR_PVE_GARRISON_FLEET"
-        effect = {
-            set_owner = event_target:br_pve_enemy_country
-            set_location = { target = event_target:br_spawn_tmp distance = 0 }
-
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_ARTILLERY_BATTLESHIP }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+    # 巡洋：intensity >= 400 时出现，数量 = 驱逐 / 2
+    if = {
+        limit = { check_variable = { which = br_total_intensity_effect value >= 400 } }
+        set_variable = { which = br_reinf_3 value = br_reinf_2 }
+        divide_variable = { which = br_reinf_3 value = 2 }
+        while = {
+            count = br_reinf_3
+            create_ship = { name = random design = event_target:br_player_cruiser }
         }
     }
-}
 
-# 自定义编队：直接指定各舰种艘数，0 跳过
-br_spawn_pve_fleet_custom = {
-    create_fleet = {
-        name = "BR_PVE_GARRISON_FLEET"
-        effect = {
-            set_owner = event_target:br_pve_enemy_country
-            set_location = { target = event_target:br_spawn_tmp distance = 0 }
-
-            br_spawn_n_ships = { COUNT = $battleship$ DESIGN_A = BR_PVE_ARTILLERY_BATTLESHIP DESIGN_B = BR_PVE_ARTILLERY_BATTLESHIP }
-            br_spawn_n_ships = { COUNT = $cruiser$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $destroyer$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            br_spawn_n_ships = { COUNT = $frigate$ DESIGN_A = BR_PVE_ARTILLERY_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_TORPEDO_CORVETTE }
+    # 战列：intensity >= 600 时出现，数量 = 巡洋 / 2
+    if = {
+        limit = { check_variable = { which = br_total_intensity_effect value >= 600 } }
+        set_variable = { which = br_reinf_4 value = br_reinf_3 }
+        divide_variable = { which = br_reinf_4 value = 2 }
+        while = {
+            count = br_reinf_4
+            create_ship = { name = random design = event_target:br_player_battleship }
         }
     }
-}
 
-# ======================== 精英舰队 ========================
-
-# 默认编队：1battleship + 2cruiser + 4destroyer + 8corvette + 4frigate（均海军容量），精英设计
-br_spawn_pve_elite_fleet = {
-    create_fleet = {
-        name = "BR_PVE_GARRISON_FLEET"
-        effect = {
-            set_owner = event_target:br_pve_enemy_country
-            set_location = { target = event_target:br_spawn_tmp distance = 0 }
-
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_BATTLESHIP DESIGN_B = BR_PVE_ARTILLERY_ELITE_BATTLESHIP }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
-            br_spawn_n_ships = { COUNT = $N$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
-        }
-    }
-}
-
-# 自定义编队：直接指定各舰种艘数，精英设计，0 跳过
-br_spawn_pve_elite_fleet_custom = {
-    create_fleet = {
-        name = "BR_PVE_GARRISON_FLEET"
-        effect = {
-            set_owner = event_target:br_pve_enemy_country
-            set_location = { target = event_target:br_spawn_tmp distance = 0 }
-
-            br_spawn_n_ships = { COUNT = $battleship$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_BATTLESHIP DESIGN_B = BR_PVE_ARTILLERY_ELITE_BATTLESHIP }
-            br_spawn_n_ships = { COUNT = $cruiser$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $destroyer$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_CORVETTE }
-            br_spawn_n_ships = { COUNT = $frigate$ DESIGN_A = BR_PVE_ARTILLERY_ELITE_TORPEDO_CORVETTE DESIGN_B = BR_PVE_BRAWLER_ELITE_TORPEDO_CORVETTE }
-        }
-    }
-}
-
-# ======================== 外圈杂兵舰队 ========================
-
-# [已废弃] 外圈随机舰队 — 已被 br_spawn_crisis_grunt_fleet 替代
-# 使用天灾原版舰船（虫群/恶魔/肃正），不出女王
-br_spawn_pve_outer_fleet = {
-    create_fleet = {
-        name = "BR_PVE_GARRISON_FLEET"
-        effect = {
-            set_owner = event_target:br_pve_enemy_country
-            set_location = { target = event_target:br_spawn_tmp distance = 50 angle = random }
-
-            # 固定基础护卫
-            br_spawn_n_ships = { COUNT = $corvette$ DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-            # 随机额外护卫 0-7（权重递减）
-            random_list = {
-                30 = { }
-                25 = { br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE } }
-                20 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-                15 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-                10 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-                7 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-                5 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-                3 = {
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                    br_spawn_n_ships = { COUNT = 1 DESIGN_A = BR_PVE_ARTILLERY_CORVETTE DESIGN_B = BR_PVE_BRAWLER_CORVETTE }
-                }
-            }
-        }
-    }
+    clear_variable = br_reinf_1
+    clear_variable = br_reinf_2
+    clear_variable = br_reinf_3
+    clear_variable = br_reinf_4
 }
 
 # ============================================================
 # 纯编队效果 — 累计模式，每次调用+1，全出一种船
 # 计数器挂在 event_target:br_pve_enemy_country 上
+# 无对应玩家设计时 fallback 到混合编队
 # ============================================================
 
 # 纯护卫：累计模式，上限 100（变量挂 br_pve_enemy_country）
@@ -274,79 +184,5 @@ br_spawn_pure_battleship = {
     }
     else = {
         br_spawn_mixed = yes
-    }
-}
-
-# ============================================================
-# 混合编队（原增援逻辑）
-# ============================================================
-
-br_spawn_mixed = {
-    # 数量由 br_total_intensity 驱动（替代累计计数 br_reinf_1），保底 1 艘护卫
-    set_variable = { which = br_reinf_1 value = event_target:br_pve_enemy_country.br_total_intensity }
-    divide_variable = { which = br_reinf_1 value = 10 }
-    if = {
-        limit = { check_variable = { which = br_reinf_1 value < 1 } }
-        set_variable = { which = br_reinf_1 value = 1 }
-    }
-
-    # 护卫
-    while = {
-        count = br_reinf_1
-        create_ship = { name = random design = event_target:br_player_corvette }
-    }
-
-    # 驱逐：intensity >= 200 时出现，数量 = 护卫 / 2
-    if = {
-        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
-        set_variable = { which = br_reinf_2 value = br_reinf_1 }
-        divide_variable = { which = br_reinf_2 value = 2 }
-        while = {
-            count = br_reinf_2
-            create_ship = { name = random design = event_target:br_player_destroyer }
-        }
-    }
-
-    # 巡洋：intensity >= 400 时出现，数量 = 驱逐 / 2
-    if = {
-        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 400 } }
-        set_variable = { which = br_reinf_3 value = br_reinf_2 }
-        divide_variable = { which = br_reinf_3 value = 2 }
-        while = {
-            count = br_reinf_3
-            create_ship = { name = random design = event_target:br_player_cruiser }
-        }
-    }
-
-    # 战列：intensity >= 600 时出现，数量 = 巡洋 / 2
-    if = {
-        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 600 } }
-        set_variable = { which = br_reinf_4 value = br_reinf_3 }
-        divide_variable = { which = br_reinf_4 value = 2 }
-        while = {
-            count = br_reinf_4
-            create_ship = { name = random design = event_target:br_player_battleship }
-        }
-    }
-
-    clear_variable = br_reinf_1
-    clear_variable = br_reinf_2
-    clear_variable = br_reinf_3
-    clear_variable = br_reinf_4
-}
-
-# ============================================================
-# 年度增援调度 — 随机编队类型
-# ============================================================
-
-# 在已有舰队作用域内调用，从事件 root (br_player_pve) 读取 br_power_level
-# 设计来源：由 br.850 每年保存为全局 event_target
-br_reinforce_pve_fleet = {
-    random_list = {
-        40 = { br_spawn_mixed = yes }
-        15 = { br_spawn_pure_corvette = yes }
-        15 = { br_spawn_pure_destroyer = yes }
-        15 = { br_spawn_pure_cruiser = yes }
-        15 = { br_spawn_pure_battleship = yes }
     }
 }

@@ -1,0 +1,23 @@
+namespace = br
+
+# ============================================================================
+#虚空裂隙星基生成测试
+# ============================================================================
+
+country_event = {
+	id = br.9950
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		random_system = {
+			limit = {
+				NOT = { exists = starbase }
+			}
+			create_starbase = {
+				size = br_void_rift
+				owner = event_target:br_pve_enemy_country	# 固定敌人国家作 owner，与 br.915 生产路径一致
+			}
+		}
+	}
+}

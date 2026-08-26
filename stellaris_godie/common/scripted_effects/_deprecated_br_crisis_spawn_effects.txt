@@ -1,265 +1,14 @@
 # =========================================================================
-# PVE刷敌,直接使用原版天灾舰船
-# 调用链: br_spawn_crisis_fleet(按圈算量) → br_crisis_create_fleet(选编队)
-#          → 纯种(10%×4) 或 混合编队 → small/medium/large_spawn
-# 参数 $small$/$medium$/$large$ 文本替换，不依赖运行时变量
-# 所有 create_ship 必须带 graphical_culture，否则炮塔 fallback 到所属国
+# 【已废弃】圈层时代天灾编队调度器与纯种编队 — 仅历史参考，无任何活跃调用
+# 废弃原因（2026-08-26）：PVE 模式已无 br_ring_* 圈层标记，唯一调用入口
+# br_spawn_crisis_fleet 的圈层查表永不命中，本文件整条链不再执行。
+# 依赖说明：br_crisis_create_fleet 引用的 br_crisis_small/medium/large_spawn
+# 现位于 br_pve_rift_spawn.txt（跨文件全局命名空间，引用仍可解析）。
+# 如需彻底删除，需连同本文件内 mutual 引用一并移除。
+# 2026-08-26 追加：br_spawn_crisis_fleet_legacy 为圈层查表完整版入口（原名 br_spawn_crisis_fleet，
+# PVE 下九段 br_ring_* 判定永不命中、恒走 grunt 兜底）。现役精简版在 br_crisis_grunt_spawn_effects.txt；
+# 未来若恢复圈层刷敌玩法，将 _legacy 版改回原名即可使用。
 # =========================================================================
-# [入口] 按圈层算数量 → 调 br_crisis_create_fleet
-# 作用域: 国家，root=国家，event_target:br_spawn_tmp=目标恒星
-br_spawn_crisis_fleet = {
-	event_target:br_spawn_tmp@root = {
-		# 已经是 solar_system 作用域（event_target 本身就是 solar_system），root = 国家
-		# 26-30: 小12+中6
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_26
-					has_star_flag = br_ring_27
-					has_star_flag = br_ring_28
-					has_star_flag = br_ring_29
-					has_star_flag = br_ring_30
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 3
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 2
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 0
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 22-25: 小8+中4+大2
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_22
-					has_star_flag = br_ring_23
-					has_star_flag = br_ring_24
-					has_star_flag = br_ring_25
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 3
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 2
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 1
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 18-21: 小12+中6+大2
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_18
-					has_star_flag = br_ring_19
-					has_star_flag = br_ring_20
-					has_star_flag = br_ring_21
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 4
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 2
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 1
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 14-17: 小16+中8+大2
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_14
-					has_star_flag = br_ring_15
-					has_star_flag = br_ring_16
-					has_star_flag = br_ring_17
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 5
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 3
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 1
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 10-13: 小20+中10+大4
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_10
-					has_star_flag = br_ring_11
-					has_star_flag = br_ring_12
-					has_star_flag = br_ring_13
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 6
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 3
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 2
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 6-9: 小24+中12+大4
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_6
-					has_star_flag = br_ring_7
-					has_star_flag = br_ring_8
-					has_star_flag = br_ring_9
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 8
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 4
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 2
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 4-5: 小28+中14+大6
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_4
-					has_star_flag = br_ring_5
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 10
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 5
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 3
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 2-3: 小32+中18+大8
-		if = {
-			limit = {
-				OR = {
-					has_star_flag = br_ring_2
-					has_star_flag = br_ring_3
-				}
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 12
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 6
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 4
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 1: 小44+中22+大10
-		if = {
-			limit = {
-				has_star_flag = br_ring_1
-			}
-			set_star_flag = br_ring_matched
-			event_target:br_pve_enemy_fleet@root = {
-				set_variable = {
-					which = br_crisis_small
-					value = 16
-				}
-				set_variable = {
-					which = br_crisis_medium
-					value = 8
-				}
-				set_variable = {
-					which = br_crisis_large
-					value = 5
-				}
-				br_crisis_create_fleet = yes
-			}
-		}
-		# 不在30圈内 → 生成grunt杂兵舰队
-		if = {
-			limit = {
-				NOT = {
-					has_star_flag = br_ring_matched
-				}
-			}
-			event_target:br_pve_enemy_fleet@root = {
-				br_crisis_create_grunt_fleet = yes
-			}
-		}
-		# 清理临时标记
-		remove_star_flag = br_ring_matched
-	}
-}
 
 # [调度器] 建舰队 + random_list 选编队类型
 br_crisis_create_fleet = {
@@ -739,234 +488,262 @@ br_crisis_spawn_pure_queen = {
 	}
 }
 
-# [混合编队-小型] 按女王战力补数量（基准3000，不出女王）
-br_crisis_small_spawn = {
-	random_list = {
-		33 = {
-			multiply_variable = {
-				which = br_crisis_small
-				value = 6
-			}
-			while = {
-				count = br_crisis_small
-				create_ship = {
-					name = random
-					design = "NAME_BR_Swarm_Small"
-					graphical_culture = "swarm_01"
+# =========================================================================
+# [已废弃] 圈层查表完整版入口 — 原名 br_spawn_crisis_fleet，2026-08-26 迁入存档
+# 九段 br_ring_1~30 星系标记判定 + 圈层编队数量表 + grunt 兜底。
+# PVE 模式无圈层标记时九段全部不命中、恒走兜底；恢复圈层玩法时改回原名即可。
+# 作用域: 国家，root=国家，event_target:br_spawn_tmp@root=目标恒星
+# =========================================================================
+br_spawn_crisis_fleet_legacy = {
+	event_target:br_spawn_tmp@root = {
+		# 已经是 solar_system 作用域（event_target 本身就是 solar_system），root = 国家
+		# 26-30: 小12+中6
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_26
+					has_star_flag = br_ring_27
+					has_star_flag = br_ring_28
+					has_star_flag = br_ring_29
+					has_star_flag = br_ring_30
 				}
+			}
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 3
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 2
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 0
+				}
+				br_crisis_create_fleet = yes
 			}
 		}
-		33 = {
-			multiply_variable = {
-				which = br_crisis_small
-				value = 6
+		# 22-25: 小8+中4+大2
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_22
+					has_star_flag = br_ring_23
+					has_star_flag = br_ring_24
+					has_star_flag = br_ring_25
+				}
 			}
-			random_list = {
-				33 = {
-					while = {
-						count = br_crisis_small
-						create_ship = {
-							name = random
-							design = "NAME_BR_Wraith"
-							graphical_culture = "extra_dimensional_01"
-						}
-					}
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 3
 				}
-				33 = {
-					while = {
-						count = br_crisis_small
-						create_ship = {
-							name = random
-							design = "NAME_BR_Predator"
-							graphical_culture = "extra_dimensional_03"
-						}
-					}
+				set_variable = {
+					which = br_crisis_medium
+					value = 2
 				}
-				34 = {
-					while = {
-						count = br_crisis_small
-						create_ship = {
-							name = random
-							design = "NAME_BR_Obliterator"
-							graphical_culture = "extra_dimensional_02"
-						}
-					}
+				set_variable = {
+					which = br_crisis_large
+					value = 1
 				}
+				br_crisis_create_fleet = yes
 			}
 		}
-		34 = {
-			multiply_variable = {
-				which = br_crisis_small
-				value = 10
-			}
-			while = {
-				count = br_crisis_small
-				create_ship = {
-					name = random
-					design = "NAME_BR_AI_Corvette"
-					graphical_culture = "ai_01"
+		# 18-21: 小12+中6+大2
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_18
+					has_star_flag = br_ring_19
+					has_star_flag = br_ring_20
+					has_star_flag = br_ring_21
 				}
 			}
-		}
-	}
-}
-
-# [混合编队-中型] 按女王战力补数量（基准3000）
-br_crisis_medium_spawn = {
-	random_list = {
-		25 = {
-			multiply_variable = {
-				which = br_crisis_medium
-				value = 2
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 4
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 2
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 1
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_medium
-				create_ship = {
-					name = random
-					design = "NAME_BR_Swarm_Large"
-					graphical_culture = "swarm_01"
+		}
+		# 14-17: 小16+中8+大2
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_14
+					has_star_flag = br_ring_15
+					has_star_flag = br_ring_16
+					has_star_flag = br_ring_17
 				}
 			}
-		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_medium
-				value = 2
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 5
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 3
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 1
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_medium
-				random_list = {
-					33 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Phantom"
-							graphical_culture = "extra_dimensional_01"
-						}
-					}
-					33 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Assassin"
-							graphical_culture = "extra_dimensional_03"
-						}
-					}
-					34 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Annihilator"
-							graphical_culture = "extra_dimensional_02"
-						}
-					}
+		}
+		# 10-13: 小20+中10+大4
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_10
+					has_star_flag = br_ring_11
+					has_star_flag = br_ring_12
+					has_star_flag = br_ring_13
 				}
 			}
-		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_medium
-				value = 2
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 6
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 3
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 2
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_medium
-				create_ship = {
-					name = random
-					design = "NAME_BR_AI_Battleship"
-					graphical_culture = "ai_01"
+		}
+		# 6-9: 小24+中12+大4
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_6
+					has_star_flag = br_ring_7
+					has_star_flag = br_ring_8
+					has_star_flag = br_ring_9
 				}
 			}
-		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_medium
-				value = 1
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 8
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 4
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 2
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_medium
-				create_ship = {
-					name = random
-					design = "NAME_BR_Synth_Harrier"
-					graphical_culture = "synth_queen_01"
+		}
+		# 4-5: 小28+中14+大6
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_4
+					has_star_flag = br_ring_5
 				}
 			}
-		}
-	}
-}
-
-# [混合编队-大型] 按女王战力补数量（基准23000）
-br_crisis_large_spawn = {
-	random_list = {
-		25 = {
-			multiply_variable = {
-				which = br_crisis_large
-				value = 14
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 10
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 5
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 3
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_large
-				create_ship = {
-					name = random
-					design = "NAME_BR_Swarm_Carrier"
-					graphical_culture = "swarm_01"
+		}
+		# 2-3: 小32+中18+大8
+		if = {
+			limit = {
+				OR = {
+					has_star_flag = br_ring_2
+					has_star_flag = br_ring_3
 				}
 			}
-		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_large
-				value = 5
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 12
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 6
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 4
+				}
+				br_crisis_create_fleet = yes
 			}
-			while = {
-				count = br_crisis_large
-				random_list = {
-					33 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Revenant"
-							graphical_culture = "extra_dimensional_01"
-						}
-					}
-					33 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Huntress"
-							graphical_culture = "extra_dimensional_03"
-						}
-					}
-					34 = {
-						create_ship = {
-							name = random
-							design = "NAME_BR_Eradicator"
-							graphical_culture = "extra_dimensional_02"
-						}
-					}
+		}
+		# 1: 小44+中22+大10
+		if = {
+			limit = {
+				has_star_flag = br_ring_1
+			}
+			set_star_flag = br_ring_matched
+			event_target:br_pve_enemy_fleet@root = {
+				set_variable = {
+					which = br_crisis_small
+					value = 16
+				}
+				set_variable = {
+					which = br_crisis_medium
+					value = 8
+				}
+				set_variable = {
+					which = br_crisis_large
+					value = 5
+				}
+				br_crisis_create_fleet = yes
+			}
+		}
+		# 不在30圈内 → 生成grunt杂兵舰队【PVE 实际活跃路径】
+		if = {
+			limit = {
+				NOT = {
+					has_star_flag = br_ring_matched
 				}
 			}
-		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_large
-				value = 16
-			}
-			while = {
-				count = br_crisis_large
-				create_ship = {
-					name = random
-					design = "NAME_BR_AI_Battleship"
-					graphical_culture = "ai_01"
-				}
+			event_target:br_pve_enemy_fleet@root = {
+				br_crisis_create_grunt_fleet = yes
 			}
 		}
-		25 = {
-			multiply_variable = {
-				which = br_crisis_large
-				value = 1
-			}
-			while = {
-				count = br_crisis_large
-				create_ship = {
-					name = random
-					design = "NAME_BR_Synth_Royal_Guard"
-					graphical_culture = "synth_queen_01"
-				}
-			}
-		}
+		# 清理临时标记
+		remove_star_flag = br_ring_matched
 	}
 }

@@ -1,27 +1,32 @@
 # =========================================================================
-# PVE虚空裂隙刷敌 - 在 create_fleet { effect = { ... } } 内部调用
-# 目标星系通过 event_target:br_spawn_tmp 传入
-# 直接调用 br_crisis_small/medium/large_spawn 出船
-# 数量基于 br_total_intensity：small=/10, medium=/20(>=200), large=/40(>=400)
+# PVE 年度裂隙刷敌链
+# 调用链: br.920(on_yearly_pulse_country) → br_spawn_rift_fleet
+#          → br_crisis_small/medium/large_spawn
+# 每年在 BOSS 位置刷 1 支 + 每道虚空裂隙(br_boss_void_rift)各刷 1 支
+# 数量基于 br_total_intensity：small=/100, medium=/200(>=200), large=/400(>=400)
+# 校准目标（2026-08-26）：intensity=500 时单支约 50 艘
 # =========================================================================
+
 br_spawn_rift_fleet = {
-    # small = intensity / 10
+	#复制变量进行检查
+	set_variable = { which = br_total_intensity_effect value = event_target:br_pve_enemy_country.br_total_intensity }
+    # small = intensity / 100
     set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_total_intensity }
-    divide_variable = { which = br_crisis_small value = 10 }
-    # medium = intensity / 20（intensity >= 200 才触发）
+    divide_variable = { which = br_crisis_small value = 100 }
+    # medium = intensity / 200（intensity >= 200 才触发）
     if = {
-        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
+        limit = { check_variable = { which = br_total_intensity_effect value >= 200 } }
         set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_total_intensity }
-        divide_variable = { which = br_crisis_medium value = 20 }
+        divide_variable = { which = br_crisis_medium value = 200 }
     }
     else = {
         set_variable = { which = br_crisis_medium value = 0 }
     }
-    # large = intensity / 40（intensity >= 400 才触发）
+    # large = intensity / 400（intensity >= 400 才触发）
     if = {
-        limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 400 } }
+        limit = { check_variable = { which = br_total_intensity_effect value >= 400 } }
         set_variable = { which = br_crisis_large value = event_target:br_pve_enemy_country.br_total_intensity }
-        divide_variable = { which = br_crisis_large value = 40 }
+        divide_variable = { which = br_crisis_large value = 400 }
     }
     else = {
         set_variable = { which = br_crisis_large value = 0 }
@@ -34,4 +39,241 @@ br_spawn_rift_fleet = {
     clear_variable = br_crisis_small
     clear_variable = br_crisis_medium
     clear_variable = br_crisis_large
+}
+
+# =========================================================================
+# 以下三个为裂隙/混编共用的出船效果（内含编队随机倍率）
+# 另被 _deprecated_br_crisis_spawn_effects.txt 的废弃调度器引用
+# =========================================================================
+
+# [混合编队-小型] 按女王战力补数量（基准3000，不出女王）
+br_crisis_small_spawn = {
+	random_list = {
+		33 = {
+			multiply_variable = {
+				which = br_crisis_small
+				value = 6
+			}
+			while = {
+				count = br_crisis_small
+				create_ship = {
+					name = random
+					design = "NAME_BR_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+		}
+		33 = {
+			multiply_variable = {
+				which = br_crisis_small
+				value = 6
+			}
+			random_list = {
+				33 = {
+					while = {
+						count = br_crisis_small
+						create_ship = {
+							name = random
+							design = "NAME_BR_Wraith"
+							graphical_culture = "extra_dimensional_01"
+						}
+					}
+				}
+				33 = {
+					while = {
+						count = br_crisis_small
+						create_ship = {
+							name = random
+							design = "NAME_BR_Predator"
+							graphical_culture = "extra_dimensional_03"
+						}
+					}
+				}
+				34 = {
+					while = {
+						count = br_crisis_small
+						create_ship = {
+							name = random
+							design = "NAME_BR_Obliterator"
+							graphical_culture = "extra_dimensional_02"
+						}
+					}
+				}
+			}
+		}
+		34 = {
+			multiply_variable = {
+				which = br_crisis_small
+				value = 10
+			}
+			while = {
+				count = br_crisis_small
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Corvette"
+					graphical_culture = "ai_01"
+				}
+			}
+		}
+	}
+}
+
+# [混合编队-中型] 按女王战力补数量（基准3000）
+br_crisis_medium_spawn = {
+	random_list = {
+		25 = {
+			multiply_variable = {
+				which = br_crisis_medium
+				value = 2
+			}
+			while = {
+				count = br_crisis_medium
+				create_ship = {
+					name = random
+					design = "NAME_BR_Swarm_Large"
+					graphical_culture = "swarm_01"
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_medium
+				value = 2
+			}
+			while = {
+				count = br_crisis_medium
+				random_list = {
+					33 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Phantom"
+							graphical_culture = "extra_dimensional_01"
+						}
+					}
+					33 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Assassin"
+							graphical_culture = "extra_dimensional_03"
+						}
+					}
+					34 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Annihilator"
+							graphical_culture = "extra_dimensional_02"
+						}
+					}
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_medium
+				value = 2
+			}
+			while = {
+				count = br_crisis_medium
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Battleship"
+					graphical_culture = "ai_01"
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_medium
+				value = 1
+			}
+			while = {
+				count = br_crisis_medium
+				create_ship = {
+					name = random
+					design = "NAME_BR_Synth_Harrier"
+					graphical_culture = "synth_queen_01"
+				}
+			}
+		}
+	}
+}
+
+# [混合编队-大型] 按女王战力补数量（基准23000）
+br_crisis_large_spawn = {
+	random_list = {
+		25 = {
+			multiply_variable = {
+				which = br_crisis_large
+				value = 14
+			}
+			while = {
+				count = br_crisis_large
+				create_ship = {
+					name = random
+					design = "NAME_BR_Swarm_Carrier"
+					graphical_culture = "swarm_01"
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_large
+				value = 5
+			}
+			while = {
+				count = br_crisis_large
+				random_list = {
+					33 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Revenant"
+							graphical_culture = "extra_dimensional_01"
+						}
+					}
+					33 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Huntress"
+							graphical_culture = "extra_dimensional_03"
+						}
+					}
+					34 = {
+						create_ship = {
+							name = random
+							design = "NAME_BR_Eradicator"
+							graphical_culture = "extra_dimensional_02"
+						}
+					}
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_large
+				value = 16
+			}
+			while = {
+				count = br_crisis_large
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Battleship"
+					graphical_culture = "ai_01"
+				}
+			}
+		}
+		25 = {
+			multiply_variable = {
+				which = br_crisis_large
+				value = 1
+			}
+			while = {
+				count = br_crisis_large
+				create_ship = {
+					name = random
+					design = "NAME_BR_Synth_Royal_Guard"
+					graphical_culture = "synth_queen_01"
+				}
+			}
+		}
+	}
 }

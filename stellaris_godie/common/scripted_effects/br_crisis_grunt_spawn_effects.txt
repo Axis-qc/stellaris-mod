@@ -1,16 +1,29 @@
 # =========================================================================
-# PVE天灾杂兵舰队 — 外圈使用，不出女王
-# 调用链: br_spawn_crisis_grunt_fleet → br_crisis_create_grunt_fleet
+# PVE 进星系刷敌链（探索杂兵，不出女王/大型舰）
+# 调用链: br.804(on_entering_system_fleet, fleet→country)
+#          → br.801 创舰队+首刷 / br.802、br.803 后续日追加
+#          → br_spawn_crisis_fleet → br_crisis_create_grunt_fleet
 #          → br_crisis_grunt_small/medium/large_spawn
-# 数量由 br_pve_enemy_country.br_grunt_spawn_count 控制，每次四次调用+1
-# 与 br_crisis_spawn_effects.txt 的区别：无纯种/女王分支，混合编队中无女王
+# 数量由 br_total_intensity 驱动：small=intensity/10 保底1, medium=intensity/20(>=200), large=0
+# 与裂隙混编的区别：无倍率、无女王分支
 # =========================================================================
+
+# [入口] PVE 兜底入口（圈层查表完整版已迁至 _deprecated_br_crisis_spawn_effects.txt，
+# 名为 br_spawn_crisis_fleet_legacy，恢复时改回本名即可）
+# 作用域: 国家，root=国家，event_target:br_spawn_tmp@root=目标恒星
+br_spawn_crisis_fleet = {
+	event_target:br_pve_enemy_fleet@root = {
+		br_crisis_create_grunt_fleet = yes
+	}
+}
 
 # [调度器]刷船（br_fleet_created 防重复）
 # 数量由 br_total_intensity 驱动：small=intensity/10, medium=intensity/20(>=200), large=0
 br_crisis_create_grunt_fleet = {
     if = {
         limit = { not = { has_fleet_flag = br_fleet_created } }
+        #复制变量进行检查
+        set_variable = { which = br_total_intensity_effect value = event_target:br_pve_enemy_country.br_total_intensity }
         # small = br_total_intensity / 10（保底 1 艘，保证局势初始增长源）
         set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_total_intensity }
         divide_variable = { which = br_crisis_small value = 10 }
@@ -20,9 +33,9 @@ br_crisis_create_grunt_fleet = {
         }
         # medium = br_total_intensity / 20（intensity >= 200 才触发）
         if = {
-            limit = { check_variable = { which = event_target:br_pve_enemy_country.br_total_intensity value >= 200 } }
+            limit = { check_variable = { which = br_total_intensity_effect value >= 200 } }
             set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_total_intensity }
-            divide_variable = { which = br_crisis_medium value = 20 }
+            divide_variable = { which = br_crisis_medium value = 200 }
         }
         else = {
             set_variable = { which = br_crisis_medium value = 0 }
