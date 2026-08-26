@@ -1,8 +1,16 @@
+# =========================================================================
+# PVE 强度数值中心
+# 局势上限基数 10000；刷兵除数与阈值见各 scripted_effects 文件
+# 精度约束：局势月度增量有效粒度约 0.01，所有分量设计值均须远高于此
+# 时间线目标：中性单玩家约 144 年完局，BOSS 约 114 年（四阶段）降临
+# =========================================================================
+
+# 敌国战力缩放倍率：强度 I → 战力乘数 I×0.0004（终值约11300 → 约×4.5）
 br_pve_enemy_scaling_multiplier = {
 	base = 0
 	add = event_target:br_pve_enemy_country.br_total_intensity
 	divide = 5
-	mult = 0.02
+	mult = 0.002
 	min = 0
 }
 
@@ -18,30 +26,34 @@ br_pve_scaling_display_value = {
 	add = event_target:br_pve_enemy_country.br_pve_enemy_scaling_display
 }
 
-# 裂隙对局势进度的月度贡献：裂隙数 × 0.1
+# 裂隙对局势进度的月度贡献：裂隙数 × 0.3
 br_pve_rift_growth = {
 	base = 0
 	add = event_target:br_pve_enemy_country.br_rift_count
-	mult = 0.1
+	mult = 0.3
 }
 
-# 敌方舰船对局势进度的月度贡献：敌船数 × 0.01
+# 敌方舰船对局势进度的月度贡献：敌船数 × 0.02（mult 内置仅缩放导入值）
 br_pve_enemy_ship_growth = {
 	base = 0
 	complex_trigger_modifier = {
 		trigger_scope = event_target:br_pve_enemy_country
 		trigger = count_owned_ship
 		mode = add
+		mult = 0.02
 	}
-	mult = 0.01
 }
 
-# 压制 approach：局势月度推进减少量（正数，monthly_progress 里 subtract 引用）
-br_pve_suppress_reduction = {
-	base = 3
-}
-
-# 催化 approach：局势月度推进增加量（monthly_progress 里 add 引用）
-br_pve_accelerate_bonus = {
-	base = 3
+# 动态上限增量：裂隙每道 +100，场上敌船每艘 +3
+# 裂隙走主流水乘法；敌船由内部 mult 缩放导入值后并入，两项互不污染
+br_pve_max_from_enemy = {
+	base = 0
+	add = event_target:br_pve_enemy_country.br_rift_count
+	mult = 100
+	complex_trigger_modifier = {
+		trigger_scope = event_target:br_pve_enemy_country
+		trigger = count_owned_ship
+		mode = add
+		mult = 3
+	}
 }

@@ -11,8 +11,10 @@ situation_br_pve_intensity = {
 	situation_log_category = empire_concerns
 	category = neutral
 	initial_progress = 0
+	# 动态上限：敌方存在感同步抬高局势终点（裂隙×100 + 场上敌船×3）
 	total_progress = {
-		base = 1000
+		base = 10000
+		add = value:br_pve_max_from_enemy
 	}
 	override_finisher_title = br_situation_title
 	override_finisher_desc = br_pve_desc
@@ -33,9 +35,10 @@ situation_br_pve_intensity = {
 	}
 	on_progress_complete = {
 	}
-	# 月度增长：裂隙×0.1 + BOSS×1 + 敌船×0.01（由 script_value 动态计算）
+	# 月度增长：底盘1.5 + 裂隙(每道×0.3) + 敌船(每艘×0.02) + BOSS降临+3
+	# 姿态为总流速百分比乘法：压制×0.7 / 催化×1.5（置于所有加项之后执行）
 	monthly_progress = {
-		base = 0
+		base = 1
 		modifier = {
 			add = value:br_pve_rift_growth
 			desc = br_pve_intensity_rifts
@@ -45,18 +48,18 @@ situation_br_pve_intensity = {
 			desc = br_pve_intensity_ships
 		}
 		modifier = {
-			add = 1
+			add = 3
 			desc = br_pve_intensity_boss
 			has_global_flag = br_boss_spawned
 		}
 		modifier = {
 			desc = br_pve_intensity_approach_suppress
-			subtract = value:br_pve_suppress_reduction
+			mult = 0.7
 			current_situation_approach = br_pve_intensity_suppress
 		}
 		modifier = {
 			desc = br_pve_intensity_approach_accelerate
-			add = value:br_pve_accelerate_bonus
+			mult = 1.5
 			current_situation_approach = br_pve_intensity_accelerate
 		}
 	}
@@ -157,7 +160,7 @@ situation_br_pve_intensity = {
 		icon_background = GFX_situation_approach_bg_green
 		on_select = {
 			custom_tooltip = "br_pve_intensity_accelerate_tt"
-			add_situation_progress = 20
+			add_situation_progress = 200
 			owner = {
 				if = {
 					limit = {

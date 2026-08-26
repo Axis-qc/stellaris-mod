@@ -3,30 +3,30 @@
 # 调用链: br.920(on_yearly_pulse_country) → br_spawn_rift_fleet
 #          → br_crisis_small/medium/large_spawn
 # 每年在 BOSS 位置刷 1 支 + 每道虚空裂隙(br_boss_void_rift)各刷 1 支
-# 数量基于 br_total_intensity：small=/100, medium=/200(>=200), large=/400(>=400)
-# 校准目标（2026-08-26）：intensity=500 时单支约 50 艘
+# 数量基于 br_total_intensity：small=/1000, medium=/2000(>=2000), large=/4000(>=4000)
+# 校准目标：intensity=10000 时单支期望约 100 艘（末期强度）
 # =========================================================================
 
 br_spawn_rift_fleet = {
 	#复制变量进行检查
 	set_variable = { which = br_total_intensity_effect value = event_target:br_pve_enemy_country.br_total_intensity }
-    # small = intensity / 100
+    # small = intensity / 1000
     set_variable = { which = br_crisis_small value = event_target:br_pve_enemy_country.br_total_intensity }
-    divide_variable = { which = br_crisis_small value = 100 }
-    # medium = intensity / 200（intensity >= 200 才触发）
+    divide_variable = { which = br_crisis_small value = 1000 }
+    # medium = intensity / 2000（intensity >= 2000 才触发）
     if = {
-        limit = { check_variable = { which = br_total_intensity_effect value >= 200 } }
+        limit = { check_variable = { which = br_total_intensity_effect value >= 2000 } }
         set_variable = { which = br_crisis_medium value = event_target:br_pve_enemy_country.br_total_intensity }
-        divide_variable = { which = br_crisis_medium value = 200 }
+        divide_variable = { which = br_crisis_medium value = 2000 }
     }
     else = {
         set_variable = { which = br_crisis_medium value = 0 }
     }
-    # large = intensity / 400（intensity >= 400 才触发）
+    # large = intensity / 4000（intensity >= 4000 才触发）
     if = {
-        limit = { check_variable = { which = br_total_intensity_effect value >= 400 } }
+        limit = { check_variable = { which = br_total_intensity_effect value >= 4000 } }
         set_variable = { which = br_crisis_large value = event_target:br_pve_enemy_country.br_total_intensity }
-        divide_variable = { which = br_crisis_large value = 400 }
+        divide_variable = { which = br_crisis_large value = 4000 }
     }
     else = {
         set_variable = { which = br_crisis_large value = 0 }
