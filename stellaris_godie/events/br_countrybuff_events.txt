@@ -94,7 +94,7 @@ country_event = {
 			}
 			multiply_variable = {
 				which = br_pve_enemy_scaling_display
-				value = 0.02
+				value = 0.002
 			}
 			divide_variable = {
 				which = br_pve_enemy_scaling_display
@@ -104,8 +104,9 @@ country_event = {
 	}
 }
 
-# br.4：BOSS触发检查 — 局势总强度 >= 500 时生成Boss（on_monthly_pulse 触发）
-# 只挂在 br_pve_enemy 国家上，避免多玩家重复触发
+# br.4：BOSS触发检查 — 占比触发：任一玩家的强度局势进入第四阶段
+# （进度≥动态上限的75%，stage_extreme）即召唤 Boss（on_monthly_pulse 触发）
+# 只挂在 br_pve_enemy 国家上，避免多玩家重复触发；多人时任一玩家先入四阶段即引灾降临
 country_event = {
 	id = br.4
 	hide_window = yes
@@ -116,9 +117,12 @@ country_event = {
 		NOT = {
 			has_global_flag = br_boss_spawned
 		}
-		check_variable = {
-			which = br_total_intensity
-			value >= 500
+		any_country = {
+			has_country_flag = br_player_country
+			any_situation = {
+				is_situation_type = situation_br_pve_intensity
+				current_stage = stage_extreme
+			}
 		}
 	}
 	immediate = {
@@ -331,13 +335,13 @@ fleet_event = {
 			has_global_flag = br_mode_pve
 			has_global_flag = br_mode_pvp
 		}
-		owner = {
-			OR = {
-				has_country_flag = br_player_country
-				is_country_type = br_void
-				is_country_type = br_pve_enemy
-			}
-		}
+		# owner = {
+		# 	OR = {
+		# 		has_country_flag = br_player_country
+		# 		is_country_type = br_void
+		# 		is_country_type = br_pve_enemy
+		# 	}
+		# }
 		# 短路：已挂buff且循环在跑 → 不处理
 		NOT = {
 			AND = {

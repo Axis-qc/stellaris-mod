@@ -1,0 +1,116 @@
+# =========================================================================
+# 虚空裂隙体系 - 共用开辟效果
+# 调用方: br.932(开局首裂隙) / br.915(Boss跳跃后) / br.931(五年扩张)
+# 行为与原 br.915 开辟段一致：星基 + 2 支守卫 + toast + 计数/强化刷新
+# =========================================================================
+
+# 开辟一道虚空裂隙。scope: 目标星系
+# 内含防重入：已有裂隙(br_boss_void_rift)的星系不会重复开辟
+br_open_void_rift = {
+	if = {
+		limit = {
+			NOT = {
+				has_star_flag = br_boss_void_rift
+			}
+		}
+		create_starbase = {
+			size = br_void_rift
+			owner = event_target:br_pve_enemy_country
+		}
+		set_star_flag = br_boss_void_rift
+		# 守卫舰队1（近距，虫群+异次元，主动攻击进入裂隙的玩家）
+		create_fleet = {
+			name = "BR_PVE_RIFT_GUARD"
+			effect = {
+				set_owner = event_target:br_pve_enemy_country
+				set_location = {
+					target = prev
+					distance = 30
+					angle = random
+				}
+				set_fleet_flag = br_rift_guard
+				create_ship = {
+					name = random
+					design = "NAME_BR_Swarm_Large"
+					graphical_culture = "swarm_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_Swarm_Large"
+					graphical_culture = "swarm_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_Wraith"
+					graphical_culture = "extra_dimensional_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_Wraith"
+					graphical_culture = "extra_dimensional_01"
+				}
+				set_fleet_stance = aggressive
+			}
+		}
+		# 守卫舰队2（远距，AI战列+护卫）
+		create_fleet = {
+			name = "BR_PVE_RIFT_GUARD"
+			effect = {
+				set_owner = event_target:br_pve_enemy_country
+				set_location = {
+					target = prev
+					distance = 60
+					angle = random
+				}
+				set_fleet_flag = br_rift_guard
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Battleship"
+					graphical_culture = "ai_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Battleship"
+					graphical_culture = "ai_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Corvette"
+					graphical_culture = "ai_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Corvette"
+					graphical_culture = "ai_01"
+				}
+				create_ship = {
+					name = random
+					design = "NAME_BR_AI_Corvette"
+					graphical_culture = "ai_01"
+				}
+				set_fleet_stance = aggressive
+			}
+		}
+		every_country = {
+			create_message = {
+				type = FLEET_DETECTED_MESSAGE_TYPE
+				localization = br.915.toast
+				days = 30
+				custom_toast_icon = GFX_message_fleet_detected
+			}
+		}
+		# 裂隙计数与全阵营强化刷新（每道裂隙 +500 船体 +300 甲盾）
+		event_target:br_pve_enemy_country = {
+			change_variable = {
+				which = br_rift_count
+				value = 1
+			}
+			remove_modifier = br_pve_rift_buff
+			add_modifier = {
+				modifier = br_pve_rift_buff
+				days = -1
+				multiplier = br_rift_count
+			}
+		}
+	}
+}

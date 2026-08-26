@@ -76,11 +76,6 @@ country_event = {
 			id = br.911
 			days = 10
 		}
-		# 初始化虚空裂隙体系变量
-		set_variable = {
-			which = br_rift_count
-			value = 0
-		}
 	}
 }
 
@@ -418,6 +413,7 @@ starbase_event = {
 # ============================================================
 # br.915：战斗结束后开辟虚空裂隙
 # 由 br.912 排程，检查跳跃目标星系是否已清空
+# 开辟逻辑见 scripted_effect br_open_void_rift（br_pve_rift_ops.txt）
 # ============================================================
 country_event = {
 	id = br.915
@@ -448,113 +444,18 @@ country_event = {
 			}
 		}
 		else = {
-			# 清空了 → 开辟虚空裂隙
+			# 清空了 → 开辟虚空裂隙（共用效果：星基+守卫+toast+计数/强化）
 			event_target:br_jump_target_system = {
-				create_starbase = {
-					size = br_void_rift
-					# design = BR_Void_Rift
-					owner = event_target:br_pve_enemy_country
-				}
-				set_star_flag = br_boss_void_rift
-				# 守卫舰队（2队，主动攻击进入裂隙的玩家）
-				create_fleet = {
-					name = "BR_PVE_RIFT_GUARD"
-					effect = {
-						set_owner = event_target:br_pve_enemy_country
-						set_location = {
-							target = event_target:br_jump_target_system
-							distance = 30
-							angle = random
-						}
-						set_fleet_flag = br_rift_guard
-						create_ship = {
-							name = random
-							design = "NAME_BR_Swarm_Large"
-							graphical_culture = "swarm_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_Swarm_Large"
-							graphical_culture = "swarm_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_Wraith"
-							graphical_culture = "extra_dimensional_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_Wraith"
-							graphical_culture = "extra_dimensional_01"
-						}
-						set_fleet_stance = aggressive
-					}
-				}
-				create_fleet = {
-					name = "BR_PVE_RIFT_GUARD"
-					effect = {
-						set_owner = event_target:br_pve_enemy_country
-						set_location = {
-							target = event_target:br_jump_target_system
-							distance = 60
-							angle = random
-						}
-						set_fleet_flag = br_rift_guard
-						create_ship = {
-							name = random
-							design = "NAME_BR_AI_Battleship"
-							graphical_culture = "ai_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_AI_Battleship"
-							graphical_culture = "ai_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_AI_Corvette"
-							graphical_culture = "ai_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_AI_Corvette"
-							graphical_culture = "ai_01"
-						}
-						create_ship = {
-							name = random
-							design = "NAME_BR_AI_Corvette"
-							graphical_culture = "ai_01"
-						}
-						set_fleet_stance = aggressive
-					}
-				}
-				every_country = {
-					create_message = {
-						type = FLEET_DETECTED_MESSAGE_TYPE
-						localization = br.915.toast
-						days = 30
-						custom_toast_icon = GFX_message_fleet_detected
-					}
-				}
-			}
-			event_target:br_pve_enemy_country = {
-				change_variable = {
-					which = br_rift_count
-					value = 1
-				}
-				remove_modifier = br_pve_rift_buff
-				add_modifier = {
-					modifier = br_pve_rift_buff
-					days = -1
-					multiplier = br_rift_count
-				}
+				br_open_void_rift = yes
 			}
 		}
 	}
 }
 
 # ============================================================
-# br.920：年度虚空裂隙刷敌 — 每年在BOSS和裂隙位置刷舰队
+# br.920：五年一次虚空裂隙刷敌 — 在BOSS和裂隙位置刷舰队（on_five_year_pulse_country）
+# 出击舰队打 br_rift_hunter 标记，由 br.930 年度调度器统一索敌；
+# 守卫(br_rift_guard)与 Boss 方舰队不打此标记，不参与出击
 # ============================================================
 country_event = {
 	id = br.920
@@ -563,7 +464,6 @@ country_event = {
 	trigger = {
 		is_country_type = br_pve_enemy
 		has_global_flag = br_mode_pve
-		has_global_flag = br_boss_spawned
 		exists = event_target:br_pve_enemy_country
 	}
 	immediate = {
@@ -592,6 +492,7 @@ country_event = {
 							distance = 0
 						}
 						br_spawn_rift_fleet = yes
+						set_fleet_flag = br_rift_hunter
 						set_fleet_stance = aggressive
 					}
 				}
@@ -612,8 +513,188 @@ country_event = {
 						distance = 0
 					}
 					br_spawn_rift_fleet = yes
+					set_fleet_flag = br_rift_hunter
 					set_fleet_stance = aggressive
 				}
+			}
+		}
+	}
+}
+
+# ============================================================
+# br.930：猎手舰队索敌调度器（on_yearly_pulse_country 年度触发）
+# 性能设计：
+#   - 低频批量：每年只跑一轮，单轮成本 = 敌国舰队数 × 引擎寻的
+#   - 寻的交给引擎：find_closest_system 是 queue_actions 专用的 C++ 动作，
+#     脚本层不做任何图遍历；aggressive 舰队途中遭遇自动交战
+#   - 只碰自己人：every_owned_fleet 仅遍历 br_pve_enemy 一国
+# 空闲判定：
+#   - is_in_combat = no 过滤交战中舰队（引擎无 is_idle trigger）
+#   - clear_fleet_actions 可安全清空命令队列 → 无状态重派，无需忙碌标记状态机
+# ============================================================
+country_event = {
+	id = br.930
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_pve_enemy
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+		NOT = {
+			has_global_flag = br_pve_victory
+		}
+	}
+	immediate = {
+		every_owned_fleet = {
+			limit = {
+				has_fleet_flag = br_rift_hunter
+				is_in_combat = no
+			}
+			clear_fleet_actions = this
+			queue_actions = {
+				repeat = {
+					max_iterations = 1
+					find_closest_system = {
+						trigger = {
+							id = br.930.a
+							any_fleet_in_system = {
+								owner = {
+									is_hostile = event_target:br_pve_enemy_country
+								}
+							}
+						}
+						found_system = {
+							move_to = this
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# ============================================================
+# br.931：五年裂隙扩张 — 按相邻扩散，每次全局只扩一道
+# 由 on_five_year_pulse_country 触发（敌国五年脉冲）
+# 候选 = 现有裂隙的邻居中"安全"星系（自身+全部邻居无敌对舰船，
+#        判定见 scripted_trigger br_rift_safe_system）；不设数量上限
+# ============================================================
+country_event = {
+	id = br.931
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_pve_enemy
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+		NOT = {
+			has_global_flag = br_pve_victory
+		}
+		any_system = {
+			has_star_flag = br_boss_void_rift
+		}
+	}
+	immediate = {
+		# 收集所有现有裂隙的安全邻居作为候选
+		every_system = {
+			limit = {
+				has_star_flag = br_boss_void_rift
+			}
+			every_neighbor_system = {
+				limit = {
+					NOT = {
+						has_star_flag = br_boss_void_rift
+					}
+					br_rift_safe_system = yes
+				}
+				set_star_flag = br_rift_expand_candidate
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = br_rift_expand_candidate
+			}
+			save_global_event_target_as = br_rift_expand_target
+		}
+		# 清理候选标记（目标引用已由 global event target 持有，不受影响）
+		every_system = {
+			remove_star_flag = br_rift_expand_candidate
+		}
+		if = {
+			limit = {
+				exists = event_target:br_rift_expand_target
+			}
+			event_target:br_rift_expand_target = {
+				br_open_void_rift = yes
+			}
+		}
+	}
+}
+
+# ============================================================
+# br.932：开局开辟首道虚空裂隙
+# 由 br.702(PVE初始化链) 排程 days=1；逻辑归位天灾事件文件
+# 选址：随机一个"安全"星系（自身+全部邻居无玩家舰队），兜底逐级放宽
+# 幂等：已存在裂隙时不重复执行（兼容敌人重建路径）
+# 猎手调度由 on_yearly_pulse_country 驱动，此处无需启动
+# ============================================================
+country_event = {
+	id = br.932
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = br_mode_pve
+		exists = event_target:br_pve_enemy_country
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = br_boss_void_rift
+					}
+				}
+			}
+			# 首选：完全安全星系
+			random_system = {
+				limit = {
+					br_rift_safe_system = yes
+				}
+				save_global_event_target_as = br_rift_first_target
+			}
+			# 兜底1：仅自身无敌对舰船
+			if = {
+				limit = {
+					NOT = {
+						exists = event_target:br_rift_first_target
+					}
+				}
+				random_system = {
+					limit = {
+						NOT = {
+							any_fleet_in_system = {
+								owner = {
+									is_hostile = event_target:br_pve_enemy_country
+								}
+							}
+						}
+					}
+					save_global_event_target_as = br_rift_first_target
+				}
+			}
+			# 兜底2：全图随机，保证必成
+			if = {
+				limit = {
+					NOT = {
+						exists = event_target:br_rift_first_target
+					}
+				}
+				random_system = {
+					save_global_event_target_as = br_rift_first_target
+				}
+			}
+			event_target:br_rift_first_target = {
+				br_open_void_rift = yes
 			}
 		}
 	}

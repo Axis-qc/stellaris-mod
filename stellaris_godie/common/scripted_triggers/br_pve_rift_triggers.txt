@@ -1,0 +1,27 @@
+# =========================================================================
+# 虚空裂隙体系 - 共用判定
+# 被 br.932(开局选址) / br.931(五年扩张候选) 使用
+# 口径：本星系及其全部相邻星系内均不存在对裂隙阵营敌对的舰队（玩家方）
+# =========================================================================
+
+# scope: 星系。安全位置判定
+br_rift_safe_system = {
+	# 本星系无敌对舰船
+	NOT = {
+		any_fleet_in_system = {
+			owner = {
+				is_hostile = event_target:br_pve_enemy_country
+			}
+		}
+	}
+	# 相邻星系亦无敌对舰船（NOT any 等价于 all not）
+	NOT = {
+		any_neighbor_system = {
+			any_fleet_in_system = {
+				owner = {
+					is_hostile = event_target:br_pve_enemy_country
+				}
+			}
+		}
+	}
+}
