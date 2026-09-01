@@ -29,6 +29,9 @@ fleet_event = {
         }
     }
     immediate = {
+        # 舰队作用域保存舰队引用（舰船有 owner，@owner 可解析），供 reward.7002 反查入口星系
+        # 注意：不能在星系作用域内 save_global_event_target_as = X@owner（星系无 owner，会报错）
+        save_global_event_target_as = br_exploration_fleet@owner
         # 标记当前星系为已探索，防止重复触发
         this = {
             solar_system = {
@@ -42,29 +45,8 @@ fleet_event = {
                 }
             }
         }
-        # 保存当前星系引用，找周边未标记星系
-        this = {
-            solar_system = {
-                save_global_event_target_as = br_exploration_source@owner
-                random_neighbor_system = {
-                    limit = {
-                        NOT = {
-                            has_star_flag = br_explored
-                        }
-                        NOT = {
-                            has_star_flag = br_player_spawn_system
-                        }
-                        NOT = {
-                            any_ship_in_system = {
-                                is_owned_by = root.owner
-                            }
-                        }
-                    }
-                    set_star_flag = br_exploration_marked
-                    save_global_event_target_as = br_exploration_target@owner
-                }
-            }
-        }
+        # 周边星系选择移到 reward.7002：
+        # 目标星系 target 必须在 country 链（root=国家）内保存，才能与后续 country_event 读取匹配
         # 转给 country_event 做随机（避免 fleet_event 深层作用域限制）
         owner = {
             country_event = {
@@ -93,9 +75,37 @@ country_event = {
         has_global_flag = br_mode_pve
     }
     immediate = {
+        # 通过舰队 target 反查入口星系，选择周边未标记星系
+        # 无 @ 后缀保存 → target key 挂在 root（国家）名下，与后续 country_event 读取一致
         if = {
             limit = {
-                exists = event_target:br_exploration_target@root
+                exists = event_target:br_exploration_fleet@root
+            }
+            event_target:br_exploration_fleet@root = {
+                solar_system = {
+                    random_neighbor_system = {
+                        limit = {
+                            NOT = {
+                                has_star_flag = br_explored
+                            }
+                            NOT = {
+                                has_star_flag = br_player_spawn_system
+                            }
+                            NOT = {
+                                any_ship_in_system = {
+                                    is_owned_by = root
+                                }
+                            }
+                        }
+                        set_star_flag = br_exploration_marked
+                        save_global_event_target_as = br_exploration_target
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                exists = event_target:br_exploration_target
             }
             random_list = {
                 # 测试阶段：100%出星门，上线前改回 50/40/10
@@ -127,31 +137,51 @@ country_event = {
         has_global_flag = br_mode_pve
     }
     immediate = {
-        event_target:br_exploration_target@root = {
+        event_target:br_exploration_target = {
             random_system_planet = {
                 limit = {
                     br_is_valid_exploration_planet = yes
                 }
                 save_event_target_as = br_exploration_planet
             }
-            create_ambient_object = {
-                type = br_abandoned_gate
-                location = event_target:br_exploration_planet
-                scale = 1
-                entity_offset = {
-                    min = 1
-                    max = 10
+            # 兜底：白名单行星选不中时退化为任意行星，避免星门位置丢失（日志曾报 location 无效）
+            if = {
+                limit = {
+                    NOT = {
+                        exists = event_target:br_exploration_planet
+                    }
                 }
-                entity_offset_angle = {
-                    min = 0
-                    max = 10
+                random_system_planet = {
+                    save_event_target_as = br_exploration_planet
                 }
-                effect = {
-                    save_global_event_target_as = br_exploration_ao
-                    enable_special_project = {
-                        name = "br_exploration_wreck"
-                        location = event_target:br_exploration_planet
-                        owner = root
+            }
+            if = {
+                limit = {
+                    exists = event_target:br_exploration_planet
+                }
+                event_target:br_exploration_planet = {
+                    # 持久标记：reward.7011 结算时按此定位本奖励点（防全局 target 被覆盖串门）
+                    set_planet_flag = br_wreck_pending
+                }
+                create_ambient_object = {
+                    type = br_abandoned_gate
+                    location = event_target:br_exploration_planet
+                    scale = 1
+                    entity_offset = {
+                        min = 1
+                        max = 10
+                    }
+                    entity_offset_angle = {
+                        min = 0
+                        max = 10
+                    }
+                    effect = {
+                        save_global_event_target_as = br_exploration_ao
+                        enable_special_project = {
+                            name = "br_exploration_wreck"
+                            location = event_target:br_exploration_planet
+                            owner = root
+                        }
                     }
                 }
             }
@@ -426,20 +456,70 @@ country_event = {
             which = br_gate_alloy_total
             value = br_gate_alloy
         }
-        # 在目标星系刷出舰队
-        event_target:br_exploration_target@root = {
-            create_fleet = {
-                name = "BR_GATE_FLEET"
-                effect = {
-                    set_owner = root
-                    set_location = event_target:br_exploration_ao
-                    save_event_target_as = br_gate_fleet
-                    while = {
-                        count = root.br_gate_ship_count
-                        create_ship = {
-                            name = random
-                            design = event_target:br_gate_design
-                            graphical_culture = root
+        # 在目标星系刷出舰队：主路径用研究舰船定位（on_success 保存的 br_wreck_ship@owner）
+        # 在舰船所在星系内找本奖励点 flag 行星（星门所在），舰队 set_location 到该行星
+        if = {
+            limit = {
+                exists = event_target:br_wreck_ship@root
+            }
+            event_target:br_wreck_ship@root = {
+                solar_system = {
+                    random_system_planet = {
+                        limit = {
+                            has_planet_flag = br_wreck_pending
+                        }
+                        save_event_target_as = br_wreck_planet
+                    }
+                    if = {
+                        limit = {
+                            exists = event_target:br_wreck_planet
+                        }
+                        event_target:br_wreck_planet = {
+                            remove_planet_flag = br_wreck_pending
+                        }
+                    }
+                    create_fleet = {
+                        name = "BR_GATE_FLEET"
+                        effect = {
+                            set_owner = root
+                            if = {
+                                limit = {
+                                    exists = event_target:br_wreck_planet
+                                }
+                                set_location = event_target:br_wreck_planet
+                            }
+                            save_event_target_as = br_gate_fleet
+                            while = {
+                                count = root.br_gate_ship_count
+                                create_ship = {
+                                    name = random
+                                    design = event_target:br_gate_design
+                                    graphical_culture = root
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        # 兜底：极端情况下（引用丢失）退化到当前全局目标星系，不 set_location
+        else_if = {
+            limit = {
+                exists = event_target:br_exploration_target
+            }
+            event_target:br_exploration_target = {
+                create_fleet = {
+                    name = "BR_GATE_FLEET"
+                    effect = {
+                        set_owner = root
+                        save_event_target_as = br_gate_fleet
+                        while = {
+                            count = root.br_gate_ship_count
+                            create_ship = {
+                                name = random
+                                design = event_target:br_gate_design
+                                graphical_culture = root
+                            }
                         }
                     }
                 }
@@ -482,14 +562,35 @@ country_event = {
         has_global_flag = br_mode_pve
     }
     immediate = {
-        event_target:br_exploration_target@root = {
+        event_target:br_exploration_target = {
             random_system_planet = {
                 limit = {
                     br_is_valid_exploration_planet = yes
                 }
+                save_event_target_as = br_exploration_planet
+            }
+            # 兜底：白名单行星选不中时退化为任意行星
+            if = {
+                limit = {
+                    NOT = {
+                        exists = event_target:br_exploration_planet
+                    }
+                }
+                random_system_planet = {
+                    save_event_target_as = br_exploration_planet
+                }
+            }
+            if = {
+                limit = {
+                    exists = event_target:br_exploration_planet
+                }
+                event_target:br_exploration_planet = {
+                    # 持久标记：reward.7021 结算时按此定位本奖励点
+                    set_planet_flag = br_artifact_pending
+                }
                 enable_special_project = {
                     name = "br_exploration_artifact"
-                    location = this
+                    location = event_target:br_exploration_planet
                     owner = root
                 }
             }

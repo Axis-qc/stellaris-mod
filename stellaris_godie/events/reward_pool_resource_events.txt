@@ -4,9 +4,9 @@ namespace = reward
 # 资源池 — reward.1001-1199
 # 只能由 reward.1 总触发器调用。
 # 每次从14种资源中随机选4种展示，玩家四选一。
-# 战略资源（8-10）需 br_power_level >= 4 才入池，0.1×基础值。
-# 稀有资源（11-14）需 br_power_level >= 8 才入池，0.1×基础值。
-# 增量 = @reward_monthly_base × br_power_level
+# 所有选项总价值相等：@reward_monthly_base × br_power_level 能量币/月。
+# 单价（原版市场价）：能量/矿物/食物/贸易=1，消费品=2，合金=4，凝聚力=6，战略(8-10)=10，稀有(11-14)=20。
+# 战略/稀有资源需对应科技才入池（br_res_lock_8~14），战力等级只影响数额。
 # ========================
 
 # 资源池入口
@@ -16,24 +16,58 @@ country_event = {
     is_triggered_only = yes
 
     immediate = {
-        # 计算本次月产出增量
+        # 计算本次月产出增量（能量币当量总额）
         set_variable = { which = br_res_inc value = @reward_monthly_base }
         multiply_variable = { which = br_res_inc value = br_power_level }
-        # 预计算战略资源是否解锁（≥4级）
+        # ======================== 按价值折算各档金额（总额相等） ========================
+        # 单价：能量/矿物/食物/贸易=1，消费品=2，合金=4，凝聚力=6，战略=10，稀有=20
+        # 金额 = 总价值 ÷ 单价
+        set_variable = { which = br_res_amt_cg value = br_res_inc }
+        divide_variable = { which = br_res_amt_cg value = 2 }
+        set_variable = { which = br_res_amt_alloy value = br_res_inc }
+        divide_variable = { which = br_res_amt_alloy value = 4 }
+        set_variable = { which = br_res_amt_unity value = br_res_inc }
+        divide_variable = { which = br_res_amt_unity value = 6 }
+        set_variable = { which = br_res_amt_sr value = br_res_inc }
+        divide_variable = { which = br_res_amt_sr value = 10 }
+        set_variable = { which = br_res_amt_rare value = br_res_inc }
+        divide_variable = { which = br_res_amt_rare value = 20 }
+        # ======================== 战略/稀有资源科技解锁（有对应科技才入池） ========================
+        set_variable = { which = br_res_lock_8 value = 0 }
         if = {
-            limit = { check_variable = { which = br_power_level value >= 4 } }
-            set_variable = { which = br_res_strategic_ok value = 1 }
-            else = { set_variable = { which = br_res_strategic_ok value = 0 } }
+            limit = { OR = { has_technology = tech_volatile_motes has_technology = tech_mine_volatile_motes } }
+            set_variable = { which = br_res_lock_8 value = 1 }
         }
-        # 预计算稀有资源是否解锁（≥8级）
+        set_variable = { which = br_res_lock_9 value = 0 }
         if = {
-            limit = { check_variable = { which = br_power_level value >= 8 } }
-            set_variable = { which = br_res_rare_ok value = 1 }
-            else = { set_variable = { which = br_res_rare_ok value = 0 } }
+            limit = { OR = { has_technology = tech_rare_crystals has_technology = tech_mine_rare_crystals } }
+            set_variable = { which = br_res_lock_9 value = 1 }
         }
-        # 稀有资源基础值 0.2×等级（br_res_inc 的 0.1 倍）
-        set_variable = { which = br_res_inc_rare value = br_res_inc }
-        multiply_variable = { which = br_res_inc_rare value = 0.1 }
+        set_variable = { which = br_res_lock_10 value = 0 }
+        if = {
+            limit = { OR = { has_technology = tech_exotic_gases has_technology = tech_mine_exotic_gases } }
+            set_variable = { which = br_res_lock_10 value = 1 }
+        }
+        set_variable = { which = br_res_lock_11 value = 0 }
+        if = {
+            limit = { has_technology = tech_mine_dark_matter }
+            set_variable = { which = br_res_lock_11 value = 1 }
+        }
+        set_variable = { which = br_res_lock_12 value = 0 }
+        if = {
+            limit = { has_technology = tech_mine_living_metal }
+            set_variable = { which = br_res_lock_12 value = 1 }
+        }
+        set_variable = { which = br_res_lock_13 value = 0 }
+        if = {
+            limit = { has_technology = tech_mine_zro }
+            set_variable = { which = br_res_lock_13 value = 1 }
+        }
+        set_variable = { which = br_res_lock_14 value = 0 }
+        if = {
+            limit = { OR = { has_technology = tech_nanite_transmutation has_technology = tech_nanite_assemblers } }
+            set_variable = { which = br_res_lock_14 value = 1 }
+        }
         country_event = { id = reward.1101 }
     }
 }
@@ -60,13 +94,13 @@ country_event = {
             10 = { set_variable = { which = br_res_pick_1 value = 5 } }
             10 = { set_variable = { which = br_res_pick_1 value = 6 } }
             10 = { set_variable = { which = br_res_pick_1 value = 7 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 8 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 9 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_strategic_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 10 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 11 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 12 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 13 } }
-            10 = { modifier = { factor = 0 check_variable = { which = br_res_rare_ok value = 0 } } set_variable = { which = br_res_pick_1 value = 14 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_8 value = 0 } } set_variable = { which = br_res_pick_1 value = 8 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_9 value = 0 } } set_variable = { which = br_res_pick_1 value = 9 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_10 value = 0 } } set_variable = { which = br_res_pick_1 value = 10 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_11 value = 0 } } set_variable = { which = br_res_pick_1 value = 11 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_12 value = 0 } } set_variable = { which = br_res_pick_1 value = 12 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_13 value = 0 } } set_variable = { which = br_res_pick_1 value = 13 } }
+            10 = { modifier = { factor = 0 check_variable = { which = br_res_lock_14 value = 0 } } set_variable = { which = br_res_pick_1 value = 14 } }
         }
 
         # ======================== 第2轮：排除pick_1 ========================
@@ -78,13 +112,13 @@ country_event = {
             10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 5 } } set_variable = { which = br_res_pick_2 value = 5 } }
             10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 6 } } set_variable = { which = br_res_pick_2 value = 6 } }
             10 = { modifier = { factor = 0 check_variable = { which = br_res_pick_1 value = 7 } } set_variable = { which = br_res_pick_2 value = 7 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } } } set_variable = { which = br_res_pick_2 value = 8 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } } } set_variable = { which = br_res_pick_2 value = 9 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } } } set_variable = { which = br_res_pick_2 value = 10 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } } } set_variable = { which = br_res_pick_2 value = 11 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } } } set_variable = { which = br_res_pick_2 value = 12 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } } } set_variable = { which = br_res_pick_2 value = 13 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } } } set_variable = { which = br_res_pick_2 value = 14 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_8 value = 0 } check_variable = { which = br_res_pick_1 value = 8 } } } set_variable = { which = br_res_pick_2 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_9 value = 0 } check_variable = { which = br_res_pick_1 value = 9 } } } set_variable = { which = br_res_pick_2 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_10 value = 0 } check_variable = { which = br_res_pick_1 value = 10 } } } set_variable = { which = br_res_pick_2 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_11 value = 0 } check_variable = { which = br_res_pick_1 value = 11 } } } set_variable = { which = br_res_pick_2 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_12 value = 0 } check_variable = { which = br_res_pick_1 value = 12 } } } set_variable = { which = br_res_pick_2 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_13 value = 0 } check_variable = { which = br_res_pick_1 value = 13 } } } set_variable = { which = br_res_pick_2 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_14 value = 0 } check_variable = { which = br_res_pick_1 value = 14 } } } set_variable = { which = br_res_pick_2 value = 14 } }
         }
 
         # ======================== 第3轮：排除pick_1和pick_2 ========================
@@ -96,13 +130,13 @@ country_event = {
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 5 } check_variable = { which = br_res_pick_2 value = 5 } } } set_variable = { which = br_res_pick_3 value = 5 } }
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 6 } check_variable = { which = br_res_pick_2 value = 6 } } } set_variable = { which = br_res_pick_3 value = 6 } }
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 7 } check_variable = { which = br_res_pick_2 value = 7 } } } set_variable = { which = br_res_pick_3 value = 7 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } } } set_variable = { which = br_res_pick_3 value = 8 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } } } set_variable = { which = br_res_pick_3 value = 9 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } } } set_variable = { which = br_res_pick_3 value = 10 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } } } set_variable = { which = br_res_pick_3 value = 11 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } } } set_variable = { which = br_res_pick_3 value = 12 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } } } set_variable = { which = br_res_pick_3 value = 13 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } } } set_variable = { which = br_res_pick_3 value = 14 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_8 value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } } } set_variable = { which = br_res_pick_3 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_9 value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } } } set_variable = { which = br_res_pick_3 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_10 value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } } } set_variable = { which = br_res_pick_3 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_11 value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } } } set_variable = { which = br_res_pick_3 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_12 value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } } } set_variable = { which = br_res_pick_3 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_13 value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } } } set_variable = { which = br_res_pick_3 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_14 value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } } } set_variable = { which = br_res_pick_3 value = 14 } }
         }
 
         # ======================== 第4轮：排除pick_1、pick_2、pick_3 ========================
@@ -114,13 +148,13 @@ country_event = {
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 5 } check_variable = { which = br_res_pick_2 value = 5 } check_variable = { which = br_res_pick_3 value = 5 } } } set_variable = { which = br_res_pick_4 value = 5 } }
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 6 } check_variable = { which = br_res_pick_2 value = 6 } check_variable = { which = br_res_pick_3 value = 6 } } } set_variable = { which = br_res_pick_4 value = 6 } }
             10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_pick_1 value = 7 } check_variable = { which = br_res_pick_2 value = 7 } check_variable = { which = br_res_pick_3 value = 7 } } } set_variable = { which = br_res_pick_4 value = 7 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } check_variable = { which = br_res_pick_3 value = 8 } } } set_variable = { which = br_res_pick_4 value = 8 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } check_variable = { which = br_res_pick_3 value = 9 } } } set_variable = { which = br_res_pick_4 value = 9 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_strategic_ok value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } check_variable = { which = br_res_pick_3 value = 10 } } } set_variable = { which = br_res_pick_4 value = 10 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } check_variable = { which = br_res_pick_3 value = 11 } } } set_variable = { which = br_res_pick_4 value = 11 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } check_variable = { which = br_res_pick_3 value = 12 } } } set_variable = { which = br_res_pick_4 value = 12 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } check_variable = { which = br_res_pick_3 value = 13 } } } set_variable = { which = br_res_pick_4 value = 13 } }
-            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_rare_ok value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } check_variable = { which = br_res_pick_3 value = 14 } } } set_variable = { which = br_res_pick_4 value = 14 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_8 value = 0 } check_variable = { which = br_res_pick_1 value = 8 } check_variable = { which = br_res_pick_2 value = 8 } check_variable = { which = br_res_pick_3 value = 8 } } } set_variable = { which = br_res_pick_4 value = 8 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_9 value = 0 } check_variable = { which = br_res_pick_1 value = 9 } check_variable = { which = br_res_pick_2 value = 9 } check_variable = { which = br_res_pick_3 value = 9 } } } set_variable = { which = br_res_pick_4 value = 9 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_10 value = 0 } check_variable = { which = br_res_pick_1 value = 10 } check_variable = { which = br_res_pick_2 value = 10 } check_variable = { which = br_res_pick_3 value = 10 } } } set_variable = { which = br_res_pick_4 value = 10 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_11 value = 0 } check_variable = { which = br_res_pick_1 value = 11 } check_variable = { which = br_res_pick_2 value = 11 } check_variable = { which = br_res_pick_3 value = 11 } } } set_variable = { which = br_res_pick_4 value = 11 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_12 value = 0 } check_variable = { which = br_res_pick_1 value = 12 } check_variable = { which = br_res_pick_2 value = 12 } check_variable = { which = br_res_pick_3 value = 12 } } } set_variable = { which = br_res_pick_4 value = 12 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_13 value = 0 } check_variable = { which = br_res_pick_1 value = 13 } check_variable = { which = br_res_pick_2 value = 13 } check_variable = { which = br_res_pick_3 value = 13 } } } set_variable = { which = br_res_pick_4 value = 13 } }
+            10 = { modifier = { factor = 0 OR = { check_variable = { which = br_res_lock_14 value = 0 } check_variable = { which = br_res_pick_1 value = 14 } check_variable = { which = br_res_pick_2 value = 14 } check_variable = { which = br_res_pick_3 value = 14 } } } set_variable = { which = br_res_pick_4 value = 14 } }
         }
 
         country_event = { id = reward.1102 }
@@ -133,8 +167,10 @@ country_event = {
 #
 # 选项编号对照表：
 #   1=能量币  2=矿物  3=食物  4=消费品  5=合金  6=凝聚力  7=贸易额
-#   8=易燃微粒  9=稀有水晶  10=异星天然气（8-10需战力≥4）
-#   11=暗物质  12=活体金属  13=泽洛  14=纳米机器人（11-14需战力≥8）
+#   8=易燃微粒  9=稀有水晶  10=异星天然气（需对应科技才入池）
+#   11=暗物质  12=活体金属  13=泽洛  14=纳米机器人（需对应科技才入池）
+# 金额档位：1/2/3/7=br_res_inc，4=br_res_amt_cg，5=br_res_amt_alloy，6=br_res_amt_unity，
+#           8/9/10=br_res_amt_sr，11/12/13/14=br_res_amt_rare
 # ========================
 country_event = {
     id = reward.1102
@@ -200,7 +236,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 4 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_cg_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_cg_income value = br_res_amt_cg } }
     }
 
     # 5. 合金
@@ -215,7 +251,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 5 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_alloy_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_alloy_income value = br_res_amt_alloy } }
     }
 
     # 6. 凝聚力
@@ -230,7 +266,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 6 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_unity_income value = br_res_inc } }
+        hidden_effect = { change_variable = { which = br_reward_unity_income value = br_res_amt_unity } }
     }
 
     # 7. 贸易额
@@ -260,7 +296,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 8 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_motes_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_motes_income value = br_res_amt_sr } }
     }
 
     # 9. 稀有水晶
@@ -275,7 +311,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 9 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_crystal_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_crystal_income value = br_res_amt_sr } }
     }
 
     # 10. 异星天然气
@@ -290,7 +326,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 10 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_gas_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_gas_income value = br_res_amt_sr } }
     }
 
     # 11. 暗物质
@@ -305,7 +341,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 11 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_dark_matter_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_dark_matter_income value = br_res_amt_rare } }
     }
 
     # 12. 活体金属
@@ -320,7 +356,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 12 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_living_metal_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_living_metal_income value = br_res_amt_rare } }
     }
 
     # 13. 泽洛
@@ -335,7 +371,7 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 13 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_zro_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_zro_income value = br_res_amt_rare } }
     }
 
     # 14. 纳米机器人
@@ -350,6 +386,6 @@ country_event = {
                 check_variable = { which = br_res_pick_4 value = 14 }
             }
         }
-        hidden_effect = { change_variable = { which = br_reward_nanites_income value = br_res_inc_rare } }
+        hidden_effect = { change_variable = { which = br_reward_nanites_income value = br_res_amt_rare } }
     }
 }

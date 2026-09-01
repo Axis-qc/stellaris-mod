@@ -13,7 +13,8 @@ special_project = {
         # shipclass_military = 1
     }
     on_success = {
-        #没法触发事件
+        # 保存研究舰船引用（舰船 scope，@owner 可解析），reward.7011 据此定位本奖励点
+        save_global_event_target_as = br_wreck_ship@owner
         owner = {
             country_event = {
                 id = reward.7011
@@ -33,6 +34,8 @@ special_project = {
         fleet_power > 100
     }
     on_success = {
+        # 保存研究舰船引用（舰船 scope，@owner 可解析），reward.7021 据此定位本奖励点
+        save_global_event_target_as = br_artifact_ship@owner
         owner = {
             country_event = {
                 id = reward.7021
