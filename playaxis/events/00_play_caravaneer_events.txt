@@ -12,7 +12,12 @@ country_event = {
     is_triggered_only = yes  # 仅在触发条件满足时触发
     fire_only_once = no
     trigger = {
-        has_technology = tech_starbase_3  # 科技
+        OR = {
+            has_technology = tech_starbase_3  # 普通帝国星港科技
+            has_technology = tech_waystation_1  # 游牧驿站科技（原版 tech_starbase_3 对 is_nomadic=no，游牧研究不了）
+            has_technology = tech_waystation_2
+            has_technology = tech_waystation_3
+        }
         NOR = {
             has_communications = event_target:play_axis_country    #尚未和我方建立联系
             has_country_flag = play_country_yes  # 没有该国家flag
@@ -73,26 +78,17 @@ country_event = {
     }
     is_triggered_only = yes    #在舰队被探测到的*触发器*触发
     trigger = {
-        from = {
-            # this.solar_system = {
-            #     has_star_flag = play_axis_system_home
-            # }
-            owner = {
-                NOT = {
-                    has_communications = event_target:play_axis_country    #尚未和我方建立联系
-                }
-            }
-        }
         this = {
+            not = {
+                is_country_type = play_axis  # 防止 play_axis 国家自身触发
+            }
+            NOT = {
+                has_communications = event_target:play_axis_country    #尚未和我方建立联系
+            }
             not = {
                 has_country_flag = has_axis_communications
             }
         }
-        # from = {
-        #     owner = {
-        #         has_country_flag = has_axis_communications
-        #     }
-        # }
         play_axis_ui = no  #防止重复
     }
     immediate = {
@@ -153,9 +149,15 @@ country_event = {
         # }
         # 防止外交重复
         play_axis_ui = no  # 没有打开的窗口
-        from = {
-            # 来自以下任一类型的国家
-            is_country_type = play_axis
+        OR = {
+            from = {
+                # 来自以下任一类型的国家（联系菜单 on_custom_diplomacy 等）
+                is_country_type = play_axis
+            }
+            this = {
+                # 从 play.10 舰队探测路径打开（此时 from 是舰队，已建立通讯）
+                has_communications = event_target:play_axis_country
+            }
         }
     }
 
