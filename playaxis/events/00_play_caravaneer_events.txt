@@ -154,9 +154,12 @@ country_event = {
                 # 来自以下任一类型的国家（联系菜单 on_custom_diplomacy 等）
                 is_country_type = play_axis
             }
-            this = {
-                # 从 play.10 舰队探测路径打开（此时 from 是舰队，已建立通讯）
-                has_communications = event_target:play_axis_country
+            from = {
+                # 从 play.10 舰队探测路径打开（此时 from 是 play_axis 的舰队）
+                is_scope_type = fleet
+                owner = {
+                    is_country_type = play_axis
+                }
             }
         }
     }
