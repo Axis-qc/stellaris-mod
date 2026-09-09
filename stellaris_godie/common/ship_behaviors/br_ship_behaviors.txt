@@ -1,0 +1,21 @@
+ship_behavior = {
+	name = "br_arkship"                         # 行为名称，用于标识该舰船行为
+	preferred_attack_range = max                # 首选攻击距离，max表示在最大武器射程内开火
+	formation_distance = max                    # 编队距离，max表示与编队中心保持最大距离
+	return_to_formation_distance = 1000         # 返回编队距离阈值（单位：游戏单位），超出此距离时会尝试归队
+	source_target_anchor_factor = 1.0           # 源目标锚点因子，影响目标选择时的权重（1.0为正常）
+	combat_target_anchor = root                 # 战斗目标锚点，root表示以舰船自身根节点为参考
+
+	collision_awareness = 0.75                  # 碰撞感知系数（0~1），值越高越倾向于避开其他实体
+	collision_radius = 2.0                      # 碰撞半径乘数，乘以舰船尺寸定义的半径，实际碰撞半径 = 基础半径 * 该值
+	collision_strafe = 2.5                      # 碰撞侧滑系数，允许舰船在碰撞时沿任意方向移动的额外机动能力
+	attack_move_pattern = maintain_distance     # 攻击时的移动模式：保持距离（maintain_distance），即与目标保持首选攻击范围
+	passive_move_pattern = stay_at_range        # 非攻击（被动）时的移动模式：保持在射程内（stay_at_range）
+
+	combat_movement = player_override           # 战斗移动控制权：player_override表示可由玩家指令覆盖AI行为
+	flee_when_overpowered = yes                 # 是否在劣势时撤退：当舰队姿态为“规避”且敌方总战力超过友方（乘数由FLEET_DANGEROUS_SYSTEM_POWER_MULT定义）时，或姿态为“被动/进攻”且舰船血量低于FLEET_DANGEROUS_HULL_THRESHOLD时，触发撤退
+	allow_emergency_ftl = no                    # 是否允许紧急超光速跳跃（即战斗中强行撤退），no表示禁止
+	allow_disengage = yes                       # 是否允许脱离战斗（disengage），通常指战机/舰船在受损后撤出战斗，yes表示允许
+
+	desc = "br_ARKSHIP_BEHAVIOR_DESC"           # 游戏内显示的描述文本，对应本地化键名
+}
