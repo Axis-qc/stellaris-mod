@@ -1,0 +1,11 @@
+# PLAY mod: 降低天灾AOE范围伤害（伤害÷10、范围×2），保护小船不被秒杀
+# 覆盖原版 common/scripted_variables/03_scripted_variables_ships.txt 中对应变量
+# 原理: 原版组件 collateral_damage/collateral_range 引用这些@变量，改变量值即可联动全部6处引用
+# 效果: 天灾1000%加成(×11)下，灾厄550、离子110、方舟825，均低于小船约1000总生命，不一下死
+
+@perdition_beam_fleet_damage = 50        # 原版500  -> 50
+@perdition_beam_collateral_range = 80    # 原版40   -> 80
+@ion_cannon_fleet_damage = 10            # 原版100  -> 10
+@ion_cannon_collateral_range = 40        # 原版20   -> 40
+@arkship_devastator_fleet_damage = 75    # 原版750  -> 75
+@arkship_devastator_collateral_range = 100 # 原版50 -> 100
