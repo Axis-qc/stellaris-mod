@@ -1,52 +1,15 @@
 namespace = br
 # ============================================================
-# PVE追踪刷新：br.830
-# 由 br.850 年度多次触发（11/100/200/300天）
-# 遍历敌方所有带 br_assault_@root flag 的舰队，重新绑定跟随攻击母舰
-# ============================================================
-country_event = {
-	id = br.830
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_country_flag = br_player_country
-		exists = event_target:br_pve_enemy_country
-		any_owned_fleet = {
-			br_is_arkship_ship = yes
-		}
-	}
-	immediate = {
-		random_owned_fleet = {
-			limit = {
-				br_is_arkship_ship = yes
-			}
-			save_event_target_as = br_dominator_fleet_@root
-		}
-		event_target:br_pve_enemy_country = {
-			every_owned_fleet = {
-				limit = {
-					has_fleet_flag = br_assault_@root
-				}
-				auto_follow_fleet = {
-					target = event_target:br_dominator_fleet_@root
-					attack_fleet = yes
-				}
-			}
-		}
-	}
-}
-
-# ============================================================
-# PVE敌方年度突击编队：br.840
-# 由 br.850 年度触发，每年无条件刷一支新舰队
-# 以玩家母舰为中心，周边2-5跳内随机非危险区星系刷敌
-# 舰队打上 br_assault_@root flag，可累积多支
+# PVE 年度突击舰队：br.840
+# 由 br.850 年度触发。刷怪点=玩家领地边境星系(is_on_border)
+# 侵略推进（aggressive+猎手式找最近敌对舰队）
 # ============================================================
 country_event = {
 	id = br.840
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		is_ai = no
 		has_country_flag = br_player_country
 		exists = event_target:br_pve_enemy_country
 		any_owned_fleet = {
@@ -63,28 +26,52 @@ country_event = {
 				save_event_target_as = br_dominator_target_@root
 			}
 		}
-		# 只负责创建，追踪交给 br.830
-		event_target:br_dominator_target_@root = {
-			random_system = {
-				limit = {
-					distance = {
-						source = event_target:br_dominator_target_@root
-						type = hyperlane
-						min_jumps = 2
-						max_jumps = 5
-					}
-					NOT = {
-						has_star_flag = br_danger
-					}
-					NOT = {
-						any_fleet_in_system = {
-							owner = {
-								has_country_flag = br_player_country
-							}
+		# 边境星系刷出
+		random_system_within_border = {
+			limit = {
+				is_on_border = yes
+				NOT = {
+					has_star_flag = br_danger
+				}
+				NOT = {
+					any_fleet_in_system = {
+						owner = {
+							has_country_flag = br_player_country
 						}
 					}
 				}
-				save_event_target_as = br_assault_spawn_@root
+			}
+			save_event_target_as = br_assault_spawn_@root
+		}
+		# 兜底：退回方舟2-5跳
+		if = {
+			limit = {
+				NOT = {
+					exists = event_target:br_assault_spawn_@root
+				}
+			}
+			event_target:br_dominator_target_@root = {
+				random_system = {
+					limit = {
+						distance = {
+							source = event_target:br_dominator_target_@root
+							type = hyperlane
+							min_jumps = 2
+							max_jumps = 5
+						}
+						NOT = {
+							has_star_flag = br_danger
+						}
+						NOT = {
+							any_fleet_in_system = {
+								owner = {
+									has_country_flag = br_player_country
+								}
+							}
+						}
+					}
+					save_event_target_as = br_assault_spawn_@root
+				}
 			}
 		}
 		event_target:br_pve_enemy_country = {
@@ -96,9 +83,23 @@ country_event = {
 					br_reinforce_pve_fleet = yes
 					set_fleet_flag = br_assault_@root
 					set_fleet_stance = aggressive
-					auto_follow_fleet = {
-						target = event_target:br_dominator_fleet_@root
-						attack_fleet = yes
+					# 侵略推进：猎手式找最近敌对舰队
+					queue_actions = {
+						repeat = {
+							find_closest_system = {
+								trigger = {
+									id = br.840.hunt
+									any_fleet_in_system = {
+										owner = {
+											is_hostile = event_target:br_pve_enemy_country
+										}
+									}
+								}
+								found_system = {
+									move_to = this
+								}
+							}
+						}
 					}
 					save_global_event_target_as = br_assault_fleet_@root
 				}
@@ -117,7 +118,6 @@ country_event = {
 # 年度舰船设计复制 + 触发刷敌：br.850
 # 由 on_yearly_pulse_country 年度触发
 # 保存玩家舰船设计为全局 event_target → 无条件触发 br.840 刷敌
-# 延迟多次触发 br.830 更新追击目标
 # ============================================================
 country_event = {
 	id = br.850
@@ -208,11 +208,6 @@ country_event = {
 		country_event = {
 			id = br.840
 			days = 10
-		}
-		# 更新追踪玩家星系（auto_follow_fleet 会持续追击，每年一次即可）
-		country_event = {
-			id = br.830
-			days = 11
 		}
 		set_timed_global_flag = {
 			flag = br_designs_saved

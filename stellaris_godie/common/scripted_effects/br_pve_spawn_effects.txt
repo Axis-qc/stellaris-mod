@@ -1,8 +1,7 @@
 # =========================================================================
 # PVE 年度突击刷敌链
-# 调用链: br.850(on_yearly_pulse_country, 保存玩家舰船设计)
-#          → 延迟触发 br.830/br.840 → br_pve_reinforce_events.txt:96
-#          → br_reinforce_pve_fleet → br_spawn_mixed(40%) / br_spawn_pure_*(各15%)
+# 调用链: br.850(保存玩家设计) → br.840(边境刷+侵略推进) → br_reinforce_pve_fleet
+#          → br_spawn_mixed(40%) / br_spawn_pure_*(各15%)
 # 舰船设计来自 event_target:br_player_*（玩家舰船保存，含生物船兼容修复）
 # 数量由 br_total_intensity 驱动：护卫=intensity/100 保底1，驱逐/巡洋/战列阈值 2000/4000/6000 逐级减半
 # =========================================================================

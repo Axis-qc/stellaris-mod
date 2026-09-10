@@ -40,12 +40,12 @@ br_pve_enemy_ship_growth = {
 		trigger_scope = event_target:br_pve_enemy_country
 		trigger = count_owned_ship
 		mode = add
-		mult = 0.02
+		mult = 0.01
 	}
 }
 
 # 动态上限增量：裂隙每道 +100，场上敌船每艘 +3
-# 裂隙走主流水乘法；敌船由内部 mult 缩放导入值后并入，两项互不污染
+# 裂隙走主流水乘法；敌船由内部 mult 缩放导入值后并入
 br_pve_max_from_enemy = {
 	base = 0
 	add = event_target:br_pve_enemy_country.br_rift_count
@@ -54,6 +54,6 @@ br_pve_max_from_enemy = {
 		trigger_scope = event_target:br_pve_enemy_country
 		trigger = count_owned_ship
 		mode = add
-		mult = 10
+		mult = 3
 	}
 }

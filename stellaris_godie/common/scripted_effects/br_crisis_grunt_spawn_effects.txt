@@ -1,7 +1,6 @@
 # =========================================================================
 # PVE 进星系刷敌链（探索杂兵，不出女王/大型舰）
-# 调用链: br.804(on_entering_system_fleet, fleet→country)
-#          → br.801 创舰队+首刷 / br.802、br.803 后续日追加
+# 调用链: br.804(进星系标记周边) → br.801 遍历标记星系刷敌
 #          → br_spawn_crisis_fleet → br_crisis_create_grunt_fleet
 #          → br_crisis_grunt_small/medium/large_spawn
 # 数量由 br_total_intensity 驱动：small=intensity/100 保底1, medium=intensity/200(>=2000), large=0
