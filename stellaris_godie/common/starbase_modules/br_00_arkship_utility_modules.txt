@@ -1,7 +1,7 @@
 # If you add a new utility module, also add it to common/inline_scripts/arkship/ai_design.txt
 # and update the weights for all arkship starbase types in common/starbase_types/00_starbase_types.txt
 
-arkship_engineering_bay = {
+br_arkship_engineering_bay = {
 	icon = "GFX_arkship_engineering_bay"
 	section = "ARKSHIP_CONSTRUCTION_MODULE"
 	construction_days = 180
@@ -20,7 +20,7 @@ arkship_engineering_bay = {
 
 	possible = {
 		count_starbase_modules = {
-			type = arkship_beastport
+			type = br_arkship_beastport
 			count < 1
 			include_being_constructed = yes
 		}
@@ -58,7 +58,7 @@ arkship_engineering_bay = {
 	}
 	on_destroyed = {
 		if = {
-			limit = { NOT = { has_starbase_module = arkship_engineering_bay } }
+			limit = { NOT = { has_starbase_module = br_arkship_engineering_bay } }
 			set_ship_construction_type = none
 		}
 	}
@@ -74,7 +74,7 @@ arkship_engineering_bay = {
 	}
 }
 
-arkship_beastport = {
+br_arkship_beastport = {
 	icon = "GFX_starbase_beastport"
 	section = "ARKSHIP_CONSTRUCTION_MODULE"
 	construction_days = 180
@@ -93,7 +93,7 @@ arkship_beastport = {
 
 	possible = {
 		count_starbase_modules = {
-			type = arkship_engineering_bay
+			type = br_arkship_engineering_bay
 			count < 1
 			include_being_constructed = yes
 		}
@@ -101,7 +101,7 @@ arkship_beastport = {
 
 	abort_construction_trigger = {
 		OR = {
-			has_starbase_module = arkship_engineering_bay
+			has_starbase_module = br_arkship_engineering_bay
 		}
 	}
 
