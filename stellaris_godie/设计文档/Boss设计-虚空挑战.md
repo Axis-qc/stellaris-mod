@@ -1,6 +1,6 @@
 # 群星：虚空挑战 — Boss设计草案
 
-> **⚠ 部分实现（2026-08 校对）。** 已落地：Boss 后置生成 + 倾向变量（`br_void_conquest/oblivion/sacrifice/evolution/taboo`）+ BOSS 四阶段触发（`br_pve_enemy_boss_events.txt`）。
+> **[部分实现]（2026-08 校对）。** 已落地：Boss 后置生成 + 倾向变量（`br_void_conquest/oblivion/sacrifice/evolution/taboo`）+ BOSS 四阶段触发（`br_pve_enemy_boss_events.txt`）。
 > 未实现：21 种 Boss 加权随机池、印记 flag（`br_mark_*`）体系、Boss 奖励差异化、隐藏 Boss 解锁。
 > 本文档中「虚空印记 / `br_mark_*`」属旧设计，实际实现以**倾向变量 `br_void_*`** 为准（见下方修正）。
 
@@ -32,27 +32,9 @@ Boss不在开局时随机选好，而是**在游戏进程中逐步积累flag，�
 
 **当前实现用倾向变量 `br_void_*`（国家级，房主 `br_void_country` 上），在 `br_level_events.txt` 初始化并按行为累计：**
 
-| 倾向变量 | 累计来源 | 影响的Boss方向 |
-|------|---------|-------------|
-| `br_void_conquest`（征服） | 击杀、战斗、精英舰队 | 无畏战舰、远古堡垒等强战Boss |
-| `br_void_oblivion`（湮灭） | 爆星、毁灭星球、掠夺 | 噬星者、虚空孳孽等毁灭系 |
-| `br_void_sacrifice`（献祭） | 舰船损失、牺牲 | 位面之魇、幽魂等灵异系 |
-| `br_void_evolution`（进化） | 等级提升、科技强化、母舰进化 | 无限神机等科技系 |
-| `br_void_taboo`（禁忌） | 强力但代价效果、污染交易 | 虚境化身、恶堕化身 |
+| 倾向变量 | 累计来源 | 影响的Boss方向 ||------|---------|-------------|| `br_void_conquest`（征服） | 击杀、战斗、精英舰队 | 无畏战舰、远古堡垒等强战Boss || `br_void_oblivion`（湮灭） | 爆星、毁灭星球、掠夺 | 噬星者、虚空孳孽等毁灭系 || `br_void_sacrifice`（献祭） | 舰船损失、牺牲 | 位面之魇、幽魂等灵异系 || `br_void_evolution`（进化） | 等级提升、科技强化、母舰进化 | 无限神机等科技系 || `br_void_taboo`（禁忌） | 强力但代价效果、污染交易 | 虚境化身、恶堕化身 |**旧设计「虚空印记」（`br_mark_*` flag 体系）未实现，已由上述倾向变量取代，下表仅存档：**
 
-**旧设计「虚空印记」（`br_mark_*` flag 体系）未实现，已由上述倾向变量取代，下表仅存档：**
-
-| 旧印记类型 | 旧flag前缀 | 旧来源 | 影响Boss倾向 |
-|------|---------|------|----------|
-| 战痕印记 | `br_mark_combat_*` | 大量战斗/击杀 | 无畏战舰、远古堡垒等强战Boss |
-| 毁灭印记 | `br_mark_destruction_*` | 爆星次数 | 噬星者、虚空孳孽等毁灭系 |
-| 献祭印记 | `br_mark_sacrifice_*` | 损失大量舰船 | 位面之魇、幽魂等灵异系 |
-| 灵能印记 | `br_mark_psionic_*` | 灵能相关事件 | 虚境化身、恶堕化身、虚境显圣 |
-| 古老印记 | `br_mark_ancient_*` | 探索/存活时间长 | 以太巨龙、天龙、巨龙等远古系 |
-| 科技印记 | `br_mark_tech_*` | 高power_level | 无限神机等科技系 |
-| 污秽印记 | `br_mark_toxic_*` | 毒物相关 | 毒圣、剧毒的半神 |
-
----
+| 旧印记类型 | 旧flag前缀 | 旧来源 | 影响Boss倾向 ||------|---------|------|----------|| 战痕印记 | `br_mark_combat_*` | 大量战斗/击杀 | 无畏战舰、远古堡垒等强战Boss || 毁灭印记 | `br_mark_destruction_*` | 爆星次数 | 噬星者、虚空孳孽等毁灭系 || 献祭印记 | `br_mark_sacrifice_*` | 损失大量舰船 | 位面之魇、幽魂等灵异系 || 灵能印记 | `br_mark_psionic_*` | 灵能相关事件 | 虚境化身、恶堕化身、虚境显圣 || 古老印记 | `br_mark_ancient_*` | 探索/存活时间长 | 以太巨龙、天龙、巨龙等远古系 || 科技印记 | `br_mark_tech_*` | 高power_level | 无限神机等科技系 || 污秽印记 | `br_mark_toxic_*` | 毒物相关 | 毒圣、剧毒的半神 |---
 
 ## Boss选择逻辑
 
@@ -66,31 +48,7 @@ Boss降临事件触发时：
 
 ### Boss 与 印记对应表
 
-| #  | 官方汉化名     | ship_size（原版key）                                  | 所属DLC      | 倾向印记        |
-|:--:|-----------|---------------------------------------------------|------------|-------------|
-| 1  | 以太巨龙      | space_dragon_red                                  | 利维坦        | 古老印记        |
-| 2  | 噬星者       | stellarite                                        | 利维坦        | 毁灭印记        |
-| 3  | 毒圣        | toxic_god                                         | 毒物         | 污秽印记        |
-| 4  | 位面之魇      | dimensional_horror                                | 利维坦        | 献祭印记        |
-| 5  | 远古堡垒      | station_xl                                        | 利维坦        | 战痕印记        |
-| 6  | 巨龙（Shard） | space_dragon_blue                                 | 远古遗迹       | 古老印记        |
-| 7  | 天龙        | space_dragon_origin                               | 水生         | 古老印记        |
-| 8  | 无限神机      | sphere                                            | 利维坦        | 科技印记        |
-| 9  | 缇扬奇族母     | leviathan_01_elder_tiyanki                        | 遥远之星       | 无（随机池）      |
-| 10 | 虚境化身      | psionic_avatar / corrupted_avatar                 | 主游戏（灵能）    | 灵能印记        |
-| 11 | 扭曲意识      | warped_consciousness                              | 主游戏（轮回之终末） | 灵能印记 / 献祭印记 |
-| 12 | 异次元传送门    | dimensional_portal_ed                             | 主游戏（异次元）   | 献祭印记        |
-| 13 | 幽魂        | wraith_01_blue / wraith_01_red / wraith_01_yellow | 利维坦        | 献祭印记        |
-| 14 | 无畏战舰      | npc_warship_01                                    | 利维坦        | 战痕印记        |
-| 15 | 拾荒机器人     | leviathan_01_scavenger_bot                        | 遥远之星       | 战痕印记        |
-| 16 | 虚空孳孽      | leviathan_01_voidspawn                            | 遥远之星       | 毁灭印记        |
-| 17 | 加列战船      | galleon                                           | 主游戏        | 无（随机池）      |
-| 18 | 剧毒的半神     | toxic_demigod                                     | 毒物         | 污秽印记        |
-| 19 | 以太龙幼体     | space_dragon_baby                                 | 利维坦        | 古老印记        |
-| 20 | 虚境显圣      | shroud_manifestation                              | 主游戏        | 灵能印记        |
-| 21 | 恶堕化身      | corrupted_avatar                                  | 主游戏        | 灵能印记 / 献祭印记 |
-
----
+| #  | 官方汉化名  | ship_size（原版key）  | 所属DLC  | 倾向印记  ||:--:|-----------|---------------------------------------------------|------------|-------------|| 1  | 以太巨龙  | space_dragon_red  | 利维坦  | 古老印记  || 2  | 噬星者  | stellarite  | 利维坦  | 毁灭印记  || 3  | 毒圣  | toxic_god  | 毒物  | 污秽印记  || 4  | 位面之魇  | dimensional_horror  | 利维坦  | 献祭印记  || 5  | 远古堡垒  | station_xl  | 利维坦  | 战痕印记  || 6  | 巨龙（Shard） | space_dragon_blue  | 远古遗迹  | 古老印记  || 7  | 天龙  | space_dragon_origin  | 水生  | 古老印记  || 8  | 无限神机  | sphere  | 利维坦  | 科技印记  || 9  | 缇扬奇族母  | leviathan_01_elder_tiyanki  | 遥远之星  | 无（随机池）  || 10 | 虚境化身  | psionic_avatar / corrupted_avatar  | 主游戏（灵能）  | 灵能印记  || 11 | 扭曲意识  | warped_consciousness  | 主游戏（轮回之终末） | 灵能印记 / 献祭印记 || 12 | 异次元传送门  | dimensional_portal_ed  | 主游戏（异次元）  | 献祭印记  || 13 | 幽魂  | wraith_01_blue / wraith_01_red / wraith_01_yellow | 利维坦  | 献祭印记  || 14 | 无畏战舰  | npc_warship_01  | 利维坦  | 战痕印记  || 15 | 拾荒机器人  | leviathan_01_scavenger_bot  | 遥远之星  | 战痕印记  || 16 | 虚空孳孽  | leviathan_01_voidspawn  | 遥远之星  | 毁灭印记  || 17 | 加列战船  | galleon  | 主游戏  | 无（随机池）  || 18 | 剧毒的半神  | toxic_demigod  | 毒物  | 污秽印记  || 19 | 以太龙幼体  | space_dragon_baby  | 利维坦  | 古老印记  || 20 | 虚境显圣  | shroud_manifestation  | 主游戏  | 灵能印记  || 21 | 恶堕化身  | corrupted_avatar  | 主游戏  | 灵能印记 / 献祭印记 |---
 
 ## 隐藏Boss机制（未实现，规划）
 
@@ -98,38 +56,30 @@ Boss降临事件触发时：
 
 以下Boss需要特定flag组合才能解锁进入候选池，否则不会出现：
 
-| Boss                              | 解锁条件                         |
-|-----------------------------------|------------------------------|
-| **扭曲意识**（warped_consciousness）    | 灵能印记 ≥ 3层 + 献祭印记 ≥ 2层        |
-| **异次元传送门**（dimensional_portal_ed） | 献祭印记 ≥ 3层 + power_level ≥ 4级 |
-| **虚境化身**（psionic_avatar）          | 灵能印记 ≥ 2层 + 触发过灵能事件          |
-| **恶堕化身**（corrupted_avatar）        | 灵能印记 ≥ 3层 + 献祭印记 ≥ 3层        |
-| **虚境显圣**（shroud_manifestation）    | 灵能印记 ≥ 4层（罕见隐藏）              |
-
-隐藏Boss一旦解锁，在最终选择中拥有更高的基础权重，但需要玩家在游戏过程中有意识地朝某个方向积累印记才能见到。
+| Boss  | 解锁条件  ||-----------------------------------|------------------------------|| **扭曲意识**（warped_consciousness）  | 灵能印记 ≥ 3层 + 献祭印记 ≥ 2层  || **异次元传送门**（dimensional_portal_ed） | 献祭印记 ≥ 3层 + power_level ≥ 4级 || **虚境化身**（psionic_avatar）  | 灵能印记 ≥ 2层 + 触发过灵能事件  || **恶堕化身**（corrupted_avatar）  | 灵能印记 ≥ 3层 + 献祭印记 ≥ 3层  || **虚境显圣**（shroud_manifestation）  | 灵能印记 ≥ 4层（罕见隐藏）  |隐藏Boss一旦解锁，在最终选择中拥有更高的基础权重，但需要玩家在游戏过程中有意识地朝某个方向积累印记才能见到。
 
 ---
 
 ## 事件流程
 
 ```
-游戏进程                          Boss系统
-────────                         ────────
-战斗杀敌         →  积累 征服倾向(br_void_conquest)
-爆星             →  积累 湮灭倾向(br_void_oblivion)
-舰船被毁         →  积累 献祭倾向(br_void_sacrifice)
-等级/科技强化    →  积累 进化倾向(br_void_evolution)
-代价/污染行为    →  积累 禁忌倾向(br_void_taboo)
-                                        ↓
-                         缩圈至最后阶段 / power_level达标
-                                        ↓
-                        Boss降临事件触发
-                          ↓
-                    检测倾向变量 → 构建候选池 → 加权随机
-                          ↓
-                    生成Boss + 精英卫队
-                          ↓
-                    击杀 → 胜利
+游戏进程  Boss系统
+────────  ────────
+战斗杀敌  →  积累 征服倾向(br_void_conquest)
+爆星  →  积累 湮灭倾向(br_void_oblivion)
+舰船被毁  →  积累 献祭倾向(br_void_sacrifice)
+等级/科技强化  →  积累 进化倾向(br_void_evolution)
+代价/污染行为  →  积累 禁忌倾向(br_void_taboo)
+  ↓
+  缩圈至最后阶段 / power_level达标
+  ↓
+  Boss降临事件触发
+  ↓
+  检测倾向变量 → 构建候选池 → 加权随机
+  ↓
+  生成Boss + 精英卫队
+  ↓
+  击杀 → 胜利
 ```
 
 ---
@@ -138,20 +88,11 @@ Boss降临事件触发时：
 
 每个Boss击杀后掉落不同的虚空遗物（虚空遗物用于母舰强化树解锁）：
 
-| Boss | 掉落遗物  | 强化方向    |
-|------|-------|---------|
-| 以太巨龙 | 龙鳞碎片  | 护甲强化    |
-| 噬星者  | 星核碎片  | 能源/射速   |
-| 无限神机 | 逻辑核心  | 科技/冷却   |
-| 远古堡垒 | 壁垒架构  | 防御/结构   |
-| 毒圣   | 毒囊腺体  | 腐蚀/毒素伤害 |
-| ...  | （待扩展） |         |
-
----
+| Boss | 掉落遗物  | 强化方向  ||------|-------|---------|| 以太巨龙 | 龙鳞碎片  | 护甲强化  || 噬星者  | 星核碎片  | 能源/射速  || 无限神机 | 逻辑核心  | 科技/冷却  || 远古堡垒 | 壁垒架构  | 防御/结构  || 毒圣  | 毒囊腺体  | 腐蚀/毒素伤害 || ...  | （待扩展） | |---
 
 ## 实现优先级
 
-1. ✅ **已完成**：Boss 后置生成 + 倾向变量（`br_void_*`）累计框架 + 单模板 Boss + BOSS 四阶段触发
-2. ⬜ **未实现**：21 种 Boss 加权随机池 + 每个 Boss 对应倾向绑定
-3. ⬜ **未实现**：隐藏 Boss 解锁条件 + 出现动画/警告差异化
-4. ⬜ **未实现**：Boss 奖励差异化 + 虚空遗物掉落
+1. [已实现] **已完成**：Boss 后置生成 + 倾向变量（`br_void_*`）累计框架 + 单模板 Boss + BOSS 四阶段触发
+2. [待办] **未实现**：21 种 Boss 加权随机池 + 每个 Boss 对应倾向绑定
+3. [待办] **未实现**：隐藏 Boss 解锁条件 + 出现动画/警告差异化
+4. [待办] **未实现**：Boss 奖励差异化 + 虚空遗物掉落
