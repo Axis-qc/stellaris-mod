@@ -1,0 +1,13 @@
+# 利维坦·噬星者 数值
+
+# 恒星光束单次伤害 = 500 + 成长 × 100
+lev_beam_damage = {
+    base = 500
+    add = value:lev_beam_growth_bonus
+}
+
+lev_beam_growth_bonus = {
+    base = 0
+    add = owner.lev_growth
+    mult = 100
+}

@@ -1,0 +1,23 @@
+# 利维坦·噬星者 星核（能量器官，单档）
+# 必须自带：原版反应堆靠 potential 限定舰种，自定义舰种装不上，会导致刷船失败
+# 生物巨兽不研发人类能源科技 —— 不设 prerequisites，无档位、无 upgrades_to
+
+@lev_power_1 = 11000
+
+@lev_cost_1 = 1600
+
+utility_component_template = {
+    key = "LEV_STELLARITE_REACTOR"
+    size = small
+    icon = "GFX_ship_part_reactor_5"
+    icon_frame = 1
+    power = @lev_power_1
+    resources = {
+        category = ship_components
+        cost = { alloys = @lev_cost_1 }
+        upkeep = { energy = 15.99  alloys = 1.599 }
+    }
+    component_set = "power_core"
+    size_restriction = { lev_stellarite }
+    ai_weight = { weight = 1 }
+}

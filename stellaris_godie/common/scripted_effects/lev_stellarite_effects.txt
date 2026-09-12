@@ -1,0 +1,156 @@
+# 利维坦·噬星者 技能效果（THIS = 目标恒星，from = 施放舰队）
+# 施放国先存成事件目标 lev_caster，避免嵌套作用域把 from 链挤偏
+
+# 光谱降 1 级（set_star_class 是星系作用域；change_pc 直接作用于恒星本身）
+lev_stellarite_spectrum_down = {
+    if = { limit = { is_star_class = sc_b }
+        solar_system = { set_star_class = sc_a }
+        change_pc = pc_a_star
+    }
+    else_if = { limit = { is_star_class = sc_a }
+        solar_system = { set_star_class = sc_f }
+        change_pc = pc_f_star
+    }
+    else_if = { limit = { is_star_class = sc_f }
+        solar_system = { set_star_class = sc_g }
+        change_pc = pc_g_star
+    }
+    else_if = { limit = { is_star_class = sc_g }
+        solar_system = { set_star_class = sc_k }
+        change_pc = pc_k_star
+    }
+    else_if = { limit = { is_star_class = sc_k }
+        solar_system = { set_star_class = sc_m }
+        change_pc = pc_m_star
+    }
+    else_if = { limit = { is_star_class = sc_m }
+        solar_system = { set_star_class = sc_m_giant }
+        change_pc = pc_m_giant_star
+    }
+}
+
+# 光谱升 1 级
+lev_stellarite_spectrum_up = {
+    if = { limit = { is_star_class = sc_m_giant }
+        solar_system = { set_star_class = sc_m }
+        change_pc = pc_m_star
+    }
+    else_if = { limit = { is_star_class = sc_m }
+        solar_system = { set_star_class = sc_k }
+        change_pc = pc_k_star
+    }
+    else_if = { limit = { is_star_class = sc_k }
+        solar_system = { set_star_class = sc_g }
+        change_pc = pc_g_star
+    }
+    else_if = { limit = { is_star_class = sc_g }
+        solar_system = { set_star_class = sc_f }
+        change_pc = pc_f_star
+    }
+    else_if = { limit = { is_star_class = sc_f }
+        solar_system = { set_star_class = sc_a }
+        change_pc = pc_a_star
+    }
+    else_if = { limit = { is_star_class = sc_a }
+        solar_system = { set_star_class = sc_b }
+        change_pc = pc_b_star
+    }
+}
+
+# 吞噬恒星
+lev_stellarite_absorb_apply = {
+    from.owner = { save_event_target_as = lev_caster }
+
+    lev_stellarite_spectrum_down = yes
+
+    solar_system = {
+        every_system_planet = {
+            limit = { is_star = no  is_asteroid = no }
+            spawn_planet_temperature_effect = yes
+            decrease_planet_temperature = yes
+            add_modifier = { modifier = stellarite_low_temp  days = -1 }
+        }
+    }
+    spawn_sun_temperature_effect = yes
+
+    event_target:lev_caster = {
+        if = { limit = { check_variable = { which = lev_stellarite_energy value < 10 } }
+            change_variable = { which = lev_stellarite_energy value = 1 }
+        }
+        if = { limit = { check_variable = { which = lev_growth value < 10 } }
+            change_variable = { which = lev_growth value = 1 }
+        }
+    }
+
+    # 对他国星系：该星系所有者对我们 -100 观感
+    solar_system = {
+        if = {
+            limit = {
+                exists = space_owner
+                NOT = { space_owner = { is_same_value = event_target:lev_caster } }
+            }
+            space_owner = {
+                add_opinion_modifier = {
+                    who = event_target:lev_caster
+                    modifier = lev_star_devoured
+                }
+            }
+        }
+    }
+}
+
+# 重燃恒星
+lev_stellarite_ignite_apply = {
+    from.owner = { save_event_target_as = lev_caster }
+
+    lev_stellarite_spectrum_up = yes
+
+    # 冰封星救赎，须在升温前（否则 pc_frozen 会先被升温链改掉）
+    solar_system = {
+        every_system_planet = {
+            limit = { is_planet_class = pc_frozen  is_colony = yes }
+            change_pc = pc_gaia
+        }
+        every_system_planet = {
+            limit = { is_star = no  is_asteroid = no }
+            spawn_planet_temperature_effect = yes
+            increase_planet_temperature = yes
+            remove_modifier = stellarite_low_temp
+        }
+    }
+    spawn_sun_temperature_effect = yes
+
+    event_target:lev_caster = {
+        if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
+            change_variable = { which = lev_stellarite_energy value = -1 }
+        }
+        if = { limit = { check_variable = { which = lev_growth value > 0 } }
+            change_variable = { which = lev_growth value = -1 }
+        }
+    }
+}
+
+# 恒星光束：只打目标星系内的敌方舰队
+lev_stellarite_beam_apply = {
+    from.owner = { save_event_target_as = lev_caster }
+
+    solar_system = {
+        every_fleet_in_system = {
+            limit = {
+                controller = { is_hostile = event_target:lev_caster }
+            }
+            every_owned_ship = {
+                damage_ship = {
+                    amount = value:lev_beam_damage
+                    attacker = event_target:lev_caster
+                }
+            }
+        }
+    }
+
+    event_target:lev_caster = {
+        if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
+            change_variable = { which = lev_stellarite_energy value = -1 }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+# 利维坦·噬星者 舰船行为
+# combat_movement = player_override 是战斗中能手动操作的关键，缺了就无法手动放技能
+ship_behavior = {
+    name = "lev_stellarite"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = yes
+    allow_emergency_ftl = no
+    allow_disengage = yes
+    desc = "lev_STELLARITE_BEHAVIOR_DESC"
+}

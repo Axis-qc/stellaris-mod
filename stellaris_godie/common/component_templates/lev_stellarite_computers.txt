@@ -1,0 +1,21 @@
+# 利维坦·噬星者 作战电脑
+# 必须用自带电脑：只有它挂了带 player_override 的行为，用原版电脑战斗中无法手动放技能
+utility_component_template = {
+    key = "LEV_STELLARITE_COMBAT_COMPUTER"
+    size = small
+    icon = "GFX_ship_part_computer_default"
+    icon_frame = 1
+    power = -25
+    resources = {
+        category = ship_components
+        cost = { alloys = 20 }
+    }
+    ship_behavior = "lev_stellarite"
+    potential = {
+        is_ship_size = lev_stellarite
+    }
+    component_set = "combat_computers"
+    ai_weight = {
+        weight = 999
+    }
+}

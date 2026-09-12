@@ -1,0 +1,62 @@
+# 星海共主：以国民理念门控整个利维坦体系
+# 独立文件，不往 br_* 文件里塞
+
+lev_star_overlords = {
+    icon = "gfx/interface/icons/governments/civics/lev_star_overlords.dds"
+    description = "lev_star_overlords_effects"
+
+    # ---------- 政体变体名称 ----------
+    # 默认名即本地化的 lev_star_overlords（星海之国）
+    swap_type = {
+        name = "lev_star_corporate"
+        trigger = {
+            has_authority = auth_corporate
+        }
+    }
+    swap_type = {
+        name = "lev_star_hive"
+        trigger = {
+            has_authority = auth_hive_mind
+        }
+    }
+    swap_type = {
+        name = "lev_star_machine"
+        trigger = {
+            has_authority = auth_machine_intelligence
+        }
+    }
+
+    # ---------- 可选性 ----------
+    playable = { host_has_dlc = "Leviathans Story Pack" }
+    ai_playable = { always = no }
+
+    # 放开伦理与政体限制，四种整体共用这一份理念
+    potential = { always = yes }
+    possible = {
+        civics = {
+            NOR = {
+                value = civic_beastmasters
+                value = civic_corporate_beastmasters
+            }
+        }
+    }
+
+    # ---------- 锁定：仅开局可选，选后不可移除 ----------
+    modification = {
+        add = {
+            hidden_trigger = {
+                NOT = { has_global_flag = game_started }
+            }
+        }
+        remove = { always = no }
+    }
+
+    # ---------- 效果 ----------
+    modifier = {
+        ship_military_cost_mult = 10
+        country_naval_cap_mult = -0.5
+    }
+
+    random_weight = { base = 0 }
+    ai_weight = { base = 0 }
+}

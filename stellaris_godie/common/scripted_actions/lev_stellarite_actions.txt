@@ -1,0 +1,191 @@
+# 利维坦·噬星者 技能
+# scope = planet：目标是恒星本身（恒星在引擎里是行星对象）
+# possible 中 This=恒星、From=施放舰队，国家用 from.owner；button_clickable 是舰队作用域用 owner
+# 这样右键恒星、以及右键整个星系（引擎会对星系内合法行星排队）两条路径都能用
+
+# 吞噬恒星（槽1）
+lev_stellarite_absorb = {
+    user_scope = fleet
+    scope = planet
+
+    possible = {
+        custom_tooltip = {
+            fail_text = lev_fail_not_star
+            is_star = yes
+        }
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_no_energy
+            from.owner = {
+                check_variable = { which = lev_stellarite_energy value < 10 }
+            }
+        }
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_edge
+            NOT = { is_star_class = sc_m_giant }
+        }
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_multi_star
+            NOR = { is_binary_star = yes  is_trinary_star = yes }
+        }
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_special_star
+            NOR = {
+                is_star_class = sc_black_hole
+                is_star_class = sc_neutron_star
+                is_star_class = sc_pulsar
+                is_star_class = sc_toxoid_star
+                is_star_class = sc_rift_star
+            }
+        }
+        # D5：本国星系有殖民地时不可吸收
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_own_colony
+            NOT = {
+                AND = {
+                    solar_system = { is_owned_by = fromfrom.owner }
+                    solar_system = { any_system_planet = { is_colony = yes } }
+                }
+            }
+        }
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_stellarite }
+    }
+
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = lev_absorb_fail_no_energy
+            owner = {
+                check_variable = { which = lev_stellarite_energy value < 10 }
+            }
+        }
+    }
+
+    on_completed = on_lev_absorb_completed
+    tooltip = lev_stellarite_absorb_button
+    icon = GFX_fleet_action_button_arkship_harvest_resources
+    icon_selected = GFX_fleet_action_button_arkship_harvest_resources
+    activity_key = lev_stellarite_absorb_activity_key
+    context_menu_name = lev_stellarite_absorb_menu_title
+    progress_activity_key = lev_stellarite_absorb_progress_key
+
+    finish_anim_state = "attack"
+
+    wait = no
+    required_progress = 30
+    cooldown = 360
+    slot = 1
+}
+
+# 重燃恒星（槽2）
+lev_stellarite_ignite = {
+    user_scope = fleet
+    scope = planet
+
+    possible = {
+        custom_tooltip = {
+            fail_text = lev_fail_not_star
+            is_star = yes
+        }
+        custom_tooltip = {
+            fail_text = lev_ignite_fail_no_energy
+            from.owner = {
+                check_variable = { which = lev_stellarite_energy value > 0 }
+            }
+        }
+        custom_tooltip = {
+            fail_text = lev_ignite_fail_edge
+            NOT = { is_star_class = sc_b }
+        }
+        custom_tooltip = {
+            fail_text = lev_ignite_fail_multi_star
+            NOR = { is_binary_star = yes  is_trinary_star = yes }
+        }
+        custom_tooltip = {
+            fail_text = lev_ignite_fail_special_star
+            NOR = {
+                is_star_class = sc_black_hole
+                is_star_class = sc_neutron_star
+                is_star_class = sc_pulsar
+                is_star_class = sc_toxoid_star
+                is_star_class = sc_rift_star
+            }
+        }
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_stellarite }
+    }
+
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = lev_ignite_fail_no_energy
+            owner = {
+                check_variable = { which = lev_stellarite_energy value > 0 }
+            }
+        }
+    }
+
+    on_completed = on_lev_ignite_completed
+    tooltip = lev_stellarite_ignite_button
+    icon = GFX_fleet_action_button_arkship_stellar_ignition
+    icon_selected = GFX_fleet_action_button_arkship_stellar_ignition
+    activity_key = lev_stellarite_ignite_activity_key
+    context_menu_name = lev_stellarite_ignite_menu_title
+    progress_activity_key = lev_stellarite_ignite_progress_key
+
+    finish_anim_state = "attack"
+
+    wait = no
+    required_progress = 30
+    cooldown = 360
+    slot = 2
+}
+
+# 恒星光束（槽3）
+lev_stellarite_beam = {
+    user_scope = fleet
+    scope = planet
+
+    possible = {
+        custom_tooltip = {
+            fail_text = lev_fail_not_star
+            is_star = yes
+        }
+        custom_tooltip = {
+            fail_text = lev_beam_fail_no_energy
+            from.owner = {
+                check_variable = { which = lev_stellarite_energy value > 0 }
+            }
+        }
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_stellarite }
+    }
+
+    button_clickable = {
+        custom_tooltip = {
+            fail_text = lev_beam_fail_no_energy
+            owner = {
+                check_variable = { which = lev_stellarite_energy value > 0 }
+            }
+        }
+    }
+
+    on_completed = on_lev_beam_completed
+    tooltip = lev_stellarite_beam_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_stellarite_beam_activity_key
+    context_menu_name = lev_stellarite_beam_menu_title
+    progress_activity_key = lev_stellarite_beam_progress_key
+
+    finish_anim_state = "attack"
+
+    wait = no
+    required_progress = 10
+    cooldown = 90
+    slot = 3
+}

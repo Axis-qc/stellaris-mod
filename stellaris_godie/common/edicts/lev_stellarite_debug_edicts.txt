@@ -1,0 +1,135 @@
+# 利维坦·噬星者 调试法令
+# 门控复用 br_debug_mode；length = 1 即点即生效，可反复点
+
+# 发放一艘到首都
+lev_test_spawn_stellarite = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        has_country_flag = br_debug_mode
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_country_flag = lev_stellarite_unlocked
+        refresh_auto_generated_ship_designs = yes
+        if = {
+            limit = {
+                NOT = {
+                    is_variable_set = lev_stellarite_energy
+                }
+            }
+            set_variable = {
+                which = lev_stellarite_energy
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    is_variable_set = lev_growth
+                }
+            }
+            set_variable = {
+                which = lev_growth
+                value = 0
+            }
+        }
+        country_event = {
+            id = lev.11
+            days = 1
+        }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 能量与成长拉满
+lev_test_energy_max = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        has_country_flag = br_debug_mode
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_variable = {
+            which = lev_stellarite_energy
+            value = 10
+        }
+        set_variable = {
+            which = lev_growth
+            value = 10
+        }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 能量与成长归零
+lev_test_energy_zero = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        has_country_flag = br_debug_mode
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_variable = {
+            which = lev_stellarite_energy
+            value = 0
+        }
+        set_variable = {
+            which = lev_growth
+            value = 0
+        }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 清除解锁 flag（不删已有舰船），用于重测开局发放
+lev_test_reset_unlock = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        has_country_flag = br_debug_mode
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        remove_country_flag = lev_stellarite_unlocked
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
