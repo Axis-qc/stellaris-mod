@@ -70,7 +70,9 @@ lev_stellarite_absorb = {
     context_menu_name = lev_stellarite_absorb_menu_title
     progress_activity_key = lev_stellarite_absorb_progress_key
 
-    finish_anim_state = "attack"
+    begin_anim_state = "breath_begin"
+    progress_anim_state = "breath_loop"
+    finish_anim_state = "breath_end"
 
     wait = no
     required_progress = 30
@@ -135,7 +137,9 @@ lev_stellarite_ignite = {
     context_menu_name = lev_stellarite_ignite_menu_title
     progress_activity_key = lev_stellarite_ignite_progress_key
 
-    finish_anim_state = "attack"
+    begin_anim_state = "breath_begin"
+    progress_anim_state = "breath_loop"
+    finish_anim_state = "breath_end"
 
     wait = no
     required_progress = 30
@@ -143,16 +147,15 @@ lev_stellarite_ignite = {
     slot = 2
 }
 
-# 恒星光束（槽3）
+# 恒星光束（槽3）—— 直接释放模式
+# scope = self：点按钮立即释放，无需右键选任何目标
+# 引擎规则：scope = self 为即时释放（无引导条，begin/progress 动画被忽略）
+# 效果：轰击噬星者当前所在星系内的所有敌方舰队
 lev_stellarite_beam = {
     user_scope = fleet
-    scope = planet
+    scope = self
 
     possible = {
-        custom_tooltip = {
-            fail_text = lev_fail_not_star
-            is_star = yes
-        }
         custom_tooltip = {
             fail_text = lev_beam_fail_no_energy
             from.owner = {
@@ -182,10 +185,10 @@ lev_stellarite_beam = {
     context_menu_name = lev_stellarite_beam_menu_title
     progress_activity_key = lev_stellarite_beam_progress_key
 
-    finish_anim_state = "attack"
+    # 释放瞬间触发的专属喷射状态（定义在 lev_stellarite.asset，复用张嘴动画 + 嘴部粒子）
+    finish_anim_state = "beam_fire"
 
     wait = no
-    required_progress = 10
     cooldown = 90
     slot = 3
 }

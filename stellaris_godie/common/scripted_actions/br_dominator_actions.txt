@@ -144,7 +144,7 @@ br_dominator_recall = {
 }
 
 # ─────────────────────────────────
-# 打开等级面板 UI（槽位3）
+# 打开等级面板 UI（常规永久指令栏，快捷键 Y）
 # ─────────────────────────────────
 br_dominator_level_panel = {
 	user_scope = fleet
@@ -154,38 +154,7 @@ br_dominator_level_panel = {
 	}
 	button_visible = {
 		owner = {
-			OR = {
-				any_owned_ship = {
-					is_ship_size = br_dominator
-				}
-				any_owned_ship = {
-					is_ship_size = br_civilian_arkship_tier_1
-				}
-				any_owned_ship = {
-					is_ship_size = br_civilian_arkship_tier_2
-				}
-				any_owned_ship = {
-					is_ship_size = br_civilian_arkship_tier_3
-				}
-				any_owned_ship = {
-					is_ship_size = br_science_arkship_tier_1
-				}
-				any_owned_ship = {
-					is_ship_size = br_science_arkship_tier_2
-				}
-				any_owned_ship = {
-					is_ship_size = br_science_arkship_tier_3
-				}
-				any_owned_ship = {
-					is_ship_size = br_military_arkship_tier_1
-				}
-				any_owned_ship = {
-					is_ship_size = br_military_arkship_tier_2
-				}
-				any_owned_ship = {
-					is_ship_size = br_military_arkship_tier_3
-				}
-			}
+		is_ai = no
 		}
 	}
 	button_clickable = {
@@ -193,10 +162,11 @@ br_dominator_level_panel = {
 	}
 	on_completed = on_br_level_panel_opened
 	tooltip = BR_LEVEL_UI_TITLE_desc
+	shortcut = "Y"
 	activity_key = BR_LEVEL_UI_activity_key
 	context_menu_name = BR_LEVEL_UI_activity_key
 	icon = GFX_fleet_action_button_active_reconnaissance
 	icon_selected = GFX_fleet_action_button_active_reconnaissance
 	wait = no
-	slot = 3
+	slot = 0
 }

@@ -5,20 +5,22 @@ utility_component_template = {
     icon = "GFX_ship_part_aura_targeting_grid"
     icon_frame = 1
     power = 0
-    size_restriction = {
-        lev_stellarite
+    potential = {
+        is_ship_size = lev_stellarite
     }
     component_set = "lev_stellarite_Core"
-    # 每点成长 +5% 伤害 / +300 护甲 / +2% 船体再生（D2）
+    # 变量在 owner 上，每只利维坦独立
     triggered_ship_modifier = {
         modifier = {
             ship_weapon_damage = 0.05
-            ship_armor_add = 300
-            ship_hull_regen_add_perc = 0.02
+            ship_shield_add = 300
+            ship_shield_regen_add_static = 4
+            ship_hull_regen_add_perc = 0.01
         }
-        mult = owner.lev_growth
+        mult = owner.lev_stellarite_growth_level
     }
     scripted_action = {
+        br_dominator_level_panel        # 打开等级界面（技能栏第 1 位）
         lev_stellarite_absorb
         lev_stellarite_ignite
         lev_stellarite_beam

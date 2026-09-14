@@ -77,9 +77,7 @@ lev_stellarite_absorb_apply = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value < 10 } }
             change_variable = { which = lev_stellarite_energy value = 1 }
         }
-        if = { limit = { check_variable = { which = lev_growth value < 10 } }
-            change_variable = { which = lev_growth value = 1 }
-        }
+        # 成长值已解耦：吞噬恒星只加能量，不再加成长（成长改由战斗与营养提供）
     }
 
     # 对他国星系：该星系所有者对我们 -100 观感
@@ -124,13 +122,12 @@ lev_stellarite_ignite_apply = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
             change_variable = { which = lev_stellarite_energy value = -1 }
         }
-        if = { limit = { check_variable = { which = lev_growth value > 0 } }
-            change_variable = { which = lev_growth value = -1 }
-        }
+        # 成长值已解耦：重燃恒星只扣能量，不再扣成长（成长只增不减）
     }
 }
 
-# 恒星光束：只打目标星系内的敌方舰队
+# 恒星光束：直接释放，轰击噬星者当前所在星系内所有敌方舰队
+# THIS = 施放舰队自身（scope = self 即时释放），from = 施放舰队
 lev_stellarite_beam_apply = {
     from.owner = { save_event_target_as = lev_caster }
 

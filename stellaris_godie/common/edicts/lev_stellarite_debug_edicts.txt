@@ -30,17 +30,8 @@ lev_test_spawn_stellarite = {
                 value = 0
             }
         }
-        if = {
-            limit = {
-                NOT = {
-                    is_variable_set = lev_growth
-                }
-            }
-            set_variable = {
-                which = lev_growth
-                value = 0
-            }
-        }
+        # 成长值系统初始化（含成长值 / 等级 / 营养档位 / 阈值 / 各档消耗收益）
+        lev_growth_init = { TYPE = stellarite }
         country_event = {
             id = lev.11
             days = 1
@@ -51,7 +42,7 @@ lev_test_spawn_stellarite = {
     }
 }
 
-# 能量与成长拉满
+# 能量拉满 + 成长等级拉满
 lev_test_energy_max = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -71,17 +62,23 @@ lev_test_energy_max = {
             which = lev_stellarite_energy
             value = 10
         }
+        # 成长等级直接给到封顶前的最高档（12 级）
         set_variable = {
-            which = lev_growth
-            value = 10
+            which = lev_stellarite_growth_level
+            value = 12
         }
+        set_variable = {
+            which = lev_stellarite_growth
+            value = 0
+        }
+        lev_growth_init = { TYPE = stellarite }
     }
     ai_weight = {
         weight = 0
     }
 }
 
-# 能量与成长归零
+# 能量与成长等级归零
 lev_test_energy_zero = {
     icon = "GFX_edict_type_policy"
     length = 1
@@ -102,9 +99,14 @@ lev_test_energy_zero = {
             value = 0
         }
         set_variable = {
-            which = lev_growth
+            which = lev_stellarite_growth_level
+            value = 1
+        }
+        set_variable = {
+            which = lev_stellarite_growth
             value = 0
         }
+        lev_growth_init = { TYPE = stellarite }
     }
     ai_weight = {
         weight = 0
@@ -128,6 +130,35 @@ lev_test_reset_unlock = {
     }
     effect = {
         remove_country_flag = lev_stellarite_unlocked
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 初始化全部 6 只利维坦的成长数据（供布局预览 / 数值调试）
+# 未实装的利维坦本来没有这套变量，界面上会读出空值；点一下就都有初始值了
+lev_test_growth_init_all = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        has_country_flag = br_debug_mode
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        lev_growth_init = { TYPE = stellarite }
+        lev_growth_init = { TYPE = drake }
+        lev_growth_init = { TYPE = shard }
+        lev_growth_init = { TYPE = wraith }
+        lev_growth_init = { TYPE = horror }
+        lev_growth_init = { TYPE = toxic_god }
     }
     ai_weight = {
         weight = 0

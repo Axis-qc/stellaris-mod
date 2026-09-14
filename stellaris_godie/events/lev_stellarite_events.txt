@@ -45,10 +45,9 @@ country_event = {
             which = lev_stellarite_energy
             value = 0
         }
-        set_variable = {
-            which = lev_growth
-            value = 0
-        }
+        # 成长值系统初始化：成长值 / 成长等级 / 营养档位 / 阈值 / 各档消耗收益
+        # 每只利维坦一套独立变量，TYPE 决定变量名后缀
+        lev_growth_init = { TYPE = stellarite }
         # 延迟 1 天，给设计生成留结算窗口
         country_event = {
             id = lev.11
@@ -84,7 +83,8 @@ country_event = {
 }
 
 # ========================
-# 技能完成（THIS = 目标星系，from = 施放舰队）
+# 技能完成（lev.100/101：THIS = 目标恒星，from = 施放舰队）
+# lev.102 光束直接释放：THIS = 施放舰队自身，from = 施放舰队
 # ========================
 
 planet_event = {
@@ -105,7 +105,7 @@ planet_event = {
     }
 }
 
-planet_event = {
+fleet_event = {
     id = lev.102
     hide_window = yes
     is_triggered_only = yes

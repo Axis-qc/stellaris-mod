@@ -1,6 +1,5 @@
 # 利维坦·噬星者 能量喷射（单档）
-# 必须自带：原版推进器靠 potential 限定舰种，自定义舰种装不上，会导致刷船失败
-# 生物巨兽不研发人类推进科技 —— 不设 prerequisites，无档位、无 upgrades_to
+# 必须自带：原版推进器靠 potential 限定舰种，自定义舰种装不上会导致刷船失败
 
 @lev_thruster_power = -200
 @lev_thruster_cost = 60
@@ -17,6 +16,8 @@ utility_component_template = {
     }
     modifier = {}
     component_set = "thruster_components"
-    size_restriction = { lev_stellarite }
+    potential = {
+        is_ship_size = lev_stellarite
+    }
     ai_weight = { weight = 1 }
 }
