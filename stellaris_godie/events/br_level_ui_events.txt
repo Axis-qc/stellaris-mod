@@ -2,17 +2,14 @@ namespace = br
 
 # 事件ID区间：1100-1199
 # br.1129：桥接事件。由母舰 scripted_action → on_action 触发，从 fleet 转到 country 后打开 UI。
+# 2026-09-13：移除本事件的 trigger。原 trigger 要求 br_mode_pve + br_player_country +
+# br_level_initialized，而按钮的 button_visible 只要求「国家拥有方舟/主宰舰」，两道门槛不一致
+# 会导致按钮点得到但静默无反应（PvP 模式下 br_mode_pve 永不成立）。入门门槛统一由
+# common/scripted_actions/br_dominator_actions.txt 里 br_dominator_level_panel 的 button_visible 负责。
 fleet_event = {
     id = br.1129
     hide_window = yes
     is_triggered_only = yes
-    trigger = {
-        owner = {
-            has_global_flag = br_mode_pve
-            has_country_flag = br_player_country
-            has_country_flag = br_level_initialized
-        }
-    }
     immediate = {
         owner = {
             country_event = { id = br.1130 }

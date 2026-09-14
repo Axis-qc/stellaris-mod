@@ -1,0 +1,842 @@
+# 利维坦成长值系统 — UI 按钮效果
+# ============================================
+# 与 br_level_ui_buttons.txt 同构：potential 控制元素显隐（含页签判断），
+# allow 控制按钮禁用态，effect 是点击动作。button_effects 里 from = 国家。
+#
+# 本文件按名录逐只利维坦成组排列（每组 1 个卡片显隐 + 4 个档位按钮）。
+# 新增一只利维坦 = 照抄一组，把 TYPE 与解锁 flag 全部替换即可。
+# 效果名与 br_level_view.gui 的卡片槽一一对应，两边必须同步增删。
+# 名录见 common/scripted_effects/lev_growth_effects.txt 顶部注释。
+
+################################### 内容区显隐 — potential 控制 ###################################
+# 利维坦页所有「非卡片」元素（页标题）引用此效果
+lev_ui_tab_active = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+################################### 底部标签按钮（第 6 页） ###################################
+lev_ui_tab_switch = {
+    potential = { always = yes }
+    allow = {
+        from = {
+            NOT = {
+                check_variable = { which = br_level_ui_tab value = 6 }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = br_level_ui_tab value = 6 }
+            }
+        }
+    }
+}
+
+################################### 卡片显隐（页签 6 + 该利维坦已解锁） ###################################
+
+# 噬星者
+lev_card_stellarite = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_stellarite_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+# 以太巨龙
+lev_card_drake = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_drake_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+# 蓝龙莎德
+lev_card_shard = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_shard_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+# 灵体幽魂
+lev_card_wraith = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_wraith_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+# 次元魔物
+lev_card_horror = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_horror_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+# 毒神
+lev_card_toxic_god = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_toxic_god_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+################################### 营养档位按钮（每只利维坦各一套） ###################################
+# 已选中的档位由 allow 判为不可点，引擎自动灰化，玩家一眼看出当前档位
+
+lev_feed_stellarite_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_stellarite_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_stellarite_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_stellarite_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_stellarite_gain_current value = lev_stellarite_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_stellarite_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_stellarite_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_stellarite_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_stellarite_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_stellarite_gain_current value = lev_stellarite_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_stellarite_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_stellarite_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_stellarite_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_stellarite_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_stellarite_gain_current value = lev_stellarite_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_stellarite_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_stellarite_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_stellarite_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_stellarite_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_stellarite_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+lev_feed_drake_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_drake_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_drake_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_drake_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_drake_gain_current value = lev_drake_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_drake_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_drake_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_drake_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_drake_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_drake_gain_current value = lev_drake_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_drake_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_drake_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_drake_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_drake_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_drake_gain_current value = lev_drake_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_drake_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_drake_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_drake_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_drake_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_drake_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+lev_feed_shard_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_shard_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_shard_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_shard_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_shard_gain_current value = lev_shard_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_shard_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_shard_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_shard_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_shard_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_shard_gain_current value = lev_shard_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_shard_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_shard_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_shard_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_shard_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_shard_gain_current value = lev_shard_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_shard_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_shard_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_shard_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_shard_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_shard_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+lev_feed_wraith_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_wraith_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_wraith_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_wraith_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_wraith_gain_current value = lev_wraith_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_wraith_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_wraith_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_wraith_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_wraith_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_wraith_gain_current value = lev_wraith_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_wraith_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_wraith_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_wraith_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_wraith_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_wraith_gain_current value = lev_wraith_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_wraith_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_wraith_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_wraith_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_wraith_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_wraith_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+lev_feed_horror_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_horror_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_horror_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_horror_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_horror_gain_current value = lev_horror_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_horror_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_horror_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_horror_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_horror_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_horror_gain_current value = lev_horror_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_horror_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_horror_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_horror_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_horror_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_horror_gain_current value = lev_horror_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_horror_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_horror_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_horror_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_horror_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_horror_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+lev_feed_toxic_god_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_toxic_god_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_toxic_god_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_toxic_god_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_toxic_god_gain_current value = lev_toxic_god_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_toxic_god_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_toxic_god_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_toxic_god_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_toxic_god_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_toxic_god_gain_current value = lev_toxic_god_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_toxic_god_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_toxic_god_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_toxic_god_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_toxic_god_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_toxic_god_gain_current value = lev_toxic_god_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_toxic_god_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉，6 张卡全部显示；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_toxic_god_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_toxic_god_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_toxic_god_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_toxic_god_gain_current value = 0 }
+            }
+        }
+    }
+}
