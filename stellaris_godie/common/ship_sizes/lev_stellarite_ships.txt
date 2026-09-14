@@ -1,6 +1,6 @@
 # 利维坦·噬星者 舰种
 lev_stellarite = {
-    entity = "stellarite_entity"
+    entity = "lev_stellarite_entity"
     can_be_inspected = yes
     # 不要加 graphical_culture，guardian_01 会导致设计器不渲染模型
     hull_scale = 1
@@ -17,7 +17,6 @@ lev_stellarite = {
             locator = "part1"
         }
     }
-    # 原版 stellarite 为 0
     num_target_locators = 4
     never_lost = yes
     never_mia = yes
@@ -39,6 +38,8 @@ lev_stellarite = {
     required_component_set = "sensor_components"
     required_component_set = "lev_stellarite_Core"
     hero_ship = {
+        # 舰队状态栏；scripted_loc 作用域是舰队，读变量要写 owner.
+        custom_state_loc_prefix = "LEV_STELLARITE_STATE"
         hero_ship_fleet_background = "GFX_fleet_view_behemoth_stage_2"
         capabilities = {
             can_repair
