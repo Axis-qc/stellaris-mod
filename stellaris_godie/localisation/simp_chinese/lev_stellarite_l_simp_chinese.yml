@@ -26,21 +26,24 @@
  lev_stellarite_energy: "恒星能量"
  lev_stellarite_energy_desc: "噬星者体内储存的能量，由吞食的恒星物质炼成。吞噬恒星§G+1§!，重燃恒星与恒星光束各§R-1§!，上限§Y10§!。"
 
- lev_growth: "成长"
- lev_growth_desc: "噬星者的成长度。吞噬恒星 +1；重燃恒星 -1。每点提供 +5% 武器伤害、+300 护甲、+2% 船体再生。上限 10。"
+ # 成长值与成长等级的本地化已迁至 lev_growth_l_simp_chinese.yml
+ # （成长值现在是通用利维坦框架的变量，不再专属噬星者）
 
  # ---------- 调试法令 ----------
  edict_lev_test_spawn_stellarite: "§R[调试] 发放噬星者§!"
  edict_lev_test_spawn_stellarite_desc: "立刻在首都发放一艘噬星者（并补齐解锁与设计）。可反复执行。"
 
- edict_lev_test_energy_max: "§R[调试] 能量与成长拉满§!"
- edict_lev_test_energy_max_desc: "把恒星能量与成长直接设为 10，用于测试成长属性上限。"
+ edict_lev_test_energy_max: "§R[调试] 能量拉满 + 成长等级拉满§!"
+ edict_lev_test_energy_max_desc: "把恒星能量设为 10、成长等级设为 12，用于测试成长属性上限。"
 
- edict_lev_test_energy_zero: "§R[调试] 能量与成长归零§!"
- edict_lev_test_energy_zero_desc: "把恒星能量与成长直接设为 0，用于测试消耗与下限。"
+ edict_lev_test_energy_zero: "§R[调试] 能量与成长等级归零§!"
+ edict_lev_test_energy_zero_desc: "把恒星能量与成长等级重置为初始值（0 能量／1 级），用于测试消耗与下限。"
 
  edict_lev_test_reset_unlock: "§R[调试] 清除噬星者解锁§!"
  edict_lev_test_reset_unlock_desc: "移除解锁 flag（不删除已有舰船），用于重测开局发放流程。"
+
+ edict_lev_test_growth_init_all: "§R[调试] 初始化全部利维坦成长§!"
+ edict_lev_test_growth_init_all_desc: "给全部 6 只利维坦（含尚未实装的占位卡）建立成长数据，用于查看利维坦页的完整卡片布局。"
 
  # ============================================
  # 噬星者 — 组件
@@ -55,15 +58,35 @@ LEV_STELLARITE_THRUSTER: "噬星者能量喷射"
 LEV_STELLARITE_THRUSTER_DESC: "噬星者从星核抽取能量、向身后喷出的推进方式。无需人类推进科技的支撑。"
 
  # ============================================
+ # 噬星者 — 武器（复制自原版噬星者）
+ # ============================================
+
+## 吞噬光束（XL 槽）
+LEV_STELLARITE_BEAM: "吞噬光束"
+LEV_STELLARITE_BEAM_DESC: "噬星者从口中喷出的恒星光束。它把吞下的恒星物质压成一道贯穿型能量流，扫过之处如同恒星表面掠过。"
+
+## 噬星者鱼雷（L 槽）
+LEV_STELLARITE_MISSILE: "噬星者鱼雷"
+LEV_STELLARITE_MISSILE_DESC: "从噬星者体内甩出的高密度物质团。带着被吞恒星的重元素飞出，命中时越过护盾直接撕开舰体。"
+
+## 噬星者等离子炮（L 槽）
+LEV_STELLARITE_PLASMA: "噬星者等离子炮"
+LEV_STELLARITE_PLASMA_DESC: "噬星者喷出的等离子流。恒星物质在它体内被持续压缩、加热，然后成束甩向敌舰。"
+
+## 噬星者激光（点防槽）
+LEV_STELLARITE_LASER: "噬星者激光"
+LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近的导弹与舰载机，不负责杀伤主力舰。"
+
+ # ============================================
  # 技能
  # ============================================
 
  ## 按钮
- lev_stellarite_absorb_button: "§G吞噬恒星§!\n  吞食目标恒星的物质，使其光谱型向红端衰变一级，星系内行星随之降温。获得§Y+1§!能量与成长。\n  冷却：§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!／成长§Y[Root.owner.lev_growth]§!"
+ lev_stellarite_absorb_button: "§G吞噬恒星§!\n  吞食恒星使其光谱§R降一级§!，行星随之降温，§G+1§!恒星能量。\n  冷却§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
- lev_stellarite_ignite_button: "§G重燃恒星§!\n  将储存的能量注入恒星，使其光谱型向蓝端跃升一级，星系内行星升温，冰封殖民地化为盖亚。§R会重塑行星地表§!。消耗§Y1§!点能量与成长。\n  冷却：§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!／成长§Y[Root.owner.lev_growth]§!"
+ lev_stellarite_ignite_button: "§G重燃恒星§!\n  注入能量使光谱§B升一级§!，行星升温，冰封殖民地化为§G盖亚§!（§R重塑行星地表§!）。\n  消耗§Y1§!能量　冷却§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
- lev_stellarite_beam_button: "§G恒星光束§!\n  汇聚恒星能量成束，灼烧星系内敌方舰队，单次造成§R[lev_beam_damage_display]§!伤害。消耗§Y1§!点能量。\n  冷却：§Y90§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!／成长§Y[Root.owner.lev_growth]§!"
+ lev_stellarite_beam_button: "§G恒星光束§!\n  直接喷射能量流，灼烧当前星系内全部敌舰，§R[lev_beam_damage_display]§!伤害，消耗§Y1§!能量。\n  冷却§Y90§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
  ## 失败提示
  lev_fail_not_star: "只能对恒星使用"
@@ -93,7 +116,7 @@ LEV_STELLARITE_THRUSTER_DESC: "噬星者从星核抽取能量、向身后喷出�
  lev_stellarite_ignite_progress_key: "重燃中：$PROGRESS$"
  lev_stellarite_ignite_menu_title: "重燃恒星"
 
- lev_stellarite_beam_activity_key: "向 $NAME$ 发射恒星光束"
+ lev_stellarite_beam_activity_key: "正在喷射恒星光束"
  lev_stellarite_beam_progress_key: "充能中：$PROGRESS$"
  lev_stellarite_beam_menu_title: "恒星光束"
 
