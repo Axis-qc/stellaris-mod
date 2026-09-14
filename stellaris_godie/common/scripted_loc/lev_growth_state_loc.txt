@@ -1,0 +1,36 @@
+# 利维坦成长值系统 — 舰队状态栏显示
+# ============================================
+# 配合 ship_size 的 custom_state_loc_prefix = "LEV_STELLARITE_STATE"。
+#
+# 作用域：**选中的舰队**（原版 common/ship_sizes/00_ship_sizes.txt L59 注释写明
+# "the status bar consists of two scripted localization driven strings (scope: selected fleet)"）。
+# 因此这里用 owner.<变量> 读国家级成长数据。
+#
+# 数值输出写法有官方注释背书（原版 common/scripted_loc/000_example.txt L27-31）：
+#   # You can also do this to use script values in loc:
+#   defined_text = { name = scripted_value_test  value = value:desired_science_ships_system_mult }
+#
+# 本地化侧对应键（同名前缀）：
+#   LEV_STELLARITE_STATE_title / LEV_STELLARITE_STATE_value / LEV_STELLARITE_STATE_tt
+
+# ── 噬星者 ──
+defined_text = {
+    name = GetLevStateLevelStellarite
+    value = value:lev_state_level_stellarite
+}
+
+defined_text = {
+    name = GetLevStateGrowthStellarite
+    value = value:lev_state_growth_stellarite
+}
+
+defined_text = {
+    name = GetLevStateNextStellarite
+    value = value:lev_state_next_stellarite
+}
+
+# 当前每月喂食收益（档位为「停止」时为 0）
+defined_text = {
+    name = GetLevStateFeedStellarite
+    value = value:lev_state_feed_gain_stellarite
+}

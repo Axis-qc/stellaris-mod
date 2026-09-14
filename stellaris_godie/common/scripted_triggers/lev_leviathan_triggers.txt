@@ -1,0 +1,11 @@
+# 利维坦成长值系统 — 触发器
+# ============================================
+# 新增一只利维坦时，只需在 lev_is_leviathan_ship 的 OR 里追加一行 is_ship_size，
+# 战斗成长（lev.20）即自动对该利维坦生效，无需改动其它文件。
+
+# 是否为利维坦英雄舰（ship 作用域）
+lev_is_leviathan_ship = {
+    OR = {
+        is_ship_size = lev_stellarite
+    }
+}

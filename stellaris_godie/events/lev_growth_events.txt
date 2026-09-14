@@ -1,0 +1,80 @@
+namespace = lev
+
+# ========================
+# 利维坦成长值系统 — 事件
+# lev.20~29 区间：成长值（与技能事件 100~199 分开）
+# ========================
+
+
+# ── lev.20 战斗成长 ──
+# 由 on_ship_destroyed_perp 触发，逻辑与英雄舰 heroship.2 同构：
+# 同星系内有利维坦舰船、且击杀的是敌对目标时，成长 += 被击杀舰船 max_hp ÷ 100（向上取整）
+# 多只利维坦各自独立：谁在击杀星系内就给谁入账。
+country_event = {
+    id = lev.20
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        from = {
+            is_hostile = root
+        }
+        exists = fromfromfrom
+        any_owned_ship = {
+            lev_is_leviathan_ship = yes
+            solar_system = {
+                is_same_value = fromfrom.solar_system
+            }
+        }
+    }
+    immediate = {
+        # 船体 0.01 转成长
+        fromfromfrom = {
+            export_trigger_value_to_variable = {
+                # trigger = fleet_power #死亡读不到
+                trigger = has_max_hp
+                variable = lev_tmp_kill_power
+            }
+        }
+        set_variable = {
+            which = lev_growth_add
+            value = fromfromfrom.lev_tmp_kill_power
+        }
+        divide_variable = {
+            which = lev_growth_add
+            value = 100
+        }
+        ceiling_variable = lev_growth_add
+
+        # ── 逐只利维坦判定：哪只在击杀星系内，就给哪只入账 ──
+        # 新增一只利维坦时，在此照抄一个 if 并改 is_ship_size 与 TYPE
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_stellarite
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = stellarite }
+        }
+    }
+}
+
+
+# ── lev.21 营养月度结算 ──
+# 由 on_monthly_pulse_country 触发。遍历所有已解锁利维坦，各按自己的档位扣资源换成长；
+# 某只资源不足则它自己当月中止（不涨成长、不降档、不提示），不影响其它利维坦。
+country_event = {
+    id = lev.21
+    hide_window = yes
+    is_triggered_only = yes
+    trigger = {
+        is_ai = no
+        has_country_flag = lev_stellarite_unlocked
+    }
+    immediate = {
+        lev_feed_settle_all = yes
+    }
+}

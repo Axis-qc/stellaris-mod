@@ -1,0 +1,39 @@
+# 利维坦成长值系统 — 显示用数值
+# ============================================
+# 供舰队 UI 状态栏（ship_size 的 custom_state_loc_prefix）输出三段数字。
+#
+# 作用域 = 选中的舰队；`owner` = 该舰队所属国家，
+# 所以这样能读到国家级的成长变量（利维坦是单舰英雄舰舰队，必然成立）。
+#
+# 由 common/scripted_loc/lev_growth_state_loc.txt 的 defined_text 用
+# `value = value:<下面的名字>` 引用（写法见原版 common/scripted_loc/000_example.txt）。
+#
+# 新增一只利维坦：照抄三行，把 stellarite 换成该利维坦的 TYPE 即可。
+
+# ── 噬星者 ──
+# 成长等级
+lev_state_level_stellarite = {
+    base = 0
+    add = owner.lev_stellarite_growth_level
+}
+
+# 当前成长值（进度分子）
+lev_state_growth_stellarite = {
+    base = 0
+    add = owner.lev_stellarite_growth
+}
+
+# 下一级所需成长值（进度分母）
+lev_state_next_stellarite = {
+    base = 0
+    add = owner.lev_stellarite_growth_next
+}
+
+# 当前每月喂食收益（营养档位 0=停止 -> 0）
+# 注意：script_value 里不支持 if/limit 条件分支（原版全部 script_values 均未用过，
+# 插件也会报 ERROR）。因此档位选择在效果层完成，结果存进 lev_stellarite_gain_current，
+# 这里只负责读。
+lev_state_feed_gain_stellarite = {
+    base = 0
+    add = owner.lev_stellarite_gain_current
+}
