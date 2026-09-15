@@ -1,0 +1,32 @@
+# 利维坦·噬星者 灭星武器：planet_killer 槽触发吞噬恒星，实际效果由
+# on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM 回调（lev.103）处理
+
+weapon_component_template = {
+    key = "LEV_STELLARITE_ABSORB_BEAM"
+    size = planet_killer
+    type = planet_killer
+    use_ship_main_target = no
+
+    can_destroy_stars = yes
+
+    # 单位是「天」不是 tick（巨像类武器专用）；11 天对齐 absorb_begin 下潜动画，169 天为吸食期
+    windup = {
+        min = 11
+        max = 11
+    }
+    total_fire_time = 169
+
+    icon = GFX_ship_part_nanobot_diffuser
+    icon_frame = 1
+
+    potential = {
+        is_ship_size = lev_stellarite
+    }
+    component_set = "LEV_STELLARITE_ABSORB_BEAM"
+
+    planet_destruction_gfx = "lev_stellarite_absorb_effect_gfx"
+
+    ai_weight = {
+        factor = 0
+    }
+}

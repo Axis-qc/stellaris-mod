@@ -6,18 +6,72 @@ entity = {
 
 	default_state = "idle"
 	state = { name = "idle" animation = "idle" animation_blend_time = 1
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"combat_moving" = 100
+				"death" = 0
+				"working" = 100
+				"working_looping" = 0
+			}
+		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
 		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
 		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_drone" } }
 	}
+	# 从吸食状态回 idle 时播结束段（chance 里 working_looping = 100 才选到）
+	state = { name = "idle" animation = "absorb_end" animation_blend_time = 0.5 looping = no next_state = "idle"
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"combat_moving" = 0
+				"death" = 0
+				"working" = 0
+				"working_looping" = 100
+			}
+		}
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
+	}
 	state = { name = "moving" animation = "idle" animation_blend_time = 1
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"combat_moving" = 100
+				"death" = 0
+				"working" = 100
+				"working_looping" = 0
+			}
+		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
 		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
 		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 
+	}
+	# 同 idle 的结束段
+	state = { name = "moving" animation = "absorb_end" animation_blend_time = 0.5 looping = no next_state = "moving"
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"combat_moving" = 0
+				"death" = 0
+				"working" = 0
+				"working_looping" = 100
+			}
+		}
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 	}
 	state = { name = "death" animation = "death" animation_blend_time = 1 looping = no
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_death" } }
@@ -25,11 +79,38 @@ entity = {
 	}
 
 	state = { name = "combat_moving" animation = "idle" animation_blend_time = 2
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"combat_moving" = 100
+				"death" = 0
+				"working" = 100
+				"working_looping" = 0
+			}
+		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
 		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
 		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 
+	}
+	# 同 idle 的结束段
+	state = { name = "combat_moving" animation = "absorb_end" animation_blend_time = 0.5 looping = no next_state = "combat_moving"
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"combat_moving" = 0
+				"death" = 0
+				"working" = 0
+				"working_looping" = 100
+			}
+		}
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 	}
 
 	state = { name = "attack" animation = "attack" animation_blend_time = 0.45 looping = no
@@ -44,6 +125,18 @@ entity = {
 	state = { name = "breath_begin" animation = "breath_begin" animation_blend_time = 0.5 looping = no }
 	state = { name = "breath_loop" animation = "breath_loop" animation_blend_time = 0.5 }
 	state = { name = "breath_end" animation = "breath_end" animation_blend_time = 0.5 looping = no }
+
+	# 灭星器（planet_killer）流程：working = absorb_begin（下潜咬合）→ working_looping = absorb_loop（持续吸食）
+	# 结束段 absorb_end 由 idle / moving / combat_moving 的 chance 规则播放
+	# beam_start 是引擎硬编码的灭星器开火挂钩，缺它 planet_destruction_gfx 特效会在攻击一开始就放出来
+	state = { name = "working" animation = "absorb_begin" animation_blend_time = 0.5 looping = no next_state = "working_looping"
+		event = { time = 1000 id = "beam_start" } #will never fire, but lets the game know that an event with this ID exists
+	}
+	state = { name = "working_looping" animation = "absorb_loop" animation_blend_time = 0.5 looping = yes
+		event = { time = 0 id = "beam_start" }
+		# 充能音效随过程阶段起播
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_windup_beam" stop_on_state_change = yes } }
+	}
 
 	# 恒星光束：复用 breath_loop 张嘴动画，特效挂嘴部定位点 xl_gun_01
 	state = { name = "beam_fire" animation = "breath_loop" animation_blend_time = 0.5 looping = no
@@ -73,6 +166,8 @@ entity = {
 	default_state = "idle"
 	state = { name = "idle" state_time = 6 }
 	state = { name = "moving" state_time = 6 }
+	state = { name = "working" state_time = 6 }
+	state = { name = "working_looping" state_time = 6 }
 	state = { name = "death" state_time = 3 looping = no }
 
   	game_data = {
@@ -118,4 +213,19 @@ animation = {
 animation = {
 	name = "lev_stellarite_breath_end_animation"
 	file = "stellarite_breath_end.anim"
+}
+
+animation = {
+	name = "lev_stellarite_absorb_begin_animation"
+	file = "stellarite_absorb_begin.anim"
+}
+
+animation = {
+	name = "lev_stellarite_absorb_loop_animation"
+	file = "stellarite_absorb_loop.anim"
+}
+
+animation = {
+	name = "lev_stellarite_absorb_end_animation"
+	file = "stellarite_absorb_end.anim"
 }

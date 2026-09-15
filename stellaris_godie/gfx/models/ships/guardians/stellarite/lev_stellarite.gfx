@@ -1,5 +1,4 @@
-# 利维坦·噬星者 —— 独立 pdxmesh（lev_stellarite_mesh），不覆盖原版 stellarite_mesh
-# 动画链路：entity state 的 animation 值 -> 此处 id -> type -> lev_stellarite.asset 的注册
+# 利维坦·噬星者 独立 pdxmesh（不覆盖原版 stellarite_mesh）
 
 objectTypes = {
 	pdxmesh = {
@@ -14,8 +13,12 @@ objectTypes = {
 		animation = { id = "breath_begin"	type = "lev_stellarite_breath_begin_animation" }
 		animation = { id = "breath_loop"	type = "lev_stellarite_breath_loop_animation" }
 		animation = { id = "breath_end"	type = "lev_stellarite_breath_end_animation" }
-		# beam_fire：恒星光束喷射状态的动画别名（状态复用 breath_loop 动画，注册别名以通过校验）
+		# beam_fire 是 breath_loop 的别名（entity state 的 animation 必须在此注册）
 		animation = { id = "beam_fire"	type = "lev_stellarite_breath_loop_animation" }
+
+		animation = { id = "absorb_begin"	type = "lev_stellarite_absorb_begin_animation" }
+		animation = { id = "absorb_loop"	type = "lev_stellarite_absorb_loop_animation" }
+		animation = { id = "absorb_end"		type = "lev_stellarite_absorb_end_animation" }
 
 		meshsettings = {
 			name = "MembraneShape"

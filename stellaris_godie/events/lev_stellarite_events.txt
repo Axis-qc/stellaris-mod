@@ -1,7 +1,6 @@
 namespace = lev
 
-# 开局选择窗：带「星海共主」理念的玩家在此选定初始巨兽
-# 本期只有噬星者一项，为后续多利维坦预留结构
+# 开局选择窗：选定初始巨兽（本期只有噬星者，为后续多利维坦预留结构）
 country_event = {
     id = lev.12
     is_triggered_only = yes
@@ -24,14 +23,12 @@ country_event = {
 }
 
 # 发放（隐藏）：置 flag、刷设计、初始化变量
-# 不再由 on_game_start_country 直接调用，改由 lev.12 的选项触发
 country_event = {
     id = lev.10
     hide_window = yes
     is_triggered_only = yes
     trigger = {
         has_civic = lev_star_overlords
-        # 基座实体 stellarite_entity 随利维坦 DLC 提供
         host_has_dlc = "Leviathans Story Pack"
         NOT = {
             has_country_flag = lev_stellarite_unlocked
@@ -45,8 +42,7 @@ country_event = {
             which = lev_stellarite_energy
             value = 0
         }
-        # 成长值系统初始化：成长值 / 成长等级 / 营养档位 / 阈值 / 各档消耗收益
-        # 每只利维坦一套独立变量，TYPE 决定变量名后缀
+        # 成长值初始化：每只利维坦独立，TYPE 决定变量名后缀
         lev_growth_init = { TYPE = stellarite }
         # 延迟 1 天，给设计生成留结算窗口
         country_event = {
@@ -82,19 +78,7 @@ country_event = {
     }
 }
 
-# ========================
-# 技能完成（lev.100/101：THIS = 目标恒星，from = 施放舰队）
-# lev.102 光束直接释放：THIS = 施放舰队自身，from = 施放舰队
-# ========================
-
-planet_event = {
-    id = lev.100
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        lev_stellarite_absorb_apply = yes
-    }
-}
+# 技能完成：lev.101 THIS = 目标恒星、from = 舰队；lev.102 THIS = 舰队自身
 
 planet_event = {
     id = lev.101
@@ -111,5 +95,16 @@ fleet_event = {
     is_triggered_only = yes
     immediate = {
         lev_stellarite_beam_apply = yes
+    }
+}
+
+# 灭星武器命中：THIS = 被开火的恒星，from = 施放舰队（照原版 planet_destruction.100 用 carrier_event）
+carrier_event = {
+    id = lev.103
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        log = "LEV_STELLARITE_ABSORB: planet killer callback fired (lev.103)"
+        lev_stellarite_absorb_apply = yes
     }
 }

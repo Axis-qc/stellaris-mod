@@ -1,0 +1,42 @@
+# 灭星武器目标校验：引擎按组件 key 查找 can_destroy_planet_with_<key>
+# 作用域：this = 目标恒星，from = 施放舰队（owner 要写 fromfrom.owner）
+
+can_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM = {
+    custom_tooltip = {
+        fail_text = lev_fail_not_star
+        is_star = yes
+    }
+    custom_tooltip = {
+        fail_text = lev_absorb_fail_no_energy
+        from.owner = {
+            check_variable = { which = lev_stellarite_energy value < 10 }
+        }
+    }
+    custom_tooltip = {
+        fail_text = lev_absorb_fail_edge
+        NOT = { is_star_class = sc_m_giant }
+    }
+    custom_tooltip = {
+        fail_text = lev_absorb_fail_multi_star
+        NOR = { is_binary_star = yes  is_trinary_star = yes }
+    }
+    custom_tooltip = {
+        fail_text = lev_absorb_fail_special_star
+        NOR = {
+            is_star_class = sc_black_hole
+            is_star_class = sc_neutron_star
+            is_star_class = sc_pulsar
+            is_star_class = sc_toxoid_star
+            is_star_class = sc_rift_star
+        }
+    }
+    custom_tooltip = {
+        fail_text = lev_absorb_fail_own_colony
+        NOT = {
+            AND = {
+                solar_system = { is_owned_by = fromfrom.owner }
+                solar_system = { any_system_planet = { is_colony = yes } }
+            }
+        }
+    }
+}

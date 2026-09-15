@@ -1,0 +1,30 @@
+# 利维坦·噬星者 灭星器开火特效实体，供 br_planet_destruction.txt 的
+# lev_stellarite_absorb_effect_gfx 引用；粒子复用原版 stellarite 嘴部充能/发射粒子
+
+# 开火期实体：嘴部吸能喷射（原版 XL 枪口粒子体量大，用 scale 压亮度）
+entity = {
+    name = "lev_stellarite_absorb_fire_entity"
+    locator = { name = "part1" position = { 0 0 0 } }
+    default_state = "explode"
+    state = {
+        name = "explode" state_time = 5 looping = yes
+        event = { time = 0 node = "part1" particle = "stellarite_titan_muzzle_particle" keep_particle = yes trigger_once = yes }
+        start_event = { trigger_once = yes sound = { soundeffect = "stellarites_fire_beam" } }
+        start_event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_fire_beam" } }
+    }
+    scale = 0.4
+}
+
+# 命中实体：挂恒星位置。粒子必须用 duration = -1 的长驻型才会持续发射；
+# 故意不写 keep_particle，粒子随 state 结束销毁（state_time = 400 秒覆盖整个吸食期）
+entity = {
+    name = "lev_stellarite_absorb_hit_entity"
+    pdxmesh = "system_plane_collision_mesh"
+    locator = { name = "part1" position = { 0 0 0 } }
+    default_state = "explode"
+    state = {
+        name = "explode" state_time = 400 looping = no
+        event = { time = 0.1 node = "part1" particle = "stellarite_core_effect" trigger_once = yes }
+    }
+    scale = 8
+}

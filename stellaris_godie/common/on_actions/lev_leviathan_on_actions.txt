@@ -6,12 +6,6 @@ on_game_start_country = {
     }
 }
 
-on_lev_absorb_completed = {
-    events = {
-        lev.100
-    }
-}
-
 on_lev_ignite_completed = {
     events = {
         lev.101
@@ -24,9 +18,25 @@ on_lev_beam_completed = {
     }
 }
 
-# ══════════════════════════════════════════════════════════
+# 灭星武器回调：this = 被开火的恒星，from = 施放舰队
+
+on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM = {
+    events = {
+        lev.103
+    }
+}
+
+on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM_queued = {
+    events = {
+    }
+}
+
+on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM_unqueued = {
+    events = {
+    }
+}
+
 # 利维坦成长值系统
-# ══════════════════════════════════════════════════════════
 
 # 战斗成长：同星系内利维坦击杀敌舰 → 成长值 +
 on_ship_destroyed_perp = {
