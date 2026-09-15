@@ -1,0 +1,75 @@
+# 噬天巨兽吞噬星球：嘴部辉光（次要）
+#
+# 星球侧才是主体（kaiju_gobble_planet.asset，物质流从星球升向嘴部）。
+# 这一团只是表示"吸入口"的微弱辉光，挂在船体实体的 jaw_under 骨骼上。
+#
+# 【为什么不放粒子群】上一版这里有个 maw_inflow 子系统：sphere_emitter_radius={60 20}、
+# emission=40、life=1.2，也就是在半径 60 的球里同时挂着约 48 个 size 12 的 glow 点。
+# 而嘴巴全开时上下颚间距才 27 局部单位 —— 半径比嘴还大一圈，
+# 实机表现就是"巨兽头部周围莫名其妙一把光点"。已删除，连同那个 point 力场。
+# 嘴部只保留单个旋涡辉光贴图，它是贴在嘴心的一张图，不会散开成点。
+#
+# 调参：想更弱就把 size / emission / alpha 调小，或调 kaiju_gobble_particles.gfx 里的 scale。
+
+particle={
+	name="kaiju_gobble_maw_file"
+
+	# 嘴心旋涡辉光
+	subsystem={
+		name="maw_glow"
+		max_amount=12
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/polar_swirl_3.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255
+			y=205
+			z=160
+			alpha=120,fade_alpha
+		}
+		duration=-1.000
+		life=0.550
+		emission=10.000
+		size={ 20.000,shrink 4.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=180.000
+	}
+
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.220 0.850 0.700 0.700 1.000 0.000
+		}
+		op="MUL"
+		time="life"
+	}
+
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.800 0.800 1.000 0.150
+		}
+		op="MUL"
+		time="life"
+	}
+}

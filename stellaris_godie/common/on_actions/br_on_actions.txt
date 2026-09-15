@@ -42,6 +42,7 @@ on_yearly_pulse_country = {
 	}
 }
 
+# 采掘器已废弃：br.6000 保留占位（这组会被插件报「子类型不匹配」，不用管）
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER = {
 	events = {
 		br.6000
@@ -55,6 +56,25 @@ on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_queued = {
 
 on_destroy_planet_with_BR_PLANET_KILLER_HARVESTER_unqueued = {
 	events = {
+	}
+}
+
+# 噬天巨兽（原版 Behemoth）灭星器：_queued 在下命令那一刻就触发，_unqueued 在充能途中取消也触发
+on_destroy_planet_with_PLANET_KILLER_MAW = {
+	events = {
+		br.6002
+	}
+}
+
+on_destroy_planet_with_PLANET_KILLER_MAW_queued = {
+	events = {
+		br.6001
+	}
+}
+
+on_destroy_planet_with_PLANET_KILLER_MAW_unqueued = {
+	events = {
+		br.6002
 	}
 }
 

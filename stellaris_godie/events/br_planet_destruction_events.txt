@@ -1,7 +1,7 @@
 namespace = br
 #废弃未使用事件
 # 事件ID区间：6000-6099。新增或修改事件ID不得超出此区间
-# br.6000：母舰采掘光束爆星后分流奖励事件，并把目标星球变成破碎星球
+# br.6000（已废弃）：母舰采掘光束爆星后分流奖励事件，并把目标星球变成破碎星球
 planet_event = {
 	id = br.6000
 	hide_window = yes
@@ -58,6 +58,70 @@ planet_event = {
 			scale = 1
 			play_animation_once = no
 			duration = 180
+		}
+	}
+}
+
+# br.6001：下命令（windup 起点）→ 打标记，10 天后叫 br.6003 出粒子
+# br.6002：取消或被吞 → 清标记 + 收掉粒子（同一事件被两个 on_action 引用）
+# br.6003：延迟后实际创建粒子（this = 星球，from = 舰队）
+carrier_event = {
+	id = br.6001
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_planet_flag = br_kaiju_gobble_pending
+		# from（舰队）必须显式传下去，否则延续事件里 from 会变成星球，朝向就丢了
+		planet_event = {
+			id = br.6003
+			days = 10
+			scopes = { from = from }
+		}
+	}
+}
+
+planet_event = {
+	id = br.6003
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# 10 天内取消过订单就不出粒子（标记在 br.6002 里清）
+		if = {
+			limit = {
+				has_planet_flag = br_kaiju_gobble_pending
+			}
+			create_ambient_object = {
+				type = br_kaiju_gobble_windup_vfx
+				location = this
+				use_3d_location = yes
+				entity_scale_to_size = yes
+				# 0.02 = defines 的 PLANET_DESTRUCTION_HIT_ENTITY_SCALE，与引擎给 planet_hit_entity 的缩放一致
+				scale = 0.02
+				base_angle_towards = from
+				entity_face_object = from
+				play_animation_once = no
+				duration = 400
+			}
+			last_created_ambient_object = {
+				set_ambient_object_flag = br_kaiju_gobble_windup
+			}
+		}
+	}
+}
+
+carrier_event = {
+	id = br.6002
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		remove_planet_flag = br_kaiju_gobble_pending
+		solar_system = {
+			every_system_ambient_object = {
+				limit = {
+					has_ambient_object_flag = br_kaiju_gobble_windup
+				}
+				destroy_ambient_object = this
+			}
 		}
 	}
 }

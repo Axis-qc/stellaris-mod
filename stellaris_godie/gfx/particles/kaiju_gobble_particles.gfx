@@ -1,0 +1,28 @@
+# Kaiju (Behemoth) planet-eating particle registration.
+#
+# Body files:
+#   gfx/particles/kaiju_gobble_planet.asset  -> 星球侧（主体，planet_hit_entity 用）
+#   gfx/particles/kaiju_gobble_maw.asset     -> 嘴部微弱辉光（次要，jaw_under 骨骼用）
+#
+# scale: overall size multiplier of each particle system.
+#        Tune these single values if a side looks too small / too large in game.
+
+objectTypes = {
+
+	# 星球侧：被啃食的星球表面 + 被吸走的物质
+	pdxparticle = {
+		name = "kaiju_gobble_planet_effect"
+		type = "kaiju_gobble_planet_file"
+
+		scale = 1
+	}
+
+	# 嘴部：吸入口辉光
+	pdxparticle = {
+		name = "kaiju_gobble_maw_effect"
+		type = "kaiju_gobble_maw_file"
+
+		scale = 1
+	}
+
+}
