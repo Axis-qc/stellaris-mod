@@ -1,0 +1,48 @@
+# 老练专精特质的授予事件
+# 110 用于 on_leader_spawned（新领袖），111 用于开局与年度脉冲补发给已有领袖。
+
+# 新领袖自动获得老练专精
+country_event = {
+	id = lxleader.110
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			NOT = { leader_class = envoy }
+			NOT = { has_trait = lx_leader_veteran_bonus }
+		}
+	}
+	immediate = {
+		from = {
+			add_trait = {
+				trait = lx_leader_veteran_bonus
+				show_message = no
+			}
+		}
+	}
+}
+
+# 补发：给尚未持有的领袖补上老练专精
+country_event = {
+	id = lxleader.111
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		any_owned_leader = {
+			NOT = { leader_class = envoy }
+			NOT = { has_trait = lx_leader_veteran_bonus }
+		}
+	}
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				NOT = { leader_class = envoy }
+				NOT = { has_trait = lx_leader_veteran_bonus }
+			}
+			add_trait = {
+				trait = lx_leader_veteran_bonus
+				show_message = no
+			}
+		}
+	}
+}

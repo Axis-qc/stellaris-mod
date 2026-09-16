@@ -5,7 +5,7 @@
 #   - 朝向：base_angle_towards / entity_face_object（不写就按系统平面摆）
 #   - beam 类：entity_scale_to_size = yes + scripted_scale（不能用 scale）；location=起点，entity_face_object=终点
 #   - duration = 存活天数；play_animation_once = yes 只播一次
-# 参考：原版 paragon_events.txt paragon.250（船->星球光束）；本项目 heroship.1200、br.6001
+# 参考：原版 paragon_events.txt paragon.250（船->星球光束）；本项目 heroship.1200
 
 # 危险星系内特效，大地图无法添加
 ambient_object = {
@@ -39,10 +39,3 @@ ambient_object = {
     show_name = no
 }
 
-# 噬天巨兽充能期：星球侧吞噬粒子（复用灭星器 planet_hit_entity 的载体实体）
-ambient_object = {
-    name = br_kaiju_gobble_windup_vfx
-    entity = kaiju_gobble_planet_hit_entity
-    selectable = no
-    show_name = no
-}

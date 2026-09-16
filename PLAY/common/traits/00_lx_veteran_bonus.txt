@@ -1,0 +1,252 @@
+# 老练专精：由事件授予所有领袖；效果按领袖持有的老练特质(subclass)分流，并随技能等级放大。
+# 本文件取代原先整份覆盖的 20_leader_subclasses.txt，不再改动原版特质定义。
+# 注意：本特质的效果是叠加在原版老练特质的固定值之上的，原版数值不受影响。
+
+lx_leader_veteran_bonus = {
+    leader_class = { commander official scientist }
+
+    inline_script = {
+        script = trait/icon
+        CLASS = leader
+        ICON = "GFX_leader_trait_army_veteran"
+        RARITY = common
+        COUNCIL = no
+        TIER = none
+    }
+
+    randomized = no
+    notify_on_gained = no
+    selectable_weight = {
+        weight = 0
+    }
+
+    # 舰队司令
+    triggered_modifier = {
+        potential = {
+            has_trait = subclass_commander_admiral
+        }
+        ship_weapon_damage = 0.02
+        ship_fire_rate_mult = 0.01
+        ship_disengage_chance_mult = 0.01
+        command_limit_add = 10
+        mult = trigger:has_total_skill
+    }
+
+    # 探索者
+    triggered_modifier = {
+        potential = {
+            has_trait = subclass_scientist_explorer
+        }
+        ship_sensor_range_add = 0.5
+        science_ship_survey_speed = 0.01
+        ship_anomaly_generation_chance_mult = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 前沿学者
+    triggered_modifier = {
+        potential = {
+            has_trait = subclass_scientist_scholar
+        }
+        ship_anomaly_research_speed_mult = 0.01
+        ship_archaeological_site_excavation_speed_mult = 0.01
+        country_astral_rift_speed_mult = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 陆军司令：舰队
+    triggered_fleet_modifier = {
+        potential = {
+            has_trait = subclass_commander_general
+        }
+        ship_damage_against_starbases_mult = 0.02
+        ship_orbital_bombardment_mult = 0.02
+        mult = trigger:has_total_skill
+    }
+
+    # 陆军司令：陆军
+    triggered_army_modifier = {
+        potential = {
+            has_trait = subclass_commander_general
+        }
+        army_damage_mult = 0.02
+        mult = trigger:has_total_skill
+    }
+
+    # 产业专员：星球
+    triggered_planet_modifier = {
+        potential = {
+            has_trait = subclass_official_governor
+        }
+        planet_jobs_specialist_produces_mult = 0.01
+        pop_amenities_usage_mult = -0.005
+        mult = trigger:has_total_skill
+    }
+
+    # 产业专员：星域
+    triggered_sector_modifier = {
+        potential = {
+            has_trait = subclass_official_governor
+        }
+        planet_jobs_specialist_produces_mult = 0.002
+        pop_amenities_usage_mult = -0.002
+        mult = trigger:has_total_skill
+    }
+
+    # 分析专员：星球
+    triggered_planet_modifier = {
+        potential = {
+            has_trait = subclass_scientist_governor
+        }
+        planet_jobs_physics_research_produces_mult = 0.01
+        planet_jobs_society_research_produces_mult = 0.01
+        planet_jobs_engineering_research_produces_mult = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 战略家
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = { is_gestalt = no }
+            has_trait = subclass_commander_councilor
+        }
+        shipclass_military_build_speed_mult = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 外交使节
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = { is_gestalt = no }
+            has_trait = subclass_official_diplomacy_councilor
+        }
+        country_trust_growth = 0.02
+        mult = trigger:has_total_skill
+    }
+
+    # 国务顾问
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = { is_gestalt = no }
+            has_trait = subclass_official_economy_councilor
+        }
+        planet_pops_upkeep_mult = -0.01
+        planet_jobs_trade_produces_mult = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 统计学家
+    triggered_councilor_modifier = {
+        potential = {
+            exists = owner
+            owner = { is_gestalt = no }
+            has_trait = subclass_scientist_councilor
+        }
+        all_technology_research_speed = 0.02
+        mult = trigger:has_total_skill
+    }
+
+    # 帝国代表：联邦
+    triggered_federation_modifier = {
+        potential = {
+            has_trait = subclass_official_delegate
+        }
+        cohesion_add = 0.4
+        federation_fleet_cap_add = 10
+        mult = trigger:has_total_skill
+    }
+
+    # 帝国代表：星海共同体
+    triggered_galcom_modifier = {
+        potential = {
+            has_trait = subclass_official_delegate
+        }
+        diplo_weight_mult = 0.05
+        country_community_gdf_naval_capacity = 10
+        mult = trigger:has_total_skill
+    }
+
+    # 共同效果：指挥官系
+    triggered_self_modifier = {
+        potential = {
+            OR = {
+                has_trait = subclass_commander_admiral
+                has_trait = subclass_commander_general
+                has_trait = subclass_commander_governor
+                has_trait = subclass_commander_councilor
+            }
+        }
+        leader_commanders_unity_upkeep_add = -1
+        leader_lifespan_add = 5
+        negative_traits_leader = -0.2
+        species_leader_exp_gain = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 共同效果：行政官系
+    triggered_self_modifier = {
+        potential = {
+            OR = {
+                has_trait = subclass_official_delegate
+                has_trait = subclass_official_governor
+                has_trait = subclass_official_diplomacy_councilor
+                has_trait = subclass_official_economy_councilor
+            }
+        }
+        leader_officials_unity_upkeep_add = -1
+        leader_lifespan_add = 5
+        negative_traits_leader = -0.2
+        species_leader_exp_gain = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 共同效果：科学官系
+    triggered_self_modifier = {
+        potential = {
+            OR = {
+                has_trait = subclass_scientist_explorer
+                has_trait = subclass_scientist_scholar
+                has_trait = subclass_scientist_governor
+                has_trait = subclass_scientist_councilor
+            }
+        }
+        leader_scientists_unity_upkeep_add = -1
+        leader_lifespan_add = 5
+        negative_traits_leader = -0.2
+        species_leader_exp_gain = 0.01
+        mult = trigger:has_total_skill
+    }
+
+    # 陆军司令额外：行星战场宽度
+    triggered_self_modifier = {
+        potential = {
+            has_trait = subclass_commander_general
+        }
+        planet_combat_width_add = 0.5
+        mult = trigger:has_total_skill
+    }
+
+    # 特质选择项 +2（不随等级缩放，需已持有老练特质）
+    triggered_self_modifier = {
+        potential = {
+            OR = {
+                has_trait = subclass_commander_admiral
+                has_trait = subclass_commander_general
+                has_trait = subclass_commander_governor
+                has_trait = subclass_commander_councilor
+                has_trait = subclass_official_delegate
+                has_trait = subclass_official_governor
+                has_trait = subclass_official_diplomacy_councilor
+                has_trait = subclass_official_economy_councilor
+                has_trait = subclass_scientist_explorer
+                has_trait = subclass_scientist_scholar
+                has_trait = subclass_scientist_governor
+                has_trait = subclass_scientist_councilor
+            }
+        }
+        leader_trait_selection_options_add = 2
+    }
+}
