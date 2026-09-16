@@ -8,7 +8,7 @@ lx_leader_veteran_bonus = {
     inline_script = {
         script = trait/icon
         CLASS = leader
-        ICON = "GFX_leader_trait_army_veteran"
+        ICON = "GFX_leader_trait_nervous"
         RARITY = common
         COUNCIL = no
         TIER = none
@@ -169,15 +169,11 @@ lx_leader_veteran_bonus = {
         mult = trigger:has_total_skill
     }
 
-    # 共同效果：指挥官系
+    # 共同效果：指挥官系（按领袖类别判断，不检查老练特质，其它 mod 新增的老练特质也能吃到）
     triggered_self_modifier = {
         potential = {
-            OR = {
-                has_trait = subclass_commander_admiral
-                has_trait = subclass_commander_general
-                has_trait = subclass_commander_governor
-                has_trait = subclass_commander_councilor
-            }
+            leader_class = commander
+            has_base_skill >= 5
         }
         leader_commanders_unity_upkeep_add = -1
         leader_lifespan_add = 5
@@ -186,15 +182,11 @@ lx_leader_veteran_bonus = {
         mult = trigger:has_total_skill
     }
 
-    # 共同效果：行政官系
+    # 共同效果：行政官系（按领袖类别判断，不检查老练特质）
     triggered_self_modifier = {
         potential = {
-            OR = {
-                has_trait = subclass_official_delegate
-                has_trait = subclass_official_governor
-                has_trait = subclass_official_diplomacy_councilor
-                has_trait = subclass_official_economy_councilor
-            }
+            leader_class = official
+            has_base_skill >= 5
         }
         leader_officials_unity_upkeep_add = -1
         leader_lifespan_add = 5
@@ -203,15 +195,11 @@ lx_leader_veteran_bonus = {
         mult = trigger:has_total_skill
     }
 
-    # 共同效果：科学官系
+    # 共同效果：科学官系（按领袖类别判断，不检查老练特质）
     triggered_self_modifier = {
         potential = {
-            OR = {
-                has_trait = subclass_scientist_explorer
-                has_trait = subclass_scientist_scholar
-                has_trait = subclass_scientist_governor
-                has_trait = subclass_scientist_councilor
-            }
+            leader_class = scientist
+            has_base_skill >= 5
         }
         leader_scientists_unity_upkeep_add = -1
         leader_lifespan_add = 5
@@ -229,24 +217,8 @@ lx_leader_veteran_bonus = {
         mult = trigger:has_total_skill
     }
 
-    # 特质选择项 +2（不随等级缩放，需已持有老练特质）
-    triggered_self_modifier = {
-        potential = {
-            OR = {
-                has_trait = subclass_commander_admiral
-                has_trait = subclass_commander_general
-                has_trait = subclass_commander_governor
-                has_trait = subclass_commander_councilor
-                has_trait = subclass_official_delegate
-                has_trait = subclass_official_governor
-                has_trait = subclass_official_diplomacy_councilor
-                has_trait = subclass_official_economy_councilor
-                has_trait = subclass_scientist_explorer
-                has_trait = subclass_scientist_scholar
-                has_trait = subclass_scientist_governor
-                has_trait = subclass_scientist_councilor
-            }
-        }
+    # 特质选择项 +2（不随等级缩放，对所有持有本特质的领袖生效，不限定老练特质）
+    self_modifier = {
         leader_trait_selection_options_add = 2
     }
 }
