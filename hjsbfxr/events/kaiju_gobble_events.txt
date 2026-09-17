@@ -1,18 +1,26 @@
-# 噬天巨兽（原版 Behemoth）吞噬星球：充能期星球侧粒子驱动事件
-# 配套资源：gfx/particles/kaiju_gobble_*、gfx/models/combat_items/kaiju_gobble_entities.asset、
-#           common/ambient_objects/kaiju_gobble_ambient.txt、common/on_actions/kaiju_gobble_on_actions.txt
+# 噬天巨兽吞噬星球：充能期星球侧粒子 + 碎片驱动事件
+#
+# 事件流：
+# - bfxr.6001：下命令 → 打标记，20 天后调 bfxr.6003（from 传舰队，朝向要用）
+# - bfxr.6003：藏原星球 + 建 2 个环境物体（碎片 + 粒子）
+# - bfxr.6002：成功被吞或取消 → 清标记 + 收环境物体（不恢复星球）
+# - bfxr.6004：仅取消时触发 → 恢复星球渲染实体
+#
+# 注意：
+# - 粒子环境物体要 base_angle_towards / entity_face_object = from（吸力在粒子局部 +Z）；
+#   碎片环境物体不要设朝向，否则碎片横着飞。
+# - 藏星球用 kaiju_gobble_invisible_planet_entity（有几何体的全透明网格），
+#   不能用 locator_mesh：entity_scale_to_size 算出 0 会把粒子碎片一起缩没。
+# - _once_init_mod_files.py 会覆盖本文件，别跑。
 namespace = bfxr
 
-# bfxr.6001：下命令（windup 起点）→ 打标记，10 天后叫 bfxr.6003 出粒子
-# bfxr.6002：取消或被吞 → 清标记 + 收掉粒子（同一事件被两个 on_action 引用）
-# bfxr.6003：延迟后实际创建粒子（this = 星球，from = 舰队）
 carrier_event = {
 	id = bfxr.6001
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		set_planet_flag = bfxr_kaiju_gobble_pending
-		# from（舰队）必须显式传下去，否则延续事件里 from 会变成星球，朝向就丢了
+		# from（舰队）必须显式传下去，否则延续事件里 from 会变成星球，朝向就丢
 		planet_event = {
 			id = bfxr.6003
 			days = 20
@@ -26,18 +34,35 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# 20 天内取消过订单就不出粒子（标记在 bfxr.6002 里清）
+		# 20 天内取消过订单就不出效果（标记在 bfxr.6002 里清）
 		if = {
 			limit = {
 				has_planet_flag = bfxr_kaiju_gobble_pending
 			}
+			# 藏原星球防重影（只换渲染实体，游戏数据不受影响）
+			set_planet_entity = { entity = kaiju_gobble_invisible_planet_entity }
+
+			# 碎片：不设朝向 => 竖直向上
+			create_ambient_object = {
+				type = bfxr_kaiju_gobble_shards_vfx
+				location = this
+				use_3d_location = yes
+				entity_scale_to_size = yes
+				scale =0.2
+				play_animation_once = no
+				duration = 400
+			}
+			last_created_ambient_object = {
+				set_ambient_object_flag = bfxr_kaiju_gobble_windup
+			}
+
+			# 粒子：要对准巨兽
 			create_ambient_object = {
 				type = bfxr_kaiju_gobble_windup_vfx
 				location = this
 				use_3d_location = yes
 				entity_scale_to_size = yes
-				# 0.02 = defines 的 PLANET_DESTRUCTION_HIT_ENTITY_SCALE，与引擎给 planet_hit_entity 的缩放一致
-				scale = 0.02
+				scale =0.02
 				base_angle_towards = from
 				entity_face_object = from
 				play_animation_once = no
@@ -63,6 +88,45 @@ carrier_event = {
 				}
 				destroy_ambient_object = this
 			}
+		}
+	}
+}
+
+# bfxr.6004：取消灭星命令 → 恢复星球。只挂 _unqueued（成功吞了就不用恢复）。
+# 直接把行星类名当 entity 传（引擎接受类名，原版 distant_stars_events_3.txt 有先例）。
+# 覆盖 MAW 能吃的全部 25 种行星类；别的 mod 新增的宜居类取消后会保持隐身，需补分支。
+carrier_event = {
+	id = bfxr.6004
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		switch = {
+			trigger = is_planet_class
+			pc_desert = { set_planet_entity = { entity = pc_desert } }
+			pc_arid = { set_planet_entity = { entity = pc_arid } }
+			pc_savannah = { set_planet_entity = { entity = pc_savannah } }
+			pc_tropical = { set_planet_entity = { entity = pc_tropical } }
+			pc_continental = { set_planet_entity = { entity = pc_continental } }
+			pc_ocean = { set_planet_entity = { entity = pc_ocean } }
+			pc_tundra = { set_planet_entity = { entity = pc_tundra } }
+			pc_arctic = { set_planet_entity = { entity = pc_arctic } }
+			pc_alpine = { set_planet_entity = { entity = pc_alpine } }
+			pc_volcanic = { set_planet_entity = { entity = pc_volcanic } }
+			pc_gaia = { set_planet_entity = { entity = pc_gaia } }
+			pc_nuked = { set_planet_entity = { entity = pc_nuked } }
+			pc_hive = { set_planet_entity = { entity = pc_hive } }
+			pc_infested = { set_planet_entity = { entity = pc_infested } }
+			pc_machine = { set_planet_entity = { entity = pc_machine } }
+			pc_nanotech = { set_planet_entity = { entity = pc_nanotech } }
+			pc_city = { set_planet_entity = { entity = pc_city } }
+			pc_relic = { set_planet_entity = { entity = pc_relic } }
+			pc_ark = { set_planet_entity = { entity = pc_ark } }
+			pc_ringworld_habitable = { set_planet_entity = { entity = pc_ringworld_habitable } }
+			pc_shattered_ring_habitable = { set_planet_entity = { entity = pc_shattered_ring_habitable } }
+			pc_habitat = { set_planet_entity = { entity = pc_habitat } }
+			pc_cosmogenesis_world = { set_planet_entity = { entity = pc_cosmogenesis_world } }
+			pc_crystal_habitat = { set_planet_entity = { entity = pc_crystal_habitat } }
+			pc_warden_guardian = { set_planet_entity = { entity = pc_warden_guardian } }
 		}
 	}
 }

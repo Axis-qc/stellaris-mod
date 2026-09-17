@@ -1,6 +1,5 @@
-# 噬天巨兽（原版 Behemoth）灭星器：吞噬星球特效挂钩
-# _queued 在下命令那一刻就触发，_unqueued 在充能途中取消也触发
-
+# 噬天巨兽灭星器：吞噬星球特效挂钩
+# 取消充能时 6002 收环境物体 + 6004 恢复星球；成功吞噬只挂 6002。
 on_destroy_planet_with_PLANET_KILLER_MAW = {
 	events = {
 		bfxr.6002
@@ -13,8 +12,10 @@ on_destroy_planet_with_PLANET_KILLER_MAW_queued = {
 	}
 }
 
+# 取消充能：6002 + 6004
 on_destroy_planet_with_PLANET_KILLER_MAW_unqueued = {
 	events = {
 		bfxr.6002
+		bfxr.6004
 	}
 }

@@ -1,16 +1,138 @@
-# 噬天巨兽吞噬星球：星球侧粒子载体实体
+# 星球侧实体。
 #
-# 由脚本当环境物体用（bfxr_kaiju_gobble_windup_vfx，bfxr.6001 生成在星球位置，
-# play_animation_once = no 循环播）；写法照抄原版 colossus_shatter_planet_hit_entity
-# （纯粒子载体：只有 cull_radius，没有网格/locator）。state_time = 25。
+# 注意：
+# - shards_entity / shards_entity_a..f 都不要写 cull_radius：环境物体是
+#   entity_scale_to_size = yes，写了 cull_radius 会导致模型不显示。
+# - 带 pdxmesh 的实体每个 state 都必须写 animation，漏一个会报
+#   "State ... is missing an animation!"。
+# - kaiju_gobble_particle_host_entity 已停用（粒子改走独立环境物体），别 attach。
+# - kaiju_gobble_axis_entity 是坐标轴标定件（临时），测完把 shards_entity 里
+#   那行 attach 注释掉。
+# - _once_init_mod_files.py 会覆盖本文件，别跑。
 
+# 粒子载体：只有粒子没有网格。需要朝向对准巨兽（吸力方向在粒子局部 +Z）。
 entity = {
 	name = "kaiju_gobble_planet_hit_entity"
-	cull_radius = 1.0
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
 
 	default_state = "idle"
-	state = { name = "idle" state_time = 25 looping = no
+	state = { name = "idle" state_time = 60 looping = no
 		start_event = { particle = "kaiju_gobble_planet_effect" keep_particle = yes }
 	}
 	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# 隐形行星：原版行星网格 + 全透明材质，尺寸与真行星一致（顶掉原星球防重影）。
+# 不能用 locator_mesh（无几何体）—— entity_scale_to_size 会算出 0，全部被缩没。
+entity = {
+	name = "kaiju_gobble_invisible_planet_entity"
+	pdxmesh = "kaiju_gobble_planet_hidden_mesh"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 looping = no }
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+entity = {
+	name = "kaiju_gobble_shards_entity_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+}
+
+# ---- 粒子宿主（已停用）：粒子改走独立环境物体。保留定义仅为回退，别 attach。----
+entity = {
+	name = "kaiju_gobble_particle_host_entity"
+	scale = 0.1856
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 looping = no
+		start_event = { particle = "kaiju_gobble_planet_effect" keep_particle = yes }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# ---- 坐标轴标定件（临时）：红=X 绿=Y 蓝=Z。测完把 shards_entity 里的 attach 注释掉。----
+entity = {
+	name = "kaiju_gobble_axis_entity"
+	scale = 1
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 900 looping = no
+		start_event = { particle = "kaiju_gobble_axis_effect" keep_particle = yes }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# ---- 碎片总实体：attach 6 个碎片。不设朝向、不写 pdxmesh、不写 cull_radius，
+#      碎片动画沿模型 +Z 飞 = 世界竖直向上。----
+entity = {
+	name = "kaiju_gobble_shards_entity"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+    scale = 1
+    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
+    cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_f" }
+
+	# 坐标轴标定件（临时）：测完注释掉这行。
+	# attach = { loc = "kaiju_gobble_axis_entity" }
 }

@@ -1,0 +1,134 @@
+# 星球碎片模型：300 片拆 6 个模型（引擎每 mesh 上限 50 骨，各 49 碎片骨 + root），
+# 6 个原点都在 (0,0,0)，叠起来是一个完整的球。
+#
+# 注意：
+# - 动画注册必须在 .asset（.gfx 顶层写 animation 会报错），见 kaiju_gobble_shards.asset。
+# - scale = 1：mesh 半径与真行星一致，尺寸由环境物体的 entity_scale_to_size 控制。
+# - _once_init_mod_files.py 会覆盖本文件，别跑。
+
+objectTypes = {
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_a"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_a.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_a" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_a"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_b"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_b.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_b" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_b"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_c"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_c.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_c" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_c"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_d"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_d.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_d" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_d"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_e"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_e.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_e" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_e"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	pdxmesh = {
+		name = "kaiju_gobble_shards_mesh_f"
+		file = "gfx/models/ships/guardians/kaiju/kaiju_gobble_shards_f.mesh"
+		animation = { id = "shatter" type = "kaiju_gobble_shatter_animation_f" }
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "kaiju_gobble_shards_f"
+			index = 0
+			texture_diffuse = "tundra_01_diffuse.dds"
+			texture_normal = "tundra_01_normal.dds"
+			texture_specular = "tundra_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+
+	# 隐形行星：原版行星网格 + 全透明材质。必须有几何体，entity_scale_to_size 才有尺寸可算。
+	pdxmesh = {
+		name = "kaiju_gobble_planet_hidden_mesh"
+		file = "gfx/models/planets/planet_non_clouded.mesh"
+
+		meshsettings = {
+			name = "planet_geosphereShape"
+			texture_diffuse = "noalpha.dds"
+			texture_normal = "nonormal.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+
+		meshsettings = {
+			name = "polesShape"
+			texture_diffuse = "noalpha.dds"
+			texture_normal = "nonormal.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+	}
+}

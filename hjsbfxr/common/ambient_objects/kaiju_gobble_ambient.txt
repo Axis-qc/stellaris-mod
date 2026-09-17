@@ -1,9 +1,21 @@
-# 噬天巨兽充能期：星球侧吞噬粒子（复用灭星器 planet_hit_entity 的载体实体）
-# entity 定义在 gfx/models/combat_items/kaiju_gobble_entities.asset
+# 星球侧的粒子 + 碎片环境物体（entity 定义在 kaiju_gobble_entities.asset）。
+#
+# 注意：
+# - windup_vfx（粒子）创建时要 base_angle_towards / entity_face_object = from 对准巨兽。
+# - shards_vfx（碎片）创建时绝对不要设朝向：不设朝向时引擎按系统平面定向，
+#   碎片动画沿模型 +Z 飞 = 竖直向上。设了朝向碎片会横着飞。
+# - _once_init_mod_files.py 会覆盖本文件，别跑。
 
 ambient_object = {
     name = bfxr_kaiju_gobble_windup_vfx
     entity = kaiju_gobble_planet_hit_entity
+    selectable = no
+    show_name = no
+}
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx
+    entity = kaiju_gobble_shards_entity
     selectable = no
     show_name = no
 }
