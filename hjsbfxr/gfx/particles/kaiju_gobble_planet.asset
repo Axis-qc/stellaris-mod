@@ -1,11 +1,9 @@
-# 噬天巨兽吞噬星球：星球侧粒子（星球被剥离 / 物质被吸向巨兽嘴部）。
+# 噬天巨兽吞噬星球：星球侧粒子（星球被剥离 / 物质竖直升起）。
 # 由 bfxr.6001 建的星球位环境物体引用；缩放 = 星球显示尺寸 x 0.02（同 defines 的
 # PLANET_DESTRUCTION_HIT_ENTITY_SCALE，即引擎给 planet_hit_entity 的那套）。
 #
-# 坐标约定（写错就废）：+X = 朝星球内部（出生偏移 position={ x=24 }）；
-#   +Z = 朝巨兽 —— 环境物体朝向由 bfxr.6001 的 entity_face_object = from 定，
-#   引擎给 planet_hit_entity 的那套是 -Z，两者相反，勿混。
-# 子系统 1~4 带 force=attractor（被吸向嘴部），5~8 不带（原地翻涌 / 外扩）。
+# 坐标：环境物体不设朝向 → 用游戏基准坐标，+Y = 上，吸力沿 +Y 拉。
+# 子系统 1~4 带 force=attractor（被往上拉），5~8 不带（原地翻涌 / 外扩）。
 # 坑：force 块必须在子系统里用 force=<名字> 引用才生效；数值二元组是「值 方差」不是「最小 最大」；
 #   trail=yes 会把贴图拉成细线；暗色块必须 shader="ParticleAlphaBlend" + sort="depth"（additive 画不出黑）。
 # 调参：attractor 的 amount 管吸力（负值=吸引），emission / max_amount 管粒子量。
@@ -37,11 +35,6 @@ particle={
 			z=110.000
 			alpha=110.000,alpha_fade
 		}
-        position={
-            x=24.000
-            y=0.000
-            z=0.000
-        }
 		duration=-1.000
 		velocity_pitch={ 0.000 180.000 }
 		velocity_yaw={ 180.000 180.000 }
@@ -54,7 +47,7 @@ particle={
 		rotation={ 0.000 180.000 }
 	}
 
-	# 2) 主物质流（被吸力拉成柱升向巨兽嘴部）
+	# 2) 主物质流（被吸力拉成柱往上冲）
 	subsystem={
 		name="matter_stream"
 		max_amount=1500
@@ -80,11 +73,6 @@ particle={
 			z=170.000
 			alpha=190.000,alpha_fade
 		}
-        position={
-            x=24.000
-            y=0.000
-            z=0.000
-        }
 		duration=-1.000
 		velocity=0.000
 		life={ 10.000 0.400 }
@@ -120,11 +108,6 @@ particle={
 			z=120.000
 			alpha=220.000,alpha_fade
 		}
-        position={
-            x=24.000
-            y=0.000
-            z=0.000
-        }
 		duration=-1.000
 		velocity=0.000
 		life={ 10.000 0.300 }
@@ -160,11 +143,6 @@ particle={
 			z=110.000
 			alpha=80.000,alpha_fade
 		}
-        position={
-            x=24.000
-            y=0.000
-            z=0.000
-        }
 		duration=-1.000
 		velocity=0.000
 		life={ 12.000 0.400 }
@@ -201,11 +179,6 @@ particle={
 			z=80.000
 			alpha=70.000,alpha_fade
 		}
-		position={
-			x=0.000
-			y=0.000
-			z=0.000
-		}
 		duration=-1.000
 		velocity=0.000
 		life={ 1.600 0.400 }
@@ -240,11 +213,6 @@ particle={
 			z=255.000
 			alpha=45.000,alpha_fade
 		}
-		position={
-			x=0.000
-			y=0.000
-			z=0.000
-		}
 		duration=-1.000
 		velocity_pitch={ 0.000 180.000 }
 		velocity_yaw={ 0.000 180.000 }
@@ -254,87 +222,6 @@ particle={
 		size={ 40.000,grow 8.000 }
 		rotation={ 0.000 180.000 }
 	}
-
-	# # 7) 炽热裂纹
-	# subsystem={
-	# 	name="cracks"
-	# 	max_amount=150
-	# 	slave_particles=0
-	# 	emitter_type="sphere"
-	# 	sphere_emitter_radius={ 23.000 2.000 }
-	# 	sphere_emitter_yaw={ 0.000 180.000 }
-	# 	sphere_emitter_pitch={ 0.000 180.000 }
-	# 	invert=no
-	# 	trail=no
-	# 	local_space=yes
-	# 	billboard=yes
-	# 	hide=no
-	# 	texture={
-	# 		file="gfx/particles/lava_trail.dds"
-	# 		x=1
-	# 		y=1
-	# 		shader="ParticleAdditive"
-	# 	}
-	# 	color={
-	# 		x=255.000
-	# 		y=90.000
-	# 		z=50.000
-	# 		alpha=150.000,alpha_fade
-	# 	}
-	# 	position={
-	# 		x=0.000
-	# 		y=0.000
-	# 		z=0.000
-	# 	}
-	# 	duration=-1.000
-	# 	velocity=0.000
-	# 	life={ 3.000 0.600 }
-	# 	emission=16.000
-	# 	size={ 6.000,shrink 2.500 }
-	# 	rotation={ 0.000 180.000 }
-	# }
-    #
-	# # 8) 黑色土石块（跟着物质流被吸上去）
-	# subsystem={
-	# 	name="rock_chunks"
-	# 	max_amount=300
-	# 	slave_particles=0
-	# 	sort="depth"
-	# 	emitter_type="sphere"
-	# 	sphere_emitter_radius={ 24.000 8.000 }
-	# 	sphere_emitter_yaw={ 0.000 180.000 }
-	# 	sphere_emitter_pitch={ 0.000 180.000 }
-	# 	invert=no
-	# 	trail=no
-	# 	local_space=yes
-	# 	billboard=yes
-	# 	hide=no
-	# 	texture={
-	# 		file="gfx/particles/shards_2.dds"
-	# 		x=4
-	# 		y=4
-	# 		shader="ParticleAlphaBlend"
-	# 	}
-	# 	color={
-	# 		x=38.000
-	# 		y=32.000
-	# 		z=28.000
-	# 		alpha=255.000,alpha_fade
-	# 	}
-	# 	position={
-	# 		x=24.000
-	# 		y=0.000
-	# 		z=0.000
-	# 	}
-	# 	duration=-1.000
-	# 	velocity=0.000
-	# 	life={ 10.000 0.400 }
-	# 	emission=26.000
-	# 	size={ 9.000,shrink 1.500 }
-	# 	rotation={ 0.000 180.000 }
-	# 	rotation_speed=35.000
-	# 	force=attractor
-	# }
 
 	animation={
 		name="alpha_fade"
@@ -392,15 +279,15 @@ particle={
 		time="life"
 	}
 
-	# 吸力：把粒子吸向巨兽嘴部（+Z 方向）。position = 嘴部局部坐标，amount 负值=吸引。
+	# 吸力：把粒子往上拉（基准坐标 +Y）。position = 力心坐标，amount 负值=吸引。
 	force={
 		type="point"
 		name="attractor"
 		position={
-			0.000 0.000 200.000
+			0.000 200.000 0.000
 		}
 		direction={
-			0.000 0.000 1.000
+			0.000 1.000 0.000
 		}
 		local_force=yes
 		yaw=0.000

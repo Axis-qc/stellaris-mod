@@ -1,0 +1,19 @@
+# 原版 biocrisis.190「虚空顶点」防重入只认 behemoth_victory，而那 flag 要真完成转移才写，选「先等等」就会年年重弹。
+# king_of_monsters_achievement 是 190 弹过的标记：它弹过一次之后这里补写 flag，提示只出一次。
+namespace = bfxr
+
+country_event = {
+	id = bfxr.6100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = finished_behemoth_situation
+		has_country_flag = king_of_monsters_achievement
+		NOT = { has_country_flag = behemoth_victory }
+	}
+
+	immediate = {
+		set_country_flag = behemoth_victory
+	}
+}

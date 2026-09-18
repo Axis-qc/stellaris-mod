@@ -1,20 +1,17 @@
-# 星球侧实体。
+# 星球侧实体（本文件由 kb_gen_shards_materials.py 生成，别手改）。
 #
-# 注意：
-# - shards_entity / shards_entity_a..f 都不要写 cull_radius：环境物体是
-#   entity_scale_to_size = yes，写了 cull_radius 会导致模型不显示。
+# 15 个碎片贴图族，每族 6 个子实体 kaiju_gobble_shards_entity_<族>_<a..f> + 1 个父实体。
+# 贴图写在 entity 的 meshsettings 上（pdxmesh 上不写，两处都写会冲突）。
+#
+# 硬警告：
 # - 带 pdxmesh 的实体每个 state 都必须写 animation，漏一个会报
 #   "State ... is missing an animation!"。
-# - kaiju_gobble_particle_host_entity 已停用（粒子改走独立环境物体），别 attach。
-# - kaiju_gobble_axis_entity 是坐标轴标定件（临时），测完把 shards_entity 里
-#   那行 attach 注释掉。
-# - _once_init_mod_files.py 会覆盖本文件，别跑。
+# - kaiju_gobble_particle_host_entity 已停用，别 attach；kaiju_gobble_axis_entity 是临时标定件。
 
-# 粒子载体：只有粒子没有网格。需要朝向对准巨兽（吸力方向在粒子局部 +Z）。
+# 粒子载体：只有粒子没有网格。不设朝向，吸力沿基准坐标 +Y（竖直向上）。
 entity = {
 	name = "kaiju_gobble_planet_hit_entity"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
+	cull_radius = 800.0
 
 	default_state = "idle"
 	state = { name = "idle" state_time = 60 looping = no
@@ -28,70 +25,11 @@ entity = {
 entity = {
 	name = "kaiju_gobble_invisible_planet_entity"
 	pdxmesh = "kaiju_gobble_planet_hidden_mesh"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
+	cull_radius = 800.0
+
 	default_state = "idle"
 	state = { name = "idle" state_time = 60 looping = no }
 	state = { name = "stop" state_time = 0.5 looping = no }
-}
-entity = {
-	name = "kaiju_gobble_shards_entity_a"
-	pdxmesh = "kaiju_gobble_shards_mesh_a"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
-}
-
-entity = {
-	name = "kaiju_gobble_shards_entity_b"
-	pdxmesh = "kaiju_gobble_shards_mesh_b"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
-}
-
-entity = {
-	name = "kaiju_gobble_shards_entity_c"
-	pdxmesh = "kaiju_gobble_shards_mesh_c"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
-}
-
-entity = {
-	name = "kaiju_gobble_shards_entity_d"
-	pdxmesh = "kaiju_gobble_shards_mesh_d"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
-}
-
-entity = {
-	name = "kaiju_gobble_shards_entity_e"
-	pdxmesh = "kaiju_gobble_shards_mesh_e"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
-}
-
-entity = {
-	name = "kaiju_gobble_shards_entity_f"
-	pdxmesh = "kaiju_gobble_shards_mesh_f"
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	default_state = "idle"
-	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
-	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
 }
 
 # ---- 粒子宿主（已停用）：粒子改走独立环境物体。保留定义仅为回退，别 attach。----
@@ -106,7 +44,7 @@ entity = {
 	state = { name = "stop" state_time = 0.5 looping = no }
 }
 
-# ---- 坐标轴标定件（临时）：红=X 绿=Y 蓝=Z。测完把 shards_entity 里的 attach 注释掉。----
+# ---- 坐标轴标定件（临时）：红=X 绿=Y 蓝=Z。测完把 shards 里的 attach 注释掉。----
 entity = {
 	name = "kaiju_gobble_axis_entity"
 	scale = 1
@@ -118,21 +56,2012 @@ entity = {
 	state = { name = "stop" state_time = 0.5 looping = no }
 }
 
-# ---- 碎片总实体：attach 6 个碎片。不设朝向、不写 pdxmesh、不写 cull_radius，
-#      碎片动画沿模型 +Z 飞 = 世界竖直向上。----
-entity = {
-	name = "kaiju_gobble_shards_entity"
-	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
-    scale = 1
-    # 渲染剔除半径 (摄像机距离超过此值时不渲染此实体)
-    cull_radius = 800.0
-	attach = { loc = "kaiju_gobble_shards_entity_a" }
-	attach = { loc = "kaiju_gobble_shards_entity_b" }
-	attach = { loc = "kaiju_gobble_shards_entity_c" }
-	attach = { loc = "kaiju_gobble_shards_entity_d" }
-	attach = { loc = "kaiju_gobble_shards_entity_e" }
-	attach = { loc = "kaiju_gobble_shards_entity_f" }
 
-	# 坐标轴标定件（临时）：测完注释掉这行。
-	# attach = { loc = "kaiju_gobble_axis_entity" }
+# ---- 族 tundra ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "tundra_01_diffuse.dds"
+		texture_normal = "tundra_01_normal.dds"
+		texture_specular = "tundra_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（tundra）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_tundra / pc_nuked（nuked 地表原版就是 tundra_01，核爆感来自云层）
+entity = {
+	name = "kaiju_gobble_shards_entity_tundra"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_tundra_f" }
+}
+
+
+# ---- 族 desert ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_desert_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "desert_01_diffuse.dds"
+		texture_normal = "desert_01_normal.dds"
+		texture_specular = "desert_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（desert）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_desert
+entity = {
+	name = "kaiju_gobble_shards_entity_desert"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_desert_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_desert_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_desert_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_desert_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_desert_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_desert_f" }
+}
+
+
+# ---- 族 arid ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arid_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "arid_01_diffuse.dds"
+		texture_normal = "arid_01_normal.dds"
+		texture_specular = "arid_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（arid）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_arid
+entity = {
+	name = "kaiju_gobble_shards_entity_arid"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_arid_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_arid_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_arid_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_arid_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_arid_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_arid_f" }
+}
+
+
+# ---- 族 savannah ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "savannah_01_diffuse.dds"
+		texture_normal = "savannah_01_normal.dds"
+		texture_specular = "savannah_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（savannah）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_savannah
+entity = {
+	name = "kaiju_gobble_shards_entity_savannah"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_savannah_f" }
+}
+
+
+# ---- 族 tropical ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "tropical_01_diffuse.dds"
+		texture_normal = "tropical_01_normal.dds"
+		texture_specular = "tropical_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（tropical）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_tropical
+entity = {
+	name = "kaiju_gobble_shards_entity_tropical"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_tropical_f" }
+}
+
+
+# ---- 族 continental ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_continental_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "continental_01_diffuse.dds"
+		texture_normal = "continental_01_normals.dds"
+		texture_specular = "continental_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（continental）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_continental
+entity = {
+	name = "kaiju_gobble_shards_entity_continental"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_continental_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_continental_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_continental_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_continental_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_continental_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_continental_f" }
+}
+
+
+# ---- 族 ocean ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "ocean_01_diffuse.dds"
+		texture_normal = "ocean_01_normal.dds"
+		texture_specular = "ocean_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（ocean）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_ocean
+entity = {
+	name = "kaiju_gobble_shards_entity_ocean"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_ocean_f" }
+}
+
+
+# ---- 族 arctic ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "arctic_01_diffuse.dds"
+		texture_normal = "arctic_01_normals.dds"
+		texture_specular = "arctic_01_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（arctic）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_arctic
+entity = {
+	name = "kaiju_gobble_shards_entity_arctic"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_arctic_f" }
+}
+
+
+# ---- 族 alpine ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "alpine_01_diffuse.dds"
+		texture_normal = "alpine_01_normal.dds"
+		texture_specular = "alpine_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（alpine）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_alpine
+entity = {
+	name = "kaiju_gobble_shards_entity_alpine"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_alpine_f" }
+}
+
+
+# ---- 族 volcanic ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "volcanic_01_diffuse.dds"
+		texture_normal = "volcanic_01_normal.dds"
+		texture_specular = "volcanic_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+# 碎片总实体（volcanic）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_volcanic（原版用自发光 shader 模拟熔岩）
+entity = {
+	name = "kaiju_gobble_shards_entity_volcanic"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_volcanic_f" }
+}
+
+
+# ---- 族 gaia ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "gaia_01_diffuse.dds"
+		texture_normal = "tropical_03_normal.dds"
+		texture_specular = "tropical_03_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（gaia）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_gaia（gaia 没有自己的 normal/spec，原版借 tropical_03）
+entity = {
+	name = "kaiju_gobble_shards_entity_gaia"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_gaia_f" }
+}
+
+
+# ---- 族 infested ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_infested_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "infested_diffuse.dds"
+		texture_normal = "infested_normal.dds"
+		texture_specular = "infested_spec.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（infested）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_hive / pc_infested
+entity = {
+	name = "kaiju_gobble_shards_entity_infested"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_infested_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_infested_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_infested_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_infested_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_infested_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_infested_f" }
+}
+
+
+# ---- 族 ai ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_ai_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "ai_01_diffuse.dds"
+		texture_normal = "ai_01_normals.dds"
+		texture_specular = "ai_01_specular.dds"
+		shader = "PdxMeshTerra"
+	}
+}
+
+# 碎片总实体（ai）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_machine
+entity = {
+	name = "kaiju_gobble_shards_entity_ai"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_ai_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_ai_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_ai_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_ai_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_ai_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_ai_f" }
+}
+
+
+# ---- 族 city ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_city_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "city_planet_mammalian_01_diffuse.dds"
+		texture_normal = "city_planet_mammalian_01_normal.dds"
+		texture_specular = "city_planet_mammalian_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+# 碎片总实体（city）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_city（原版有 18 种物种风格贴图，固定取 mammalian_01 代表）
+entity = {
+	name = "kaiju_gobble_shards_entity_city"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_city_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_city_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_city_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_city_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_city_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_city_f" }
+}
+
+
+# ---- 族 relic ----
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_a"
+	pdxmesh = "kaiju_gobble_shards_mesh_a"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_a"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_b"
+	pdxmesh = "kaiju_gobble_shards_mesh_b"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_b"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_c"
+	pdxmesh = "kaiju_gobble_shards_mesh_c"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_c"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_d"
+	pdxmesh = "kaiju_gobble_shards_mesh_d"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_d"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_e"
+	pdxmesh = "kaiju_gobble_shards_mesh_e"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_e"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+entity = {
+	name = "kaiju_gobble_shards_entity_relic_f"
+	pdxmesh = "kaiju_gobble_shards_mesh_f"
+	cull_radius = 800.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 60 animation = "shatter" looping = no }
+	state = { name = "stop" state_time = 0.5 animation = "shatter" looping = no }
+
+	meshsettings = {
+		name = "kaiju_gobble_shards_f"
+		index = 0
+		texture_diffuse = "relic_world_01_diffuse.dds"
+		texture_normal = "relic_world_01_normal.dds"
+		texture_specular = "relic_world_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+}
+
+# 碎片总实体（relic）：attach 6 个碎片。不设朝向、不写 pdxmesh，
+# 碎片动画沿模型 +Y 飞 = 世界竖直向上（导出时 Blender +Z -> 模型 +Y）：
+# 分层起飞 -> 汇聚到高度 30 的一点 -> 再垂直升到 40，全程匀速缩小，到 40 缩到 0.002 消失。
+# 覆盖：pc_relic
+entity = {
+	name = "kaiju_gobble_shards_entity_relic"
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } }
+	scale = 1
+	cull_radius = 800.0
+	attach = { loc = "kaiju_gobble_shards_entity_relic_a" }
+	attach = { loc = "kaiju_gobble_shards_entity_relic_b" }
+	attach = { loc = "kaiju_gobble_shards_entity_relic_c" }
+	attach = { loc = "kaiju_gobble_shards_entity_relic_d" }
+	attach = { loc = "kaiju_gobble_shards_entity_relic_e" }
+	attach = { loc = "kaiju_gobble_shards_entity_relic_f" }
 }

@@ -1,17 +1,14 @@
-# 噬天巨兽吞噬星球：充能期星球侧粒子 + 碎片驱动事件
+# 噬天巨兽吞噬星球：星球侧粒子 + 碎片。
+# 6001 下命令打标记 → 6005 每 10 天等巨兽到位 → 6003 放特效；6002 清理、6004 取消时恢复星球。
 #
-# 事件流：
-# - bfxr.6001：下命令 → 打标记，20 天后调 bfxr.6003（from 传舰队，朝向要用）
-# - bfxr.6003：藏原星球 + 建 2 个环境物体（碎片 + 粒子）
-# - bfxr.6002：成功被吞或取消 → 清标记 + 收环境物体（不恢复星球）
-# - bfxr.6004：仅取消时触发 → 恢复星球渲染实体
-#
-# 注意：
-# - 粒子环境物体要 base_angle_towards / entity_face_object = from（吸力在粒子局部 +Z）；
-#   碎片环境物体不要设朝向，否则碎片横着飞。
-# - 藏星球用 kaiju_gobble_invisible_planet_entity（有几何体的全透明网格），
-#   不能用 locator_mesh：entity_scale_to_size 算出 0 会把粒子碎片一起缩没。
-# - _once_init_mod_files.py 会覆盖本文件，别跑。
+# 硬警告：
+# - 到位判定必须下沉到舰船（any_owned_ship）：fleet 没有 3D 坐标，对 fleet 用 distance / orbit
+#   都不行（orbit 直接报 Invalid context switch）。阈值 30 = 巨兽贴上目标轨道的距离。
+# - 粒子与碎片环境物体都不设朝向：粒子靠基准坐标 +Y 竖直上升；碎片设了朝向会横着飞。
+# - 非球体目标（居住站 / 环形区段 / 方舟）不放碎片，只留粒子。
+# - 藏星球用 kaiju_gobble_invisible_planet_entity，不能用 locator_mesh
+#   （entity_scale_to_size 会算成 0 把粒子碎片一起缩没）。
+# - 碎片贴图族见 kaiju_gobble_entities.asset（生成脚本 kb_gen_shards_materials.py）。
 namespace = bfxr
 
 carrier_event = {
@@ -20,11 +17,50 @@ carrier_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_planet_flag = bfxr_kaiju_gobble_pending
-		# from（舰队）必须显式传下去，否则延续事件里 from 会变成星球，朝向就丢
+		# from（舰队）要一路传下去：6005 靠它查到位距离
 		planet_event = {
-			id = bfxr.6003
-			days = 20
+			id = bfxr.6005
+			days = 15
 			scopes = { from = from }
+		}
+	}
+}
+
+# bfxr.6005：等待巨兽到位（每 10 天自查一次）。判定见文件头。
+planet_event = {
+	id = bfxr.6005
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				has_planet_flag = bfxr_kaiju_gobble_pending
+			}
+			if = {
+				limit = {
+					exists = from
+					from = {
+						any_owned_ship = {
+							distance = {
+								source = root
+								max_distance <= 30
+								same_solar_system = yes
+							}
+						}
+					}
+				}
+				planet_event = {
+					id = bfxr.6003
+					scopes = { from = from }
+				}
+			}
+			else = {
+				planet_event = {
+					id = bfxr.6005
+					days = 15
+					scopes = { from = from }
+				}
+			}
 		}
 	}
 }
@@ -34,7 +70,6 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# 20 天内取消过订单就不出效果（标记在 bfxr.6002 里清）
 		if = {
 			limit = {
 				has_planet_flag = bfxr_kaiju_gobble_pending
@@ -42,29 +77,50 @@ planet_event = {
 			# 藏原星球防重影（只换渲染实体，游戏数据不受影响）
 			set_planet_entity = { entity = kaiju_gobble_invisible_planet_entity }
 
-			# 碎片：不设朝向 => 竖直向上
-			create_ambient_object = {
-				type = bfxr_kaiju_gobble_shards_vfx
-				location = this
-				use_3d_location = yes
-				entity_scale_to_size = yes
-				scale =0.2
-				play_animation_once = no
-				duration = 400
-			}
-			last_created_ambient_object = {
-				set_ambient_object_flag = bfxr_kaiju_gobble_windup
+			# 碎片：按星球类型选贴图族（非球体目标不放碎片）
+			if = {
+				limit = {
+					NOR = {
+						is_planet_class = pc_habitat
+						is_planet_class = pc_ringworld_habitable
+						is_planet_class = pc_shattered_ring_habitable
+						is_planet_class = pc_crystal_habitat
+						is_planet_class = pc_warden_guardian
+						is_planet_class = pc_ark
+					}
+				}
+				switch = {
+					trigger = is_planet_class
+					pc_desert = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_desert } }
+					pc_arid = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_arid } }
+					pc_savannah = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_savannah } }
+					pc_tropical = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_tropical } }
+					pc_continental = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_continental } }
+					pc_ocean = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_ocean } }
+					pc_tundra = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_tundra } }
+					# 死寂星球的地表贴图原版就是 tundra_01（核爆感来自云层），共用同一族
+					pc_nuked = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_tundra } }
+					pc_arctic = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_arctic } }
+					pc_alpine = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_alpine } }
+					pc_volcanic = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_volcanic } }
+					pc_gaia = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_gaia } }
+					pc_hive = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_infested } }
+					pc_infested = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_infested } }
+					pc_machine = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_ai } }
+					pc_city = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_city } }
+					pc_relic = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_relic } }
+					# 其余球体类（含别的 mod 新增类）兜底用 tundra 族，别留空
+					default = { kaiju_gobble_spawn_shards = { TYPE = bfxr_kaiju_gobble_shards_vfx_tundra } }
+				}
 			}
 
-			# 粒子：要对准巨兽
+			# 粒子：不设朝向，竖直上升（力场在 kaiju_gobble_planet.asset）
 			create_ambient_object = {
 				type = bfxr_kaiju_gobble_windup_vfx
 				location = this
 				use_3d_location = yes
 				entity_scale_to_size = yes
 				scale =0.02
-				base_angle_towards = from
-				entity_face_object = from
 				play_animation_once = no
 				duration = 400
 			}
@@ -92,9 +148,7 @@ carrier_event = {
 	}
 }
 
-# bfxr.6004：取消灭星命令 → 恢复星球。只挂 _unqueued（成功吞了就不用恢复）。
-# 直接把行星类名当 entity 传（引擎接受类名，原版 distant_stars_events_3.txt 有先例）。
-# 覆盖 MAW 能吃的全部 25 种行星类；别的 mod 新增的宜居类取消后会保持隐身，需补分支。
+# bfxr.6004：取消灭星命令 → 恢复星球（只挂 _unqueued）。行星类名可直接当 entity 传。
 carrier_event = {
 	id = bfxr.6004
 	hide_window = yes

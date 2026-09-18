@@ -1,0 +1,20 @@
+# 噬天巨兽吞噬星球：在星球位创建碎片环境物体（$TYPE$ 由 bfxr.6003 选族）。
+#
+# 硬警告：
+# - 碎片绝对不要设朝向（不写 base_angle_towards / entity_face_object），否则横着飞。
+# - scale / entity_scale_to_size / duration 别顺手调。
+
+kaiju_gobble_spawn_shards = {
+	create_ambient_object = {
+		type = $TYPE$
+		location = this
+		use_3d_location = yes
+		entity_scale_to_size = yes
+		scale = 0.2
+		play_animation_once = no
+		duration = 400
+	}
+	last_created_ambient_object = {
+		set_ambient_object_flag = bfxr_kaiju_gobble_windup
+	}
+}

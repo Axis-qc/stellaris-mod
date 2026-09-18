@@ -1,10 +1,8 @@
-# 星球侧的粒子 + 碎片环境物体（entity 定义在 kaiju_gobble_entities.asset）。
+# 星球侧的粒子 + 碎片环境物体（本文件由 kb_gen_shards_materials.py 生成，别手改）。
 #
-# 注意：
-# - windup_vfx（粒子）创建时要 base_angle_towards / entity_face_object = from 对准巨兽。
-# - shards_vfx（碎片）创建时绝对不要设朝向：不设朝向时引擎按系统平面定向，
-#   碎片动画沿模型 +Z 飞 = 竖直向上。设了朝向碎片会横着飞。
-# - _once_init_mod_files.py 会覆盖本文件，别跑。
+# shards_vfx_<族> 共 15 个，由 bfxr.6003 按星球类选。
+#
+# 硬警告：粒子与碎片环境物体都别设朝向（粒子靠基准坐标 +Y 上升；碎片设了会横着飞）。
 
 ambient_object = {
     name = bfxr_kaiju_gobble_windup_vfx
@@ -13,9 +11,122 @@ ambient_object = {
     show_name = no
 }
 
+
 ambient_object = {
-    name = bfxr_kaiju_gobble_shards_vfx
-    entity = kaiju_gobble_shards_entity
+    name = bfxr_kaiju_gobble_shards_vfx_tundra
+    entity = kaiju_gobble_shards_entity_tundra
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_desert
+    entity = kaiju_gobble_shards_entity_desert
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_arid
+    entity = kaiju_gobble_shards_entity_arid
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_savannah
+    entity = kaiju_gobble_shards_entity_savannah
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_tropical
+    entity = kaiju_gobble_shards_entity_tropical
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_continental
+    entity = kaiju_gobble_shards_entity_continental
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_ocean
+    entity = kaiju_gobble_shards_entity_ocean
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_arctic
+    entity = kaiju_gobble_shards_entity_arctic
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_alpine
+    entity = kaiju_gobble_shards_entity_alpine
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_volcanic
+    entity = kaiju_gobble_shards_entity_volcanic
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_gaia
+    entity = kaiju_gobble_shards_entity_gaia
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_infested
+    entity = kaiju_gobble_shards_entity_infested
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_ai
+    entity = kaiju_gobble_shards_entity_ai
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_city
+    entity = kaiju_gobble_shards_entity_city
+    selectable = no
+    show_name = no
+}
+
+
+ambient_object = {
+    name = bfxr_kaiju_gobble_shards_vfx_relic
+    entity = kaiju_gobble_shards_entity_relic
     selectable = no
     show_name = no
 }
