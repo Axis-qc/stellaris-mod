@@ -1,93 +1,154 @@
-# 先锋级区段模板
-# ==================== 舰首（Bow）====================
-# 巨炮槽
+# 先锋级英雄舰 区段模板（单区段，焚天神兵模型）
+# 槽位抄原版 crisis.txt 的 SHIP_CRISIS_STAR_EATER_SECTION，额外加 TITANIC_01 保住虚空裁决射线。
+# locatorname 只能用 star_eater_01.mesh 里存在的节点（root / core 等）；
+# 槽位模板必须用 invisible_*，用 *_turret 会长出金属炮塔。
 ship_section_template = {
-    key = "BR_VANGUARD_BOW"
-    ship_size = br_vanguard
-    fits_on_slot = bow
-    should_draw_components = yes
-    entity = "titan_bow_entity"
-    icon = "GFX_ship_part_core_bow"
-
-    #T武器槽 — 泰坦主炮
-    component_slot = {
-        name = "TITANIC_01"
-        template = "invisible_titanic_fixed"
-        locatorname = "xl_gun_01"
-    }
-
-    large_utility_slots = 6
-
-    resources = {
-        category = ship_sections
-        cost = {
-            alloys = 1
-        }
-    }
-}
-
-# ==================== 中段（Mid）====================
-# 4个L炮槽 + 4个大槽
-ship_section_template = {
-    key = "BR_VANGUARD_MID"
+    key = "BR_VANGUARD_STAR_EATER"
     ship_size = br_vanguard
     fits_on_slot = mid
     should_draw_components = yes
-    entity = "titan_mid_entity"
+    entity = "br_vanguard_star_eater_ship_entity"
     icon = "GFX_ship_part_core_mid"
 
     component_slot = {
+        name = "PLANET_KILLER_GUN_01"
+        template = "invisible_planet_killer_fixed"
+        locatorname = "core"
+    }
+    # 额外保留的 T 槽（虚空裁决射线）
+    component_slot = {
+        name = "TITANIC_01"
+        template = "invisible_titanic_fixed"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_01"
+        template = "large_strike_craft"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_02"
+        template = "large_strike_craft"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_03"
+        template = "large_strike_craft"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_04"
+        template = "large_strike_craft"
+        locatorname = "root"
+    }
+    component_slot = {
         name = "LARGE_GUN_01"
-        template = "large_turret"
-        locatorname = "large_gun_01"
+        template = "invisible_large_turret"
+        locatorname = "root"
     }
     component_slot = {
         name = "LARGE_GUN_02"
-        template = "large_turret"
-        locatorname = "large_gun_02"
+        template = "invisible_large_turret"
+        locatorname = "root"
     }
     component_slot = {
         name = "LARGE_GUN_03"
-        template = "large_turret"
-        locatorname = "large_gun_03"
+        template = "invisible_large_turret"
+        locatorname = "root"
     }
     component_slot = {
-        name = "LARGE_GUN_04"
-        template = "large_turret"
-        locatorname = "large_gun_04"
-    }
-
-    large_utility_slots = 6
-
-    resources = {
-        category = ship_sections
-        cost = {
-            alloys = 1
-        }
-    }
-}
-
-# ==================== 舰尾（Stern）====================
-# 2个L炮槽 + 2个aux槽（光环+自修）+ 2个大槽
-ship_section_template = {
-    key = "BR_VANGUARD_STERN"
-    ship_size = br_vanguard
-    fits_on_slot = stern
-    should_draw_components = yes
-    entity = "titan_stern_entity"
-    icon = "GFX_ship_part_core_stern"
-
-    component_slot = {
-        name = "LARGE_GUN_01"
-        template = "large_turret"
-        locatorname = "large_gun_01"
+        name = "MEDIUM_GUN_01"
+        template = "invisible_medium_turret"
+        locatorname = "root"
     }
     component_slot = {
-        name = "LARGE_GUN_02"
-        template = "large_turret"
-        locatorname = "large_gun_02"
+        name = "MEDIUM_GUN_02"
+        template = "invisible_medium_turret"
+        locatorname = "root"
     }
-    aux_utility_slots = 3
+    component_slot = {
+        name = "MEDIUM_GUN_03"
+        template = "invisible_medium_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_05"
+        template = "invisible_medium_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_07"
+        template = "invisible_medium_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_08"
+        template = "invisible_medium_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "MEDIUM_GUN_09"
+        template = "invisible_medium_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "invisible_small_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "invisible_small_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "SMALL_GUN_03"
+        template = "invisible_small_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "SMALL_GUN_05"
+        template = "invisible_small_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "SMALL_GUN_06"
+        template = "invisible_small_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_01"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_02"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_03"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_04"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_05"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "PD_06"
+        template = "invisible_point_defence_turret"
+        locatorname = "root"
+    }
+
+    large_utility_slots = 20
+    aux_utility_slots = 4
 
     resources = {
         category = ship_sections

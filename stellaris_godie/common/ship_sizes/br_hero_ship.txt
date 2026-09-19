@@ -1,7 +1,8 @@
 # 先锋级英雄舰（br_vanguard）
 # 不能用巨像以外的作战电脑，其他作战电脑无法在战斗中下指令放技能
 br_vanguard = {
-    entity = "titan_entity"
+    # 裸名，引擎按拥有者种族自动找 <种族>_br_vanguard_star_eater_entity
+    entity = "br_vanguard_star_eater_entity"
     can_be_inspected = yes
     hull_scale = 2
     max_speed = 100
@@ -27,14 +28,8 @@ br_vanguard = {
     icon = ship_size_military_16
     fleet_slot_size = 8
     section_slots = {
-        "bow" = {
-            locator = "part1"
-        }
         "mid" = {
-            locator = "part2"
-        }
-        "stern" = {
-            locator = "part3"
+            locator = "part1"
         }
     }
     num_target_locators = 4

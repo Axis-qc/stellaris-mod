@@ -1,0 +1,25 @@
+# br_vanguard 英雄舰：焚天神兵模型的独立 pdxmesh
+#
+# 用新 pdxmesh 名指向自建 mesh（骨名已唯一化），不覆盖原版 star_eater_01_mesh。
+# 6 条动画注册在 br_vanguard_star_eater.asset 里，指向同目录 br_vanguard_star_eater_*.anim
+# （由 工具/模型工具/脚本/gen_br_vanguard_star_eater_anims.py 从原版动画改名生成）。
+# 末尾三条别名让 state 名与动画 id 一致，供 finish_anim_state 使用。
+
+objectTypes = {
+	pdxmesh = {
+		name = "br_vanguard_star_eater_mesh"
+		file = "gfx/models/ships/br_vanguard/br_vanguard_star_eater.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"				type = "br_vanguard_star_eater_idle_animation" }
+		animation = { id = "opening"			type = "br_vanguard_star_eater_opening_animation" }
+		animation = { id = "open"				type = "br_vanguard_star_eater_open_animation" }
+		animation = { id = "closing"			type = "br_vanguard_star_eater_closing_animation" }
+		animation = { id = "closed_death"		type = "br_vanguard_star_eater_death_closed_animation" }
+		animation = { id = "opened_death"		type = "br_vanguard_star_eater_death_open_animation" }
+
+		animation = { id = "working"			type = "br_vanguard_star_eater_opening_animation" }
+		animation = { id = "working_looping"	type = "br_vanguard_star_eater_open_animation" }
+		animation = { id = "stow"				type = "br_vanguard_star_eater_closing_animation" }
+	}
+}
