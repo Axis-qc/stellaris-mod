@@ -1,7 +1,11 @@
 # 先锋级英雄舰 区段模板（单区段，焚天神兵模型）
 # 槽位抄原版 crisis.txt 的 SHIP_CRISIS_STAR_EATER_SECTION，额外加 TITANIC_01 保住虚空裁决射线。
-# locatorname 只能用 star_eater_01.mesh 里存在的节点（root / core 等）；
+# 每个武器槽的 locatorname 指向自建 mesh br_vanguard_star_eater.mesh 里同名的挂点，
+# 槽位名与挂点名一一对应：LARGE_GUN_01/02、MEDIUM_GUN_01..04、SMALL_GUN_01..04、PD_01..06。
+# STRIKE_CRAFT_01..04 用 root（骨架根骨，网格里没有舰载机挂点）；PLANET_KILLER_GUN_01 用 core。
 # 槽位模板必须用 invisible_*，用 *_turret 会长出金属炮塔。
+# 不加 is_side_slot：左右舷各有独立挂点，加了这个字段会让同一个点镜像出重复炮位。
+# 改过槽位名与数量后，旧英雄舰设计失效，需重新设计一次。
 ship_section_template = {
     key = "BR_VANGUARD_STAR_EATER"
     ship_size = br_vanguard
@@ -19,7 +23,7 @@ ship_section_template = {
     component_slot = {
         name = "TITANIC_01"
         template = "invisible_titanic_fixed"
-        locatorname = "root"
+        locatorname = "titanic_01"
     }
     component_slot = {
         name = "STRIKE_CRAFT_01"
@@ -41,110 +45,89 @@ ship_section_template = {
         template = "large_strike_craft"
         locatorname = "root"
     }
+    # L 槽 2 个：前段船体第一模块凹槽，朝下
     component_slot = {
         name = "LARGE_GUN_01"
         template = "invisible_large_turret"
-        locatorname = "root"
+        locatorname = "large_gun_01"
     }
     component_slot = {
         name = "LARGE_GUN_02"
         template = "invisible_large_turret"
-        locatorname = "root"
+        locatorname = "large_gun_02"
     }
-    component_slot = {
-        name = "LARGE_GUN_03"
-        template = "invisible_large_turret"
-        locatorname = "root"
-    }
+    # M 槽 4 个：左右舷侧面，朝外
     component_slot = {
         name = "MEDIUM_GUN_01"
         template = "invisible_medium_turret"
-        locatorname = "root"
+        locatorname = "medium_gun_01"
     }
     component_slot = {
         name = "MEDIUM_GUN_02"
         template = "invisible_medium_turret"
-        locatorname = "root"
+        locatorname = "medium_gun_02"
     }
     component_slot = {
         name = "MEDIUM_GUN_03"
         template = "invisible_medium_turret"
-        locatorname = "root"
+        locatorname = "medium_gun_03"
     }
     component_slot = {
-        name = "MEDIUM_GUN_05"
+        name = "MEDIUM_GUN_04"
         template = "invisible_medium_turret"
-        locatorname = "root"
+        locatorname = "medium_gun_04"
     }
-    component_slot = {
-        name = "MEDIUM_GUN_07"
-        template = "invisible_medium_turret"
-        locatorname = "root"
-    }
-    component_slot = {
-        name = "MEDIUM_GUN_08"
-        template = "invisible_medium_turret"
-        locatorname = "root"
-    }
-    component_slot = {
-        name = "MEDIUM_GUN_09"
-        template = "invisible_medium_turret"
-        locatorname = "root"
-    }
+    # S 槽 4 个：首面四角，朝前
     component_slot = {
         name = "SMALL_GUN_01"
         template = "invisible_small_turret"
-        locatorname = "root"
+        locatorname = "small_gun_01"
     }
     component_slot = {
         name = "SMALL_GUN_02"
         template = "invisible_small_turret"
-        locatorname = "root"
+        locatorname = "small_gun_02"
     }
     component_slot = {
         name = "SMALL_GUN_03"
         template = "invisible_small_turret"
-        locatorname = "root"
+        locatorname = "small_gun_03"
     }
     component_slot = {
-        name = "SMALL_GUN_05"
+        name = "SMALL_GUN_04"
         template = "invisible_small_turret"
-        locatorname = "root"
+        locatorname = "small_gun_04"
     }
-    component_slot = {
-        name = "SMALL_GUN_06"
-        template = "invisible_small_turret"
-        locatorname = "root"
-    }
+    # PD 槽 6 个：左右舷凹槽内，船首/中/尾各一对
     component_slot = {
         name = "PD_01"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_01"
     }
     component_slot = {
         name = "PD_02"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_02"
     }
     component_slot = {
         name = "PD_03"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_03"
     }
     component_slot = {
         name = "PD_04"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_04"
     }
     component_slot = {
         name = "PD_05"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_05"
     }
     component_slot = {
         name = "PD_06"
         template = "invisible_point_defence_turret"
-        locatorname = "root"
+        locatorname = "pd_06"
     }
 
     large_utility_slots = 20

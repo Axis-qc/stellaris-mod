@@ -44,38 +44,6 @@ fleet_event = {
     }
 }
 
-# 变形：展开（打船 flag，供 br_vanguard_stow 的 button_visible 互斥）
-fleet_event = {
-    id = heroship.1105
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        every_owned_ship = {
-            limit = {
-                is_ship_size = br_vanguard
-            }
-            set_ship_flag = br_vanguard_deployed
-        }
-    }
-}
-
-# 变形：收起（清 flag）
-fleet_event = {
-    id = heroship.1106
-    hide_window = yes
-    is_triggered_only = yes
-
-    immediate = {
-        every_owned_ship = {
-            limit = {
-                is_ship_size = br_vanguard
-            }
-            remove_ship_flag = br_vanguard_deployed
-        }
-    }
-}
-
 # 主动技能变量 CD 每日递减。
 country_event = {
     id = heroship.1014

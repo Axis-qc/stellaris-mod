@@ -1,10 +1,13 @@
-# br_vanguard 英雄舰：焚天神兵模型（由 gen_br_vanguard_star_eater.py 生成，别手改）
+# br_vanguard 英雄舰：焚天神兵模型（原由 gen_br_vanguard_star_eater.py 生成，现手动维护）
+#
+# 生成器按约定只用了一次（2026-09-20 补引擎尾焰事件那次），之后改动直接编辑本文件，
+# 不要再跑生成器，以免覆盖手动维护的内容。
 #
 # 状态机：idle / moving 各两条靠 chance 分流（普通 / closing）；working = opening → working_looping；
 # stow = closing → idle；death 按当前形态分流。
 #
-# 改 chance 表前先跑 工具/模型工具/脚本/check_chance_gaps.py。每个 current_state 出发至少要有
-# 非零候选；working_looping / stow 必须填在 animation = "closing" 那条上，否则会跳过收回动画。
+# chance 表规则：每个 current_state 出发至少要有一个非零候选；working_looping / stow 必须填在
+# animation = "closing" 那条上，否则会跳过收回动画。
 
 entity = {
 	name = "avian_01_br_vanguard_star_eater_ship_entity"
@@ -39,6 +42,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -52,6 +56,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -65,6 +70,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -79,6 +85,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -164,6 +171,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -177,6 +185,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -190,6 +199,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -204,6 +214,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -289,6 +300,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -302,6 +314,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -315,6 +328,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -329,6 +343,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -414,6 +429,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -427,6 +443,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -440,6 +457,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -454,6 +472,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -539,6 +558,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -552,6 +572,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -565,6 +586,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -579,6 +601,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -664,6 +687,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -677,6 +701,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -690,6 +715,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -704,6 +730,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -789,6 +816,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -802,6 +830,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -815,6 +844,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -829,6 +859,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -914,6 +945,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -927,6 +959,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -940,6 +973,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -954,6 +988,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1039,6 +1074,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1052,6 +1088,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1065,6 +1102,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1079,6 +1117,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1164,6 +1203,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1177,6 +1217,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1190,6 +1231,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1204,6 +1246,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1289,6 +1332,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1302,6 +1346,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1315,6 +1360,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1329,6 +1375,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1414,6 +1461,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1427,6 +1475,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1440,6 +1489,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1454,6 +1504,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1539,6 +1590,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1552,6 +1604,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1565,6 +1618,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1579,6 +1633,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1664,6 +1719,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1677,6 +1733,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1690,6 +1747,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1704,6 +1762,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1789,6 +1848,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1802,6 +1862,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1815,6 +1876,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1829,6 +1891,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -1914,6 +1977,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -1927,6 +1991,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -1940,6 +2005,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -1954,6 +2020,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -2039,6 +2106,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -2052,6 +2120,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -2065,6 +2134,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -2079,6 +2149,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -2164,6 +2235,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -2177,6 +2249,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -2190,6 +2263,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -2204,6 +2278,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -2289,6 +2364,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -2302,6 +2378,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -2315,6 +2392,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -2329,6 +2407,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
@@ -2414,6 +2493,7 @@ entity = {
 		}
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_hum" stop_on_state_change = yes } }
 		start_event = { trigger_once = yes sound = { soundeffect = "amb_star_eater_idle_pulsating" stop_on_state_change = yes } }
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 	}
 	# 从已展开状态回到 idle
 	state = { name = "idle" animation = "closing" looping = no next_state = "idle"
@@ -2427,6 +2507,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
@@ -2440,6 +2521,7 @@ entity = {
 				"stow" = 0
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_moving_out" } }
 	}
 	# 从已展开状态回到 moving
@@ -2454,6 +2536,7 @@ entity = {
 				"stow" = 100
 			}
 		}
+		event = { time = 0 node = "engine_large_01" particle = "nemesis_01_star_eater_exhaust" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "sfx_star_eater_closing" stop_on_state_change = no } }
 	}
 	# 展开态常驻：无 next_state，永不自退出
