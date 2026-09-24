@@ -787,6 +787,8 @@ country_event = {
                 set_skill = 0#等级设定
                 remove_leader_flag = has_two_traits
                 remove_leader_flag = lx_gestalt_two_traits
+                #set_skill = 0 会被钳回1级，补偿-1避免重置后净升一级
+                change_variable = { which = leader_skill value = -1 }
                 add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.113 }
@@ -1817,6 +1819,8 @@ country_event = {
                 set_skill = 0#等级设定
                 remove_leader_flag = has_two_traits
                 remove_leader_flag = lx_gestalt_two_traits
+                #set_skill = 0 会被钳回1级，补偿-1避免重置后净升一级
+                change_variable = { which = leader_skill value = -1 }
                 add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.122 }
@@ -2881,6 +2885,8 @@ country_event = {
                 set_skill = 0#等级设定
                 remove_leader_flag = has_two_traits
                 remove_leader_flag = lx_gestalt_two_traits
+                #set_skill = 0 会被钳回1级，补偿-1避免重置后净升一级
+                change_variable = { which = leader_skill value = -1 }
                 add_skill_without_trait_selection = leader_skill
             }
             country_event = { id = play.132 }
