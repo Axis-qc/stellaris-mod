@@ -48,7 +48,10 @@ NShip = {
 }
 
 NCombat = {
-    # 舰船在攻击时会尝试保持在最大射程并围绕目标绕行。
+	SHIP_DISENGAGE_INACTIVITY_DAYS				= 0 	# A ship in combat that neither shoots nor is shot at for this many days is force-disengaged. 0 or lower disables.
+	# Recommended to keep higher than COMBAT_BASE_DAYS_UNTIL_EMERGENCY_FTL.
+
+	# 舰船在攻击时会尝试保持在最大射程并围绕目标绕行。
     # 如果舰船距离小于最大射程，此值决定其"后退"以回到最大射程的速度。
     # 0.0 表示舰船不会后退，而是以当前半径继续绕行
     # 1.0 表示舰船会优先以与后退速度相同的轨道速度移动，即45度角
