@@ -1,4 +1,5 @@
 # LIGHTNING BREATH
+#雷霆吹息
 projectile_gfx_beam = {
     name = "lightning_breath"
     color = { 0.2 0.45 1.0 5.0 }
@@ -47,6 +48,7 @@ projectile_gfx_beam = {
 }
 
 # PARTICLE BEAM
+#粒子光束
 projectile_gfx_beam = {
     name = "particle_beam"
     color = { 1.0 0.3 0.2 1.0 }
@@ -95,6 +97,7 @@ projectile_gfx_beam = {
 }
 
 # MOLECULAR DISRUPTOR
+#分子裂解炮
 projectile_gfx_beam = {
     name = "bio_disruptor_1_small"
     color = { 1.0 0.95 0.4 2.5 }
@@ -223,6 +226,7 @@ projectile_gfx_beam = {
 }
 
 # ION MOLECULAR DISRUPTOR
+#离子分子裂解炮
 projectile_gfx_beam = {
     name = "bio_disruptor_2_small"
     color = { 0.5 0.85 1.0 4.5 }
@@ -351,6 +355,7 @@ projectile_gfx_beam = {
 }
 
 # PHASED MOLECULAR DISRUPTOR
+#相位分子裂解炮
 projectile_gfx_beam = {
     name = "bio_disruptor_3_small"
     color = { 0.6 1.0 0.6 2.5 }
@@ -479,6 +484,7 @@ projectile_gfx_beam = {
 }
 
 # SHARD ACCELERATOR
+#骨片加速器
 projectile_gfx_ballistic = {
     name = "shard_accelerator_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -529,6 +535,7 @@ projectile_gfx_ballistic = {
 }
 
 # BIO COIL
+#生物线圈骨片炮
 projectile_gfx_ballistic = {
     name = "bio_coil_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -579,6 +586,7 @@ projectile_gfx_ballistic = {
 }
 
 # SHARD RAIL
+#骨片轨道炮
 projectile_gfx_ballistic = {
     name = "shard_rail_s"
     color = { 0.58 0.47 1.0 1.0 }
@@ -629,6 +637,7 @@ projectile_gfx_ballistic = {
 }
 
 # SHARD GAUSS ACCELERATOR
+#晶片高斯炮
 projectile_gfx_ballistic = {
     name = "shard_gauss_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -680,6 +689,7 @@ projectile_gfx_ballistic = {
 }
 
 # ADVANCED SHARD RAIL ACCELERATOR
+#先进骨片轨道炮
 projectile_gfx_ballistic = {
     name = "advanced_shard_rail_s"
     color = { 1.0 0.55 0.1 1.0 }
@@ -730,6 +740,7 @@ projectile_gfx_ballistic = {
 }
 
 # BIO PLASMA
+#生物等离子喷射炮
 projectile_gfx_ballistic = {
     name = "bio_plasma_thrower_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -780,6 +791,7 @@ projectile_gfx_ballistic = {
 }
 
 # BIO PLASMA ACCELERATOR
+#生物等离子加速炮
 projectile_gfx_ballistic = {
     name = "bio_plasma_accelerator_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -830,6 +842,7 @@ projectile_gfx_ballistic = {
 }
 
 # BIO PLASMA CANNON
+#生物等离子加农炮
 projectile_gfx_ballistic = {
     name = "bio_plasma_cannon_s"
     color = { 1.0 1.0 1.0 1.0 }
@@ -880,35 +893,18 @@ projectile_gfx_ballistic = {
 }
 
 # THORN CANNON
-projectile_gfx_beam = {
+#棘刺炮
+projectile_gfx_ballistic = {
     name = "thorn_cannon_s"
-    color = { 0.6 0.6 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_small_hit_entity"
     shield_hit_entity = "auto_cannons_small_shield_hit_entity"
     muzzle_flash_entity = "thorn_cannon_small_muzzle_entity"
 
-    width = 0.3
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "thorn_cannon_s_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -916,35 +912,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "thorn_cannon_m"
-    color = { 0.6 0.6 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_medium_hit_entity"
     shield_hit_entity = "auto_cannons_medium_shield_hit_entity"
     muzzle_flash_entity = "thorn_cannon_medium_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "thorn_cannon_m_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -952,35 +930,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "thorn_cannon_l"
-    color = { 0.6 0.6 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_large_hit_entity"
     shield_hit_entity = "auto_cannons_large_shield_hit_entity"
     muzzle_flash_entity = "thorn_cannon_large_muzzle_entity"
 
-    width = 0.7
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "thorn_cannon_l_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = medium
@@ -990,35 +950,18 @@ projectile_gfx_beam = {
 }
 
 # RIPPER THORN CANNON
-projectile_gfx_beam = {
+#撕裂者棘刺炮
+projectile_gfx_ballistic = {
     name = "ripper_thorn_cannon_s"
-    color = { 0.6 1.0 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "ripper_auto_cannons_small_hit_entity"
     shield_hit_entity = "ripper_auto_cannons_small_shield_hit_entity"
     muzzle_flash_entity = "ripper_thorn_cannon_small_muzzle_entity"
 
-    width = 0.3
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "ripper_thorn_cannon_s_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1026,35 +969,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "ripper_thorn_cannon_m"
-    color = { 0.6 1.0 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "ripper_auto_cannons_medium_hit_entity"
     shield_hit_entity = "ripper_auto_cannons_medium_shield_hit_entity"
     muzzle_flash_entity = "ripper_thorn_cannon_medium_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "ripper_thorn_cannon_m_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = medium
@@ -1062,35 +987,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "ripper_thorn_cannon_l"
-    color = { 0.6 1.0 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "ripper_auto_cannons_large_hit_entity"
     shield_hit_entity = "ripper_auto_cannons_large_shield_hit_entity"
     muzzle_flash_entity = "ripper_thorn_cannon_large_muzzle_entity"
 
-    width = 0.7
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "ripper_thorn_cannon_l_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = large
@@ -1100,35 +1007,19 @@ projectile_gfx_beam = {
 }
 
 # ACIDSTORM THORN CANNON
-projectile_gfx_beam = {
+#酸爆棘刺炮
+projectile_gfx_ballistic = {
+    #酸爆棘刺炮 / 纳米赋能棘刺炮
     name = "acidstorm_thorn_cannon_s"
-    color = { 0.2 0.5 1.0 5.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "stormfire_auto_cannons_small_hit_entity"
     shield_hit_entity = "stormfire_auto_cannons_small_shield_hit_entity"
     muzzle_flash_entity = "acidstorm_thorn_cannon_small_muzzle_entity"
 
-    width = 0.3
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "acidstorm_thorn_cannon_s_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1136,35 +1027,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "acidstorm_thorn_cannon_m"
-    color = { 0.2 0.5 1.0 5.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "stormfire_auto_cannons_medium_hit_entity"
     shield_hit_entity = "stormfire_auto_cannons_medium_shield_hit_entity"
     muzzle_flash_entity = "acidstorm_thorn_cannon_medium_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "acidstorm_thorn_cannon_m_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = medium
@@ -1172,35 +1045,17 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
     name = "acidstorm_thorn_cannon_l"
-    color = { 0.2 0.5 1.0 5.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "stormfire_auto_cannons_large_hit_entity"
     shield_hit_entity = "stormfire_auto_cannons_large_shield_hit_entity"
     muzzle_flash_entity = "acidstorm_thorn_cannon_large_muzzle_entity"
 
-    width = 0.7
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "acidstorm_thorn_cannon_l_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = large
@@ -1210,6 +1065,7 @@ projectile_gfx_beam = {
 }
 
 # CHITIN BATTERY
+#几丁质火炮
 projectile_gfx_ballistic = {
     name = "chitin_battery"
     color = { 1.0 1.0 1.0 1.0 }
@@ -1227,6 +1083,7 @@ projectile_gfx_ballistic = {
     }
 }
 # MEGA BOMBARD
+#兆级轰炮
 projectile_gfx_ballistic = {
     name = "mega_bombard"
     color = { 1.0 1.0 1.0 1.0 }
@@ -1245,6 +1102,7 @@ projectile_gfx_ballistic = {
 }
 
 # CHITIN ARTILLERY
+#几丁质巨炮
 projectile_gfx_ballistic = {
     name = "chitin_artillery"
     color = { 1.0 1.0 1.0 1.0 }
@@ -1262,6 +1120,7 @@ projectile_gfx_ballistic = {
     }
 }
 # GIGA BOMBARD
+#千兆级轰炮
 projectile_gfx_ballistic = {
     name = "giga_bombard"
     color = { 1.0 1.0 1.0 1.0 }
@@ -1280,6 +1139,7 @@ projectile_gfx_ballistic = {
 }
 
 # SPORE LAUNCHER
+#孢子发射器
 projectile_gfx_missile = {
     name = "spore_launcher"
     color = { 1.0 0.5 0.0 1.0 }
@@ -1296,6 +1156,7 @@ projectile_gfx_missile = {
 }
 
 # BARBED SPORE LAUNCHER
+#刺孢子发射器
 projectile_gfx_missile = {
     name = "spore_launcher_02"
     color = { 1.0 0.5 0.0 1.0 }
@@ -1312,35 +1173,19 @@ projectile_gfx_missile = {
 }
 
 # BARB BATTERIES
-projectile_gfx_beam = {
+#针刺炮组
+projectile_gfx_ballistic = {
+    #针刺炮组
     name = "barb_battery_1"
-    color = { 0.6 0.6 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_medium_hit_entity"
     shield_hit_entity = "auto_cannons_medium_hit_entity"
     muzzle_flash_entity = "barb_battery_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.0
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 0.2
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "thorn_cannon_m_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1348,35 +1193,18 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
+    #针刺加农炮
     name = "barb_battery_2"
-    color = { 0.6 1.0 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_medium_hit_entity"
     shield_hit_entity = "auto_cannons_medium_hit_entity"
     muzzle_flash_entity = "barb_battery_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 0.2
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "ripper_thorn_cannon_m_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1384,35 +1212,18 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
+    #针刺火炮
     name = "barb_battery_3"
-    color = { 1.0 0.6 0.6 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_medium_hit_entity"
     shield_hit_entity = "auto_cannons_medium_hit_entity"
     muzzle_flash_entity = "barb_battery_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 0.2
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "barb_battery_3_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1420,35 +1231,18 @@ projectile_gfx_beam = {
         delay = 0.0
     }
 }
-projectile_gfx_beam = {
+projectile_gfx_ballistic = {
+    #纳米赋能针刺火炮
     name = "barb_battery_4"
-    color = { 0.6 0.6 1.0 1.0 }
+    color = { 1.0 1.0 1.0 1.0 }
     hit_entity = "auto_cannons_medium_hit_entity"
     shield_hit_entity = "auto_cannons_medium_hit_entity"
     muzzle_flash_entity = "barb_battery_muzzle_entity"
 
-    width = 0.5
-    texture_scroll_speed = 0.5
-    texture_tiling = 1000.0
-    hit = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 1.5
-    }
-    miss = {
-        alpha_curve = {
-            0.0 5.0
-            0.2 5.0
-            0.9 5.0
-            1.0 5.0
-        }
-        duration = 0.2
-    }
-    texture = gfx/models/combat_items/EX_auto_cannon_diffuse.dds
+    #实弹曳光弹
+    entity = "barb_battery_4_entity"
+    speed = 200.0
+    max_duration = 3
 
     shield_impact = {
         size = small
@@ -1458,6 +1252,7 @@ projectile_gfx_beam = {
 }
 
 # SENTINEL SPITTER GUN
+#哨卫啐炮
 projectile_gfx_beam = {
     name = "red_spitter_gun"
     color = { 1.0 0.4 0.4 1.5 }
@@ -1565,6 +1360,7 @@ projectile_gfx_beam = {
 }
 
 # PROTON THROWER
+#质子喷射炮
 projectile_gfx_ballistic = {
     name = "proton_thrower"
     color = { 1.0 1.0 1.0 1.0 }
@@ -1582,6 +1378,7 @@ projectile_gfx_ballistic = {
     }
 }
 # NEUTRON THROWER
+#中子喷射炮
 projectile_gfx_ballistic = {
     name = "neutron_thrower"
     color = { 1.0 1.0 1.0 1.0 }
