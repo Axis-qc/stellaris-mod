@@ -653,7 +653,7 @@ br_test_spawn_arkships = {
 }
 
 # ========================
-# 测试法令：清除战斗减速buff
+# 测试法令：清除战斗减速钳制
 # ========================
 br_test_clear_combat_speed_buff = {
 	icon = "GFX_edict_type_policy"
@@ -664,14 +664,10 @@ br_test_clear_combat_speed_buff = {
 		}
 	}
 	potential = {
-		NOT = {
-			has_global_flag = br_mode_pve
-		}
-		NOT = {
-			has_global_flag = br_mode_pvp
-		}
 		any_owned_fleet = {
-			has_modifier = br_combat_speed_buff
+			any_owned_ship = {
+				has_ship_flag = br_clamp_active
+			}
 		}
 	}
 	allow = {
@@ -679,9 +675,38 @@ br_test_clear_combat_speed_buff = {
 	}
 	effect = {
 		every_owned_fleet = {
-			remove_modifier = br_combat_speed_buff
+			br_clamp_combat_speed_clear_effect = yes
 		}
 		remove_country_flag = br_combat_buff_active
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# ========================
+# 测试法令：直接套用战斗减速效果（无需接战）
+# 直接调 br_clamp_combat_speed_effect，不经过 br.11，所以无需 br_combat_slow_enabled。
+# 只套一次，不打 br_combat_buff_active；br.13 年度兜底会清除，效果不持久。
+# ========================
+br_test_apply_combat_speed_buff = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		every_owned_fleet = {
+			br_clamp_combat_speed_effect = yes
+		}
 	}
 	ai_weight = {
 		weight = 0

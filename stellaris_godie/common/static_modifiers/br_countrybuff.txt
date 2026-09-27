@@ -6,13 +6,21 @@ br_combat_range_buff = {
     leader_lifespan_add = 999
 }
 
-# 战斗减速
-br_combat_speed_buff = {
-	ship_weapon_range_mult = -0.5
-    ship_base_speed_mult = -0.6
-    weapon_type_strike_craft_speed_mult = -0.6
-    ship_fire_rate_mult = -0.5
-    # strike_craft_cooldown_mult = 1
+# 战斗减速补正：值 0.6，配合 br_clamp_delta_* 得生效倍率 = 0.4 * (1+b)
+br_clamp_range_corr = {
+    ship_weapon_range_mult = 0.6
+}
+
+br_clamp_speed_corr = {
+    ship_base_speed_mult = 0.6
+}
+
+br_clamp_sc_corr = {
+    weapon_type_strike_craft_speed_mult = 0.6
+}
+
+br_clamp_firerate_corr = {
+    ship_fire_rate_mult = 0.6
 }
 
 br_pve_enemy_player_fleet_scaling = {

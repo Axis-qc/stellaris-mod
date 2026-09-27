@@ -1,0 +1,26 @@
+# 战斗减速系数：返回 -(1 + 当前加成)。乘 br_clamp_*_corr(0.6) 后生效倍率 = 0.4 * (1+b)，即保留原值 40%。
+# 只在舰船没有 br_clamp_active 标记时求值。
+
+# 武器射程：保留原值 40%
+br_clamp_delta_range = {
+    base = -1
+    subtract = modifier:ship_weapon_range_mult
+}
+
+# 基础航速：保留原值 40%
+br_clamp_delta_speed = {
+    base = -1
+    subtract = modifier:ship_base_speed_mult
+}
+
+# 舰载机速度：保留原值 40%
+br_clamp_delta_sc = {
+    base = -1
+    subtract = modifier:weapon_type_strike_craft_speed_mult
+}
+
+# 射速：保留原值 40%
+br_clamp_delta_firerate = {
+    base = -1
+    subtract = modifier:ship_fire_rate_mult
+}

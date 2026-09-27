@@ -1,0 +1,51 @@
+# 战斗减速：按 40% 缩放四项数值，保留 buff 收益。作用域 fleet，内部逐船处理。
+# 硬警告：有 br_clamp_active 时不得重算（remove_modifier 后 modifier: 仍读到旧值）；标记须为非定时 set_ship_flag，与四个补正成对增删。
+br_clamp_combat_speed_effect = {
+	every_owned_ship = {
+		if = {
+			limit = {
+				NOT = { has_ship_flag = br_clamp_active }
+			}
+			# 武器射程：保留原值 40%
+			remove_modifier = br_clamp_range_corr
+			add_modifier = {
+				modifier = br_clamp_range_corr
+				mult = value:br_clamp_delta_range
+				days = -1
+			}
+			# 基础航速：保留原值 40%
+			remove_modifier = br_clamp_speed_corr
+			add_modifier = {
+				modifier = br_clamp_speed_corr
+				mult = value:br_clamp_delta_speed
+				days = -1
+			}
+			# 舰载机速度：保留原值 40%
+			remove_modifier = br_clamp_sc_corr
+			add_modifier = {
+				modifier = br_clamp_sc_corr
+				mult = value:br_clamp_delta_sc
+				days = -1
+			}
+			# 射速：保留原值 40%
+			remove_modifier = br_clamp_firerate_corr
+			add_modifier = {
+				modifier = br_clamp_firerate_corr
+				mult = value:br_clamp_delta_firerate
+				days = -1
+			}
+			set_ship_flag = br_clamp_active
+		}
+	}
+}
+
+# 清除钳制补正与标记，脱战、年度兜底与手动清除法令共用
+br_clamp_combat_speed_clear_effect = {
+	every_owned_ship = {
+		remove_modifier = br_clamp_range_corr
+		remove_modifier = br_clamp_speed_corr
+		remove_modifier = br_clamp_sc_corr
+		remove_modifier = br_clamp_firerate_corr
+		remove_ship_flag = br_clamp_active
+	}
+}

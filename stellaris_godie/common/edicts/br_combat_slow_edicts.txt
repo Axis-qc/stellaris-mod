@@ -1,0 +1,96 @@
+# 战斗减速开关法令：开局十年内二选一，全局标记控制，任一玩家点选即对整局生效。
+# 窗口 br_combat_slow_window 到期后两条一起消失，不占位置；默认不选即关闭。
+
+br_combat_slow_on = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		OR = {
+			has_global_flag = br_mode_pve
+			has_global_flag = br_mode_pvp
+		}
+		is_ai = no
+		has_global_flag = br_combat_slow_window
+		NOT = {
+			has_global_flag = br_combat_slow_enabled
+		}
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_global_flag = br_combat_slow_enabled
+		# 已在交战的舰队立即钳制并起循环
+		every_owned_fleet = {
+			limit = {
+				is_in_combat = yes
+			}
+			br_clamp_combat_speed_effect = yes
+		}
+		if = {
+			limit = {
+				any_owned_fleet = {
+					is_in_combat = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = br_combat_buff_active
+					}
+				}
+				set_country_flag = br_combat_buff_active
+				country_event = {
+					id = br.12
+					days = 15
+				}
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+br_combat_slow_off = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		OR = {
+			has_global_flag = br_mode_pve
+			has_global_flag = br_mode_pvp
+		}
+		is_ai = no
+		has_global_flag = br_combat_slow_window
+		has_global_flag = br_combat_slow_enabled
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		remove_global_flag = br_combat_slow_enabled
+		# 全局关闭：清掉所有仍在维护钳制的国家
+		every_country = {
+			limit = {
+				has_country_flag = br_combat_buff_active
+			}
+			every_owned_fleet = {
+				br_clamp_combat_speed_clear_effect = yes
+			}
+			remove_country_flag = br_combat_buff_active
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
