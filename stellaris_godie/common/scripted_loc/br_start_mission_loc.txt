@@ -2,38 +2,6 @@
 # 开局任务术语 —— 根据 br_mode_pvp / br_mode_pve 动态切换
 # ========================
 
-# --- br.503 标题 ---
-defined_text = {
-    name = GetBRSpeedSettingsTitle
-    random = no
-
-    text = {
-        localization_key = br_speed_title_pve
-        trigger = { has_global_flag = br_mode_pve }
-    }
-    text = {
-        localization_key = br_speed_title_pvp
-        trigger = { has_global_flag = br_mode_pvp }
-    }
-    default = br_speed_title_pve
-}
-
-# --- br.503 描述 ---
-defined_text = {
-    name = GetBRSpeedSettingsDesc
-    random = no
-
-    text = {
-        localization_key = br_speed_desc_pve
-        trigger = { has_global_flag = br_mode_pve }
-    }
-    text = {
-        localization_key = br_speed_desc_pvp
-        trigger = { has_global_flag = br_mode_pvp }
-    }
-    default = br_speed_desc_pve
-}
-
 # --- 快速选项名 ---
 defined_text = {
     name = GetBRSpeedFastName
@@ -141,4 +109,136 @@ defined_text = {
         trigger = { has_global_flag = br_mode_pvp }
     }
     default = br_enemy_term_pve
+}
+
+# ========================
+# br.503 虚空入侵频率三选一 —— br.503 专用，不影响 br.953 沿用的 GetBRSpeed* 旧块
+# ========================
+
+# --- br.503 标题 ---
+defined_text = {
+    name = GetBRInvasionSettingsTitle
+    random = no
+
+    text = {
+        localization_key = br_invasion_title_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_title_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_title_pve
+}
+
+# --- br.503 描述 ---
+defined_text = {
+    name = GetBRInvasionSettingsDesc
+    random = no
+
+    text = {
+        localization_key = br_invasion_desc_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_desc_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_desc_pve
+}
+
+# --- 高频入侵（每1年一次）选项名 ---
+defined_text = {
+    name = GetBRInvasionFreqHighName
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_high_name_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_high_name_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_high_name_pve
+}
+
+# --- 高频入侵（每1年一次）选项描述 ---
+defined_text = {
+    name = GetBRInvasionFreqHighDesc
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_high_desc_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_high_desc_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_high_desc_pve
+}
+
+# --- 标准入侵（每2年一次）选项名 ---
+defined_text = {
+    name = GetBRInvasionFreqStandardName
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_standard_name_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_standard_name_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_standard_name_pve
+}
+
+# --- 标准入侵（每2年一次）选项描述 ---
+defined_text = {
+    name = GetBRInvasionFreqStandardDesc
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_standard_desc_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_standard_desc_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_standard_desc_pve
+}
+
+# --- 低频入侵（每3年一次）选项名 ---
+defined_text = {
+    name = GetBRInvasionFreqLowName
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_low_name_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_low_name_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_low_name_pve
+}
+
+# --- 低频入侵（每3年一次）选项描述 ---
+defined_text = {
+    name = GetBRInvasionFreqLowDesc
+    random = no
+
+    text = {
+        localization_key = br_invasion_freq_low_desc_pve
+        trigger = { has_global_flag = br_mode_pve }
+    }
+    text = {
+        localization_key = br_invasion_freq_low_desc_pvp
+        trigger = { has_global_flag = br_mode_pvp }
+    }
+    default = br_invasion_freq_low_desc_pve
 }

@@ -1,7 +1,99 @@
 namespace = br
 # ============================================================
+# 年度入侵频率计数：br.830
+# 由 on_yearly_pulse_country 年度触发（天灾国家 scope，全局唯一）
+# 计数器每年+1，按开局频率档位满阈值触发：高频满1/标准满2/低频满3
+# 触发年给所有玩家排程 br.840 并扣减计数（-N）；阈值档位复用 br.503 的 br_speed_* 槽位旗
+# 触发顺序：br.830（年度计数）→ br.850（设计保存）→ br.840（突击）
+# ============================================================
+country_event = {
+	id = br.830
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = br_pve_enemy
+		exists = event_target:br_pve_enemy_country
+	}
+	immediate = {
+		change_variable = {
+			which = br_invasion_count
+			value = 1
+		}
+		# 高频：满1触发
+		if = {
+			limit = {
+				has_global_flag = br_speed_fast
+				check_variable = {
+					which = br_invasion_count
+					value >= 1
+				}
+			}
+			every_country = {
+				limit = {
+					has_country_flag = br_player_country
+				}
+				country_event = {
+					id = br.840
+					days = 10
+				}
+			}
+			change_variable = {
+				which = br_invasion_count
+				value = -1
+			}
+		}
+		# 标准：满2触发
+		if = {
+			limit = {
+				has_global_flag = br_speed_normal
+				check_variable = {
+					which = br_invasion_count
+					value >= 2
+				}
+			}
+			every_country = {
+				limit = {
+					has_country_flag = br_player_country
+				}
+				country_event = {
+					id = br.840
+					days = 10
+				}
+			}
+			change_variable = {
+				which = br_invasion_count
+				value = -2
+			}
+		}
+		# 低频：满3触发
+		if = {
+			limit = {
+				has_global_flag = br_speed_slow
+				check_variable = {
+					which = br_invasion_count
+					value >= 3
+				}
+			}
+			every_country = {
+				limit = {
+					has_country_flag = br_player_country
+				}
+				country_event = {
+					id = br.840
+					days = 10
+				}
+			}
+			change_variable = {
+				which = br_invasion_count
+				value = -3
+			}
+		}
+	}
+}
+
+# ============================================================
 # PVE 年度突击舰队：br.840
-# 由 br.850 年度触发。刷怪点=玩家领地边境星系(is_on_border)
+# 由 br.830（天灾国年度计数）按开局选定频率触发。生成点=玩家边境锚点周边2-5跳的空星系
 # 侵略推进（aggressive+猎手式找最近敌对舰队）
 # ============================================================
 country_event = {
@@ -13,48 +105,46 @@ country_event = {
 		has_country_flag = br_player_country
 		exists = event_target:br_pve_enemy_country
 		any_owned_fleet = {
-			br_is_arkship_ship = yes
+			always = yes
 		}
 	}
 	immediate = {
-		random_owned_fleet = {
-			limit = {
-				br_is_arkship_ship = yes
-			}
-			save_event_target_as = br_dominator_fleet_@root
-			solar_system = {
-				save_event_target_as = br_dominator_target_@root
-			}
-		}
-		# 边境星系刷出
+		# 锚点1：玩家边境星系
 		random_system_within_border = {
 			limit = {
 				is_on_border = yes
 				NOT = {
 					has_star_flag = br_danger
 				}
-				NOT = {
-					any_fleet_in_system = {
-						owner = {
-							has_country_flag = br_player_country
-						}
-					}
-				}
 			}
-			save_event_target_as = br_assault_spawn_@root
+			save_event_target_as = br_assault_anchor_@root
 		}
-		# 兜底：退回方舟2-5跳
+		# 锚点2：无边境时退回玩家舰队所在星系
 		if = {
 			limit = {
 				NOT = {
-					exists = event_target:br_assault_spawn_@root
+					exists = event_target:br_assault_anchor_@root
 				}
 			}
-			event_target:br_dominator_target_@root = {
+			random_owned_fleet = {
+				limit = {
+					always = yes
+				}
+				solar_system = {
+					save_event_target_as = br_assault_anchor_@root
+				}
+			}
+		}
+		# 生成点：锚点周边2-5跳的空星系
+		if = {
+			limit = {
+				exists = event_target:br_assault_anchor_@root
+			}
+			event_target:br_assault_anchor_@root = {
 				random_system = {
 					limit = {
 						distance = {
-							source = event_target:br_dominator_target_@root
+							source = event_target:br_assault_anchor_@root
 							type = hyperlane
 							min_jumps = 2
 							max_jumps = 5
@@ -65,7 +155,7 @@ country_event = {
 						NOT = {
 							any_fleet_in_system = {
 								owner = {
-									has_country_flag = br_player_country
+									is_hostile = event_target:br_pve_enemy_country
 								}
 							}
 						}
@@ -74,50 +164,68 @@ country_event = {
 				}
 			}
 		}
-		event_target:br_pve_enemy_country = {
-			create_fleet = {
-				name = "BR_PVE_ASSAULT"
-				effect = {
-					set_owner = PREV
-					set_location = event_target:br_assault_spawn_@root
-					br_reinforce_pve_fleet = yes
-					set_fleet_flag = br_assault_@root
-					set_fleet_stance = aggressive
-					# 侵略推进：猎手式找最近敌对舰队
-					queue_actions = {
-						repeat = {
-							find_closest_system = {
-								trigger = {
-									id = br.840.hunt
-									any_fleet_in_system = {
-										owner = {
-											is_hostile = event_target:br_pve_enemy_country
+		# 找不到生成点则跳过
+		if = {
+			limit = {
+				exists = event_target:br_assault_spawn_@root
+			}
+			event_target:br_pve_enemy_country = {
+				create_fleet = {
+					name = "BR_PVE_ASSAULT"
+					effect = {
+						set_owner = PREV
+						set_location = event_target:br_assault_spawn_@root
+						br_reinforce_pve_fleet = yes
+						set_fleet_flag = br_assault_@root
+						set_fleet_stance = aggressive
+						# while 保证无合格目标时停止重复
+						queue_actions = {
+							repeat = {
+								while = {
+									id = br.840.hunt.while
+									any_system = {
+										any_fleet_in_system = {
+											owner = {
+												is_hostile = event_target:br_pve_enemy_country
+												br_pve_hunt_target_country = yes
+											}
 										}
 									}
 								}
-								found_system = {
-									move_to = this
+								find_closest_system = {
+									trigger = {
+										id = br.840.hunt
+										any_fleet_in_system = {
+											owner = {
+												is_hostile = event_target:br_pve_enemy_country
+												br_pve_hunt_target_country = yes
+											}
+										}
+									}
+									found_system = {
+										move_to = this
+									}
 								}
 							}
 						}
+						save_global_event_target_as = br_assault_fleet_@root
 					}
-					save_global_event_target_as = br_assault_fleet_@root
 				}
 			}
-		}
-		create_message = {
-			type = FLEET_DETECTED_MESSAGE_TYPE
-			localization = br.840.toast
-			days = 30
-			custom_toast_icon = GFX_message_fleet_detected
+			create_message = {
+				type = FLEET_DETECTED_MESSAGE_TYPE
+				localization = br.840.toast
+				days = 30
+				custom_toast_icon = GFX_message_fleet_detected
+			}
 		}
 	}
 }
 
 # ============================================================
-# 年度舰船设计复制 + 触发刷敌：br.850
+# 年度舰船设计复制：br.850
 # 由 on_yearly_pulse_country 年度触发
-# 保存玩家舰船设计为全局 event_target → 无条件触发 br.840 刷敌
+# 保存玩家舰船设计为全局 event_target；刷敌排程移至 br.830（按开局频率触发）
 # ============================================================
 country_event = {
 	id = br.850
@@ -204,14 +312,11 @@ country_event = {
 				save_global_event_target_as = br_player_battleship
 			}
 		}
-		# 年度无条件刷新突击舰队
-		country_event = {
-			id = br.840
-			days = 10
-		}
+		# 舰船设计保存（刷敌排程见 br.830）
 		set_timed_global_flag = {
 			flag = br_designs_saved
 			days = 100
 		}
 	}
 }
+

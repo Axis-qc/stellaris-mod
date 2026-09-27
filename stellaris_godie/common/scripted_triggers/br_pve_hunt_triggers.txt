@@ -1,0 +1,9 @@
+# 猎杀目标白名单：只有名单内国家类型会被选为猎杀目标
+# 只放行觉醒失落帝国，未觉醒的 fallen_empire 不在名单内
+br_pve_hunt_target_country = {
+	OR = {
+		is_country_type = default
+		is_country_type = br_player_pvp
+		is_country_type = awakened_fallen_empire
+	}
+}

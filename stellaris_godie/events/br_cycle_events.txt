@@ -432,6 +432,18 @@ country_event = {
 		remove_global_flag = br_speed_fast
 		remove_global_flag = br_speed_normal
 		remove_global_flag = br_speed_slow
+		# 年度入侵频率计数器：挂天灾国（跨周目存活），随周目重置
+		if = {
+			limit = {
+				exists = event_target:br_pve_enemy_country
+			}
+			event_target:br_pve_enemy_country = {
+				set_variable = {
+					which = br_invasion_count
+					value = 0
+				}
+			}
+		}
 		remove_global_flag = br_player_spawns_marked
 		remove_global_flag = br_initialized
 		event_target:br_pve_alliance_leader = {

@@ -21,15 +21,15 @@ country_event = {
 	}
 }
 
-# br.501：开局模式设置，选择PVP、PVE或正常模式喵
+# br.501：开局态势设置，选择PVP、PVE或正常模式。PVE为防守模式：抵抗虚空侵略者的周期性入侵，扩张领土喵
 country_event = {
 	id = br.501
-	title = br_settings_title
-	desc = br_settings_desc
+	title = br_defense_settings_title
+	desc = br_defense_settings_desc
 	picture = GFX_evt_signing
 	is_triggered_only = yes
 	option = {
-		name = br_mode_pvp_name
+		name = br_defense_mode_pvp_name
 		allow = {
 			always = no
 		}
@@ -41,7 +41,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = br_mode_pve_name
+		name = br_defense_mode_pve_name
 		remove_global_flag = br_mode_pvp
 		set_global_flag = br_mode_pve
 		remove_global_flag = br_mode_disabled
@@ -52,7 +52,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = br_mode_normal_name
+		name = br_defense_mode_normal_name
 		remove_global_flag = br_mode_pvp
 		remove_global_flag = br_mode_pve
 		set_global_flag = br_mode_disabled
@@ -72,15 +72,17 @@ country_event = {
 	}
 }
 
-# br.503：开局缩圈速度设置，完成后进入全局初始化喵
+# br.503：开局虚空入侵频率设置（防守模式难度三选一），完成后进入全局初始化喵
+# 槽位映射：br_speed_fast 槽=高频入侵（每1年一次），br_speed_normal 槽=标准入侵（每2年一次），br_speed_slow 槽=低频入侵（每3年一次）
+# 间隔逻辑由 br.830（天灾国年度计数器）消费槽位旗：满1/满2/满3触发 br.840，见 br_pve_reinforce_events.txt 喵
 country_event = {
 	id = br.503
-	title = br_speed_settings_title
-	desc = br_speed_settings_desc
+	title = br_invasion_settings_title
+	desc = br_invasion_settings_desc
 	picture = GFX_evt_signing
 	is_triggered_only = yes
 	option = {
-		name = br_speed_fast_name
+		name = br_invasion_freq_high_name
 		remove_global_flag = br_speed_normal
 		remove_global_flag = br_speed_slow
 		set_global_flag = br_speed_fast
@@ -89,7 +91,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = br_speed_normal_name
+		name = br_invasion_freq_standard_name
 		remove_global_flag = br_speed_fast
 		remove_global_flag = br_speed_slow
 		set_global_flag = br_speed_normal
@@ -98,7 +100,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = br_speed_slow_name
+		name = br_invasion_freq_low_name
 		remove_global_flag = br_speed_fast
 		remove_global_flag = br_speed_normal
 		set_global_flag = br_speed_slow
@@ -319,6 +321,11 @@ country_event = {
 			#     }
 			#     destroy_country = yes
 			# }
+		}
+		# 开启战斗减速十年选择期窗口（br.14）
+		country_event = {
+			id = br.14
+			days = 1
 		}
 		# 排程下一阶段：PVE敌对势力 或 PVP通信
 		if = {
