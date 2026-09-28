@@ -1,0 +1,89 @@
+# 利维坦·灵体幽魂 实体与动画（mod 独立定义，全用 lev_wraith_* 前缀，不覆盖原版）
+# section entity 从原版 wraith_01_blue_section_entity 镜像：状态集、粒子、scale 照抄，音效省略
+# 原版幽魂没有 attack 状态，照原版只保留 idle/moving/combat_moving/death
+
+entity = {
+	name = "lev_wraith_section_entity"
+	pdxmesh = "lev_wraith_mesh"
+
+	locator = { name = "laser_gun_01" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_02" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_03" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_04" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_05" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_06" 	position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "moving"
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no }
+
+	state = { name = "combat_moving" animation = "moving" animation_blend_time = 0
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+
+	scale = 0.75
+}
+
+entity = {
+	name = "lev_wraith_entity"
+	pdxmesh = "locator_mesh"
+
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_01" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_02" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_03" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_04" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_05" 	position = { 0 0 0 } }
+	locator = { name = "laser_gun_06" 	position = { 0 0 0 } }
+
+	cull_radius = 10.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 6 }
+	state = { name = "moving" state_time = 6 }
+	state = { name = "combat_moving" state_time = 6 }
+	state = { name = "death" state_time = 3 looping = no }
+
+	game_data = {
+		raytrace_projectiles = no
+		dissolve_on_death = 6.0
+		ship_color = hsv { 0.55 1.0 0.75 1.0 }
+	}
+
+	scale = 1.0
+}
+
+animation = {
+	name = "lev_wraith_idle_animation"
+	file = "wraith_01_idle.anim"
+}
+
+animation = {
+	name = "lev_wraith_moving_animation"
+	file = "wraith_01_moving.anim"
+}
+
+animation = {
+	name = "lev_wraith_death_animation"
+	file = "wraith_01_death.anim"
+}

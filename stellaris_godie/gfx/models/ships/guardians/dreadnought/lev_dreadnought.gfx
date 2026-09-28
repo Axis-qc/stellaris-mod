@@ -1,0 +1,25 @@
+# 利维坦·自动无畏舰 独立 pdxmesh（不覆盖原版 npf_01_npc_warship_01_mesh）
+# meshsettings 逐字照抄原版 gfx/models/ships/guardians/dreadnought/_npf_01_npc_warship_01.gfx 的 CLEAN 段
+# 动画注册走噬星者模式：type 指向本 mod 自建的 lev_dreadnought_*_animation（注册块在 lev_dreadnought.asset 末尾），
+# file 暂指原版 .anim 文件（原版船体动画本来就复用海盗船的，同样指向那两个文件）；后续自制动画时替换即可
+# 炮塔模型由区段的 large_turret/small_turret/point_defence_turret 槽位模板按武器类型挂载，无需在此 attach
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_dreadnought_mesh"
+		file = "gfx/models/ships/guardians/dreadnought/npf_01_npc_warship_01.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_dreadnought_idle_animation" }
+		animation = { id = "death"		type = "lev_dreadnought_death_animation" }
+
+		meshsettings = {
+			name = "shipShape"
+			index = 0
+			texture_diffuse = "dreadnought_01_diffuse.dds"
+			texture_normal = "dreadnought_01_normal.dds"
+			texture_specular = "dreadnought_01_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

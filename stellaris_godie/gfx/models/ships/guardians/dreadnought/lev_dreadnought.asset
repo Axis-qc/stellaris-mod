@@ -1,0 +1,91 @@
+# 利维坦·自动无畏舰 实体（mod 独立定义，全用 lev_dreadnought_* 前缀，不覆盖原版）
+# 动画注册走噬星者模式：本文件末尾自建 lev_dreadnought_*_animation，file 暂指原版 .anim 文件
+# section entity 状态集从原版 npf_01_npc_warship_01_hull_entity 镜像：引擎与航行灯粒子照抄，音效省略
+# 炮塔模型由区段的 large_turret/small_turret/point_defence_turret 槽位模板按武器类型挂载，无需在此 attach
+
+entity = {
+	name = "lev_dreadnought_section_entity"
+	pdxmesh = "lev_dreadnought_mesh"
+
+	scale = 2.5
+
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "engine_large_01" particle = "generic_075_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "engine_medium_07" particle = "generic_035_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_01" particle = "generic_025_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_02" particle = "generic_025_exhaust_circle_idle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "idle"
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "engine_large_01" particle = "generic_1_5_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "engine_medium_07" particle = "generic_075_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_01" particle = "generic_05_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_02" particle = "generic_05_exhaust_circle_moving" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "combat_moving" animation = "idle" }
+	state = { name = "death" animation = "death" looping = no
+		event = { time = 0.0 node = "explosion1" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 1.4 node = "explosion2" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 2.0 node = "explosion3" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 2.8 node = "explosion4" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 3.4 node = "explosion5" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 3.8 node = "explosion6" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 4.4 node = "explosion7" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 5.0 node = "explosion8" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 5.6 node = "explosion9" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 6.0 node = "explosion10" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+	}
+}
+
+entity = {
+	name = "lev_dreadnought_entity"
+	pdxmesh = "locator_mesh"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "explosion" 	position = { 0 -15 -50 } }
+	cull_radius = 10.0
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 6 }
+	state = { name = "moving" state_time = 6 }
+	state = { name = "death" state_time = 8.9 looping = no
+		event = { time = 8.8 node = "explosion" particle = "dreadnought_explosion_particle" keep_particle = yes }
+	}
+
+	game_data = {
+		raytrace_projectiles = no
+		dissolve_on_death = 4.0
+		ship_color = hsv { 0.60 0.20 0.60 1.0 }
+	}
+}
+
+animation = {
+	name = "lev_dreadnought_idle_animation"
+	file = "pirate_01_galleon_idle.anim"
+}
+
+animation = {
+	name = "lev_dreadnought_death_animation"
+	file = "pirate_01_galleon_death.anim"
+}

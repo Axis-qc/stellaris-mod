@@ -1,0 +1,70 @@
+# 利维坦·天龙 独立 pdxmesh（不覆盖原版 aquatic_dragon_01_mesh）
+# 原版天龙是多段式模型：主体 aquatic_dragon_01.mesh + 两个 floater（aquatic_dragon_floater_01.mesh / _03.mesh），
+# floater 副实体在 lev_aquatic.asset 里 attach 到 section entity 的 part1
+# 三段 meshsettings 逐字照抄原版 guardian_01_space_dragon.gfx 对应段，动画行全部换成 lev_aquatic_* 注册
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_aquatic_mesh"
+		file = "gfx/models/ships/guardians/space_dragon/aquatic_dragon_01.mesh"
+
+		animation = { id = "idle"		type = "lev_aquatic_idle_animation" }
+		animation = { id = "moving"		type = "lev_aquatic_moving_animation" }
+		animation = { id = "death"		type = "lev_aquatic_death_animation" }
+		animation = { id = "attack"		type = "lev_aquatic_attack_animation" }
+
+		meshsettings = {
+			name = "aquatic_dragon_01Shape"
+			index = 0
+			texture_diffuse = "aquatic_dragon_01_diffuse.dds"
+			texture_normal = "aquatic_dragon_01_normal.dds"
+			texture_specular = "aquatic_dragon_01_specular.dds"
+			shader = "PdxMeshShipDiffuseEmissive"
+		}
+
+		meshsettings = {
+			name = "aquatic_dragon_01Shape"
+			index = 1
+			texture_diffuse = "aquatic_dragon_01_diffuse.dds"
+			texture_normal = "aquatic_dragon_01_normal.dds"
+			texture_specular = "aquatic_dragon_01_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+	}
+
+	pdxmesh = {
+		name = "lev_aquatic_floater_1_mesh"
+		file = "gfx/models/ships/guardians/space_dragon/aquatic_dragon_floater_01.mesh"
+
+		animation = { id = "idle"		type = "lev_aquatic_floater_1_idle_animation" }
+		animation = { id = "moving"		type = "lev_aquatic_floater_1_moving_animation" }
+		animation = { id = "death"		type = "lev_aquatic_floater_1_death_animation" }
+		animation = { id = "attack"		type = "lev_aquatic_floater_1_attack_animation" }
+
+		meshsettings = {
+			index = 0
+			texture_diffuse = "dragon_floater_01.dds"
+			texture_normal = "nonormal.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+	}
+
+	pdxmesh = {
+		name = "lev_aquatic_floater_2_mesh"
+		file = "gfx/models/ships/guardians/space_dragon/aquatic_dragon_floater_03.mesh"
+
+		animation = { id = "idle"		type = "lev_aquatic_floater_2_idle_animation" }
+		animation = { id = "moving"		type = "lev_aquatic_floater_2_moving_animation" }
+		animation = { id = "death"		type = "lev_aquatic_floater_2_death_animation" }
+		animation = { id = "attack"		type = "lev_aquatic_floater_2_attack_animation" }
+
+		meshsettings = {
+			index = 0
+			texture_diffuse = "dragon_floater_02.dds"
+			texture_normal = "nonormal.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+	}
+}

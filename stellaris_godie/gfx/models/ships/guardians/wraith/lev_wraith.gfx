@@ -1,0 +1,33 @@
+# 利维坦·灵体幽魂 独立 pdxmesh（不覆盖原版 wraith_01_blue_mesh）
+# meshsettings 逐字照抄原版 wraith_01_blue_mesh，动画行全部换成 lev_wraith_* 注册
+# 原版幽魂只有 idle/moving/death 三个动画 id，attack 不存在，不注册
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_wraith_mesh"
+		file = "gfx/models/ships/guardians/wraith/wraith_01.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_wraith_idle_animation" }
+		animation = { id = "moving"		type = "lev_wraith_moving_animation" }
+		animation = { id = "death"		type = "lev_wraith_death_animation" }
+
+		meshsettings = {
+			name = "arm_Shape3"
+			index = 0
+			texture_diffuse = "wraith_diffuse.dds"
+			texture_normal = "wraith_normal.dds"
+			texture_specular = "wraith_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "flakesShape"
+			index = 0
+			texture_diffuse = "wraith_fins_diffuse.dds"
+			texture_normal = "wraith_fins_normal.dds"
+			texture_specular = "wraith_fins_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+	}
+}

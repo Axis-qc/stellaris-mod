@@ -1,0 +1,43 @@
+# 利维坦·拾荒机器人 独立 pdxmesh（不覆盖原版 leviathan_01_scavenger_bot_frame_mesh）
+# meshsettings 逐字照抄原版 leviathan_01_scavenger_bot_frame_mesh，动画行全部换成 lev_scavenger_* 注册
+# 原版拾荒机器人主体是 frame（外框）+ core（核心）双层结构：本 mod 的 section entity 用 frame 主体，
+# core（自转圆核）以 attach 副实体挂回；两者状态由 get_state_from_parent 跟随主实体
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_scavenger_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/leviathan_01_scavenger_bot_frame.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_scavenger_idle_animation" }
+		animation = { id = "moving"		type = "lev_scavenger_moving_animation" }
+		animation = { id = "death"		type = "lev_scavenger_death_animation" }
+
+		meshsettings = {
+			name = "leviathan_01_helper_bot_1_bodyShape"
+			index = 0
+			texture_diffuse = "leviathans_01_scavenger_bot_diffuse.dds"
+			texture_normal = "leviathans_01_scavenger_bot_normal.dds"
+			texture_specular = "leviathans_01_scavenger_bot_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+
+	pdxmesh = {
+		name = "lev_scavenger_core_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/leviathan_01_scavenger_bot_core.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_scavenger_core_idle_animation" }
+		animation = { id = "death"		type = "lev_scavenger_core_death_animation" }
+
+		meshsettings = {
+			name = "coreShape"
+			index = 0
+			texture_diffuse = "leviathans_01_scavenger_bot_diffuse.dds"
+			texture_normal = "leviathans_01_scavenger_bot_normal.dds"
+			texture_specular = "leviathans_01_scavenger_bot_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

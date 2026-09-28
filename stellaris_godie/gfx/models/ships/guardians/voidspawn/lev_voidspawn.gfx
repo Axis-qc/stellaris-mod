@@ -1,0 +1,33 @@
+# 利维坦·虚空孳孽 独立 pdxmesh（不覆盖原版 leviathan_01_voidspawn_mesh）
+# meshsettings 逐字照抄原版 leviathan_01_voidspawn.gfx 主段（PdxMeshShip 主体 + AlphaBlendNoDepth_00 触须毛发表）
+# 动画行全部换成 lev_voidspawn_* 注册；hatching 状态为原版孵化演出用，玩家舰实体不引用该状态
+# 克隆模式见以太巨龙：引用原版 mesh / 贴图 / shader 为合法写法
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_voidspawn_mesh"
+		file = "gfx/models/ships/guardians/voidspawn/leviathan_01_voidspawn.mesh"
+
+		animation = { id = "idle"		type = "lev_voidspawn_idle_animation" }
+		animation = { id = "moving"		type = "lev_voidspawn_moving_animation" }
+		animation = { id = "death"		type = "lev_voidspawn_death_animation" }
+
+		meshsettings = {
+			name = "leviathan_01_voidspawnShape"
+			index = 0
+			texture_diffuse = "leviathan_01_voidspawn_diffuse.dds"
+			texture_normal = "leviathan_01_voidspawn_normal.dds"
+			texture_specular = "leviathan_01_voidspawn_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "hair_lowShape"
+			index = 0
+			texture_diffuse = "leviathan_01_voidspawn_diffuse.dds"
+			texture_normal = "leviathan_01_voidspawn_normal.dds"
+			texture_specular = "leviathan_01_voidspawn_specular.dds"
+			shader = "AlphaBlendNoDepth_00"
+		}
+	}
+}

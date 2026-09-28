@@ -1,0 +1,29 @@
+# 利维坦·毒神 独立 pdxmesh（不覆盖原版 toxic_god_mesh）
+# meshsettings 逐字照抄原版 gfx/models/ships/guardians/toxic_god/toxic_god.gfx
+# 动画注册走噬星者模式：type 指向本 mod 自建的 lev_toxic_god_*_animation（注册块在 lev_toxic_god.asset 末尾），
+# file 暂指原版 .anim 文件；后续自制动画时替换 mod 内动画文件或改 file 指向即可，不动其他层
+# 原版 open/opening/closing/death 多个 id 共用同一动画，照抄原版 id→type 对应关系
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_toxic_god_mesh"
+		file = "gfx/models/ships/guardians/toxic_god/toxic_god.mesh"
+		animation = { id = "idle"			type = "lev_toxic_god_idle_animation" }
+		animation = { id = "moving"			type = "lev_toxic_god_moving_animation" }
+		animation = { id = "open"			type = "lev_toxic_god_open_animation" }
+		animation = { id = "opening"		type = "lev_toxic_god_opening_animation" }
+		animation = { id = "closing"		type = "lev_toxic_god_closing_animation" }
+		animation = { id = "closed_death"	type = "lev_toxic_god_death_animation" }
+		animation = { id = "opened_death"	type = "lev_toxic_god_death_animation" }
+		animation = { id = "attack"			type = "lev_toxic_god_attack_animation" }
+
+		meshsettings = {
+			name = "g_bodyShape"
+			index = 0
+			texture_diffuse = "toxic_god_diffuse.dds"
+			texture_normal = "toxic_god_normal.dds"
+			texture_specular = "toxic_god_specular.dds"
+			shader = "PdxMeshShipDiffuseEmissive"
+		}
+	}
+}

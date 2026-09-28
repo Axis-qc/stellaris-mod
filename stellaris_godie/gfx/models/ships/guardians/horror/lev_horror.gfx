@@ -1,0 +1,35 @@
+# 利维坦·次元魔物 独立 pdxmesh（不覆盖原版 dimensional_horror_mesh）
+# meshsettings 逐字照抄原版 gfx/models/ships/guardians/dimensional_horror/dimensional_horror.gfx
+# 动画注册走噬星者模式：type 指向本 mod 自建的 lev_horror_*_animation（注册块在 lev_horror.asset 末尾），
+# file 暂指原版 .anim 文件；后续自制动画时替换 mod 内动画文件或改 file 指向即可，不动其他层
+# 原版攻击动画在主体 mesh 与触手 mesh 上各注册一次，这里同样注册（触手动画文件不在本次克隆范围，仅主体）
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_horror_mesh"
+		file = "gfx/models/ships/guardians/dimensional_horror/dimensional_horror.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_horror_idle_animation" }
+		animation = { id = "attack"		type = "lev_horror_attack_animation" }
+		animation = { id = "death"		type = "lev_horror_death_animation" }
+
+		meshsettings = {
+			name = "lowpoly12Shape"
+			index = 0
+			texture_diffuse = "dimensional_horror_diffuse.dds"
+			texture_normal = "dimensional_horror_normal.dds"
+			texture_specular = "dimensional_horror_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "lowpoly12Shape"
+			index = 1
+			texture_diffuse = "dimensional_horror_diffuse.dds"
+			texture_normal = "dimensional_horror_normal.dds"
+			texture_specular = "dimensional_horror_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+	}
+}

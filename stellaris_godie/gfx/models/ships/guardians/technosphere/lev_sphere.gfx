@@ -1,0 +1,26 @@
+# 利维坦·无限神机 独立 pdxmesh（不覆盖原版 technosphere_mesh）
+# meshsettings 逐字照抄原版 technosphere_mesh，动画行全部换成 lev_sphere_* 注册
+# 原版 techno_sphere_turret_* 三件炮塔 mesh 不引用：区段炮塔槽位全换 invisible_*，无需渲染副实体
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_sphere_mesh"
+		file = "gfx/models/ships/guardians/technosphere/technosphere.mesh"
+		scale = 1.0
+
+		animation = { id = "opened"		type = "lev_sphere_opened_animation" }
+		animation = { id = "closed"		type = "lev_sphere_closed_animation" }
+		animation = { id = "opening"	type = "lev_sphere_opening_animation" }
+		animation = { id = "closing"	type = "lev_sphere_closing_animation" }
+		animation = { id = "death"		type = "lev_sphere_death_animation" }
+
+		meshsettings = {
+			name = "polySurface61Shape"
+			index = 0
+			texture_diffuse = "technosphere_diffuse.dds"
+			texture_normal = "technosphere_normal.dds"
+			texture_specular = "technosphere_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

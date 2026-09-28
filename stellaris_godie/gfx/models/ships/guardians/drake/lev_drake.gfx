@@ -1,0 +1,33 @@
+# 利维坦·以太巨龙 独立 pdxmesh（不覆盖原版 space_dragon_red_mesh）
+# meshsettings 逐字照抄原版 space_dragon_red_mesh，动画行全部换成 lev_drake_* 注册
+
+objectTypes = {
+	pdxmesh = {
+		name = "lev_drake_mesh"
+		file = "gfx/models/ships/guardians/space_dragon/guardian_01_space_dragon.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"		type = "lev_drake_idle_animation" }
+		animation = { id = "moving"		type = "lev_drake_moving_animation" }
+		animation = { id = "death"		type = "lev_drake_death_animation" }
+		animation = { id = "attack"		type = "lev_drake_attack_animation" }
+
+		meshsettings = {
+			name = "pPlane26Shape"
+			index = 0
+			texture_diffuse = "guardian_01_space_dragon_fins_red_diffuse.dds"
+			texture_normal = "guardian_01_space_dragon_fins_normal.dds"
+			texture_specular = "guardian_01_space_dragon_fins_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+
+		meshsettings = {
+			name = "pPlane26Shape"
+			index = 1
+			texture_diffuse = "guardian_01_space_dragon_red_diffuse.dds"
+			texture_normal = "guardian_01_space_dragon_normal.dds"
+			texture_specular = "guardian_01_space_dragon_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}
