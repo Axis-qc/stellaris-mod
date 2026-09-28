@@ -10,6 +10,8 @@
   L2  mod 路径在原版也存在         —— mod 在改原版内容，属覆盖信息
   L3  不同文件名注册同名 key       —— 按目录语义决定谁胜，与 mod 加载顺序无关
   L4  描述符问题与 replace_path    —— replace_path 会整目录卸载前面所有来源
+  L5  本地化 (语言,key) 级覆盖     —— localisation 逐 key 合并、后加载者胜，
+      与文件名无关，细节见 loc_scan.py
 
 L1/L2 看的是「同路径整文件替换」，L3 看的是「不同文件名之间的同名定义覆盖」。
 这是两套彼此独立的优先级：实测存在靠前加载的 mod 仅因文件名排序靠后而压掉
@@ -27,8 +29,6 @@ import queue
 import re
 import threading
 import time
-import tkinter as tk
-from tkinter import ttk
 
 from i18n import t  # 所有面向玩家的文字都在 lang/*.json，不硬编码
 import i18n
@@ -300,6 +300,14 @@ except ImportError:      # 以包形式导入或脚本被移动时兜底
     _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
     from wiki_overwrite import (WIKI_COMMON_OVERWRITE, WIKI_RAW_TYPE,
                                 WIKI_NOTES, CONTESTED)
+
+try:
+    import loc_scan      # L5 本地化 key 级覆盖扫描
+except ImportError:      # 同上兜底
+    import os as _os
+    import sys as _sys
+    _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import loc_scan
 
 
 # 结构关键字：出现在 `X = {` 左侧但不是具名定义
@@ -1049,6 +1057,14 @@ def scan(include_dlc=False, progress=None):
 
     res["same"].sort(key=lambda x: x["rel"])
     res["vanilla"].sort(key=lambda x: x["rel"])
+
+    # ---------- L5：本地化 (语言,key) 级覆盖 ----------
+    # localisation 与 common/ 的取舍规则不同：逐 key 合并、后加载者胜，与文件
+    # 名无关，同名 yml 整文件并不互相顶掉。结果以 loc/loc_stats/loc_files/
+    # loc_keys/loc_elapsed 并入 res，报告节与总表行分别由 loc_scan 产出。
+    say(t("scan.024"))
+    res.update(loc_scan.scan_localisation(res["mods"], VANILLA_ROOT, progress=say))
+
     res["elapsed"] = time.time() - t0
     say(t("scan.023"))
     return res
@@ -1202,6 +1218,8 @@ def build_overview(res):
             "upset": [e["winner_label"] for e in it["upset"]],
         })
 
+    # 本地化冲突行（kind_code "loc"，mod_vs_mod 口径一致，自然计入总表统计）
+    rows.extend(loc_scan.overview_rows(res, res["mods"]))
     return rows
 
 
@@ -1458,6 +1476,10 @@ def build_report(res, detail_limit=60, modlist=True):
             A(t("report.056") % (len(b["multi_vanilla"]) - detail_limit))
     A("")
 
+    # ---------- 5bis：本地化 key 覆盖（loc_scan 产出）----------
+    A(loc_scan.build_report_section(res, res["mods"], detail_limit))
+    A("")
+
     A(t("report.062"))
     A("")
     if not b["problems"]:
@@ -1543,773 +1565,6 @@ def print_summary(res):
                 print(t("cli.016"))
 
 
-# ============================== GUI ==============================
-
-class App(tk.Tk):
-    def __init__(self, include_dlc=False):
-        super().__init__()
-        self.title(t("gui.001"))
-        # 默认尺寸按屏幕实测再收，保证在 1366x768 这类小屏上也能完整显示。
-        # 之前固定 1440 宽，在 1536 宽的屏上右侧列被切掉，「改排序有用吗」
-        # 这一列整个看不到，界面等于白做。
-        sw, sh = self.winfo_screenwidth(), self.winfo_screenheight()
-        w = max(1080, min(1340, sw - 60))
-        h = max(640, min(800, sh - 80))
-        self.geometry("%dx%d" % (w, h))
-        self.minsize(1080, 640)
-        self.result = None
-        self.filter_idx = None
-        self.rows = []
-        self.focus_only = None
-        self.q = queue.Queue()
-        self._build(include_dlc)
-        self.after(100, self._drain)
-        self.after(250, self.rescan)
-
-    # ---------- 界面 ----------
-    def _build(self, include_dlc):
-        sty = ttk.Style(self)
-        for th in ("vista", "winnative", "clam"):
-            try:
-                sty.theme_use(th)
-                break
-            except Exception:
-                continue
-        base = ("Microsoft YaHei UI", 9)
-        self.option_add("*Font", base)
-        sty.configure(".", font=base)
-        sty.configure("Treeview", rowheight=23)
-        sty.configure("T.Treeview", rowheight=23)
-        sty.configure("Banner.TLabel", font=("Microsoft YaHei UI", 11, "bold"))
-
-        # ---- 第一行：路径与操作
-        top = ttk.Frame(self, padding=(8, 6, 8, 2))
-        top.pack(fill="x")
-        ttk.Label(top, text=t("gui.002")).pack(side="left")
-        self.lbl_vanilla = ttk.Label(top, text=t("gui.003"), foreground="#555")
-        self.lbl_vanilla.pack(side="left", padx=(4, 6))
-        ttk.Button(top, text=t("gui.004"), width=6,
-                   command=lambda: self._edit_path("vanilla")).pack(side="left")
-        ttk.Label(top, text=t("gui.005")).pack(side="left", padx=(12, 0))
-        self.lbl_doc = ttk.Label(top, text=t("gui.003"), foreground="#555")
-        self.lbl_doc.pack(side="left", padx=(4, 6))
-        ttk.Button(top, text=t("gui.004"), width=6,
-                   command=lambda: self._edit_path("documents")).pack(side="left")
-
-        ttk.Button(top, text=t("gui.006"), command=self.rescan).pack(side="left", padx=(14, 0))
-
-        # 语言切换：换完立刻重建界面，避免残留旧语言文字
-        ttk.Label(top, text=t("gui.142")).pack(side="left", padx=(14, 0))
-        langs = i18n.languages()
-        avail = i18n.available()
-        self.var_lang = tk.StringVar(
-            value=dict(langs).get(i18n.current(), i18n.current()))
-        cb = ttk.Combobox(top, textvariable=self.var_lang, width=12, state="readonly",
-                          values=[name for code, name in langs if code in avail])
-        cb.pack(side="left", padx=(4, 0))
-        cb.bind("<<ComboboxSelected>>", self._on_lang_change)
-
-        self.lbl_status = ttk.Label(top, text=t("gui.007"), foreground="#0a5")
-        self.lbl_status.pack(side="right")
-
-        # ---- 第二行：结论横幅（玩家第一眼看这句）
-        bar = ttk.Frame(self, padding=(10, 6))
-        bar.pack(fill="x")
-        self.lbl_banner = ttk.Label(
-            bar, text=t("gui.008"), style="Banner.TLabel",
-            foreground="#0a5", wraplength=1290, justify="left")
-        self.lbl_banner.pack(side="left", anchor="w")
-
-        # ---- 第三行：操作与筛选
-        act = ttk.Frame(self, padding=(8, 0, 8, 4))
-        act.pack(fill="x")
-        ttk.Button(act, text=t("gui.009"), command=self.export_report).pack(side="left")
-        ttk.Button(act, text=t("gui.010"), command=self.copy_report).pack(side="left", padx=(6, 0))
-        self.var_dlc = tk.BooleanVar(value=include_dlc)
-        ttk.Checkbutton(act, text=t("gui.011"), variable=self.var_dlc).pack(side="left", padx=10)
-        self.var_only_nosort = tk.BooleanVar(value=False)
-        ttk.Checkbutton(act, text=t("gui.012"),
-                        variable=self.var_only_nosort,
-                        command=self._refill_overview).pack(side="left", padx=(0, 10))
-        self.var_mod_vs_mod = tk.BooleanVar(value=True)
-        ttk.Checkbutton(act, text=t("gui.013"),
-                        variable=self.var_mod_vs_mod,
-                        command=self._refill_overview).pack(side="left", padx=(0, 10))
-        self.var_focus = tk.BooleanVar(value=False)
-        ttk.Checkbutton(act, text=t("gui.014"),
-                        variable=self.var_focus,
-                        command=self._refill_overview).pack(side="left")
-        ttk.Button(act, text=t("gui.015"), width=9,
-                   command=self.clear_filter).pack(side="left", padx=(8, 0))
-        self.lbl_filter = ttk.Label(act, text="", foreground="#a50")
-        self.lbl_filter.pack(side="left", padx=8)
-
-        body = ttk.PanedWindow(self, orient="horizontal")
-        body.pack(fill="both", expand=True, padx=8, pady=(0, 4))
-
-        # 左：mod 列表
-        left = ttk.Frame(body)
-        body.add(left, weight=2)
-        hdr = ttk.Frame(left)
-        hdr.pack(fill="x")
-        ttk.Label(hdr, text=t("gui.016")).pack(side="left")
-
-        lcols = ("no", "name", "files", "vover", "ovr", "beaten", "state")
-        self.tv_mods = ttk.Treeview(left, columns=lcols, show="headings", height=22)
-        heads = (("no", t("gui.017"), 40), ("name", t("gui.018"), 176), ("files", t("gui.019"), 46),
-                 ("vover", t("gui.020"), 54), ("ovr", t("gui.021"), 46), ("beaten", t("gui.022"), 56),
-                 ("state", t("gui.023"), 78))
-        for c, label, w in heads:
-            self.tv_mods.heading(c, text=label)
-            self.tv_mods.column(c, width=w, anchor="center" if c != "name" else "w",
-                                stretch=(c == "name"))
-        lsb = ttk.Scrollbar(left, orient="vertical", command=self.tv_mods.yview)
-        self.tv_mods.configure(yscrollcommand=lsb.set)
-        self.tv_mods.pack(side="left", fill="both", expand=True)
-        lsb.pack(side="right", fill="y")
-        self.tv_mods.tag_configure("bad", foreground="#c00")
-        self.tv_mods.tag_configure("multi", foreground="#06c")
-        self.tv_mods.bind("<<TreeviewSelect>>", self._on_mod_select)
-        self.tv_mods.bind("<Double-1>", lambda e: self.clear_filter())
-
-        # 右：结果页签
-        right = ttk.Frame(body)
-        body.add(right, weight=5)
-        self.nb = ttk.Notebook(right)
-        self.nb.pack(fill="both", expand=True)
-
-        # 主视图：谁覆盖了谁（默认页签）
-        # 只保留四列。玩家的行动依据是「改排序有用吗」和「依据」，
-        # 列多了会被挤出可视区，反而看不到关键信息。
-        self.tv_ov = self._tab(
-            t("gui.024"),
-            (("who", t("gui.025"), 430), ("fix", t("gui.026"), 90),
-             ("obj", t("gui.027"), 170), ("sem", t("gui.028"), 120)),
-            "ov")
-
-        self.tv_diff = self._tab(t("speak.004"),
-                                 (("rel", t("gui.029"), 430), ("winner", t("gui.030"), 190),
-                                  ("losers", t("gui.031"), 300), ("van", t("gui.032"), 70)),
-                                 "diff")
-        self.tv_same = self._tab(t("gui.033"),
-                                 (("rel", t("gui.029"), 430), ("mods", t("gui.034"), 380),
-                                  ("van", t("gui.032"), 70)),
-                                 "same")
-        self.tv_van = self._tab(t("gui.035"),
-                                (("rel", t("gui.029"), 500), ("mods", t("gui.034"), 380)),
-                                "van")
-        self.tv_keys = self._tab(t("gui.036"),
-                                 (("key", t("gui.037"), 250), ("dir", t("gui.038"), 210),
-                                  ("win", t("gui.030"), 210), ("sem", t("gui.039"), 110),
-                                  ("upset", t("gui.040"), 100), ("n", t("gui.041"), 52)),
-                                 "keys")
-        self.tv_iface = self._tab(t("ov.009"),
-                                  (("key", t("gui.042"), 300), ("kind", t("gui.043"), 60),
-                                   ("win", t("gui.030"), 220), ("file", t("gui.044"), 300),
-                                   ("upset", t("gui.040"), 100), ("n", t("gui.041"), 52)),
-                                  "iface")
-        self.tv_prob = self._tab(t("gui.045"),
-                                 (("mod", "Mod", 200), ("kind", t("gui.043"), 140),
-                                  ("detail", t("gui.046"), 560)),
-                                 "prob")
-        self.nb.select(0)
-
-        det = ttk.LabelFrame(right, text=t("gui.047"),
-                             padding=4)
-        det.pack(fill="both", expand=False, pady=(4, 0))
-        self.txt = tk.Text(det, height=9, wrap="word", font=("Consolas", 9),
-                           background="#fbfbfb", relief="flat")
-        dsb = ttk.Scrollbar(det, orient="vertical", command=self.txt.yview)
-        self.txt.configure(yscrollcommand=dsb.set, state="disabled")
-        self.txt.pack(side="left", fill="both", expand=True)
-        dsb.pack(side="right", fill="y")
-
-        self.lbl_bottom = ttk.Label(self, text="", padding=(10, 2), foreground="#333")
-        self.lbl_bottom.pack(fill="x")
-
-    # ---------- 路径展示与手动指定 ----------
-    def _show_paths(self, det):
-        v = det.get("vanilla") or ""
-        self.lbl_vanilla.configure(
-            text=(v if v else t("gui.048")),
-            foreground=("#555" if v else "#c00"))
-        self.lbl_doc.configure(text=det.get("documents") or "?", foreground="#555")
-        if det.get("notes"):
-            self._set_detail("\n".join(det["notes"]))
-
-    def _edit_path(self, which):
-        from tkinter import filedialog, messagebox
-        cur = DETECT.get(which) or ""
-        title = t("gui.049") if which == "vanilla" \
-            else t("gui.050")
-        p = filedialog.askdirectory(title=title, initialdir=cur or os.path.expanduser("~"))
-        if not p:
-            return
-        p = os.path.normpath(p)
-        if which == "vanilla":
-            if not os.path.isdir(os.path.join(p, "common")):
-                if not messagebox.askyesno(
-                        t("gui.051"),
-                        t("gui.052")):
-                    return
-        else:
-            if not os.path.isfile(os.path.join(p, "dlc_load.json")):
-                if not messagebox.askyesno(
-                        t("gui.051"),
-                        t("gui.053")):
-                    return
-        cfg = load_config()
-        cfg[which] = p
-        ok = save_config(cfg)
-        init_paths()
-        self._show_paths(DETECT)
-        if not ok:
-            self._set_detail(t("gui.054")
-                             % config_path())
-        self.rescan()
-
-    def _tab(self, title, cols, key):
-        fr = ttk.Frame(self.nb)
-        self.nb.add(fr, text=title)
-        names = tuple(c[0] for c in cols)
-        tv = ttk.Treeview(fr, columns=names, show="headings")
-        for c, label, w in cols:
-            tv.heading(c, text=label)
-            tv.column(c, width=w, anchor="w",
-                      stretch=(c in ("rel", "detail", "losers", "who", "obj")))
-        sb = ttk.Scrollbar(fr, orient="vertical", command=tv.yview)
-        tv.configure(yscrollcommand=sb.set)
-        tv.pack(side="left", fill="both", expand=True)
-        sb.pack(side="right", fill="y")
-        tv.tag_configure("hard", foreground="#c00")
-        tv.tag_configure("multi", foreground="#06c")
-        tv.bind("<<TreeviewSelect>>", lambda e, k=key, w=tv: self._on_row_select(k, w))
-        return tv
-
-    # ---------- 扫描 ----------
-    def rescan(self):
-        init_paths()
-        self._show_paths(DETECT)
-        self.lbl_status.configure(text=t("gui.055"), foreground="#a50")
-        self.tv_mods.delete(*self.tv_mods.get_children())
-        for tv in (self.tv_ov, self.tv_diff, self.tv_same, self.tv_van, self.tv_keys,
-                   self.tv_iface, self.tv_prob):
-            tv.delete(*tv.get_children())
-        self._set_detail(t("gui.008"))
-        dlc = bool(self.var_dlc.get())
-        th = threading.Thread(target=self._worker, args=(dlc,), daemon=True)
-        th.start()
-
-    def _worker(self, dlc):
-        try:
-            res = scan(include_dlc=dlc, progress=lambda m: self.q.put(("msg", m)))
-            self.q.put(("done", res))
-        except Exception as e:
-            import traceback
-            self.q.put(("err", traceback.format_exc()))
-
-    def _drain(self):
-        try:
-            while True:
-                kind, payload = self.q.get_nowait()
-                if kind == "msg":
-                    self.lbl_status.configure(text=payload, foreground="#a50")
-                elif kind == "done":
-                    self.result = payload
-                    self._fill()
-                elif kind == "err":
-                    self.lbl_status.configure(text=t("gui.056"), foreground="#c00")
-                    self._set_detail(payload)
-        except queue.Empty:
-            pass
-        self.after(120, self._drain)
-
-    # ---------- 填表 ----------
-    def _fill(self):
-        res = self.result
-        if not res:
-            return
-        self.filter_idx = None
-        self.lbl_filter.configure(text="")
-        self.rows = build_overview(res)
-        self._fill_mods()
-        self._fill_overview()
-        self._fill_right()
-        self._update_banner()
-        self.lbl_status.configure(text=t("gui.057") % res["elapsed"], foreground="#0a5")
-        self._restore_bottom()
-
-    def _fill_mods(self):
-        """填左侧 mod 列表。语言切换后重建界面也走这里。"""
-        res = self.result
-        if not res:
-            return
-        self.tv_mods.delete(*self.tv_mods.get_children())
-        for m in res["mods"]:
-            state = t("report.067")
-            tag = ()
-            if m["errors"]:
-                state = "/".join(m["errors"])[:22]
-                tag = ("bad",)
-            elif m["vover"] or m["ovr"]:
-                tag = ("multi",)
-            self.tv_mods.insert("", "end", iid=str(m["idx"]), tags=tag, values=(
-                m["idx"] + 1, m["name"], m["files"], m["vover"], m["ovr"],
-                m["beaten"], state))
-
-    def _update_banner(self):
-        """顶部横幅：一句话说清这套播放集的冲突状况。"""
-        st = overview_stats(self.result, self.rows)
-        focus = self.filter_idx
-        if focus is not None:
-            fs = focus_stats(self.rows, focus)
-            m = self.result["mods"][focus]
-            txt = (t("gui.059")
-                   % (focus + 1, m["name"], len(fs["beats"]), len(fs["beaten"]),
-                      len(fs["beaten_fixable"]), len(fs["beaten_nosort"])))
-            self.lbl_banner.configure(text=txt, foreground="#06c")
-            return
-        if not st["rows"] and not st["vs_vanilla"]:
-            self.lbl_banner.configure(
-                text=t("gui.060"), foreground="#0a5")
-            return
-        txt = (t("gui.061")
-               % (st["rows"], st["nosort"], st["vs_vanilla"]))
-        if st["nosort"]:
-            txt += t("gui.062")
-        self.lbl_banner.configure(
-            text=txt, foreground=("#c60" if st["nosort"] else "#0a5"))
-
-    def _visible_rows(self):
-        rows = self.rows
-        if self.var_mod_vs_mod.get():
-            rows = [r for r in rows if r.get("mod_vs_mod")]
-        if self.var_only_nosort.get():
-            rows = [r for r in rows if not r["sortable"]]
-        if self.var_focus.get() and self.filter_idx is not None:
-            rows = [r for r in rows
-                    if r["winner_mod"] == self.filter_idx
-                    or self.filter_idx in r["loser_mods"]]
-        return rows
-
-    def _fill_overview(self):
-        """总表：一行一条冲突，主列直接写成「谁覆盖了谁」。"""
-        for tv in (self.tv_ov,):
-            tv.delete(*tv.get_children())
-        for n, r in enumerate(self._visible_rows()):
-            if r["winner_mod"] == self.filter_idx and self.filter_idx is not None:
-                tag = ("hard",)
-            elif r.get("upset"):
-                tag = ("hard",)
-            elif not r["sortable"]:
-                tag = ("multi",)
-            else:
-                tag = ()
-            self.tv_ov.insert("", "end", iid="ov%d" % n, tags=tag,
-                              values=(speak_row(r),
-                                      t("gui.063") if not r["sortable"] else t("report.012"),
-                                      r["subject"], r["sem"]))
-
-    def _refill_overview(self):
-        if self.result:
-            self._fill_overview()
-            self._update_banner()
-
-    def _keep(self, entries):
-        if self.filter_idx is None:
-            return True
-        return any(e["idx"] == self.filter_idx for e in entries)
-
-    def _fill_right(self):
-        res = self.result
-        for tv in (self.tv_diff, self.tv_same, self.tv_van, self.tv_keys,
-                   self.tv_iface, self.tv_prob):
-            tv.delete(*tv.get_children())
-
-        for it in res["diff"]:
-            if not self._keep(it["entries"]):
-                continue
-            order = it["entries"]
-            losers = ", ".join("%d:%s" % (r["idx"] + 1, r["name"]) for r in order[:-1])
-            tag = ("hard",) if it["in_vanilla"] else ("multi",)
-            self.tv_diff.insert("", "end", iid=it["rel"], tags=tag, values=(
-                it["rel"], "%d:%s" % (it["winner"] + 1, it["winner_name"]),
-                losers, t("gui.064") if it["in_vanilla"] else ""))
-
-        for it in res["same"]:
-            if not self._keep(it["entries"]):
-                continue
-            mods = ", ".join("%d:%s" % (r["idx"] + 1, r["name"]) for r in it["entries"])
-            self.tv_same.insert("", "end", iid=it["rel"], values=(
-                it["rel"], mods, t("gui.064") if it["in_vanilla"] else ""))
-
-        for it in res["vanilla"]:
-            if not self._keep(it["entries"]):
-                continue
-            mods = ", ".join("%d:%s" % (r["idx"] + 1, r["name"]) for r in it["entries"])
-            tag = ("hard",) if it.get("multi") else ()
-            self.tv_van.insert("", "end", iid=it["rel"], tags=tag, values=(it["rel"], mods))
-
-        for n, it in enumerate(res["keys"]):
-            if self.filter_idx is not None and self.filter_idx not in it["mods"]:
-                continue
-            tag = ()
-            if it["upset"]:
-                tag = ("hard",)
-            elif it["sem"] in ("MERGE", "DUPL", "DUPL_LIOS", "DUPL_NO",
-                               "NO_DUPL_FIOS", "DUPL_FIOS", "NO"):
-                tag = ("multi",)
-            self.tv_keys.insert("", "end", iid="key%d" % n, tags=tag, values=(
-                it["key"], it["dir"], it["win_label"] or t("gui.065"),
-                sem_label(it["sem"]),
-                t("gui.064") if it["upset"] else "", len(it["entries"])))
-
-        for n, it in enumerate(res["iface"]):
-            if self.filter_idx is not None and self.filter_idx not in it["mods"]:
-                continue
-            tag = ("hard",) if it["upset"] else ()
-            self.tv_iface.insert("", "end", iid="if%d" % n, tags=tag, values=(
-                it["key"],
-                "gui" if it["kind"] == "gui" else "gfx",
-                it["win_label"], it["win_rel"],
-                t("gui.064") if it["upset"] else "", len(it["entries"])))
-
-        for n, p in enumerate(res["problems"]):
-            tags = ("hard",) if p["kind"] == "replace_path" else ()
-            self.tv_prob.insert("", "end", iid="pb%d" % n, tags=tags,
-                                values=(p["mod"], p["kind"], p["detail"]))
-
-    # ---------- 语言 ----------
-    def _on_lang_change(self, _e=None):
-        """切换语言：把配置写下来，然后整体重建界面。
-
-        重建而不是逐个改控件文字，是因为界面上的文字散落在几十个控件里，
-        逐个更新容易漏；重建一次代价不到一秒，且保证没有残留的旧语言。
-        """
-        name = self.var_lang.get()
-        code = next((c for c, n in i18n.languages() if n == name), i18n.DEFAULT_LANG)
-        if code == i18n.current():
-            return
-        i18n.set_language(code)
-        cfg = load_config()
-        cfg["lang"] = code
-        save_config(cfg)
-        self._rebuild()
-
-    def _rebuild(self):
-        """按当前语言重建整个界面，扫描结果原样保留。"""
-        res = self.result
-        focus = self.filter_idx
-        for child in self.winfo_children():
-            child.destroy()
-        self.title(t("gui.001"))          # 标题不归 _build 管，要单独重设
-        self._build(self.var_dlc.get() if hasattr(self, "var_dlc") else False)
-        self.result = res
-        self.filter_idx = focus
-        if res:
-            self.rows = build_overview(res)
-            self._fill_mods()
-            self._fill_overview()
-            self._fill_right()
-            self._update_banner()
-            self._restore_bottom()
-        else:
-            self._set_detail(t("gui.007"))
-
-    def _restore_bottom(self):
-        if not self.result:
-            return
-        st = overview_stats(self.result, self.rows)
-        self.lbl_bottom.configure(text=(
-            t("gui.058")
-            % (st["mods"], st["files"], st["vanilla_files"], st["rows"],
-               st["sortable"], st["nosort"], st["vs_vanilla"],
-               st["redundant"], st["problems"])))
-
-    # ---------- 交互 ----------
-    def clear_filter(self):
-        self.filter_idx = None
-        self.lbl_filter.configure(text="")
-        self.tv_mods.selection_remove(*self.tv_mods.selection())
-        if self.result:
-            self._fill_overview()
-            self._fill_right()
-            self._update_banner()
-            self._set_detail(t("gui.066"))
-
-    def _on_mod_select(self, _e):
-        sel = self.tv_mods.selection()
-        if not sel:
-            return
-        idx = int(sel[0])
-        if self.filter_idx == idx:
-            return
-        self.filter_idx = idx
-        m = self.result["mods"][idx]
-        self.lbl_filter.configure(text=t("gui.067") % (idx + 1, m["name"]))
-        self._fill_overview()
-        self._fill_right()
-        self._update_banner()
-        self._set_detail(self._mod_detail(m))
-
-    def _mod_detail(self, m):
-        L = []
-        L.append("%d  %s" % (m["idx"] + 1, m["name"]))
-        L.append(t("gui.068") % m["desc"])
-        L.append(t("gui.069") % (m["root"] or t("gui.070")))
-        if m["ver"]:
-            L.append(t("gui.071") % m["ver"])
-        if m["deps"]:
-            L.append("dependencies: %s" % ", ".join(m["deps"]))
-        L.append(t("gui.072")
-                 % (m["files"], m["vover"], m["ovr"], m["beaten"], m["redund"]))
-        nk = [k for k in self.result["keys"] if m["idx"] in k["mods"]]
-        if nk:
-            nupset = sum(1 for k in nk if any(m["idx"] in e["mods"] for e in k["upset"]))
-            L.append(t("gui.073")
-                     % (len(nk), nupset))
-        if m["errors"]:
-            L.append(t("gui.074") % t("sep.list").join(m["errors"]))
-        if m["rp"]:
-            L.append(t("gui.075")
-                     % ", ".join(m["rp"]))
-            for rp in self.result["replace_paths"]:
-                if rp["idx"] != m["idx"]:
-                    continue
-                L.append(t("gui.076")
-                         % (rp["victim_files"], rp["vanilla_files"]))
-                if rp["victims"]:
-                    for i, n, c in rp["victims"]:
-                        L.append(t("cli.015") % (i + 1, n, c))
-                else:
-                    L.append(t("cli.016"))
-        return "\n".join(L)
-
-    def _overview_detail(self, r):
-        """一条冲突的来龙去脉：结论、依据、候选链、证据、怎么办。"""
-        L = []
-        L.append(t("gui.077") % speak_row(r))
-        L.append("")
-        L.append(t("gui.078") % (r.get("subject") or r.get("key"), r["kind"]))
-        L.append(t("gui.079") % r["winner_label"])
-        L.append(t("gui.080") % r["winner_file"])
-        if r["losers"]:
-            L.append(t("gui.081") % t("sep.list").join(r["losers"]))
-        L.append(t("gui.082") % (r["sem"], r["reason"]))
-        L.append("")
-        L.append(t("gui.083"))
-        for label_, path, is_win in r["chain"]:
-            L.append("  %-22s %s%s" % (label_, path, t("gui.084") if is_win else t("gui.085")))
-        L.append("")
-        L.append(t("gui.086") % r["evidence"])
-        if r.get("upset"):
-            L.append("")
-            L.append(t("gui.087"))
-            L.append(t("gui.088"))
-            for who in r["upset"]:
-                L.append("  %s" % who)
-        L.append("")
-        if r["sortable"]:
-            L.append(t("gui.089"))
-        else:
-            L.append(t("gui.090"))
-            L.append(t("gui.091"))
-            L.append(t("gui.092"))
-        if r["in_vanilla"]:
-            L.append("")
-            L.append(t("gui.093"))
-            L.append(t("gui.094"))
-        return "\n".join(L)
-
-    def _on_row_select(self, key, tv):
-        sel = tv.selection()
-        if not sel:
-            return
-        iid = sel[0]
-        res = self.result
-        if not res:
-            return
-        if key == "ov":
-            try:
-                idx_o = int(iid[2:])
-            except (ValueError, TypeError):
-                return
-            rows = self._visible_rows()
-            if not (0 <= idx_o < len(rows)):
-                return
-            self._set_detail(self._overview_detail(rows[idx_o]))
-            return
-        if key in ("diff", "same", "van", "iface"):
-            if key == "iface":
-                try:
-                    idx_i = int(iid[2:])
-                except (ValueError, TypeError):
-                    return
-                if not (0 <= idx_i < len(res["iface"])):
-                    return
-                it = res["iface"][idx_i]
-                L = ["%s: %s  [%s]" % (t("gui.095") if it["kind"] == "gui" else t("gui.096"),
-                                       it["key"], it["kind"])]
-                L.append(t("gui.097"))
-                L.append("")
-                for e in it["entries"]:
-                    mark = t("gui.098") if e["rel"] == it["win_rel"] else ""
-                    L.append("%-62s -> %s%s" % (e["rel"], e["winner_label"], mark))
-                self._set_detail("\n".join(L))
-                return
-            pool = {"diff": res["diff"], "same": res["same"], "van": res["vanilla"]}[key]
-            it = next((x for x in pool if x["rel"] == iid), None)
-            if not it:
-                return
-            L = [t("gui.099") % it["rel"]]
-            if key == "diff":
-                L.append(t("gui.100"))
-            elif key == "same":
-                L.append(t("gui.101"))
-            else:
-                L.append(t("gui.102"))
-            if it.get("in_vanilla"):
-                L.append(t("gui.103") % os.path.join(res["vanilla_root"], it["rel"]))
-            L.append("")
-            for r in it["entries"]:
-                mark = ""
-                if key == "diff":
-                    mark = t("gui.098") if r["idx"] == it["winner"] else t("gui.104")
-                try:
-                    van_st = os.stat(os.path.join(res["vanilla_root"], it["rel"]))
-                    vtxt = "%s  %s" % (fmt_size(van_st.st_size), fmt_time(van_st.st_mtime))
-                except OSError:
-                    vtxt = "-"
-                L.append("[%d] %s%s" % (r["idx"] + 1, r["name"], mark))
-                L.append("    %s" % r["full"])
-                L.append(t("gui.105")
-                         % (fmt_size(r["size"]), fmt_time(r["mtime"]),
-                            (r["md5"] or "-")[:12], vtxt))
-            self._set_detail("\n".join(L))
-        elif key == "keys":
-            try:
-                idx_k = int(iid[3:])
-            except (ValueError, TypeError):
-                return
-            if not (0 <= idx_k < len(res["keys"])):
-                return
-            it = res["keys"][idx_k]
-            L = [t("gui.106") % it["key"]]
-            L.append(t("gui.107") % it["dir"])
-            raw_type = WIKI_RAW_TYPE.get(it["dir"], "")
-            L.append(t("gui.108")
-                     % (sem_label(it["sem"]),
-                        (t("gui.109") % raw_type) if raw_type and raw_type != it["sem"] else ""))
-            if it["sem"] == "FIOS":
-                L.append(t("gui.110"))
-            elif it["sem"] == "LIOS":
-                L.append(t("gui.111"))
-            elif it["sem"] == "MERGE":
-                L.append(t("gui.112"))
-            elif it["sem"] == "UNKNOWN":
-                L.append(t("gui.113"))
-            else:
-                L.append(t("gui.114") % raw_type)
-            # 本地实测与 wiki 结论不一致时并列提示，不静默取舍
-            k_lower = it["dir"]
-            for ck, (cwk, cnote) in CONTESTED.items():
-                if k_lower == "common/" + ck or k_lower.endswith("/" + ck):
-                    L.append("")
-                    L.append(t("gui.115"))
-                    L.append("      %s" % cnote)
-            note = WIKI_NOTES.get(it["dir"])
-            if note:
-                err, nt = note
-                if nt:
-                    L.append("")
-                    L.append(t("gui.116") % nt)
-                if err:
-                    L.append(t("gui.117") % err)
-            L.append("")
-            L.append(t("gui.118"))
-            for e in it["entries"]:
-                mark = t("gui.098") if e["rel"] == it["win_rel"] and it["win_rel"] else ""
-                src = e["winner_label"]
-                extra = t("gui.119") % len(e["paths"]) if e["multi_path"] else ""
-                L.append("  %-58s -> %s%s%s" % (e["name"], src, extra, mark))
-            if it["upset"]:
-                L.append("")
-                L.append(t("gui.120"))
-                L.append(t("gui.121"))
-                for e in it["upset"]:
-                    L.append("    %s  (%s)" % (e["rel"], e["winner_label"]))
-            if it["has_vanilla"]:
-                L.append("")
-                L.append(t("gui.122"))
-            self._set_detail("\n".join(L))
-        else:
-            L = [tv.set(iid, "detail")]
-            mod_name = tv.set(iid, "mod")
-            for rp in res["replace_paths"]:
-                if rp["mod"] != mod_name:
-                    continue
-                L.append("")
-                L.append(t("gui.123") % rp["path"])
-                L.append(t("gui.124")
-                         % (rp["victim_files"], rp["vanilla_files"]))
-                if rp["victims"]:
-                    for i, n, c in rp["victims"]:
-                        L.append(t("gui.125") % (i + 1, n, c))
-                else:
-                    L.append(t("gui.126"))
-            self._set_detail("\n".join(L))
-
-    def _set_detail(self, s):
-        self.txt.configure(state="normal")
-        self.txt.delete("1.0", "end")
-        self.txt.insert("1.0", s or "")
-        self.txt.configure(state="disabled")
-
-    # ---------- 导出给 AI 的报告 ----------
-    def _report_text(self):
-        if not self.result:
-            return None
-        return build_report(self.result)
-
-    def export_report(self):
-        rep = self._report_text()
-        if rep is None:
-            self._set_detail(t("gui.127"))
-            return
-        from tkinter import filedialog
-        desk = _known_folder("{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}")
-        if not desk or not os.path.isdir(desk):
-            desk = os.path.expanduser("~")
-        path = filedialog.asksaveasfilename(
-            title=t("gui.128"),
-            initialfile=t("gui.129"),
-            initialdir=desk,
-            defaultextension=".md",
-            filetypes=[("Markdown", "*.md"), (t("gui.130"), "*.txt"), (t("gui.131"), "*.*")])
-        if not path:
-            return
-        try:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(rep)
-            self._set_detail(t("gui.132")
-                             % (path, len(rep)))
-        except OSError as e:
-            self._set_detail(t("gui.133") % e)
-
-    def copy_report(self):
-        rep = self._report_text()
-        if rep is None:
-            self._set_detail(t("gui.127"))
-            return
-        try:
-            self.clipboard_clear()
-            self.clipboard_append(rep)
-            self.update()
-            self._set_detail(t("gui.134") % len(rep))
-        except tk.TclError as e:
-            self._set_detail(t("gui.135") % e)
-
-
 def main():
     # 先定语言再建 argparse，否则 --help 的文字会停在 import 时的语言。
     init_paths()
@@ -2355,7 +1610,7 @@ def main():
         if a.report:
             outp = a.report
         else:
-            desk = _known_folder("{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}")
+            desk = _known_folder("{B4BFCC3A-DB2C-424C-B029-BFE99A87C641}")
             outp = os.path.join(desk if desk and os.path.isdir(desk)
                                 else os.path.expanduser("~"),
                                 t("gui.129"))
@@ -2372,7 +1627,8 @@ def main():
     if a.cli:
         print_summary(scan(include_dlc=a.include_dlc, progress=lambda m: None))
     else:
-        App(include_dlc=a.include_dlc).mainloop()
+        from gui_app import App as GuiApp  # GUI 已迁至 gui_app.py
+        GuiApp(include_dlc=a.include_dlc).mainloop()
 
 
 if __name__ == "__main__":
