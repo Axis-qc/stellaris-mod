@@ -1,0 +1,445 @@
+# 利维坦行星支援 — 事件（namespace lev，事件号 300~319）
+# ============================================
+# 作用域铁律（来自实机 error.log）：
+# 1. any_fleet_in_orbit 只支持 megastructure/planet/ship/starbase，
+#    不支持 colony——every_owned_planet 迭代出的是 colony，必须先
+#    planet = { } 切到行星作用域再查轨道，否则触发器报错判假、buff 被误清。
+# 2. 支援数值内部读 owner.<等级变量>，必须在有 owner 的作用域求值：
+#    行星事件（root = 殖民地）与舰队作用域各有 owner，直接 value:<名字>；
+#    写成 root.owner.value:<名字> 会落到国家作用域（无 owner）报错掉回基础值。
+# 主动支援：on_completed 桥（root = 目标行星，from = 出手舰队），
+# 挂 _active 定时 modifier（强度 = 驻留×2），可与驻留层叠加共存。
+# 入轨/离轨：root = 舰队、from = 入离轨对象（is_scope_type = planet 过滤）。
+# 月度兜底：清「buff 还在但轨道上已无本国该类型利维坦」的残留。
+
+namespace = lev
+
+# ============ 主动支援：on_completed 桥（root = 行星，from = 舰队）============
+
+# 噬星者
+planet_event = {
+	id = lev.301
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_stellarite_active
+			days = 3600
+			mult = value:lev_support_active_stellarite
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_stellarite
+				days = 3600
+				mult = value:lev_support_debuff_stellarite
+			}
+		}
+	}
+}
+
+# 无限神机
+planet_event = {
+	id = lev.303
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_sphere_active
+			days = 3600
+			mult = value:lev_support_active_sphere
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_sphere
+				days = 3600
+				mult = value:lev_support_debuff_sphere
+			}
+		}
+	}
+}
+
+# 幽魂
+planet_event = {
+	id = lev.305
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_wraith_active
+			days = 3600
+			mult = value:lev_support_active_wraith
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_wraith
+				days = 3600
+				mult = value:lev_support_debuff_wraith
+			}
+		}
+	}
+}
+
+# 拾荒机器人
+planet_event = {
+	id = lev.307
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_scavenger_active
+			days = 3600
+			mult = value:lev_support_active_scavenger
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_scavenger
+				days = 3600
+				mult = value:lev_support_debuff_scavenger
+			}
+		}
+	}
+}
+
+# 毒圣
+planet_event = {
+	id = lev.309
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_toxic_god_active
+			days = 3600
+			mult = value:lev_support_active_toxic_god
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_toxic_god
+				days = 3600
+				mult = value:lev_support_debuff_toxic_god
+			}
+		}
+	}
+}
+
+# 天龙
+planet_event = {
+	id = lev.311
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = lev_orbit_aquatic_active
+			days = 3600
+			mult = value:lev_support_active_aquatic
+		}
+		from = {
+			add_modifier = {
+				modifier = lev_support_fleet_debuff_aquatic
+				days = 3600
+				mult = value:lev_support_debuff_aquatic
+			}
+		}
+	}
+}
+
+# ============ 驻留支援：入轨挂 buff / 离轨清理（root = 舰队，from = 行星）============
+
+# 入轨：已方殖民地挂驻留 buff（days = -1 永续，离轨/兜底移除）
+# 互斥按类型独立：不同利维坦各给各的 buff；同类型不叠（同名重复 add 会刷新天数）；
+# 主动支援是独立的一层，与驻留共存。add_modifier 在 from（行星，有 owner）作用域执行。
+fleet_event = {
+	id = lev.313
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		lev_has_support_leviathan = yes
+		from = { is_scope_type = planet }
+		from.owner = { is_same_value = root.controller }
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_stellarite }
+				controller = { has_country_flag = lev_stellarite_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_stellarite } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_stellarite days = -1 mult = value:lev_support_stellarite } }
+		}
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_sphere }
+				controller = { has_country_flag = lev_sphere_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_sphere } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_sphere days = -1 mult = value:lev_support_sphere } }
+		}
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_wraith }
+				controller = { has_country_flag = lev_wraith_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_wraith } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_wraith days = -1 mult = value:lev_support_wraith } }
+		}
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_scavenger }
+				controller = { has_country_flag = lev_scavenger_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_scavenger } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_scavenger days = -1 mult = value:lev_support_scavenger } }
+		}
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_toxic_god }
+				controller = { has_country_flag = lev_toxic_god_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_toxic_god } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_toxic_god days = -1 mult = value:lev_support_toxic_god } }
+		}
+		if = {
+			limit = {
+				any_owned_ship = { is_ship_size = lev_aquatic }
+				controller = { has_country_flag = lev_aquatic_unlocked }
+				from = { NOT = { has_modifier = lev_orbit_aquatic } }
+			}
+			from = { add_modifier = { modifier = lev_orbit_aquatic days = -1 mult = value:lev_support_aquatic } }
+		}
+	}
+}
+
+# 离轨：按类型独立移除——轨道上已无本国该类型利维坦才清对应 buff，
+# 多只不同利维坦驻留同一行星时互不影响；主动支援是定时的，不由本事件清理。
+# from 是行星作用域，any_fleet_in_orbit 合法。
+fleet_event = {
+	id = lev.315
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		lev_has_support_leviathan = yes
+		from = { is_scope_type = planet }
+	}
+
+	immediate = {
+		from = {
+			if = {
+				limit = {
+					has_modifier = lev_orbit_stellarite
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_stellarite }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_stellarite
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_sphere
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_sphere }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_sphere
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_wraith
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_wraith }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_wraith
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_scavenger
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_scavenger }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_scavenger
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_toxic_god
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_toxic_god }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_toxic_god
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_aquatic
+					NOR = {
+						any_fleet_in_orbit = {
+							exists = owner
+							owner = { is_same_value = root.controller }
+							any_owned_ship = { is_ship_size = lev_aquatic }
+						}
+					}
+				}
+				remove_modifier = lev_orbit_aquatic
+			}
+		}
+	}
+}
+
+# ============ 月度兜底（country_event，on_monthly_pulse_country 桥）============
+
+# 清施放国自己星球上的残留驻留 buff（舰队被歼灭等离轨事件覆盖不到的情形）。
+# every_owned_planet 迭代作用域是 colony，any_fleet_in_orbit 不支持 colony，
+# 必须先 planet = { } 切到行星作用域；按类型独立检查。
+country_event = {
+	id = lev.317
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = lev_stellarite_unlocked
+			has_country_flag = lev_sphere_unlocked
+			has_country_flag = lev_wraith_unlocked
+			has_country_flag = lev_scavenger_unlocked
+			has_country_flag = lev_toxic_god_unlocked
+			has_country_flag = lev_aquatic_unlocked
+		}
+	}
+
+	immediate = {
+		every_owned_planet = {
+			limit = {
+				OR = {
+					has_modifier = lev_orbit_stellarite
+					has_modifier = lev_orbit_sphere
+					has_modifier = lev_orbit_wraith
+					has_modifier = lev_orbit_scavenger
+					has_modifier = lev_orbit_toxic_god
+					has_modifier = lev_orbit_aquatic
+				}
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_stellarite
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_stellarite }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_stellarite
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_sphere
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_sphere }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_sphere
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_wraith
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_wraith }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_wraith
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_scavenger
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_scavenger }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_scavenger
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_toxic_god
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_toxic_god }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_toxic_god
+			}
+			if = {
+				limit = {
+					has_modifier = lev_orbit_aquatic
+					planet = {
+						NOR = {
+							any_fleet_in_orbit = {
+								exists = owner
+								owner = { is_same_value = root }
+								any_owned_ship = { is_ship_size = lev_aquatic }
+							}
+						}
+					}
+				}
+				remove_modifier = lev_orbit_aquatic
+			}
+		}
+	}
+}
+
+# 占位事件号：lev.319 留给后续扩展（跨国 buff 或换防刷新），本期不使用
+
+

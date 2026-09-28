@@ -1,0 +1,95 @@
+# 利维坦行星支援 — static_modifier（先锋舰单位值×mult 同构）
+# ============================================
+# 数值由事件层 mult = value:lev_support_* 动态决定，字段写单位值
+# （0.01 = 每 1 点数值 +1%），描述侧动态显示真实数值。
+# 驻留与主动拆成两套：同名不同 desc 会分不清显示哪份动态数值，
+# 且离轨清理/月度兜底需要按名字区分「永续」与「定时」。
+# 主动版施加时同步 set_timed_planet_flag（lev_support_active_flag，3600 天），
+# 月度兜底见此标记即跳过，保证定时 buff 走完整周期。
+# 图标复用原版行星 modifier 图标，不需要自绘。
+
+# ── 噬星者：恒星暖流（能量岗位产出）──
+lev_orbit_stellarite = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_jobs_energy_produces_mult = 0.01
+}
+
+lev_orbit_stellarite_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_jobs_energy_produces_mult = 0.01
+}
+
+# ── 无限神机：演算谐振（研究岗位产出）──
+lev_orbit_sphere = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_researchers_produces_mult = 0.01
+}
+
+lev_orbit_sphere_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_researchers_produces_mult = 0.01
+}
+
+# ── 幽魂：光谱校准（物理研究岗位产出）──
+lev_orbit_wraith = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_jobs_physics_research_produces_mult = 0.01
+}
+
+lev_orbit_wraith_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_jobs_physics_research_produces_mult = 0.01
+}
+
+# ── 拾荒机器人：废料回收网（冶金岗位产出）──
+lev_orbit_scavenger = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_metallurgists_produces_mult = 0.01
+}
+
+lev_orbit_scavenger_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_metallurgists_produces_mult = 0.01
+}
+
+# ── 毒圣：孢子沃土（农场岗位产出）──
+lev_orbit_toxic_god = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_jobs_food_produces_mult = 0.01
+}
+
+lev_orbit_toxic_god_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_jobs_food_produces_mult = 0.01
+}
+
+# ── 天龙：冰焰庇护（行星稳定度，字段单位值 1）──
+lev_orbit_aquatic = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	planet_stability_add = 1
+}
+
+lev_orbit_aquatic_active = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 2
+	planet_stability_add = 1
+}
+
+# ============ 主动支援的舰队火力代价（字段单位值 -0.01）============
+lev_support_fleet_debuff_stellarite = { ship_weapon_damage = -0.01 }
+lev_support_fleet_debuff_sphere = { ship_weapon_damage = -0.01 }
+lev_support_fleet_debuff_wraith = { ship_weapon_damage = -0.01 }
+lev_support_fleet_debuff_scavenger = { ship_weapon_damage = -0.01 }
+lev_support_fleet_debuff_toxic_god = { ship_weapon_damage = -0.01 }
+lev_support_fleet_debuff_aquatic = { ship_weapon_damage = -0.01 }

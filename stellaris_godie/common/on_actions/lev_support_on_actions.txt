@@ -1,0 +1,42 @@
+# 利维坦行星支援 — on_action 桥（同 key 跨文件自动合并，不覆盖原版定义）
+# ============================================
+# 主动支援：scripted_action 的 on_completed → 对应事件（root = 行星，from = 舰队）
+# 驻留支援：入轨/离轨钩子直接在事件文件的事件 trigger 里过滤，不在此挂全局事件
+# 月度兜底：on_monthly_pulse_country 作用域 = 国家
+
+on_lev_stellarite_support_completed = {
+	events = { lev.301 }
+}
+
+on_lev_sphere_support_completed = {
+	events = { lev.303 }
+}
+
+on_lev_wraith_support_completed = {
+	events = { lev.305 }
+}
+
+on_lev_scavenger_support_completed = {
+	events = { lev.307 }
+}
+
+on_lev_toxic_god_support_completed = {
+	events = { lev.309 }
+}
+
+on_lev_aquatic_support_completed = {
+	events = { lev.311 }
+}
+
+on_monthly_pulse_country = {
+	events = { lev.317 }
+}
+
+# 驻留支援：入轨挂 buff / 离轨移除（同 key 跨文件合并，不覆盖原版定义）
+on_fleet_enter_orbit = {
+	events = { lev.313 }
+}
+
+on_fleet_leave_orbit = {
+	events = { lev.315 }
+}

@@ -1,0 +1,248 @@
+# 利维坦行星支援 — 主动支援行动（slot 4，方舟 scope = planet 同构）
+# ============================================
+# 玩家点选目标行星 → 舰队自动飞抵轨道 → 进度条走完触发 on_completed：
+# 事件作用域 root = 目标行星、from = 出手舰队（README 与 biocrisis.300 铁证）。
+# possible/finished 在目标行星作用域求值；button_visible/clickable 在舰队作用域求值。
+# 强度 = 驻留 × 2，持续 3600 天，代价 = 舰队武器伤害 debuff 同期。
+# 主动层可与驻留层叠加（停着不动放主动 = 驻留+主动两层同时生效），
+# 门控只防自身 _active 重复。
+
+# ── 噬星者：恒星暖流（目标行星能量岗位产出强化）──
+lev_stellarite_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_stellarite_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_stellarite }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_stellarite_support_completed
+	tooltip = lev_stellarite_support_ship_button
+	icon = GFX_fleet_action_button_arkship_stellar_ignition
+	icon_selected = GFX_fleet_action_button_arkship_stellar_ignition
+	activity_key = lev_stellarite_support_activity_key
+	context_menu_name = lev_stellarite_support_menu_title
+	progress_activity_key = lev_stellarite_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}
+
+# ── 无限神机：演算谐振（目标行星研究岗位产出强化）──
+lev_sphere_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_sphere_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_sphere }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_sphere_support_completed
+	tooltip = lev_sphere_support_ship_button
+	icon = GFX_fleet_action_button_arkship_deep_scan
+	icon_selected = GFX_fleet_action_button_arkship_deep_scan
+	activity_key = lev_sphere_support_activity_key
+	context_menu_name = lev_sphere_support_menu_title
+	progress_activity_key = lev_sphere_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}
+
+# ── 幽魂：光谱校准（目标行星物理研究岗位产出强化）──
+lev_wraith_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_wraith_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_wraith }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_wraith_support_completed
+	tooltip = lev_wraith_support_ship_button
+	icon = GFX_fleet_action_button_active_reconnaissance
+	icon_selected = GFX_fleet_action_button_active_reconnaissance
+	activity_key = lev_wraith_support_activity_key
+	context_menu_name = lev_wraith_support_menu_title
+	progress_activity_key = lev_wraith_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}
+
+# ── 拾荒机器人：废料回收网（目标行星冶金岗位产出强化）──
+lev_scavenger_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_scavenger_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_scavenger }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_scavenger_support_completed
+	tooltip = lev_scavenger_support_ship_button
+	icon = GFX_fleet_action_button_arkship_strip_mine
+	icon_selected = GFX_fleet_action_button_arkship_strip_mine
+	activity_key = lev_scavenger_support_activity_key
+	context_menu_name = lev_scavenger_support_menu_title
+	progress_activity_key = lev_scavenger_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}
+
+# ── 毒圣：孢子沃土（目标行星农场岗位产出强化）──
+lev_toxic_god_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_toxic_god_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_toxic_god }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_toxic_god_support_completed
+	tooltip = lev_toxic_god_support_ship_button
+	icon = GFX_fleet_action_button_arkship_harvest_resources
+	icon_selected = GFX_fleet_action_button_arkship_harvest_resources
+	activity_key = lev_toxic_god_support_activity_key
+	context_menu_name = lev_toxic_god_support_menu_title
+	progress_activity_key = lev_toxic_god_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}
+
+# ── 天龙：冰焰庇护（目标行星稳定度强化）──
+lev_aquatic_support = {
+	user_scope = fleet
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = lev_support_requires_own_colony_tt
+			exists = owner
+			exists = from.controller
+			owner = { is_same_value = from.controller }
+		}
+		custom_tooltip = {
+			fail_text = lev_support_no_conflict_tt
+			NOT = { has_modifier = lev_orbit_aquatic_active }
+		}
+	}
+
+	button_visible = {
+		any_owned_ship = { is_ship_size = lev_aquatic }
+	}
+
+	button_clickable = {
+		always = yes
+	}
+
+	on_completed = on_lev_aquatic_support_completed
+	tooltip = lev_aquatic_support_ship_button
+	icon = GFX_fleet_action_button_paladin_hold_the_line
+	icon_selected = GFX_fleet_action_button_paladin_hold_the_line
+	activity_key = lev_aquatic_support_activity_key
+	context_menu_name = lev_aquatic_support_menu_title
+	progress_activity_key = lev_aquatic_support_progress_key
+
+	wait = no
+	required_progress = 5
+	cooldown = 480
+	slot = 4
+}

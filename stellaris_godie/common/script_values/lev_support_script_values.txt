@@ -1,0 +1,45 @@
+# 利维坦行星支援数值 — 强度动态跟随成长等级
+# ============================================
+# 先锋舰同构：script_value 出数值，事件层用 `mult = value:<名字>` 挂进
+# static_modifier（字段写单位值，实际强度 = 字段值 × 数值），
+# 显示侧由 scripted_loc 的 defined_text 引用同名 value，本地化 token 动态更新。
+#
+# 作用域：事件层求值发生在舰队/行星作用域，用 root.owner.value:<名字> 读
+# 舰队所属国家的成长等级；本地化层 token 在有 owner 的作用域求值。
+# 因此行星 buff 只施加给施放国自己拥有的星球，保证等级读取一致。
+# 曲线统一为 (基础 + 等级) × 乘数（mult 作用于整体和），全程整数运算：
+# 驻留 = 基准曲线；主动支援 = 驻留 × 2。
+# 变量 lev_<T>_growth_level 由成长系统维护，未初始化按 0 处理。
+#
+# ── 驻留（行星 buff）──
+# 噬星者/无限神机/幽魂：+10% 每级再 +1%（能量/研究/物理岗位，字段 0.01）
+lev_support_stellarite = { base = 9 add = owner.lev_stellarite_growth_level }
+lev_support_sphere = { base = 9 add = owner.lev_sphere_growth_level }
+lev_support_wraith = { base = 9 add = owner.lev_wraith_growth_level }
+
+# 拾荒机器人：+12% 每级再 +1%（冶金岗位）
+lev_support_scavenger = { base = 11 add = owner.lev_scavenger_growth_level }
+
+# 毒圣：+15% 每级再 +1%（农场岗位）
+lev_support_toxic_god = { base = 14 add = owner.lev_toxic_god_growth_level }
+
+# 天龙：稳定度 (1+等级)×2 点（L1=4，字段 1）
+lev_support_aquatic = { base = 1 add = owner.lev_aquatic_growth_level mult = 2 }
+
+# ── 主动支援（驻留 ×2，字段同为 0.01）：强化版直接在数值上翻倍 ──
+lev_support_active_stellarite = { base = 9 add = owner.lev_stellarite_growth_level mult = 2 }
+lev_support_active_sphere = { base = 9 add = owner.lev_sphere_growth_level mult = 2 }
+lev_support_active_wraith = { base = 9 add = owner.lev_wraith_growth_level mult = 2 }
+lev_support_active_scavenger = { base = 11 add = owner.lev_scavenger_growth_level mult = 2 }
+lev_support_active_toxic_god = { base = 14 add = owner.lev_toxic_god_growth_level mult = 2 }
+# 天龙主动：稳定度 (1+等级)×4 点（L1=8）
+lev_support_active_aquatic = { base = 1 add = owner.lev_aquatic_growth_level mult = 4 }
+
+# ── 主动支援代价（舰队火力 debuff，字段 -0.01）：(4+等级)×2% → L1 -10%、L10 -28% ──
+# 每只独立一份：debuff 施放在舰队上，等级要读对应利维坦自己的成长变量
+lev_support_debuff_stellarite = { base = 4 add = owner.lev_stellarite_growth_level mult = 2 }
+lev_support_debuff_sphere = { base = 4 add = owner.lev_sphere_growth_level mult = 2 }
+lev_support_debuff_wraith = { base = 4 add = owner.lev_wraith_growth_level mult = 2 }
+lev_support_debuff_scavenger = { base = 4 add = owner.lev_scavenger_growth_level mult = 2 }
+lev_support_debuff_toxic_god = { base = 4 add = owner.lev_toxic_god_growth_level mult = 2 }
+lev_support_debuff_aquatic = { base = 4 add = owner.lev_aquatic_growth_level mult = 2 }
