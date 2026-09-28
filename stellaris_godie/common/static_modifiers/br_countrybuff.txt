@@ -6,17 +6,18 @@ br_combat_range_buff = {
     leader_lifespan_add = 999
 }
 
-# 战斗减速补正：值 0.6，配合 br_clamp_delta_* 得生效倍率 = 0.4 * (1+b)
+# 战斗减速补正：值 = 1 - 保留比例，配合 br_clamp_delta_* 得生效倍率 = 保留比例 * (1+b)
+# 当前保留比例：射程 50%；航速 20%；舰载机速度 20%；射速 40%
 br_clamp_range_corr = {
-    ship_weapon_range_mult = 0.6
+    ship_weapon_range_mult = 0.5
 }
 
 br_clamp_speed_corr = {
-    ship_base_speed_mult = 0.6
+    ship_base_speed_mult = 0.8
 }
 
 br_clamp_sc_corr = {
-    weapon_type_strike_craft_speed_mult = 0.6
+    weapon_type_strike_craft_speed_mult = 0.8
 }
 
 br_clamp_firerate_corr = {
