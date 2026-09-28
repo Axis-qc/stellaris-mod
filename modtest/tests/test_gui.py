@@ -6,6 +6,10 @@
   页签结构、文件树挂载、本地化页签、详情操作条、删除清单增删、
   删除取消路径（不碰真实 mod），以及夹具上的真实删除+备份+还原全流程。
 跑法：python tests\\test_gui.py，结束后自清理夹具与本次备份。
+
+IDE 已知误报：下方对 fs_ops / i18n / gui_app 的 import 依赖第 21 行的
+sys.path 注入（tests 引 src 的跨目录导入），WebStorm 静态分析解析不到，
+实跑正常，用 noinspection 压掉。
 """
 
 import io
@@ -13,6 +17,8 @@ import json
 import os
 import shutil
 import sys
+
+# noinspection PyUnresolvedReferences
 import tkinter.messagebox as mb
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -94,14 +100,31 @@ def fake_result(fx):
 
 
 def main():
+    # 防跨运行残留：上次测试若在语言切换中途崩溃，config 里会留下别的语言，
+    # 先归位到 zh-CN，保证断言与环境无关。
+    # noinspection PyUnresolvedReferences
+    import i18n
+    i18n.set_language("zh-CN")
+    # noinspection PyUnresolvedReferences
     from fs_ops import restore_backups
-    from i18n import t
-
+    # noinspection PyUnresolvedReferences
+    from i18n import t as _t
+    t = _t
+    # noinspection PyUnresolvedReferences
+    import gui_app
+    # 隔离 config：config.json 在 %APPDATA%，跨运行残留（语言、路径）会让
+    # 断言时好时坏；这里把两侧的 load/save 换成进程内字典，测试彻底确定性。
+    # noinspection PyUnresolvedReferences
+    import mod_conflict_check as _mcc
+    _mem_cfg = {"lang": "zh-CN"}
+    _mcc.load_config = lambda: dict(_mem_cfg)
+    _mcc.save_config = lambda cfg: (_mem_cfg.clear(), _mem_cfg.update(cfg), True)[2]
+    gui_app.load_config = _mcc.load_config
+    gui_app.save_config = _mcc.save_config
     fx = make_fixture()
     res = fake_result(fx)
     backups_before = os.path.isdir(BACKUPS)
 
-    import gui_app
     app = gui_app.App(include_dlc=False)
     try:
         app.update_idletasks()
@@ -165,10 +188,13 @@ def main():
 
         print("== 删除：真实执行（夹具）+ 备份 + 还原 ==")
         mb.askyesno = lambda *a, **k: True
+        real_rescan = app.rescan
+        app.rescan = lambda: None      # 隔离真实重扫，保持假数据状态可断言
         try:
             app._delete_keep_version()
         finally:
             mb.askyesno = orig
+            app.rescan = real_rescan
         check("Beta 的文件已删除", not os.path.exists(fx["B"]["common"]))
         stamps = os.listdir(BACKUPS) if os.path.isdir(BACKUPS) else []
         bak = None
@@ -189,6 +215,48 @@ def main():
                   io.open(fx["B"]["common"], encoding="utf-8").read() ==
                   "B version\n")
 
+        print("== 增量功能：过滤 / 横幅跳转 / 还原入口 ==")
+        app.var_tree_filter.set("stuff.txt")
+        app._apply_tree_filter()
+        app.update()
+        check("过滤后仅剩匹配文件",
+              len(app.tv_tree.get_children("")) >= 1 and
+              app.tv_tree.exists("f|common/stuff.txt"))
+        check("过滤视图展开", app.tv_tree.item("d|common", "open"))
+        app._clear_tree_filter()
+        app.update()
+        check("清空过滤恢复全树", app.tv_tree.exists("f|common/stuff.txt"))
+        app._banner_jump()
+        sel = app.tv_tree.selection()
+        check("横幅跳转选中首个冲突文件",
+              sel and sel[0].startswith("f|"))
+        check("跳转后详情有内容",
+              bool(app.txt.get("1.0", "end").strip()))
+        shown = []
+        mb.showinfo = lambda *a, **k: shown.append(a)
+        bdir = os.path.join(TOOL_ROOT, "backups")
+        moved = False
+        if os.path.isdir(bdir):
+            shutil.move(bdir, bdir + "_t")
+            moved = True
+        try:
+            app._restore_dialog()      # 无备份 → 提示分支
+        finally:
+            if moved:
+                shutil.move(bdir + "_t", bdir)
+            del mb.showinfo
+        check("无备份时还原入口弹提示", len(shown) == 1)
+        mb.showinfo = lambda *a, **k: shown.append(a)
+        try:
+            app._restore_dialog()      # 有备份 → 打开选择对话框
+        finally:
+            del mb.showinfo
+        toplevels = [w for w in app.winfo_children()
+                     if isinstance(w, __import__("tkinter").Toplevel)]
+        for w in toplevels:
+            w.destroy()
+        check("有备份时打开还原对话框", len(toplevels) >= 1)
+
         print("== 语言切换 ==")
         old = app.var_lang.get()
         other = next(n for c, n in
@@ -196,6 +264,8 @@ def main():
         app.var_lang.set(other)
         app._on_lang_change()
         app.update()
+        # _rebuild 会重建控件：操作条引用随旧界面销毁，指向 None 收起
+        app._set_action(None)
         check("重建后页签为新语言",
               app.nb_main.tab(0, "text") == t("gui.143"))
         back = next(n for c, n in

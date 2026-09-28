@@ -1,6 +1,6 @@
 # Stellaris 播放集冲突报告
 
-工具产出，供玩家自己看，也供 AI 做排序分析与冲突排查。原版目录 `G:\SteamLibrary\steamapps\common\Stellaris`，扫描耗时 8.6 秒。
+工具产出，供玩家自己看，也供 AI 做排序分析与冲突排查。原版目录 `G:\SteamLibrary\steamapps\common\Stellaris`，扫描耗时 8.2 秒。
 
 ## 这份报告怎么看（给玩家）
 

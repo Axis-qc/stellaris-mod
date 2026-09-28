@@ -12,6 +12,7 @@
 main() 由 mod_conflict_check.py 接线，本模块不提供入口。
 """
 
+import json
 import os
 import queue
 import re
@@ -37,11 +38,12 @@ from mod_conflict_check import (scan, build_overview, build_report, overview_sta
 # 文件删除与备份走 fs_ops；fs_ops 缺失时删除按钮组置灰，其余功能不受影响。
 try:
     import fs_ops
-    from fs_ops import plan_targets, execute_deletes, is_workshop, backup_dir_for \
-        as fs_backup_dir
+    from fs_ops import (plan_targets, execute_deletes, is_workshop,
+                        backup_dir_for as fs_backup_dir, restore_backups)
 except ImportError:
     fs_ops = None
     plan_targets = execute_deletes = is_workshop = None
+    restore_backups = None
 
     def fs_backup_dir(tool_root, stamp=None):
         """fs_ops 缺失时的兜底：只给个路径字符串，避免界面代码崩掉。"""
@@ -74,6 +76,10 @@ class App(tk.Tk):
         self._fr_map = {}          # 页签 key -> frame（删除清单按钮条挂这里）
         self.loc_ready = False     # res["loc"] 本地化数据已填充
         self.loc_items = []        # res["loc"] 的冲突行（供文件树与页签共用）
+        # 文件树过滤状态：_tree_open 记录过滤前展开的目录，清空过滤时还原；
+        # _tree_filtered 标记当前处于过滤视图（此时不回写 _tree_open）
+        self._tree_open = set()
+        self._tree_filtered = False
         self._build(include_dlc)
         self.after(100, self._drain)
         self.after(250, self.rescan)
@@ -133,6 +139,9 @@ class App(tk.Tk):
             bar, text=t("gui.008"), style="Banner.TLabel",
             foreground="#0a5", wraplength=1290, justify="left")
         self.lbl_banner.pack(side="left", anchor="w")
+        # 横幅可点：跳到文件树的第一个冲突（v2 讨论项 b）
+        self.lbl_banner.configure(cursor="hand2")
+        self.lbl_banner.bind("<Button-1>", lambda e: self._banner_jump())
 
         # ---- 第三行：操作与筛选
         act = ttk.Frame(self, padding=(8, 0, 8, 4))
@@ -197,6 +206,17 @@ class App(tk.Tk):
         # ---- 页签一：文件树（只挂 mod 互抢路径：同路径 diff + 本地化 yml）
         fr_tree = ttk.Frame(self.nb_main)
         self.nb_main.add(fr_tree, text=t("gui.143"))
+        # 过滤行：按文件路径 / 生效者 / 本地化 key 子串过滤（v2 讨论项 a）
+        srow = ttk.Frame(fr_tree)
+        srow.pack(side="top", fill="x", pady=(0, 2))
+        self.var_tree_filter = tk.StringVar()
+        ent = ttk.Entry(srow, textvariable=self.var_tree_filter)
+        ent.pack(side="left", fill="x", expand=True)
+        ent.bind("<Return>", lambda e: self._apply_tree_filter())
+        ttk.Button(srow, text=t("gui.186"), width=6,
+                   command=self._apply_tree_filter).pack(side="left", padx=(4, 0))
+        ttk.Button(srow, text=t("gui.187"), width=6,
+                   command=self._clear_tree_filter).pack(side="left", padx=(4, 0))
         self.tv_tree = ttk.Treeview(fr_tree, columns=("winner",), show="tree headings")
         self.tv_tree.heading("#0", text=t("gui.144"))
         self.tv_tree.heading("winner", text=t("gui.030"))
@@ -281,6 +301,8 @@ class App(tk.Tk):
         self.btn_pend_rm.pack(side="left", padx=(0, 4), pady=2)
         self.btn_pend_clr = ttk.Button(pbtn, text=t("gui.159"), command=self._clear_pending)
         self.btn_pend_clr.pack(side="left", padx=(0, 4), pady=2)
+        self.btn_restore = ttk.Button(pbtn, text=t("gui.188"), command=self._restore_dialog)
+        self.btn_restore.pack(side="right", padx=(4, 2), pady=2)
         self.lbl_pend_empty = ttk.Label(fr_pend, text=t("gui.160"), foreground="#777",
                                         padding=(6, 3))
         self.lbl_pend_empty.pack(side="bottom", anchor="w")   # 有条目时由 _sync_pending 收起
@@ -550,7 +572,8 @@ class App(tk.Tk):
             for r in it["entries"]:
                 chain.append(("%d:%s" % (r["idx"] + 1, r["name"]), r["full"],
                               r["idx"] == it["winner"]))
-            out[it["rel"].lower()] = {"chain": chain, "keep_idx": it["winner"],
+            out[it["rel"].lower()] = {"rel": it["rel"].lower(),
+                                      "chain": chain, "keep_idx": it["winner"],
                                       "winner_label": "%d:%s" % (it["winner"] + 1,
                                                                  it["winner_name"]),
                                       "src": "diff", "lang": ""}
@@ -565,18 +588,22 @@ class App(tk.Tk):
                     continue
                 rel = e["rel"].lower()
                 slot = agg.setdefault(rel, {"rel": rel, "lang": c["lang"],
-                                            "mods": {}, "winner": c["winner"]})
+                                            "mods": {}, "winner": c["winner"],
+                                            "keys": []})
                 slot["mods"].setdefault(e["mod"], e["full"])
+                if c["key"] not in slot["keys"]:
+                    slot["keys"].append(c["key"])
         for rel, slot in agg.items():
             if rel in out or len(slot["mods"]) < 2:
                 continue
             chain = [("%d:%s" % (m + 1, self._mod_name(m)), full,
                       m == slot["winner"])
                      for m, full in sorted(slot["mods"].items())]
-            out[rel] = {"chain": chain, "keep_idx": slot["winner"],
+            out[rel] = {"rel": rel, "chain": chain, "keep_idx": slot["winner"],
                         "winner_label": "%d:%s" % (slot["winner"] + 1,
                                                    self._mod_name(slot["winner"])),
-                        "src": "loc", "lang": slot["lang"]}
+                        "src": "loc", "lang": slot["lang"],
+                        "keys": slot["keys"]}
         return out
 
     def _mod_name(self, idx):
@@ -585,12 +612,23 @@ class App(tk.Tk):
             return res["mods"][idx]["name"]
         return "?"
 
-    def _fill_tree(self):
+    def _fill_tree(self, keep_open=True, filter_q=""):
+        """重建文件树。
+
+        keep_open=True（重扫、重挂数据）保留当前展开状态；
+        filter_q 非空时只挂匹配的文件（及其目录链，全部展开），
+        匹配范围：路径、生效者、链上 mod 名、本地化 key，大小写不敏感
+        子串（v2 讨论项 a 的实现约束：树键已小写归一，搜索词同样 lower）。
+        """
+        if not self._tree_filtered and keep_open and self.tv_tree.get_children():
+            self._tree_open = set(self._walk_open(""))
         self.tv_tree.delete(*self.tv_tree.get_children())
         self.tree_meta = {}
         src = self._tree_sources()
         for rel in sorted(src, key=str.lower):
             meta = src[rel]
+            if filter_q and not self._match_tree(meta, filter_q):
+                continue
             parts = rel.split("/")
             parent = ""
             path_so_far = []
@@ -605,7 +643,8 @@ class App(tk.Tk):
                     vals = ("",)
                 if not self.tv_tree.exists(iid):
                     node = self.tv_tree.insert(parent, "end", iid=iid,
-                                               text=seg, open=False, values=vals)
+                                               text=seg, open=bool(filter_q),
+                                               values=vals)
                     if i == len(parts) - 1:
                         self.tree_meta[node] = {"rel": rel, "meta": meta}
                 else:
@@ -624,6 +663,87 @@ class App(tk.Tk):
         if not src:
             self.tv_tree.insert("", "end", iid="|empty",
                                 text=t("gui.181"))
+        elif not filter_q:
+            # 清空过滤时还原到过滤前的展开状态，而不是全部折叠
+            for iid in self._tree_open:
+                if self.tv_tree.exists(iid):
+                    self.tv_tree.item(iid, open=True)
+
+    def _walk_open(self, parent):
+        """递归产出当前展开、且有子节点的目录节点 iid。"""
+        for iid in self.tv_tree.get_children(parent):
+            if self.tv_tree.item(iid, "open") and self.tv_tree.get_children(iid):
+                yield iid
+                yield from self._walk_open(iid)
+
+    def _match_tree(self, meta, q):
+        """文件树过滤匹配：路径 / 生效者 / 链上 mod 名 / 本地化 key。"""
+        q = q.lower()
+        if q in (meta.get("rel") or "").lower():
+            return True
+        if q in (meta.get("winner_label") or "").lower():
+            return True
+        for k in meta.get("keys") or []:
+            if q in k.lower():
+                return True
+        for label_, _full, _w in meta.get("chain") or []:
+            if q in label_.lower():
+                return True
+        return False
+
+    def _apply_tree_filter(self):
+        q = self.var_tree_filter.get().strip()
+        if not q or not self.tree_meta:
+            return
+        if not self._tree_filtered:
+            self._tree_open = set(self._walk_open(""))
+            self._tree_filtered = True
+        self._fill_tree(keep_open=False, filter_q=q)
+
+    def _clear_tree_filter(self):
+        if not self._tree_filtered:
+            self.var_tree_filter.set("")
+            return
+        self._tree_filtered = False
+        self.var_tree_filter.set("")
+        self._fill_tree(keep_open=True)
+
+    def _first_file_node(self, parent):
+        """深度优先找第一个文件节点（跳过空提示）。"""
+        for iid in self.tv_tree.get_children(parent):
+            if iid.startswith("f|"):
+                return iid
+            got = self._first_file_node(iid)
+            if got:
+                return got
+        return ""
+
+    def _banner_jump(self):
+        """点顶部结论横幅：跳到文件树并选中第一个冲突（v2 讨论项 b）。
+
+        只有 mod 覆盖原版、零互抢时不跳（此时树上没有互抢文件），
+        详情里说明原因。
+        """
+        res = self.result
+        if not res:
+            return
+        has = bool(res.get("diff")) or any(
+            r.get("mod_vs_mod") for r in res.get("loc") or [])
+        if not has:
+            self._set_detail(t("loc.005"))
+            return
+        self._clear_tree_filter()
+        self.nb_main.select(0)
+        iid = self._first_file_node("")
+        if not iid:
+            return
+        p = self.tv_tree.parent(iid)
+        while p:
+            self.tv_tree.item(p, open=True)
+            p = self.tv_tree.parent(p)
+        self.tv_tree.selection_set(iid)
+        self.tv_tree.see(iid)
+        self._on_tree_select()
 
     def _tree_current(self):
         sel = self.tv_tree.selection()
@@ -923,9 +1043,11 @@ class App(tk.Tk):
             return os.path.dirname(os.path.dirname(os.path.abspath(fs_ops.__file__)))
         return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    def _confirm_delete(self, targets, keep_label):
+    def _confirm_delete(self, targets, keep_label, precheck=None):
         """删除确认弹窗：逐条列出删与留；工坊文件追加 Steam 恢复提示。
 
+        precheck 为执行前的存在性预检结果（v2 讨论项 d）：已消失的目标
+        仍留在清单里（不自动剔除），只在弹窗里标出，执行时会被跳过。
         返回 True 表示玩家点了确认。
         """
         from tkinter import messagebox
@@ -937,6 +1059,11 @@ class App(tk.Tk):
         if any(is_workshop(tg["full"]) for tg in targets):
             L.append("")
             L.append(t("gui.171"))
+        if precheck:
+            L.append("")
+            L.append(t("gui.191"))
+            for tg in precheck[:10]:
+                L.append("  " + t("fs.013") % (tg.get("rel") or tg["full"]))
         return messagebox.askyesno(t("gui.172"), "\n".join(L))
 
     def _delete_result_text(self, results, backup_root):
@@ -1035,16 +1162,90 @@ class App(tk.Tk):
         if not self.pending or execute_deletes is None:
             return
         all_targets = [tg for e in self.pending for tg in e["targets"]]
+        # 去重：同一文件被多条清单条目包含时只删一次，避免结果里出现
+        # 一条多余的「目标已不存在」失败项（loc-core 讨论项 3）
+        seen, uniq = set(), []
+        for tg in all_targets:
+            k = os.path.normcase(os.path.normpath(tg["full"]))
+            if k not in seen:
+                seen.add(k)
+                uniq.append(tg)
+        all_targets = uniq
+        # 执行前预检：临执行那一刻标记已消失的目标，不自动剔除（讨论项 d）
+        gone = [tg for tg in all_targets if not os.path.isfile(tg["full"])]
         keep_desc = t("sep.list").join(e["keep_label"] for e in self.pending)
-        if not self._confirm_delete(all_targets, keep_desc):
+        if not self._confirm_delete(all_targets, keep_desc, precheck=gone):
             self._set_detail(t("gui.178"))
             return
-        results = execute_deletes(all_targets, self._tool_root())
+        results = execute_deletes(all_targets, self._tool_root(),
+                                  progress=lambda m: self.lbl_status.configure(
+                                      text=t("gui.194") % m, foreground="#a50"))
         self._set_detail(self._delete_result_text(
             results, fs_backup_dir(self._tool_root())))
         self.pending = []
         self._sync_pending()
         self.rescan()
+
+    def _restore_dialog(self):
+        """备份还原入口（v2 讨论项 c）：枚举 backups 下的时间戳目录，
+        按 manifest 放回本工具删除过的文件。
+
+        文案分层：还原只管本工具删的文件；工坊文件另有 Steam
+        「验证文件完整性」这条路，两者不混淆。目标已存在时跳过
+        不覆盖（fs.017），弹窗说明里讲清这条，避免被当成还原失败。
+        """
+        if restore_backups is None:
+            return
+        from tkinter import messagebox
+        bdir = os.path.join(self._tool_root(), "backups")
+        stamps = []
+        if os.path.isdir(bdir):
+            for st in sorted(os.listdir(bdir), reverse=True):
+                man = os.path.join(bdir, st, "manifest.json")
+                if not os.path.isfile(man):
+                    continue
+                try:
+                    with open(man, encoding="utf-8") as f:
+                        n = len(json.load(f))
+                except (OSError, ValueError):
+                    continue          # manifest 缺失/损坏的目录不列
+                if n:
+                    stamps.append(("%s   %s" % (st, t("gui.190") % n), st))
+        if not stamps:
+            messagebox.showinfo(t("fs.029"), t("gui.189"))
+            return
+        top = tk.Toplevel(self)
+        top.title(t("fs.029"))
+        top.transient(self)
+        top.grab_set()
+        ttk.Label(top, text=t("gui.192"), wraplength=400,
+                  justify="left").pack(anchor="w", padx=10, pady=(10, 4))
+        var = tk.StringVar(value=stamps[0][0])
+        ttk.Combobox(top, textvariable=var, width=36, state="readonly",
+                     values=[s for s, _ in stamps]).pack(padx=10, pady=4)
+
+        def do_restore():
+            stamp = dict(stamps).get(var.get())
+            if not stamp:
+                return
+            rs = restore_backups(os.path.join(bdir, stamp))
+            ok = sum(1 for r in rs if r.get("ok"))
+            bad = len(rs) - ok
+            L = [t("fs.030") % (ok, bad)]
+            for r in rs:
+                if not r.get("ok"):
+                    L.append("  %s" % (r.get("error") or ""))
+            self._set_detail("\n".join(L))
+            top.destroy()
+            if ok:
+                self.rescan()
+
+        btns = ttk.Frame(top)
+        btns.pack(pady=(4, 10))
+        ttk.Button(btns, text=t("fs.005"), command=do_restore).pack(
+            side="left", padx=4)
+        ttk.Button(btns, text=t("fs.006"), command=top.destroy).pack(
+            side="left", padx=4)
 
     # ---------- 交互 ----------
     def clear_filter(self):

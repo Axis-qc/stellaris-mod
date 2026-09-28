@@ -144,19 +144,23 @@ def plan_targets(chain_entries, keep_idx, mods=None):
 
 # ---------------------------------------------------------------- 执行删除
 
-def execute_deletes(targets, tool_root, stamp=None):
+def execute_deletes(targets, tool_root, stamp=None, progress=None):
     """逐项执行删除清单：备份 → 删除 → 清理空目录 → 追加 manifest。
 
     返回逐项结果，每项至少含契约字段 {rel, ok, backup, error}，
     另附 mod / full 供界面展示。ok=False 时 error 说明原因；
     ok=True 但 manifest 写入失败时附 warning（删除本身已成功、备份也在磁盘上）。
     stamp 用于测试注入；生产环境不传，统一落在本进程的启动时间戳目录下。
+    progress 可选回调，每处理一项前收到该项的 rel（与 scan 的进度回调同风格，
+    GUI 批量删除时用它刷新状态栏，避免长时间无响应）。
     """
     stamp = stamp or SESSION_STAMP
     backup_root = backup_dir_for(tool_root, stamp)
     manifest = _load_manifest(backup_root)
     results = []
     for tg in targets:
+        if progress:
+            progress(tg.get("rel") or tg.get("full") or "")
         full = tg["full"]
         rel = tg.get("rel") or os.path.basename(full)
         item = {"rel": rel, "ok": False, "backup": "", "error": "",
