@@ -1,0 +1,65 @@
+namespace = lev
+
+# 利维坦·毒圣 技能事件（lev.220~229）
+# on_action 触发时：THIS = 施放舰队自身（scope = self），from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）；同技能内曲线不同的字段
+# 按维度拆成多个 modifier 分别挂（一个 add_modifier 只有一个 mult）。
+
+# 腐蚀之雾：本星系敌舰 护甲/武器伤害减益（30 天）
+fleet_event = {
+    id = lev.220
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    controller = { is_hostile = event_target:lev_caster }
+                }
+                every_owned_ship = {
+                    add_modifier = { modifier = lev_toxic_god_sk1_ar mult = root.owner.value:lev_sk_toxic_1_ar days = 30 }
+                    add_modifier = { modifier = lev_toxic_god_sk1_dmg mult = root.owner.value:lev_sk_toxic_1_dmg days = 30 }
+                }
+            }
+        }
+    }
+}
+
+# 毒沼披覆：自身 船体再生/护甲/船体增益（25 天）
+fleet_event = {
+    id = lev.221
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_toxic_god }
+            add_modifier = { modifier = lev_toxic_god_sk2_hr mult = root.owner.value:lev_sk_toxic_2_hr days = 25 }
+            add_modifier = { modifier = lev_toxic_god_sk2_ar mult = root.owner.value:lev_sk_toxic_2_ar days = 25 }
+            add_modifier = { modifier = lev_toxic_god_sk2_hl mult = root.owner.value:lev_sk_toxic_2_hl days = 25 }
+        }
+    }
+}
+
+# 瘟疫扩散：本星系敌舰 武器伤害/护盾回复/护甲再生减益（40 天）
+fleet_event = {
+    id = lev.222
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    controller = { is_hostile = event_target:lev_caster }
+                }
+                every_owned_ship = {
+                    add_modifier = { modifier = lev_toxic_god_u_dmg mult = root.owner.value:lev_sk_toxic_u_dmg days = 40 }
+                    add_modifier = { modifier = lev_toxic_god_u_sr mult = root.owner.value:lev_sk_toxic_u_sr days = 40 }
+                    add_modifier = { modifier = lev_toxic_god_u_ar mult = root.owner.value:lev_sk_toxic_u_ar days = 40 }
+                }
+            }
+        }
+    }
+}

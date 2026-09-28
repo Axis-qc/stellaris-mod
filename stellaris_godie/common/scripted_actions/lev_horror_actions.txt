@@ -1,0 +1,96 @@
+# 利维坦·位面之魇 技能（恐惧召唤）
+# possible：This = 舰队自身、From = 施放舰队（国家用 from.owner）；button_clickable 是舰队作用域，用 owner
+# 本期无资源门槛，possible / button_clickable 直接放行
+
+# 恐惧压制（槽1）：本星系敌舰武器伤害与射速降低
+lev_horror_fear = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_horror }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_horror_sk1_completed
+    tooltip = lev_horror_fear_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_horror_fear_activity_key
+    context_menu_name = lev_horror_fear_menu_title
+    progress_activity_key = lev_horror_fear_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 1
+}
+
+# 虚空护壁（槽2）：自身护盾与护盾回复强化
+lev_horror_void_shield = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_horror }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_horror_sk2_completed
+    tooltip = lev_horror_void_shield_button
+    icon = GFX_fleet_action_button_paladin_super_shield
+    icon_selected = GFX_fleet_action_button_paladin_super_shield
+    activity_key = lev_horror_void_shield_activity_key
+    context_menu_name = lev_horror_void_shield_menu_title
+    progress_activity_key = lev_horror_void_shield_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 180
+    slot = 2
+}
+
+# 维度裂隙（槽3，终结技）：本星系敌舰全面压制，自身武器强化
+lev_horror_rift = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_horror }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_horror_ult_completed
+    tooltip = lev_horror_rift_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_horror_rift_activity_key
+    context_menu_name = lev_horror_rift_menu_title
+    progress_activity_key = lev_horror_rift_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

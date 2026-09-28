@@ -1,0 +1,70 @@
+namespace = lev
+
+# 利维坦·拾荒机器人 技能事件（lev.240~249，不得越界）
+# on_action 触发时 THIS = 施放舰队、from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）；同技能内曲线不同的字段
+# 按维度拆成多个 modifier 分别挂（一个 add_modifier 只有一个 mult）。
+# 本期不做直接伤害，敌舰一律用减益（modifier）替代
+
+# sk1 碎甲重组：本舰护甲/再生增益
+fleet_event = {
+    id = lev.240
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        every_owned_ship = {
+            limit = { is_ship_size = lev_scavenger }
+            add_modifier = { modifier = lev_scavenger_sk1_am mult = root.owner.value:lev_sk_scav_1_am days = 20 }
+            add_modifier = { modifier = lev_scavenger_sk1_ar mult = root.owner.value:lev_sk_scav_1_ar days = 20 }
+        }
+    }
+}
+
+# sk2 焊接强化：本舰武器增益
+fleet_event = {
+    id = lev.241
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        every_owned_ship = {
+            limit = { is_ship_size = lev_scavenger }
+            add_modifier = { modifier = lev_scavenger_sk2_dmg mult = root.owner.value:lev_sk_scav_2_dmg days = 30 }
+            add_modifier = { modifier = lev_scavenger_sk2_fr mult = root.owner.value:lev_sk_scav_2_fr days = 30 }
+        }
+    }
+}
+
+# ult 掠夺协议：本星系敌舰伤害/护盾减益 + 本舰护甲增益
+fleet_event = {
+    id = lev.242
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        every_owned_ship = {
+            limit = { is_ship_size = lev_scavenger }
+            add_modifier = { modifier = lev_scavenger_ult_am mult = root.owner.value:lev_sk_scav_u_am days = 40 }
+        }
+
+        solar_system = {
+            every_ship_in_system = {
+                limit = {
+                    owner = {
+                        is_hostile = event_target:lev_caster
+                    }
+                }
+                add_modifier = { modifier = lev_scavenger_ult_dmg mult = root.owner.value:lev_sk_scav_u_dmg days = 40 }
+                add_modifier = { modifier = lev_scavenger_ult_sh mult = root.owner.value:lev_sk_scav_u_sh days = 40 }
+            }
+        }
+    }
+}

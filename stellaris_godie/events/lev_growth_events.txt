@@ -59,6 +59,116 @@ country_event = {
             }
             lev_growth_apply_combat = { TYPE = stellarite }
         }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_drake
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = drake }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_shard
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = shard }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_wraith
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = wraith }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_horror
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = horror }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_toxic_god
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = toxic_god }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_dreadnought
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = dreadnought }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_scavenger
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = scavenger }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_sphere
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = sphere }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_aquatic
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = aquatic }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_voidspawn
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = voidspawn }
+        }
     }
 }
 
@@ -72,7 +182,19 @@ country_event = {
     is_triggered_only = yes
     trigger = {
         is_ai = no
-        has_country_flag = lev_stellarite_unlocked
+        OR = {
+            has_country_flag = lev_stellarite_unlocked
+            has_country_flag = lev_drake_unlocked
+            has_country_flag = lev_shard_unlocked
+            has_country_flag = lev_wraith_unlocked
+            has_country_flag = lev_horror_unlocked
+            has_country_flag = lev_toxic_god_unlocked
+            has_country_flag = lev_dreadnought_unlocked
+            has_country_flag = lev_scavenger_unlocked
+            has_country_flag = lev_sphere_unlocked
+            has_country_flag = lev_aquatic_unlocked
+            has_country_flag = lev_voidspawn_unlocked
+        }
     }
     immediate = {
         lev_feed_settle_all = yes

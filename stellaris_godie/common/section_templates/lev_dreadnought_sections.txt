@@ -1,0 +1,111 @@
+# 利维坦·自动无畏战舰 区段模板（1 XL + 7 L + 5 S + 3 PD，aux_utility_slots = 5，照原版 automated_dreadnought_key 槽位数量与 is_side_slot 标记）
+# 机械舰，原版观感就带炮塔：large_turret / small_turret / point_defence_turret 槽位模板与 locatorname 逐字保留原版（含 small_gun_08~10 的 PD 复用）
+# 无 should_draw_components（原版没有，照抄不写）
+
+ship_section_template = {
+    key = "lev_dreadnought_key"
+    ship_size = lev_dreadnought
+    fits_on_slot = mid
+    entity = "lev_dreadnought_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    # only one because it uses a titan laser
+    component_slot = {
+        name = "EXTRA_LARGE_01"
+        template = "invisible_extra_large_fixed"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "large_turret"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_02"
+        template = "large_turret"
+        locatorname = "large_gun_02"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_01"
+        template = "small_turret"
+        locatorname = "small_gun_01"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_02"
+        template = "small_turret"
+        locatorname = "small_gun_02"
+    }
+
+    component_slot = {
+        name = "SMALL_GUN_03"
+        template = "small_turret"
+        locatorname = "small_gun_03"
+    }
+    component_slot = {
+        name = "SMALL_GUN_04"
+        template = "small_turret"
+        is_side_slot = yes
+        locatorname = "small_gun_04"
+    }
+    component_slot = {
+        name = "SMALL_GUN_05"
+        template = "small_turret"
+        is_side_slot = yes
+        locatorname = "small_gun_05"
+    }
+
+    component_slot = {
+        name = "LARGE_GUN_03"
+        template = "large_turret"
+        is_side_slot = yes
+        locatorname = "large_gun_03"
+    }
+    component_slot = {
+        name = "LARGE_GUN_04"
+        template = "large_turret"
+        is_side_slot = yes
+        locatorname = "large_gun_04"
+    }
+    component_slot = {
+        name = "LARGE_GUN_05"
+        template = "large_turret"
+        is_side_slot = yes
+        locatorname = "large_gun_05"
+    }
+
+    component_slot = {
+        name = "LARGE_GUN_06"
+        template = "large_turret"
+        locatorname = "large_gun_06"
+    }
+
+    component_slot = {
+        name = "LARGE_GUN_07"
+        template = "large_turret"
+        is_side_slot = yes
+        locatorname = "large_gun_07"
+    }
+
+    component_slot = {
+        name = "PD_08"
+        template = "point_defence_turret"
+        locatorname = "small_gun_08"
+    }
+
+    component_slot = {
+        name = "PD_09"
+        template = "point_defence_turret"
+        locatorname = "small_gun_09"
+    }
+
+    component_slot = {
+        name = "PD_10"
+        template = "point_defence_turret"
+        locatorname = "small_gun_10"
+    }
+
+    large_utility_slots = 22
+    aux_utility_slots = 5
+}

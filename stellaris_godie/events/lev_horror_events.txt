@@ -1,0 +1,67 @@
+namespace = lev
+
+# 利维坦·位面之魇 技能事件（lev.210~219）
+# on_action 触发时：THIS = 施放舰队自身（scope = self），from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）；同技能内曲线不同的字段
+# 按维度拆成多个 modifier 分别挂（一个 add_modifier 只有一个 mult）。
+
+# 恐惧压制：本星系敌舰 武器伤害/射速减益（30 天）
+fleet_event = {
+    id = lev.210
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    controller = { is_hostile = event_target:lev_caster }
+                }
+                every_owned_ship = {
+                    add_modifier = { modifier = lev_horror_sk1_dmg mult = root.owner.value:lev_sk_horror_1_dmg days = 30 }
+                    add_modifier = { modifier = lev_horror_sk1_fr mult = root.owner.value:lev_sk_horror_1_fr days = 30 }
+                }
+            }
+        }
+    }
+}
+
+# 虚空护壁：自身护盾/护盾回复增益（20 天）
+fleet_event = {
+    id = lev.211
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_horror }
+            add_modifier = { modifier = lev_horror_sk2_sh mult = root.owner.value:lev_sk_horror_2_sh days = 20 }
+            add_modifier = { modifier = lev_horror_sk2_rg mult = root.owner.value:lev_sk_horror_2_rg days = 20 }
+        }
+    }
+}
+
+# 维度裂隙：本星系敌舰 武器伤害/闪避减益、自身武器伤害增益（40 天）
+fleet_event = {
+    id = lev.212
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    controller = { is_hostile = event_target:lev_caster }
+                }
+                every_owned_ship = {
+                    add_modifier = { modifier = lev_horror_u_dmg mult = root.owner.value:lev_sk_horror_u_dmg days = 40 }
+                    add_modifier = { modifier = lev_horror_u_ev mult = root.owner.value:lev_sk_horror_u_ev days = 40 }
+                }
+            }
+        }
+        every_owned_ship = {
+            limit = { is_ship_size = lev_horror }
+            add_modifier = { modifier = lev_horror_s_dmg mult = root.owner.value:lev_sk_horror_s_dmg days = 40 }
+        }
+    }
+}

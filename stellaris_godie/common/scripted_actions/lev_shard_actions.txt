@@ -1,0 +1,96 @@
+# 利维坦·巨龙 技能（槽 1/2/3）
+# 本期技能无资源门槛：possible / button_clickable 直接 always = yes
+# 不写 begin_anim_state / progress_anim_state / finish_anim_state，避免引用未注册动画
+
+# 棱镜射线（槽1）：自身武器伤害 +45%、射速 +10%
+lev_shard_prism_ray = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_shard }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_shard_sk1_completed
+    tooltip = lev_shard_prism_ray_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_shard_prism_ray_activity_key
+    context_menu_name = lev_shard_prism_ray_menu_title
+    progress_activity_key = lev_shard_prism_ray_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 180
+    slot = 1
+}
+
+# 棱镜护壁（槽2）：自身护盾 +60%、护甲 +30%
+lev_shard_prism_bulwark = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_shard }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_shard_sk2_completed
+    tooltip = lev_shard_prism_bulwark_button
+    icon = GFX_fleet_action_button_paladin_super_shield
+    icon_selected = GFX_fleet_action_button_paladin_super_shield
+    activity_key = lev_shard_prism_bulwark_activity_key
+    context_menu_name = lev_shard_prism_bulwark_menu_title
+    progress_activity_key = lev_shard_prism_bulwark_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 2
+}
+
+# 光谱裂解（槽3/大招）：本星系敌舰护甲 -40%、武器伤害 -20%
+lev_shard_spectral_split = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_shard }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_shard_ult_completed
+    tooltip = lev_shard_spectral_split_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_shard_spectral_split_activity_key
+    context_menu_name = lev_shard_spectral_split_menu_title
+    progress_activity_key = lev_shard_spectral_split_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

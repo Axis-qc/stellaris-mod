@@ -1,0 +1,74 @@
+# 利维坦·无限神机 舰种
+lev_sphere = {
+    entity = "lev_sphere_entity"
+    can_be_inspected = yes
+    # 不要加 graphical_culture，会导致设计器不渲染模型
+    hull_scale = 1
+    max_speed = 85
+    acceleration = 0.3
+    rotation_speed = 1.0
+    collision_radius = 15
+    max_hitpoints = 5000
+    combat_size_multiplier = 40
+    size_multiplier = 40
+    fleet_slot_size = 8
+    section_slots = {
+        "mid" = {
+            locator = "part1"
+        }
+    }
+    num_target_locators = 4
+    never_lost = yes
+    never_mia = yes
+    is_space_station = no
+    class = shipclass_military
+    icon = ship_size_military_16
+    ship_class_icon_frame = 61
+    on_click_sound = "ui_kaiju_select_fleet"
+    is_designable = yes
+    # 必须为 yes：create_ship 依赖已存在的设计
+    enable_default_design = yes
+    enable_3dview_in_ship_browser = yes
+    can_have_federation_design = no
+    construction_type = starbase_shipyard
+    required_component_set = "power_core"
+    required_component_set = "ftl_components"
+    required_component_set = "thruster_components"
+    required_component_set = "combat_computers"
+    required_component_set = "sensor_components"
+    required_component_set = "lev_sphere_Core"
+    hero_ship = {
+        # 舰队状态栏；scripted_loc 作用域是舰队，读变量要写 owner.
+        custom_state_loc_prefix = "LEV_SPHERE_STATE"
+        hero_ship_fleet_background = "GFX_fleet_view_behemoth_stage_2"
+        capabilities = {
+            can_repair
+            can_upgrade
+        }
+    }
+    components_add_to_cost = no
+    resources = {
+        category = ships
+        cost = {
+            alloys = 150
+        }
+    }
+    potential_country = {
+        has_country_flag = lev_sphere_unlocked
+    }
+    potential_construction = {
+        is_scope_type = starbase
+    }
+    possible_construction = {
+        custom_tooltip = {
+            fail_text = not_has_lev_sphere
+            NOT = {
+                any_owned_ship = {
+                    is_ship_size = lev_sphere
+                }
+            }
+        }
+    }
+    base_buildtime = 180
+    available_to_everyone = yes
+}

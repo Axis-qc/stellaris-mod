@@ -1,0 +1,251 @@
+# 利维坦技能数值 — 强度动态跟随成长等级（每级 +10% 基准，整数制）
+# ============================================
+# 先锋舰/行星支援同构：script_value 出整数百分比（或点数），事件层
+# add_modifier 的 mult = root.owner.value:<名字>，modifier 字段写单位值
+# （0.01 = 每 1 点数值 +1%，闪避等点数字段写 1）。
+# 本地化由 scripted_loc/lev_skill_loc.txt 的 defined_text 暴露同名 token，
+# 按钮 tooltip 动态显示真实数值。等级 0 = 原 V1 面板值，10 级约翻倍。
+#
+# script_value 的 add 只接受值表达式，不接受嵌套块（插件校验口径），
+# 因此每维度拆两级：<名字>_step = { base = 0 add = owner.lev_<T>_growth_level
+# mult = <每级增量> }，主值 = { base = <V1基准> add = value:<step名> }。
+# step = V1 基准 × 0.1 四舍五入（35→4、25→3、30→3、50→5、20→2）。
+# 敌方 debuff 的 modifier 描述在敌方作用域无法读施放者变量，动态数值
+# 只在施放方的按钮 tooltip 展示，敌方身上的 modifier 描述用定性文案。
+# 增益/减益数值一律存正幅度，方向由 modifier 字段符号决定。
+#
+# 噬星者只强化恒星光束（吞噬/重燃恒星是 D1-D6 拍板的核心机制，不动）。
+
+# ============ 幽魂（lev.130/132/134）============
+
+# sk1 相位穿击：武器伤害 35% 每级 +4%、射速 25% 每级 +3%
+lev_step_wraith_1_dmg = { base = 0 add = owner.lev_wraith_growth_level mult = 4 }
+lev_step_wraith_1_fr = { base = 0 add = owner.lev_wraith_growth_level mult = 3 }
+lev_sk_wraith_1_dmg = { base = 35 add = value:lev_step_wraith_1_dmg }
+lev_sk_wraith_1_fr = { base = 25 add = value:lev_step_wraith_1_fr }
+
+# sk2 相位残影：闪避 30 每级 +3、亚光速 50% 每级 +5%、护盾 30% 每级 +3%
+lev_step_wraith_2_ev = { base = 0 add = owner.lev_wraith_growth_level mult = 3 }
+lev_step_wraith_2_sp = { base = 0 add = owner.lev_wraith_growth_level mult = 5 }
+lev_step_wraith_2_sh = { base = 0 add = owner.lev_wraith_growth_level mult = 3 }
+lev_sk_wraith_2_ev = { base = 30 add = value:lev_step_wraith_2_ev }
+lev_sk_wraith_2_sp = { base = 50 add = value:lev_step_wraith_2_sp }
+lev_sk_wraith_2_sh = { base = 30 add = value:lev_step_wraith_2_sh }
+
+# ult 相位风暴（敌舰）：武器伤害 30% 每级 +3、射速 30% 每级 +3、闪避 20 每级 +2
+lev_step_wraith_u_dmg = { base = 0 add = owner.lev_wraith_growth_level mult = 3 }
+lev_step_wraith_u_fr = { base = 0 add = owner.lev_wraith_growth_level mult = 3 }
+lev_step_wraith_u_ev = { base = 0 add = owner.lev_wraith_growth_level mult = 2 }
+lev_sk_wraith_u_dmg = { base = 30 add = value:lev_step_wraith_u_dmg }
+lev_sk_wraith_u_fr = { base = 30 add = value:lev_step_wraith_u_fr }
+lev_sk_wraith_u_ev = { base = 20 add = value:lev_step_wraith_u_ev }
+
+# ============ 以太巨龙（lev.110/112/114）============
+# 字段单位约定：百分比 0.01；小百分比（<10%）用 0.001，数值 = 百分比×10 保整数精度
+
+# sk1 龙息喷吐（自身）：射速 20% 每级 +2%（精确）
+lev_step_drake_1_fr = { base = 0 add = owner.lev_drake_growth_level mult = 2 }
+lev_sk_drake_1_fr = { base = 20 add = value:lev_step_drake_1_fr }
+
+# sk1 龙息喷吐（敌舰）：武器伤害 25% 每级 +3、射速 15% 每级 +2
+lev_step_drake_1d_dmg = { base = 0 add = owner.lev_drake_growth_level mult = 3 }
+lev_step_drake_1d_fr = { base = 0 add = owner.lev_drake_growth_level mult = 2 }
+lev_sk_drake_1d_dmg = { base = 25 add = value:lev_step_drake_1d_dmg }
+lev_sk_drake_1d_fr = { base = 15 add = value:lev_step_drake_1d_fr }
+
+# sk2 龙翼护体（自身）：护甲 40% 每级 +4%（精确）、船体再生 2%/天 每级 +0.2（数值 20 步长 2，字段 0.001）
+lev_step_drake_2_ar = { base = 0 add = owner.lev_drake_growth_level mult = 4 }
+lev_step_drake_2_hr = { base = 0 add = owner.lev_drake_growth_level mult = 2 }
+lev_sk_drake_2_ar = { base = 40 add = value:lev_step_drake_2_ar }
+lev_sk_drake_2_hr = { base = 20 add = value:lev_step_drake_2_hr }
+
+# ult 焚世吐息（敌舰）：武器伤害 35% 每级 +4、护盾回复 50% 每级 +5（精确）、减速 30% 每级 +3（精确）
+lev_step_drake_u_dmg = { base = 0 add = owner.lev_drake_growth_level mult = 4 }
+lev_step_drake_u_sr = { base = 0 add = owner.lev_drake_growth_level mult = 5 }
+lev_step_drake_u_sp = { base = 0 add = owner.lev_drake_growth_level mult = 3 }
+lev_sk_drake_u_dmg = { base = 35 add = value:lev_step_drake_u_dmg }
+lev_sk_drake_u_sr = { base = 50 add = value:lev_step_drake_u_sr }
+lev_sk_drake_u_sp = { base = 30 add = value:lev_step_drake_u_sp }
+
+# ============ 巨龙（lev.120/122/124）============
+
+# sk1 棱镜射线（自身）：武器伤害 45% 每级 +5（精确）、射速 10% 每级 +1（精确）
+lev_step_shard_1_dmg = { base = 0 add = owner.lev_shard_growth_level mult = 5 }
+lev_step_shard_1_fr = { base = 0 add = owner.lev_shard_growth_level mult = 1 }
+lev_sk_shard_1_dmg = { base = 45 add = value:lev_step_shard_1_dmg }
+lev_sk_shard_1_fr = { base = 10 add = value:lev_step_shard_1_fr }
+
+# sk2 棱镜护壁（自身）：护盾 60% 每级 +6（精确）、护甲 30% 每级 +3（精确）
+lev_step_shard_2_sh = { base = 0 add = owner.lev_shard_growth_level mult = 6 }
+lev_step_shard_2_ar = { base = 0 add = owner.lev_shard_growth_level mult = 3 }
+lev_sk_shard_2_sh = { base = 60 add = value:lev_step_shard_2_sh }
+lev_sk_shard_2_ar = { base = 30 add = value:lev_step_shard_2_ar }
+
+# ult 光谱裂解（敌舰）：护甲 40% 每级 +4（精确）、武器伤害 20% 每级 +2（精确）
+lev_step_shard_u_ar = { base = 0 add = owner.lev_shard_growth_level mult = 4 }
+lev_step_shard_u_dmg = { base = 0 add = owner.lev_shard_growth_level mult = 2 }
+lev_sk_shard_u_ar = { base = 40 add = value:lev_step_shard_u_ar }
+lev_sk_shard_u_dmg = { base = 20 add = value:lev_step_shard_u_dmg }
+
+# ============ 位面之魇（lev.210/211/212）============
+
+# sk1 恐惧压制（敌舰）：武器伤害 25% 每级 +3、射速 15% 每级 +2
+lev_step_horror_1_dmg = { base = 0 add = owner.lev_horror_growth_level mult = 3 }
+lev_step_horror_1_fr = { base = 0 add = owner.lev_horror_growth_level mult = 2 }
+lev_sk_horror_1_dmg = { base = 25 add = value:lev_step_horror_1_dmg }
+lev_sk_horror_1_fr = { base = 15 add = value:lev_step_horror_1_fr }
+
+# sk2 虚空护壁（自身）：护盾 60% 每级 +6（精确）、护盾再生 10/天 每级 +1（点数字段 1）
+lev_step_horror_2_sh = { base = 0 add = owner.lev_horror_growth_level mult = 6 }
+lev_step_horror_2_rg = { base = 0 add = owner.lev_horror_growth_level mult = 1 }
+lev_sk_horror_2_sh = { base = 60 add = value:lev_step_horror_2_sh }
+lev_sk_horror_2_rg = { base = 10 add = value:lev_step_horror_2_rg }
+
+# ult 维度裂隙（敌舰）：武器伤害 35% 每级 +4、闪避 20% 每级 +2（精确）
+lev_step_horror_u_dmg = { base = 0 add = owner.lev_horror_growth_level mult = 4 }
+lev_step_horror_u_ev = { base = 0 add = owner.lev_horror_growth_level mult = 2 }
+lev_sk_horror_u_dmg = { base = 35 add = value:lev_step_horror_u_dmg }
+lev_sk_horror_u_ev = { base = 20 add = value:lev_step_horror_u_ev }
+
+# ult 维度裂隙（自身）：武器伤害 25% 每级 +3
+lev_step_horror_s_dmg = { base = 0 add = owner.lev_horror_growth_level mult = 3 }
+lev_sk_horror_s_dmg = { base = 25 add = value:lev_step_horror_s_dmg }
+
+# ============ 毒圣（lev.220/221/222）============
+# 静态点数（再生 3/天）数值 = 点数×10、字段 0.1，保整数精度
+
+# sk1 腐蚀之雾（敌舰）：护甲 30% 每级 +3（精确）、武器伤害 15% 每级 +2（精确）
+lev_step_toxic_1_ar = { base = 0 add = owner.lev_toxic_god_growth_level mult = 3 }
+lev_step_toxic_1_dmg = { base = 0 add = owner.lev_toxic_god_growth_level mult = 2 }
+lev_sk_toxic_1_ar = { base = 30 add = value:lev_step_toxic_1_ar }
+lev_sk_toxic_1_dmg = { base = 15 add = value:lev_step_toxic_1_dmg }
+
+# sk2 毒沼披覆（自身）：船体再生 3/天 每级 +0.3（数值 30 步长 3，字段 0.1）、护甲 40% 每级 +4（精确）、船体 25% 每级 +3
+lev_step_toxic_2_hr = { base = 0 add = owner.lev_toxic_god_growth_level mult = 3 }
+lev_step_toxic_2_ar = { base = 0 add = owner.lev_toxic_god_growth_level mult = 4 }
+lev_step_toxic_2_hl = { base = 0 add = owner.lev_toxic_god_growth_level mult = 3 }
+lev_sk_toxic_2_hr = { base = 30 add = value:lev_step_toxic_2_hr }
+lev_sk_toxic_2_ar = { base = 40 add = value:lev_step_toxic_2_ar }
+lev_sk_toxic_2_hl = { base = 25 add = value:lev_step_toxic_2_hl }
+
+# ult 瘟疫扩散（敌舰）：武器伤害 25% 每级 +3、护盾回复 50% 每级 +5（精确）、护甲再生 20% 每级 +2（精确）
+lev_step_toxic_u_dmg = { base = 0 add = owner.lev_toxic_god_growth_level mult = 3 }
+lev_step_toxic_u_sr = { base = 0 add = owner.lev_toxic_god_growth_level mult = 5 }
+lev_step_toxic_u_ar = { base = 0 add = owner.lev_toxic_god_growth_level mult = 2 }
+lev_sk_toxic_u_dmg = { base = 25 add = value:lev_step_toxic_u_dmg }
+lev_sk_toxic_u_sr = { base = 50 add = value:lev_step_toxic_u_sr }
+lev_sk_toxic_u_ar = { base = 20 add = value:lev_step_toxic_u_ar }
+
+# ============ 自动无畏战舰（lev.230/231/232）============
+
+# sk1 净化齐射（自身）：武器伤害 40% 每级 +4（精确）、射速 15% 每级 +2
+lev_step_dread_1_dmg = { base = 0 add = owner.lev_dreadnought_growth_level mult = 4 }
+lev_step_dread_1_fr = { base = 0 add = owner.lev_dreadnought_growth_level mult = 2 }
+lev_sk_dread_1_dmg = { base = 40 add = value:lev_step_dread_1_dmg }
+lev_sk_dread_1_fr = { base = 15 add = value:lev_step_dread_1_fr }
+
+# sk2 装甲重组（自身）：护甲再生 2/天 每级 +0.2（数值 20 步长 2，字段 0.1）、护甲 35% 每级 +4、船体 30% 每级 +3（精确）
+lev_step_dread_2_ar = { base = 0 add = owner.lev_dreadnought_growth_level mult = 2 }
+lev_step_dread_2_am = { base = 0 add = owner.lev_dreadnought_growth_level mult = 4 }
+lev_step_dread_2_hl = { base = 0 add = owner.lev_dreadnought_growth_level mult = 3 }
+lev_sk_dread_2_ar = { base = 20 add = value:lev_step_dread_2_ar }
+lev_sk_dread_2_am = { base = 35 add = value:lev_step_dread_2_am }
+lev_sk_dread_2_hl = { base = 30 add = value:lev_step_dread_2_hl }
+
+# ult 全弹发射（敌舰）：射速 20% 每级 +2（精确）、武器伤害 35% 每级 +4、护盾 30% 每级 +3（精确）
+lev_step_dread_u_fr = { base = 0 add = owner.lev_dreadnought_growth_level mult = 2 }
+lev_step_dread_u_dmg = { base = 0 add = owner.lev_dreadnought_growth_level mult = 4 }
+lev_step_dread_u_sh = { base = 0 add = owner.lev_dreadnought_growth_level mult = 3 }
+lev_sk_dread_u_fr = { base = 20 add = value:lev_step_dread_u_fr }
+lev_sk_dread_u_dmg = { base = 35 add = value:lev_step_dread_u_dmg }
+lev_sk_dread_u_sh = { base = 30 add = value:lev_step_dread_u_sh }
+
+# ============ 拾荒机器人（lev.240/241/242）============
+
+# sk1 碎甲重组（自身）：护甲 45% 每级 +5（精确）、护甲再生 3/天 每级 +0.3（数值 30 步长 3，字段 0.1）
+lev_step_scav_1_am = { base = 0 add = owner.lev_scavenger_growth_level mult = 5 }
+lev_step_scav_1_ar = { base = 0 add = owner.lev_scavenger_growth_level mult = 3 }
+lev_sk_scav_1_am = { base = 45 add = value:lev_step_scav_1_am }
+lev_sk_scav_1_ar = { base = 30 add = value:lev_step_scav_1_ar }
+
+# sk2 焊接强化（自身）：武器伤害 35% 每级 +4、射速 10% 每级 +1（精确）
+lev_step_scav_2_dmg = { base = 0 add = owner.lev_scavenger_growth_level mult = 4 }
+lev_step_scav_2_fr = { base = 0 add = owner.lev_scavenger_growth_level mult = 1 }
+lev_sk_scav_2_dmg = { base = 35 add = value:lev_step_scav_2_dmg }
+lev_sk_scav_2_fr = { base = 10 add = value:lev_step_scav_2_fr }
+
+# ult 掠夺协议（自身）：护甲 30% 每级 +3（精确）
+lev_step_scav_u_am = { base = 0 add = owner.lev_scavenger_growth_level mult = 3 }
+lev_sk_scav_u_am = { base = 30 add = value:lev_step_scav_u_am }
+
+# ult 掠夺协议（敌舰）：武器伤害 25% 每级 +3、护盾 30% 每级 +3（精确）
+lev_step_scav_u_dmg = { base = 0 add = owner.lev_scavenger_growth_level mult = 3 }
+lev_step_scav_u_sh = { base = 0 add = owner.lev_scavenger_growth_level mult = 3 }
+lev_sk_scav_u_dmg = { base = 25 add = value:lev_step_scav_u_dmg }
+lev_sk_scav_u_sh = { base = 30 add = value:lev_step_scav_u_sh }
+
+# ============ 无限神机（lev.250/251/252）============
+
+# sk1 引力透镜（自身）：武器伤害 40% 每级 +4（精确）、射速 15% 每级 +2
+lev_step_sphere_1_dmg = { base = 0 add = owner.lev_sphere_growth_level mult = 4 }
+lev_step_sphere_1_fr = { base = 0 add = owner.lev_sphere_growth_level mult = 2 }
+lev_sk_sphere_1_dmg = { base = 40 add = value:lev_step_sphere_1_dmg }
+lev_sk_sphere_1_fr = { base = 15 add = value:lev_step_sphere_1_fr }
+
+# sk2 事件视界（自身）：护盾 60% 每级 +6（精确）、护盾再生 8/天 每级 +0.8（数值 80 步长 8，字段 0.1）
+lev_step_sphere_2_sh = { base = 0 add = owner.lev_sphere_growth_level mult = 6 }
+lev_step_sphere_2_rg = { base = 0 add = owner.lev_sphere_growth_level mult = 8 }
+lev_sk_sphere_2_sh = { base = 60 add = value:lev_step_sphere_2_sh }
+lev_sk_sphere_2_rg = { base = 80 add = value:lev_step_sphere_2_rg }
+
+# ult 奇点坍缩（敌舰）：武器伤害 30% 每级 +3（精确）、射速 20% 每级 +2（精确）、减速 30% 每级 +3（精确）
+lev_step_sphere_u_dmg = { base = 0 add = owner.lev_sphere_growth_level mult = 3 }
+lev_step_sphere_u_fr = { base = 0 add = owner.lev_sphere_growth_level mult = 2 }
+lev_step_sphere_u_sp = { base = 0 add = owner.lev_sphere_growth_level mult = 3 }
+lev_sk_sphere_u_dmg = { base = 30 add = value:lev_step_sphere_u_dmg }
+lev_sk_sphere_u_fr = { base = 20 add = value:lev_step_sphere_u_fr }
+lev_sk_sphere_u_sp = { base = 30 add = value:lev_step_sphere_u_sp }
+
+# ============ 天龙（lev.260/261/262）============
+
+# sk1 潮汐吐息（敌舰）：武器伤害 25% 每级 +3、射速 15% 每级 +2
+lev_step_aqua_1_dmg = { base = 0 add = owner.lev_aquatic_growth_level mult = 3 }
+lev_step_aqua_1_fr = { base = 0 add = owner.lev_aquatic_growth_level mult = 2 }
+lev_sk_aqua_1_dmg = { base = 25 add = value:lev_step_aqua_1_dmg }
+lev_sk_aqua_1_fr = { base = 15 add = value:lev_step_aqua_1_fr }
+
+# sk2 深渊鳞壁（自身）：护甲 50% 每级 +5（精确）、船体再生 2%/天 每级 +0.2（数值 20 步长 2，字段 0.001）
+lev_step_aqua_2_am = { base = 0 add = owner.lev_aquatic_growth_level mult = 5 }
+lev_step_aqua_2_hr = { base = 0 add = owner.lev_aquatic_growth_level mult = 2 }
+lev_sk_aqua_2_am = { base = 50 add = value:lev_step_aqua_2_am }
+lev_sk_aqua_2_hr = { base = 20 add = value:lev_step_aqua_2_hr }
+
+# ult 龙啸深渊（敌舰）：武器伤害 35% 每级 +4、减速 30% 每级 +3（精确）、闪避 15% 每级 +2
+lev_step_aqua_u_dmg = { base = 0 add = owner.lev_aquatic_growth_level mult = 4 }
+lev_step_aqua_u_sp = { base = 0 add = owner.lev_aquatic_growth_level mult = 3 }
+lev_step_aqua_u_ev = { base = 0 add = owner.lev_aquatic_growth_level mult = 2 }
+lev_sk_aqua_u_dmg = { base = 35 add = value:lev_step_aqua_u_dmg }
+lev_sk_aqua_u_sp = { base = 30 add = value:lev_step_aqua_u_sp }
+lev_sk_aqua_u_ev = { base = 15 add = value:lev_step_aqua_u_ev }
+
+# ============ 虚空孳孽（lev.270/271/272）============
+
+# sk1 虚空触须（敌舰）：武器伤害 25% 每级 +3、护盾回复 40% 每级 +4（精确）
+lev_step_void_1_dmg = { base = 0 add = owner.lev_voidspawn_growth_level mult = 3 }
+lev_step_void_1_sr = { base = 0 add = owner.lev_voidspawn_growth_level mult = 4 }
+lev_sk_void_1_dmg = { base = 25 add = value:lev_step_void_1_dmg }
+lev_sk_void_1_sr = { base = 40 add = value:lev_step_void_1_sr }
+
+# sk2 孳孽孕育（自身）：船体再生 3/天 每级 +0.3（数值 30 步长 3，字段 0.1）、护盾 40% 每级 +4（精确）
+lev_step_void_2_hr = { base = 0 add = owner.lev_voidspawn_growth_level mult = 3 }
+lev_step_void_2_sh = { base = 0 add = owner.lev_voidspawn_growth_level mult = 4 }
+lev_sk_void_2_hr = { base = 30 add = value:lev_step_void_2_hr }
+lev_sk_void_2_sh = { base = 40 add = value:lev_step_void_2_sh }
+
+# ult 虫潮倾巢（敌舰）：武器伤害 35% 每级 +4、护甲 30% 每级 +3（精确）、射速 20% 每级 +2（精确）
+lev_step_void_u_dmg = { base = 0 add = owner.lev_voidspawn_growth_level mult = 4 }
+lev_step_void_u_ar = { base = 0 add = owner.lev_voidspawn_growth_level mult = 3 }
+lev_step_void_u_fr = { base = 0 add = owner.lev_voidspawn_growth_level mult = 2 }
+lev_sk_void_u_dmg = { base = 35 add = value:lev_step_void_u_dmg }
+lev_sk_void_u_ar = { base = 30 add = value:lev_step_void_u_ar }
+lev_sk_void_u_fr = { base = 20 add = value:lev_step_void_u_fr }

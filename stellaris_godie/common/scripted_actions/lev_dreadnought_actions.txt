@@ -1,0 +1,96 @@
+# 利维坦·自动无畏战舰 技能（炮击）
+# possible：This = 舰队自身、From = 施放舰队；button_clickable 是舰队作用域
+# 本期无资源门槛，possible / button_clickable 直接放行
+
+# 净化齐射（槽1）：自身武器伤害与射速强化
+lev_dreadnought_volley = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_dreadnought }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_dreadnought_sk1_completed
+    tooltip = lev_dreadnought_volley_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_dreadnought_volley_activity_key
+    context_menu_name = lev_dreadnought_volley_menu_title
+    progress_activity_key = lev_dreadnought_volley_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 180
+    slot = 1
+}
+
+# 装甲重组（槽2）：自身护甲再生、护甲与船体强化
+lev_dreadnought_rebuild = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_dreadnought }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_dreadnought_sk2_completed
+    tooltip = lev_dreadnought_rebuild_button
+    icon = GFX_fleet_action_button_paladin_field_repairs
+    icon_selected = GFX_fleet_action_button_paladin_field_repairs
+    activity_key = lev_dreadnought_rebuild_activity_key
+    context_menu_name = lev_dreadnought_rebuild_menu_title
+    progress_activity_key = lev_dreadnought_rebuild_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 2
+}
+
+# 全弹发射（槽3，终结技）：本星系敌舰射速、武器伤害与护盾压制
+lev_dreadnought_alpha_strike = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_dreadnought }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_dreadnought_ult_completed
+    tooltip = lev_dreadnought_alpha_strike_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_dreadnought_alpha_strike_activity_key
+    context_menu_name = lev_dreadnought_alpha_strike_menu_title
+    progress_activity_key = lev_dreadnought_alpha_strike_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

@@ -1,0 +1,45 @@
+# 利维坦·虚空孳孽 区段模板（照原版 voidspawn_key：6 大槽（3 鱼雷 + 3 medium））
+# 原版 medium_missile_turret / medium_turret 会在模型上长出金属炮塔，全部换隐形变体：
+# medium_missile_turret（torpedo 尺寸）→ invisible_missile_turret、medium_turret → invisible_medium_turret_fixed
+# 槽位数、locatorname、aux/large_utility_slots 逐字照原版 voidspawn_key
+ship_section_template = {
+    key = "lev_voidspawn_key"
+    ship_size = lev_voidspawn
+    fits_on_slot = mid
+    entity = "lev_voidspawn_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "invisible_missile_turret"
+        locatorname = "turret_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_02"
+        template = "invisible_missile_turret"
+        locatorname = "turret_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_03"
+        template = "invisible_missile_turret"
+        locatorname = "turret_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_04"
+        template = "invisible_medium_turret_fixed"
+        locatorname = "turret_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_05"
+        template = "invisible_medium_turret_fixed"
+        locatorname = "turret_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_06"
+        template = "invisible_medium_turret_fixed"
+        locatorname = "turret_01"
+    }
+
+    aux_utility_slots = 2
+    large_utility_slots = 10
+}

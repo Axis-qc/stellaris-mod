@@ -1,0 +1,96 @@
+# 利维坦·毒圣 技能（腐蚀）
+# possible：This = 舰队自身、From = 施放舰队；button_clickable 是舰队作用域
+# 本期无资源门槛，possible / button_clickable 直接放行
+
+# 腐蚀之雾（槽1）：本星系敌舰护甲与武器伤害削弱
+lev_toxic_god_corrosion = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_toxic_god }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_toxic_god_sk1_completed
+    tooltip = lev_toxic_god_corrosion_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_toxic_god_corrosion_activity_key
+    context_menu_name = lev_toxic_god_corrosion_menu_title
+    progress_activity_key = lev_toxic_god_corrosion_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 1
+}
+
+# 毒沼披覆（槽2）：自身船体再生、护甲与船体强化
+lev_toxic_god_mire = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_toxic_god }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_toxic_god_sk2_completed
+    tooltip = lev_toxic_god_mire_button
+    icon = GFX_fleet_action_button_paladin_hold_the_line
+    icon_selected = GFX_fleet_action_button_paladin_hold_the_line
+    activity_key = lev_toxic_god_mire_activity_key
+    context_menu_name = lev_toxic_god_mire_menu_title
+    progress_activity_key = lev_toxic_god_mire_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 180
+    slot = 2
+}
+
+# 瘟疫扩散（槽3，终结技）：本星系敌舰全面腐蚀
+lev_toxic_god_plague = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_toxic_god }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_toxic_god_ult_completed
+    tooltip = lev_toxic_god_plague_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_toxic_god_plague_activity_key
+    context_menu_name = lev_toxic_god_plague_menu_title
+    progress_activity_key = lev_toxic_god_plague_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

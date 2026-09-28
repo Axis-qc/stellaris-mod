@@ -1,0 +1,58 @@
+namespace = lev
+
+# 利维坦·自动无畏战舰 技能事件（lev.230~239）
+# on_action 触发时：THIS = 施放舰队自身（scope = self），from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）；同技能内曲线不同的字段
+# 按维度拆成多个 modifier 分别挂（一个 add_modifier 只有一个 mult）。
+
+# 净化齐射：自身 武器伤害/射速增益（20 天）
+fleet_event = {
+    id = lev.230
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_dreadnought }
+            add_modifier = { modifier = lev_dreadnought_sk1_dmg mult = root.owner.value:lev_sk_dread_1_dmg days = 20 }
+            add_modifier = { modifier = lev_dreadnought_sk1_fr mult = root.owner.value:lev_sk_dread_1_fr days = 20 }
+        }
+    }
+}
+
+# 装甲重组：自身 护甲再生/护甲/船体增益（30 天）
+fleet_event = {
+    id = lev.231
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_dreadnought }
+            add_modifier = { modifier = lev_dreadnought_sk2_ar mult = root.owner.value:lev_sk_dread_2_ar days = 30 }
+            add_modifier = { modifier = lev_dreadnought_sk2_am mult = root.owner.value:lev_sk_dread_2_am days = 30 }
+            add_modifier = { modifier = lev_dreadnought_sk2_hl mult = root.owner.value:lev_sk_dread_2_hl days = 30 }
+        }
+    }
+}
+
+# 全弹发射：本星系敌舰 射速/武器伤害/护盾减益（40 天）
+fleet_event = {
+    id = lev.232
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    controller = { is_hostile = event_target:lev_caster }
+                }
+                every_owned_ship = {
+                    add_modifier = { modifier = lev_dreadnought_u_fr mult = root.owner.value:lev_sk_dread_u_fr days = 40 }
+                    add_modifier = { modifier = lev_dreadnought_u_dmg mult = root.owner.value:lev_sk_dread_u_dmg days = 40 }
+                    add_modifier = { modifier = lev_dreadnought_u_sh mult = root.owner.value:lev_sk_dread_u_sh days = 40 }
+                }
+            }
+        }
+    }
+}

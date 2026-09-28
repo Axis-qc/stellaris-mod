@@ -1,0 +1,19 @@
+# 利维坦·毒圣 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01，静态点数字段写 0.1（数值 = 点数×10）；
+# 敌方 debuff 字段带负号、数值传正幅度。（本地化键 = modifier key）
+
+# 腐蚀之雾（敌舰，负向）
+lev_toxic_god_sk1_ar = { ship_armor_mult = -0.01 }
+lev_toxic_god_sk1_dmg = { ship_weapon_damage = -0.01 }
+
+# 毒沼披覆（自身）
+lev_toxic_god_sk2_hr = { ship_hull_regen_add_static = 0.1 }
+lev_toxic_god_sk2_ar = { ship_armor_mult = 0.01 }
+lev_toxic_god_sk2_hl = { ship_hull_mult = 0.01 }
+
+# 瘟疫扩散（敌舰，负向）
+lev_toxic_god_u_dmg = { ship_weapon_damage = -0.01 }
+lev_toxic_god_u_sr = { ship_shield_regen_add_perc = -0.01 }
+lev_toxic_god_u_ar = { ship_armor_regen_add_perc = -0.01 }

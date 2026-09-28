@@ -1,0 +1,65 @@
+namespace = lev
+
+# 利维坦·巨龙 技能事件（lev.120~129，不得越界）
+# on_action 触发时 THIS = 施放舰队、from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）；同技能内曲线不同的字段
+# 按维度拆成多个 modifier 分别挂（一个 add_modifier 只有一个 mult）。
+# 本期不做直接伤害，敌舰一律用减益（modifier）替代
+
+# sk1 棱镜射线：本舰武器伤害/射速增益
+fleet_event = {
+    id = lev.120
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        every_owned_ship = {
+            limit = { is_ship_size = lev_shard }
+            add_modifier = { modifier = lev_shard_sk1_dmg mult = root.owner.value:lev_sk_shard_1_dmg days = 20 }
+            add_modifier = { modifier = lev_shard_sk1_fr mult = root.owner.value:lev_sk_shard_1_fr days = 20 }
+        }
+    }
+}
+
+# sk2 棱镜护壁：本舰护盾/护甲增益
+fleet_event = {
+    id = lev.122
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        every_owned_ship = {
+            limit = { is_ship_size = lev_shard }
+            add_modifier = { modifier = lev_shard_sk2_sh mult = root.owner.value:lev_sk_shard_2_sh days = 30 }
+            add_modifier = { modifier = lev_shard_sk2_ar mult = root.owner.value:lev_sk_shard_2_ar days = 30 }
+        }
+    }
+}
+
+# ult 光谱裂解：本星系敌舰护甲/伤害减益
+fleet_event = {
+    id = lev.124
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        solar_system = {
+            every_ship_in_system = {
+                limit = {
+                    owner = {
+                        is_hostile = event_target:lev_caster
+                    }
+                }
+                add_modifier = { modifier = lev_shard_ult_ar mult = root.owner.value:lev_sk_shard_u_ar days = 40 }
+                add_modifier = { modifier = lev_shard_ult_dmg mult = root.owner.value:lev_sk_shard_u_dmg days = 40 }
+            }
+        }
+    }
+}

@@ -1,0 +1,96 @@
+# 利维坦·以太巨龙 技能（槽 1/2/3）
+# 本期技能无资源门槛：possible / button_clickable 直接 always = yes
+# 不写 begin_anim_state / progress_anim_state / finish_anim_state，避免引用未注册动画
+
+# 龙息喷吐（槽1）：本星系敌舰武器伤害 -25%、射速 -15%；自身射速 +20%
+lev_drake_breath = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_drake }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_drake_sk1_completed
+    tooltip = lev_drake_breath_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_drake_breath_activity_key
+    context_menu_name = lev_drake_breath_menu_title
+    progress_activity_key = lev_drake_breath_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 180
+    slot = 1
+}
+
+# 龙翼护体（槽2）：自身护甲 +40%、船体再生 +2%/天
+lev_drake_wing_guard = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_drake }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_drake_sk2_completed
+    tooltip = lev_drake_wing_guard_button
+    icon = GFX_fleet_action_button_paladin_hold_the_line
+    icon_selected = GFX_fleet_action_button_paladin_hold_the_line
+    activity_key = lev_drake_wing_guard_activity_key
+    context_menu_name = lev_drake_wing_guard_menu_title
+    progress_activity_key = lev_drake_wing_guard_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 2
+}
+
+# 焚世吐息（槽3/大招）：本星系敌舰武器伤害 -35%、护盾回复 -50%、减速 30%
+lev_drake_worldfire = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_drake }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_drake_ult_completed
+    tooltip = lev_drake_worldfire_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_drake_worldfire_activity_key
+    context_menu_name = lev_drake_worldfire_menu_title
+    progress_activity_key = lev_drake_worldfire_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

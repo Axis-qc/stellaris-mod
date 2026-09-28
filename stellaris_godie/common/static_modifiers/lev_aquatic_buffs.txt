@@ -1,0 +1,18 @@
+# 利维坦·天龙 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01，小百分比再生写 0.001（数值 = 百分比×10）；
+# 敌方 debuff 字段带负号、数值传正幅度。
+
+# sk1 潮汐吐息（敌舰，负向）
+lev_aquatic_sk1_dmg = { ship_weapon_damage = -0.01 }
+lev_aquatic_sk1_fr = { ship_fire_rate_mult = -0.01 }
+
+# sk2 深渊鳞壁（自身）
+lev_aquatic_sk2_am = { ship_armor_mult = 0.01 }
+lev_aquatic_sk2_hr = { ship_hull_regen_add_perc = 0.001 }
+
+# ult 龙啸深渊（敌舰，负向）
+lev_aquatic_ult_dmg = { ship_weapon_damage = -0.01 }
+lev_aquatic_ult_sp = { ship_speed_mult = -0.01 }
+lev_aquatic_ult_ev = { ship_evasion_mult = -0.01 }

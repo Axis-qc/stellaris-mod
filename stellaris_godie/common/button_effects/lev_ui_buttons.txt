@@ -66,7 +66,7 @@ lev_card_drake = {
     allow = { always = yes }
 }
 
-# 蓝龙莎德
+# 巨龙
 lev_card_shard = {
     potential = {
         from = {
@@ -79,7 +79,7 @@ lev_card_shard = {
     allow = { always = yes }
 }
 
-# 灵体幽魂
+# 幽魂
 lev_card_wraith = {
     potential = {
         from = {
@@ -92,7 +92,7 @@ lev_card_wraith = {
     allow = { always = yes }
 }
 
-# 次元魔物
+# 位面之魇
 lev_card_horror = {
     potential = {
         from = {
@@ -105,7 +105,7 @@ lev_card_horror = {
     allow = { always = yes }
 }
 
-# 毒神
+# 毒圣
 lev_card_toxic_god = {
     potential = {
         from = {
@@ -836,6 +836,587 @@ lev_feed_toxic_god_stop = {
                 set_variable = { which = lev_toxic_god_feed_level value = 0 }
                 # 立即同步当前档位收益（舰队状态栏显示用）
                 set_variable = { which = lev_toxic_god_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+# 自动无畏战舰
+lev_card_dreadnought = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # 【布局预览模式】解锁门槛暂时注释掉；
+            # 恢复实装时取消下一行注释即可
+            # has_country_flag = lev_dreadnought_unlocked
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_dreadnought_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # has_country_flag = lev_dreadnought_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_dreadnought_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_dreadnought_feed_level value = 1 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_dreadnought_gain_current value = lev_dreadnought_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_dreadnought_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # has_country_flag = lev_dreadnought_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_dreadnought_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_dreadnought_feed_level value = 2 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_dreadnought_gain_current value = lev_dreadnought_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_dreadnought_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # has_country_flag = lev_dreadnought_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_dreadnought_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_dreadnought_feed_level value = 3 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_dreadnought_gain_current value = lev_dreadnought_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_dreadnought_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+            # has_country_flag = lev_dreadnought_unlocked
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_dreadnought_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_dreadnought_feed_level value = 0 }
+                # 立即同步当前档位收益（舰队状态栏显示用）
+                set_variable = { which = lev_dreadnought_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+# scavenger
+lev_card_scavenger = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_scavenger_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_scavenger_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_scavenger_feed_level value = 1 }
+                set_variable = { which = lev_scavenger_gain_current value = lev_scavenger_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_scavenger_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_scavenger_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_scavenger_feed_level value = 2 }
+                set_variable = { which = lev_scavenger_gain_current value = lev_scavenger_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_scavenger_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_scavenger_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_scavenger_feed_level value = 3 }
+                set_variable = { which = lev_scavenger_gain_current value = lev_scavenger_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_scavenger_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_scavenger_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_scavenger_feed_level value = 0 }
+                set_variable = { which = lev_scavenger_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+# sphere
+lev_card_sphere = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_sphere_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_sphere_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_sphere_feed_level value = 1 }
+                set_variable = { which = lev_sphere_gain_current value = lev_sphere_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_sphere_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_sphere_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_sphere_feed_level value = 2 }
+                set_variable = { which = lev_sphere_gain_current value = lev_sphere_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_sphere_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_sphere_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_sphere_feed_level value = 3 }
+                set_variable = { which = lev_sphere_gain_current value = lev_sphere_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_sphere_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_sphere_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_sphere_feed_level value = 0 }
+                set_variable = { which = lev_sphere_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+# aquatic
+lev_card_aquatic = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_aquatic_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_aquatic_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_aquatic_feed_level value = 1 }
+                set_variable = { which = lev_aquatic_gain_current value = lev_aquatic_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_aquatic_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_aquatic_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_aquatic_feed_level value = 2 }
+                set_variable = { which = lev_aquatic_gain_current value = lev_aquatic_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_aquatic_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_aquatic_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_aquatic_feed_level value = 3 }
+                set_variable = { which = lev_aquatic_gain_current value = lev_aquatic_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_aquatic_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_aquatic_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_aquatic_feed_level value = 0 }
+                set_variable = { which = lev_aquatic_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+# voidspawn
+lev_card_voidspawn = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_voidspawn_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_voidspawn_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_voidspawn_feed_level value = 1 }
+                set_variable = { which = lev_voidspawn_gain_current value = lev_voidspawn_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_voidspawn_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_voidspawn_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_voidspawn_feed_level value = 2 }
+                set_variable = { which = lev_voidspawn_gain_current value = lev_voidspawn_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_voidspawn_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_voidspawn_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_voidspawn_feed_level value = 3 }
+                set_variable = { which = lev_voidspawn_gain_current value = lev_voidspawn_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_voidspawn_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_voidspawn_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_voidspawn_feed_level value = 0 }
+                set_variable = { which = lev_voidspawn_gain_current value = 0 }
             }
         }
     }

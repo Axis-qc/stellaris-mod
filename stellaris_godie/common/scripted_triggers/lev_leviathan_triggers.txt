@@ -7,5 +7,30 @@
 lev_is_leviathan_ship = {
     OR = {
         is_ship_size = lev_stellarite
+        is_ship_size = lev_drake
+        is_ship_size = lev_shard
+        is_ship_size = lev_wraith
+        is_ship_size = lev_horror
+        is_ship_size = lev_toxic_god
+        is_ship_size = lev_dreadnought
+        is_ship_size = lev_scavenger
+        is_ship_size = lev_sphere
+        is_ship_size = lev_aquatic
+        is_ship_size = lev_voidspawn
+    }
+}
+
+# 舰队是否含拥有行星支援技能的利维坦（fleet 作用域，6 只支援型）
+# 军事型（drake/shard/horror/dreadnought/voidspawn）无支援技能，不进列表
+lev_has_support_leviathan = {
+    any_owned_ship = {
+        OR = {
+            is_ship_size = lev_stellarite
+            is_ship_size = lev_sphere
+            is_ship_size = lev_wraith
+            is_ship_size = lev_scavenger
+            is_ship_size = lev_toxic_god
+            is_ship_size = lev_aquatic
+        }
     }
 }

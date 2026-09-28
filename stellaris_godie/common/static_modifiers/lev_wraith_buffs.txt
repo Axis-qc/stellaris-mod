@@ -1,0 +1,20 @@
+# 利维坦·幽魂 技能 timed modifier
+# 按维度拆分：一个 add_modifier 只有一个 mult，同技能内曲线不同的字段
+# 各拆一个 modifier，分别挂自己的数值。数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）：
+# 百分比字段写 0.01（每 1 点数值 +1%），闪避等点数字段写 1。
+# 敌方 debuff 字段带负号、数值传正幅度。
+
+# sk1 相位穿击（自身）
+lev_wraith_sk1_dmg = { ship_weapon_damage = 0.01 }
+lev_wraith_sk1_fr = { ship_fire_rate_mult = 0.01 }
+
+# sk2 相位残影（自身）
+lev_wraith_sk2_ev = { ship_evasion_add = 1 }
+lev_wraith_sk2_sp = { ship_speed_mult = 0.01 }
+lev_wraith_sk2_sh = { ship_shield_mult = 0.01 }
+
+# ult 相位风暴（敌舰，负向）
+lev_wraith_ult_dmg = { ship_weapon_damage = -0.01 }
+lev_wraith_ult_fr = { ship_fire_rate_mult = -0.01 }
+lev_wraith_ult_ev = { ship_evasion_add = -1 }

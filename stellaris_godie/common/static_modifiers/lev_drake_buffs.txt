@@ -1,0 +1,21 @@
+# 利维坦·以太巨龙 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01；小百分比（<10%）写 0.001，数值 = 百分比×10。
+# 敌方 debuff 字段带负号、数值传正幅度。
+
+# sk1 龙息喷吐（自身）
+lev_drake_sk1_fr = { ship_fire_rate_mult = 0.01 }
+
+# sk1 龙息喷吐（敌舰，负向）
+lev_drake_sk1d_dmg = { ship_weapon_damage = -0.01 }
+lev_drake_sk1d_fr = { ship_fire_rate_mult = -0.01 }
+
+# sk2 龙翼护体（自身）
+lev_drake_sk2_ar = { ship_armor_mult = 0.01 }
+lev_drake_sk2_hr = { ship_hull_regen_add_perc = 0.001 }
+
+# ult 焚世吐息（敌舰，负向）
+lev_drake_ult_dmg = { ship_weapon_damage = -0.01 }
+lev_drake_ult_sr = { ship_shield_regen_mult = -0.01 }
+lev_drake_ult_sp = { ship_speed_mult = -0.01 }

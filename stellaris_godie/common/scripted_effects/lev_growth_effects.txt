@@ -9,7 +9,7 @@
 #   lev_<TYPE>_growth_next   下一级所需成长值（UI 显示用）
 #   lev_<TYPE>_feed_level    营养档位 0=停止 1=低 2=中 3=高
 #   lev_<TYPE>_cost_low/mid/high   当月各档消耗 = 等级 × 5/10/20
-#   lev_<TYPE>_gain_low/mid/high   当月各档收益 = 固定值 低4/中8/高16（2026-09-12 改：不再随等级乘）
+#   lev_<TYPE>_gain_low/mid/high   当月各档收益 = 固定值 低4/中8/高16
 #   lev_<TYPE>_gain_current        当前生效档位的月收益（舰队状态栏显示用，停止 = 0）
 #
 # 【新增一只利维坦要动的地方】
@@ -229,7 +229,7 @@ lev_feed_recalc = {
     set_variable = { which = lev_$TYPE$_cost_high value = lev_$TYPE$_growth_level }
     multiply_variable = { which = lev_$TYPE$_cost_high value = 20 }
 
-    # 营养收益 = 固定值 低4 / 中8 / 高16（2026-09-12 改：不再随等级乘，打断正反馈；成本仍随等级）
+    # 营养收益 = 固定值 低4 / 中8 / 高16
     set_variable = { which = lev_$TYPE$_gain_low value = 4 }
     set_variable = { which = lev_$TYPE$_gain_mid value = 8 }
     set_variable = { which = lev_$TYPE$_gain_high value = 16 }
@@ -303,5 +303,45 @@ lev_feed_settle_all = {
     if = {
         limit = { has_country_flag = lev_stellarite_unlocked }
         lev_feed_settle = { TYPE = stellarite }
+    }
+    if = {
+        limit = { has_country_flag = lev_drake_unlocked }
+        lev_feed_settle = { TYPE = drake }
+    }
+    if = {
+        limit = { has_country_flag = lev_shard_unlocked }
+        lev_feed_settle = { TYPE = shard }
+    }
+    if = {
+        limit = { has_country_flag = lev_wraith_unlocked }
+        lev_feed_settle = { TYPE = wraith }
+    }
+    if = {
+        limit = { has_country_flag = lev_horror_unlocked }
+        lev_feed_settle = { TYPE = horror }
+    }
+    if = {
+        limit = { has_country_flag = lev_toxic_god_unlocked }
+        lev_feed_settle = { TYPE = toxic_god }
+    }
+    if = {
+        limit = { has_country_flag = lev_dreadnought_unlocked }
+        lev_feed_settle = { TYPE = dreadnought }
+    }
+    if = {
+        limit = { has_country_flag = lev_scavenger_unlocked }
+        lev_feed_settle = { TYPE = scavenger }
+    }
+    if = {
+        limit = { has_country_flag = lev_sphere_unlocked }
+        lev_feed_settle = { TYPE = sphere }
+    }
+    if = {
+        limit = { has_country_flag = lev_aquatic_unlocked }
+        lev_feed_settle = { TYPE = aquatic }
+    }
+    if = {
+        limit = { has_country_flag = lev_voidspawn_unlocked }
+        lev_feed_settle = { TYPE = voidspawn }
     }
 }

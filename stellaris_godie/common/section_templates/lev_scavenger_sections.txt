@@ -1,0 +1,40 @@
+# 利维坦·拾荒机器人 区段模板（照原版 scavenger_bot_key：1 巨型 + 4 导弹，槽位模板逐字照原版 invisible_*）
+# 槽位数 / locatorname / large_utility_slots / aux_utility_slots 逐字照原版 G:\...\common\section_templates\distant_stars.txt L60~110
+# 原版 mid 区段没有 is_side_slot 标记；玩家版不需要 bot_1/bot_2/bot_3 僚机小区段，ship_size 只留 mid 槽
+
+ship_section_template = {
+    key = "lev_scavenger_key"
+    ship_size = lev_scavenger
+    fits_on_slot = mid
+    entity = "lev_scavenger_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "TITAN_01"
+        template = "invisible_titanic_fixed"
+        locatorname = "xl_gun_01"
+    }
+    component_slot = {
+        name = "TORPEDO_04"
+        template = "invisible_missile_fixed"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "TORPEDO_05"
+        template = "invisible_missile_fixed"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "TORPEDO_06"
+        template = "invisible_missile_fixed"
+        locatorname = "root"
+    }
+    component_slot = {
+        name = "TORPEDO_07"
+        template = "invisible_missile_fixed"
+        locatorname = "root"
+    }
+
+    large_utility_slots = 20
+    aux_utility_slots = 3
+}
