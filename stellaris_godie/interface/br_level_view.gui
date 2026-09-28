@@ -672,6 +672,11 @@ guiTypes = {
                 position = { x = 8 y = 40 }
                 size = { width = 936 height = 556 }
                 verticalScrollbar = "right_vertical_slider"
+                # 引擎要求滚动容器必须有 background，否则写 containerwindowtype.cpp 警告
+                background = {
+                    name = "bg"
+                    quadTextureSprite = "GFX_invisible"
+                }
                 clipping = yes
                 margin = { top = 0 bottom = 8 }
                 # ── 卡片 1：噬星者 ──
@@ -1141,6 +1146,396 @@ guiTypes = {
                     buttonFont = "cg_16b"
                     format = center
                     effect = lev_feed_toxic_god_stop
+                }
+                # ── 卡片 7：自动无畏战舰 ──
+                effectButtonType = {
+                    name = lev_card_dreadnought_bg
+                    position = { x = 0 y = 558 }
+                    size = { x = 456 y = 176 }
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                    effect = lev_card_dreadnought
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_name
+                    position = { x = 14 y = 570 }
+                    size = { x = 430 y = 24 }
+                    buttonText = "LEV_CARD_NAME_DREADNOUGHT"
+                    buttonFont = "malgun_goth_24"
+                    format = left
+                    effect = lev_card_dreadnought
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_level
+                    position = { x = 14 y = 602 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_LEVEL_DREADNOUGHT"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_dreadnought
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_cost
+                    position = { x = 14 y = 630 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_COST_DREADNOUGHT"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_dreadnought
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_btn_low
+                    position = { x = 14 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_LOW"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_dreadnought_low
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_btn_mid
+                    position = { x = 126 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_MID"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_dreadnought_mid
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_btn_high
+                    position = { x = 238 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_HIGH"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_dreadnought_high
+                }
+                effectButtonType = {
+                    name = lev_card_dreadnought_btn_stop
+                    position = { x = 350 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_STOP"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_dreadnought_stop
+                }
+                # ── 卡片 8：拾荒机器人 ──
+                effectButtonType = {
+                    name = lev_card_scavenger_bg
+                    position = { x = 466 y = 558 }
+                    size = { x = 456 y = 176 }
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                    effect = lev_card_scavenger
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_name
+                    position = { x = 480 y = 570 }
+                    size = { x = 430 y = 24 }
+                    buttonText = "LEV_CARD_NAME_SCAVENGER"
+                    buttonFont = "malgun_goth_24"
+                    format = left
+                    effect = lev_card_scavenger
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_level
+                    position = { x = 480 y = 602 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_LEVEL_SCAVENGER"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_scavenger
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_cost
+                    position = { x = 480 y = 630 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_COST_SCAVENGER"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_scavenger
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_btn_low
+                    position = { x = 480 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_LOW"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_scavenger_low
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_btn_mid
+                    position = { x = 592 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_MID"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_scavenger_mid
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_btn_high
+                    position = { x = 704 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_HIGH"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_scavenger_high
+                }
+                effectButtonType = {
+                    name = lev_card_scavenger_btn_stop
+                    position = { x = 816 y = 674 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_STOP"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_scavenger_stop
+                }
+                # ── 卡片 9：无限神机 ──
+                effectButtonType = {
+                    name = lev_card_sphere_bg
+                    position = { x = 0 y = 744 }
+                    size = { x = 456 y = 176 }
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                    effect = lev_card_sphere
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_name
+                    position = { x = 14 y = 756 }
+                    size = { x = 430 y = 24 }
+                    buttonText = "LEV_CARD_NAME_SPHERE"
+                    buttonFont = "malgun_goth_24"
+                    format = left
+                    effect = lev_card_sphere
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_level
+                    position = { x = 14 y = 788 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_LEVEL_SPHERE"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_sphere
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_cost
+                    position = { x = 14 y = 816 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_COST_SPHERE"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_sphere
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_btn_low
+                    position = { x = 14 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_LOW"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_sphere_low
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_btn_mid
+                    position = { x = 126 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_MID"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_sphere_mid
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_btn_high
+                    position = { x = 238 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_HIGH"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_sphere_high
+                }
+                effectButtonType = {
+                    name = lev_card_sphere_btn_stop
+                    position = { x = 350 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_STOP"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_sphere_stop
+                }
+                # ── 卡片 10：天龙 ──
+                effectButtonType = {
+                    name = lev_card_aquatic_bg
+                    position = { x = 466 y = 744 }
+                    size = { x = 456 y = 176 }
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                    effect = lev_card_aquatic
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_name
+                    position = { x = 480 y = 756 }
+                    size = { x = 430 y = 24 }
+                    buttonText = "LEV_CARD_NAME_AQUATIC"
+                    buttonFont = "malgun_goth_24"
+                    format = left
+                    effect = lev_card_aquatic
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_level
+                    position = { x = 480 y = 788 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_LEVEL_AQUATIC"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_aquatic
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_cost
+                    position = { x = 480 y = 816 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_COST_AQUATIC"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_aquatic
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_btn_low
+                    position = { x = 480 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_LOW"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_aquatic_low
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_btn_mid
+                    position = { x = 592 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_MID"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_aquatic_mid
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_btn_high
+                    position = { x = 704 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_HIGH"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_aquatic_high
+                }
+                effectButtonType = {
+                    name = lev_card_aquatic_btn_stop
+                    position = { x = 816 y = 860 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_STOP"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_aquatic_stop
+                }
+                # ── 卡片 11：虚空孳孽 ──
+                effectButtonType = {
+                    name = lev_card_voidspawn_bg
+                    position = { x = 0 y = 930 }
+                    size = { x = 456 y = 176 }
+                    spriteType = "GFX_tiles_dark_area_cut_8"
+                    effect = lev_card_voidspawn
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_name
+                    position = { x = 14 y = 942 }
+                    size = { x = 430 y = 24 }
+                    buttonText = "LEV_CARD_NAME_VOIDSPAWN"
+                    buttonFont = "malgun_goth_24"
+                    format = left
+                    effect = lev_card_voidspawn
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_level
+                    position = { x = 14 y = 974 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_LEVEL_VOIDSPAWN"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_voidspawn
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_cost
+                    position = { x = 14 y = 1002 }
+                    size = { x = 430 y = 20 }
+                    buttonText = "LEV_CARD_COST_VOIDSPAWN"
+                    buttonFont = "cg_16b"
+                    format = left
+                    effect = lev_card_voidspawn
+                    alwaysTransparent = yes
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_btn_low
+                    position = { x = 14 y = 1046 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_LOW"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_voidspawn_low
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_btn_mid
+                    position = { x = 126 y = 1046 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_MID"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_voidspawn_mid
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_btn_high
+                    position = { x = 238 y = 1046 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_HIGH"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_voidspawn_high
+                }
+                effectButtonType = {
+                    name = lev_card_voidspawn_btn_stop
+                    position = { x = 350 y = 1046 }
+                    size = { x = 104 y = 36 }
+                    quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+                    buttonText = "LEV_FEED_BTN_STOP"
+                    buttonFont = "cg_16b"
+                    format = center
+                    effect = lev_feed_voidspawn_stop
                 }
             }
         }
