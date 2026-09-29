@@ -61,8 +61,14 @@ def make_fixture():
         "l_simp_chinese:\n HELLO_KEY:0 \"A text\"\n")
     io.open(lb, "w", encoding="utf-8").write(
         "l_simp_chinese:\n HELLO_KEY:0 \"B text\"\n")
-    return {"A": {"root": fa, "common": pa, "loc": la},
-            "B": {"root": fb, "common": pb, "loc": lb}}
+    # common 同 key 互抢（不同文件名、不同路径，wiki 语义 LIOS 时序）：
+    # zz_ 靠后者胜，模拟 res["keys"] 的形状给 fake_result。
+    ka = os.path.join(fa, "common", "aaa_buildings.txt")
+    kb = os.path.join(fb, "common", "zzz_buildings.txt")
+    io.open(ka, "w", encoding="utf-8").write("my_building = {\n\tA\n}\n")
+    io.open(kb, "w", encoding="utf-8").write("my_building = {\n\tB\n}\n")
+    return {"A": {"root": fa, "common": pa, "loc": la, "key": ka},
+            "B": {"root": fb, "common": pb, "loc": lb, "key": kb}}
 
 
 def fake_result(fx):
@@ -89,9 +95,20 @@ def fake_result(fx):
                 "full": fx["B"]["loc"]}],
            "winner": 1, "winner_label": "2:Beta", "loser_mods": [0],
            "mods": [0, 1], "has_vanilla": False, "mod_vs_mod": True}
+    # common 同 key 互抢：zzz_ 靠后者胜（wiki 语义 LIOS），形状对齐
+    # res["keys"]：dir/key/win_mod/win_label/entries(rel,mods,winner)
+    kv = {"key": "my_building", "dir": "common/buildings",
+          "sem": "LIOS", "win_mod": 1, "win_label": "2:Beta",
+          "win_rel": "common/zzz_buildings.txt",
+          "entries": [
+              {"rel": "common/aaa_buildings.txt", "mods": [0], "winner": 0,
+               "winner_label": "1:Alpha", "multi_path": False},
+              {"rel": "common/zzz_buildings.txt", "mods": [1], "winner": 1,
+               "winner_label": "2:Beta", "multi_path": False}],
+          "upset": [], "mods": [0, 1], "has_vanilla": False}
     return {
         "playlist": "", "mods": [ma, mb_], "diff": [diff], "same": [],
-        "vanilla": [], "keys": [], "l3_files": 0, "iface": [], "l4_files": 0,
+        "vanilla": [], "keys": [kv], "l3_files": 0, "iface": [], "l4_files": 0,
         "problems": [], "replace_paths": [], "vanilla_count": 0,
         "elapsed": 0.0, "vanilla_root": "",
         "loc": [loc], "loc_stats": {0: {"defined": 1, "lost": 1,
@@ -142,8 +159,8 @@ def main():
               app.nb_main.tab(0, "text") == t("gui.143") and
               app.nb_main.tab(1, "text") == t("gui.145"))
         check("mod 列表 2 行", len(app.tv_mods.get_children()) == 2)
-        check("总表含 diff+loc 行",
-              len(app.tv_ov.get_children()) == 2)
+        check("总表含 diff+loc+kv 行",
+              len(app.tv_ov.get_children()) == 3)
         check("本地化页签 1 行", len(app.tv_loc.get_children()) == 1)
         check("文件树文件节点",
               app.tv_tree.exists("f|common/stuff.txt"))
@@ -163,6 +180,21 @@ def main():
         check("本地化节点第二列=key 冲突数",
               app.tv_tree.set("f|localisation/a_l_simp_chinese.yml",
                               "winner") == t("gui.195") % 1)
+        # v2.2：common 同 key 互抢的两个文件也必须挂树（kv 池）
+        check("kv 文件A在树", app.tv_tree.exists(
+            "f|common/aaa_buildings.txt"))
+        check("kv 文件B在树", app.tv_tree.exists(
+            "f|common/zzz_buildings.txt"))
+        check("kv 节点第二列=key 冲突数",
+              app.tv_tree.set("f|common/aaa_buildings.txt", "winner") ==
+              t("gui.195") % 1)
+        app.tv_tree.selection_set("f|common/aaa_buildings.txt")
+        app._on_tree_select()
+        det = app.txt.get("1.0", "end")
+        check("kv 详情含语义说明", t("gui.197") in det)
+        check("kv 详情含 key 与双方", "my_building" in det and
+              "aaa_buildings.txt" in det and "zzz_buildings.txt" in det)
+        app.tv_tree.selection_set("f|common/stuff.txt")
 
         print("== 文件树选中 → 操作条 ==")
         app.tv_tree.selection_set("f|common/stuff.txt")

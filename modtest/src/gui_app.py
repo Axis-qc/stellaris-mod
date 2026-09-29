@@ -553,11 +553,13 @@ class App(tk.Tk):
 
     # ---------- v2：文件树 ----------
     def _tree_sources(self):
-        """文件树的数据源：mod 互抢的同路径冲突 + 本地化 yml 互抢。
+        """文件树的数据源：mod 互抢的四类冲突。
 
-        返回 {rel: {"chain": [(label, full, is_win)], "keep_idx", "winner_label",
-                    "src": "diff"|"loc", "lang", "keys"}}。
-        同一路径出现在 diff 与 loc 时只挂一次，diff 优先。
+        返回 {rel: {"chain": [(label, full, is_win)], "keep_idx",
+                    "winner_label", "src": "diff"|"loc"|"kv",
+                    "lang", "keys", "key_rows"}}。
+        同一路径出现在多类时只挂一次，优先级 diff > kv > loc
+        （同路径整文件替换的信息量最大）。
         """
         # 键一律小写：diff 的 rel 本就是小写，loc 的 rel 保留原大小写，
         # 不归一会让同一路径在树上出现大小写两个节点。
@@ -577,6 +579,44 @@ class App(tk.Tk):
                                       "winner_label": "%d:%s" % (it["winner"] + 1,
                                                                  it["winner_name"]),
                                       "src": "diff", "lang": ""}
+        # common 同 key 与 interface 元素互抢（v2.2 新增挂树）：冲突单位是
+        # 具名定义/元素名，双方文件名通常不同，与本地化同构。只取真实 mod
+        # >= 2 的互抢（mod 覆盖原版属正常行为不挂树）。
+        for pool in (res.get("keys") or []), (res.get("iface") or []):
+            agg = {}
+            for c in pool:
+                if len(c.get("mods") or []) < 2:
+                    continue
+                if not self._keep(c.get("entries") or []):
+                    continue
+                for e in c["entries"]:
+                    if e["winner"] < 0 or not e.get("rel"):
+                        continue
+                    rel = e["rel"].lower()
+                    slot = agg.setdefault(rel, {"rel": rel, "conflicts": [],
+                                                "wins": {}})
+                    if not any(x is c for x in slot["conflicts"]):
+                        slot["conflicts"].append(c)
+                    if e["winner"] == c["win_mod"]:
+                        slot["wins"][e["winner"]] = \
+                            slot["wins"].get(e["winner"], 0) + 1
+            for rel, slot in agg.items():
+                if rel in out:
+                    continue
+                wins = slot["wins"]
+                winner = (max(wins, key=lambda m: (wins[m], -m))
+                          if wins else slot["conflicts"][0]["win_mod"])
+                key_rows = [{"key": c["key"], "winner_label": c["win_label"]}
+                            for c in sorted(slot["conflicts"],
+                                            key=lambda x: x["key"])]
+                out[rel] = {"rel": rel,
+                            "chain": self._kv_chain(slot["conflicts"], winner),
+                            "keep_idx": winner,
+                            "winner_label": "%d:%s" % (winner + 1,
+                                                       self._mod_name(winner)),
+                            "src": "kv", "lang": "",
+                            "keys": [kr["key"] for kr in key_rows],
+                            "key_rows": key_rows}
         # 本地化互抢：冲突单位是 (lang,key)，双方文件名通常不同——若按路径
         # 聚合再要求「同路径 ≥2 mod」，会把真实冲突全部滤掉（实测 9 条全是
         # 跨文件互抢，树里只剩 interface 的 4 条同路径冲突）。
@@ -633,6 +673,33 @@ class App(tk.Tk):
             return res["mods"][idx]["name"]
         return "?"
 
+    def _kv_chain(self, conflicts, winner):
+        """同 key / interface 互抢的跨路径动作链。
+
+        entries 只有 rel 与 mods，没有 full；从主扫描的 diff 覆盖表反查
+        每个 (rel, 最靠后 mod) 的真实路径。查不到的条目跳过（链短一点
+        不影响「选保留方 → 删对方」的核心动作，full 缺失项 fs_ops 会拒收
+        并报错，所以这里只放有 full 的）。
+        """
+        chain_map = {}
+        diff_index = {}
+        for it in (self.result or {}).get("diff") or []:
+            for r in it["entries"]:
+                diff_index[(it["rel"].lower(), r["idx"])] = r["full"]
+        for c in conflicts:
+            for e in c["entries"]:
+                if e["winner"] < 0 or not e.get("rel"):
+                    continue
+                # 同路径被多个 mod 占时，动作者取参与 mod 里最靠后者
+                m = max(e.get("mods") or [e["winner"]])
+                full = e.get("full") or diff_index.get(
+                    (e["rel"].lower(), m)) or \
+                    diff_index.get((e["rel"].lower(), e["winner"]))
+                if full:
+                    chain_map.setdefault(m, full)
+        return [("%d:%s" % (m + 1, self._mod_name(m)), full, m == winner)
+                for m, full in sorted(chain_map.items())]
+
     def _fill_tree(self, keep_open=True, filter_q=""):
         """重建文件树。
 
@@ -658,7 +725,7 @@ class App(tk.Tk):
                 cur_rel = "/".join(path_so_far)
                 if i == len(parts) - 1:
                     iid = "f|" + cur_rel          # 文件节点
-                    if meta["src"] == "loc":
+                    if meta["src"] in ("loc", "kv"):
                         # 本地化节点：本文件参与的互抢 key 数（可能只是
                         # 冲突一方的文件，第二列写「参与 N 个 key 冲突」）
                         vals = (t("gui.195") % len(meta["keys"]),)
@@ -789,6 +856,26 @@ class App(tk.Tk):
         L = [t("gui.099") % rel]
         if meta["src"] == "diff":
             L.append(t("gui.100"))
+        elif meta["src"] == "kv":
+            # 同 key / interface 元素互抢：列出该文件参与的全部 key 冲突。
+            # 这两类胜负由文件名字符序决定（wiki 语义），调加载顺序无效。
+            L.append(t("gui.197"))
+            L.append(t("gui.185") % len(meta.get("keys") or []))
+            L.append("")
+            for kr in meta.get("key_rows") or []:
+                L.append("%s  %s" % (kr["key"], kr["winner_label"]))
+                for c in (res.get("keys") or []) + (res.get("iface") or []):
+                    if c["key"] != kr["key"] or len(c.get("mods") or []) < 2:
+                        continue
+                    for e in c["entries"]:
+                        if e["winner"] < 0:
+                            continue
+                        m2 = "%d:%s" % (e["winner"] + 1,
+                                        self._mod_name(e["winner"]))
+                        mark = t("gui.098") if e["winner"] == c["win_mod"] \
+                            else t("gui.104")
+                        L.append("    %-22s %s%s" % (m2, e["rel"], mark))
+                L.append("")
         else:
             L.append(t("gui.182"))
             if meta.get("lang"):
