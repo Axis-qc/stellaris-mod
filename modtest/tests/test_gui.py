@@ -52,8 +52,11 @@ def make_fixture():
     pb = os.path.join(fb, "common", "stuff.txt")
     io.open(pa, "w", encoding="utf-8").write("A version\n")
     io.open(pb, "w", encoding="utf-8").write("B version\n")
-    la = os.path.join(fa, "localisation", "x_l_simp_chinese.yml")
-    lb = os.path.join(fb, "localisation", "x_l_simp_chinese.yml")
+    # 两个 mod 的 yml 文件名刻意不同：本地化互抢的真实形状是跨文件
+    # （同 key 在不同文件里），回归锁：树必须把两边的文件都挂出来
+    # （v2.1 修复的 bug 就是同路径聚合并过滤把它们全滤掉了）。
+    la = os.path.join(fa, "localisation", "a_l_simp_chinese.yml")
+    lb = os.path.join(fb, "localisation", "replace_l_simp_chinese.yml")
     io.open(la, "w", encoding="utf-8").write(
         "l_simp_chinese:\n HELLO_KEY:0 \"A text\"\n")
     io.open(lb, "w", encoding="utf-8").write(
@@ -80,9 +83,9 @@ def fake_result(fx):
             "in_vanilla": False, "winner": 1, "winner_name": "Beta"}
     loc = {"key": "HELLO_KEY", "lang": "l_simp_chinese",
            "entries": [
-               {"rel": "localisation/x_l_simp_chinese.yml", "mod": 0,
+               {"rel": "localisation/a_l_simp_chinese.yml", "mod": 0,
                 "full": fx["A"]["loc"]},
-               {"rel": "localisation/x_l_simp_chinese.yml", "mod": 1,
+               {"rel": "localisation/replace_l_simp_chinese.yml", "mod": 1,
                 "full": fx["B"]["loc"]}],
            "winner": 1, "winner_label": "2:Beta", "loser_mods": [0],
            "mods": [0, 1], "has_vanilla": False, "mod_vs_mod": True}
@@ -152,6 +155,14 @@ def main():
         check("文件树第二列=生效者",
               app.tv_tree.set("f|common/stuff.txt", "winner") ==
               t("gui.180") % "2:Beta")
+        # v2.1 回归锁：跨文件本地化互抢的两个文件都必须挂树
+        check("本地化文件A在树", app.tv_tree.exists(
+            "f|localisation/a_l_simp_chinese.yml"))
+        check("本地化文件B在树", app.tv_tree.exists(
+            "f|localisation/replace_l_simp_chinese.yml"))
+        check("本地化节点第二列=key 冲突数",
+              app.tv_tree.set("f|localisation/a_l_simp_chinese.yml",
+                              "winner") == t("gui.195") % 1)
 
         print("== 文件树选中 → 操作条 ==")
         app.tv_tree.selection_set("f|common/stuff.txt")

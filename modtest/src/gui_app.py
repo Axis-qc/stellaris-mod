@@ -577,8 +577,13 @@ class App(tk.Tk):
                                       "winner_label": "%d:%s" % (it["winner"] + 1,
                                                                  it["winner_name"]),
                                       "src": "diff", "lang": ""}
-        # 本地化互抢：把同 (lang,key) 冲突按「文件相对路径」聚合后挂树；
-        # 原版文件不进互抢树，链上只有真实 mod。
+        # 本地化互抢：冲突单位是 (lang,key)，双方文件名通常不同——若按路径
+        # 聚合再要求「同路径 ≥2 mod」，会把真实冲突全部滤掉（实测 9 条全是
+        # 跨文件互抢，树里只剩 interface 的 4 条同路径冲突）。
+        # 正确形状：每个参与互抢的真实文件各挂一个节点（同一路径被多条
+        # key 冲突共享时聚合成一个节点，key 取并集）；节点详情列出该文件
+        # 参与的全部 key 冲突与本文件输赢；删除/保留的动作链则跨路径——
+        # 由这些 key 冲突把双方文件串起来。原版文件不进互抢树。
         agg = {}
         for c in self.loc_items:
             if not self._keep(c.get("entries") or []):
@@ -588,22 +593,38 @@ class App(tk.Tk):
                     continue
                 rel = e["rel"].lower()
                 slot = agg.setdefault(rel, {"rel": rel, "lang": c["lang"],
-                                            "mods": {}, "winner": c["winner"],
-                                            "keys": []})
+                                            "mods": {}, "conflicts": [],
+                                            "wins": {}})
                 slot["mods"].setdefault(e["mod"], e["full"])
-                if c["key"] not in slot["keys"]:
-                    slot["keys"].append(c["key"])
+                if not any(x["key"] == c["key"] and x["lang"] == c["lang"]
+                           for x in slot["conflicts"]):
+                    slot["conflicts"].append(c)
+                if e["mod"] == c["winner"]:
+                    slot["wins"][e["mod"]] = slot["wins"].get(e["mod"], 0) + 1
         for rel, slot in agg.items():
-            if rel in out or len(slot["mods"]) < 2:
+            if rel in out:
                 continue
+            wins = slot["wins"]
+            winner = (max(wins, key=lambda m: (wins[m], -m))
+                      if wins else slot["conflicts"][0]["winner"])
+            key_rows = [{"key": c["key"], "winner_label": c["winner_label"]}
+                        for c in sorted(slot["conflicts"],
+                                        key=lambda x: x["key"])]
+            # 动作链跨路径：这些 key 涉及的全部真实 mod 文件（含对方的）
+            chain_map = {}
+            for c in slot["conflicts"]:
+                for e in c["entries"]:
+                    if e["mod"] >= 0 and e.get("full"):
+                        chain_map.setdefault(e["mod"], e["full"])
             chain = [("%d:%s" % (m + 1, self._mod_name(m)), full,
-                      m == slot["winner"])
-                     for m, full in sorted(slot["mods"].items())]
-            out[rel] = {"rel": rel, "chain": chain, "keep_idx": slot["winner"],
-                        "winner_label": "%d:%s" % (slot["winner"] + 1,
-                                                   self._mod_name(slot["winner"])),
+                      m == winner)
+                     for m, full in sorted(chain_map.items())]
+            out[rel] = {"rel": rel, "chain": chain, "keep_idx": winner,
+                        "winner_label": "%d:%s" % (winner + 1,
+                                                   self._mod_name(winner)),
                         "src": "loc", "lang": slot["lang"],
-                        "keys": slot["keys"]}
+                        "keys": [kr["key"] for kr in key_rows],
+                        "key_rows": key_rows}
         return out
 
     def _mod_name(self, idx):
@@ -637,7 +658,12 @@ class App(tk.Tk):
                 cur_rel = "/".join(path_so_far)
                 if i == len(parts) - 1:
                     iid = "f|" + cur_rel          # 文件节点
-                    vals = (t("gui.180") % meta["winner_label"],)
+                    if meta["src"] == "loc":
+                        # 本地化节点：本文件参与的互抢 key 数（可能只是
+                        # 冲突一方的文件，第二列写「参与 N 个 key 冲突」）
+                        vals = (t("gui.195") % len(meta["keys"]),)
+                    else:
+                        vals = (t("gui.180") % meta["winner_label"],)
                 else:
                     iid = "d|" + cur_rel          # 目录节点
                     vals = ("",)
@@ -650,11 +676,13 @@ class App(tk.Tk):
                 else:
                     node = iid
                     if i == len(parts) - 1:
-                        # 同一路径被多条 loc 冲突共享时，补挂 chain
+                        # 同一路径被多条 loc 冲突共享时，key 数取并集后刷新
                         self.tv_tree.set(node, "winner", vals[0])
                 parent = node
-            # 文件节点下按加载顺序上→下插 mod 子节点（上=先加载=低优先级）
-            for label_, _full, is_win in meta["chain"]:
+            # 文件节点下按加载顺序上→下插 mod 子节点（上=先加载=低优先级）。
+            # 本地化节点：链是跨路径的动作链，子节点标出各方文件路径；
+            # diff 节点：链即同路径各方。
+            for label_, full, is_win in meta["chain"]:
                 cid = "m|" + rel.lower() + "|" + label_
                 if not self.tv_tree.exists(cid):
                     self.tv_tree.insert("f|" + rel, "end", iid=cid,
@@ -765,9 +793,25 @@ class App(tk.Tk):
             L.append(t("gui.182"))
             if meta.get("lang"):
                 L.append(t("gui.183") % meta["lang"])
-            n_keys = self._loc_keys_for_path(rel)
-            if n_keys:
-                L.append(t("gui.185") % n_keys)
+            # 本地化节点详情：该文件参与的全部 key 冲突，逐 key 列出
+            # 双方文件与本文件的输赢（key_rows 在 _tree_sources 聚合）
+            L.append("")
+            L.append(t("gui.185") % len(meta.get("keys") or []))
+            L.append("")
+            own_label = next((lb for lb, _f, w in meta["chain"] if w), "")
+            for kr in meta.get("key_rows") or []:
+                L.append("%s  %s" % (kr["key"], kr["winner_label"]))
+                for c in self.loc_items:
+                    if c["key"] != kr["key"] or c["lang"] != meta.get("lang"):
+                        continue
+                    for e in c["entries"]:
+                        if e["mod"] < 0:
+                            continue
+                        m2 = "%d:%s" % (e["mod"] + 1, self._mod_name(e["mod"]))
+                        mark = t("gui.098") if e["mod"] == c["winner"] \
+                            else t("gui.104")
+                        L.append("    %-22s %s%s" % (m2, e["rel"], mark))
+                L.append("")
         it = next((x for x in (res.get("diff") or []) if x["rel"] == rel), None) \
             if meta["src"] == "diff" else None
         if it is not None and it.get("in_vanilla"):
