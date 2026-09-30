@@ -19,9 +19,12 @@ ship_behavior = {
     desc = "lev_STELLARITE_BEHAVIOR_DESC"
 }
 
-# 十只常规利维坦共用行为：移动参数镜像噬星者行为
+# 十只常规利维坦各一个行为：移动参数全部镜像噬星者行为，仅名称与描述按类型分化
+# 生物类：drake / shard / horror / toxic_god / aquatic / voidspawn
+# 能量/位面类：wraith
+# 机械类：dreadnought / scavenger / sphere
 ship_behavior = {
-    name = "lev_leviathan"
+    name = "lev_drake"
     preferred_attack_range = max
     formation_distance = max
     return_to_formation_distance = 1000
@@ -33,8 +36,179 @@ ship_behavior = {
     attack_move_pattern = maintain_distance
     passive_move_pattern = stay_at_range
     combat_movement = player_override
-    flee_when_overpowered = no      # 禁止低血/被碾压时逃离星系（利维坦不应自动撤退）
-    allow_emergency_ftl = no        # 已在，禁止紧急 FTL 跳走
-    allow_disengage = no            # 禁止自动脱离交战（玩家手动操控，不该自动撤）
-    desc = "lev_LEVIATHAN_BEHAVIOR_DESC"
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_DRAKE_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_shard"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_SHARD_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_wraith"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_WRAITH_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_horror"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_HORROR_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_toxic_god"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_TOXIC_GOD_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_dreadnought"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_DREADNOUGHT_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_scavenger"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_SCAVENGER_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_sphere"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_SPHERE_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_aquatic"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_AQUATIC_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_voidspawn"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_VOIDSPAWN_BEHAVIOR_DESC"
 }
