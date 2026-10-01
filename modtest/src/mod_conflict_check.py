@@ -859,6 +859,21 @@ def scan(include_dlc=False, progress=None):
             continue
 
         sem = dir_semantics(reldir)
+
+        # MERGE（如 common/on_actions）：不属互抢，直接跳过，不进 res["keys"]。
+        # 依据 Stellaris 官方 wiki Modding 页 Common folder 总表 on_actions 行：
+        # Overwrite Type = "NO/MERGE"，Error Log = "[none]"，Notes =
+        # "Cannot modify existing entries; new entries will be merged with the
+        # existing entry with the same NAME={}."；本地 CWTools 规则 on_actions.cwt
+        # 的 type[on_action] 块内也只有 events / random_events，未定义同名条目互相
+        # 覆盖；原版 common/on_actions/99_README_ON_ACTIONS.txt 亦说明 on_action
+        # 触发时会遍历 events 列表并全部触发。
+        # 即同目录下不同文件只是把各自条目追加合并到同名 on_action 上，不存在谁覆盖
+        # 谁、没有胜者，把它记进 keys 会被统计与文件树当成交互抢占，故在此拦掉。
+        # res["diff"] 是纯路径比对的整文件替换，不涉语义，照旧报。
+        if sem == "MERGE":
+            continue
+
         names = sorted(byname.keys())        # 文件名 ASCII 升序
 
         # 每个文件名对应的「生效 mod」：同路径多个 mod 时取加载顺序最靠后者

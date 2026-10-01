@@ -65,3 +65,16 @@ b 横幅联动：点击横幅跳文件树选中首个冲突；零互抢时不跳
 c 备份还原入口：删除清单页签「还原备份」，枚举 backups 时间戳目录（按 manifest 条数标注，缺失不列），restore_backups 落地，文案与 Steam「验证文件完整性」分层互不混淆，已存在不覆盖。
 d 执行前预检：临执行弹窗那一刻标记已消失目标（不剔除），执行时自动跳过；execute_deletes 增加 progress 回调；清单执行按 full 去重。
 loc-core 附议：vanilla 语言段白名单为观察项（暂不做，出现误报再做）。
+
+## 八、MERGE 语义目录判定口径（2026-10-01 定案）
+
+wiki Common folder 总表里 Overwrite Type 为 NO/MERGE 的目录（当前表内仅 common/on_actions），
+同名条目是追加合并而不是互相覆盖，因此不参与 key 互抢统计，也不挂文件树：这类目录不进
+res["keys"]，覆盖总表与同 key 页签都不会出现它的行。
+依据是 wiki 该行原文 Overwrite Type = "NO/MERGE"、Error Log = "[none]"、Notes =
+"Cannot modify existing entries; new entries will be merged with the existing entry with the
+same NAME={}."，同格另注 "Load order is top first."；本地 CWTools 规则 common/on_actions.cwt
+的 type[on_action] 只含 events 与 random_events，没有定义覆盖语义；原版
+99_README_ON_ACTIONS.txt 写明 on_action 触发时遍历 events 列表把合格事件全部触发，没有胜者。
+同路径整文件替换不受此口径影响：那属 res["diff"] 的纯路径比对，与目录语义无关，两个 mod 放
+同路径同名 on_actions 文件时先加载的那份整体不加载，照旧计入互抢并挂文件树。
