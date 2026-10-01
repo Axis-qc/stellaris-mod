@@ -22,12 +22,30 @@ utility_component_template = {
         }
         mult = owner.lev_stellarite_growth_level
     }
+    # 饱食：能量充盈，代谢旺盛
+    triggered_ship_modifier = {
+        potential = {
+            exists = owner
+            owner = { check_variable = { which = lev_stellarite_energy value >= 6 } }
+        }
+        ship_hull_regen_add_perc = 0.01
+    }
+    # 饥饿：能量见底，修复近乎停摆
+    triggered_ship_modifier = {
+        potential = {
+            exists = owner
+            owner = { check_variable = { which = lev_stellarite_energy value <= 2 } }
+        }
+        ship_hull_regen_add_perc = -0.005
+    }
     scripted_action = {
         br_dominator_level_panel        # 打开等级界面（技能栏第 1 位）
-        # 吞噬恒星已改由 planet_killer 槽位武器接管，不再是技能按钮
+        # 吞噬恒星与潜入恒星同属灭星器链路，不在技能栏
         lev_stellarite_ignite
         lev_stellarite_beam
+        lev_stellarite_sunburst        # 腹中日轮（slot 3）
         lev_stellarite_support          # 行星支援（slot 4，点目标行星）
+        lev_stellarite_auto_absorb      # 自动吞噬控制面（无按钮，仅自动化菜单可见）
     }
     ai_weight = {
         weight = 999

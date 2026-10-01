@@ -108,3 +108,84 @@ carrier_event = {
         lev_stellarite_absorb_apply = yes
     }
 }
+
+# 腹中日轮释放：fleet_event，THIS = 舰队
+fleet_event = {
+    id = lev.104
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        lev_stellarite_sunburst_apply = yes
+    }
+}
+
+# 腹中日轮起手预警：蓄力 30 天里给同星系敌国递话
+# on_started 派发时 THIS = 舰队、from = 舰队
+fleet_event = {
+    id = lev.105
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        solar_system = {
+            every_fleet_in_system = {
+                limit = {
+                    exists = owner
+                    owner = { is_hostile = root.owner }
+                }
+                owner = {
+                    create_message = {
+                        type = FLEET_DETECTED_MESSAGE_TYPE
+                        localization = lev_sunburst_warning
+                        days = 30
+                        custom_toast_icon = GFX_message_fleet_detected
+                    }
+                }
+            }
+        }
+    }
+}
+
+# 潜入恒星：吞噬指令下达即潜入，THIS = 目标恒星、from = 施放舰队
+carrier_event = {
+    id = lev.107
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from = { lev_stellarite_submerge_apply = yes }
+        log = "LEV_STELLARITE_SUBMERGE: fleet submerged (lev.107)"
+    }
+}
+
+# 上浮：吸食完成或取消订单时收窗口，挂主回调与 _unqueued 两处
+carrier_event = {
+    id = lev.108
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        from = { lev_stellarite_surface_apply = yes }
+        log = "LEV_STELLARITE_SUBMERGE: fleet surfaced (lev.108)"
+    }
+}
+
+# 自动吞噬：控制面动作走完，在这里下灭星器订单
+# THIS = 目标恒星、from = 施放舰队
+planet_event = {
+    id = lev.109
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        save_event_target_as = lev_absorb_target
+        from = {
+            # 灭星器订单自带走位，不要再垫 move_to / orbit_planet
+            queue_actions = {
+                destroy_planet = {
+                    target = event_target:lev_absorb_target
+                    skip_fire_phase = no
+                    skip_rules = no
+                    skip_windup_phase = no
+                }
+            }
+        }
+        log = "LEV_STELLARITE_AUTO: planet killer order queued (lev.109)"
+    }
+}

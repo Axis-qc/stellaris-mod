@@ -1,0 +1,60 @@
+# 噬星者自动托管的目标过滤：按控制选项把不允许的星系权重打到 0
+# 作用域同原版采集动作：this = 目标恒星，from = 施放舰队
+# 用法：在 scope = planet 的动作 ai.weight 里 inline_script 引入
+
+# 自家星系
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_own_systems } }
+	solar_system = { space_owner? = { is_same_value = FROM.controller } }
+}
+# 友方星系：有主、非己、非敌
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_friendly_systems } }
+	solar_system = {
+		space_owner? = {
+			NOT = { is_same_value = FROM.controller }
+			NOT = { is_hostile_to = FROM.controller }
+		}
+	}
+}
+# 敌方星系
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_hostile_systems } }
+	solar_system = { space_owner? = { is_hostile_to = FROM.controller } }
+}
+# 无人控制星系
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_unowned_systems } }
+	solar_system = { NOT = { exists = space_owner } }
+}
+# 星系内有殖民地
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_colony_systems } }
+	solar_system = { any_system_planet = { is_colony = yes } }
+}
+# 星系内有敌对舰队：关掉就整片避开，开着则优先
+modifier = {
+	factor = 0
+	FROM = { NOT = { has_automation_setting = lev_auto_hostile_presence } }
+	solar_system = {
+		any_fleet_in_system = {
+			exists = owner
+			owner = { is_hostile_to = FROM.controller }
+		}
+	}
+}
+modifier = {
+	factor = 2
+	FROM = { has_automation_setting = lev_auto_hostile_presence }
+	solar_system = {
+		any_fleet_in_system = {
+			exists = owner
+			owner = { is_hostile_to = FROM.controller }
+		}
+	}
+}

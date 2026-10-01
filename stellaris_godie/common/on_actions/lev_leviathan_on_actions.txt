@@ -18,21 +18,43 @@ on_lev_beam_completed = {
     }
 }
 
-# 灭星武器回调：this = 被开火的恒星，from = 施放舰队
+# 腹中日轮：on_started 是蓄力起手，on_completed 是落地
+on_lev_sunburst_started = {
+    events = {
+        lev.105
+    }
+}
 
+on_lev_sunburst_completed = {
+    events = {
+        lev.104
+    }
+}
+
+# 灭星武器（吞噬/潜入恒星）：this = 被开火的恒星，from = 施放舰队
 on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM = {
     events = {
         lev.103
+        lev.108
     }
 }
 
 on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM_queued = {
     events = {
+        lev.107
     }
 }
 
 on_destroy_planet_with_LEV_STELLARITE_ABSORB_BEAM_unqueued = {
     events = {
+        lev.108
+    }
+}
+
+# 自动吞噬控制面动作走完 → 下灭星器订单
+on_lev_auto_absorb_completed = {
+    events = {
+        lev.109
     }
 }
 

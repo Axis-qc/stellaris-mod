@@ -599,14 +599,14 @@
  lev_stellarite_key: "噬星者舰体"
 
  LEV_STELLARITE_CORE: "§R噬星者核心§!"
- LEV_STELLARITE_CORE_DESC: "噬星者利维坦的核心，承载吞噬恒星、重燃恒星与恒星光束三项能力。"
+ LEV_STELLARITE_CORE_DESC: "噬星者利维坦的核心，承载吞噬恒星、重燃恒星、恒星光束与腹中日轮四项能力。"
 
  # ---------- 建造限制提示 ----------
  not_has_lev_stellarite: "§H已拥有噬星者§!"
 
  # ---------- 国家级变量 ----------
  lev_stellarite_energy: "恒星能量"
- lev_stellarite_energy_desc: "噬星者体内储存的能量，由吞食的恒星物质炼成。吞噬恒星§G+1§!，重燃恒星与恒星光束各§R-1§!，上限§Y10§!。"
+ lev_stellarite_energy_desc: "噬星者体内储存的能量，由吞食的恒星物质炼成。吞噬恒星§G+1§!，重燃恒星与恒星光束各§R-1§!，腹中日轮§R-5§!，上限§Y10§!。"
 
 
  # ---------- 调试法令 ----------
@@ -652,13 +652,15 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  ## 灭星武器（planet_killer 槽）
  LEV_STELLARITE_ABSORB_BEAM: "吞星光束"
  LEV_STELLARITE_ABSORB_BEAM_ACTION: "吞噬恒星"
- LEV_STELLARITE_ABSORB_BEAM_DESC: "噬星者张开巨口咬住恒星，抽走其表层能量。恒星光谱降一级，星系内行星随之降温。"
+ LEV_STELLARITE_ABSORB_BEAM_DESC: "噬星者张开巨口咬住恒星，一头扎进恒星内部汲取养分。整个吸食期间它沉在恒星里，谁也够不着它。恒星光谱降一级，星系内行星随之降温。"
  FLEETORDER_DESTROY_PLANET_WITH_LEV_STELLARITE_ABSORB_BEAM: "正在准备吞噬$PLANET|Y$"
 
  ## 按钮
  lev_stellarite_ignite_button: "§G重燃恒星§!\n  注入能量使光谱§B升一级§!，行星升温，冰封殖民地化为§G盖亚§!（§R重塑行星地表§!）。\n  消耗§Y1§!能量　冷却§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
- lev_stellarite_beam_button: "§G恒星光束§!\n  直接喷射能量流，灼烧当前星系内全部敌舰，§R[lev_beam_damage_display]§!伤害，消耗§Y1§!能量。\n  冷却§Y90§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
+ lev_stellarite_beam_button: "§G恒星光束§!\n  张口蓄能，而后把吞下的星光尽数喷出，灼烧当前星系内全部敌舰，§R[lev_beam_damage_display]§!伤害，消耗§Y1§!能量。\n  蓄能§Y20§!天　冷却§Y90§!天"
+
+ lev_stellarite_sunburst_button: "§G腹中日轮§!\n  把体内囤积的恒星物质一次点燃，本星系敌舰各受§R[lev_sun_damage_display]§!伤害，行星地表被烤成§R[lev_sun_dev_display]§!破坏度。\n  蓄能§Y30§!天　冷却§Y480§!天　消耗§Y5§!能量　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
  ## 失败提示
  lev_fail_not_star: "只能对恒星使用"
@@ -696,6 +698,13 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  lev_DREADNOUGHT_BEHAVIOR_DESC: "自动无畏战舰的中央计算机。这套尽职百万年的主控系统已接入指挥链路，现在可以对其下达指令。"
  lev_SCAVENGER_BEHAVIOR_DESC: "拾荒机器人的指令中枢。这台废品机器人的搜寻逻辑已接入指挥链路，现在可以对其下达指令。"
  lev_SPHERE_BEHAVIOR_DESC: "无限神机的演算核心。古老球体的一缕算力已接入指挥链路，现在可以对其下达指令。"
+ lev_sunburst_fail_no_energy: "体内囤积的恒星物质不足（至少需要 5 点能量）"
+
+ ## 潜入恒星
+ lev_stellarite_submerged_regen: "潜入恒星"
+ lev_stellarite_submerged_regen_desc: "它一头扎进恒星内部，滚烫的物质正从四面八方灌进来，躯体的创口以肉眼可见的速度愈合。"
+ lev_sunburst_warning: "§R恒星在它腹中翻腾§!\n  一头噬星者正在点燃体内的恒星物质，整个星系即将被烤透。"
+
  lev_AQUATIC_BEHAVIOR_DESC: "天龙的灵枢。守护母星亿万年的龙魂已接入指挥链路，现在可以对其下达指令。"
  lev_VOIDSPAWN_BEHAVIOR_DESC: "虚空孳孽的幼体本能。这头星卵幼体的本能已接入指挥链路，现在可以对其下达指令。"
 
@@ -727,8 +736,39 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  LEV_TOXIC_GOD_CORE: "§R毒圣核心§!"
  LEV_TOXIC_GOD_CORE_DESC: "毒圣利维坦的核心，承载腐蚀之雾、毒沼披覆与瘟疫扩散三项能力。随成长等级提升船体、船体再生与护甲。"
  LEV_TOXIC_GOD_REACTOR: "毒圣 毒能血炉"
+ lev_stellarite_beam_required_key: "蓄能完毕即喷射"
  LEV_TOXIC_GOD_REACTOR_DESC: "万亿微生物在它巨躯的血肉中代谢不息，毒能如熔浆般在体内翻涌。"
  LEV_TOXIC_GOD_THRUSTER: "毒圣 节肢划行"
+ lev_stellarite_sunburst_activity_key: "腹中日轮正在成形"
+ lev_stellarite_sunburst_progress_key: "点燃中：$PROGRESS$"
+ lev_stellarite_sunburst_required_key: "点燃体内的恒星物质"
+ lev_stellarite_sunburst_menu_title: "腹中日轮"
+
+ ## 自动托管
+ lev_auto_tt_ignite: "自动重燃恒星：把光谱已变冷的恒星重新点燃，只在自家星系作业。"
+ lev_auto_tt_beam: "自动恒星光束：所在星系出现敌对舰队时张口喷吐星光。"
+ lev_auto_tt_sunburst: "自动腹中日轮：能量充裕且星系内有敌人时，点燃腹中恒星物质。"
+ lev_auto_tt_support: "自动恒星暖流：为自家殖民地带去恒星暖意，强化能量岗位产出。"
+ lev_auto_tt_absorb: "自动吞噬恒星：自行寻找合适的恒星下口，星系筛选见下方选项。能量满（§Y10§!）时无法再吞噬，需先用恒星光束（−1）或腹中日轮（−5）消耗。"
+
+ lev_auto_opt_own: "自家星系"
+ lev_auto_opt_own_tt: "允许在自家星系吞噬恒星。默认关闭——吞星会冻伤星系内的行星。"
+ lev_auto_opt_friendly: "友方星系"
+ lev_auto_opt_friendly_tt: "允许在非敌对的他国星系吞噬恒星。默认关闭，免得平白树敌。"
+ lev_auto_opt_hostile: "敌方星系"
+ lev_auto_opt_hostile_tt: "允许在敌国星系吞噬恒星。默认开启。"
+ lev_auto_opt_unowned: "无人星系"
+ lev_auto_opt_unowned_tt: "允许在无主星系吞噬恒星。默认开启，这是最安全的猎场。"
+ lev_auto_opt_colony: "有殖民地的星系"
+ lev_auto_opt_colony_tt: "允许吞噬那些星系内已有殖民地的恒星。默认关闭，吞下去会连带冻伤殖民地。"
+ lev_auto_opt_hostile_presence: "有敌舰的星系"
+ lev_auto_opt_hostile_presence_tt: "星系内有敌对舰队时仍然下口，并且优先选这种星系。默认开启。"
+
+ lev_stellarite_auto_absorb_tt: "自动吞噬恒星"
+ lev_stellarite_auto_absorb_activity_key: "正在接近 $NAME$"
+ lev_stellarite_auto_absorb_progress_key: "选定猎场：$PROGRESS$"
+ lev_stellarite_auto_absorb_menu_title: "自动吞噬恒星"
+
  LEV_TOXIC_GOD_THRUSTER_DESC: "亿万节肢一齐划动，推着这座浮动的毒沼缓缓巡游。"
 
  # ---------- 建造限制提示 ----------

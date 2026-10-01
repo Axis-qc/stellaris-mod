@@ -1,0 +1,13 @@
+# 灭星器订单在飞期间，封掉噬星者自动化动作的选目标权重。
+# 在 ai.weight 里 inline_script 引入；封权 modifier 须排在同块内加法项之后。
+modifier = {
+    factor = 0
+    FROM = {
+        OR = {
+            has_fleet_flag = lev_stellarite_absorbing
+            has_fleet_order = destroy_planet_order
+            has_fleet_order = planet_killer_weapon_windup_order
+            has_fleet_order = planet_killer_weapon_fire_order
+        }
+    }
+}

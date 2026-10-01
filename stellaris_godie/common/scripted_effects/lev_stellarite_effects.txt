@@ -1,7 +1,7 @@
 # 利维坦·噬星者 技能效果（THIS = 目标恒星，from = 施放舰队）
 # 施放国先存成事件目标 lev_caster，避免嵌套作用域把 from 链挤偏
 
-# 光谱降 1 级（set_star_class 是星系作用域；change_pc 直接作用于恒星本身）
+# 光谱降 1 级
 lev_stellarite_spectrum_down = {
     if = { limit = { is_star_class = sc_b }
         solar_system = { set_star_class = sc_a }
@@ -57,6 +57,20 @@ lev_stellarite_spectrum_up = {
     }
 }
 
+# $VALUE$ 常态值、$VALUE_HUNGRY$ 饥饿态值、$VAR$ 写入的国家变量名
+lev_stellarite_shot_prepare = {
+    if = {
+        limit = { owner = { check_variable = { which = lev_stellarite_energy value <= 2 } } }
+        set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE_HUNGRY$ }
+    }
+    else = {
+        set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE$ }
+    }
+    owner = {
+        set_variable = { which = $VAR$ value = prev.lev_stellarite_shot_tmp }
+    }
+}
+
 # 吞噬恒星
 lev_stellarite_absorb_apply = {
     from.owner = { save_event_target_as = lev_caster }
@@ -77,7 +91,6 @@ lev_stellarite_absorb_apply = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value < 10 } }
             change_variable = { which = lev_stellarite_energy value = 1 }
         }
-        # 成长值已解耦：吞噬恒星只加能量，不再加成长（成长改由战斗与营养提供）
     }
 
     # 对他国星系：该星系所有者对我们 -100 观感
@@ -103,7 +116,7 @@ lev_stellarite_ignite_apply = {
 
     lev_stellarite_spectrum_up = yes
 
-    # 冰封星救赎，须在升温前（否则 pc_frozen 会先被升温链改掉）
+    # 冰封星救赎须在升温前，否则 pc_frozen 会先被升温链改掉
     solar_system = {
         every_system_planet = {
             limit = { is_planet_class = pc_frozen  is_colony = yes }
@@ -122,14 +135,18 @@ lev_stellarite_ignite_apply = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
             change_variable = { which = lev_stellarite_energy value = -1 }
         }
-        # 成长值已解耦：重燃恒星只扣能量，不再扣成长（成长只增不减）
     }
 }
 
-# 恒星光束：直接释放，轰击噬星者当前所在星系内所有敌方舰队
-# THIS = 施放舰队自身（scope = self 即时释放），from = 施放舰队
+# 恒星光束：本星系全部敌舰
 lev_stellarite_beam_apply = {
     from.owner = { save_event_target_as = lev_caster }
+
+    lev_stellarite_shot_prepare = {
+        VALUE = lev_beam_damage
+        VALUE_HUNGRY = lev_beam_damage_hungry
+        VAR = lev_stellarite_shot_damage
+    }
 
     solar_system = {
         every_fleet_in_system = {
@@ -138,7 +155,7 @@ lev_stellarite_beam_apply = {
             }
             every_owned_ship = {
                 damage_ship = {
-                    amount = value:lev_beam_damage
+                    amount = event_target:lev_caster.lev_stellarite_shot_damage
                     attacker = event_target:lev_caster
                 }
             }
@@ -149,5 +166,85 @@ lev_stellarite_beam_apply = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
             change_variable = { which = lev_stellarite_energy value = -1 }
         }
+    }
+}
+
+# 腹中日轮特效：环境物体挂在噬星者自身位置
+#TODO 后面移动进动画系统
+lev_stellarite_sunburst_vfx = {
+    every_owned_ship = {
+        limit = { is_ship_size = lev_stellarite }
+        create_ambient_object = {
+            type = yellow_sun_grow_particle_object
+            location = this
+            use_3d_location = yes
+            duration = 30
+        }
+    }
+}
+
+# 腹中日轮：本星系敌舰伤害与行星破坏
+lev_stellarite_sunburst_apply = {
+    from.owner = { save_event_target_as = lev_caster }
+
+    lev_stellarite_shot_prepare = {
+        VALUE = lev_sun_damage
+        VALUE_HUNGRY = lev_sun_damage_hungry
+        VAR = lev_stellarite_shot_damage
+    }
+    # 行星破坏不吃饥饿加成
+    lev_stellarite_shot_prepare = {
+        VALUE = lev_sun_devastation
+        VALUE_HUNGRY = lev_sun_devastation
+        VAR = lev_stellarite_shot_dev
+    }
+
+    solar_system = {
+        every_fleet_in_system = {
+            limit = {
+                controller = { is_hostile = event_target:lev_caster }
+            }
+            every_owned_ship = {
+                damage_ship = {
+                    amount = event_target:lev_caster.lev_stellarite_shot_damage
+                    attacker = event_target:lev_caster
+                }
+            }
+        }
+        every_system_planet = {
+            limit = { is_star = no  is_asteroid = no }
+            add_planet_devastation = event_target:lev_caster.lev_stellarite_shot_dev
+        }
+    }
+
+    lev_stellarite_sunburst_vfx = yes
+
+    event_target:lev_caster = {
+        if = { limit = { check_variable = { which = lev_stellarite_energy value >= 5 } }
+            change_variable = { which = lev_stellarite_energy value = -5 }
+        }
+        else = {
+            set_variable = { which = lev_stellarite_energy value = 0 }
+        }
+    }
+}
+
+# 潜入恒星
+lev_stellarite_submerge_apply = {
+    # THIS = 噬星者舰队
+    # 订单在飞标记：期间封掉自动化动作的选目标权重
+    set_timed_fleet_flag = { flag = lev_stellarite_absorbing days = 190 }
+    every_owned_ship = {
+        limit = { is_ship_size = lev_stellarite }
+        add_modifier = { modifier = lev_stellarite_submerged_regen days = 190 }
+    }
+}
+
+# 上浮：订单取消或结算时收回回复
+lev_stellarite_surface_apply = {
+    remove_fleet_flag = lev_stellarite_absorbing
+    every_owned_ship = {
+        limit = { is_ship_size = lev_stellarite }
+        remove_modifier = lev_stellarite_submerged_regen
     }
 }

@@ -1,0 +1,47 @@
+# 噬星者自动托管的目标控制选项
+# 用法：在动作的 automation 块里 options = { inline_script = scripted_actions/lev_stellarite_automation_options }
+#       在动作的 ai.weight 里用 FROM = { has_automation_setting = <标识> } 读取勾选状态
+# 默认取向保守：自家与友方星系不动手，无人星系与敌方星系可动手，有殖民地的星系不碰。
+
+option = {
+	automation_setting = lev_auto_own_systems
+	default = no
+	name = lev_auto_opt_own
+	tooltip = lev_auto_opt_own_tt
+	ai_weight = { base = 0 }
+}
+option = {
+	automation_setting = lev_auto_friendly_systems
+	default = no
+	name = lev_auto_opt_friendly
+	tooltip = lev_auto_opt_friendly_tt
+	ai_weight = { base = 0 }
+}
+option = {
+	automation_setting = lev_auto_hostile_systems
+	default = yes
+	name = lev_auto_opt_hostile
+	tooltip = lev_auto_opt_hostile_tt
+	ai_weight = { base = 1 }
+}
+option = {
+	automation_setting = lev_auto_unowned_systems
+	default = yes
+	name = lev_auto_opt_unowned
+	tooltip = lev_auto_opt_unowned_tt
+	ai_weight = { base = 1 }
+}
+option = {
+	automation_setting = lev_auto_colony_systems
+	default = no
+	name = lev_auto_opt_colony
+	tooltip = lev_auto_opt_colony_tt
+	ai_weight = { base = 0 }
+}
+option = {
+	automation_setting = lev_auto_hostile_presence
+	default = yes
+	name = lev_auto_opt_hostile_presence
+	tooltip = lev_auto_opt_hostile_presence_tt
+	ai_weight = { base = 1 }
+}

@@ -1,11 +1,5 @@
-# 利维坦行星支援 — 主动支援行动（slot 4，方舟 scope = planet 同构）
-# ============================================
-# 玩家点选目标行星 → 舰队自动飞抵轨道 → 进度条走完触发 on_completed：
-# 事件作用域 root = 目标行星、from = 出手舰队（README 与 biocrisis.300 铁证）。
-# possible/finished 在目标行星作用域求值；button_visible/clickable 在舰队作用域求值。
-# 强度 = 驻留 × 2，持续 3600 天，代价 = 舰队武器伤害 debuff 同期。
-# 主动层可与驻留层叠加（停着不动放主动 = 驻留+主动两层同时生效），
-# 门控只防自身 _active 重复。
+# 利维坦行星支援：主动支援行动，slot 4，scope = planet
+# possible 在目标行星作用域（国家用 from.controller），button_visible/clickable 在舰队作用域
 
 # ── 噬星者：恒星暖流（目标行星能量岗位产出强化）──
 lev_stellarite_support = {
@@ -33,6 +27,12 @@ lev_stellarite_support = {
 		always = yes
 	}
 
+	automation = {
+		priority = 5
+		default_on = no
+		tooltip = lev_auto_tt_support
+	}
+
 	on_completed = on_lev_stellarite_support_completed
 	tooltip = lev_stellarite_support_ship_button
 	icon = GFX_fleet_action_button_arkship_stellar_ignition
@@ -45,6 +45,22 @@ lev_stellarite_support = {
 	required_progress = 5
 	cooldown = 480
 	slot = 4
+
+	ai = {
+		# This = 目标行星，From = 施放舰队
+		weight = {
+			base = 10
+			# 订单在飞期间封权
+			inline_script = scripted_actions/lev_stellarite_absorb_guard
+			# 只支援自家殖民地
+			modifier = {
+				factor = 0
+				NOT = { owner = { is_same_value = FROM.controller } }
+			}
+		}
+		max_jumps = 6
+		good_enough_weight = 10
+	}
 }
 
 # ── 无限神机：演算谐振（目标行星研究岗位产出强化）──

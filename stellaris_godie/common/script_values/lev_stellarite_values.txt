@@ -13,3 +13,41 @@ lev_beam_growth_bonus = {
     add = owner.lev_stellarite_growth_level
     mult = 100
 }
+
+# 腹中日轮单次伤害 = 1200 + 成长等级 × 120
+lev_sun_damage = {
+    base = 1200
+    add = value:lev_sun_growth_bonus
+}
+
+lev_sun_growth_bonus = {
+    base = 0
+    add = owner.lev_stellarite_growth_level
+    mult = 120
+}
+
+# 腹中日轮行星破坏 = 20 + 成长等级 × 2
+lev_sun_devastation = {
+    base = 20
+    add = value:lev_sun_dev_step
+}
+
+lev_sun_dev_step = {
+    base = 0
+    add = owner.lev_stellarite_growth_level
+    mult = 2
+}
+
+# 饥饿态（能量 ≤ 2）：两门伤害技能上浮 25%。
+# mult 对累计值相乘，base = 0 即「取主值后整体 ×1.25」。
+lev_beam_damage_hungry = {
+    base = 0
+    add = value:lev_beam_damage
+    mult = 1.25
+}
+
+lev_sun_damage_hungry = {
+    base = 0
+    add = value:lev_sun_damage
+    mult = 1.25
+}
