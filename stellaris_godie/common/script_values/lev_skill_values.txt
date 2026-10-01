@@ -249,3 +249,41 @@ lev_step_void_u_fr = { base = 0 add = owner.lev_voidspawn_growth_level mult = 2 
 lev_sk_void_u_dmg = { base = 35 add = value:lev_step_void_u_dmg }
 lev_sk_void_u_ar = { base = 30 add = value:lev_step_void_u_ar }
 lev_sk_void_u_fr = { base = 20 add = value:lev_step_void_u_fr }
+
+# ============ 神秘堡垒（lev.280/281/282）============
+
+# sk2 相位护盾过载（自身）：护盾 60% 每级 +6（精确）、护盾再生 10/天 每级 +1（点数字段 1）
+lev_step_fort_2_sh = { base = 0 add = owner.lev_fortress_growth_level mult = 6 }
+lev_step_fort_2_rg = { base = 0 add = owner.lev_fortress_growth_level mult = 1 }
+lev_sk_fort_2_sh = { base = 60 add = value:lev_step_fort_2_sh }
+lev_sk_fort_2_rg = { base = 10 add = value:lev_step_fort_2_rg }
+
+# ult 谜题力场（敌舰）：射速 25% 每级 +3
+lev_step_fort_u_fr = { base = 0 add = owner.lev_fortress_growth_level mult = 3 }
+lev_sk_fort_u_fr = { base = 25 add = value:lev_step_fort_u_fr }
+
+# ============ 蜂巢小行星（lev.285/286/287）============
+
+# sk2 蜂群狂暴（本舰队）：射速 20% 每级 +2（精确）
+lev_step_hive_2_fr = { base = 0 add = owner.lev_hive_growth_level mult = 2 }
+lev_sk_hive_2_fr = { base = 20 add = value:lev_step_hive_2_fr }
+
+# ult 孢子云（敌舰）：武器伤害 20% 每级 +2（精确）
+lev_step_hive_u_dmg = { base = 0 add = owner.lev_hive_growth_level mult = 2 }
+lev_sk_hive_u_dmg = { base = 20 add = value:lev_step_hive_u_dmg }
+
+# ============ 泰扬基母兽（lev.290/291/292）============
+
+# sk1 巨鲸冲撞（自身）：武器伤害 25% 每级 +3、射速 15% 每级 +2
+lev_step_tiyk_1_dmg = { base = 0 add = owner.lev_tiyanki_growth_level mult = 3 }
+lev_step_tiyk_1_fr = { base = 0 add = owner.lev_tiyanki_growth_level mult = 2 }
+lev_sk_tiyk_1_dmg = { base = 25 add = value:lev_step_tiyk_1_dmg }
+lev_sk_tiyk_1_fr = { base = 15 add = value:lev_step_tiyk_1_fr }
+
+# sk2 群体再生（本舰队）：船体再生 2%/天 每级 +0.2（数值 20 步长 2，字段 0.001）
+lev_step_tiyk_2_hr = { base = 0 add = owner.lev_tiyanki_growth_level mult = 2 }
+lev_sk_tiyk_2_hr = { base = 20 add = value:lev_step_tiyk_2_hr }
+
+# ult 母兽号令（本舰队）：射速 15% 每级 +2
+lev_step_tiyk_u_fr = { base = 0 add = owner.lev_tiyanki_growth_level mult = 2 }
+lev_sk_tiyk_u_fr = { base = 15 add = value:lev_step_tiyk_u_fr }

@@ -1,0 +1,69 @@
+# 利维坦·蜂巢小行星 实体（mod 自有实体，不覆盖原版 hive_asteroid_base_entity）
+# 区段实体镜像原版 hive_asteroid_base_entity（hive_asteroids.asset L218-258）：
+# pdxmesh 换自有 lev_hive_mesh，meshsettings 三段照抄，无动画、scale 20 保留
+# 船级挂点骨架 lev_hive_entity 镜像 lev_stellarite_entity 模板
+
+# ── 区段实体 ──
+entity = {
+	name = "lev_hive_section_entity"
+	pdxmesh = "lev_hive_mesh"
+
+	meshsettings = {
+		name = "hive_asteroid_06Shape"
+		index = 0
+		texture_diffuse = "hive_asteroid_large_diffuse.dds"
+		texture_normal = "hive_asteroid_large_normal.dds"
+		texture_specular = "asteroid_specular.dds"
+		shader = "PdxMeshShip"
+	}
+
+	meshsettings = {
+		name = "hive_asteroid_06Shape"
+		index = 1
+		texture_diffuse = "hive_asteroid_large_inside.dds"
+		texture_normal = "hive_asteroid_large_normal.dds"
+		texture_specular = "asteroid_specular.dds"
+		shader = "PdxMeshShip"
+	}
+
+	meshsettings = {
+		name = "polySurfaceShape2"
+		index = 0
+		texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+		texture_normal = "hive_asteroid_crystals_normal.dds"
+		texture_specular = "hive_asteroid_crystals_specular.dds"
+		shader = "PdxMeshTerraAlphaBlend"
+	}
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		start_event = { trigger_once = yes sound = { soundeffect = "hive_asteroid_idle" } }
+	}
+
+	scale = 20.0
+	game_data = {
+		size = 10
+	}
+}
+
+# ── 船级挂点骨架 ──
+entity = {
+	name = "lev_hive_entity"
+	pdxmesh = "locator_mesh"
+	cull_radius = 10.0
+
+	locator = { name = "part1" }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 6 }
+	state = { name = "moving" state_time = 6 }
+	state = { name = "working" state_time = 6 }
+	state = { name = "working_looping" state_time = 6 }
+	state = { name = "death" state_time = 3 looping = no }
+
+	game_data = {
+		size = 30.0
+		raytrace_projectiles = no
+		dissolve_on_death = 3.0
+	}
+}

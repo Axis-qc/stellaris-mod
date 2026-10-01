@@ -1,0 +1,45 @@
+# 利维坦·神秘堡垒 实体（mod 自有实体，不覆盖原版 ancient_station_xl_hull_entity）
+# 区段实体镜像原版 ancient_station_xl_hull_entity（ancient_station.asset L367-392）：
+# pdxmesh 换自有 lev_fortress_mesh，状态/音效/爆点照抄；后续动画在此扩展
+# 船级挂点骨架 lev_fortress_entity 镜像 lev_stellarite_entity 模板
+
+# ── 区段实体 ──
+entity = {
+	name = "lev_fortress_section_entity"
+	pdxmesh = "lev_fortress_mesh"
+
+	default_state = "idle"
+	state = { name = "idle"
+		start_event = { trigger_once = yes sound = { soundeffect = "ancient_space_station_idle_layer_01" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "ancient_space_station_idle_layer_02" } }
+	}
+	state = { name = "death" state_time = 6.5 looping = no
+		event = { time = 0.0 node = "explosion_01" particle = "large_ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 0.7 node = "explosion_02" particle = "large_ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 1.0 node = "explosion_03" particle = "large_ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 2.2 node = "explosion_04" particle = "large_ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 3.5 node = "explosion_05" particle = "large_ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "station_explosion_small" } }
+	}
+}
+
+# ── 船级挂点骨架 ──
+entity = {
+	name = "lev_fortress_entity"
+	pdxmesh = "locator_mesh"
+	cull_radius = 10.0
+
+	locator = { name = "part1" }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 6 }
+	state = { name = "moving" state_time = 6 }
+	state = { name = "working" state_time = 6 }
+	state = { name = "working_looping" state_time = 6 }
+	state = { name = "death" state_time = 3 looping = no }
+
+	game_data = {
+		size = 30.0
+		raytrace_projectiles = no
+		dissolve_on_death = 3.0
+	}
+}

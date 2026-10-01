@@ -1,0 +1,15 @@
+# 利维坦·泰扬基母兽 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01，小百分比再生写 0.001（数值 = 百分比×10）。
+# （本地化键 = modifier key）
+
+# sk1 巨鲸冲撞（自身）
+lev_tiyk_1_dmg = { ship_weapon_damage = 0.01 }
+lev_tiyk_1_fr = { ship_fire_rate_mult = 0.01 }
+
+# sk2 群体再生（本舰队全体）
+lev_tiyk_2_hr = { ship_hull_regen_add_perc = 0.001 }
+
+# ult 母兽号令（本舰队全体）
+lev_tiyk_u_fr = { ship_fire_rate_mult = 0.01 }

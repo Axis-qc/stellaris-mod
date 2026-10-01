@@ -277,3 +277,78 @@ lev_unlock_voidspawn = {
         weight = 0
     }
 }
+
+# 神秘堡垒
+lev_unlock_fortress = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        NOT = { has_country_flag = lev_fortress_unlocked }
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_country_flag = lev_fortress_unlocked
+        refresh_auto_generated_ship_designs = yes
+        lev_growth_init = { TYPE = fortress }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 蜂巢小行星
+lev_unlock_hive = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        NOT = { has_country_flag = lev_hive_unlocked }
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_country_flag = lev_hive_unlocked
+        refresh_auto_generated_ship_designs = yes
+        lev_growth_init = { TYPE = hive }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}
+
+# 泰扬基母兽
+lev_unlock_tiyanki = {
+    icon = "GFX_edict_type_policy"
+    length = 1
+    resources = {
+        category = edicts
+        cost = {
+        }
+    }
+    potential = {
+        NOT = { has_country_flag = lev_tiyanki_unlocked }
+    }
+    allow = {
+        always = yes
+    }
+    effect = {
+        set_country_flag = lev_tiyanki_unlocked
+        refresh_auto_generated_ship_designs = yes
+        lev_growth_init = { TYPE = tiyanki }
+    }
+    ai_weight = {
+        weight = 0
+    }
+}

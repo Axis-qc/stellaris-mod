@@ -169,6 +169,39 @@ country_event = {
             }
             lev_growth_apply_combat = { TYPE = voidspawn }
         }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_fortress
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = fortress }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_hive
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = hive }
+        }
+        if = {
+            limit = {
+                any_owned_ship = {
+                    is_ship_size = lev_tiyanki
+                    solar_system = {
+                        is_same_value = fromfrom.solar_system
+                    }
+                }
+            }
+            lev_growth_apply_combat = { TYPE = tiyanki }
+        }
     }
 }
 
@@ -194,6 +227,9 @@ country_event = {
             has_country_flag = lev_sphere_unlocked
             has_country_flag = lev_aquatic_unlocked
             has_country_flag = lev_voidspawn_unlocked
+            has_country_flag = lev_fortress_unlocked
+            has_country_flag = lev_hive_unlocked
+            has_country_flag = lev_tiyanki_unlocked
         }
     }
     immediate = {

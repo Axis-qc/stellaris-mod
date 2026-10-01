@@ -1,0 +1,56 @@
+namespace = lev
+
+# 利维坦·蜂巢小行星 技能事件（lev.285~289，不得越界）
+# 槽1 跃迁为 planet_event：on_queued 回调作用域 THIS = 目标行星、from = 施放舰队
+# （点击入队瞬间触发，set_location 即时生效，剩余蓄力在目的地原地走完）
+# 槽2/槽3 为 fleet_event：on_action 触发时 THIS = 施放舰队、from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）
+# 本期不做直接伤害，敌舰一律用减益（modifier）替代
+
+# 槽1 跃迁（on_queued）：舰队整体挪到目标行星位置
+planet_event = {
+    id = lev.285
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        log = "LEV_HIVE_WARP: fired"
+        from = { set_location = { target = prev } }
+    }
+}
+
+# sk2 蜂群狂暴：本舰队全体（不限船型）射速增益
+fleet_event = {
+    id = lev.286
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            add_modifier = { modifier = lev_hive_2_fr mult = root.owner.value:lev_sk_hive_2_fr days = 30 }
+        }
+    }
+}
+
+# ult 孢子云：本星系敌舰武器伤害减益
+fleet_event = {
+    id = lev.287
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        solar_system = {
+            every_ship_in_system = {
+                limit = {
+                    owner = {
+                        is_hostile = event_target:lev_caster
+                    }
+                }
+                add_modifier = { modifier = lev_hive_u_dmg mult = root.owner.value:lev_sk_hive_u_dmg days = 40 }
+            }
+        }
+    }
+}

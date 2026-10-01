@@ -1,0 +1,48 @@
+namespace = lev
+
+# 利维坦·泰扬基母兽 技能事件（lev.290~299，不得越界）
+# 三个技能均为 fleet_event：on_action 触发时 THIS = 施放舰队、from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）
+# 本期不做直接伤害，敌舰一律用减益（modifier）替代
+
+# sk1 巨鲸冲撞：自身武器伤害与射速增益
+fleet_event = {
+    id = lev.290
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_tiyanki }
+            add_modifier = { modifier = lev_tiyk_1_dmg mult = root.owner.value:lev_sk_tiyk_1_dmg days = 20 }
+            add_modifier = { modifier = lev_tiyk_1_fr mult = root.owner.value:lev_sk_tiyk_1_fr days = 20 }
+        }
+    }
+}
+
+# sk2 群体再生：本舰队全体（不限船型）船体再生增益
+fleet_event = {
+    id = lev.291
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            add_modifier = { modifier = lev_tiyk_2_hr mult = root.owner.value:lev_sk_tiyk_2_hr days = 30 }
+        }
+    }
+}
+
+# ult 母兽号令：本舰队全体（不限船型）射速增益
+fleet_event = {
+    id = lev.292
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            add_modifier = { modifier = lev_tiyk_u_fr mult = root.owner.value:lev_sk_tiyk_u_fr days = 40 }
+        }
+    }
+}

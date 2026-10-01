@@ -1,0 +1,58 @@
+namespace = lev
+
+# 利维坦·神秘堡垒 技能事件（lev.280~289，不得越界）
+# 槽1 跃迁为 planet_event：on_queued 回调作用域 THIS = 目标行星、from = 施放舰队
+# （点击入队瞬间触发，set_location 即时生效，剩余蓄力在目的地原地走完）
+# 槽2/槽3 为 fleet_event：on_action 触发时 THIS = 施放舰队、from = 施放舰队
+# 数值动态：add_modifier 的 mult = root.owner.value:lev_sk_*（等级驱动，
+# 见 common/script_values/lev_skill_values.txt）
+# 本期不做直接伤害，敌舰一律用减益（modifier）替代
+
+# 槽1 跃迁（on_queued）：舰队整体挪到目标行星位置
+planet_event = {
+    id = lev.280
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        log = "LEV_FORTRESS_WARP: fired"
+        from = { set_location = { target = prev } }
+    }
+}
+
+# sk2 相位护盾过载：自身护盾与护盾再生增益
+fleet_event = {
+    id = lev.281
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_owned_ship = {
+            limit = { is_ship_size = lev_fortress }
+            add_modifier = { modifier = lev_fort_sk2_sh mult = root.owner.value:lev_sk_fort_2_sh days = 30 }
+            add_modifier = { modifier = lev_fort_sk2_rg mult = root.owner.value:lev_sk_fort_2_rg days = 30 }
+        }
+    }
+}
+
+# ult 谜题力场：本星系敌舰射速减益
+fleet_event = {
+    id = lev.282
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        from.owner = { save_event_target_as = lev_caster }
+
+        solar_system = {
+            every_ship_in_system = {
+                limit = {
+                    owner = {
+                        is_hostile = event_target:lev_caster
+                    }
+                }
+                add_modifier = { modifier = lev_fort_u_fr mult = root.owner.value:lev_sk_fort_u_fr days = 40 }
+            }
+        }
+    }
+}

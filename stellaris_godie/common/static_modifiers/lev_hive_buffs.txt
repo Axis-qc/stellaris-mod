@@ -1,0 +1,12 @@
+# 利维坦·蜂巢小行星 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01；敌方 debuff 字段带负号、数值传正幅度。
+# （本地化键 = modifier key）
+# 命中率类 modifier 无先例，槽3 改用武器伤害减益（见汇报）。
+
+# sk2 蜂群狂暴（本舰队全体）
+lev_hive_2_fr = { ship_fire_rate_mult = 0.01 }
+
+# ult 孢子云（敌舰，负向）
+lev_hive_u_dmg = { ship_weapon_damage = -0.01 }

@@ -1421,3 +1421,348 @@ lev_feed_voidspawn_stop = {
         }
     }
 }
+
+################################### 神秘堡垒 ###################################
+
+lev_card_fortress = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_fortress_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_fortress_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_fortress_feed_level value = 1 }
+                set_variable = { which = lev_fortress_gain_current value = lev_fortress_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_fortress_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_fortress_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_fortress_feed_level value = 2 }
+                set_variable = { which = lev_fortress_gain_current value = lev_fortress_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_fortress_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_fortress_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_fortress_feed_level value = 3 }
+                set_variable = { which = lev_fortress_gain_current value = lev_fortress_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_fortress_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_fortress_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_fortress_feed_level value = 0 }
+                set_variable = { which = lev_fortress_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+################################### 蜂巢小行星 ###################################
+
+lev_card_hive = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_hive_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_hive_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_hive_feed_level value = 1 }
+                set_variable = { which = lev_hive_gain_current value = lev_hive_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_hive_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_hive_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_hive_feed_level value = 2 }
+                set_variable = { which = lev_hive_gain_current value = lev_hive_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_hive_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_hive_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_hive_feed_level value = 3 }
+                set_variable = { which = lev_hive_gain_current value = lev_hive_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_hive_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_hive_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_hive_feed_level value = 0 }
+                set_variable = { which = lev_hive_gain_current value = 0 }
+            }
+        }
+    }
+}
+
+################################### 泰扬基母兽 ###################################
+
+lev_card_tiyanki = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = { always = yes }
+}
+
+lev_feed_tiyanki_low = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_tiyanki_feed_level value = 1 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_tiyanki_feed_level value = 1 }
+                set_variable = { which = lev_tiyanki_gain_current value = lev_tiyanki_gain_low }
+            }
+        }
+    }
+}
+
+lev_feed_tiyanki_mid = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_tiyanki_feed_level value = 2 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_tiyanki_feed_level value = 2 }
+                set_variable = { which = lev_tiyanki_gain_current value = lev_tiyanki_gain_mid }
+            }
+        }
+    }
+}
+
+lev_feed_tiyanki_high = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_tiyanki_feed_level value = 3 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_tiyanki_feed_level value = 3 }
+                set_variable = { which = lev_tiyanki_gain_current value = lev_tiyanki_gain_high }
+            }
+        }
+    }
+}
+
+lev_feed_tiyanki_stop = {
+    potential = {
+        from = {
+            check_variable = { which = br_level_ui_tab value = 6 }
+        }
+    }
+    allow = {
+        custom_tooltip = {
+            fail_text = LEV_FEED_ALREADY_SELECTED
+            from = {
+                NOT = {
+                    check_variable = { which = lev_tiyanki_feed_level value = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        hidden_effect = {
+            from = {
+                set_variable = { which = lev_tiyanki_feed_level value = 0 }
+                set_variable = { which = lev_tiyanki_gain_current value = 0 }
+            }
+        }
+    }
+}

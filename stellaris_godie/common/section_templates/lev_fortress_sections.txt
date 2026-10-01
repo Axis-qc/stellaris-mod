@@ -1,0 +1,49 @@
+# 利维坦·神秘堡垒 区段模板（照原版 ANCIENT_STATION_XL：7 大型炮槽）
+# 原版 large_turret 会在模型上长出金属炮塔，一律换隐形变体 invisible_large_turret_fixed
+# 槽位名、locatorname（02 与 01 共用 large_gun_01，照原版）、utility 槽数逐字照原版
+ship_section_template = {
+    key = "lev_fortress_key"
+    ship_size = lev_fortress
+    fits_on_slot = mid
+    entity = "lev_fortress_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_02"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_03"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_03"
+    }
+    component_slot = {
+        name = "LARGE_GUN_04"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_04"
+    }
+    component_slot = {
+        name = "LARGE_GUN_05"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_05"
+    }
+    component_slot = {
+        name = "LARGE_GUN_06"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_06"
+    }
+    component_slot = {
+        name = "LARGE_GUN_07"
+        template = "invisible_large_turret_fixed"
+        locatorname = "large_gun_07"
+    }
+
+    large_utility_slots = 15
+    aux_utility_slots = 2
+}

@@ -23,6 +23,8 @@ ship_behavior = {
 # 生物类：drake / shard / horror / toxic_god / aquatic / voidspawn
 # 能量/位面类：wraith
 # 机械类：dreadnought / scavenger / sphere
+# 静态结构类：fortress / hive（无推进器无 FTL，原地不动，靠跃迁技能换位置）
+# 活体类：tiyanki（同上，靠跃迁技能换位置）
 ship_behavior = {
     name = "lev_drake"
     preferred_attack_range = max
@@ -211,4 +213,66 @@ ship_behavior = {
     allow_emergency_ftl = no
     allow_disengage = no
     desc = "lev_VOIDSPAWN_BEHAVIOR_DESC"
+}
+
+# ── 静态结构类：fortress / hive ──
+# 无推进器无 FTL，位置迁移全靠跃迁技能（scope = planet 回调 set_location）
+
+ship_behavior = {
+    name = "lev_fortress"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_FORTRESS_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+    name = "lev_hive"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_HIVE_BEHAVIOR_DESC"
+}
+
+# ── 活体类：tiyanki ──
+
+ship_behavior = {
+    name = "lev_tiyanki"
+    preferred_attack_range = max
+    formation_distance = max
+    return_to_formation_distance = 1000
+    source_target_anchor_factor = 1.0
+    combat_target_anchor = root
+    collision_awareness = 0.75
+    collision_radius = 2.0
+    collision_strafe = 2.5
+    attack_move_pattern = maintain_distance
+    passive_move_pattern = stay_at_range
+    combat_movement = player_override
+    flee_when_overpowered = no
+    allow_emergency_ftl = no
+    allow_disengage = no
+    desc = "lev_TIYANKI_BEHAVIOR_DESC"
 }

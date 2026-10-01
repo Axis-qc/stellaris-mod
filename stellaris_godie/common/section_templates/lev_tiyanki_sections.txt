@@ -1,0 +1,24 @@
+# 利维坦·泰扬基母兽 区段模板（槽位结构照原版 elderly_tiyanki_key）
+# 原版 large_turret 会在模型上长出金属炮塔，一律换隐形变体 invisible_large_turret_fixed
+# TITAN_01 → invisible_titanic_fixed、LARGE_GUN_01 → invisible_large_turret_fixed，locatorname 逐字照原版
+ship_section_template = {
+    key = "lev_tiyanki_key"
+    ship_size = lev_tiyanki
+    fits_on_slot = mid
+    entity = "lev_tiyanki_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "TITAN_01"
+        template = "invisible_titanic_fixed"
+        locatorname = "xl_gun_01"
+    }
+    component_slot = {
+        name = "LARGE_GUN_01"
+        template = "invisible_large_turret_fixed"
+        locatorname = "head"
+    }
+
+    large_utility_slots = 10
+    aux_utility_slots = 4
+}

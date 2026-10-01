@@ -377,3 +377,99 @@ utility_component_template = {
         weight = 999
     }
 }
+
+################################### 神秘堡垒 ###################################
+
+# 成长（每级，乘以成长等级）：护盾 +500 / 护盾再生 +1/天 / 武器伤害 +2%
+utility_component_template = {
+    key = "LEV_FORTRESS_CORE"
+    size = small
+    icon = "GFX_ship_part_aura_electromagnetic_disruptor"
+    icon_frame = 1
+    power = 0
+    potential = {
+        is_ship_size = lev_fortress
+    }
+    component_set = "lev_fortress_Core"
+    triggered_ship_modifier = {
+        modifier = {
+            ship_shield_add = 500
+            ship_shield_regen_add_static = 1
+            ship_weapon_damage = 0.02
+        }
+        mult = owner.lev_fortress_growth_level
+    }
+    scripted_action = {
+        br_dominator_level_panel        # 打开等级界面（技能栏第 1 位）
+        lev_fortress_warp               # 跃迁（slot 1，点目标行星）
+        lev_fortress_phase_shield
+        lev_fortress_enigma_field
+    }
+    ai_weight = {
+        weight = 999
+    }
+}
+
+################################### 蜂巢小行星 ###################################
+
+# 成长（每级，乘以成长等级）：船体 +500 / 护甲 +400 / 舰载机伤害 +2%
+utility_component_template = {
+    key = "LEV_HIVE_CORE"
+    size = small
+    icon = "GFX_ship_part_aura_electromagnetic_disruptor"
+    icon_frame = 1
+    power = 0
+    potential = {
+        is_ship_size = lev_hive
+    }
+    component_set = "lev_hive_Core"
+    triggered_ship_modifier = {
+        modifier = {
+            ship_hull_add = 500
+            ship_armor_add = 400
+            ship_weapon_damage = 0.02
+        }
+        mult = owner.lev_hive_growth_level
+    }
+    scripted_action = {
+        br_dominator_level_panel        # 打开等级界面（技能栏第 1 位）
+        lev_hive_warp                   # 跃迁（slot 1，点目标行星）
+        lev_hive_swarm_frenzy
+        lev_hive_spore_cloud
+    }
+    ai_weight = {
+        weight = 999
+    }
+}
+
+################################### 泰扬基母兽 ###################################
+
+# 成长（每级，乘以成长等级）：船体 +600 / 船体再生 +1%/天 / 护甲 +300
+utility_component_template = {
+    key = "LEV_TIYANKI_CORE"
+    size = small
+    icon = "GFX_ship_part_aura_electromagnetic_disruptor"
+    icon_frame = 1
+    power = 0
+    potential = {
+        is_ship_size = lev_tiyanki
+    }
+    component_set = "lev_tiyanki_Core"
+    triggered_ship_modifier = {
+        modifier = {
+            ship_hull_add = 600
+            ship_hull_regen_add_perc = 0.01
+            ship_armor_add = 300
+        }
+        mult = owner.lev_tiyanki_growth_level
+    }
+    scripted_action = {
+        br_dominator_level_panel        # 打开等级界面（技能栏第 1 位）
+        lev_tiyanki_ram                 # 巨鲸冲撞（槽1）
+        lev_tiyanki_herd_regen
+        lev_tiyanki_matriarch_call
+    }
+    ai_weight = {
+        weight = 999
+    }
+}

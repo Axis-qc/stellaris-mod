@@ -1,0 +1,12 @@
+# 利维坦·神秘堡垒 技能 timed modifier
+# 按维度拆分（一个 add_modifier 只有一个 mult），数值由事件层
+# mult = root.owner.value:lev_sk_* 动态决定（等级驱动）。
+# 百分比字段写 0.01，静态点数字段写 1（数值 = 点数）；
+# 敌方 debuff 字段带负号、数值传正幅度。（本地化键 = modifier key）
+
+# sk2 相位护盾过载（自身）
+lev_fort_sk2_sh = { ship_shield_mult = 0.01 }
+lev_fort_sk2_rg = { ship_shield_regen_add_static = 1 }
+
+# ult 谜题力场（敌舰，负向）
+lev_fort_u_fr = { ship_fire_rate_mult = -0.01 }

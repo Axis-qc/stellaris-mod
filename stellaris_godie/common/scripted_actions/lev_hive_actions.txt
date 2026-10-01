@@ -1,0 +1,100 @@
+# 利维坦·蜂巢小行星 技能（槽 1/2/3）
+# 本期技能无资源门槛：possible / button_clickable 直接 always = yes
+# 不写 begin_anim_state / progress_anim_state / finish_anim_state，避免引用未注册动画
+# 槽1 跃迁照噬星者 lev_stellarite_ignite：scope = planet、user_scope = fleet
+# 传送效果挂在 on_queued（点击入队瞬间触发，README 支持字段，无需舰队到位），
+# on_completed 保留为空槽占位；剩余蓄力天数在传送后的目的地原地走完
+
+# 跃迁（槽1）：点击目标行星瞬间整体挪到其所在位置
+lev_hive_warp = {
+    user_scope = fleet
+    scope = planet
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_hive }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_queued = on_lev_hive_warp_queued
+    on_completed = on_lev_hive_warp_completed
+    tooltip = lev_hive_warp_button
+    icon = GFX_fleet_action_button_arkship_exodus_jump
+    icon_selected = GFX_fleet_action_button_arkship_exodus_jump
+    activity_key = lev_hive_warp_activity_key
+    context_menu_name = lev_hive_warp_menu_title
+    progress_activity_key = lev_hive_warp_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 30
+    slot = 1
+}
+
+# 蜂群狂暴（槽2）：本舰队全体射速 +20%
+lev_hive_swarm_frenzy = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_hive }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_hive_swarm_frenzy_completed
+    tooltip = lev_hive_swarm_frenzy_button
+    icon = GFX_fleet_action_button_behemoth_damage
+    icon_selected = GFX_fleet_action_button_behemoth_damage
+    activity_key = lev_hive_swarm_frenzy_activity_key
+    context_menu_name = lev_hive_swarm_frenzy_menu_title
+    progress_activity_key = lev_hive_swarm_frenzy_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 240
+    slot = 2
+}
+
+# 孢子云（槽3/大招）：本星系敌舰武器伤害 -20%
+lev_hive_spore_cloud = {
+    user_scope = fleet
+    scope = self
+
+    possible = {
+        always = yes
+    }
+
+    button_visible = {
+        any_owned_ship = { is_ship_size = lev_hive }
+    }
+
+    button_clickable = {
+        always = yes
+    }
+
+    on_completed = on_lev_hive_spore_cloud_completed
+    tooltip = lev_hive_spore_cloud_button
+    icon = GFX_fleet_action_button_behemoth_superweapon
+    icon_selected = GFX_fleet_action_button_behemoth_superweapon
+    activity_key = lev_hive_spore_cloud_activity_key
+    context_menu_name = lev_hive_spore_cloud_menu_title
+    progress_activity_key = lev_hive_spore_cloud_progress_key
+
+    wait = no
+    required_progress = 5
+    cooldown = 480
+    slot = 3
+}

@@ -1,0 +1,33 @@
+# 利维坦·蜂巢小行星 区段模板（槽位结构照原版 HIVE_ASTEROID 逐字抄）
+# 舰载机槽 template = large_strike_craft，rotation / position / locatorname 原样保留
+# utility 槽数照原版数值：仅 aux_utility_slots = 1（原版无 large_utility_slots）
+ship_section_template = {
+    key = "lev_hive_key"
+    ship_size = lev_hive
+    fits_on_slot = mid
+    entity = "lev_hive_section_entity"
+    icon = "GFX_ship_part_core_mid"
+
+    component_slot = {
+        name = "STRIKE_CRAFT_01"
+        template = "large_strike_craft"
+        rotation = 110
+        position = { x = 13.55 y= -3.357 }
+        locatorname = "strike_craft_locator_01"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_02"
+        template = "large_strike_craft"
+        rotation = 241
+        position = { x = -7.358 y= -17.262 }
+        locatorname = "strike_craft_locator_02"
+    }
+    component_slot = {
+        name = "STRIKE_CRAFT_03"
+        template = "large_strike_craft"
+        rotation = 316
+        locatorname = "strike_craft_locator_03"
+    }
+
+    aux_utility_slots = 1
+}

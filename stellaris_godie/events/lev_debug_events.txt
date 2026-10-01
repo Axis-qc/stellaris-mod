@@ -254,3 +254,78 @@ country_event = {
         }
     }
 }
+
+# ── 神秘堡垒折跃 ──
+country_event = {
+    id = lev.295
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        create_fleet = {
+            name = "LEV_FORTRESS_FLEET"
+            effect = {
+                set_owner = root
+                create_ship = {
+                    name = "LEV_FORTRESS_FLEET"
+                    random_existing_design = lev_fortress
+                    graphical_culture = "guardian_01"
+                }
+                set_location = {
+                    target = root.capital_star
+                    distance = 35
+                    angle = random
+                }
+            }
+        }
+    }
+}
+
+# ── 蜂巢小行星折跃 ──
+country_event = {
+    id = lev.296
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        create_fleet = {
+            name = "LEV_HIVE_FLEET"
+            effect = {
+                set_owner = root
+                create_ship = {
+                    name = "LEV_HIVE_FLEET"
+                    random_existing_design = lev_hive
+                    graphical_culture = "guardian_01"
+                }
+                set_location = {
+                    target = root.capital_star
+                    distance = 35
+                    angle = random
+                }
+            }
+        }
+    }
+}
+
+# ── 泰扬基母兽折跃 ──
+country_event = {
+    id = lev.297
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        create_fleet = {
+            name = "LEV_TIYANKI_FLEET"
+            effect = {
+                set_owner = root
+                create_ship = {
+                    name = "LEV_TIYANKI_FLEET"
+                    random_existing_design = lev_tiyanki
+                    graphical_culture = "guardian_01"
+                }
+                set_location = {
+                    target = root.capital_star
+                    distance = 35
+                    angle = random
+                }
+            }
+        }
+    }
+}
