@@ -1,0 +1,151 @@
+namespace = reward
+
+# ========================
+# 局势控制池 — reward.4001-4199
+# 只能由 reward.1 总触发器调用。
+# 三档消耗资源降低 PVE 强度局势进度，另有重新抽取。
+# ========================
+
+# 局势控制池入口
+country_event = {
+    id = reward.4001
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # 减幅
+        set_variable = { which = br_sit_red_light value = -3 }
+        multiply_variable = { which = br_sit_red_light value = br_power_level }
+        set_variable = { which = br_sit_red_mid value = -8 }
+        multiply_variable = { which = br_sit_red_mid value = br_power_level }
+        set_variable = { which = br_sit_red_deep value = -12 }
+        multiply_variable = { which = br_sit_red_deep value = br_power_level }
+
+        # 价格
+        set_variable = { which = br_sit_cost_light_energy value = 120 }
+        multiply_variable = { which = br_sit_cost_light_energy value = br_power_level }
+        set_variable = { which = br_sit_cost_mid_alloy value = 180 }
+        multiply_variable = { which = br_sit_cost_mid_alloy value = br_power_level }
+        set_variable = { which = br_sit_cost_deep_energy value = 400 }
+        multiply_variable = { which = br_sit_cost_deep_energy value = br_power_level }
+        set_variable = { which = br_sit_cost_deep_alloy value = 120 }
+        multiply_variable = { which = br_sit_cost_deep_alloy value = br_power_level }
+
+        country_event = { id = reward.4101 }
+    }
+}
+
+# 局势压制 — 四选一
+country_event = {
+    id = reward.4101
+    is_triggered_only = yes
+    title = REWARD_POOL_SITUATION_TITLE
+    desc = REWARD_POOL_SITUATION_DESC
+    picture = GFX_evt_wormhole
+
+    option = {
+        name = REWARD_SIT_LIGHT
+        custom_tooltip = REWARD_SIT_LIGHT_TT
+        trigger = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= br_sit_cost_light_energy
+            }
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    any_situation = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                }
+                add_resource = {
+                    energy = -1
+                    mult = br_sit_cost_light_energy
+                }
+                random_situation = {
+                    limit = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                    add_situation_progress = owner.br_sit_red_light
+                }
+            }
+        }
+    }
+
+    option = {
+        name = REWARD_SIT_MID
+        custom_tooltip = REWARD_SIT_MID_TT
+        trigger = {
+            resource_stockpile_compare = {
+                resource = alloys
+                value >= br_sit_cost_mid_alloy
+            }
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    any_situation = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                }
+                add_resource = {
+                    alloys = -1
+                    mult = br_sit_cost_mid_alloy
+                }
+                random_situation = {
+                    limit = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                    add_situation_progress = owner.br_sit_red_mid
+                }
+            }
+        }
+    }
+
+    option = {
+        name = REWARD_SIT_DEEP
+        custom_tooltip = REWARD_SIT_DEEP_TT
+        trigger = {
+            resource_stockpile_compare = {
+                resource = energy
+                value >= br_sit_cost_deep_energy
+            }
+            resource_stockpile_compare = {
+                resource = alloys
+                value >= br_sit_cost_deep_alloy
+            }
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    any_situation = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                }
+                add_resource = {
+                    energy = -1
+                    mult = br_sit_cost_deep_energy
+                }
+                add_resource = {
+                    alloys = -1
+                    mult = br_sit_cost_deep_alloy
+                }
+                random_situation = {
+                    limit = {
+                        is_situation_type = situation_br_pve_intensity
+                    }
+                    add_situation_progress = owner.br_sit_red_deep
+                }
+            }
+        }
+    }
+
+    option = {
+        name = REWARD_SIT_REROLL
+        custom_tooltip = REWARD_SIT_REROLL_TT
+        hidden_effect = {
+            country_event = { id = reward.1 }
+        }
+    }
+}
