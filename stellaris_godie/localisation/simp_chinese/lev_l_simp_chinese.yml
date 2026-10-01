@@ -266,6 +266,15 @@
  LEV_CARD_NAME_VOIDSPAWN: "虚空孳孽"
  LEV_CARD_LEVEL_VOIDSPAWN: "成长等级 §G[from.lev_voidspawn_growth_level]§!　　成长值 §G[from.lev_voidspawn_growth]§! / §Y[from.lev_voidspawn_growth_next]§!"
  LEV_CARD_COST_VOIDSPAWN: "营养投入　低 £energy£[from.lev_voidspawn_cost_low]　中 £energy£[from.lev_voidspawn_cost_mid]　高 £energy£[from.lev_voidspawn_cost_high]"
+ LEV_CARD_NAME_FORTRESS: "神秘堡垒"
+ LEV_CARD_LEVEL_FORTRESS: "成长等级 §G[from.lev_fortress_growth_level]§!　　成长值 §G[from.lev_fortress_growth]§! / §Y[from.lev_fortress_growth_next]§!"
+ LEV_CARD_COST_FORTRESS: "营养投入　低 £energy£[from.lev_fortress_cost_low]　中 £energy£[from.lev_fortress_cost_mid]　高 £energy£[from.lev_fortress_cost_high]"
+ LEV_CARD_NAME_HIVE: "蜂巢小行星"
+ LEV_CARD_LEVEL_HIVE: "成长等级 §G[from.lev_hive_growth_level]§!　　成长值 §G[from.lev_hive_growth]§! / §Y[from.lev_hive_growth_next]§!"
+ LEV_CARD_COST_HIVE: "营养投入　低 £energy£[from.lev_hive_cost_low]　中 £energy£[from.lev_hive_cost_mid]　高 £energy£[from.lev_hive_cost_high]"
+ LEV_CARD_NAME_TIYANKI: "缇扬奇族母"
+ LEV_CARD_LEVEL_TIYANKI: "成长等级 §G[from.lev_tiyanki_growth_level]§!　　成长值 §G[from.lev_tiyanki_growth]§! / §Y[from.lev_tiyanki_growth_next]§!"
+ LEV_CARD_COST_TIYANKI: "营养投入　低 £energy£[from.lev_tiyanki_cost_low]　中 £energy£[from.lev_tiyanki_cost_mid]　高 £energy£[from.lev_tiyanki_cost_high]"
 
  # ---------- 舰队 UI 状态栏（ship_size 的 custom_state_loc_prefix） ----------
  # 键名由引擎按前缀自动拼 _title / _value / _tt，不能改名
@@ -304,6 +313,12 @@
  edict_lev_test_spawn_aquatic_desc: "立刻在首都发放一艘天龙（并补齐解锁与设计）。可反复执行。"
  edict_lev_test_spawn_voidspawn: "§R[调试] 发放虚空孳孽§!"
  edict_lev_test_spawn_voidspawn_desc: "立刻在首都发放一艘虚空孳孽（并补齐解锁与设计）。可反复执行。"
+ edict_lev_test_spawn_fortress: "§R[调试] 发放神秘堡垒§!"
+ edict_lev_test_spawn_fortress_desc: "立刻在首都发放一艘神秘堡垒（并补齐解锁与设计）。可反复执行。"
+ edict_lev_test_spawn_hive: "§R[调试] 发放蜂巢小行星§!"
+ edict_lev_test_spawn_hive_desc: "立刻在首都发放一艘蜂巢小行星（并补齐解锁与设计）。可反复执行。"
+ edict_lev_test_spawn_tiyanki: "§R[调试] 发放缇扬奇族母§!"
+ edict_lev_test_spawn_tiyanki_desc: "立刻在首都发放一艘缇扬奇族母（并补齐解锁与设计）。可反复执行。"
  # ---------- 解锁法令 ----------
  edict_lev_unlock_stellarite: "解锁：噬星者"
  edict_lev_unlock_stellarite_desc: "允许在星港建造噬星者。已拥有则不会重复发放。"
@@ -327,6 +342,12 @@
  edict_lev_unlock_aquatic_desc: "允许在星港建造天龙。已拥有则不会重复发放。"
  edict_lev_unlock_voidspawn: "解锁：虚空孳孽"
  edict_lev_unlock_voidspawn_desc: "允许在星港建造虚空孳孽。已拥有则不会重复发放。"
+ edict_lev_unlock_fortress: "解锁：神秘堡垒"
+ edict_lev_unlock_fortress_desc: "允许在星港建造神秘堡垒。已拥有则不会重复发放。"
+ edict_lev_unlock_hive: "解锁：蜂巢小行星"
+ edict_lev_unlock_hive_desc: "允许在星港建造蜂巢小行星。已拥有则不会重复发放。"
+ edict_lev_unlock_tiyanki: "解锁：缇扬奇族母"
+ edict_lev_unlock_tiyanki_desc: "允许在星港建造缇扬奇族母。已拥有则不会重复发放。"
 
 
  # ---------- 舰船 ----------
@@ -677,6 +698,13 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
 
  lev_beam_fail_no_energy: "恒星能量不足（至少需要 1 点）"
 
+ lev_sunburst_fail_no_energy: "体内囤积的恒星物质不足（至少需要 5 点能量）"
+
+ ## 潜入恒星
+ lev_stellarite_submerged_regen: "潜入恒星"
+ lev_stellarite_submerged_regen_desc: "它一头扎进恒星内部，滚烫的物质正从四面八方灌进来，躯体的创口以肉眼可见的速度愈合。"
+ lev_sunburst_warning: "§R恒星在它腹中翻腾§!\n  一头噬星者正在点燃体内的恒星物质，整个星系即将被烤透。"
+
  ## 神经接口与舰船行为
  LEV_STELLARITE_COMBAT_COMPUTER: "噬星者神经接口"
  lev_STELLARITE_BEHAVIOR_DESC: "噬星者的神经接口。巨兽的感知与意志已接入指挥链路，现在可以对其下达指令。"
@@ -698,13 +726,6 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  lev_DREADNOUGHT_BEHAVIOR_DESC: "自动无畏战舰的中央计算机。这套尽职百万年的主控系统已接入指挥链路，现在可以对其下达指令。"
  lev_SCAVENGER_BEHAVIOR_DESC: "拾荒机器人的指令中枢。这台废品机器人的搜寻逻辑已接入指挥链路，现在可以对其下达指令。"
  lev_SPHERE_BEHAVIOR_DESC: "无限神机的演算核心。古老球体的一缕算力已接入指挥链路，现在可以对其下达指令。"
- lev_sunburst_fail_no_energy: "体内囤积的恒星物质不足（至少需要 5 点能量）"
-
- ## 潜入恒星
- lev_stellarite_submerged_regen: "潜入恒星"
- lev_stellarite_submerged_regen_desc: "它一头扎进恒星内部，滚烫的物质正从四面八方灌进来，躯体的创口以肉眼可见的速度愈合。"
- lev_sunburst_warning: "§R恒星在它腹中翻腾§!\n  一头噬星者正在点燃体内的恒星物质，整个星系即将被烤透。"
-
  lev_AQUATIC_BEHAVIOR_DESC: "天龙的灵枢。守护母星亿万年的龙魂已接入指挥链路，现在可以对其下达指令。"
  lev_VOIDSPAWN_BEHAVIOR_DESC: "虚空孳孽的幼体本能。这头星卵幼体的本能已接入指挥链路，现在可以对其下达指令。"
 
@@ -715,30 +736,9 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
 
  lev_stellarite_beam_activity_key: "正在喷射恒星光束"
  lev_stellarite_beam_progress_key: "充能中：$PROGRESS$"
+ lev_stellarite_beam_required_key: "蓄能完毕即喷射"
  lev_stellarite_beam_menu_title: "恒星光束"
 
- ## 外交修正
- lev_star_devoured: "恒星被吞噬"
-
-
- # ---------- 舰船 ----------
- lev_toxic_god: "毒圣"
- lev_toxic_god_plural: "毒圣"
- lev_toxic_god_cap: "毒圣"
- lev_toxic_god_desc: "背着整片生态系统的毒性神祗。它的节肢巨躯掠过之处生机绝断，毒液烧蚀装甲，连星舰也不能幸免。"
- lev_toxic_god_DESC: "背着整片生态系统的毒性神祗。它的节肢巨躯掠过之处生机绝断，毒液烧蚀装甲，连星舰也不能幸免。"
-
- LEV_TOXIC_GOD_FLEET: "毒圣"
-
- # ---------- 区段 / 组件 ----------
- lev_toxic_god_key: "毒圣舰体"
-
- LEV_TOXIC_GOD_CORE: "§R毒圣核心§!"
- LEV_TOXIC_GOD_CORE_DESC: "毒圣利维坦的核心，承载腐蚀之雾、毒沼披覆与瘟疫扩散三项能力。随成长等级提升船体、船体再生与护甲。"
- LEV_TOXIC_GOD_REACTOR: "毒圣 毒能血炉"
- lev_stellarite_beam_required_key: "蓄能完毕即喷射"
- LEV_TOXIC_GOD_REACTOR_DESC: "万亿微生物在它巨躯的血肉中代谢不息，毒能如熔浆般在体内翻涌。"
- LEV_TOXIC_GOD_THRUSTER: "毒圣 节肢划行"
  lev_stellarite_sunburst_activity_key: "腹中日轮正在成形"
  lev_stellarite_sunburst_progress_key: "点燃中：$PROGRESS$"
  lev_stellarite_sunburst_required_key: "点燃体内的恒星物质"
@@ -769,6 +769,27 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  lev_stellarite_auto_absorb_progress_key: "选定猎场：$PROGRESS$"
  lev_stellarite_auto_absorb_menu_title: "自动吞噬恒星"
 
+ ## 外交修正
+ lev_star_devoured: "恒星被吞噬"
+
+
+ # ---------- 舰船 ----------
+ lev_toxic_god: "毒圣"
+ lev_toxic_god_plural: "毒圣"
+ lev_toxic_god_cap: "毒圣"
+ lev_toxic_god_desc: "背着整片生态系统的毒性神祗。它的节肢巨躯掠过之处生机绝断，毒液烧蚀装甲，连星舰也不能幸免。"
+ lev_toxic_god_DESC: "背着整片生态系统的毒性神祗。它的节肢巨躯掠过之处生机绝断，毒液烧蚀装甲，连星舰也不能幸免。"
+
+ LEV_TOXIC_GOD_FLEET: "毒圣"
+
+ # ---------- 区段 / 组件 ----------
+ lev_toxic_god_key: "毒圣舰体"
+
+ LEV_TOXIC_GOD_CORE: "§R毒圣核心§!"
+ LEV_TOXIC_GOD_CORE_DESC: "毒圣利维坦的核心，承载腐蚀之雾、毒沼披覆与瘟疫扩散三项能力。随成长等级提升船体、船体再生与护甲。"
+ LEV_TOXIC_GOD_REACTOR: "毒圣 毒能血炉"
+ LEV_TOXIC_GOD_REACTOR_DESC: "万亿微生物在它巨躯的血肉中代谢不息，毒能如熔浆般在体内翻涌。"
+ LEV_TOXIC_GOD_THRUSTER: "毒圣 节肢划行"
  LEV_TOXIC_GOD_THRUSTER_DESC: "亿万节肢一齐划动，推着这座浮动的毒沼缓缓巡游。"
 
  # ---------- 建造限制提示 ----------
@@ -881,6 +902,185 @@ LEV_STELLARITE_LASER_DESC: "噬星者体表的光束触须。用来打掉逼近�
  LEV_VOIDSPAWN_STATE_title: "§Y[GetLevStateLevelVoidspawn]§! 级　"
  LEV_VOIDSPAWN_STATE_value: "§G[GetLevStateGrowthVoidspawn]§!/§Y[GetLevStateNextVoidspawn]§!（§G+[GetLevStateFeedVoidspawn]§!）"
  LEV_VOIDSPAWN_STATE_tt: "它以活物为食。传说星球会在成年孳孽的阴影下溃烂——而它，正在长成那个传说。"
+
+
+ # ---------- 舰船 ----------
+ lev_fortress: "神秘堡垒"
+ lev_fortress_plural: "神秘堡垒"
+ lev_fortress_cap: "神秘堡垒"
+ lev_fortress_desc: "远古文明留下的自动要塞，沉眠于星海一隅。它的装甲与谜题一样无解，而如今，这份无解属于你。"
+ lev_fortress_DESC: "远古文明留下的自动要塞，沉眠于星海一隅。它的装甲与谜题一样无解，而如今，这份无解属于你。"
+
+ # ---------- 区段 / 组件 ----------
+ lev_fortress_key: "神秘堡垒舰体"
+
+ LEV_FORTRESS_CORE: "§R神秘堡垒核心§!"
+ LEV_FORTRESS_CORE_DESC: "神秘堡垒利维坦的核心，承载跃迁、相位护盾过载与谜题力场三项能力。随成长等级提升护盾、护盾再生与武器伤害。"
+ LEV_FORTRESS_REACTOR: "神秘堡垒 暗物质炉心"
+ LEV_FORTRESS_REACTOR_DESC: "远古炉心在沉默的亿万年里从未停转。如今它苏醒了，把暗物质的洪流重新送往每一门炮位。"
+
+ # ---------- 建造限制提示 ----------
+ not_has_lev_fortress: "§H已拥有神秘堡垒§!"
+
+ # ---------- 技能按钮 ----------
+ lev_fortress_warp_button: "§G堡垒跃迁§!\n  折跃引擎全功率运转，将整座堡垒瞬移至目标行星旁。它不会移动，它只是换一个地方静止。\n  蓄力§Y5§!天　冷却§Y30§!天"
+
+ lev_fortress_phase_shield_button: "§G相位护盾过载§!\n  护盾矩阵超频运转，自身§B护盾 +[lev_sk_fort_2_sh]%§!、§B护盾再生 +[lev_sk_fort_2_rg]/天§!。\n  持续§Y30§!天　冷却§Y240§!天"
+
+ lev_fortress_enigma_field_button: "§G谜题力场§!\n  无法解读的信号淹没整片星域，星系内全部敌舰§R射速 -[lev_sk_fort_u_fr]%§!。\n  持续§Y40§!天　冷却§Y480§!天"
+
+ # ---------- 舰队 UI ----------
+ lev_fortress_warp_activity_key: "折跃引擎正在充能"
+ lev_fortress_warp_progress_key: "跃迁中：$PROGRESS$"
+ lev_fortress_warp_menu_title: "堡垒跃迁"
+
+ lev_fortress_phase_shield_activity_key: "护盾矩阵正在超频"
+ lev_fortress_phase_shield_progress_key: "过载中：$PROGRESS$"
+ lev_fortress_phase_shield_menu_title: "相位护盾过载"
+
+ lev_fortress_enigma_field_activity_key: "谜题信号正在广播"
+ lev_fortress_enigma_field_progress_key: "广播中：$PROGRESS$"
+ lev_fortress_enigma_field_menu_title: "谜题力场"
+
+ # ---------- modifier 名 ----------
+ lev_fort_sk2_sh: "相位护盾过载"
+ lev_fort_sk2_sh_desc: "护盾矩阵在超频下嗡鸣，能量密度远超设计极限。当前效果：§B护盾+[lev_sk_fort_2_sh]%§!。"
+ lev_fort_sk2_rg: "相位护盾过载·续流"
+ lev_fort_sk2_rg_desc: "过载的矩阵反过来哺育自己，缺口愈合的速度快得反常。当前效果：§B护盾再生+[lev_sk_fort_2_rg]/天§!。"
+ lev_fort_u_fr: "谜题力场"
+ lev_fort_u_fr_desc: "广播里只有一道无人能解的题，炮手的每一秒都花在了错误的地方。"
+
+ # ---------- 舰队名 ----------
+ LEV_FORTRESS_FLEET: "神秘堡垒"
+
+ # ---------- 舰队状态栏（custom_state_loc_prefix 自动拼 _title/_value/_tt） ----------
+ LEV_FORTRESS_STATE_title: "§Y[GetLevStateLevelFortress]§! 级　"
+ LEV_FORTRESS_STATE_value: "§G[GetLevStateGrowthFortress]§!/§Y[GetLevStateNextFortress]§!（§G+[GetLevStateFeedFortress]§!）"
+ LEV_FORTRESS_STATE_tt: "它不需要进食，也不需要休眠。它只是在漫长的静止里，一点点解开自己身上的题。"
+
+ # ---------- 电脑与行为 ----------
+ LEV_FORTRESS_COMBAT_COMPUTER: "堡垒主控中枢"
+ lev_FORTRESS_BEHAVIOR_DESC: "神秘堡垒的主控中枢。这座远古要塞的火控已接入指挥链路，现在可以对其下达指令。"
+
+
+ # ---------- 舰船 ----------
+ lev_hive: "蜂巢小行星"
+ lev_hive_plural: "蜂巢小行星"
+ lev_hive_cap: "蜂巢小行星"
+ lev_hive_desc: "一颗会呼吸的小行星。岩壳之下，亿万虫巢在黑暗中一同搏动，直到整片星域都属于它们。"
+ lev_hive_DESC: "一颗会呼吸的小行星。岩壳之下，亿万虫巢在黑暗中一同搏动，直到整片星域都属于它们。"
+
+ # ---------- 区段 / 组件 ----------
+ lev_hive_key: "蜂巢小行星舰体"
+
+ LEV_HIVE_CORE: "§R蜂巢核心§!"
+ LEV_HIVE_CORE_DESC: "蜂巢小行星利维坦的核心，承载跃迁、蜂群狂暴与孢子云三项能力。随成长等级提升船体、护甲与武器伤害。"
+ LEV_HIVE_REACTOR: "蜂巢小行星 巢群熔炉"
+ LEV_HIVE_REACTOR_DESC: "亿万虫群在岩壳深处的巢室里代谢生息，它们共同的心跳就是这颗小行星的炉火。"
+
+ # ---------- 建造限制提示 ----------
+ not_has_lev_hive: "§H已拥有蜂巢小行星§!"
+
+ # ---------- 技能按钮 ----------
+ lev_hive_warp_button: "§G巢群跃迁§!\n  整颗小行星连同巢群一同瞬移至目标行星旁。它去哪里，虫群的天空就在哪里。\n  蓄力§Y5§!天　冷却§Y30§!天"
+
+ lev_hive_swarm_frenzy_button: "§G蜂群狂暴§!\n  巢群进入亢奋状态，本舰队全体§G射速 +[lev_sk_hive_2_fr]%§!。\n  持续§Y30§!天　冷却§Y240§!天"
+
+ lev_hive_spore_cloud_button: "§G孢子云§!\n  腐蚀孢子随风扩散，星系内全部敌舰§R武器伤害 -[lev_sk_hive_u_dmg]%§!。\n  持续§Y40§!天　冷却§Y480§!天"
+
+ # ---------- 舰队 UI ----------
+ lev_hive_warp_activity_key: "巢群正在共振"
+ lev_hive_warp_progress_key: "跃迁中：$PROGRESS$"
+ lev_hive_warp_menu_title: "巢群跃迁"
+
+ lev_hive_swarm_frenzy_activity_key: "巢群正在亢奋"
+ lev_hive_swarm_frenzy_progress_key: "亢奋中：$PROGRESS$"
+ lev_hive_swarm_frenzy_menu_title: "蜂群狂暴"
+
+ lev_hive_spore_cloud_activity_key: "孢子正在播散"
+ lev_hive_spore_cloud_progress_key: "播散中：$PROGRESS$"
+ lev_hive_spore_cloud_menu_title: "孢子云"
+
+ # ---------- modifier 名 ----------
+ lev_hive_2_fr: "蜂群狂暴"
+ lev_hive_2_fr_desc: "巢群的心跳快了一拍，连随行的舰队都被这股亢奋感染。当前效果：§G射速+[lev_sk_hive_2_fr]%§!。"
+ lev_hive_u_dmg: "孢子云"
+ lev_hive_u_dmg_desc: "腐蚀孢子钻进散热口与炮膛，每一发出膛的弹丸都带着锈。"
+
+ # ---------- 舰队名 ----------
+ LEV_HIVE_FLEET: "蜂巢小行星"
+
+ # ---------- 舰队状态栏（custom_state_loc_prefix 自动拼 _title/_value/_tt） ----------
+ LEV_HIVE_STATE_title: "§Y[GetLevStateLevelHive]§! 级　"
+ LEV_HIVE_STATE_value: "§G[GetLevStateGrowthHive]§!/§Y[GetLevStateNextHive]§!（§G+[GetLevStateFeedHive]§!）"
+ LEV_HIVE_STATE_tt: "岩壳之下，巢室一层层向外扩张。每一场战斗的猎物，都会变成新的巢。"
+
+ # ---------- 电脑与行为 ----------
+ LEV_HIVE_COMBAT_COMPUTER: "蜂巢 共识神经"
+ lev_HIVE_BEHAVIOR_DESC: "蜂巢小行星的共识神经。亿万虫群的巢群意志已接入指挥链路，现在可以对其下达指令。"
+
+
+ # ---------- 舰船 ----------
+ lev_tiyanki: "缇扬奇族母"
+ lev_tiyanki_plural: "缇扬奇族母"
+ lev_tiyanki_cap: "缇扬奇族母"
+ lev_tiyanki_desc: "缇扬奇群的年长母兽，族群的迁徙皆随她的意志。她曾在星海间悠然游弋，如今为你引路。"
+ lev_tiyanki_DESC: "缇扬奇群的年长母兽，族群的迁徙皆随她的意志。她曾在星海间悠然游弋，如今为你引路。"
+
+ # ---------- 区段 / 组件 ----------
+ lev_tiyanki_key: "缇扬奇族母舰体"
+
+ LEV_TIYANKI_CORE: "§R族母核心§!"
+ LEV_TIYANKI_CORE_DESC: "缇扬奇族母利维坦的核心，承载跃迁、群体再生与母兽号令三项能力。随成长等级提升船体、船体再生与护甲。"
+ LEV_TIYANKI_REACTOR: "族母 生命之炉"
+ LEV_TIYANKI_REACTOR_DESC: "亿万年的迁徙在她体内烧出一座生生不息的熔炉，族群的生机皆源于此。"
+
+ # ---------- 建造限制提示 ----------
+ not_has_lev_tiyanki: "§H已拥有缇扬奇族母§!"
+
+ # ---------- 技能按钮 ----------
+ lev_tiyanki_ram_button: "§G巨鲸冲撞§!\n  巨躯全速突进，自身§G武器伤害 +[lev_sk_tiyk_1_dmg]%§!、§G射速 +[lev_sk_tiyk_1_fr]%§!。\n  持续§Y20§!天　冷却§Y180§!天"
+
+ lev_tiyanki_herd_regen_button: "§G群体再生§!\n  母兽的歌声抚过每一艘随行的舰船，本舰队全体§G船体再生 +[lev_sk_tiyk_2_hr]/10%/天§!。\n  持续§Y30§!天　冷却§Y240§!天"
+
+ lev_tiyanki_matriarch_call_button: "§G母兽号令§!\n  长鸣穿透星海，兽群与舰队同频共振，本舰队全体§G射速 +[lev_sk_tiyk_u_fr]%§!。\n  持续§Y40§!天　冷却§Y480§!天"
+
+ # ---------- 舰队 UI ----------
+ lev_tiyanki_ram_activity_key: "巨躯正在加速"
+ lev_tiyanki_ram_progress_key: "突进中：$PROGRESS$"
+ lev_tiyanki_ram_menu_title: "巨鲸冲撞"
+
+ lev_tiyanki_herd_regen_activity_key: "母兽的歌声正在回荡"
+ lev_tiyanki_herd_regen_progress_key: "吟唱中：$PROGRESS$"
+ lev_tiyanki_herd_regen_menu_title: "群体再生"
+
+ lev_tiyanki_matriarch_call_activity_key: "号令正在传遍兽群"
+ lev_tiyanki_matriarch_call_progress_key: "共鸣中：$PROGRESS$"
+ lev_tiyanki_matriarch_call_menu_title: "母兽号令"
+
+ # ---------- modifier 名 ----------
+ lev_tiyk_1_dmg: "巨鲸冲撞·破浪"
+ lev_tiyk_1_dmg_desc: "巨躯以迁徙万年的蛮力撞进战阵，撞上的东西没有完好的。当前效果：§G武器伤害+[lev_sk_tiyk_1_dmg]%§!。"
+ lev_tiyk_1_fr: "巨鲸冲撞·连破"
+ lev_tiyk_1_fr_desc: "冲势不减，撞开一艘便扑向下一般。当前效果：§G射速+[lev_sk_tiyk_1_fr]%§!。"
+ lev_tiyk_2_hr: "群体再生"
+ lev_tiyk_2_hr_desc: "母兽的歌声里有一种古老的安稳，伤口在歌声里悄悄合拢。当前效果：§G船体再生+[lev_sk_tiyk_2_hr]/10%/天§!。"
+ lev_tiyk_u_fr: "母兽号令"
+ lev_tiyk_u_fr_desc: "号令既出，兽群与舰队皆知何时该亮出獠牙。当前效果：§G射速+[lev_sk_tiyk_u_fr]%§!。"
+
+ # ---------- 舰队名 ----------
+ LEV_TIYANKI_FLEET: "缇扬奇族母"
+
+ # ---------- 舰队状态栏（custom_state_loc_prefix 自动拼 _title/_value/_tt） ----------
+ LEV_TIYANKI_STATE_title: "§Y[GetLevStateLevelTiyanki]§! 级　"
+ LEV_TIYANKI_STATE_value: "§G[GetLevStateGrowthTiyanki]§!/§Y[GetLevStateNextTiyanki]§!（§G+[GetLevStateFeedTiyanki]§!）"
+ LEV_TIYANKI_STATE_tt: "她记得每一条迁徙的古路。如今星海任她遨游，而她的族群愈发壮大。"
+
+ # ---------- 电脑与行为 ----------
+ LEV_TIYANKI_COMBAT_COMPUTER: "族母 群意灵枢"
+ lev_TIYANKI_BEHAVIOR_DESC: "缇扬奇族母的群意灵枢。年长母兽的古老意志已接入指挥链路，现在可以对其下达指令。"
+ LEV_TIYANKI_THRUSTER: "族母 鳍肢游动"
+ LEV_TIYANKI_THRUSTER_DESC: "宽大的鳍肢缓缓摆动，推着族母庞大的身躯在星海间迁徙，一如亿万年来那样。"
 
 
  # ---------- 舰船 ----------
