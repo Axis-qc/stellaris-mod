@@ -100,8 +100,7 @@ lev_stellarite_ignite = {
     }
 }
 
-# 恒星光束（槽2）：星系选择器。点选目标后由 on_started 立即接手，订单自身不推进。
-# 打断、位置锁定、动画、蓄能与伤害结算全走事件链（on_lev_beam_targeted → lev.102 → lev.106）。
+# 恒星光束（槽2）：星系选择器，订单只负责选目标，其余走 on_lev_beam_targeted → lev.102 → lev.106
 lev_stellarite_beam = {
     user_scope = fleet
     scope = galactic_object
@@ -124,7 +123,7 @@ lev_stellarite_beam = {
                 NOT = { has_fleet_flag = lev_beam_charging }
             }
         }
-        # 动作在点击瞬间就被事件打断，引擎自带 cooldown 是否起算不可靠，故另记冷却标志
+        # 动作点击即被打断，引擎 cooldown 未必起算，另记
         custom_tooltip = {
             fail_text = lev_beam_fail_cooldown
             from = {

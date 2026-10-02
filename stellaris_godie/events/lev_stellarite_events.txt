@@ -90,19 +90,17 @@ planet_event = {
     }
 }
 
-# 恒星光束起手：星系选择器的 on_started 在点击瞬间就触发（README 第 37 行：即便还要赶路也会触发），
-# 此刻舰队仍在原地。于是这里立刻打断行军、就地锁定，把蓄能与结算全部接管到事件侧。
+# 星系选择器 on_started 触发时舰队仍在原地（README 37：无需先抵达）
 system_event = {
     id = lev.102
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        # 目标星系必须存全局：蓄能要跨 20 天，本事件的 save_event_target_as 会随事件结束注销
+        # 跨 20 天结算，event 级目标会随本事件注销，只能用 global
         save_global_event_target_as = lev_beam_target
     }
     after = {
-        # 位置锁定：先清掉选择器排下的行军订单，再就地挂一条等待令。
-        # 写法照原版对太空生物舰队的处理（02_contracts.txt:2434-2443，注释就是 keep them in place）。
+        # 清掉选择器排下的行军令并就地按住（同原版 02_contracts.txt:2434）
         if = {
             limit = { from = { is_scope_type = fleet } }
             from = {
@@ -115,9 +113,7 @@ system_event = {
                 }
             }
         }
-        # 硬保险：蓄能期间航速压到 0，玩家就算手动下令也拉不走。
-        # 取值照原版眩晕惯用法 lf_weapon_stun_effect（ship_speed_mult = -3）。
-        # 刻意不用 set_event_locked——那会让舰船变成不可攻击，蓄能期应当照常挨打。
+        # 减速锁位，不用 set_event_locked（那会让舰船不可攻击）
         from = {
             set_timed_fleet_flag = { flag = lev_beam_charging days = 20 }
             every_owned_ship = {
@@ -125,13 +121,12 @@ system_event = {
                 add_modifier = { modifier = lev_stellarite_beam_charging days = 20 }
                 lock_animation_state = breath_loop
             }
-            # 蓄能期满在目标星系结算；事件挂在舰队上，舰队若中途阵亡则本事件自动不再触发
             fleet_event = { id = lev.106 days = 20 }
         }
     }
 }
 
-# 恒星光束开火：THIS = 施放舰队（由 lev.102 延迟 20 天投递），目标星系取 event_target:lev_beam_target
+# 蓄能期满，THIS = 施放舰队
 fleet_event = {
     id = lev.106
     hide_window = yes
@@ -140,9 +135,8 @@ fleet_event = {
         lev_stellarite_beam_apply = yes
 
         remove_fleet_flag = lev_beam_charging
-        # 蓄能结束，解除等待令，把舰队交还给玩家
         clear_orders = yes
-        # 冷却自开火起算（动作本身被瞬间打断，引擎 cooldown 未必起算）
+        # 动作被瞬间打断，引擎 cooldown 未必起算，自行记
         set_timed_fleet_flag = { flag = lev_beam_cooldown days = 90 }
         every_owned_ship = {
             limit = { is_ship_size = lev_stellarite }
