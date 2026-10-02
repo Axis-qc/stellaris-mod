@@ -100,16 +100,35 @@ lev_stellarite_ignite = {
     }
 }
 
-# 恒星光束（槽2）：进度走完才派发 on_completed，蓄力中取消不发事件
+# 恒星光束（槽2）：星系选择器。点选目标后由 on_started 立即接手，订单自身不推进。
+# 打断、位置锁定、动画、蓄能与伤害结算全走事件链（on_lev_beam_targeted → lev.102 → lev.106）。
 lev_stellarite_beam = {
     user_scope = fleet
-    scope = self
+    scope = galactic_object
 
     possible = {
         custom_tooltip = {
             fail_text = lev_beam_fail_no_energy
             from.owner = {
                 check_variable = { which = lev_stellarite_energy value > 0 }
+            }
+        }
+        # 射程即自身传感器范围
+        custom_tooltip = {
+            fail_text = lev_beam_fail_out_of_range
+            is_in_sensor_range_of_country = from.owner
+        }
+        custom_tooltip = {
+            fail_text = lev_beam_fail_charging
+            from = {
+                NOT = { has_fleet_flag = lev_beam_charging }
+            }
+        }
+        # 动作在点击瞬间就被事件打断，引擎自带 cooldown 是否起算不可靠，故另记冷却标志
+        custom_tooltip = {
+            fail_text = lev_beam_fail_cooldown
+            from = {
+                NOT = { has_fleet_flag = lev_beam_cooldown }
             }
         }
     }
@@ -125,6 +144,14 @@ lev_stellarite_beam = {
                 check_variable = { which = lev_stellarite_energy value > 0 }
             }
         }
+        custom_tooltip = {
+            fail_text = lev_beam_fail_charging
+            NOT = { has_fleet_flag = lev_beam_charging }
+        }
+        custom_tooltip = {
+            fail_text = lev_beam_fail_cooldown
+            NOT = { has_fleet_flag = lev_beam_cooldown }
+        }
     }
 
     automation = {
@@ -133,37 +160,28 @@ lev_stellarite_beam = {
         tooltip = lev_auto_tt_beam
     }
 
-    on_completed = on_lev_beam_completed
+    on_started = on_lev_beam_targeted
     tooltip = lev_stellarite_beam_button
     icon = GFX_fleet_action_button_behemoth_superweapon
     icon_selected = GFX_fleet_action_button_behemoth_superweapon
     activity_key = lev_stellarite_beam_activity_key
     context_menu_name = lev_stellarite_beam_menu_title
-    progress_activity_key = lev_stellarite_beam_progress_key
-    required_progress_key = lev_stellarite_beam_required_key
-
-    # 喷射状态定义在 lev_stellarite.asset
-    finish_anim_state = "beam_fire"
+    click_to_act_key = lev_beam_click_to_act
 
     wait = no
-    required_progress = 20
     cooldown = 90
     slot = 2
 
     ai = {
-        # scope = self 时候选就是舰队自身，所以查它此刻所在的星系
+        # This = 目标星系，From = 施放舰队
         weight = {
             base = 0
             # 星系内有敌对舰队才值得开火
             modifier = {
                 weight = 20
-                FROM = {
-                    solar_system = {
-                        any_fleet_in_system = {
-                            exists = owner
-                            owner = { is_hostile_to = FROM.controller }
-                        }
-                    }
+                any_fleet_in_system = {
+                    exists = owner
+                    owner = { is_hostile_to = FROM.controller }
                 }
             }
             # 封权须排在本块最后，上方是加法项

@@ -138,9 +138,11 @@ lev_stellarite_ignite_apply = {
     }
 }
 
-# 恒星光束：本星系全部敌舰
+# 恒星光束：目标星系内全部敌舰（远程打击，与舰队自身所在星系无关）
+# THIS = 施放舰队，目标星系取全局事件目标 lev_beam_target
+# 由 lev.106 在蓄能期满时调用；旧契约（打 solar_system 即舰队所在地）随远程化废弃
 lev_stellarite_beam_apply = {
-    from.owner = { save_event_target_as = lev_caster }
+    owner = { save_event_target_as = lev_caster }
 
     lev_stellarite_shot_prepare = {
         VALUE = lev_beam_damage
@@ -148,7 +150,8 @@ lev_stellarite_beam_apply = {
         VAR = lev_stellarite_shot_damage
     }
 
-    solar_system = {
+    # 打的是当初选定的目标星系，不是舰队此刻所在地
+    event_target:lev_beam_target = {
         every_fleet_in_system = {
             limit = {
                 controller = { is_hostile = event_target:lev_caster }

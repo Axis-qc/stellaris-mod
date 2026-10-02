@@ -78,7 +78,8 @@ country_event = {
     }
 }
 
-# 技能完成：lev.101 THIS = 目标恒星、from = 舰队；lev.102 THIS = 舰队自身
+# 技能完成：lev.101 THIS = 目标恒星、from = 舰队
+# lev.102 由星系选择器 on_started 触发，THIS = 目标星系、from = 舰队
 
 planet_event = {
     id = lev.101
@@ -89,12 +90,67 @@ planet_event = {
     }
 }
 
-fleet_event = {
+# 恒星光束起手：星系选择器的 on_started 在点击瞬间就触发（README 第 37 行：即便还要赶路也会触发），
+# 此刻舰队仍在原地。于是这里立刻打断行军、就地锁定，把蓄能与结算全部接管到事件侧。
+system_event = {
     id = lev.102
     hide_window = yes
     is_triggered_only = yes
     immediate = {
+        # 目标星系必须存全局：蓄能要跨 20 天，本事件的 save_event_target_as 会随事件结束注销
+        save_global_event_target_as = lev_beam_target
+    }
+    after = {
+        # 位置锁定：先清掉选择器排下的行军订单，再就地挂一条等待令。
+        # 写法照原版对太空生物舰队的处理（02_contracts.txt:2434-2443，注释就是 keep them in place）。
+        if = {
+            limit = { from = { is_scope_type = fleet } }
+            from = {
+                clear_fleet_actions = this
+                clear_orders = yes
+                queue_actions = {
+                    wait = {
+                        duration = 20
+                    }
+                }
+            }
+        }
+        # 硬保险：蓄能期间航速压到 0，玩家就算手动下令也拉不走。
+        # 取值照原版眩晕惯用法 lf_weapon_stun_effect（ship_speed_mult = -3）。
+        # 刻意不用 set_event_locked——那会让舰船变成不可攻击，蓄能期应当照常挨打。
+        from = {
+            set_timed_fleet_flag = { flag = lev_beam_charging days = 20 }
+            every_owned_ship = {
+                limit = { is_ship_size = lev_stellarite }
+                add_modifier = { modifier = lev_stellarite_beam_charging days = 20 }
+                lock_animation_state = breath_loop
+            }
+            # 蓄能期满在目标星系结算；事件挂在舰队上，舰队若中途阵亡则本事件自动不再触发
+            fleet_event = { id = lev.106 days = 20 }
+        }
+    }
+}
+
+# 恒星光束开火：THIS = 施放舰队（由 lev.102 延迟 20 天投递），目标星系取 event_target:lev_beam_target
+fleet_event = {
+    id = lev.106
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
         lev_stellarite_beam_apply = yes
+
+        remove_fleet_flag = lev_beam_charging
+        # 蓄能结束，解除等待令，把舰队交还给玩家
+        clear_orders = yes
+        # 冷却自开火起算（动作本身被瞬间打断，引擎 cooldown 未必起算）
+        set_timed_fleet_flag = { flag = lev_beam_cooldown days = 90 }
+        every_owned_ship = {
+            limit = { is_ship_size = lev_stellarite }
+            remove_modifier = lev_stellarite_beam_charging
+            lock_animation_state = none
+            set_animation_state = beam_fire
+        }
+        clear_global_event_target = lev_beam_target
     }
 }
 
