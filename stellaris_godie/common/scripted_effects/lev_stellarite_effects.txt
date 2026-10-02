@@ -161,6 +161,23 @@ lev_stellarite_beam_apply = {
                 }
             }
         }
+
+        # 目标恒星处播放原版焚天神兵爆星特效（同 destroy_star_system，不写 duration，靠实体 state_time 自止）
+        every_system_planet = {
+            limit = { is_star = yes }
+            create_ambient_object = {
+                type = "star_explosion"
+                play_animation_once = yes
+                location = this
+            }
+            last_created_ambient_object = {
+                set_location = {
+                    target = prev
+                    distance = 0
+                    angle = random
+                }
+            }
+        }
     }
 
     event_target:lev_caster = {
