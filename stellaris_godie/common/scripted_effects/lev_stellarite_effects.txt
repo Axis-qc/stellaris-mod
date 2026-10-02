@@ -169,13 +169,14 @@ lev_stellarite_beam_apply = {
                 type = "star_explosion"
                 play_animation_once = yes
                 location = this
-            }
-            last_created_ambient_object = {
-                set_location = {
-                    target = prev
-                    distance = 0
-                    angle = random
-                }
+				use_3d_location = yes
+				effect = {
+					set_location = {
+					target = prev
+					distance = 0
+					angle = random
+				}
+				}
             }
         }
     }
