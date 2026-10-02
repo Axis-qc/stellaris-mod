@@ -1,331 +1,133 @@
 namespace = lev
 
-# 新利维坦调试发放事件（由 common/edicts/lev_stellarite_debug_edicts.txt 的
-# lev_test_spawn_<TYPE> 法令延迟 1 天调用，给 refresh_auto_generated_ship_designs 留结算窗口）
-# 模式与 lev_stellarite_events.txt 的 lev.11 相同。
+# 利维坦调试发放事件，由 lev_stellarite_debug_edicts.txt 的调试法令延迟 1 天调用
 
-# ── 以太巨龙折跃 ──
+# 以太巨龙
 country_event = {
     id = lev.190
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_DRAKE_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_DRAKE_FLEET"
-                    random_existing_design = lev_drake
-                    # 不能用 root，会把玩家文化套到守卫者模型上
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = drake NAME = LEV_DRAKE_FLEET }
     }
 }
 
-# ── 巨龙折跃 ──
+# 巨龙
 country_event = {
     id = lev.191
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_SHARD_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_SHARD_FLEET"
-                    random_existing_design = lev_shard
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = shard NAME = LEV_SHARD_FLEET }
     }
 }
 
-# ── 幽魂折跃 ──
+# 幽魂
 country_event = {
     id = lev.192
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_WRAITH_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_WRAITH_FLEET"
-                    random_existing_design = lev_wraith
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = wraith NAME = LEV_WRAITH_FLEET }
     }
 }
 
-# ── 位面之魇折跃 ──
+# 位面之魇
 country_event = {
     id = lev.193
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_HORROR_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_HORROR_FLEET"
-                    random_existing_design = lev_horror
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = horror NAME = LEV_HORROR_FLEET }
     }
 }
 
-# ── 毒圣折跃 ──
+# 毒圣
 country_event = {
     id = lev.194
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_TOXIC_GOD_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_TOXIC_GOD_FLEET"
-                    random_existing_design = lev_toxic_god
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = toxic_god NAME = LEV_TOXIC_GOD_FLEET }
     }
 }
 
-# ── 自动无畏战舰折跃 ──
+# 自动无畏战舰
 country_event = {
     id = lev.195
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_DREADNOUGHT_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_DREADNOUGHT_FLEET"
-                    random_existing_design = lev_dreadnought
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = dreadnought NAME = LEV_DREADNOUGHT_FLEET }
     }
 }
 
-# ── 拾荒机器人折跃 ──
+# 拾荒机器人
 country_event = {
     id = lev.196
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_SCAVENGER_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_SCAVENGER_FLEET"
-                    random_existing_design = lev_scavenger
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = scavenger NAME = LEV_SCAVENGER_FLEET }
     }
 }
 
-# ── 无限神机折跃 ──
+# 无限神机
 country_event = {
     id = lev.197
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_SPHERE_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_SPHERE_FLEET"
-                    random_existing_design = lev_sphere
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = sphere NAME = LEV_SPHERE_FLEET }
     }
 }
 
-# ── 天龙折跃 ──
+# 天龙
 country_event = {
     id = lev.198
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_AQUATIC_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_AQUATIC_FLEET"
-                    random_existing_design = lev_aquatic
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = aquatic NAME = LEV_AQUATIC_FLEET }
     }
 }
 
-# ── 虚空孳孽折跃 ──
+# 虚空孳孽
 country_event = {
     id = lev.199
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_VOIDSPAWN_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_VOIDSPAWN_FLEET"
-                    random_existing_design = lev_voidspawn
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = voidspawn NAME = LEV_VOIDSPAWN_FLEET }
     }
 }
 
-# ── 神秘堡垒折跃 ──
+# 神秘堡垒
 country_event = {
     id = lev.295
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_FORTRESS_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_FORTRESS_FLEET"
-                    random_existing_design = lev_fortress
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = fortress NAME = LEV_FORTRESS_FLEET }
     }
 }
 
-# ── 蜂巢小行星折跃 ──
+# 蜂巢小行星
 country_event = {
     id = lev.296
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_HIVE_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_HIVE_FLEET"
-                    random_existing_design = lev_hive
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = hive NAME = LEV_HIVE_FLEET }
     }
 }
 
-# ── 泰扬基母兽折跃 ──
+# 泰扬基母兽
 country_event = {
     id = lev.297
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_TIYANKI_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = "LEV_TIYANKI_FLEET"
-                    random_existing_design = lev_tiyanki
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = tiyanki NAME = LEV_TIYANKI_FLEET }
     }
 }

@@ -1,6 +1,13 @@
 # TODO
 
 
+## 利维坦复苏冷却（2026-10-02 用户明确暂缓）
+
+- [ ] 利维坦被摧毁后，当前是下一年年初直接补发，没有冷却。计划加固定冷却年数：需要新增 `lev_<TYPE>_revive_cooldown` 国家变量，摧毁时记账（`on_ship_destroyed_victim` 或年度检查里比对）、年度检查里做倒计时，冷却未满不补发。
+  - 文件：`common/scripted_effects/lev_grant_effects.txt` 的 `lev_revive_one`
+  - 前置问题：需要先确认「摧毁」能否可靠识别到具体是哪一只利维坦（舰船销毁钩子的作用域与舰种读取）。
+
+
 ## bio_ship（生物舰船组）兼容衍生问题（2026-08-25 排查发现）
 
 - [ ] A. 星舰科技第一层门槛对齐：`tech_br_arkship_construction` 前置为 `OR(tech_cruisers, tech_harbingers)`（巡洋级），比原版方舟舰 `OR(tech_destroyers, tech_weavers)`（驱逐级）高一档。普通玩家需研究到巡洋才能解锁星舰工程学；bio 玩家需研究到 tech_harbingers。是否对齐原版门槛待定。

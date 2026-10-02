@@ -1,0 +1,68 @@
+# 利维坦发放效果，country 作用域
+# 新增利维坦时在 lev_revive_check_all 加一行
+# TYPE = 舰种后缀，NAME = 舰队名与舰船名的本地化键；参数不带引号，带引号会解析失败
+# 禁止合并、变更编队、解散、换指挥官，只允许升级；不占海军容量
+
+lev_grant_one = {
+    create_fleet = {
+        name = $NAME$
+        settings = {
+            can_upgrade = yes
+            can_disband = no
+            can_change_composition = no
+            can_change_leader = no
+            uses_naval_capacity = no
+        }
+        effect = {
+            set_owner = root
+            create_ship = {
+                name = $NAME$
+                random_existing_design = lev_$TYPE$
+                # 不能用 root，会把玩家文化套到守卫者模型上
+                graphical_culture = "guardian_01"
+            }
+            set_location = {
+                target = root.capital_star
+                distance = 35
+                angle = random
+            }
+        }
+    }
+}
+
+
+# 单只复苏检查，已解锁且名下没有该舰种时补发
+
+lev_revive_one = {
+    if = {
+        limit = {
+            has_country_flag = lev_$TYPE$_unlocked
+            NOT = {
+                any_owned_ship = {
+                    is_ship_size = lev_$TYPE$
+                }
+            }
+        }
+        lev_grant_one = { TYPE = $TYPE$ NAME = $NAME$ }
+    }
+}
+
+
+# 14 只复苏检查
+
+lev_revive_check_all = {
+    lev_revive_one = { TYPE = stellarite NAME = LEV_STELLARITE_FLEET }
+    lev_revive_one = { TYPE = drake NAME = LEV_DRAKE_FLEET }
+    lev_revive_one = { TYPE = shard NAME = LEV_SHARD_FLEET }
+    lev_revive_one = { TYPE = wraith NAME = LEV_WRAITH_FLEET }
+    lev_revive_one = { TYPE = horror NAME = LEV_HORROR_FLEET }
+    lev_revive_one = { TYPE = toxic_god NAME = LEV_TOXIC_GOD_FLEET }
+    lev_revive_one = { TYPE = dreadnought NAME = LEV_DREADNOUGHT_FLEET }
+    lev_revive_one = { TYPE = scavenger NAME = LEV_SCAVENGER_FLEET }
+    lev_revive_one = { TYPE = sphere NAME = LEV_SPHERE_FLEET }
+    lev_revive_one = { TYPE = aquatic NAME = LEV_AQUATIC_FLEET }
+    lev_revive_one = { TYPE = voidspawn NAME = LEV_VOIDSPAWN_FLEET }
+    lev_revive_one = { TYPE = fortress NAME = LEV_FORTRESS_FLEET }
+    lev_revive_one = { TYPE = hive NAME = LEV_HIVE_FLEET }
+    lev_revive_one = { TYPE = tiyanki NAME = LEV_TIYANKI_FLEET }
+}

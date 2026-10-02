@@ -1,7 +1,6 @@
-# 利维坦解锁法令
-# 解锁途径：点法令 → set_country_flag lev_<TYPE>_unlocked → 对应舰种在星港解锁建造
-# 不直接发船；折跃发放走 lev_stellarite_debug_edicts.txt 的调试法令（br_debug_mode 门控）
-# potential 带 NOT 已解锁判断，解锁后法令自动隐藏，防重复点击
+# 利维坦解锁法令，点法令置 flag 并经 lev.330 发放一艘到首都，被摧毁后年度补发
+# 延迟 1 天给 refresh_auto_generated_ship_designs 留结算窗口，否则 create_ship 取不到设计
+# potential 的 NOT 已解锁判断使解锁后法令自动隐藏
 
 # 噬星者
 lev_unlock_stellarite = {
@@ -22,6 +21,10 @@ lev_unlock_stellarite = {
         set_country_flag = lev_stellarite_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = stellarite }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -47,6 +50,10 @@ lev_unlock_drake = {
         set_country_flag = lev_drake_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = drake }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -72,6 +79,10 @@ lev_unlock_shard = {
         set_country_flag = lev_shard_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = shard }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -97,6 +108,10 @@ lev_unlock_wraith = {
         set_country_flag = lev_wraith_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = wraith }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -122,6 +137,10 @@ lev_unlock_horror = {
         set_country_flag = lev_horror_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = horror }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -147,6 +166,10 @@ lev_unlock_toxic_god = {
         set_country_flag = lev_toxic_god_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = toxic_god }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -172,6 +195,10 @@ lev_unlock_dreadnought = {
         set_country_flag = lev_dreadnought_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = dreadnought }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -197,6 +224,10 @@ lev_unlock_scavenger = {
         set_country_flag = lev_scavenger_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = scavenger }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -222,6 +253,10 @@ lev_unlock_sphere = {
         set_country_flag = lev_sphere_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = sphere }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -247,6 +282,10 @@ lev_unlock_aquatic = {
         set_country_flag = lev_aquatic_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = aquatic }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -272,6 +311,10 @@ lev_unlock_voidspawn = {
         set_country_flag = lev_voidspawn_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = voidspawn }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -297,6 +340,10 @@ lev_unlock_fortress = {
         set_country_flag = lev_fortress_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = fortress }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -322,6 +369,10 @@ lev_unlock_hive = {
         set_country_flag = lev_hive_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = hive }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0
@@ -347,6 +398,10 @@ lev_unlock_tiyanki = {
         set_country_flag = lev_tiyanki_unlocked
         refresh_auto_generated_ship_designs = yes
         lev_growth_init = { TYPE = tiyanki }
+        country_event = {
+            id = lev.330
+            days = 1
+        }
     }
     ai_weight = {
         weight = 0

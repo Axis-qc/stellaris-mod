@@ -52,29 +52,13 @@ country_event = {
     }
 }
 
-# 发放：折跃一艘到首都，同时保留星港建造权限
+# 折跃一艘到首都
 country_event = {
     id = lev.11
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        create_fleet = {
-            name = "LEV_STELLARITE_FLEET"
-            effect = {
-                set_owner = root
-                create_ship = {
-                    name = random
-                    random_existing_design = lev_stellarite
-                    # 不能用 root，会把玩家文化套到守卫者模型上
-                    graphical_culture = "guardian_01"
-                }
-                set_location = {
-                    target = root.capital_star
-                    distance = 35
-                    angle = random
-                }
-            }
-        }
+        lev_grant_one = { TYPE = stellarite NAME = LEV_STELLARITE_FLEET }
     }
 }
 
