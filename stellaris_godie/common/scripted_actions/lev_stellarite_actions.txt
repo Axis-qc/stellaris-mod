@@ -117,19 +117,6 @@ lev_stellarite_beam = {
             fail_text = lev_beam_fail_out_of_range
             is_in_sensor_range_of_country = from.owner
         }
-        custom_tooltip = {
-            fail_text = lev_beam_fail_charging
-            from = {
-                NOT = { has_fleet_flag = lev_beam_charging }
-            }
-        }
-        # 动作点击即被打断，引擎 cooldown 未必起算，另记
-        custom_tooltip = {
-            fail_text = lev_beam_fail_cooldown
-            from = {
-                NOT = { has_fleet_flag = lev_beam_cooldown }
-            }
-        }
     }
 
     button_visible = {
@@ -142,14 +129,6 @@ lev_stellarite_beam = {
             owner = {
                 check_variable = { which = lev_stellarite_energy value > 0 }
             }
-        }
-        custom_tooltip = {
-            fail_text = lev_beam_fail_charging
-            NOT = { has_fleet_flag = lev_beam_charging }
-        }
-        custom_tooltip = {
-            fail_text = lev_beam_fail_cooldown
-            NOT = { has_fleet_flag = lev_beam_cooldown }
         }
     }
 
@@ -168,7 +147,7 @@ lev_stellarite_beam = {
     click_to_act_key = lev_beam_click_to_act
 
     wait = no
-    cooldown = 90
+    cooldown = 110
     slot = 2
 
     ai = {

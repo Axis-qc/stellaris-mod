@@ -80,8 +80,8 @@ system_event = {
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        # 跨 20 天结算，event 级目标会随本事件注销，只能用 global
-        save_global_event_target_as = lev_beam_target
+        # 跨 20 天结算，event 级目标会随本事件注销，只能用 global；@root 按国家隔离，防多玩家串目标
+        save_global_event_target_as = lev_beam_target@root
     }
     after = {
         # 清掉选择器排下的行军令并就地按住（同原版 02_contracts.txt:2434）
@@ -120,15 +120,13 @@ fleet_event = {
 
         remove_fleet_flag = lev_beam_charging
         clear_orders = yes
-        # 动作被瞬间打断，引擎 cooldown 未必起算，自行记
-        set_timed_fleet_flag = { flag = lev_beam_cooldown days = 90 }
         every_owned_ship = {
             limit = { is_ship_size = lev_stellarite }
             remove_modifier = lev_stellarite_beam_charging
             lock_animation_state = none
             set_animation_state = beam_fire
         }
-        clear_global_event_target = lev_beam_target
+        clear_global_event_target = lev_beam_target@root
     }
 }
 

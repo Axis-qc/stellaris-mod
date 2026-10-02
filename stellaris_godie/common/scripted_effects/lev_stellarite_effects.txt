@@ -139,7 +139,7 @@ lev_stellarite_ignite_apply = {
 }
 
 # 恒星光束：目标星系内全部敌舰
-# THIS = 施放舰队，目标星系取 event_target:lev_beam_target
+# THIS = 施放舰队，目标星系取 event_target:lev_beam_target@root
 lev_stellarite_beam_apply = {
     owner = { save_event_target_as = lev_caster }
 
@@ -149,7 +149,7 @@ lev_stellarite_beam_apply = {
         VAR = lev_stellarite_shot_damage
     }
 
-    event_target:lev_beam_target = {
+    event_target:lev_beam_target@root = {
         every_fleet_in_system = {
             limit = {
                 controller = { is_hostile = event_target:lev_caster }
