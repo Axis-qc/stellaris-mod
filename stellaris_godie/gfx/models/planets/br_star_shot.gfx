@@ -1,0 +1,35 @@
+# 弹丸壳的 pdxmesh，几何取自 br_star_shell.mesh（直径 5，无骨架）。
+# alpha 取自未滚动的 UV，图案须画在贴图 RGB 里才随 UV 流动。
+
+objectTypes = {
+
+    pdxmesh = {
+        name = "br_star_shell_mesh"
+        file = "gfx/models/planets/br_star_shell.mesh"
+        scale = 1.0
+
+        meshsettings = {
+            name = "atmosphere_geosphereShape"
+            texture_diffuse = "br_star_shot_glow_diffuse.dds"
+            texture_normal = "nonormal.dds"
+            texture_specular = "nospec.dds"
+            shader = "PdxMeshAlphaAdditiveAnimateUVNoDissolve"
+        }
+    }
+
+    pdxmesh = {
+        name = "br_star_shell_mesh_b"
+        file = "gfx/models/planets/br_star_shell.mesh"
+        scale = 1.0
+
+        meshsettings = {
+            name = "atmosphere_geosphereShape"
+            texture_diffuse = "br_star_shot_diffuse.dds"
+            texture_normal = "nonormal.dds"
+            texture_specular = "nospec.dds"
+            shader = "PdxMeshAlphaAdditiveAnimateUVNoDissolve"
+            #原版光带shader
+            # shader = "PdxMeshColorAlphaAdditiveAnimateUV"
+        }
+    }
+}

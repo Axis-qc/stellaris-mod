@@ -1,0 +1,25 @@
+# 利维坦·噬星者 XL 主炮弹道：迷你恒星弹丸
+# 弹丸实体 br_star_shot_entity 见 gfx/models/combat_items/br_star_shot.asset
+# 对应武器组件 LEV_STELLARITE_BEAM（common/component_templates/lev_stellarite_weapons.txt）
+
+projectile_gfx_ballistic = {
+	name = "lev_stellarite_star_shot"
+	color = { 1.0 1.0 1.0 1.0 }
+	hit_entity = "stellarite_titan_laser_hit_entity"
+	shield_hit_entity = "stellarite_titan_laser_shield_hit_entity"
+	muzzle_flash_entity = "stellarite_titan_laser_muzzle_entity"
+	windup_entity = "stellarite_titan_laser_windup_entity"
+
+	entity = "br_star_shot_entity"
+	speed = 100.0
+	max_duration = 3.5
+
+	set_state = {
+		section = "attack"
+	}
+
+	shield_impact = {
+		size = large
+		delay = 0.0
+	}
+}

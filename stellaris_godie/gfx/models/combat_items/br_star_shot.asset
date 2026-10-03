@@ -1,0 +1,47 @@
+# 弹丸实体。容器无网格，用 locator 挂两个壳；壳几何见 br_star_shot.gfx。
+
+entity = {
+    name = "br_star_shot_entity"
+
+    locator = { name = "core" position = { 0 0 0 } }
+
+    attach = { core = "br_star_shell_a_entity" }
+    attach = { core = "br_star_shell_b_entity" }
+
+    default_state = "idle"
+    state = { name = "idle" state_time = 5 }
+
+    cull_radius = 50
+}
+
+entity = {
+    name = "br_star_shell_a_entity"
+    pdxmesh = "br_star_shell_mesh"
+
+    default_state = "idle"
+    state = { name = "idle" state_time = 5 }
+
+    scale = 1
+
+    game_data = {
+        uv_animation_speed = 0.2
+        uv_animation_direction = { 0.0 1.0 }
+        bloom_factor = 0.5
+    }
+}
+
+entity = {
+    name = "br_star_shell_b_entity"
+    pdxmesh = "br_star_shell_mesh_b"
+
+    default_state = "idle"
+    state = { name = "idle" state_time = 5 }
+
+    scale = 1
+
+    game_data = {
+        uv_animation_speed = -0.12
+        uv_animation_direction = { 1.0 -0.3 }
+        bloom_factor = 0.5
+    }
+}
