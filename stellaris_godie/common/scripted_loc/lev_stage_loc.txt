@@ -1,0 +1,1308 @@
+# 利维坦成长阶段 — 阶段名显示
+# ============================================
+# 把成长等级映射为 6 个阶段名，取代界面上的「N 级」。
+# 生物线（幼体/若体/成体/巨头/霸主/灾厄）与机械线（激活/校准/超载/临界/奇点/终焉）
+# 各 6 个本地化键，共用，不按只写文案。
+#
+# 映射：1-2 / 3-4 / 5-6 / 7-8 / 9-10 / 11+，13 级起归入最高阶。
+#
+# 两套 token，作用域不同，必须分开：
+#   GetLevStageCard<TYPE>   卡片态，在 [from.GetLevStageCardX] 里求值，from = 国家，直接读变量。
+#   GetLevStageFleet<TYPE>  舰队状态栏态（ship_size 的 custom_state_loc_prefix），
+#                           当前作用域是选中的舰队，故用 owner = { ... } 切回国家。
+
+
+################################### BIO ###################################
+
+defined_text = {
+    name = GetLevStageCardStellarite
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_stellarite_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_stellarite_growth_level value >= 3 }
+            check_variable = { which = lev_stellarite_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_stellarite_growth_level value >= 5 }
+            check_variable = { which = lev_stellarite_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_stellarite_growth_level value >= 7 }
+            check_variable = { which = lev_stellarite_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_stellarite_growth_level value >= 9 }
+            check_variable = { which = lev_stellarite_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_stellarite_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetStellarite
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_stellarite_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_stellarite_growth_level value >= 3 }
+                check_variable = { which = lev_stellarite_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_stellarite_growth_level value >= 5 }
+                check_variable = { which = lev_stellarite_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_stellarite_growth_level value >= 7 }
+                check_variable = { which = lev_stellarite_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_stellarite_growth_level value >= 9 }
+                check_variable = { which = lev_stellarite_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_stellarite_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardDrake
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_drake_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_drake_growth_level value >= 3 }
+            check_variable = { which = lev_drake_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_drake_growth_level value >= 5 }
+            check_variable = { which = lev_drake_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_drake_growth_level value >= 7 }
+            check_variable = { which = lev_drake_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_drake_growth_level value >= 9 }
+            check_variable = { which = lev_drake_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_drake_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetDrake
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_drake_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_drake_growth_level value >= 3 }
+                check_variable = { which = lev_drake_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_drake_growth_level value >= 5 }
+                check_variable = { which = lev_drake_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_drake_growth_level value >= 7 }
+                check_variable = { which = lev_drake_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_drake_growth_level value >= 9 }
+                check_variable = { which = lev_drake_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_drake_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardShard
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_shard_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_shard_growth_level value >= 3 }
+            check_variable = { which = lev_shard_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_shard_growth_level value >= 5 }
+            check_variable = { which = lev_shard_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_shard_growth_level value >= 7 }
+            check_variable = { which = lev_shard_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_shard_growth_level value >= 9 }
+            check_variable = { which = lev_shard_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_shard_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetShard
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_shard_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_shard_growth_level value >= 3 }
+                check_variable = { which = lev_shard_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_shard_growth_level value >= 5 }
+                check_variable = { which = lev_shard_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_shard_growth_level value >= 7 }
+                check_variable = { which = lev_shard_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_shard_growth_level value >= 9 }
+                check_variable = { which = lev_shard_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_shard_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardWraith
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_wraith_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_wraith_growth_level value >= 3 }
+            check_variable = { which = lev_wraith_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_wraith_growth_level value >= 5 }
+            check_variable = { which = lev_wraith_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_wraith_growth_level value >= 7 }
+            check_variable = { which = lev_wraith_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_wraith_growth_level value >= 9 }
+            check_variable = { which = lev_wraith_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_wraith_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetWraith
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_wraith_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_wraith_growth_level value >= 3 }
+                check_variable = { which = lev_wraith_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_wraith_growth_level value >= 5 }
+                check_variable = { which = lev_wraith_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_wraith_growth_level value >= 7 }
+                check_variable = { which = lev_wraith_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_wraith_growth_level value >= 9 }
+                check_variable = { which = lev_wraith_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_wraith_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardHorror
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_horror_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_horror_growth_level value >= 3 }
+            check_variable = { which = lev_horror_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_horror_growth_level value >= 5 }
+            check_variable = { which = lev_horror_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_horror_growth_level value >= 7 }
+            check_variable = { which = lev_horror_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_horror_growth_level value >= 9 }
+            check_variable = { which = lev_horror_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_horror_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetHorror
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_horror_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_horror_growth_level value >= 3 }
+                check_variable = { which = lev_horror_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_horror_growth_level value >= 5 }
+                check_variable = { which = lev_horror_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_horror_growth_level value >= 7 }
+                check_variable = { which = lev_horror_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_horror_growth_level value >= 9 }
+                check_variable = { which = lev_horror_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_horror_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardToxicGod
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_toxic_god_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_toxic_god_growth_level value >= 3 }
+            check_variable = { which = lev_toxic_god_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_toxic_god_growth_level value >= 5 }
+            check_variable = { which = lev_toxic_god_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_toxic_god_growth_level value >= 7 }
+            check_variable = { which = lev_toxic_god_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_toxic_god_growth_level value >= 9 }
+            check_variable = { which = lev_toxic_god_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_toxic_god_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetToxicGod
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_toxic_god_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_toxic_god_growth_level value >= 3 }
+                check_variable = { which = lev_toxic_god_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_toxic_god_growth_level value >= 5 }
+                check_variable = { which = lev_toxic_god_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_toxic_god_growth_level value >= 7 }
+                check_variable = { which = lev_toxic_god_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_toxic_god_growth_level value >= 9 }
+                check_variable = { which = lev_toxic_god_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_toxic_god_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardAquatic
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_aquatic_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_aquatic_growth_level value >= 3 }
+            check_variable = { which = lev_aquatic_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_aquatic_growth_level value >= 5 }
+            check_variable = { which = lev_aquatic_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_aquatic_growth_level value >= 7 }
+            check_variable = { which = lev_aquatic_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_aquatic_growth_level value >= 9 }
+            check_variable = { which = lev_aquatic_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_aquatic_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetAquatic
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_aquatic_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_aquatic_growth_level value >= 3 }
+                check_variable = { which = lev_aquatic_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_aquatic_growth_level value >= 5 }
+                check_variable = { which = lev_aquatic_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_aquatic_growth_level value >= 7 }
+                check_variable = { which = lev_aquatic_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_aquatic_growth_level value >= 9 }
+                check_variable = { which = lev_aquatic_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_aquatic_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardVoidspawn
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_voidspawn_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_voidspawn_growth_level value >= 3 }
+            check_variable = { which = lev_voidspawn_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_voidspawn_growth_level value >= 5 }
+            check_variable = { which = lev_voidspawn_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_voidspawn_growth_level value >= 7 }
+            check_variable = { which = lev_voidspawn_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_voidspawn_growth_level value >= 9 }
+            check_variable = { which = lev_voidspawn_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_voidspawn_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetVoidspawn
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_voidspawn_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_voidspawn_growth_level value >= 3 }
+                check_variable = { which = lev_voidspawn_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_voidspawn_growth_level value >= 5 }
+                check_variable = { which = lev_voidspawn_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_voidspawn_growth_level value >= 7 }
+                check_variable = { which = lev_voidspawn_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_voidspawn_growth_level value >= 9 }
+                check_variable = { which = lev_voidspawn_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_voidspawn_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardHive
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_hive_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_hive_growth_level value >= 3 }
+            check_variable = { which = lev_hive_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_hive_growth_level value >= 5 }
+            check_variable = { which = lev_hive_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_hive_growth_level value >= 7 }
+            check_variable = { which = lev_hive_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_hive_growth_level value >= 9 }
+            check_variable = { which = lev_hive_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_hive_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetHive
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_hive_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_hive_growth_level value >= 3 }
+                check_variable = { which = lev_hive_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_hive_growth_level value >= 5 }
+                check_variable = { which = lev_hive_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_hive_growth_level value >= 7 }
+                check_variable = { which = lev_hive_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_hive_growth_level value >= 9 }
+                check_variable = { which = lev_hive_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_hive_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageCardTiyanki
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_tiyanki_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_tiyanki_growth_level value >= 3 }
+            check_variable = { which = lev_tiyanki_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_tiyanki_growth_level value >= 5 }
+            check_variable = { which = lev_tiyanki_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_tiyanki_growth_level value >= 7 }
+            check_variable = { which = lev_tiyanki_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_tiyanki_growth_level value >= 9 }
+            check_variable = { which = lev_tiyanki_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_tiyanki_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+defined_text = {
+    name = GetLevStageFleetTiyanki
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_tiyanki_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_BIO_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_tiyanki_growth_level value >= 3 }
+                check_variable = { which = lev_tiyanki_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_tiyanki_growth_level value >= 5 }
+                check_variable = { which = lev_tiyanki_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_tiyanki_growth_level value >= 7 }
+                check_variable = { which = lev_tiyanki_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_tiyanki_growth_level value >= 9 }
+                check_variable = { which = lev_tiyanki_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_BIO_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_tiyanki_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_BIO_6
+    }
+    default = LEV_STAGE_BIO_1
+}
+
+
+################################### MECH ###################################
+
+defined_text = {
+    name = GetLevStageCardDreadnought
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_dreadnought_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_dreadnought_growth_level value >= 3 }
+            check_variable = { which = lev_dreadnought_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_dreadnought_growth_level value >= 5 }
+            check_variable = { which = lev_dreadnought_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_dreadnought_growth_level value >= 7 }
+            check_variable = { which = lev_dreadnought_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_dreadnought_growth_level value >= 9 }
+            check_variable = { which = lev_dreadnought_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_dreadnought_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageFleetDreadnought
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_dreadnought_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_dreadnought_growth_level value >= 3 }
+                check_variable = { which = lev_dreadnought_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_dreadnought_growth_level value >= 5 }
+                check_variable = { which = lev_dreadnought_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_dreadnought_growth_level value >= 7 }
+                check_variable = { which = lev_dreadnought_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_dreadnought_growth_level value >= 9 }
+                check_variable = { which = lev_dreadnought_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_dreadnought_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageCardScavenger
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_scavenger_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_scavenger_growth_level value >= 3 }
+            check_variable = { which = lev_scavenger_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_scavenger_growth_level value >= 5 }
+            check_variable = { which = lev_scavenger_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_scavenger_growth_level value >= 7 }
+            check_variable = { which = lev_scavenger_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_scavenger_growth_level value >= 9 }
+            check_variable = { which = lev_scavenger_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_scavenger_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageFleetScavenger
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_scavenger_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_scavenger_growth_level value >= 3 }
+                check_variable = { which = lev_scavenger_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_scavenger_growth_level value >= 5 }
+                check_variable = { which = lev_scavenger_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_scavenger_growth_level value >= 7 }
+                check_variable = { which = lev_scavenger_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_scavenger_growth_level value >= 9 }
+                check_variable = { which = lev_scavenger_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_scavenger_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageCardSphere
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_sphere_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_sphere_growth_level value >= 3 }
+            check_variable = { which = lev_sphere_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_sphere_growth_level value >= 5 }
+            check_variable = { which = lev_sphere_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_sphere_growth_level value >= 7 }
+            check_variable = { which = lev_sphere_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_sphere_growth_level value >= 9 }
+            check_variable = { which = lev_sphere_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_sphere_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageFleetSphere
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_sphere_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_sphere_growth_level value >= 3 }
+                check_variable = { which = lev_sphere_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_sphere_growth_level value >= 5 }
+                check_variable = { which = lev_sphere_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_sphere_growth_level value >= 7 }
+                check_variable = { which = lev_sphere_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_sphere_growth_level value >= 9 }
+                check_variable = { which = lev_sphere_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_sphere_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageCardFortress
+    random = no
+    text = {
+        trigger = { check_variable = { which = lev_fortress_growth_level value <= 2 } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_fortress_growth_level value >= 3 }
+            check_variable = { which = lev_fortress_growth_level value <= 4 }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_fortress_growth_level value >= 5 }
+            check_variable = { which = lev_fortress_growth_level value <= 6 }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_fortress_growth_level value >= 7 }
+            check_variable = { which = lev_fortress_growth_level value <= 8 }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            check_variable = { which = lev_fortress_growth_level value >= 9 }
+            check_variable = { which = lev_fortress_growth_level value <= 10 }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { check_variable = { which = lev_fortress_growth_level value >= 11 } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+defined_text = {
+    name = GetLevStageFleetFortress
+    random = no
+    text = {
+        trigger = { owner = { check_variable = { which = lev_fortress_growth_level value <= 2 } } }
+        localization_key = LEV_STAGE_MECH_1
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_fortress_growth_level value >= 3 }
+                check_variable = { which = lev_fortress_growth_level value <= 4 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_2
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_fortress_growth_level value >= 5 }
+                check_variable = { which = lev_fortress_growth_level value <= 6 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_3
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_fortress_growth_level value >= 7 }
+                check_variable = { which = lev_fortress_growth_level value <= 8 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_4
+    }
+    text = {
+        trigger = {
+            owner = {
+                check_variable = { which = lev_fortress_growth_level value >= 9 }
+                check_variable = { which = lev_fortress_growth_level value <= 10 }
+            }
+        }
+        localization_key = LEV_STAGE_MECH_5
+    }
+    text = {
+        trigger = { owner = { check_variable = { which = lev_fortress_growth_level value >= 11 } } }
+        localization_key = LEV_STAGE_MECH_6
+    }
+    default = LEV_STAGE_MECH_1
+}
+
+
