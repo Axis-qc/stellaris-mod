@@ -1,5 +1,7 @@
 # 噬星者粒子注册
-# 对应 .asset: gfx/particles/lev_stellarite_move_trail.asset
+# move_trail 对应 .asset: gfx/particles/lev_stellarite_move_trail.asset（船体喷口拖尾，scale 1.0）
+# star_shot 三颗对应 .asset: gfx/particles/br_star_shot_explosion.asset（命中大爆炸）
+#   与 gfx/particles/br_star_shot_trail.asset（弹丸短拖尾）
 
 objectTypes = {
 
@@ -7,5 +9,19 @@ objectTypes = {
 		name = "lev_stellarite_move_trail_effect"
 		type = "lev_stellarite_move_trail_file"
 		scale = 1.0
+	}
+
+	# 弹丸拖尾：独立粒子文件，寿命减半发射翻倍，短而密，scale 0.5
+	pdxparticle = {
+		name = "br_star_shot_trail_effect"
+		type = "br_star_shot_trail_file"
+		scale = 0.5
+	}
+
+	# 星弹命中大爆炸：原版 star_explosion_2 缩小改色版，scale 2.0
+	pdxparticle = {
+		name = "br_star_shot_hit_effect"
+		type = "br_star_shot_explosion_file"
+		scale = 2.0
 	}
 }

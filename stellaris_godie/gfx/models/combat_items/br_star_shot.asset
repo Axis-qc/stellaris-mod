@@ -1,4 +1,5 @@
 # 弹丸实体。容器无网格，用 locator 挂两个壳；壳几何见 br_star_shot.gfx。
+# 弹道侧引用见 gfx/projectiles/lev_stellarite_weapons.txt。
 
 entity = {
     name = "br_star_shot_entity"
@@ -8,10 +9,45 @@ entity = {
     attach = { core = "br_star_shell_a_entity" }
     attach = { core = "br_star_shell_b_entity" }
 
-    default_state = "idle"
-    state = { name = "idle" state_time = 5 }
-
     cull_radius = 50
+
+    # stop 状态是命中后拖尾能淡完的关键：keep_particle 只防状态切换处决，
+    # 防不了实体销毁陪葬；实体靠 stop 多活 2 秒，粒子才活到淡出。
+    # 写法对齐特效 mod 电弧实体弹 focused_arc_emitter_entity。
+    default_state = "idle"
+    state = {
+        name = "idle" state_time = 10 looping = no
+        event = { time = 0 particle = "br_star_shot_trail_effect" keep_particle = yes }
+    }
+    state = {
+        name = "stop" state_time = 3 looping = no
+        start_event = { trigger_once = yes time = 0 particle = "br_star_shot_trail_effect" keep_particle = yes }
+    }
+}
+
+entity = {
+    # 挂星弹爆炸粒子（原版 star_explosion_2 缩小改色版）
+    name = "br_star_shot_hit_entity"
+    cull_radius = 1.0
+
+    default_state = "idle"
+    state = {
+        name = "idle" state_time = 20 looping = no
+        event = { particle = "br_star_shot_hit_effect" keep_particle = yes }
+    }
+    state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+entity = {
+    name = "br_star_shot_shield_hit_entity"
+    cull_radius = 1.0
+
+    default_state = "idle"
+    state = {
+        name = "idle" state_time = 20 looping = no
+        event = { particle = "br_star_shot_hit_effect" keep_particle = yes }
+    }
+    state = { name = "stop" state_time = 0.5 looping = no }
 }
 
 entity = {
