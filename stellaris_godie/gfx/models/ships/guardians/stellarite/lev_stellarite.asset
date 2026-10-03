@@ -3,6 +3,7 @@
 entity = {
 	name = "lev_stellarite_section_entity"
 	pdxmesh = "lev_stellarite_mesh"
+	cull_radius = 100.0
 
 	default_state = "idle"
 	state = { name = "idle" animation = "idle" animation_blend_time = 1
@@ -52,6 +53,15 @@ entity = {
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
 		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		# 移动拖尾：large_gun_01~08 是八个喷口挂点，各挂一份橙金熔岩粒子
+		event = { time = 0 node = "large_gun_01" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_02" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_03" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_04" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_05" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_06" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_07" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_08" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
 		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 
@@ -91,6 +101,15 @@ entity = {
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
 		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		# 移动拖尾：large_gun_01~08 是八个喷口挂点，各挂一份橙金熔岩粒子
+		event = { time = 0 node = "large_gun_01" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_02" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_03" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_04" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_05" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_06" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_07" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_gun_08" particle = "lev_stellarite_move_trail_effect" keep_particle = yes trigger_once = yes }
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
 		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
 
@@ -159,7 +178,7 @@ entity = {
 entity = {
 	name = "lev_stellarite_entity"
 	pdxmesh = "locator_mesh"
-	cull_radius = 10.0
+	cull_radius = 100.0
 
 	locator = { name = "part1" }
 
