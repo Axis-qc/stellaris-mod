@@ -1,0 +1,24 @@
+# 战斗减速系数：返回 -(1 + 当前加成)。乘 shipadd_clamp_*_corr 后生效倍率 = 保留比例 * (1+b)。
+# 保留比例：射程 50%；航速 20%；舰载机速度 20%；射速 40%。
+# base = -1 只是 -(1+b) 里的那个 1，改比例只改 00_shipadd_modifiers.txt 的补正值。
+# 只在舰船没有 shipadd_clamp_active 标记时求值。
+
+shipadd_clamp_delta_range = {
+    base = -1
+    subtract = modifier:ship_weapon_range_mult
+}
+
+shipadd_clamp_delta_speed = {
+    base = -1
+    subtract = modifier:ship_base_speed_mult
+}
+
+shipadd_clamp_delta_sc = {
+    base = -1
+    subtract = modifier:weapon_type_strike_craft_speed_mult
+}
+
+shipadd_clamp_delta_firerate = {
+    base = -1
+    subtract = modifier:ship_fire_rate_mult
+}

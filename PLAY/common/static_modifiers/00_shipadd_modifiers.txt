@@ -5,23 +5,20 @@ ship_all_add_1 = {
     # ship_military_cost_mult = 2
 }
 
-shipadd_combat_speed_buff = {
-    # ship_ftl_jumpdrive_range_mult = 0.5
-    # ship_armor_hardening_add = 0.2
-    # ship_shield_hardening_add = 0.2
-    # ship_hull_mult = 2.0
-    # ship_shield_mult = 2.0
-    # ship_armor_mult = 2.0
-    # ship_military_cost_mult = 2
-    # ships_upkeep_mult = 1
-    ship_fire_rate_mult = -0.5
-    ship_weapon_range_mult = -0.5
-    weapon_type_strike_craft_speed_mult = -0.8
-    # ship_engagement_range_mult = -0.5
-    # ship_weapon_damage = -0.5
-    # ship_speed_reduction = 0.5
-    ship_base_speed_mult = -0.8
-    # ship_damage_reduction_mult = 0.5
-    strike_craft_cooldown_mult = 1
-    # g_slot_weapon_damage_mult = 1
+# 战斗减速补正：值 = 1 - 保留比例，配合 shipadd_clamp_delta_* 得生效倍率 = 保留比例 * (1+b)
+# 保留比例：射程 50%；航速 20%；舰载机速度 20%；射速 40%
+shipadd_clamp_range_corr = {
+    ship_weapon_range_mult = 0.5
+}
+
+shipadd_clamp_speed_corr = {
+    ship_base_speed_mult = 0.8
+}
+
+shipadd_clamp_sc_corr = {
+    weapon_type_strike_craft_speed_mult = 0.8
+}
+
+shipadd_clamp_firerate_corr = {
+    ship_fire_rate_mult = 0.6
 }
