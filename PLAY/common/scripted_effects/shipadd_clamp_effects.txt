@@ -1,6 +1,7 @@
-# 战斗减速：按保留比例缩放四项数值，保留已有加成。作用域 fleet，内部逐船处理。
+# 战斗减速：按保留比例缩放四项数值，另加固定舰载机冷却延长，保留已有加成。作用域 fleet，内部逐船处理。
 # 保留比例见 common/static_modifiers/00_shipadd_modifiers.txt
-# 有 shipadd_clamp_active 时不得重算（remove_modifier 后 modifier: 仍读到旧值）；标记须为非定时 set_ship_flag，与四个补正成对增删。
+# 舰载机冷却固定 +100%，不按比例钳制。
+# 有 shipadd_clamp_active 时不得重算（remove_modifier 后 modifier: 仍读到旧值）；标记须为非定时 set_ship_flag，与补正成对增删。
 shipadd_clamp_combat_speed_effect = {
     every_owned_ship = {
         if = {
@@ -35,6 +36,12 @@ shipadd_clamp_combat_speed_effect = {
                 mult = value:shipadd_clamp_delta_firerate
                 days = -1
             }
+            # 舰载机冷却：固定 +100%
+            remove_modifier = shipadd_clamp_cooldown_debuff
+            add_modifier = {
+                modifier = shipadd_clamp_cooldown_debuff
+                days = -1
+            }
             set_ship_flag = shipadd_clamp_active
         }
     }
@@ -47,6 +54,7 @@ shipadd_clamp_combat_speed_clear_effect = {
         remove_modifier = shipadd_clamp_speed_corr
         remove_modifier = shipadd_clamp_sc_corr
         remove_modifier = shipadd_clamp_firerate_corr
+        remove_modifier = shipadd_clamp_cooldown_debuff
         remove_ship_flag = shipadd_clamp_active
     }
 }

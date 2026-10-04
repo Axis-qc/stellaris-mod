@@ -1,6 +1,7 @@
-# 战斗减速：按保留比例缩放四项数值，保留 buff 收益。作用域 fleet，内部逐船处理。
+# 战斗减速：按保留比例缩放四项数值，另加固定舰载机冷却延长，保留 buff 收益。作用域 fleet，内部逐船处理。
 # 保留比例：射程 50%；航速 20%；舰载机速度 20%；射速 40%（见 common/static_modifiers/br_countrybuff.txt）
-# 硬警告：有 br_clamp_active 时不得重算（remove_modifier 后 modifier: 仍读到旧值）；标记须为非定时 set_ship_flag，与四个补正成对增删。
+# 舰载机冷却固定 +100%，不按比例钳制。
+# 硬警告：有 br_clamp_active 时不得重算（remove_modifier 后 modifier: 仍读到旧值）；标记须为非定时 set_ship_flag，与补正成对增删。
 br_clamp_combat_speed_effect = {
 	every_owned_ship = {
 		if = {
@@ -35,6 +36,12 @@ br_clamp_combat_speed_effect = {
 				mult = value:br_clamp_delta_firerate
 				days = -1
 			}
+			# 舰载机冷却：固定 +100%
+			remove_modifier = br_clamp_cooldown_debuff
+			add_modifier = {
+				modifier = br_clamp_cooldown_debuff
+				days = -1
+			}
 			set_ship_flag = br_clamp_active
 		}
 	}
@@ -47,6 +54,7 @@ br_clamp_combat_speed_clear_effect = {
 		remove_modifier = br_clamp_speed_corr
 		remove_modifier = br_clamp_sc_corr
 		remove_modifier = br_clamp_firerate_corr
+		remove_modifier = br_clamp_cooldown_debuff
 		remove_ship_flag = br_clamp_active
 	}
 }
