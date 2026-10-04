@@ -1,5 +1,13 @@
 # 利维坦·噬星者 数值
 
+# 噬星之光 on_hit 追加伤害 = (成长等级 − 1) × 750；1 级不追加
+lev_beam_hit_dmg = {
+    base = 0
+    add = owner.lev_stellarite_growth_level
+    subtract = 1
+    mult = 750
+}
+
 # 恒星光束单次伤害 = 500 + 成长等级 × 100
 lev_beam_damage = {
     base = 500

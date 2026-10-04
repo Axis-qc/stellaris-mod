@@ -15,6 +15,7 @@ entity = {
 				"death" = 0
 				"working" = 100
 				"working_looping" = 0
+				"absorb_active" = 0
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -33,6 +34,7 @@ entity = {
 				"death" = 0
 				"working" = 0
 				"working_looping" = 100
+				"absorb_active" = 100
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -49,6 +51,7 @@ entity = {
 				"death" = 0
 				"working" = 100
 				"working_looping" = 0
+				"absorb_active" = 0
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -76,6 +79,7 @@ entity = {
 				"death" = 0
 				"working" = 0
 				"working_looping" = 100
+				"absorb_active" = 100
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -97,6 +101,7 @@ entity = {
 				"death" = 0
 				"working" = 100
 				"working_looping" = 0
+				"absorb_active" = 0
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -124,6 +129,7 @@ entity = {
 				"death" = 0
 				"working" = 0
 				"working_looping" = 100
+				"absorb_active" = 100
 			}
 		}
 		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
@@ -145,16 +151,16 @@ entity = {
 	state = { name = "breath_loop" animation = "breath_loop" animation_blend_time = 0.5 }
 	state = { name = "breath_end" animation = "breath_end" animation_blend_time = 0.5 looping = no }
 
-	# 灭星器（planet_killer）流程：working = absorb_begin（下潜咬合）→ working_looping = absorb_loop（持续吸食）
-	# 结束段 absorb_end 由 idle / moving / combat_moving 的 chance 规则播放
-	# beam_start 是引擎硬编码的灭星器开火挂钩，缺它 planet_destruction_gfx 特效会在攻击一开始就放出来
-	state = { name = "working" animation = "absorb_begin" animation_blend_time = 0.5 looping = no next_state = "working_looping"
+	# 灭星链：working 为 idle 占位，working_looping 播 absorb_begin，absorb_active 循环至攻击结束，收尾走 idle/moving/combat_moving 的 chance 分支
+	# beam_start 是引擎开火挂钩，缺它 planet_destruction_gfx 会提前放出
+	state = { name = "working" animation = "idle" animation_blend_time = 0.5 looping = no state_time = 20.0 next_state = "working_looping"
 		event = { time = 1000 id = "beam_start" } #will never fire, but lets the game know that an event with this ID exists
 	}
-	state = { name = "working_looping" animation = "absorb_loop" animation_blend_time = 0.5 looping = yes
+	state = { name = "working_looping" animation = "absorb_begin" animation_blend_time = 0.5 looping = no next_state = "absorb_active"
 		event = { time = 0 id = "beam_start" }
-		# 充能音效随过程阶段起播
 		event = { trigger_once = yes sound = { soundeffect = "stellarites_windup_beam" stop_on_state_change = yes } }
+	}
+	state = { name = "absorb_active" animation = "absorb_loop" animation_blend_time = 0.5 looping = yes
 	}
 
 	# 恒星光束：复用 breath_loop 张嘴动画，特效挂嘴部定位点 xl_gun_01
