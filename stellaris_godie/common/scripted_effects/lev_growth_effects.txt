@@ -14,7 +14,7 @@
 #
 # 【新增一只利维坦要动的地方】
 #   1. lev_leviathan_triggers.txt 的 lev_is_leviathan_ship 加一行 is_ship_size
-#   2. lev_growth_events.txt 的 lev.20 加一个 if 分支（判定哪只在击杀星系内）
+#   2. lev_growth_events.txt 的 lev.3100 加一个 if 分支（判定哪只在击杀星系内）
 #   3. 下方 lev_feed_settle_all 加一行
 #   4. common/button_effects/lev_ui_buttons.txt 与 br_level_view.gui 的卡片槽
 #   （1 之外的调用点全部是 $TYPE$ 参数化的，不需要改）
@@ -251,8 +251,8 @@ lev_feed_recalc = {
 }
 
 
-# ── 战斗入账（lev.20 命中某只利维坦后调用） ──
-# 依赖 lev.20 已经算好的 lev_growth_add
+# ── 战斗入账（lev.3100 命中某只利维坦后调用） ──
+# 依赖 lev.3100 已经算好的 lev_growth_add
 lev_growth_apply_combat = {
     change_variable = { which = lev_$TYPE$_growth value = lev_growth_add }
     lev_growth_check_level = { TYPE = $TYPE$ }
@@ -297,7 +297,7 @@ lev_feed_settle = {
 }
 
 
-# ── 全部已解锁利维坦的月度结算（lev.21 调用） ──
+# ── 全部已解锁利维坦的月度结算（lev.3101 调用） ──
 # 新增一只利维坦时，在此追加一行（并确认它的解锁 flag）
 lev_feed_settle_all = {
     if = {
@@ -356,4 +356,24 @@ lev_feed_settle_all = {
         limit = { has_country_flag = lev_tiyanki_unlocked }
         lev_feed_settle = { TYPE = tiyanki }
     }
+}
+
+
+# ── 开局写齐全部利维坦的成长变量（br.3 调用） ──
+# 慎改：覆盖写入，只能开局调
+lev_growth_init_all = {
+    lev_growth_init = { TYPE = stellarite }
+    lev_growth_init = { TYPE = drake }
+    lev_growth_init = { TYPE = shard }
+    lev_growth_init = { TYPE = wraith }
+    lev_growth_init = { TYPE = horror }
+    lev_growth_init = { TYPE = toxic_god }
+    lev_growth_init = { TYPE = dreadnought }
+    lev_growth_init = { TYPE = scavenger }
+    lev_growth_init = { TYPE = sphere }
+    lev_growth_init = { TYPE = aquatic }
+    lev_growth_init = { TYPE = voidspawn }
+    lev_growth_init = { TYPE = fortress }
+    lev_growth_init = { TYPE = hive }
+    lev_growth_init = { TYPE = tiyanki }
 }

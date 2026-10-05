@@ -152,34 +152,42 @@ lev_stellarite_sunburst_vfx = {
     }
 }
 
-# 腹中日轮：本星系敌舰伤害与行星破坏
+# 腹中日轮：单跳灼烧，伤及本星系内除噬星者外的所有舰船。THIS = 噬星者舰队
+# 慎改：勿在 every_owned_ship 内写 owner，那是被打舰船的所属国
+lev_stellarite_sunburst_tick = {
+    owner = { save_event_target_as = lev_sun_caster }
+    solar_system = {
+        every_fleet_in_system = {
+            every_owned_ship = {
+                limit = {
+                    NOT = { is_ship_size = lev_stellarite }
+                }
+                damage_ship = {
+                    amount = event_target:lev_sun_caster.lev_stellarite_sun_damage
+                    attacker = event_target:lev_sun_caster
+                }
+            }
+        }
+    }
+}
+
+# 腹中日轮：点燃。行星破坏一次结清，舰船进入三十天周期炙烤，共六跳
 lev_stellarite_sunburst_apply = {
     from.owner = { save_event_target_as = lev_caster }
 
-    lev_stellarite_shot_prepare = {
-        VALUE = lev_sun_damage
-        VALUE_HUNGRY = lev_sun_damage_hungry
-        VAR = lev_stellarite_shot_damage
-    }
-    # 行星破坏不吃饥饿加成
     lev_stellarite_shot_prepare = {
         VALUE = lev_sun_devastation
         VALUE_HUNGRY = lev_sun_devastation
         VAR = lev_stellarite_shot_dev
     }
+    # 慎改：日轮专用变量，勿与光束的 lev_stellarite_shot_damage 混用
+    lev_stellarite_shot_prepare = {
+        VALUE = lev_sun_dot_damage
+        VALUE_HUNGRY = lev_sun_dot_damage
+        VAR = lev_stellarite_sun_damage
+    }
 
     solar_system = {
-        every_fleet_in_system = {
-            limit = {
-                controller = { is_hostile = event_target:lev_caster }
-            }
-            every_owned_ship = {
-                damage_ship = {
-                    amount = event_target:lev_caster.lev_stellarite_shot_damage
-                    attacker = event_target:lev_caster
-                }
-            }
-        }
         every_system_planet = {
             limit = { is_star = no  is_asteroid = no }
             add_planet_devastation = event_target:lev_caster.lev_stellarite_shot_dev
@@ -187,6 +195,9 @@ lev_stellarite_sunburst_apply = {
     }
 
     lev_stellarite_sunburst_vfx = yes
+
+    # 引爆即是第一跳
+    lev_stellarite_sunburst_tick = yes
 
     event_target:lev_caster = {
         if = { limit = { check_variable = { which = lev_stellarite_energy value >= 5 } }
@@ -196,6 +207,10 @@ lev_stellarite_sunburst_apply = {
             set_variable = { which = lev_stellarite_energy value = 0 }
         }
     }
+
+    # 余下五跳计数，归零即熄
+    set_variable = { which = lev_stellarite_sun_ticks value = 5 }
+    fleet_event = { id = lev.1009 days = 5 }
 }
 
 # 潜入恒星

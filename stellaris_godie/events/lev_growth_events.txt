@@ -2,16 +2,16 @@ namespace = lev
 
 # ========================
 # 利维坦成长值系统 — 事件
-# lev.20~29 区间：成长值（与技能事件 100~199 分开）
+# lev.3100~3101 区间：成长值（与技能事件 1000~3400 分开）
 # ========================
 
 
-# ── lev.20 战斗成长 ──
+# ── lev.3100 战斗成长 ──
 # 由 on_ship_destroyed_perp 触发，逻辑与英雄舰 heroship.2 同构：
 # 同星系内有利维坦舰船、且击杀的是敌对目标时，成长 += 被击杀舰船 max_hp ÷ 100（向上取整）
 # 多只利维坦各自独立：谁在击杀星系内就给谁入账。
 country_event = {
-    id = lev.20
+    id = lev.3100
     hide_window = yes
     is_triggered_only = yes
     trigger = {
@@ -206,11 +206,11 @@ country_event = {
 }
 
 
-# ── lev.21 营养月度结算 ──
+# ── lev.3101 营养月度结算 ──
 # 由 on_monthly_pulse_country 触发。遍历所有已解锁利维坦，各按自己的档位扣资源换成长；
 # 某只资源不足则它自己当月中止（不涨成长、不降档、不提示），不影响其它利维坦。
 country_event = {
-    id = lev.21
+    id = lev.3101
     hide_window = yes
     is_triggered_only = yes
     trigger = {

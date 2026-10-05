@@ -2,10 +2,10 @@ namespace = lev
 
 # 开局选择窗：选定初始巨兽（本期只有噬星者，为后续多利维坦预留结构）
 country_event = {
-    id = lev.12
+    id = lev.3202
     is_triggered_only = yes
-    title = "lev.12.name"
-    desc = "lev.12.desc"
+    title = "lev.3202.name"
+    desc = "lev.3202.desc"
     picture = GFX_evt_fleet_neutral
     trigger = {
         has_civic = lev_star_overlords
@@ -15,16 +15,16 @@ country_event = {
         }
     }
     option = {
-        name = "lev.12.a"
+        name = "lev.3202.a"
         country_event = {
-            id = lev.10
+            id = lev.3200
         }
     }
 }
 
 # 发放（隐藏）：置 flag、刷设计、初始化变量
 country_event = {
-    id = lev.10
+    id = lev.3200
     hide_window = yes
     is_triggered_only = yes
     trigger = {
@@ -46,7 +46,7 @@ country_event = {
         lev_growth_init = { TYPE = stellarite }
         # 延迟 1 天，给设计生成留结算窗口
         country_event = {
-            id = lev.11
+            id = lev.3201
             days = 1
         }
     }
@@ -54,7 +54,7 @@ country_event = {
 
 # 折跃一艘到首都
 country_event = {
-    id = lev.11
+    id = lev.3201
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -62,11 +62,11 @@ country_event = {
     }
 }
 
-# 技能完成：lev.101 THIS = 目标恒星、from = 舰队
-# lev.102 由星系选择器 on_started 触发，THIS = 目标星系、from = 舰队
+# 技能完成：lev.1000 THIS = 目标恒星、from = 舰队
+# lev.1001 由星系选择器 on_started 触发，THIS = 目标星系、from = 舰队
 
 planet_event = {
-    id = lev.101
+    id = lev.1000
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -76,7 +76,7 @@ planet_event = {
 
 # 星系选择器 on_started 触发时舰队仍在原地（README 37：无需先抵达）
 system_event = {
-    id = lev.102
+    id = lev.1001
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -105,14 +105,14 @@ system_event = {
                 add_modifier = { modifier = lev_stellarite_beam_charging days = 20 }
                 lock_animation_state = breath_loop
             }
-            fleet_event = { id = lev.106 days = 20 }
+            fleet_event = { id = lev.1005 days = 20 }
         }
     }
 }
 
 # 蓄能期满，THIS = 施放舰队
 fleet_event = {
-    id = lev.106
+    id = lev.1005
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -176,18 +176,18 @@ fleet_event = {
 
 # 灭星武器命中：THIS = 被开火的恒星，from = 施放舰队（照原版 planet_destruction.100 用 carrier_event）
 carrier_event = {
-    id = lev.103
+    id = lev.1002
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        log = "LEV_STELLARITE_ABSORB: planet killer callback fired (lev.103)"
+        log = "LEV_STELLARITE_ABSORB: planet killer callback fired (lev.1002)"
         lev_stellarite_absorb_apply = yes
     }
 }
 
 # 腹中日轮释放：fleet_event，THIS = 舰队
 fleet_event = {
-    id = lev.104
+    id = lev.1003
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -195,10 +195,28 @@ fleet_event = {
     }
 }
 
+# 腹中日轮：余烬，每五天一跳，共五跳
+fleet_event = {
+    id = lev.1009
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        lev_stellarite_sunburst_tick = yes
+
+        if = { limit = { check_variable = { which = lev_stellarite_sun_ticks value > 0 } }
+            change_variable = { which = lev_stellarite_sun_ticks value = -1 }
+        }
+        # 未尽则续下一跳
+        if = { limit = { check_variable = { which = lev_stellarite_sun_ticks value > 0 } }
+            fleet_event = { id = lev.1009 days = 5 }
+        }
+    }
+}
+
 # 腹中日轮起手预警：蓄力 30 天里给同星系敌国递话
 # on_started 派发时 THIS = 舰队、from = 舰队
 fleet_event = {
-    id = lev.105
+    id = lev.1004
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -223,30 +241,30 @@ fleet_event = {
 
 # 潜入恒星：吞噬指令下达即潜入，THIS = 目标恒星、from = 施放舰队
 carrier_event = {
-    id = lev.107
+    id = lev.1006
     hide_window = yes
     is_triggered_only = yes
     immediate = {
         from = { lev_stellarite_submerge_apply = yes }
-        log = "LEV_STELLARITE_SUBMERGE: fleet submerged (lev.107)"
+        log = "LEV_STELLARITE_SUBMERGE: fleet submerged (lev.1006)"
     }
 }
 
 # 上浮：吸食完成或取消订单时收窗口，挂主回调与 _unqueued 两处
 carrier_event = {
-    id = lev.108
+    id = lev.1007
     hide_window = yes
     is_triggered_only = yes
     immediate = {
         from = { lev_stellarite_surface_apply = yes }
-        log = "LEV_STELLARITE_SUBMERGE: fleet surfaced (lev.108)"
+        log = "LEV_STELLARITE_SUBMERGE: fleet surfaced (lev.1007)"
     }
 }
 
 # 自动吞噬：控制面动作走完，在这里下灭星器订单
 # THIS = 目标恒星、from = 施放舰队
 planet_event = {
-    id = lev.109
+    id = lev.1008
     hide_window = yes
     is_triggered_only = yes
     immediate = {
@@ -262,6 +280,6 @@ planet_event = {
                 }
             }
         }
-        log = "LEV_STELLARITE_AUTO: planet killer order queued (lev.109)"
+        log = "LEV_STELLARITE_AUTO: planet killer order queued (lev.1008)"
     }
 }
