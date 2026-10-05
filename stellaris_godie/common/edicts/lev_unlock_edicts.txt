@@ -1,409 +1,878 @@
-# 利维坦解锁法令，点法令置 flag 并经 lev.3400 发放一艘到首都，被摧毁后年度补发
-# 延迟 1 天给 refresh_auto_generated_ship_designs 留结算窗口，否则 create_ship 取不到设计
-# potential 的 NOT 已解锁判断使解锁后法令自动隐藏
+# 利维坦法令：每只两条（只解锁 / 解锁并发放），均为测试法令，须先开 br_test_toggle_debug
+# 发放延迟 1 天，给 refresh_auto_generated_ship_designs 留结算窗口，否则 create_ship 取不到设计
 
 # 噬星者
 lev_unlock_stellarite = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_stellarite_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_stellarite_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = stellarite }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_stellarite_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_stellarite_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = stellarite }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_stellarite = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_stellarite_unlocked
+		refresh_auto_generated_ship_designs = yes
+		if = {
+			limit = {
+				NOT = {
+					is_variable_set = lev_stellarite_energy
+				}
+			}
+			set_variable = {
+				which = lev_stellarite_energy
+				value = 0
+			}
+		}
+		# 成长值系统初始化（含成长值 / 等级 / 营养档位 / 阈值 / 各档消耗收益）
+		lev_growth_init = { TYPE = stellarite }
+		country_event = {
+			id = lev.3201
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 能量拉满 + 成长等级拉满
+lev_test_energy_max = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_variable = {
+			which = lev_stellarite_energy
+			value = 10
+		}
+		# 成长等级直接给到封顶前的最高档（12 级）
+		set_variable = {
+			which = lev_stellarite_growth_level
+			value = 12
+		}
+		set_variable = {
+			which = lev_stellarite_growth
+			value = 0
+		}
+		lev_growth_init = { TYPE = stellarite }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 能量与成长等级归零
+lev_test_energy_zero = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_variable = {
+			which = lev_stellarite_energy
+			value = 0
+		}
+		set_variable = {
+			which = lev_stellarite_growth_level
+			value = 1
+		}
+		set_variable = {
+			which = lev_stellarite_growth
+			value = 0
+		}
+		lev_growth_init = { TYPE = stellarite }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 清除解锁 flag（不删已有舰船），用于重测开局发放
+lev_test_reset_unlock = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		remove_country_flag = lev_stellarite_unlocked
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 以太巨龙
 lev_unlock_drake = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_drake_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_drake_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = drake }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_drake_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_drake_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = drake }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_drake = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_drake_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = drake }
+		country_event = {
+			id = lev.3300
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 巨龙
 lev_unlock_shard = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_shard_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_shard_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = shard }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_shard_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_shard_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = shard }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_shard = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_shard_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = shard }
+		country_event = {
+			id = lev.3301
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 幽魂
 lev_unlock_wraith = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_wraith_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_wraith_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = wraith }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_wraith_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_wraith_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = wraith }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_wraith = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_wraith_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = wraith }
+		country_event = {
+			id = lev.3302
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 位面之魇
 lev_unlock_horror = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_horror_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_horror_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = horror }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_horror_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_horror_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = horror }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_horror = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_horror_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = horror }
+		country_event = {
+			id = lev.3303
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 毒圣
 lev_unlock_toxic_god = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_toxic_god_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_toxic_god_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = toxic_god }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_toxic_god_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_toxic_god_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = toxic_god }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_toxic_god = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_toxic_god_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = toxic_god }
+		country_event = {
+			id = lev.3304
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 自动无畏战舰
 lev_unlock_dreadnought = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_dreadnought_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_dreadnought_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = dreadnought }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_dreadnought_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_dreadnought_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = dreadnought }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_dreadnought = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_dreadnought_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = dreadnought }
+		country_event = {
+			id = lev.3305
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 拾荒机器人
 lev_unlock_scavenger = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_scavenger_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_scavenger_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = scavenger }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_scavenger_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_scavenger_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = scavenger }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_scavenger = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_scavenger_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = scavenger }
+		country_event = {
+			id = lev.3306
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 无限神机
 lev_unlock_sphere = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_sphere_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_sphere_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = sphere }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_sphere_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_sphere_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = sphere }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_sphere = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_sphere_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = sphere }
+		country_event = {
+			id = lev.3307
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 天龙
 lev_unlock_aquatic = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_aquatic_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_aquatic_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = aquatic }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_aquatic_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_aquatic_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = aquatic }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_aquatic = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_aquatic_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = aquatic }
+		country_event = {
+			id = lev.3308
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 虚空孳孽
 lev_unlock_voidspawn = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_voidspawn_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_voidspawn_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = voidspawn }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_voidspawn_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_voidspawn_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = voidspawn }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_voidspawn = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_voidspawn_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = voidspawn }
+		country_event = {
+			id = lev.3309
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 神秘堡垒
 lev_unlock_fortress = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_fortress_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_fortress_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = fortress }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_fortress_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_fortress_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = fortress }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_fortress = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_fortress_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = fortress }
+		country_event = {
+			id = lev.3310
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
 # 蜂巢小行星
 lev_unlock_hive = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_hive_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_hive_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = hive }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_hive_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_hive_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = hive }
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
 
-# 泰扬基母兽
+# 解锁并发放
+lev_test_spawn_hive = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_hive_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = hive }
+		country_event = {
+			id = lev.3311
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 缇扬奇族母
 lev_unlock_tiyanki = {
-    icon = "GFX_edict_type_policy"
-    length = 1
-    resources = {
-        category = edicts
-        cost = {
-        }
-    }
-    potential = {
-        NOT = { has_country_flag = lev_tiyanki_unlocked }
-    }
-    allow = {
-        always = yes
-    }
-    effect = {
-        set_country_flag = lev_tiyanki_unlocked
-        refresh_auto_generated_ship_designs = yes
-        lev_growth_init = { TYPE = tiyanki }
-        country_event = {
-            id = lev.3400
-            days = 1
-        }
-    }
-    ai_weight = {
-        weight = 0
-    }
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+		NOT = { has_country_flag = lev_tiyanki_unlocked }
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_tiyanki_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = tiyanki }
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# 解锁并发放
+lev_test_spawn_tiyanki = {
+	icon = "GFX_edict_type_policy"
+	length = 1
+	resources = {
+		category = edicts
+		cost = {
+		}
+	}
+	potential = {
+		has_country_flag = br_debug_mode
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		set_country_flag = lev_tiyanki_unlocked
+		refresh_auto_generated_ship_designs = yes
+		lev_growth_init = { TYPE = tiyanki }
+		country_event = {
+			id = lev.3312
+			days = 1
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
 }
