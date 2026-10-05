@@ -2,11 +2,10 @@
 # ============================================
 # 供舰队 UI 状态栏（ship_size 的 custom_state_loc_prefix）输出三段数字。
 #
-# 作用域 = 选中的舰队；`owner` = 该舰队所属国家，
-# 所以这样能读到国家级的成长变量（利维坦是单舰英雄舰舰队，必然成立）。
+# 作用域 = 选中的舰队，owner 读国家级成长变量。
 #
 # 由 common/scripted_loc/lev_growth_state_loc.txt 的 defined_text 用
-# `value = value:<下面的名字>` 引用（写法见原版 common/scripted_loc/000_example.txt）。
+# `value = value:<下面的名字>` 引用。
 #
 # 新增一只利维坦：照抄三行，把 stellarite 换成该利维坦的 TYPE 即可。
 
@@ -30,9 +29,7 @@ lev_state_next_stellarite = {
 }
 
 # 当前每月喂食收益（营养档位 0=停止 -> 0）
-# 注意：script_value 里不支持 if/limit 条件分支（原版全部 script_values 均未用过，
-# 插件也会报 ERROR）。因此档位选择在效果层完成，结果存进 lev_stellarite_gain_current，
-# 这里只负责读。
+# 档位选择在效果层完成，结果存进 lev_stellarite_gain_current，这里只负责读。
 lev_state_feed_gain_stellarite = {
     base = 0
     add = owner.lev_stellarite_gain_current
@@ -309,4 +306,79 @@ lev_state_next_tiyanki = {
 lev_state_feed_gain_tiyanki = {
     base = 0
     add = owner.lev_tiyanki_gain_current
+}
+
+
+# ── 上月净增长（舰队状态栏显示用） ──
+# 数值为「当前成长值 − 上月基准」。基准在升级时清零，升级月显示的是
+# 扣除阈值后的剩余库存，低于当月真实入账。
+
+lev_state_change_stellarite = {
+    base = 0
+    add = owner.lev_stellarite_growth_change
+}
+
+lev_state_change_drake = {
+    base = 0
+    add = owner.lev_drake_growth_change
+}
+
+lev_state_change_shard = {
+    base = 0
+    add = owner.lev_shard_growth_change
+}
+
+lev_state_change_wraith = {
+    base = 0
+    add = owner.lev_wraith_growth_change
+}
+
+lev_state_change_horror = {
+    base = 0
+    add = owner.lev_horror_growth_change
+}
+
+lev_state_change_toxic_god = {
+    base = 0
+    add = owner.lev_toxic_god_growth_change
+}
+
+lev_state_change_dreadnought = {
+    base = 0
+    add = owner.lev_dreadnought_growth_change
+}
+
+lev_state_change_scavenger = {
+    base = 0
+    add = owner.lev_scavenger_growth_change
+}
+
+lev_state_change_sphere = {
+    base = 0
+    add = owner.lev_sphere_growth_change
+}
+
+lev_state_change_aquatic = {
+    base = 0
+    add = owner.lev_aquatic_growth_change
+}
+
+lev_state_change_voidspawn = {
+    base = 0
+    add = owner.lev_voidspawn_growth_change
+}
+
+lev_state_change_fortress = {
+    base = 0
+    add = owner.lev_fortress_growth_change
+}
+
+lev_state_change_hive = {
+    base = 0
+    add = owner.lev_hive_growth_change
+}
+
+lev_state_change_tiyanki = {
+    base = 0
+    add = owner.lev_tiyanki_growth_change
 }

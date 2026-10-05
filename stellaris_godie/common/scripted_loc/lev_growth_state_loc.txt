@@ -2,16 +2,15 @@
 # ============================================
 # 配合 ship_size 的 custom_state_loc_prefix = "LEV_STELLARITE_STATE"。
 #
-# 作用域：**选中的舰队**（原版 common/ship_sizes/00_ship_sizes.txt L59 注释写明
-# "the status bar consists of two scripted localization driven strings (scope: selected fleet)"）。
-# 因此这里用 owner.<变量> 读国家级成长数据。
+# 作用域：选中的舰队，owner.<变量> 读国家级成长数据。
 #
-# 数值输出写法有官方注释背书（原版 common/scripted_loc/000_example.txt L27-31）：
-#   # You can also do this to use script values in loc:
-#   defined_text = { name = scripted_value_test  value = value:desired_science_ships_system_mult }
-#
-# 本地化侧对应键（同名前缀）：
-#   LEV_STELLARITE_STATE_title / LEV_STELLARITE_STATE_value / LEV_STELLARITE_STATE_tt
+# 文件前半按利维坦分组，每组四条，语义各组相同：
+#   GetLevStateLevel<TYPE>   成长等级
+#   GetLevStateGrowth<TYPE>  当前成长值
+#   GetLevStateNext<TYPE>    下一级所需成长值
+#   GetLevStateFeed<TYPE>    当前档位名义月收益（档位为「停止」时为 0）
+# 新增一只利维坦：照抄一组加末尾一行，把 TYPE 与底层变量名换成该利维坦的即可。
+# 本地化侧对应键为 LEV_<TYPE>_STATE_title / _value / _tt。
 
 # ── 噬星者 ──
 defined_text = {
@@ -29,7 +28,6 @@ defined_text = {
     value = value:lev_state_next_stellarite
 }
 
-# 当前每月喂食收益（档位为「停止」时为 0）
 defined_text = {
     name = GetLevStateFeedStellarite
     value = value:lev_state_feed_gain_stellarite
@@ -306,6 +304,77 @@ defined_text = {
 defined_text = {
     name = GetLevStateFeedTiyanki
     value = value:lev_state_feed_gain_tiyanki
+}
+
+# ── 上月净增长 ──
+defined_text = {
+    name = GetLevStateChangeStellarite
+    value = value:lev_state_change_stellarite
+}
+
+defined_text = {
+    name = GetLevStateChangeDrake
+    value = value:lev_state_change_drake
+}
+
+defined_text = {
+    name = GetLevStateChangeShard
+    value = value:lev_state_change_shard
+}
+
+defined_text = {
+    name = GetLevStateChangeWraith
+    value = value:lev_state_change_wraith
+}
+
+defined_text = {
+    name = GetLevStateChangeHorror
+    value = value:lev_state_change_horror
+}
+
+defined_text = {
+    name = GetLevStateChangeToxicGod
+    value = value:lev_state_change_toxic_god
+}
+
+defined_text = {
+    name = GetLevStateChangeDreadnought
+    value = value:lev_state_change_dreadnought
+}
+
+defined_text = {
+    name = GetLevStateChangeScavenger
+    value = value:lev_state_change_scavenger
+}
+
+defined_text = {
+    name = GetLevStateChangeSphere
+    value = value:lev_state_change_sphere
+}
+
+defined_text = {
+    name = GetLevStateChangeAquatic
+    value = value:lev_state_change_aquatic
+}
+
+defined_text = {
+    name = GetLevStateChangeVoidspawn
+    value = value:lev_state_change_voidspawn
+}
+
+defined_text = {
+    name = GetLevStateChangeFortress
+    value = value:lev_state_change_fortress
+}
+
+defined_text = {
+    name = GetLevStateChangeHive
+    value = value:lev_state_change_hive
+}
+
+defined_text = {
+    name = GetLevStateChangeTiyanki
+    value = value:lev_state_change_tiyanki
 }
 
 # ── 行星支援数值显示（供本地化 token 动态显示真实数值）──
