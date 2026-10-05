@@ -166,6 +166,11 @@ lev_stellarite_sunburst_tick = {
                     amount = event_target:lev_sun_caster.lev_stellarite_sun_damage
                     attacker = event_target:lev_sun_caster
                 }
+                # 状态显示，不参与伤害
+                add_modifier = {
+                    modifier = lev_sun_scorch_status
+                    days = 5
+                }
             }
         }
     }
