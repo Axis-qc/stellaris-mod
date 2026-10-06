@@ -38,38 +38,44 @@ weapon_component_template = {
 	}
 	total_fire_time = 70
 	range = 120
+	#命中
 	accuracy = 0.85
-	tracking = 0
+	#追踪
+	tracking = 1
+	#武器描述，支持变量引用
+	custom_tooltip = {
+		text = LEV_STELLARITE_BEAM_ON_HIT
+	}
 
 	on_hit = {
-		# THIS = 被击中的船，from = 射击方（噬星者），动态伤害 = (成长等级 − 1) × 750
+		# THIS = 被击中的船，from = 射击方（噬星者），动态伤害 = 成长等级 × 750
 		hidden_effect = {
-			from.owner = { save_event_target_as = lev_beam_caster }
-			from.owner = {
-				# 等级未初始化按 0 处理，防负数回血
-				if = {
-					limit = { NOT = { is_variable_set = lev_stellarite_growth_level } }
-					set_variable = { which = lev_beam_hit_dmg value = 0 }
-				}
-				else = {
-					set_variable = { which = lev_beam_hit_dmg value = lev_stellarite_growth_level }
-					subtract_variable = { which = lev_beam_hit_dmg value = 1 }
-					multiply_variable = { which = lev_beam_hit_dmg value = 750 }
-				}
+			from.ship = {
+				save_event_target_as = lev_stellarite_ship
+				#测试，以下能正常拿到数据
+				#计算伤害
+				# set_variable = { which = lev_beam_hit_dmg value = owner.lev_stellarite_growth_level }
+				# multiply_variable = { which = lev_beam_hit_dmg value = 750 }
+				#
+				# set_variable = { which = lev_beam_hit_dmg_1 value = value:lev_beam_hit_dmg } #这里能拿到，但是在damage_ship拿不到
+				# set_variable = { which = lev_beam_hit_dmg_2 value = owner.value:lev_beam_hit_dmg }
 			}
-			if = {
-				limit = {
-					event_target:lev_beam_caster = {
-						check_variable = { which = lev_beam_hit_dmg value > 0 }
-					}
-				}
-				damage_ship = {
-					amount = event_target:lev_beam_caster.lev_beam_hit_dmg
-					attacker = event_target:lev_beam_caster
-				}
+			# from.owner = {
+			# }
+			damage_ship = {
+				amount = from.owner.value:lev_beam_hit_dmg
+				attacker = event_target:lev_stellarite_ship
 			}
 		}
-		custom_tooltip = "LEV_STELLARITE_BEAM_ON_HIT"
+		#custom_tooltip没作用域，无法显示动态值,4.5.1版本实际测试
+		# custom_tooltip = "LEV_STELLARITE_BEAM_ON_HIT"
+		#无效，不显示
+		# tooltip = {
+		# 	damage_ship = {
+		# 		amount = from.owner.value:lev_beam_hit_dmg
+		# 		attacker = event_target:lev_stellarite_ship
+		# 	}
+		# }
 	}
 
 }
