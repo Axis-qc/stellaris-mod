@@ -27,8 +27,8 @@
 
 # ── 初始化一只利维坦（发放时调用） ──
 # 用法：lev_growth_init = { TYPE = stellarite }
-# 写入 lev_<TYPE>_growth = 0、_growth_level = 1、_feed_level = 0、
-# _growth_prev = 0、_growth_change = 0，随后刷新 growth_next 与营养派生值。
+# 写入 lev_<TYPE>_growth = 0、_growth_level = 1、_feed_level = 0，
+# 随后刷新 growth_next 与营养派生值。
 # 只补写缺失的变量，已有值不覆盖。
 lev_growth_init = {
     if = {
@@ -43,30 +43,8 @@ lev_growth_init = {
         limit = { NOT = { is_variable_set = lev_$TYPE$_feed_level } }
         set_variable = { which = lev_$TYPE$_feed_level value = 0 }
     }
-    if = {
-        limit = { NOT = { is_variable_set = lev_$TYPE$_growth_prev } }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
-    }
-    if = {
-        limit = { NOT = { is_variable_set = lev_$TYPE$_growth_change } }
-        set_variable = { which = lev_$TYPE$_growth_change value = 0 }
-    }
     lev_growth_set_next = { TYPE = $TYPE$ }
     lev_feed_recalc = { TYPE = $TYPE$ }
-}
-
-
-# ── 月度滚动：定格上月净增长（lev_feed_settle 开头调用） ──
-# lev_<TYPE>_growth_change = _growth − _growth_prev，再把 _growth_prev 刷成当前 _growth。
-# 升级时 _growth_prev 被 lev_growth_check_level 清零，升级月算出的差值是
-# 扣除阈值后的剩余库存，低于当月实际入账。
-lev_growth_month_roll = {
-    if = {
-        limit = { is_variable_set = lev_$TYPE$_growth_prev }
-        set_variable = { which = lev_$TYPE$_growth_change value = lev_$TYPE$_growth }
-        subtract_variable = { which = lev_$TYPE$_growth_change value = lev_$TYPE$_growth_prev }
-    }
-    set_variable = { which = lev_$TYPE$_growth_prev value = lev_$TYPE$_growth }
 }
 
 
@@ -128,7 +106,6 @@ lev_growth_set_next = {
 # ── 成长值 → 成长等级判定（消耗阈值，允许多级连升） ──
 # 每笔成长入账后都要调用一次。逐级判定 _growth 是否达到 @lev_lv_2 ~ @lev_lv_12，
 # 达到就扣掉该级阈值、_growth_level +1，本笔入账够多时可连升多级。
-# 每次升阶把 _growth_prev 清零，使当月净增长从零重新起算。
 # 12 级起改为 while 循环，每 @lev_lv_max 点升一级，无上限。
 # 末尾刷新 growth_next 与营养派生值。
 lev_growth_check_level = {
@@ -139,7 +116,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_2 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_2 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -148,7 +124,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_3 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_3 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -157,7 +132,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_4 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_4 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -166,7 +140,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_5 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_5 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -175,7 +148,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_6 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_6 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -184,7 +156,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_7 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_7 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -193,7 +164,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_8 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_8 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -202,7 +172,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_9 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_9 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -211,7 +180,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_10 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_10 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -220,7 +188,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_11 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_11 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     if = {
@@ -229,7 +196,6 @@ lev_growth_check_level = {
             check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_12 }
         }
         subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_12 }
-        set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
         change_variable = { which = lev_$TYPE$_growth_level value = 1 }
     }
     # ── 12 级后无上限：每 5000 成长消耗并 +1 级 ──
@@ -238,7 +204,6 @@ lev_growth_check_level = {
         while = {
             limit = { check_variable = { which = lev_$TYPE$_growth value >= @lev_lv_max } }
             subtract_variable = { which = lev_$TYPE$_growth value = @lev_lv_max }
-            set_variable = { which = lev_$TYPE$_growth_prev value = 0 }
             change_variable = { which = lev_$TYPE$_growth_level value = 1 }
         }
     }
@@ -295,12 +260,11 @@ lev_growth_apply_combat = {
 
 # ── 单只利维坦的营养月度结算 ──
 # 营养资源按利维坦定制：噬星者吃能量币。其它利维坦以后在此加分支或换资源。
-# 先滚动上月净增长，再按 _feed_level 扣资源换成长：
+# 按 _feed_level 扣资源换成长：
 # 低档扣 等级 × 5 得 4 点，中档扣 等级 × 10 得 8 点，高档扣 等级 × 20 得 16 点。
 # 资源不足时当月中止：不涨成长、不降档、不提示。
 # 成长只增不减：吞噬恒星只加能量、重燃恒星只扣能量，成长不被扣回。
 lev_feed_settle = {
-    lev_growth_month_roll = { TYPE = $TYPE$ }
     lev_feed_recalc = { TYPE = $TYPE$ }
 
     # 低档：消耗 等级 × 5 能量币 → 成长 +4
