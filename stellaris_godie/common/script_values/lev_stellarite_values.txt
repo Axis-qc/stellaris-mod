@@ -1,11 +1,5 @@
 # 利维坦·噬星者 数值
 
-# 噬星之光 on_hit 追加伤害 = 成长等级  × 750
-lev_beam_hit_dmg = {
-	base = 750
-	mult = owner.lev_stellarite_growth_level
-}
-
 # 恒星光束单次伤害 = 500 + 成长等级 × 100
 lev_beam_damage = {
 	base = 500
@@ -20,18 +14,6 @@ lev_beam_growth_bonus = {
 	mult = 100
 }
 
-# 腹中日轮：单跳炙烤 = 300 + 成长等级 × 30
-lev_sun_dot_damage = {
-	base = 300
-	add = value:lev_sun_dot_growth_bonus
-}
-
-lev_sun_dot_growth_bonus = {
-	base = 0
-	add = owner.lev_stellarite_growth_level
-	mult = 30
-}
-
 # 腹中日轮行星破坏 = 20 + 成长等级 × 2
 lev_sun_devastation = {
 	base = 20
@@ -42,6 +24,34 @@ lev_sun_dev_step = {
 	base = 0
 	add = owner.lev_stellarite_growth_level
 	mult = 2
+}
+
+# ============ 高温炽热层数系统 ============
+# 层数只在船身变量 lev_scorch_tmp，显示与效果见 common/inline_scripts/ship_components/
+
+# 成长等级 / 2 向下取整，技能叠层用
+lev_scorch_half_level = {
+	base = 0
+	add = owner.lev_stellarite_growth_level
+	divide = 2
+	floor = yes
+}
+
+# 腹中日轮每跳叠层
+lev_scorch_stacks_sun = {
+	base = 3
+	add = value:lev_scorch_half_level
+}
+
+# 恒星光束叠层
+lev_scorch_stacks_beam = {
+	base = 3
+	add = value:lev_scorch_half_level
+}
+
+# 高温炽热每跳每层伤害 = 当前船体值的 0.1%
+lev_scorch_dot_percent = {
+	base = 0.001
 }
 
 # 饥饿态（能量 ≤ 2）：光束伤害上浮 25%。

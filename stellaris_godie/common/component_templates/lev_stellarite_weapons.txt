@@ -48,26 +48,21 @@ weapon_component_template = {
 	}
 
 	on_hit = {
-		# THIS = 被击中的船，from = 射击方（噬星者），动态伤害 = 成长等级 × 750
-		hidden_effect = {
-			from.ship = {
-				save_event_target_as = lev_stellarite_ship
-				#测试，以下能正常拿到数据
-				#计算伤害
-				# set_variable = { which = lev_beam_hit_dmg value = owner.lev_stellarite_growth_level }
-				# multiply_variable = { which = lev_beam_hit_dmg value = 750 }
-				#
-				# set_variable = { which = lev_beam_hit_dmg_1 value = value:lev_beam_hit_dmg } #这里能拿到，但是在damage_ship拿不到
-				# set_variable = { which = lev_beam_hit_dmg_2 value = owner.value:lev_beam_hit_dmg }
-			}
-			# from.owner = {
-			# }
-			damage_ship = {
-				amount = from.owner.value:lev_beam_hit_dmg
-				attacker = event_target:lev_stellarite_ship
-			}
+		# THIS = 被击中的船，from = 射击方舰队
+		inline_script = {
+			script = ship_components/lev_sun_scorch_hit
 		}
-		#custom_tooltip没作用域，无法显示动态值,4.5.1版本实际测试
+
+		# from.ship = {
+		#测试，以下能正常拿到数据 不准删
+		#计算伤害
+		# set_variable = { which = lev_beam_hit_dmg value = owner.lev_stellarite_growth_level }
+		# multiply_variable = { which = lev_beam_hit_dmg value = 750 }
+		#
+		# set_variable = { which = lev_beam_hit_dmg_1 value = value:lev_beam_hit_dmg } #这里能拿到，但是在damage_ship拿不到
+		# set_variable = { which = lev_beam_hit_dmg_2 value = owner.value:lev_beam_hit_dmg }
+		# }
+		#custom_tooltip没作用域，无法显示动态值,4.5.1版本实际测试 不准删
 		# custom_tooltip = "LEV_STELLARITE_BEAM_ON_HIT"
 		#无效，不显示
 		# tooltip = {
@@ -123,6 +118,13 @@ weapon_component_template = {
 	missile_armor = 0
 	missile_health = 100
 	missile_retarget_range = 10
+
+	on_hit = {
+		# THIS = 被击中的船，from = 射击方舰队
+		inline_script = {
+			script = ship_components/lev_sun_scorch_hit
+		}
+	}
 }
 
 # 噬星者等离子炮 — L 槽
@@ -162,6 +164,13 @@ weapon_component_template = {
 	range = 150
 	accuracy = 0.8
 	tracking = 0.75
+
+	on_hit = {
+		# THIS = 被击中的船，from = 射击方舰队
+		inline_script = {
+			script = ship_components/lev_sun_scorch_hit
+		}
+	}
 }
 
 # 噬星者激光 — 点防槽

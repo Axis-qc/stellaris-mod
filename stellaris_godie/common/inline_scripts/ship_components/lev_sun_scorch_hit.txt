@@ -1,0 +1,22 @@
+# 高温炽热命中载荷：叠层 + 挂状态 + 起跳动链。噬星者武器共用。
+# 用法：on_hit = { inline_script = { script = ship_components/lev_sun_scorch_hit } }
+# 作用域：THIS = 被击中的船，from = 射击方舰队
+
+hidden_effect = {
+	# 50% 概率叠 1 层
+	random_list = {
+		50 = {
+			change_variable = { which = lev_scorch_tmp value = 1 }
+		}
+		50 = { }
+	}
+	inline_script = {
+		script = ship_components/lev_sun_scorch_mount
+	}
+	# 16 天 flag 大于 15 天周期，每跳续期，链断则过期由下次叠层重启
+	if = {
+		limit = { NOT = { has_ship_flag = lev_scorch_burning } }
+		set_timed_ship_flag = { flag = lev_scorch_burning days = 16 }
+		ship_event = { id = lev.1010 days = 15 }
+	}
+}

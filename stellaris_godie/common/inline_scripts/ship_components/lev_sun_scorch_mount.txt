@@ -1,0 +1,12 @@
+# 高温炽热挂状态：按船身层数重挂显示条目，同名 add 即覆盖刷新
+# 用法：inline_script = { script = ship_components/lev_sun_scorch_mount }
+# 作用域：THIS = 带层数的船（读船身 lev_scorch_tmp）
+
+# 条目字段值 = 基础值 1 × (1 ÷ 层数)，$VALUE$ 渲染 int(1/字段值) 后即层数
+set_variable = { which = lev_scorch_tmp_show value = 1 }
+divide_variable = { which = lev_scorch_tmp_show value = lev_scorch_tmp }
+add_modifier = {
+	modifier = lev_sun_scorch_status
+	days = -1
+	mult = lev_scorch_tmp_show
+}

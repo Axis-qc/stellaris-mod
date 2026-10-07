@@ -3,237 +3,253 @@
 
 # 光谱降 1 级
 lev_stellarite_spectrum_down = {
-    if = { limit = { is_star_class = sc_b }
-        solar_system = { set_star_class = sc_a }
-        change_pc = pc_a_star
-    }
-    else_if = { limit = { is_star_class = sc_a }
-        solar_system = { set_star_class = sc_f }
-        change_pc = pc_f_star
-    }
-    else_if = { limit = { is_star_class = sc_f }
-        solar_system = { set_star_class = sc_g }
-        change_pc = pc_g_star
-    }
-    else_if = { limit = { is_star_class = sc_g }
-        solar_system = { set_star_class = sc_k }
-        change_pc = pc_k_star
-    }
-    else_if = { limit = { is_star_class = sc_k }
-        solar_system = { set_star_class = sc_m }
-        change_pc = pc_m_star
-    }
-    else_if = { limit = { is_star_class = sc_m }
-        solar_system = { set_star_class = sc_m_giant }
-        change_pc = pc_m_giant_star
-    }
+	if = {
+		limit = { is_star_class = sc_b }
+		solar_system = { set_star_class = sc_a }
+		change_pc = pc_a_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_a }
+		solar_system = { set_star_class = sc_f }
+		change_pc = pc_f_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_f }
+		solar_system = { set_star_class = sc_g }
+		change_pc = pc_g_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_g }
+		solar_system = { set_star_class = sc_k }
+		change_pc = pc_k_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_k }
+		solar_system = { set_star_class = sc_m }
+		change_pc = pc_m_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_m }
+		solar_system = { set_star_class = sc_m_giant }
+		change_pc = pc_m_giant_star
+	}
 }
 
 # 光谱升 1 级
 lev_stellarite_spectrum_up = {
-    if = { limit = { is_star_class = sc_m_giant }
-        solar_system = { set_star_class = sc_m }
-        change_pc = pc_m_star
-    }
-    else_if = { limit = { is_star_class = sc_m }
-        solar_system = { set_star_class = sc_k }
-        change_pc = pc_k_star
-    }
-    else_if = { limit = { is_star_class = sc_k }
-        solar_system = { set_star_class = sc_g }
-        change_pc = pc_g_star
-    }
-    else_if = { limit = { is_star_class = sc_g }
-        solar_system = { set_star_class = sc_f }
-        change_pc = pc_f_star
-    }
-    else_if = { limit = { is_star_class = sc_f }
-        solar_system = { set_star_class = sc_a }
-        change_pc = pc_a_star
-    }
-    else_if = { limit = { is_star_class = sc_a }
-        solar_system = { set_star_class = sc_b }
-        change_pc = pc_b_star
-    }
+	if = {
+		limit = { is_star_class = sc_m_giant }
+		solar_system = { set_star_class = sc_m }
+		change_pc = pc_m_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_m }
+		solar_system = { set_star_class = sc_k }
+		change_pc = pc_k_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_k }
+		solar_system = { set_star_class = sc_g }
+		change_pc = pc_g_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_g }
+		solar_system = { set_star_class = sc_f }
+		change_pc = pc_f_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_f }
+		solar_system = { set_star_class = sc_a }
+		change_pc = pc_a_star
+	}
+	else_if = {
+		limit = { is_star_class = sc_a }
+		solar_system = { set_star_class = sc_b }
+		change_pc = pc_b_star
+	}
 }
 
 # $VALUE$ 常态值、$VALUE_HUNGRY$ 饥饿态值、$VAR$ 写入的国家变量名
 lev_stellarite_shot_prepare = {
-    if = {
-        limit = { owner = { check_variable = { which = lev_stellarite_energy value <= 2 } } }
-        set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE_HUNGRY$ }
-    }
-    else = {
-        set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE$ }
-    }
-    owner = {
-        set_variable = { which = $VAR$ value = prev.lev_stellarite_shot_tmp }
-    }
+	if = {
+		limit = { owner = { check_variable = { which = lev_stellarite_energy value <= 2 } } }
+		set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE_HUNGRY$ }
+	}
+	else = {
+		set_variable = { which = lev_stellarite_shot_tmp value = value:$VALUE$ }
+	}
+	owner = {
+		set_variable = { which = $VAR$ value = prev.lev_stellarite_shot_tmp }
+	}
 }
 
 # 吞噬恒星
 lev_stellarite_absorb_apply = {
-    from.owner = { save_event_target_as = lev_caster }
+	from.owner = { save_event_target_as = lev_caster }
 
-    lev_stellarite_spectrum_down = yes
+	lev_stellarite_spectrum_down = yes
 
-    solar_system = {
-        every_system_planet = {
-            limit = { is_star = no  is_asteroid = no }
-            spawn_planet_temperature_effect = yes
-            decrease_planet_temperature = yes
-            add_modifier = { modifier = stellarite_low_temp  days = -1 }
-        }
-    }
-    spawn_sun_temperature_effect = yes
+	solar_system = {
+		every_system_planet = {
+			limit = { is_star = no is_asteroid = no }
+			spawn_planet_temperature_effect = yes
+			decrease_planet_temperature = yes
+			add_modifier = { modifier = stellarite_low_temp days = -1 }
+		}
+	}
+	spawn_sun_temperature_effect = yes
 
-    event_target:lev_caster = {
-        if = { limit = { check_variable = { which = lev_stellarite_energy value < 10 } }
-            change_variable = { which = lev_stellarite_energy value = 1 }
-        }
-    }
+	event_target:lev_caster = {
+		if = {
+			limit = { check_variable = { which = lev_stellarite_energy value < 10 } }
+			change_variable = { which = lev_stellarite_energy value = 1 }
+		}
+	}
 
-    # 对他国星系：该星系所有者对我们 -100 观感
-    solar_system = {
-        if = {
-            limit = {
-                exists = space_owner
-                NOT = { space_owner = { is_same_value = event_target:lev_caster } }
-            }
-            space_owner = {
-                add_opinion_modifier = {
-                    who = event_target:lev_caster
-                    modifier = lev_star_devoured
-                }
-            }
-        }
-    }
+	# 对他国星系：该星系所有者对我们 -100 观感
+	solar_system = {
+		if = {
+			limit = {
+				exists = space_owner
+				NOT = { space_owner = { is_same_value = event_target:lev_caster } }
+			}
+			space_owner = {
+				add_opinion_modifier = {
+					who = event_target:lev_caster
+					modifier = lev_star_devoured
+				}
+			}
+		}
+	}
 }
 
 # 重燃恒星
 lev_stellarite_ignite_apply = {
-    from.owner = { save_event_target_as = lev_caster }
+	from.owner = { save_event_target_as = lev_caster }
 
-    lev_stellarite_spectrum_up = yes
+	lev_stellarite_spectrum_up = yes
 
-    # 冰封星救赎须在升温前，否则 pc_frozen 会先被升温链改掉
-    solar_system = {
-        every_system_planet = {
-            limit = { is_planet_class = pc_frozen  is_colony = yes }
-            change_pc = pc_gaia
-        }
-        every_system_planet = {
-            limit = { is_star = no  is_asteroid = no }
-            spawn_planet_temperature_effect = yes
-            increase_planet_temperature = yes
-            remove_modifier = stellarite_low_temp
-        }
-    }
-    spawn_sun_temperature_effect = yes
+	# 冰封星救赎须在升温前，否则 pc_frozen 会先被升温链改掉
+	solar_system = {
+		every_system_planet = {
+			limit = { is_planet_class = pc_frozen is_colony = yes }
+			change_pc = pc_gaia
+		}
+		every_system_planet = {
+			limit = { is_star = no is_asteroid = no }
+			spawn_planet_temperature_effect = yes
+			increase_planet_temperature = yes
+			remove_modifier = stellarite_low_temp
+		}
+	}
+	spawn_sun_temperature_effect = yes
 
-    event_target:lev_caster = {
-        if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
-            change_variable = { which = lev_stellarite_energy value = -1 }
-        }
-    }
+	event_target:lev_caster = {
+		if = {
+			limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
+			change_variable = { which = lev_stellarite_energy value = -1 }
+		}
+	}
+}
+
+# ============ 高温炽热层数系统 ============
+# 层数只在船身 lev_scorch_tmp；武器命中载荷与挂状态见 common/inline_scripts/ship_components/
+
+# 技能叠层（THIS = 目标船）。增量由入口存在施放舰队上（lev_scorch_stacks_tmp + 事件目标 lev_scorch_caster_fleet）
+lev_scorch_apply = {
+	change_variable = { which = lev_scorch_tmp value = event_target:lev_scorch_caster_fleet.lev_scorch_stacks_tmp }
+	inline_script = {
+		script = ship_components/lev_sun_scorch_mount
+	}
+	# 16 天 flag 大于 15 天周期，每跳续期，链断则过期由下次叠层重启
+	if = {
+		limit = { NOT = { has_ship_flag = lev_scorch_burning } }
+		set_timed_ship_flag = { flag = lev_scorch_burning days = 16 }
+		ship_event = { id = lev.1010 days = 15 }
+	}
 }
 
 # 腹中日轮特效：环境物体挂在噬星者自身位置
 #TODO 后面移动进动画系统
 lev_stellarite_sunburst_vfx = {
-    every_owned_ship = {
-        limit = { is_ship_size = lev_stellarite }
-        create_ambient_object = {
-            type = yellow_sun_grow_particle_object
-            location = this
-            use_3d_location = yes
-            duration = 30
-        }
-    }
+	every_owned_ship = {
+		limit = { is_ship_size = lev_stellarite }
+		create_ambient_object = {
+			type = yellow_sun_grow_particle_object
+			location = this
+			use_3d_location = yes
+			duration = 30
+		}
+	}
 }
 
-# 腹中日轮：单跳灼烧，伤及本星系内除噬星者外的所有舰船。THIS = 噬星者舰队
-# 慎改：勿在 every_owned_ship 内写 owner，那是被打舰船的所属国
+# 腹中日轮：单跳叠层。星系内除噬星者外所有舰船叠层，只叠不结伤。
+# THIS = 噬星者舰队。慎改：勿在 every_owned_ship 内写 owner，那是被打舰船的所属国
 lev_stellarite_sunburst_tick = {
-    owner = { save_event_target_as = lev_sun_caster }
-    solar_system = {
-        every_fleet_in_system = {
-            every_owned_ship = {
-                limit = {
-                    NOT = { is_ship_size = lev_stellarite }
-                }
-                damage_ship = {
-                    amount = event_target:lev_sun_caster.lev_stellarite_sun_damage
-                    attacker = event_target:lev_sun_caster
-                }
-                # 状态显示，不参与伤害
-                add_modifier = {
-                    modifier = lev_sun_scorch_status
-                    days = 5
-                }
-            }
-        }
-    }
+	# script_value 内含 owner.成长等级，须在舰队作用域求值，勿挪进 owner 块
+	set_variable = { which = lev_scorch_stacks_tmp value = value:lev_scorch_stacks_sun }
+	save_event_target_as = lev_scorch_caster_fleet
+	solar_system = {
+		every_fleet_in_system = {
+			every_owned_ship = {
+				limit = {
+					NOT = { is_ship_size = lev_stellarite }
+				}
+				lev_scorch_apply = yes
+			}
+		}
+	}
 }
 
-# 腹中日轮：点燃。行星破坏一次结清，舰船进入三十天周期炙烤，共六跳
+# 腹中日轮：点燃。行星破坏一次结清，舰船进入灼烧叠层循环（起手即第一跳叠层）
 lev_stellarite_sunburst_apply = {
-    from.owner = { save_event_target_as = lev_caster }
+	from.owner = { save_event_target_as = lev_caster }
 
-    lev_stellarite_shot_prepare = {
-        VALUE = lev_sun_devastation
-        VALUE_HUNGRY = lev_sun_devastation
-        VAR = lev_stellarite_shot_dev
-    }
-    # 慎改：日轮专用变量，勿与光束的 lev_stellarite_shot_damage 混用
-    lev_stellarite_shot_prepare = {
-        VALUE = lev_sun_dot_damage
-        VALUE_HUNGRY = lev_sun_dot_damage
-        VAR = lev_stellarite_sun_damage
-    }
+	lev_stellarite_shot_prepare = {
+		VALUE = lev_sun_devastation
+		VALUE_HUNGRY = lev_sun_devastation
+		VAR = lev_stellarite_shot_dev
+	}
 
-    solar_system = {
-        every_system_planet = {
-            limit = { is_star = no  is_asteroid = no }
-            add_planet_devastation = event_target:lev_caster.lev_stellarite_shot_dev
-        }
-    }
+	solar_system = {
+		every_system_planet = {
+			limit = { is_star = no is_asteroid = no }
+			add_planet_devastation = event_target:lev_caster.lev_stellarite_shot_dev
+		}
+	}
 
-    lev_stellarite_sunburst_vfx = yes
+	lev_stellarite_sunburst_vfx = yes
 
-    # 引爆即是第一跳
-    lev_stellarite_sunburst_tick = yes
+	# 起手即第一跳
+	lev_stellarite_sunburst_tick = yes
 
-    event_target:lev_caster = {
-        if = { limit = { check_variable = { which = lev_stellarite_energy value >= 5 } }
-            change_variable = { which = lev_stellarite_energy value = -5 }
-        }
-        else = {
-            set_variable = { which = lev_stellarite_energy value = 0 }
-        }
-    }
-
-    # 余下五跳计数，归零即熄
-    set_variable = { which = lev_stellarite_sun_ticks value = 5 }
-    fleet_event = { id = lev.1009 days = 5 }
+	event_target:lev_caster = {
+		if = {
+			limit = { check_variable = { which = lev_stellarite_energy value >= 5 } }
+			change_variable = { which = lev_stellarite_energy value = -5 }
+		}
+		else = {
+			set_variable = { which = lev_stellarite_energy value = 0 }
+		}
+	}
 }
 
 # 潜入恒星
 lev_stellarite_submerge_apply = {
-    # THIS = 噬星者舰队
-    # 订单在飞标记：期间封掉自动化动作的选目标权重
-    set_timed_fleet_flag = { flag = lev_stellarite_absorbing days = 190 }
-    every_owned_ship = {
-        limit = { is_ship_size = lev_stellarite }
-        add_modifier = { modifier = lev_stellarite_submerged_regen days = 190 }
-    }
+	# THIS = 噬星者舰队
+	# 订单在飞标记：期间封掉自动化动作的选目标权重
+	set_timed_fleet_flag = { flag = lev_stellarite_absorbing days = 190 }
+	every_owned_ship = {
+		limit = { is_ship_size = lev_stellarite }
+		add_modifier = { modifier = lev_stellarite_submerged_regen days = 190 }
+	}
 }
 
 # 上浮：订单取消或结算时收回回复
 lev_stellarite_surface_apply = {
-    remove_fleet_flag = lev_stellarite_absorbing
-    every_owned_ship = {
-        limit = { is_ship_size = lev_stellarite }
-        remove_modifier = lev_stellarite_submerged_regen
-    }
+	remove_fleet_flag = lev_stellarite_absorbing
+	every_owned_ship = {
+		limit = { is_ship_size = lev_stellarite }
+		remove_modifier = lev_stellarite_submerged_regen
+	}
 }

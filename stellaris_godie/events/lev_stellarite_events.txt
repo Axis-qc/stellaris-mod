@@ -2,284 +2,311 @@ namespace = lev
 
 # 开局选择窗：选定初始巨兽（本期只有噬星者，为后续多利维坦预留结构）
 country_event = {
-    id = lev.3202
-    is_triggered_only = yes
-    title = "lev.3202.name"
-    desc = "lev.3202.desc"
-    picture = GFX_evt_fleet_neutral
-    trigger = {
-        has_civic = lev_star_overlords
-        host_has_dlc = "Leviathans Story Pack"
-        NOT = {
-            has_country_flag = lev_stellarite_unlocked
-        }
-    }
-    option = {
-        name = "lev.3202.a"
-        country_event = {
-            id = lev.3200
-        }
-    }
+	id = lev.3202
+	is_triggered_only = yes
+	title = "lev.3202.name"
+	desc = "lev.3202.desc"
+	picture = GFX_evt_fleet_neutral
+	trigger = {
+		has_civic = lev_star_overlords
+		host_has_dlc = "Leviathans Story Pack"
+		NOT = {
+			has_country_flag = lev_stellarite_unlocked
+		}
+	}
+	option = {
+		name = "lev.3202.a"
+		country_event = {
+			id = lev.3200
+		}
+	}
 }
 
 # 发放（隐藏）：置 flag、刷设计、初始化变量
 country_event = {
-    id = lev.3200
-    hide_window = yes
-    is_triggered_only = yes
-    trigger = {
-        has_civic = lev_star_overlords
-        host_has_dlc = "Leviathans Story Pack"
-        NOT = {
-            has_country_flag = lev_stellarite_unlocked
-        }
-    }
-    immediate = {
-        # 顺序不能改：先置 flag，否则自动设计里不会有 lev_stellarite
-        set_country_flag = lev_stellarite_unlocked
-        refresh_auto_generated_ship_designs = yes
-        set_variable = {
-            which = lev_stellarite_energy
-            value = 0
-        }
-        # 成长值初始化：每只利维坦独立，TYPE 决定变量名后缀
-        lev_growth_init = { TYPE = stellarite }
-        # 延迟 1 天，给设计生成留结算窗口
-        country_event = {
-            id = lev.3201
-            days = 1
-        }
-    }
+	id = lev.3200
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_civic = lev_star_overlords
+		host_has_dlc = "Leviathans Story Pack"
+		NOT = {
+			has_country_flag = lev_stellarite_unlocked
+		}
+	}
+	immediate = {
+		# 顺序不能改：先置 flag，否则自动设计里不会有 lev_stellarite
+		set_country_flag = lev_stellarite_unlocked
+		refresh_auto_generated_ship_designs = yes
+		set_variable = {
+			which = lev_stellarite_energy
+			value = 0
+		}
+		# 成长值初始化：每只利维坦独立，TYPE 决定变量名后缀
+		lev_growth_init = { TYPE = stellarite }
+		# 延迟 1 天，给设计生成留结算窗口
+		country_event = {
+			id = lev.3201
+			days = 1
+		}
+	}
 }
 
 # 折跃一艘到首都
 country_event = {
-    id = lev.3201
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        lev_grant_one = { TYPE = stellarite NAME = LEV_STELLARITE_FLEET }
-    }
+	id = lev.3201
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		lev_grant_one = { TYPE = stellarite NAME = LEV_STELLARITE_FLEET }
+	}
 }
 
 # 技能完成：lev.1000 THIS = 目标恒星、from = 舰队
 # lev.1001 由星系选择器 on_started 触发，THIS = 目标星系、from = 舰队
 
 planet_event = {
-    id = lev.1000
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        lev_stellarite_ignite_apply = yes
-    }
+	id = lev.1000
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		lev_stellarite_ignite_apply = yes
+	}
 }
 
 # 星系选择器 on_started 触发时舰队仍在原地（README 37：无需先抵达）
 system_event = {
-    id = lev.1001
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        # 跨 20 天结算，event 级目标会随本事件注销，只能用 global；@root 按国家隔离，防多玩家串目标
-        save_global_event_target_as = lev_beam_target@root
-    }
-    after = {
-        # 清掉选择器排下的行军令并就地按住（同原版 02_contracts.txt:2434）
-        if = {
-            limit = { from = { is_scope_type = fleet } }
-            from = {
-                clear_fleet_actions = this
-                clear_orders = yes
-                queue_actions = {
-                    wait = {
-                        duration = 20
-                    }
-                }
-            }
-        }
-        # 减速锁位，不用 set_event_locked（那会让舰船不可攻击）
-        from = {
-            set_timed_fleet_flag = { flag = lev_beam_charging days = 20 }
-            every_owned_ship = {
-                limit = { is_ship_size = lev_stellarite }
-                add_modifier = { modifier = lev_stellarite_beam_charging days = 20 }
-                lock_animation_state = breath_loop
-            }
-            fleet_event = { id = lev.1005 days = 20 }
-        }
-    }
+	id = lev.1001
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# 跨 20 天结算，event 级目标会随本事件注销，只能用 global；@root 按国家隔离，防多玩家串目标
+		save_global_event_target_as = lev_beam_target@root
+	}
+	after = {
+		# 清掉选择器排下的行军令并就地按住（同原版 02_contracts.txt:2434）
+		if = {
+			limit = { from = { is_scope_type = fleet } }
+			from = {
+				clear_fleet_actions = this
+				clear_orders = yes
+				queue_actions = {
+					wait = {
+						duration = 20
+					}
+				}
+			}
+		}
+		# 减速锁位，不用 set_event_locked（那会让舰船不可攻击）
+		from = {
+			set_timed_fleet_flag = { flag = lev_beam_charging days = 20 }
+			every_owned_ship = {
+				limit = { is_ship_size = lev_stellarite }
+				add_modifier = { modifier = lev_stellarite_beam_charging days = 20 }
+				lock_animation_state = breath_loop
+			}
+			fleet_event = { id = lev.1005 days = 20 }
+		}
+	}
 }
 
 # 蓄能期满，THIS = 施放舰队
 fleet_event = {
-    id = lev.1005
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        owner = { save_event_target_as = lev_caster }
+	id = lev.1005
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		owner = { save_event_target_as = lev_caster }
 
-        lev_stellarite_shot_prepare = {
-            VALUE = lev_beam_damage
-            VALUE_HUNGRY = lev_beam_damage_hungry
-            VAR = lev_stellarite_shot_damage
-        }
+		lev_stellarite_shot_prepare = {
+			VALUE = lev_beam_damage
+			VALUE_HUNGRY = lev_beam_damage_hungry
+			VAR = lev_stellarite_shot_damage
+		}
 
-        event_target:lev_beam_target@root = {
-            every_fleet_in_system = {
-                limit = {
-                    controller = { is_hostile = event_target:lev_caster }
-                }
-                every_owned_ship = {
-                    damage_ship = {
-                        amount = event_target:lev_caster.lev_stellarite_shot_damage
-                        attacker = event_target:lev_caster
-                    }
-                }
-            }
+		# 叠层增量须在舰队作用域求值（script_value 内含 owner.成长等级，国家作用域会静默取 0）
+		set_variable = { which = lev_scorch_stacks_tmp value = value:lev_scorch_stacks_beam }
+		save_event_target_as = lev_scorch_caster_fleet
 
-            # 目标恒星处播放原版焚天神兵爆星特效（同 destroy_star_system，不写 duration，靠实体 state_time 自止）
-            every_system_planet = {
-                limit = { is_star = yes }
-                create_ambient_object = {
-                    type = "star_explosion"
-                    play_animation_once = yes
-                    location = this
-                    use_3d_location = yes
-                    effect = {
-                        set_location = {
-                            target = prev
-                            distance = 0
-                            angle = random
-                        }
-                    }
-                }
-            }
-        }
+		event_target:lev_beam_target@root = {
+			every_fleet_in_system = {
+				limit = {
+					controller = { is_hostile = event_target:lev_caster }
+				}
+				every_owned_ship = {
+					damage_ship = {
+						amount = event_target:lev_caster.lev_stellarite_shot_damage
+						attacker = event_target:lev_caster
+					}
+					lev_scorch_apply = yes
+				}
+			}
 
-        event_target:lev_caster = {
-            if = { limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
-                change_variable = { which = lev_stellarite_energy value = -1 }
-            }
-        }
+			# 目标恒星处播放原版焚天神兵爆星特效（同 destroy_star_system，不写 duration，靠实体 state_time 自止）
+			every_system_planet = {
+				limit = { is_star = yes }
+				create_ambient_object = {
+					type = "star_explosion"
+					play_animation_once = yes
+					location = this
+					use_3d_location = yes
+					effect = {
+						set_location = {
+							target = prev
+							distance = 0
+							angle = random
+						}
+					}
+				}
+			}
+		}
 
-        remove_fleet_flag = lev_beam_charging
-        clear_orders = yes
-        every_owned_ship = {
-            limit = { is_ship_size = lev_stellarite }
-            remove_modifier = lev_stellarite_beam_charging
-            lock_animation_state = none
-            set_animation_state = beam_fire
-        }
-        clear_global_event_target = lev_beam_target@root
-    }
+		event_target:lev_caster = {
+			if = {
+				limit = { check_variable = { which = lev_stellarite_energy value > 0 } }
+				change_variable = { which = lev_stellarite_energy value = -1 }
+			}
+		}
+
+		remove_fleet_flag = lev_beam_charging
+		clear_orders = yes
+		every_owned_ship = {
+			limit = { is_ship_size = lev_stellarite }
+			remove_modifier = lev_stellarite_beam_charging
+			lock_animation_state = none
+			set_animation_state = beam_fire
+		}
+		clear_global_event_target = lev_beam_target@root
+	}
 }
 
 # 灭星武器命中：THIS = 被开火的恒星，from = 施放舰队（照原版 planet_destruction.100 用 carrier_event）
 carrier_event = {
-    id = lev.1002
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        log = "LEV_STELLARITE_ABSORB: planet killer callback fired (lev.1002)"
-        lev_stellarite_absorb_apply = yes
-    }
+	id = lev.1002
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		lev_stellarite_absorb_apply = yes
+	}
 }
 
 # 腹中日轮释放：fleet_event，THIS = 舰队
 fleet_event = {
-    id = lev.1003
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        lev_stellarite_sunburst_apply = yes
-    }
+	id = lev.1003
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		lev_stellarite_sunburst_apply = yes
+	}
 }
 
-# 腹中日轮：余烬，每五天一跳，共五跳
-fleet_event = {
-    id = lev.1009
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        lev_stellarite_sunburst_tick = yes
-
-        if = { limit = { check_variable = { which = lev_stellarite_sun_ticks value > 0 } }
-            change_variable = { which = lev_stellarite_sun_ticks value = -1 }
-        }
-        # 未尽则续下一跳
-        if = { limit = { check_variable = { which = lev_stellarite_sun_ticks value > 0 } }
-            fleet_event = { id = lev.1009 days = 5 }
-        }
-    }
+# 高温炽热跳动链：每 15 天结一次灼烧伤害并衰减 50% 层数（THIS = 燃烧中的船）
+# 伤害 = 当前船体值 × 层数 × 0.1%，随船体下降自动递减
+ship_event = {
+	id = lev.1010
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { check_variable = { which = lev_scorch_tmp value > 0 } }
+			export_trigger_value_to_variable = { trigger = has_hp variable = lev_scorch_dot_tmp }
+			multiply_variable = { which = lev_scorch_dot_tmp value = lev_scorch_tmp }
+			multiply_variable = { which = lev_scorch_dot_tmp value = value:lev_scorch_dot_percent }
+			if = {
+				limit = { check_variable = { which = lev_scorch_dot_tmp value > 0 } }
+				damage_ship = {
+					amount = lev_scorch_dot_tmp
+					attacker = this
+				}
+			}
+			clear_variable = lev_scorch_dot_tmp
+		}
+		# 衰减 50%：乘 0.5 后 floor 收整数（1 层时 0.5 截成 0，链正常收尾）
+		multiply_variable = { which = lev_scorch_tmp value = 0.5 }
+		floor_variable = lev_scorch_tmp
+		if = {
+			limit = { check_variable = { which = lev_scorch_tmp value > 0 } }
+			inline_script = {
+				script = ship_components/lev_sun_scorch_mount
+			}
+			# 16 天 flag 大于 15 天周期，每跳续期，链断则过期由下次叠层重启
+			set_timed_ship_flag = { flag = lev_scorch_burning days = 16 }
+			ship_event = { id = lev.1010 days = 15 }
+		}
+		else = {
+			# 燃尽自熄
+			remove_modifier = lev_sun_scorch_status
+			clear_variable = lev_scorch_tmp
+			clear_variable = lev_scorch_tmp_show
+			remove_ship_flag = lev_scorch_burning
+		}
+	}
 }
 
 # 腹中日轮起手预警：蓄力 30 天里给同星系敌国递话
 # on_started 派发时 THIS = 舰队、from = 舰队
 fleet_event = {
-    id = lev.1004
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        solar_system = {
-            every_fleet_in_system = {
-                limit = {
-                    exists = owner
-                    owner = { is_hostile = root.owner }
-                }
-                owner = {
-                    create_message = {
-                        type = FLEET_DETECTED_MESSAGE_TYPE
-                        localization = lev_sunburst_warning
-                        days = 30
-                        custom_toast_icon = GFX_message_fleet_detected
-                    }
-                }
-            }
-        }
-    }
+	id = lev.1004
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					exists = owner
+					owner = { is_hostile = root.owner }
+				}
+				owner = {
+					create_message = {
+						type = FLEET_DETECTED_MESSAGE_TYPE
+						localization = lev_sunburst_warning
+						days = 30
+						custom_toast_icon = GFX_message_fleet_detected
+					}
+				}
+			}
+		}
+	}
 }
 
 # 潜入恒星：吞噬指令下达即潜入，THIS = 目标恒星、from = 施放舰队
 carrier_event = {
-    id = lev.1006
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        from = { lev_stellarite_submerge_apply = yes }
-        log = "LEV_STELLARITE_SUBMERGE: fleet submerged (lev.1006)"
-    }
+	id = lev.1006
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		from = { lev_stellarite_submerge_apply = yes }
+	}
 }
 
 # 上浮：吸食完成或取消订单时收窗口，挂主回调与 _unqueued 两处
 carrier_event = {
-    id = lev.1007
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        from = { lev_stellarite_surface_apply = yes }
-        log = "LEV_STELLARITE_SUBMERGE: fleet surfaced (lev.1007)"
-    }
+	id = lev.1007
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		from = { lev_stellarite_surface_apply = yes }
+	}
 }
 
 # 自动吞噬：控制面动作走完，在这里下灭星器订单
 # THIS = 目标恒星、from = 施放舰队
 planet_event = {
-    id = lev.1008
-    hide_window = yes
-    is_triggered_only = yes
-    immediate = {
-        save_event_target_as = lev_absorb_target
-        from = {
-            # 灭星器订单自带走位，不要再垫 move_to / orbit_planet
-            queue_actions = {
-                destroy_planet = {
-                    target = event_target:lev_absorb_target
-                    skip_fire_phase = no
-                    skip_rules = no
-                    skip_windup_phase = no
-                }
-            }
-        }
-        log = "LEV_STELLARITE_AUTO: planet killer order queued (lev.1008)"
-    }
+	id = lev.1008
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = lev_absorb_target
+		from = {
+			# 灭星器订单自带走位，不要再垫 move_to / orbit_planet
+			queue_actions = {
+				destroy_planet = {
+					target = event_target:lev_absorb_target
+					skip_fire_phase = no
+					skip_rules = no
+					skip_windup_phase = no
+				}
+			}
+		}
+	}
 }

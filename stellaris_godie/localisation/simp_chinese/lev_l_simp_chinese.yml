@@ -183,7 +183,7 @@
   LEV_STELLARITE_THRUSTER_DESC: "噬星者把吞下的恒星物质自星核喷涌而出，如鲸喷吐水雾，却推得动恒星般的巨躯。"
   LEV_STELLARITE_BEAM: "噬星之光"
   LEV_STELLARITE_BEAM_DESC: "噬星者从口中喷出的高能量球。它把吞下的恒星物质压成一颗微缩的日轮，每次开火都像朝敌舰投出一颗小恒星，命中时在舰体上炸开。"
-  LEV_STELLARITE_BEAM_ON_HIT: "§H噬星之光§!\n  命中时额外造成§Y[this.lev_beam_hit_dmg_display]§!点伤害。"
+  LEV_STELLARITE_BEAM_ON_HIT: "§H命中效果§!\n  有§Y50%§!概率施加一层高温炽热效果。"
   LEV_STELLARITE_MISSILE: "噬星者鱼雷"
   LEV_STELLARITE_MISSILE_DESC: "从噬星者体内甩出的高密度物质团。带着被吞恒星的重元素飞出，命中时越过护盾直接撕开舰体。"
   LEV_STELLARITE_PLASMA: "噬星者等离子炮"
@@ -196,8 +196,8 @@
 
   # ---- 技能按钮 ----
   lev_stellarite_ignite_button: "§G重燃恒星§!\n  它把吞下的星光重新灌回恒星。恒星光谱升一级，星系内行星升温，冰封殖民地化为§G盖亚§!。\n  消耗§Y1§!能量　冷却§Y360§!天　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
-  lev_stellarite_beam_button: "§G恒星光束§!\n  它在星系图上选定目标，就地张口蓄能。§Y20§!天后喷出吞下的星光，该星系内全部敌舰受到§R[lev_beam_damage_display]§!点伤害。\n  射程限于自身传感器范围　蓄能§Y20§!天　冷却§Y110§!天　消耗§Y1§!能量"
-  lev_stellarite_sunburst_button: "§G腹中日轮§!\n  它把吞下的恒星含在腹中点燃，日轮破体而出造成['concept_lev_sun_scorch',高温炽热]，星系内除自身以外所有舰船每五天受到§R[lev_sun_damage_display]§!点高温伤害，行星地表留下§R[lev_sun_dev_display]§!破坏度。\n  蓄能§Y30§!天　冷却§Y480§!天　消耗§Y5§!能量　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
+  lev_stellarite_beam_button: "§G恒星光束§!\n  它在星系图上选定目标，就地张口蓄能。§Y20§!天后喷出吞下的星光，该星系内全部敌舰受到§R[lev_beam_damage_display]§!点伤害，并叠加§R[lev_scorch_stacks_beam_display]§!层['concept_lev_sun_scorch',高温炽热]。\n  射程限于自身传感器范围　蓄能§Y20§!天　冷却§Y110§!天　消耗§Y1§!能量"
+  lev_stellarite_sunburst_button: "§G腹中日轮§!\n  它把吞下的恒星含在腹中点燃，日轮破体而出。为星系内除自身以外所有舰船叠加§R[lev_scorch_stacks_sun_display]§!层['concept_lev_sun_scorch',高温炽热]，行星地表留下§R[lev_sun_dev_display]§!破坏度。高温炽热每十五天按当前船体值结算一次伤害，每层§R0.1%§!，随后层数衰减一半。\n  蓄能§Y30§!天　冷却§Y480§!天　消耗§Y5§!能量　当前：能量§Y[Root.owner.lev_stellarite_energy]§!"
 
   # ---- 舰队 UI ----
   lev_stellarite_ignite_activity_key: "重燃 $NAME$ 的恒星"
@@ -258,11 +258,11 @@
   lev_sunburst_warning: "§R恒星在它腹中翻腾§!\n  一头噬星者正在点燃体内的恒星物质，整个星系即将被烤透。"
 
   # ---- 腹中日轮：高温炽热 ----
-  concept_lev_sun_scorch: "高温炽热"
-  concept_lev_sun_scorch_desc: "噬星者腹中的日轮烘烤着这片空间。持续三十天，受影响舰船每五天受到一次灼烧伤害。"
-  lev_sun_scorch_status: "高温炽热"
-  lev_sun_scorch_status_desc: "噬星者腹中的日轮烘烤着这片空间，舰体正被持续灼烧。"
-  mod_lev_sun_scorch: "受到['concept_lev_sun_scorch',炽热伤害]"
+  concept_lev_sun_scorch: "['concept_lev_sun_scorch',高温炽热]"
+  concept_lev_sun_scorch_desc: "噬星者点燃的恒星之火在舰体上留下灼痕。灼烧中的舰船每十五天按当前船体值结算一次伤害，每层§R0.1%§!，随后层数衰减一半。"
+  lev_sun_scorch_status: "['concept_lev_sun_scorch',高温炽热]"
+  lev_sun_scorch_status_desc: "舰体正在被高温炽热灼烧，每十五天按当前船体值结算一次伤害，每层§R0.1%§!，随后层数衰减一半。"
+  mod_lev_sun_scorch: "['concept_lev_sun_scorch',高温炽热] × $VALUE$"
 
   # ---- 自动托管 ----
   lev_auto_tt_ignite: "自动重燃恒星：把光谱已变冷的恒星重新点燃，只在自家星系作业。"

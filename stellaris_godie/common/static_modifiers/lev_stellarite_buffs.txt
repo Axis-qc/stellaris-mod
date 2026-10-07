@@ -3,18 +3,19 @@
 
 # 潜星：三防每日回复
 lev_stellarite_submerged_regen = {
-    ship_hull_regen_add_perc = 0.10
-    ship_armor_regen_add_perc = 0.10
-    ship_shield_regen_add_perc = 0.10
+	ship_hull_regen_add_perc = 0.10
+	ship_armor_regen_add_perc = 0.10
+	ship_shield_regen_add_perc = 0.10
 }
 
 # 恒星光束蓄能：蓄能期间锁位（取值同原版 lf_weapon_stun_effect）
 lev_stellarite_beam_charging = {
-    ship_base_speed_mult = -3
+	ship_base_speed_mult = -3
 }
 
-# 高温炽热：状态条目，无修正字段
+# 高温炽热：显示条目，别往这里加效果字段（mult 已被倒数占用）
+# $VALUE$ 渲染 int(1 ÷ 字段值)，字段值 = 本字段 × mult，mult 传 1 ÷ 层数
 lev_sun_scorch_status = {
-    icon = "gfx/interface/icons/modifiers/mod_star.dds"
-    lev_sun_scorch = 1
+	icon = "gfx/interface/icons/modifiers/mod_star.dds"
+	lev_sun_scorch = 1
 }
